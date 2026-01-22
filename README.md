@@ -1,46 +1,83 @@
-# Astro Starter Kit: Basics
+# Rizzo CSS
 
-```sh
-pnpm create astro@latest -- --template basics
+An Astro project with PostCSS imports, CSS optimization, and linting configured.
+
+## 🛠️ Tech Stack
+
+- **[Astro](https://astro.build)** - Web framework
+- **[PostCSS](https://postcss.org/)** - CSS transformation with import support
+- **[Autoprefixer](https://github.com/postcss/autoprefixer)** - Automatic vendor prefixes
+- **[cssnano](https://cssnano.co/)** - CSS minification
+- **[Stylelint](https://stylelint.io/)** - CSS linter
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js 18+
+- pnpm (recommended) or npm
+
+### Installation
+
+```bash
+pnpm install
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+### Development
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
-
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```bash
+pnpm dev
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Site available at `http://localhost:4321`
 
-## 🧞 Commands
+## 📜 Commands
 
-All commands are run from the root of the project, from a terminal:
+| Command | Description |
+|---------|-------------|
+| `pnpm dev` | Start development server |
+| `pnpm build` | Build production site (includes CSS minification) |
+| `pnpm build:css` | Build minified CSS to `public/css/main.min.css` |
+| `pnpm preview` | Preview production build |
+| `pnpm lint:css` | Lint CSS files |
+| `pnpm lint:css:fix` | Auto-fix CSS linting issues |
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+## 🎨 CSS Setup
 
-## 👀 Want to learn more?
+### Imports
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Use PostCSS imports (similar to SCSS/SASS) in `src/styles/main.css`:
+
+```css
+@import './variables.css';
+@import './reset.css';
+```
+
+### Processing Pipeline
+
+**Development:**
+- PostCSS processes imports and adds vendor prefixes
+- Source CSS is used directly
+
+**Production:**
+- CSS is minified and optimized via `build:css` script
+- Layout automatically uses `public/css/main.min.css` in production builds
+- Minification preserves pseudo-element syntax (`::before`, `::after`)
+
+### Project Structure
+
+```
+src/styles/
+├── main.css       # Main stylesheet with imports
+├── variables.css  # CSS custom properties
+└── reset.css     # Modern CSS reset
+
+public/css/
+└── main.min.css  # Generated minified CSS (production)
+```
+
+## 📚 Resources
+
+- [Astro Documentation](https://docs.astro.build)
+- [PostCSS Documentation](https://postcss.org/docs)
+- [Stylelint Documentation](https://stylelint.io/user-guide)
