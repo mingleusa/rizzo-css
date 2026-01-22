@@ -1,0 +1,45 @@
+/* Winter is Coming Dark Black Theme */
+
+/* Author: John Papa */
+
+/* A dark black theme with bright, vibrant foreground colors */
+
+/* https://github.com/johnpapa/vscode-winteriscoming */
+
+[data-theme="winter-is-coming-dark-black"] {
+  /* Core Colors - Very dark black with vibrant accents */
+  --bg: oklch(8% 0 0deg);
+  --bg-alt: oklch(6% 0 0deg);
+  --current-line: oklch(15% 0.01 0deg);
+  --selection: oklch(20% 0.02 0deg);
+  --fg: oklch(92% 0.01 0deg);
+  --fg-dim: oklch(70% 0.01 0deg);
+  --comment: oklch(50% 0.03 0deg);
+
+  /* Accent Colors - Bright, vibrant colors for contrast */
+  --cyan: oklch(80% 0.18 210deg);
+  --green: oklch(75% 0.22 150deg);
+  --orange: oklch(78% 0.20 50deg);
+  --pink: oklch(78% 0.22 340deg);
+  --purple: oklch(70% 0.22 280deg);
+  --red: oklch(68% 0.24 20deg);
+  --yellow: oklch(88% 0.20 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: var(--current-line);
+  --accent: var(--cyan);
+  --accent-hover: var(--purple);
+  --accent-text: oklch(100% 0 0deg); /* White text on accent for contrast */
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg); /* White text on success for contrast */
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg); /* Dark text on warning for contrast */
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg); /* White text on error for contrast */
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg); /* White text on info for contrast */
+}

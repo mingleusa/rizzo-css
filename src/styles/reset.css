@@ -12,9 +12,9 @@
 
 /* Prevent font size inflation */
 html {
-  -moz-text-size-adjust: none;
-  -webkit-text-size-adjust: none;
   text-size-adjust: none;
+  margin: 0;
+  padding: 0;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
@@ -33,6 +33,8 @@ ol[role='list'] {
 body {
   min-height: 100vh;
   line-height: 1.5;
+  margin: 0;
+  padding: 0;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -49,7 +51,7 @@ h1, h2, h3, h4, h5, h6 {
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
-  color: currentColor;
+  color: currentcolor;
 }
 
 /* Make images easier to work with */

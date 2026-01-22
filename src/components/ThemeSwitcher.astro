@@ -1,0 +1,381 @@
+---
+import ChevronDown from './icons/ChevronDown.astro';
+import Moon from './icons/Moon.astro';
+import Palette from './icons/Palette.astro';
+import Owl from './icons/Owl.astro';
+import Snowflake from './icons/Snowflake.astro';
+import IceCream from './icons/IceCream.astro';
+import Circle from './icons/Circle.astro';
+import Rainbow from './icons/Rainbow.astro';
+import Eye from './icons/Eye.astro';
+
+// Theme configuration with background colors and icons
+const themes = {
+  dark: [
+    { value: 'dracula-at-night', label: 'Dracula At Night', bg: 'oklch(15% 0.015 270.5deg)', icon: Moon },
+    { value: 'shades-of-purple', label: 'Shades of Purple', bg: 'oklch(18% 0.08 290deg)', icon: Palette },
+    { value: 'night-owl', label: 'Night Owl', bg: 'oklch(12% 0.02 240deg)', icon: Owl },
+    { value: 'winter-is-coming-dark-black', label: 'Winter is Coming', bg: 'oklch(8% 0 0deg)', icon: Snowflake },
+  ],
+  light: [
+    { value: 'nord-light', label: 'Nord Light', bg: 'oklch(92% 0.01 240deg)', icon: IceCream },
+    { value: 'grey-light-pro', label: 'Grey Light Pro', bg: 'oklch(95% 0 0deg)', icon: Circle },
+    { value: 'snazzy-light', label: 'Snazzy Light', bg: 'oklch(98% 0.01 0deg)', icon: Rainbow },
+    { value: 'tiny-light', label: 'Tiny Light', bg: 'oklch(97% 0.005 0deg)', icon: Eye },
+  ],
+};
+
+
+// Get current theme from HTML data attribute or default
+const getCurrentTheme = () => {
+  if (typeof document !== 'undefined') {
+    return document.documentElement.getAttribute('data-theme') || 'dracula-at-night';
+  }
+  return 'dracula-at-night';
+};
+
+// Get theme info helper
+const getThemeInfo = (themeValue: string) => {
+  const allThemes = [...themes.dark, ...themes.light];
+  return allThemes.find(t => t.value === themeValue) || null;
+};
+
+// Get initial theme info (will be updated by script, but set initial value)
+const currentTheme = getCurrentTheme();
+const initialTheme = getThemeInfo(currentTheme);
+const initialLabel = initialTheme ? initialTheme.label : 'Theme';
+const InitialIcon = initialTheme ? initialTheme.icon : null;
+
+---
+
+<div class="theme-switcher" data-theme-switcher>
+  <button
+    class="theme-switcher__trigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-controls="theme-menu"
+    aria-label="Select theme"
+    id="theme-trigger"
+  >
+    <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
+      <span class="theme-switcher__label" data-theme-label>{initialLabel}</span>
+    </span>
+    <ChevronDown class="theme-switcher__icon" width={16} height={16} />
+  </button>
+  
+  <div
+    class="theme-switcher__menu"
+    id="theme-menu"
+    role="menu"
+    aria-labelledby="theme-trigger"
+    aria-label="Theme selection menu"
+    aria-orientation="vertical"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="theme-switcher__group" role="group" aria-label="Dark themes">
+      <div class="theme-switcher__group-label" role="presentation">Dark</div>
+      {themes.dark.map((theme) => {
+        const IconComponent = theme.icon;
+        return (
+          <div
+            class="theme-switcher__option"
+            role="menuitemradio"
+            aria-checked="false"
+            tabindex="-1"
+            data-theme-value={theme.value}
+            data-theme-type="dark"
+            data-theme-bg={theme.bg}
+          >
+            <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
+            <span class="sr-only">Dark theme: </span>
+            {theme.label}
+          </div>
+        );
+      })}
+    </div>
+    
+    <div class="theme-switcher__group" role="group" aria-label="Light themes">
+      <div class="theme-switcher__group-label" role="presentation">Light</div>
+      {themes.light.map((theme) => {
+        const IconComponent = theme.icon;
+        return (
+          <div
+            class="theme-switcher__option"
+            role="menuitemradio"
+            aria-checked="false"
+            tabindex="-1"
+            data-theme-value={theme.value}
+            data-theme-type="light"
+            data-theme-bg={theme.bg}
+          >
+            <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
+            <span class="sr-only">Light theme: </span>
+            {theme.label}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<script>
+  (function initThemeSwitcher() {
+    const switcher = document.querySelector('[data-theme-switcher]');
+    if (!switcher) return;
+
+    const trigger = switcher.querySelector('.theme-switcher__trigger') as HTMLButtonElement | null;
+    const menu = switcher.querySelector('.theme-switcher__menu') as HTMLElement | null;
+    const label = switcher.querySelector('[data-theme-label]') as HTMLElement | null;
+    const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]') as HTMLElement | null;
+    const options = switcher.querySelectorAll('.theme-switcher__option') as NodeListOf<HTMLElement>;
+    const html = document.documentElement;
+
+    if (!trigger || !menu || !label || !labelWrapper) return;
+
+    // Get current theme
+    const getCurrentTheme = () => {
+      return html.getAttribute('data-theme') || 'dracula-at-night';
+    };
+
+    // Get theme info from all themes
+    const getThemeInfo = (themeValue: string) => {
+      const allThemes = [
+        { value: 'dracula-at-night', label: 'Dracula At Night' },
+        { value: 'shades-of-purple', label: 'Shades of Purple' },
+        { value: 'night-owl', label: 'Night Owl' },
+        { value: 'winter-is-coming-dark-black', label: 'Winter is Coming' },
+        { value: 'nord-light', label: 'Nord Light' },
+        { value: 'grey-light-pro', label: 'Grey Light Pro' },
+        { value: 'snazzy-light', label: 'Snazzy Light' },
+        { value: 'tiny-light', label: 'Tiny Light' },
+      ];
+      return allThemes.find(t => t.value === themeValue) || { label: 'Theme' };
+    };
+
+    // Get theme label helper
+    const getThemeLabel = (themeValue: string) => {
+      const theme = getThemeInfo(themeValue);
+      return theme.label;
+    };
+
+    // Get icon SVG as string
+    const getIconSVG = (themeValue: string): string => {
+      const svgMap: Record<string, string> = {
+        'dracula-at-night': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>',
+        'shades-of-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 1 0 10-10Z" /><path d="M12 2v20" /><path d="M17 7a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0" /></svg>',
+        'night-owl': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01" /><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" /><path d="m20 7 2 .5-2 .5" /><path d="M10 18v3" /><path d="M14 17.75V21" /><path d="M7 18a6 6 0 0 0 3.84-10.61" /></svg>',
+        'winter-is-coming-dark-black': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20" /><path d="m17 5-5 5-5-5" /><path d="m17 19-5-5-5 5" /><path d="M2 12h20" /><path d="m5 17 5-5 5 5" /><path d="m5 7 5 5 5-5" /></svg>',
+        'nord-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11" /><path d="M17 7A5 5 0 0 0 7 7" /><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4" /></svg>',
+        'grey-light-pro': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /></svg>',
+        'snazzy-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 17a10 10 0 0 0-20 0" /><path d="M6 17a6 6 0 0 1 12 0" /><path d="M10 17a2 2 0 0 1 4 0" /></svg>',
+        'tiny-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>',
+      };
+      return svgMap[themeValue] || '';
+    };
+
+    // Update trigger icon
+    const updateTriggerIcon = (themeValue: string) => {
+      // Remove existing icon
+      const existingIcon = labelWrapper.querySelector('[data-theme-label-icon]');
+      if (existingIcon) {
+        existingIcon.remove();
+      }
+
+      // Add new icon
+      const iconSvg = getIconSVG(themeValue);
+      if (iconSvg) {
+        const iconElement = document.createElement('span');
+        iconElement.setAttribute('data-theme-label-icon', '');
+        iconElement.className = 'theme-switcher__label-icon';
+        iconElement.innerHTML = iconSvg;
+        labelWrapper.insertBefore(iconElement, label);
+      }
+    };
+
+    // Update active state
+    const updateActiveState = () => {
+      const currentTheme = getCurrentTheme();
+      
+      // Update trigger label to show active theme name
+      const themeLabel = getThemeLabel(currentTheme);
+      label.textContent = themeLabel;
+      
+      // Update trigger icon
+      updateTriggerIcon(currentTheme);
+      
+      options.forEach((option) => {
+        const isActive = option.getAttribute('data-theme-value') === currentTheme;
+        option.setAttribute('aria-checked', isActive.toString());
+        option.classList.toggle('theme-switcher__option--active', isActive);
+        
+        // Set background color for active theme
+        if (isActive) {
+          const themeBg = option.getAttribute('data-theme-bg');
+          if (themeBg) {
+            option.style.setProperty('--theme-bg', themeBg);
+          }
+        } else {
+          option.style.removeProperty('--theme-bg');
+        }
+        
+        // Update tabindex based on menu state
+        const isMenuOpen = menu.classList.contains('theme-switcher__menu--open');
+        option.setAttribute('tabindex', isMenuOpen ? '0' : '-1');
+      });
+    };
+
+    // Apply theme
+    const applyTheme = (themeValue: string) => {
+      html.setAttribute('data-theme', themeValue);
+      localStorage.setItem('theme', themeValue);
+      // Update state will update label and icon
+      updateActiveState();
+    };
+
+    // Toggle menu
+    const toggleMenu = (open?: boolean) => {
+      const isOpen = open ?? menu.classList.contains('theme-switcher__menu--open');
+      const willBeOpen = !isOpen;
+      
+      menu.classList.toggle('theme-switcher__menu--open', willBeOpen);
+      trigger.setAttribute('aria-expanded', willBeOpen.toString());
+      menu.setAttribute('aria-hidden', (!willBeOpen).toString());
+      
+      // Update tabindex for menu items
+      options.forEach((option) => {
+        option.setAttribute('tabindex', willBeOpen ? '0' : '-1');
+      });
+      
+      if (!willBeOpen) {
+        trigger.focus();
+      } else {
+        // Focus first option when opening
+        const firstOption = options[0];
+        if (firstOption) {
+          setTimeout(() => firstOption.focus(), 0);
+        }
+      }
+    };
+
+    // Close menu
+    const closeMenu = () => {
+      menu.classList.remove('theme-switcher__menu--open');
+      trigger.setAttribute('aria-expanded', 'false');
+      menu.setAttribute('aria-hidden', 'true');
+      
+      // Reset tabindex for menu items
+      options.forEach((option) => {
+        option.setAttribute('tabindex', '-1');
+      });
+    };
+
+    // Event listeners
+    trigger.addEventListener('click', () => toggleMenu(undefined));
+    
+    // Use event delegation for options (handles reordered DOM)
+    menu.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      const option = target.closest('.theme-switcher__option') as HTMLElement;
+      if (option) {
+        const themeValue = option.getAttribute('data-theme-value');
+        if (themeValue) {
+          applyTheme(themeValue);
+          closeMenu();
+        }
+      }
+    });
+
+    // Keyboard navigation
+    let currentIndex = -1;
+    
+    const getVisibleOptions = () => {
+      return Array.from(options).filter(opt => {
+        const htmlOpt = opt as HTMLElement;
+        return htmlOpt.offsetParent !== null || opt.closest('.theme-switcher__menu--open');
+      });
+    };
+
+    trigger.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMenu(undefined);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const visibleOptions = getVisibleOptions();
+        if (visibleOptions.length > 0) {
+          currentIndex = 0;
+          const firstOption = visibleOptions[0] as HTMLElement;
+          toggleMenu(true);
+          setTimeout(() => firstOption.focus(), 0);
+        }
+      }
+    });
+
+    menu.addEventListener('keydown', (e: KeyboardEvent) => {
+      const visibleOptions = getVisibleOptions();
+      
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeMenu();
+        trigger.focus();
+        currentIndex = -1;
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % visibleOptions.length;
+        (visibleOptions[currentIndex] as HTMLElement).focus();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        currentIndex = currentIndex <= 0 ? visibleOptions.length - 1 : currentIndex - 1;
+        (visibleOptions[currentIndex] as HTMLElement).focus();
+      } else if (e.key === 'Home') {
+        e.preventDefault();
+        currentIndex = 0;
+        (visibleOptions[0] as HTMLElement).focus();
+      } else if (e.key === 'End') {
+        e.preventDefault();
+        currentIndex = visibleOptions.length - 1;
+        (visibleOptions[currentIndex] as HTMLElement).focus();
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const target = e.target as HTMLElement;
+        const themeValue = target.getAttribute('data-theme-value');
+        if (themeValue) {
+          applyTheme(themeValue);
+          closeMenu();
+        }
+      }
+    });
+
+    // Close on outside click
+    document.addEventListener('click', (e: MouseEvent) => {
+      const target = e.target as Node | null;
+      if (target && !switcher.contains(target)) {
+        closeMenu();
+      }
+    });
+
+    // Initialize - read theme from HTML (set by inline script) or localStorage
+    // The inline script in Layout.astro already sets data-theme from localStorage
+    // Wait a tick to ensure inline script has run
+    setTimeout(() => {
+      const currentThemeOnPage = getCurrentTheme();
+      const savedTheme = localStorage.getItem('theme');
+      
+      // If there's a saved theme, use it (inline script should have set it, but double-check)
+      if (savedTheme) {
+        // Ensure theme is applied
+        if (currentThemeOnPage !== savedTheme) {
+          applyTheme(savedTheme);
+        } else {
+          // Theme is already set, just update UI (this will add the icon)
+          updateActiveState();
+        }
+      } else {
+        // No saved theme, just update UI with current theme (this will add the icon)
+        updateActiveState();
+      }
+    }, 0);
+  })();
+</script>

@@ -1,0 +1,45 @@
+/* Shades of Purple Theme */
+
+/* Author: Ahmad Awais */
+
+/* A professional theme with hand-picked bold shades of purple */
+
+/* https://github.com/ahmadawais/shades-of-purple-vscode */
+
+[data-theme="shades-of-purple"] {
+  /* Core Colors - Purple-based palette */
+  --bg: oklch(18% 0.08 290deg);
+  --bg-alt: oklch(15% 0.08 290deg);
+  --current-line: oklch(25% 0.10 290deg);
+  --selection: oklch(30% 0.12 290deg);
+  --fg: oklch(95% 0.01 300deg);
+  --fg-dim: oklch(75% 0.05 300deg);
+  --comment: oklch(55.% 0.08 280deg);
+
+  /* Accent Colors - Vibrant purples and complementary colors */
+  --cyan: oklch(75% 0.15 220deg);
+  --green: oklch(70% 0.20 150deg);
+  --orange: oklch(75% 0.18 60deg);
+  --pink: oklch(75% 0.22 340deg);
+  --purple: oklch(65% 0.25 290deg);
+  --red: oklch(65% 0.22 25deg);
+  --yellow: oklch(85% 0.18 100deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: var(--current-line);
+  --accent: var(--purple);
+  --accent-hover: var(--pink);
+  --accent-text: oklch(100% 0 0deg); /* White text on accent for contrast */
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg); /* White text on success for contrast */
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg); /* Dark text on warning for contrast */
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg); /* White text on error for contrast */
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg); /* White text on info for contrast */
+}

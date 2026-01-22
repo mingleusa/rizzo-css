@@ -1,0 +1,95 @@
+/* Utility Classes - Using semantic theme variables */
+
+/* Background Colors */
+.bg-primary {
+  background-color: var(--background);
+}
+
+.bg-alt {
+  background-color: var(--background-alt);
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.bg-success {
+  background-color: var(--success);
+}
+
+.bg-warning {
+  background-color: var(--warning);
+}
+
+.bg-error {
+  background-color: var(--error);
+}
+
+.bg-info {
+  background-color: var(--info);
+}
+
+/* Text Colors */
+.text-primary {
+  color: var(--text);
+}
+
+.text-dim {
+  color: var(--text-dim);
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-success {
+  color: var(--success);
+}
+
+.text-warning {
+  color: var(--warning);
+}
+
+.text-error {
+  color: var(--error);
+}
+
+.text-info {
+  color: var(--info);
+}
+
+/* Contrast-Aware Text Colors (for use with background utility classes) */
+.text-on-accent {
+  color: var(--accent-text);
+}
+
+.text-on-success {
+  color: var(--success-text);
+}
+
+.text-on-warning {
+  color: var(--warning-text);
+}
+
+.text-on-error {
+  color: var(--error-text);
+}
+
+.text-on-info {
+  color: var(--info-text);
+}
+
+/* Border Colors */
+.border-color {
+  border-color: var(--border);
+}
+
+.border-accent {
+  border-color: var(--accent);
+}
+
+/* Focus States */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

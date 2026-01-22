@@ -1,5 +1,80 @@
 :root {
-  --primary-color: #0066cc;
-  --secondary-color: #333333;
-  --font-family: system-ui, sans-serif;
+  --primary-color: oklch(45.2% 0.198 250.1deg);
+  --secondary-color: oklch(25.1% 0 0deg);
+
+  /* Typography - Font Families */
+  --font-family-sans: system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --font-family-serif: georgia, 'Times New Roman', times, serif;
+  --font-family-mono: 'SF Mono', monaco, 'Cascadia Code', 'Roboto Mono', consolas, 'Courier New', monospace;
+  --font-family: var(--font-family-sans);
+
+  /* Typography - Font Weights */
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  /* Typography - Font Size Scale */
+
+  /* Base scale multiplier (1 = 100%, can be adjusted via settings) */
+  --font-size-scale: 1;
+
+  /* Typography - Font Sizes (Base values, scaled by --font-size-scale) */
+  --font-size-xs: calc(0.75rem * var(--font-size-scale));    /* 12px base */
+  --font-size-sm: calc(0.875rem * var(--font-size-scale));   /* 14px base */
+  --font-size-base: calc(1rem * var(--font-size-scale));     /* 16px base */
+  --font-size-lg: calc(1.125rem * var(--font-size-scale));   /* 18px base */
+  --font-size-xl: calc(1.25rem * var(--font-size-scale));    /* 20px base */
+  --font-size-2xl: calc(1.5rem * var(--font-size-scale));    /* 24px base */
+  --font-size-3xl: calc(1.875rem * var(--font-size-scale));  /* 30px base */
+  --font-size-4xl: calc(2.25rem * var(--font-size-scale));   /* 36px base */
+  --font-size-5xl: calc(3rem * var(--font-size-scale));      /* 48px base */
+  --font-size-6xl: calc(3.75rem * var(--font-size-scale));   /* 60px base */
+
+  /* Typography - Line Heights */
+  --line-height-tight: 1.25;
+  --line-height-snug: 1.375;
+  --line-height-normal: 1.5;
+  --line-height-relaxed: 1.625;
+  --line-height-loose: 2;
+
+  /* Typography - Letter Spacing */
+  --letter-spacing-tighter: -0.05em;
+  --letter-spacing-tight: -0.025em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.025em;
+  --letter-spacing-wider: 0.05em;
+  --letter-spacing-widest: 0.1em;
+
+  /* Default theme variables (fallback when no theme is active) */
+  --background: oklch(100% 0 0deg);
+  --background-alt: oklch(96.9% 0 0deg);
+  --text: oklch(25.1% 0 0deg);
+  --text-dim: oklch(50.2% 0 0deg);
+  --border: oklch(90.2% 0 0deg);
+  --accent: oklch(45.2% 0.198 250.1deg);
+  --accent-hover: oklch(40.2% 0.198 250.1deg);
+  --accent-text: oklch(100% 0 0deg); /* White text on accent (45% lightness) for WCAG AA contrast */
+  --success: oklch(60.2% 0.182 145.1deg);
+  --success-text: oklch(20% 0 0deg); /* Dark text on light success (60% lightness) for WCAG AA contrast */
+  --warning: oklch(80.2% 0.152 90.1deg);
+  --warning-text: oklch(20% 0 0deg); /* Dark text on warning (80% lightness) for WCAG AA contrast */
+  --error: oklch(55.2% 0.218 25.1deg);
+  --error-text: oklch(100% 0 0deg); /* White text on error (55% lightness) for WCAG AA contrast */
+  --info: oklch(60.2% 0.118 210.1deg);
+  --info-text: oklch(20% 0 0deg); /* Dark text on light info (60% lightness) for WCAG AA contrast */
+  --selection: oklch(70% 0.15 250deg); /* Default selection color */
+
+  /* Shadow and Overlay Variables */
+
+  /* Using OKLCH black with opacity for theme-aware shadows */
+  --shadow-color: oklch(0% 0 0deg);
+  --shadow-sm: 0 1px 2px 0 oklch(from var(--shadow-color) l c h / 5%);
+  --shadow: 0 1px 3px 0 oklch(from var(--shadow-color) l c h / 10%), 0 1px 2px -1px oklch(from var(--shadow-color) l c h / 10%);
+  --shadow-md: 0 4px 6px -1px oklch(from var(--shadow-color) l c h / 10%), 0 2px 4px -2px oklch(from var(--shadow-color) l c h / 6%);
+  --shadow-lg: 0 10px 15px -3px oklch(from var(--shadow-color) l c h / 10%), 0 4px 6px -4px oklch(from var(--shadow-color) l c h / 5%);
+  --shadow-xl: 0 20px 25px -5px oklch(from var(--shadow-color) l c h / 10%), 0 8px 10px -6px oklch(from var(--shadow-color) l c h / 4%);
+  --overlay: oklch(from var(--shadow-color) l c h / 50%);
 }

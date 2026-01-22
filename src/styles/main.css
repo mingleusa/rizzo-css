@@ -1,2 +1,21 @@
-@import './variables.css';
-@import './reset.css';
+@import url('./variables.css');
+@import url('./reset.css');
+@import url('./base.css');
+@import url('./typography.css');
+@import url('./accessibility.css');
+@import url('./buttons.css');
+@import url('./layout.css');
+@import url('./utilities.css');
+@import url('./components.css');
+
+/* Dark Themes */
+@import url('./themes/dark/dracula-at-night.css');
+@import url('./themes/dark/shades-of-purple.css');
+@import url('./themes/dark/night-owl.css');
+@import url('./themes/dark/winter-is-coming-dark-black.css');
+
+/* Light Themes */
+@import url('./themes/light/nord-light.css');
+@import url('./themes/light/grey-light-pro.css');
+@import url('./themes/light/snazzy-light.css');
+@import url('./themes/light/tiny-light.css');

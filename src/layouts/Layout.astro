@@ -1,21 +1,56 @@
 ---
+import Navbar from '../components/Navbar.astro';
+import Settings from '../components/Settings.astro';
+
 const cssPath = import.meta.env.PROD 
 	? '/css/main.min.css' 
 	: '/src/styles/main.css';
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dracula-at-night">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		<script is:inline>
+			// Prevent theme flash on page load
+			(function() {
+				try {
+					const savedTheme = localStorage.getItem('theme');
+					if (savedTheme) {
+						document.documentElement.setAttribute('data-theme', savedTheme);
+					}
+					
+					// Load font size scale
+					const savedFontScale = localStorage.getItem('fontSizeScale');
+					if (savedFontScale) {
+						document.documentElement.style.setProperty('--font-size-scale', savedFontScale);
+					}
+					
+					// Load accessibility settings
+					if (localStorage.getItem('reducedMotion') === 'true') {
+						document.documentElement.classList.add('reduced-motion');
+					}
+					if (localStorage.getItem('highContrast') === 'true') {
+						document.documentElement.classList.add('high-contrast');
+					}
+				} catch (e) {
+					// localStorage may not be available
+				}
+			})();
+		</script>
 		<link rel="stylesheet" href={cssPath} />
 		<title>Rizzo CSS</title>
 	</head>
 	<body>
-		<slot />
+		<a href="#main-content" class="skip-link">Skip to main content</a>
+		<Navbar />
+		<Settings />
+		<main id="main-content">
+			<slot />
+		</main>
 	</body>
 </html>

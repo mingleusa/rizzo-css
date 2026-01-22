@@ -1,0 +1,35 @@
+---
+// Tabler Icons - Palette
+// Source: https://tabler.io/icons/icon/palette
+// License: MIT
+
+interface Props {
+  width?: number;
+  height?: number;
+  class?: string;
+}
+
+const { width = 16, height = 16, class: className = '' } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={width}
+  height={height}
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class={className}
+  aria-hidden="true"
+>
+  <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+  <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+  <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+  <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+  <path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 1 0 10-10Z" />
+  <path d="M12 2v20" />
+  <path d="M17 7a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0" />
+</svg>

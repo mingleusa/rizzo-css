@@ -1,0 +1,105 @@
+---
+import Gear from './icons/Gear.astro';
+
+interface Props {
+  siteName?: string;
+  logo?: string;
+}
+
+const { siteName = 'Rizzo CSS', logo } = Astro.props;
+---
+
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      {logo && (
+        <img src={logo} alt={`${siteName} logo`} class="navbar__logo" />
+      )}
+      <a href="/" class="navbar__brand-link" aria-label={`${siteName} home`}>
+        {siteName}
+      </a>
+    </div>
+    
+    <button
+      class="navbar__toggle"
+      type="button"
+      aria-expanded="false"
+      aria-controls="navbar-menu"
+      aria-label="Toggle navigation menu"
+      id="navbar-toggle"
+    >
+      <span class="sr-only">Menu</span>
+      <span class="navbar__toggle-icon" aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </span>
+    </button>
+    
+    <div class="navbar__menu" id="navbar-menu" role="menu">
+      <a href="/" class="navbar__link" role="menuitem">Home</a>
+      <a href="/docs" class="navbar__link" role="menuitem">Documentation</a>
+      <a href="/themes" class="navbar__link" role="menuitem">Themes</a>
+      <div class="navbar__actions">
+        <button
+          class="navbar__settings-btn"
+          type="button"
+          aria-label="Open settings"
+          onclick="window.openSettings && window.openSettings()"
+        >
+          <Gear class="navbar__settings-icon" width={20} height={20} />
+          <span class="navbar__settings-label">Settings</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  (function initNavbar() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    const toggle = navbar.querySelector('.navbar__toggle') as HTMLButtonElement | null;
+    const menu = navbar.querySelector('.navbar__menu') as HTMLElement | null;
+    
+    if (!toggle || !menu) return;
+
+    const toggleMenu = (open?: boolean) => {
+      const isOpen = open ?? menu.classList.contains('navbar__menu--open');
+      menu.classList.toggle('navbar__menu--open', !isOpen);
+      toggle.setAttribute('aria-expanded', (!isOpen).toString());
+    };
+
+    toggle.addEventListener('click', () => toggleMenu());
+
+    // Close menu on outside click
+    document.addEventListener('click', (e) => {
+      const target = e.target as Node | null;
+      if (target && !navbar.contains(target)) {
+        menu.classList.remove('navbar__menu--open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close menu on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('navbar__menu--open')) {
+        toggleMenu(false);
+        toggle.focus();
+      }
+    });
+
+    // Handle window resize
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (window.innerWidth >= 768) {
+          menu.classList.remove('navbar__menu--open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      }, 250);
+    });
+  })();
+</script>

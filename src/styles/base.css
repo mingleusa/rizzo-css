@@ -1,0 +1,27 @@
+/* Base Styles - Using semantic theme variables */
+
+html {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text);
+}
+
+/* Links */
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--accent-hover);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--selection);
+  color: var(--text);
+}
