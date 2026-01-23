@@ -1,0 +1,49 @@
+---
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  required?: boolean;
+  disabled?: boolean;
+  size?: 'sm' | 'md' | 'lg';
+  error?: boolean;
+  success?: boolean;
+  class?: string;
+  ariaDescribedby?: string;
+  ariaInvalid?: boolean | 'true' | 'false';
+}
+
+const {
+  id,
+  name,
+  value,
+  required = false,
+  disabled = false,
+  size = 'md',
+  error = false,
+  success = false,
+  class: className = '',
+  ariaDescribedby,
+  ariaInvalid,
+} = Astro.props;
+
+const sizeClass = size !== 'md' ? `form-input--${size}` : '';
+const errorClass = error ? 'form-input--error' : '';
+const successClass = success ? 'form-input--success' : '';
+const classes = `form-input ${sizeClass} ${errorClass} ${successClass} ${className}`.trim();
+
+const invalid = error || ariaInvalid === true || ariaInvalid === 'true';
+---
+
+<select
+  id={id}
+  name={name}
+  value={value}
+  required={required}
+  disabled={disabled}
+  class={classes}
+  aria-invalid={invalid ? 'true' : 'false'}
+  aria-describedby={ariaDescribedby}
+>
+  <slot />
+</select>

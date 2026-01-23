@@ -77,12 +77,15 @@ CSS is organized into logical files:
 - `variables.css` - Default theme variables and typography system
 - `reset.css` - Modern CSS reset
 - `base.css` - Base HTML element styles
-- `typography.css` - Typography system (font families, sizes, weights, utilities)
+- `typography.css` - Typography system (font families, sizes, weights, line heights, utilities)
 - `accessibility.css` - Accessibility utilities
 - `buttons.css` - Button component styles
 - `layout.css` - Layout utilities
-- `utilities.css` - Utility classes
-- `components.css` - Component styles (Navbar, ThemeSwitcher, Settings)
+- `utilities.css` - Utility classes (spacing, containers, max-width, colors, borders)
+- `forms.css` - Form component styles
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card)
+- `pages.css` - Page-specific styles
+- `media-queries.css` - Responsive breakpoints and media query definitions
 - `themes/` - Theme definitions (dark/light folders)
 
 **Naming Convention**: All component classes use BEM (Block Element Modifier) naming:
@@ -106,20 +109,25 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with settings button (sticky positioning, full width)
+- **Navbar** - Responsive navigation with dropdown menus, settings button, and mobile menu (sticky positioning, full width)
 - **Settings** - Comprehensive settings panel with theme switcher, font size control, and accessibility options
 - **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (ARIA menu pattern, integrated in Settings)
 - **Button** - Semantic button component with variants
-- **Icons** - Reusable SVG icon components using Tabler Icons (Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)
+- **Icons** - Reusable SVG icon components using Tabler Icons (Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check)
+- **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
+- **Card** - Flexible card component with variants (elevated, outlined, filled), sections, and image support
+- **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation
+- **CopyToClipboard** - Copy to clipboard component with visual feedback and unique ID support
 
 All components:
 - Use semantic theme variables with contrast-aware text colors
 - Are fully keyboard accessible
-- Have no inline styles (all CSS in `components.css`)
+- Have no inline styles (all CSS in external files)
 - Follow BEM naming convention
 - Include theme flash prevention on page load (inline script in Layout)
 - Meet WCAG AA contrast requirements
 - Theme switcher displays active theme name and icon in trigger button
+- Individual documentation pages with live examples
 
 See [Components Documentation](./docs/COMPONENTS.md) for usage examples.
 
@@ -130,6 +138,7 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Getting Started](./docs/GETTING_STARTED.md) - Quick start guide and installation
 - [Design System](./docs/DESIGN_SYSTEM.md) - Core design principles and semantic variables
 - [Theming](./docs/THEMING.md) - Theme system documentation and custom theme creation
+- [Colors](./docs/COLORS.md) - Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)
 - [Components](./docs/COMPONENTS.md) - Component library and usage examples
 - [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system

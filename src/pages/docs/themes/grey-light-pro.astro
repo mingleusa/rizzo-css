@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Grey Light Pro Theme" description="A grey colour theme based on VSCode Light+ Pro - less bright and softer on the eyes by Emilio Lanzalaco">
+	<section>
+		<h2>Grey Light Pro</h2>
+		<p>A grey colour theme based on VSCode Light+ Pro - less bright and softer on the eyes, perfect for extended coding sessions.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> Emilio Lanzalaco</p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> A grey colour theme based on VSCode Light+ Pro - less bright and softer on the eyes</p>
+				<p><strong>Theme ID:</strong> <code>grey-light-pro</code></p>
+				<p><strong>Source:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=elanzalaco.grey-light-plus-pro" target="_blank" rel="noopener">VS Code Marketplace</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Grey Light Pro features soft grey tones that reduce eye strain while maintaining excellent readability.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Soft grey base</li>
+			<li><strong>Text:</strong> Dark grey text</li>
+			<li><strong>Accent:</strong> Subtle accent colors</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<pre><code>{`<html lang="en" data-theme="grey-light-pro">`}</code></pre>
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Extended coding sessions</li>
+			<li>Users sensitive to bright white backgrounds</li>
+			<li>Professional development environments</li>
+		</ul>
+	</section>
+</DocsLayout>

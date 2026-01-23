@@ -37,6 +37,9 @@ const cssPath = import.meta.env.PROD
 					if (localStorage.getItem('highContrast') === 'true') {
 						document.documentElement.classList.add('high-contrast');
 					}
+					if (localStorage.getItem('hideScrollbars') === 'true') {
+						document.documentElement.classList.add('hide-scrollbars');
+					}
 				} catch (e) {
 					// localStorage may not be available
 				}

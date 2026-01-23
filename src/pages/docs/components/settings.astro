@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Settings Component" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
+	<section>
+		<h2>Settings Component</h2>
+		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
+		
+		<h3>Features</h3>
+		<ul>
+			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons</li>
+			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable)</li>
+			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root</li>
+			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root</li>
+			<li><strong>Hide Scrollbars Toggle</strong> - Applies <code>.hide-scrollbars</code> class to document root</li>
+			<li><strong>Focus Trapping</strong> - Tab cycles within panel when open</li>
+			<li><strong>Focus Management</strong> - Returns focus to trigger element on close</li>
+			<li>Slide-in panel with overlay</li>
+			<li>All settings persist in localStorage</li>
+			<li>Full keyboard navigation (Escape to close)</li>
+			<li>Accessible ARIA attributes</li>
+			<li>Slider track visibility optimized for all themes (dark color for tiny-light theme)</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Try it</div>
+			<p>Click the gear icon in the navbar to open the Settings panel.</p>
+		</div>
+		
+		<h3>Usage</h3>
+		<pre><code>{`---
+import Settings from '../components/Settings.astro';
+---
+
+<Settings open={false} />`}</code></pre>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>open</code> (boolean, optional) - Whether settings panel is open by default (default: false)</li>
+		</ul>
+		
+		<h3>Opening Settings</h3>
+		<p>The Settings panel is opened via <code>window.openSettings()</code> function, which is exposed globally. The Navbar component includes a settings button that calls this function.</p>
+		
+		<pre><code>{`// Open settings programmatically
+window.openSettings();
+
+// Close settings programmatically
+window.closeSettings();`}</code></pre>
+	</section>
+</DocsLayout>

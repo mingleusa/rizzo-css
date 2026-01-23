@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Shades of Purple Theme" description="A professional theme with hand-picked bold shades of purple by Ahmad Awais">
+	<section>
+		<h2>Shades of Purple</h2>
+		<p>A professional theme with hand-picked bold shades of purple, designed for developers who love purple.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> Ahmad Awais</p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> A professional theme with hand-picked bold shades of purple</p>
+				<p><strong>Theme ID:</strong> <code>shades-of-purple</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/ahmadawais/shades-of-purple-vscode" target="_blank" rel="noopener">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Shades of Purple features bold, vibrant purple tones with excellent contrast for code readability.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark purple base</li>
+			<li><strong>Text:</strong> High contrast light text</li>
+			<li><strong>Accent:</strong> Bold purple shades</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<pre><code>{`<html lang="en" data-theme="shades-of-purple">`}</code></pre>
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Developers who love purple</li>
+			<li>Professional coding environments</li>
+			<li>Long coding sessions with vibrant colors</li>
+		</ul>
+	</section>
+</DocsLayout>

@@ -191,6 +191,36 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		<p>Padding classes: <code>.p-{'{size}'}</code>, <code>.pt-{'{size}'}</code>, <code>.pr-{'{size}'}</code>, <code>.pb-{'{size}'}</code>, <code>.pl-{'{size}'}</code>, <code>.px-{'{size}'}</code>, <code>.py-{'{size}'}</code></p>
 		
 		<h3>Examples</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="m-4" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					Margin on all sides (m-4)
+				</div>
+			</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="mx-auto" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; max-width: 300px; text-align: center;">
+					Centered with auto margins (mx-auto)
+				</div>
+			</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="mt-6 mb-4" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					Top and bottom margins (mt-6 mb-4)
+				</div>
+			</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="p-4" style="background-color: var(--background-alt); border: 1px solid var(--border); border-radius: 0.375rem;">
+					Padding on all sides (p-4)
+				</div>
+			</div>
+			<div>
+				<div class="px-6 py-4" style="background-color: var(--background-alt); border: 1px solid var(--border); border-radius: 0.375rem;">
+					Horizontal and vertical padding (px-6 py-4)
+				</div>
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
 		<pre><code>{`<!-- Margin examples -->
 <div class="m-4">Margin on all sides</div>
 <div class="mx-auto">Centered with auto margins</div>
@@ -199,6 +229,106 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 <!-- Padding examples -->
 <div class="p-4">Padding on all sides</div>
 <div class="px-6 py-4">Horizontal and vertical padding</div>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Container Utilities</h2>
+		<p>Container utilities provide responsive containers with automatic centering and padding:</p>
+		
+		<h3>Container Sizes</h3>
+		<ul>
+			<li><code>.container-sm</code> - 640px max-width</li>
+			<li><code>.container-md</code> - 768px max-width</li>
+			<li><code>.container-lg</code> - 1024px max-width</li>
+			<li><code>.container-xl</code> - 1280px max-width</li>
+			<li><code>.container-2xl</code> - 1536px max-width</li>
+			<li><code>.container-full</code> - 100% width (with padding)</li>
+		</ul>
+		
+		<p><strong>Note:</strong> The default <code>.container</code> class (1200px) is also available in <code>layout.css</code>.</p>
+		
+		<h3>Examples</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div class="container-sm" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+				Small container (container-sm) - 640px max-width
+			</div>
+			<div class="container-lg" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+				Large container (container-lg) - 1024px max-width
+			</div>
+			<div class="container-full" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+				Full width container (container-full) - 100% width with padding
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`<!-- Small container -->
+<div class="container-sm">
+  Content constrained to 640px
+</div>
+
+<!-- Large container -->
+<div class="container-lg">
+  Content constrained to 1024px
+</div>
+
+<!-- Full width with padding -->
+<div class="container-full">
+  Full width with horizontal padding
+</div>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Max-Width Utilities</h2>
+		<p>Max-width utilities constrain element width without centering or padding:</p>
+		
+		<h3>Size-Based Max-Width</h3>
+		<ul>
+			<li><code>.max-w-none</code> - No max-width</li>
+			<li><code>.max-w-xs</code> - 20rem (320px)</li>
+			<li><code>.max-w-sm</code> - 24rem (384px)</li>
+			<li><code>.max-w-md</code> - 28rem (448px)</li>
+			<li><code>.max-w-lg</code> - 32rem (512px)</li>
+			<li><code>.max-w-xl</code> - 36rem (576px)</li>
+			<li><code>.max-w-2xl</code> - 42rem (672px)</li>
+			<li><code>.max-w-3xl</code> - 48rem (768px)</li>
+			<li><code>.max-w-4xl</code> - 56rem (896px)</li>
+			<li><code>.max-w-5xl</code> - 64rem (1024px)</li>
+			<li><code>.max-w-6xl</code> - 72rem (1152px)</li>
+			<li><code>.max-w-7xl</code> - 80rem (1280px)</li>
+			<li><code>.max-w-full</code> - 100%</li>
+		</ul>
+		
+		<h3>Screen-Based Max-Width</h3>
+		<ul>
+			<li><code>.max-w-screen-sm</code> - 640px</li>
+			<li><code>.max-w-screen-md</code> - 768px</li>
+			<li><code>.max-w-screen-lg</code> - 1024px</li>
+			<li><code>.max-w-screen-xl</code> - 1280px</li>
+			<li><code>.max-w-screen-2xl</code> - 1536px</li>
+		</ul>
+		
+		<h3>Examples</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<p class="max-w-2xl" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+				This paragraph is constrained to 672px (max-w-2xl) for optimal readability.
+			</p>
+			<div class="max-w-screen-lg" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+				Content constrained to 1024px (max-w-screen-lg) - matches large screen breakpoint
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`<!-- Constrain text width for readability -->
+<p class="max-w-2xl">
+  This paragraph is constrained to 672px for optimal readability.
+</p>
+
+<!-- Constrain to screen breakpoint -->
+<div class="max-w-screen-lg">
+  Content constrained to 1024px
+</div>`}</code></pre>
 	</section>
 	
 	<section>

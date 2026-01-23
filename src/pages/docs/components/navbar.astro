@@ -1,0 +1,55 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Navbar Component" description="Responsive, accessible navigation bar with integrated settings button">
+	<section>
+		<h2>Navbar Component</h2>
+		<p>A responsive, accessible navigation bar with integrated settings button.</p>
+		
+		<h3>Usage</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>The navbar is already included in the Layout component at the top of this page. It includes:</p>
+			<ul>
+				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
+				<li>Smooth hamburger-to-X animation</li>
+				<li>Active link indicator with underline matching hover effect</li>
+				<li>Dropdown menus with sub-links (Components and Themes dropdowns)</li>
+				<li>Dropdown arrow rotates on hover</li>
+				<li>Smart dropdown alignment (prevents viewport overflow)</li>
+				<li>Full keyboard navigation for dropdowns (Arrow keys, Enter, Space, Escape, Home, End)</li>
+				<li>Keyboard accessible with full ARIA support</li>
+				<li>Settings button (gear icon) that opens Settings panel</li>
+				<li>Sticky positioning at top</li>
+				<li>Full width layout with no gaps</li>
+				<li>Theme flash prevention (inline script in Layout)</li>
+			</ul>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`---
+import Navbar from '../components/Navbar.astro';
+---
+
+<Navbar siteName="My Site" />`}</code></pre>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>siteName</code> (string, optional) - Site name displayed in navbar brand</li>
+			<li><code>logo</code> (string, optional) - Path to logo image</li>
+		</ul>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Full width layout with no gaps</li>
+			<li>Theme flash prevention (inline script in Layout)</li>
+			<li>Full keyboard navigation for dropdowns (Arrow keys, Enter, Space, Escape, Home, End)</li>
+			<li>Smart dropdown alignment (prevents viewport overflow)</li>
+			<li>Dropdown arrow rotates on hover</li>
+			<li>Active link indicator with underline matching hover effect</li>
+			<li>Smooth hamburger-to-X animation</li>
+			<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
+		</ul>
+	</section>
+</DocsLayout>

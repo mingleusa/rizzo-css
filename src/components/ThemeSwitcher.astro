@@ -127,7 +127,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       return document.documentElement.getAttribute('data-theme') || 'dracula-at-night';
     };
 
-    const getThemeInfo = (themeValue: string) => {
+    const getThemeInfo = (themeValue) => {
       const allThemes = [
         { value: 'dracula-at-night', label: 'Dracula At Night' },
         { value: 'shades-of-purple', label: 'Shades of Purple' },
@@ -141,21 +141,21 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       return allThemes.find(t => t.value === themeValue) || { label: 'Theme' };
     };
 
-    const getThemeLabel = (themeValue: string) => {
+    const getThemeLabel = (themeValue) => {
       const theme = getThemeInfo(themeValue);
       return theme.label;
     };
 
-    const getIconSVG = (themeValue: string): string => {
-      const svgMap: Record<string, string> = {
-        'dracula-at-night': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>',
-        'shades-of-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 1 0 10-10Z" /><path d="M12 2v20" /><path d="M17 7a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0" /></svg>',
-        'night-owl': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01" /><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" /><path d="m20 7 2 .5-2 .5" /><path d="M10 18v3" /><path d="M14 17.75V21" /><path d="M7 18a6 6 0 0 0 3.84-10.61" /></svg>',
-        'winter-is-coming-dark-black': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20" /><path d="m17 5-5 5-5-5" /><path d="m17 19-5-5-5 5" /><path d="M2 12h20" /><path d="m5 17 5-5 5 5" /><path d="m5 7 5 5 5-5" /></svg>',
-        'nord-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11" /><path d="M17 7A5 5 0 0 0 7 7" /><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4" /></svg>',
-        'grey-light-pro': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10" /></svg>',
-        'snazzy-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 17a10 10 0 0 0-20 0" /><path d="M6 17a6 6 0 0 1 12 0" /><path d="M10 17a2 2 0 0 1 4 0" /></svg>',
-        'tiny-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>',
+    const getIconSVG = (themeValue) => {
+      const svgMap = {
+        'dracula-at-night': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Moon</title><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>',
+        'shades-of-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Palette</title><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 1 0 10-10Z" /><path d="M12 2v20" /><path d="M17 7a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0" /></svg>',
+        'night-owl': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Owl</title><path d="M16 7h.01" /><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" /><path d="m20 7 2 .5-2 .5" /><path d="M10 18v3" /><path d="M14 17.75V21" /><path d="M7 18a6 6 0 0 0 3.84-10.61" /></svg>',
+        'winter-is-coming-dark-black': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Snowflake</title><path d="M12 2v20" /><path d="m17 5-5 5-5-5" /><path d="m17 19-5-5-5 5" /><path d="M2 12h20" /><path d="m5 17 5-5 5 5" /><path d="m5 7 5 5 5-5" /></svg>',
+        'nord-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Ice Cream</title><path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11" /><path d="M17 7A5 5 0 0 0 7 7" /><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4" /></svg>',
+        'grey-light-pro': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Circle</title><circle cx="12" cy="12" r="10" /></svg>',
+        'snazzy-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Rainbow</title><path d="M22 17a10 10 0 0 0-20 0" /><path d="M6 17a6 6 0 0 1 12 0" /><path d="M10 17a2 2 0 0 1 4 0" /></svg>',
+        'tiny-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Eye</title><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" /><circle cx="12" cy="12" r="3" /></svg>',
       };
       return svgMap[themeValue] || '';
     };
@@ -164,9 +164,9 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     const updateAllSwitchers = () => {
       const currentTheme = getCurrentTheme();
       document.querySelectorAll('[data-theme-switcher]').forEach((switcher) => {
-        const label = switcher.querySelector('[data-theme-label]') as HTMLElement | null;
-        const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]') as HTMLElement | null;
-        const options = switcher.querySelectorAll('.theme-switcher__option') as NodeListOf<HTMLElement>;
+        const label = switcher.querySelector('[data-theme-label]');
+        const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]');
+        const options = switcher.querySelectorAll('.theme-switcher__option');
         
         if (label && labelWrapper) {
           const themeLabel = getThemeLabel(currentTheme);
@@ -224,8 +224,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       if (!trigger || !menu) return;
 
       // Toggle menu
-      const toggleMenu = (open?: boolean) => {
-        const isOpen = open ?? menu.classList.contains('theme-switcher__menu--open');
+      const toggleMenu = (open) => {
+        const isOpen = open !== undefined ? open : menu.classList.contains('theme-switcher__menu--open');
         const willBeOpen = !isOpen;
         
         menu.classList.toggle('theme-switcher__menu--open', willBeOpen);
@@ -257,8 +257,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       };
 
       // Close on outside click handler
-      const handleOutsideClick = (e: MouseEvent) => {
-        const target = e.target as Node | null;
+      const handleOutsideClick = (e) => {
+        const target = e.target;
         if (target && !switcher.contains(target)) {
           closeMenu();
           document.removeEventListener('click', handleOutsideClick);
@@ -266,7 +266,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       };
       
       // Wrapped toggle menu that handles outside clicks
-      const wrappedToggleMenu = (open?: boolean) => {
+      const wrappedToggleMenu = (open) => {
         const wasOpen = menu.classList.contains('theme-switcher__menu--open');
         toggleMenu(open);
         const isNowOpen = menu.classList.contains('theme-switcher__menu--open');
@@ -282,8 +282,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       trigger.addEventListener('click', () => wrappedToggleMenu(undefined));
       
       menu.addEventListener('click', (e) => {
-        const target = e.target as HTMLElement;
-        const option = target.closest('.theme-switcher__option') as HTMLElement;
+        const target = e.target;
+        const option = target.closest('.theme-switcher__option');
         if (option) {
           const themeValue = option.getAttribute('data-theme-value');
           if (themeValue) {
@@ -298,27 +298,37 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       
       const getVisibleOptions = () => {
         return Array.from(options).filter(opt => {
-          const htmlOpt = opt as HTMLElement;
-          return htmlOpt.offsetParent !== null || opt.closest('.theme-switcher__menu--open');
+          return opt.offsetParent !== null || opt.closest('.theme-switcher__menu--open');
         });
       };
 
-      trigger.addEventListener('keydown', (e: KeyboardEvent) => {
+      trigger.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          wrappedToggleMenu(undefined);
+          wrappedToggleMenu();
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           const visibleOptions = getVisibleOptions();
           if (visibleOptions.length > 0) {
             currentIndex = 0;
             wrappedToggleMenu(true);
-            setTimeout(() => (visibleOptions[0] as HTMLElement).focus(), 0);
+            setTimeout(() => visibleOptions[0].focus(), 0);
           }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const visibleOptions = getVisibleOptions();
+          if (visibleOptions.length > 0) {
+            currentIndex = visibleOptions.length - 1;
+            wrappedToggleMenu(true);
+            setTimeout(() => visibleOptions[currentIndex].focus(), 0);
+          }
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeMenu();
         }
       });
 
-      menu.addEventListener('keydown', (e: KeyboardEvent) => {
+      menu.addEventListener('keydown', (e) => {
         const visibleOptions = getVisibleOptions();
         
         if (e.key === 'Escape') {
@@ -329,27 +339,32 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           currentIndex = (currentIndex + 1) % visibleOptions.length;
-          (visibleOptions[currentIndex] as HTMLElement).focus();
+          visibleOptions[currentIndex].focus();
         } else if (e.key === 'ArrowUp') {
           e.preventDefault();
           currentIndex = currentIndex <= 0 ? visibleOptions.length - 1 : currentIndex - 1;
-          (visibleOptions[currentIndex] as HTMLElement).focus();
+          visibleOptions[currentIndex].focus();
         } else if (e.key === 'Home') {
           e.preventDefault();
           currentIndex = 0;
-          (visibleOptions[0] as HTMLElement).focus();
+          visibleOptions[0].focus();
         } else if (e.key === 'End') {
           e.preventDefault();
           currentIndex = visibleOptions.length - 1;
-          (visibleOptions[currentIndex] as HTMLElement).focus();
+          visibleOptions[currentIndex].focus();
         } else if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          const target = e.target as HTMLElement;
+          const target = e.target;
           const themeValue = target.getAttribute('data-theme-value');
           if (themeValue) {
             applyTheme(themeValue);
             closeMenu();
+            trigger.focus(); // Return focus to trigger after selection
           }
+        } else if (e.key === 'Tab') {
+          // Close menu when Tab is pressed (allows natural tab flow)
+          closeMenu();
+          // Don't prevent default - allow Tab to continue naturally
         }
       });
 

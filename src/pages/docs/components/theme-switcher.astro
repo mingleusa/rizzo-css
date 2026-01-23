@@ -1,0 +1,47 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+---
+
+<DocsLayout title="Theme Switcher Component" description="Accessible theme switcher with theme icons and keyboard navigation">
+	<section>
+		<h2>Theme Switcher Component</h2>
+		<p>The ThemeSwitcher is integrated into the Settings panel, but can also be used standalone.</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Try switching themes using the theme switcher below:</p>
+			<ThemeSwitcher />
+		</div>
+		
+		<h3>Usage</h3>
+		<pre><code>{`---
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+---
+
+<ThemeSwitcher />`}</code></pre>
+		
+		<h3>Features</h3>
+		<p>The theme switcher automatically:</p>
+		<ul>
+			<li>Groups themes by Dark/Light</li>
+			<li>Shows active theme name and icon in trigger button</li>
+			<li>Each theme has its own icon</li>
+			<li>Persists selection in localStorage</li>
+			<li>Supports full keyboard navigation</li>
+		</ul>
+		
+		<h3>Keyboard Navigation</h3>
+		<ul>
+			<li><code>Enter</code> or <code>Space</code> - Open/close menu</li>
+			<li><code>ArrowDown</code> - Open menu and focus first option</li>
+			<li><code>ArrowUp</code> - Open menu and focus last option</li>
+			<li><code>ArrowDown/ArrowUp</code> - Navigate options within menu</li>
+			<li><code>Home</code> - Jump to first option</li>
+			<li><code>End</code> - Jump to last option</li>
+			<li><code>Enter</code> or <code>Space</code> - Select theme</li>
+			<li><code>Escape</code> - Close menu</li>
+			<li><code>Tab</code> - Close menu and continue tabbing</li>
+		</ul>
+	</section>
+</DocsLayout>

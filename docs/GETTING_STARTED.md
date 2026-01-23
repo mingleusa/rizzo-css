@@ -25,7 +25,18 @@ rizzo-css/
 │   │   ├── Navbar.astro
 │   │   ├── Settings.astro
 │   │   ├── ThemeSwitcher.astro
+│   │   ├── Modal.astro
+│   │   ├── Card.astro
+│   │   ├── CopyToClipboard.astro
+│   │   ├── FormGroup.astro
+│   │   ├── Input.astro
+│   │   ├── Textarea.astro
+│   │   ├── Select.astro
+│   │   ├── Checkbox.astro
+│   │   ├── Radio.astro
 │   │   └── icons/      # Icon components
+│   │       ├── Copy.astro
+│   │       ├── Check.astro
 │   │       ├── ChevronDown.astro
 │   │       ├── Circle.astro
 │   │       ├── Close.astro
@@ -100,86 +111,21 @@ This will:
 
 ## Using Components
 
-### Navbar
+Rizzo CSS includes a comprehensive set of accessible components. Each component has its own dedicated documentation page with live examples, usage instructions, and API details.
 
-The navbar component includes a settings button:
+### Component Documentation
 
-```astro
----
-import Navbar from '../components/Navbar.astro';
----
+- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
+- [Settings](/docs/components/settings) - Comprehensive settings panel
+- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
+- [Button](/docs/components/button) - Semantic button component
+- [Icons](/docs/components/icons) - Reusable SVG icon components
+- [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
+- [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
+- [Cards](/docs/components/cards) - Flexible card component
+- [Modal](/docs/components/modal) - Accessible modal/dialog component
 
-<Navbar siteName="My Site" />
-```
-
-**Props:**
-- `siteName` (string, optional) - Site name displayed in navbar (default: "Rizzo CSS")
-- `logo` (string, optional) - Path to logo image
-
-The navbar includes a settings button that opens the Settings panel.
-
-### Settings
-
-The Settings component provides a comprehensive settings panel:
-
-```astro
----
-import Settings from '../components/Settings.astro';
----
-
-<Settings open={false} />
-```
-
-**Features:**
-- Theme switcher (integrated ThemeSwitcher component)
-- Font size slider (75% - 150% with filled track)
-- Reduce motion toggle
-- High contrast toggle
-- All settings persist in localStorage
-- Accessible with keyboard navigation and ARIA attributes
-
-**Opening Settings:**
-The Settings panel is opened via `window.openSettings()` function, which is exposed globally. The Navbar component includes a settings button that calls this function.
-
-### Theme Switcher
-
-The ThemeSwitcher is integrated into the Settings panel, but can also be used standalone:
-
-```astro
----
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
----
-
-<ThemeSwitcher />
-```
-
-The theme switcher automatically:
-- Groups themes by Dark/Light
-- Shows active theme name and icon in trigger button
-- Each theme has its own icon (Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)
-- Active theme option displays its theme background color
-- Persists selection in localStorage
-- Supports full keyboard navigation
-
-### Button
-
-Use the button component:
-
-```astro
----
-import Button from '../components/Button.astro';
----
-
-<Button>Click me</Button>
-```
-
-Or use button classes:
-
-```html
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-outline">Outline</button>
-```
+See the [Components Documentation](/docs/components) for an overview and links to all component pages.
 
 ## Using Themes
 
@@ -190,6 +136,12 @@ Themes are applied via the `data-theme` attribute on the HTML element:
 ```
 
 See [Theming Documentation](./THEMING.md) for more details.
+
+## Using Colors
+
+Rizzo CSS uses a semantic color system with CSS custom properties. All colors are available in multiple formats (OKLCH, Hex, RGB, HSL, CSS Variable) and can be viewed and copied from the [Colors Documentation Page](/docs/colors).
+
+See [Colors Documentation](./COLORS.md) for complete color reference and format conversion details.
 
 ## CSS Architecture
 
@@ -204,10 +156,12 @@ CSS is organized into logical files:
 - `accessibility.css` - Accessibility utilities
 - `buttons.css` - Button component styles
 - `layout.css` - Layout utilities
-- `utilities.css` - Utility classes (colors, spacing, borders)
+- `utilities.css` - Utility classes (colors, spacing, borders, containers, max-width)
+- `forms.css` - Form component styles
+- `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher)
-- `themes/` - Theme definitions (dark/light)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card)
+- `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables
 

@@ -1,203 +1,154 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import Button from '../../components/Button.astro';
-import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
-import Gear from '../../components/icons/Gear.astro';
-import Close from '../../components/icons/Close.astro';
-import ChevronDown from '../../components/icons/ChevronDown.astro';
+import Card from '../../components/Card.astro';
 ---
 
 <DocsLayout title="Components" description="Component library with usage examples and live demos">
 	<section>
-		<h2>Navbar</h2>
-		<p>A responsive, accessible navigation bar with integrated settings button.</p>
-		
-		<h3>Usage</h3>
-		<div class="example">
-			<div class="example-title">Example</div>
-			<p>The navbar is already included in the Layout component. It includes:</p>
-			<ul>
-				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
-				<li>Smooth hamburger-to-X animation</li>
-				<li>Active link indicator with underline matching hover effect</li>
-				<li>Keyboard accessible with full ARIA support</li>
-				<li>Settings button (gear icon) that opens Settings panel</li>
-				<li>Sticky positioning at top</li>
-				<li>Full width layout with no gaps</li>
-				<li>Theme flash prevention (inline script in Layout)</li>
-			</ul>
-		</div>
-		
-		<h3>Code Example</h3>
-		<pre><code>{`---
-import Navbar from '../components/Navbar.astro';
----
-
-<Navbar siteName="My Site" />`}</code></pre>
+		<h2>Component Library</h2>
+		<p>Rizzo CSS includes a comprehensive set of accessible, theme-aware components. Each component is built with semantic variables, follows BEM naming conventions, and includes full keyboard navigation and ARIA support.</p>
 	</section>
 	
 	<section>
-		<h2>Settings</h2>
-		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
-		
-		<h3>Features</h3>
-		<ul>
-			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons</li>
-			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable)</li>
-			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root</li>
-			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root</li>
-			<li>Slide-in panel with overlay</li>
-			<li>All settings persist in localStorage</li>
-			<li>Full keyboard navigation (Escape to close)</li>
-			<li>Accessible ARIA attributes</li>
-			<li>Slider track visibility optimized for all themes (dark color for tiny-light theme)</li>
-		</ul>
-		
-		<div class="example">
-			<div class="example-title">Try it</div>
-			<p>Click the gear icon in the navbar to open the Settings panel.</p>
+		<h2>Available Components</h2>
+		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+			<a href="/docs/components/navbar" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Navbar</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Responsive, accessible navigation bar with integrated settings button</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/settings" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Settings</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Comprehensive settings panel for theme switching and accessibility options</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/theme-switcher" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Theme Switcher</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Accessible theme switcher with theme icons and keyboard navigation</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/button" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Button</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Semantic button component with variants using theme variables</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/icons" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Icons</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Reusable SVG icon components using Tabler Icons</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/copy-to-clipboard" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">CopyToClipboard</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Component for copying text values to the clipboard with visual feedback</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/forms" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Forms</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Comprehensive set of accessible form components with validation states</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/cards" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Cards</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Flexible card component with variants, sections, and image support</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/modal" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 0.5rem 0;">Modal</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Accessible modal/dialog component with focus trapping and keyboard navigation</p>
+					</div>
+				</Card>
+			</a>
 		</div>
 	</section>
 	
 	<section>
-		<h2>Theme Switcher</h2>
-		<p>An accessible dropdown menu for switching between themes. Integrated into the Settings component.</p>
-		
-		<h3>Features</h3>
+		<h2>Component Features</h2>
+		<p>All components in Rizzo CSS share these core features:</p>
 		<ul>
-			<li>Groups themes by Dark/Light</li>
-			<li>Each theme has its own icon (Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)</li>
-			<li>Active theme displays its name and icon in the trigger button</li>
-			<li>Active theme option shows its theme background color</li>
-			<li>Persists selection in localStorage</li>
-			<li>Full keyboard navigation</li>
-			<li>Accessible ARIA menu pattern</li>
-			<li>Works standalone or within Settings panel</li>
+			<li><strong>Semantic Theming</strong> - All components use semantic CSS variables that adapt to the selected theme</li>
+			<li><strong>Accessibility</strong> - Full keyboard navigation, ARIA attributes, and screen reader support</li>
+			<li><strong>BEM Naming</strong> - Consistent class naming convention (block__element--modifier)</li>
+			<li><strong>Responsive</strong> - Mobile-first design with responsive breakpoints</li>
+			<li><strong>Theme-Aware</strong> - Automatically adapt to all 8 available themes</li>
+			<li><strong>WCAG AA Compliant</strong> - Proper contrast ratios and accessible color combinations</li>
 		</ul>
-		
-		<h3>Keyboard Navigation</h3>
-		<ul>
-			<li><code>Enter</code>/<code>Space</code> - Open/close menu</li>
-			<li><code>ArrowDown</code>/<code>ArrowUp</code> - Navigate options</li>
-			<li><code>Home</code>/<code>End</code> - Jump to first/last</li>
-			<li><code>Escape</code> - Close menu</li>
-		</ul>
-		
-		<div class="example">
-			<div class="example-title">Live Example</div>
-			<ThemeSwitcher />
-		</div>
-		
-		<h3>Code Example</h3>
-		<pre><code>{`---
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
----
-
-<ThemeSwitcher />`}</code></pre>
-	</section>
-	
-	<section>
-		<h2>Button Component</h2>
-		<p>Semantic button component with variants using theme variables.</p>
-		
-		<h3>Button Variants</h3>
-		<div class="example">
-			<div class="example-title">Live Examples</div>
-			<div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
-				<button class="btn">Default</button>
-				<button class="btn btn-primary">Primary</button>
-				<button class="btn btn-success">Success</button>
-				<button class="btn btn-warning">Warning</button>
-				<button class="btn btn-error">Error</button>
-				<button class="btn btn-info">Info</button>
-				<button class="btn btn-outline">Outline</button>
-			</div>
-		</div>
-		
-		<p>All buttons:</p>
-		<ul>
-			<li>Use semantic theme variables</li>
-			<li>Have hover and focus states</li>
-			<li>Support disabled state</li>
-			<li>Are keyboard accessible</li>
-		</ul>
-		
-		<h3>Code Example</h3>
-		<pre><code>{`<!-- Using component -->
----
-import Button from '../components/Button.astro';
----
-
-<Button>Click me</Button>
-
-<!-- Using classes -->
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-error">Error</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>`}</code></pre>
-	</section>
-	
-	<section>
-		<h2>Icon Components</h2>
-		<p>Reusable SVG icon components using Tabler Icons (MIT licensed).</p>
-		
-		<h3>Available Icons</h3>
-		<ul>
-			<li><strong>Gear</strong> - Settings/configuration icon</li>
-			<li><strong>Close</strong> - Close/dismiss icon</li>
-			<li><strong>ChevronDown</strong> - Dropdown indicator</li>
-			<li><strong>Moon</strong> - Dracula At Night theme icon</li>
-			<li><strong>Palette</strong> - Shades of Purple theme icon</li>
-			<li><strong>Owl</strong> - Night Owl theme icon</li>
-			<li><strong>Snowflake</strong> - Winter is Coming theme icon</li>
-			<li><strong>IceCream</strong> - Nord Light theme icon</li>
-			<li><strong>Circle</strong> - Grey Light Pro theme icon</li>
-			<li><strong>Rainbow</strong> - Snazzy Light theme icon</li>
-			<li><strong>Eye</strong> - Tiny Light theme icon</li>
-		</ul>
-		
-		<div class="example">
-			<div class="example-title">Live Examples</div>
-			<div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
-				<div><Gear width={24} height={24} /> Gear</div>
-				<div><Close width={24} height={24} /> Close</div>
-				<div><ChevronDown width={24} height={24} /> ChevronDown</div>
-			</div>
-		</div>
-		
-		<h3>Code Example</h3>
-		<pre><code>{`---
-import Gear from '../components/icons/Gear.astro';
-import Moon from '../components/icons/Moon.astro';
----
-
-<Gear width={20} height={20} />
-<Moon width={16} height={16} class="my-icon" />`}</code></pre>
-		
-		<h3>Icon Props</h3>
-		<ul>
-			<li><code>width</code> - Icon width (default: 16)</li>
-			<li><code>height</code> - Icon height (default: 16)</li>
-			<li><code>class</code> - Optional CSS class for styling</li>
-		</ul>
-		<p>All icons use <code>currentColor</code> for theming and adapt to the current theme.</p>
-	</section>
-	
-	<section>
-		<h2>Layout Components</h2>
-		
-		<h3>Container</h3>
-		<pre><code>{`<div class="container">
-  <!-- Content -->
-</div>`}</code></pre>
-		
-		<h3>Card</h3>
-		<pre><code>{`<div class="card">
-  <h3>Card Title</h3>
-  <p>Card content</p>
-</div>`}</code></pre>
 	</section>
 </DocsLayout>
+
+<style>
+	.component-card-link {
+		text-decoration: none;
+		color: inherit;
+		display: block;
+		transition: transform 0.2s;
+	}
+	
+	.component-card-link:hover {
+		transform: translateY(-2px);
+	}
+	
+	.component-card-link:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 4px;
+		border-radius: 0.5rem;
+	}
+	
+	.component-card-link .card__body h3 {
+		color: var(--text);
+		transition: color 0.2s;
+	}
+	
+	.component-card-link:hover .card__body h3 {
+		color: var(--accent);
+	}
+	
+	@media (prefers-reduced-motion: reduce) {
+		.component-card-link {
+			transition: none;
+		}
+		
+		.component-card-link:hover {
+			transform: none;
+		}
+	}
+	
+	@media (width <= 640px) {
+		div[style*="grid-template-columns"] {
+			grid-template-columns: 1fr !important;
+		}
+	}
+</style>

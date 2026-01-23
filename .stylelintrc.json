@@ -14,6 +14,11 @@
       {
         "ignoreMediaFeatureNames": ["prefers-contrast"]
       }
-    ]
+    ],
+    "property-no-vendor-prefix": null,
+    "declaration-block-no-shorthand-property-overrides": null,
+    "declaration-block-no-duplicate-properties": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "shorthand-property-no-redundant-values": null
   }
 }

@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Winter is Coming Dark Black Theme" description="A dark black theme with bright, vibrant foreground colors by John Papa">
+	<section>
+		<h2>Winter is Coming Dark Black</h2>
+		<p>A dark black theme with bright, vibrant foreground colors, perfect for those who want maximum contrast.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> John Papa</p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> A dark black theme with bright, vibrant foreground colors</p>
+				<p><strong>Theme ID:</strong> <code>winter-is-coming-dark-black</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/johnpapa/vscode-winteriscoming" target="_blank" rel="noopener">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Winter is Coming features an almost pure black background with vibrant, high-contrast foreground colors.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Very dark black (almost pure black)</li>
+			<li><strong>Text:</strong> Bright, vibrant colors</li>
+			<li><strong>Accent:</strong> High contrast accent colors</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<pre><code>{`<html lang="en" data-theme="winter-is-coming-dark-black">`}</code></pre>
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Maximum contrast preferences</li>
+			<li>OLED displays (saves battery)</li>
+			<li>Users who prefer pure black backgrounds</li>
+		</ul>
+	</section>
+</DocsLayout>

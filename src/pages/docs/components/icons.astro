@@ -1,0 +1,76 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Gear from '../../../components/icons/Gear.astro';
+import Close from '../../../components/icons/Close.astro';
+import ChevronDown from '../../../components/icons/ChevronDown.astro';
+import Copy from '../../../components/icons/Copy.astro';
+import Check from '../../../components/icons/Check.astro';
+import Moon from '../../../components/icons/Moon.astro';
+import Palette from '../../../components/icons/Palette.astro';
+import Owl from '../../../components/icons/Owl.astro';
+import Snowflake from '../../../components/icons/Snowflake.astro';
+import IceCream from '../../../components/icons/IceCream.astro';
+import Circle from '../../../components/icons/Circle.astro';
+import Rainbow from '../../../components/icons/Rainbow.astro';
+import Eye from '../../../components/icons/Eye.astro';
+---
+
+<DocsLayout title="Icon Components" description="Reusable SVG icon components using Tabler Icons">
+	<section>
+		<h2>Icon Components</h2>
+		<p>Reusable SVG icon components using Tabler Icons (MIT licensed).</p>
+		
+		<h3>Available Icons</h3>
+		<ul>
+			<li><strong>Gear</strong> - Settings/configuration icon</li>
+			<li><strong>Close</strong> - Close/dismiss icon</li>
+			<li><strong>ChevronDown</strong> - Dropdown indicator</li>
+			<li><strong>Copy</strong> - Copy to clipboard icon</li>
+			<li><strong>Check</strong> - Checkmark/success icon</li>
+			<li><strong>Moon</strong> - Dracula At Night theme icon</li>
+			<li><strong>Palette</strong> - Shades of Purple theme icon</li>
+			<li><strong>Owl</strong> - Night Owl theme icon</li>
+			<li><strong>Snowflake</strong> - Winter is Coming theme icon</li>
+			<li><strong>IceCream</strong> - Nord Light theme icon</li>
+			<li><strong>Circle</strong> - Grey Light Pro theme icon</li>
+			<li><strong>Rainbow</strong> - Snazzy Light theme icon</li>
+			<li><strong>Eye</strong> - Tiny Light theme icon</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+				<div><Gear width={24} height={24} /> Gear</div>
+				<div><Close width={24} height={24} /> Close</div>
+				<div><ChevronDown width={24} height={24} /> ChevronDown</div>
+				<div><Copy width={24} height={24} /> Copy</div>
+				<div><Check width={24} height={24} /> Check</div>
+				<div><Moon width={24} height={24} /> Moon</div>
+				<div><Palette width={24} height={24} /> Palette</div>
+				<div><Owl width={24} height={24} /> Owl</div>
+				<div><Snowflake width={24} height={24} /> Snowflake</div>
+				<div><IceCream width={24} height={24} /> IceCream</div>
+				<div><Circle width={24} height={24} /> Circle</div>
+				<div><Rainbow width={24} height={24} /> Rainbow</div>
+				<div><Eye width={24} height={24} /> Eye</div>
+			</div>
+		</div>
+		
+		<h3>Usage</h3>
+		<pre><code>{`---
+import Gear from '../components/icons/Gear.astro';
+import Moon from '../components/icons/Moon.astro';
+---
+
+<Gear width={20} height={20} />
+<Moon width={16} height={16} class="my-icon" />`}</code></pre>
+		
+		<h3>Icon Props</h3>
+		<ul>
+			<li><code>width</code> - Icon width (default: 16)</li>
+			<li><code>height</code> - Icon height (default: 16)</li>
+			<li><code>class</code> - Optional CSS class for styling</li>
+		</ul>
+		<p>All icons use <code>currentColor</code> for theming and adapt to the current theme.</p>
+	</section>
+</DocsLayout>

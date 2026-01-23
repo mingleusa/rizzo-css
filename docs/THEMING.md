@@ -1,8 +1,18 @@
 # Theming System
 
-Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories.
+Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated documentation page with detailed information, color palettes, and usage examples.
 
 ## Available Themes
+
+Visit individual theme pages for detailed information:
+- [Dracula At Night](/docs/themes/dracula-at-night)
+- [Shades of Purple](/docs/themes/shades-of-purple)
+- [Night Owl](/docs/themes/night-owl)
+- [Winter is Coming](/docs/themes/winter-is-coming-dark-black)
+- [Nord Light](/docs/themes/nord-light)
+- [Grey Light Pro](/docs/themes/grey-light-pro)
+- [Snazzy Light](/docs/themes/snazzy-light)
+- [Tiny Light](/docs/themes/tiny-light)
 
 ### Dark Themes
 

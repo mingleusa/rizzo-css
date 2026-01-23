@@ -116,6 +116,75 @@ All spacing uses rem units for consistency and accessibility:
 <div class="px-6 py-4">Horizontal and vertical padding</div>
 ```
 
+### Container Utilities
+
+Container utilities provide responsive containers with automatic centering and padding:
+
+**Container Sizes:**
+- `.container-sm` - 640px max-width
+- `.container-md` - 768px max-width
+- `.container-lg` - 1024px max-width
+- `.container-xl` - 1280px max-width
+- `.container-2xl` - 1536px max-width
+- `.container-full` - 100% width (with padding)
+
+**Default Container:**
+- `.container` - 1200px max-width (defined in `layout.css`)
+
+All containers include auto left/right margins (centering) and 1rem horizontal padding.
+
+**Examples:**
+```html
+<!-- Small container -->
+<div class="container-sm">
+  Content constrained to 640px
+</div>
+
+<!-- Large container -->
+<div class="container-lg">
+  Content constrained to 1024px
+</div>
+```
+
+### Max-Width Utilities
+
+Max-width utilities constrain element width without centering or padding:
+
+**Size-Based Max-Width:**
+- `.max-w-none` - No max-width
+- `.max-w-xs` - 20rem (320px)
+- `.max-w-sm` - 24rem (384px)
+- `.max-w-md` - 28rem (448px)
+- `.max-w-lg` - 32rem (512px)
+- `.max-w-xl` - 36rem (576px)
+- `.max-w-2xl` - 42rem (672px)
+- `.max-w-3xl` - 48rem (768px)
+- `.max-w-4xl` - 56rem (896px)
+- `.max-w-5xl` - 64rem (1024px)
+- `.max-w-6xl` - 72rem (1152px)
+- `.max-w-7xl` - 80rem (1280px)
+- `.max-w-full` - 100%
+
+**Screen-Based Max-Width:**
+- `.max-w-screen-sm` - 640px
+- `.max-w-screen-md` - 768px
+- `.max-w-screen-lg` - 1024px
+- `.max-w-screen-xl` - 1280px
+- `.max-w-screen-2xl` - 1536px
+
+**Examples:**
+```html
+<!-- Constrain text width for readability -->
+<p class="max-w-2xl">
+  This paragraph is constrained to 672px for optimal readability.
+</p>
+
+<!-- Constrain to screen breakpoint -->
+<div class="max-w-screen-lg">
+  Content constrained to 1024px
+</div>
+```
+
 ### Media Queries
 
 Rizzo CSS includes a dedicated `media-queries.css` file with responsive breakpoints:
@@ -160,6 +229,17 @@ OKLCH provides:
 - Perceptually uniform color space
 - Better color manipulation
 - Consistent appearance across displays
+
+### Color Reference
+
+Rizzo CSS includes an interactive [Colors Documentation Page](/docs/colors) that displays all semantic color variables in multiple formats:
+- **OKLCH** - Original format (perceptually uniform)
+- **Hex** - Standard hexadecimal format (e.g., `#FF5733`)
+- **RGB** - Red, Green, Blue format (e.g., `rgb(255, 87, 51)`)
+- **HSL** - Hue, Saturation, Lightness format (e.g., `hsl(9, 100%, 60%)`)
+- **CSS Variable** - CSS custom property reference (e.g., `var(--accent)`)
+
+All color formats are automatically converted and can be copied to clipboard. See [Colors Documentation](./COLORS.md) for complete details.
 
 ## Using Variables
 

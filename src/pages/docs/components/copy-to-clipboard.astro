@@ -1,0 +1,44 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CopyToClipboard from '../../../components/CopyToClipboard.astro';
+---
+
+<DocsLayout title="CopyToClipboard Component" description="Reusable component for copying text values to the clipboard with visual feedback">
+	<section>
+		<h2>CopyToClipboard Component</h2>
+		<p>A reusable component for copying text values to the clipboard with visual feedback.</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Click the button below to copy text:</p>
+			<CopyToClipboard id="copy-example-email" value="example@email.com" format="Email" />
+		</div>
+		
+		<h3>Usage</h3>
+		<pre><code>{`---
+import CopyToClipboard from '../components/CopyToClipboard.astro';
+---
+
+<CopyToClipboard id="copy-example-email" value="example@email.com" format="Email" />
+<CopyToClipboard id="copy-css-var" value="var(--accent)" format="CSS Variable" />
+<CopyToClipboard id="copy-hex-color" value="#FF5733" format="Hex" />`}</code></pre>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>value</code> (string, required) - The text value to copy</li>
+			<li><code>id</code> (string, optional) - Unique ID for the button. If not provided, a random ID will be generated</li>
+			<li><code>label</code> (string, optional) - ARIA label for the button</li>
+			<li><code>format</code> (string, optional) - Format name shown in feedback message</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Visual feedback with icon change (copy → checkmark)</li>
+			<li>Accessible with ARIA labels and keyboard support</li>
+			<li>Fallback for older browsers (document.execCommand)</li>
+			<li>Theme-aware styling</li>
+			<li>Auto-reset after 2 seconds</li>
+		</ul>
+	</section>
+</DocsLayout>

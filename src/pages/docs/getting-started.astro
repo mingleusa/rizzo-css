@@ -23,7 +23,21 @@ pnpm install`}</code></pre>
 │   │   ├── Navbar.astro
 │   │   ├── Settings.astro
 │   │   ├── ThemeSwitcher.astro
+│   │   ├── Modal.astro
+│   │   ├── Card.astro
+│   │   ├── CopyToClipboard.astro
+│   │   ├── FormGroup.astro
+│   │   ├── Input.astro
+│   │   ├── Textarea.astro
+│   │   ├── Select.astro
+│   │   ├── Checkbox.astro
+│   │   ├── Radio.astro
+│   │   ├── CopyToClipboard.astro
 │   │   └── icons/      # Icon components
+│   │       ├── Copy.astro
+│   │       ├── Check.astro
+│   │       ├── Copy.astro
+│   │       ├── Check.astro
 │   ├── layouts/         # Page layouts
 │   │   └── Layout.astro
 │   ├── pages/           # Route pages
@@ -32,8 +46,10 @@ pnpm install`}</code></pre>
 │       ├── base.css
 │       ├── buttons.css
 │       ├── components.css
+│       ├── forms.css
 │       ├── layout.css
 │       ├── main.css
+│       ├── pages.css
 │       ├── reset.css
 │       ├── typography.css
 │       ├── utilities.css
@@ -78,66 +94,22 @@ pnpm install`}</code></pre>
 	
 	<section>
 		<h2>Using Components</h2>
+		<p>Rizzo CSS includes a comprehensive set of accessible components. Each component has its own dedicated documentation page with live examples, usage instructions, and API details.</p>
 		
-		<h3>Navbar</h3>
-		<p>The navbar component includes a settings button:</p>
-		<pre><code>{`---
-import Navbar from '../components/Navbar.astro';
----
-
-<Navbar siteName="My Site" />`}</code></pre>
-		<p><strong>Props:</strong></p>
+		<h3>Component Documentation</h3>
 		<ul>
-			<li><code>siteName</code> (string, optional) - Site name displayed in navbar (default: "Rizzo CSS")</li>
-			<li><code>logo</code> (string, optional) - Path to logo image</li>
-		</ul>
-		<p>The navbar includes a settings button that opens the Settings panel.</p>
-		
-		<h3>Settings</h3>
-		<p>The Settings component provides a comprehensive settings panel:</p>
-		<pre><code>{`---
-import Settings from '../components/Settings.astro';
----
-
-<Settings open={false} />`}</code></pre>
-		<p><strong>Features:</strong></p>
-		<ul>
-			<li>Theme switcher (integrated ThemeSwitcher component)</li>
-			<li>Font size slider (75% - 150% with filled track)</li>
-			<li>Reduce motion toggle</li>
-			<li>High contrast toggle</li>
-			<li>All settings persist in localStorage</li>
-			<li>Accessible with keyboard navigation and ARIA attributes</li>
-		</ul>
-		<p><strong>Opening Settings:</strong> The Settings panel is opened via <code>window.openSettings()</code> function, which is exposed globally. The Navbar component includes a settings button that calls this function.</p>
-		
-		<h3>Theme Switcher</h3>
-		<p>The ThemeSwitcher is integrated into the Settings panel, but can also be used standalone:</p>
-		<pre><code>{`---
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
----
-
-<ThemeSwitcher />`}</code></pre>
-		<p>The theme switcher automatically:</p>
-		<ul>
-			<li>Groups themes by Dark/Light</li>
-			<li>Shows active theme name and icon in trigger button</li>
-			<li>Each theme has its own icon</li>
-			<li>Persists selection in localStorage</li>
-			<li>Supports full keyboard navigation</li>
+			<li><a href="/docs/components/navbar">Navbar</a> - Responsive, accessible navigation bar</li>
+			<li><a href="/docs/components/settings">Settings</a> - Comprehensive settings panel</li>
+			<li><a href="/docs/components/theme-switcher">Theme Switcher</a> - Accessible theme switcher</li>
+			<li><a href="/docs/components/button">Button</a> - Semantic button component</li>
+			<li><a href="/docs/components/icons">Icons</a> - Reusable SVG icon components</li>
+			<li><a href="/docs/components/copy-to-clipboard">CopyToClipboard</a> - Copy to clipboard component</li>
+			<li><a href="/docs/components/forms">Forms</a> - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)</li>
+			<li><a href="/docs/components/cards">Cards</a> - Flexible card component</li>
+			<li><a href="/docs/components/modal">Modal</a> - Accessible modal/dialog component</li>
 		</ul>
 		
-		<h3>Button</h3>
-		<p>Use the button component:</p>
-		<pre><code>{`---
-import Button from '../components/Button.astro';
----
-
-<Button>Click me</Button>`}</code></pre>
-		<p>Or use button classes:</p>
-		<pre><code>{`<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-outline">Outline</button>`}</code></pre>
+		<p>See the <a href="/docs/components">Components Documentation</a> for an overview and links to all component pages.</p>
 	</section>
 	
 	<section>
@@ -160,9 +132,11 @@ import Button from '../components/Button.astro';
 			<li><code>accessibility.css</code> - Accessibility utilities</li>
 			<li><code>buttons.css</code> - Button component styles</li>
 			<li><code>layout.css</code> - Layout utilities</li>
-			<li><code>utilities.css</code> - Utility classes (colors, spacing, borders)</li>
+			<li><code>utilities.css</code> - Utility classes (colors, spacing, borders, containers, max-width)</li>
+			<li><code>forms.css</code> - Form component styles</li>
+			<li><code>pages.css</code> - Page-specific styles</li>
 			<li><code>media-queries.css</code> - Responsive breakpoints and media query definitions</li>
-			<li><code>components.css</code> - Component styles (Navbar, Settings, ThemeSwitcher)</li>
+			<li><code>components.css</code> - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard)</li>
 			<li><code>themes/</code> - Theme definitions (dark/light)</li>
 		</ul>
 		

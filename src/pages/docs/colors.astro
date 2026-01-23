@@ -1,0 +1,771 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import CopyToClipboard from '../../components/CopyToClipboard.astro';
+import Card from '../../components/Card.astro';
+---
+
+<DocsLayout title="Colors" description="Complete color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)">
+	<section>
+		<h2>Color Reference</h2>
+		<p>All colors in Rizzo CSS use semantic variables that adapt to the selected theme. Switch themes to see how colors change. Select a format tab to view and copy colors in that format.</p>
+		<p>All color formats (OKLCH, Hex, RGB, HSL, and CSS Variable) are automatically converted and displayed. Click any copy button to copy the color value in the selected format to your clipboard.</p>
+		
+		<div class="example">
+			<div class="example-title">Try Themes</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<div class="color-format-tabs" role="tablist" aria-label="Color format selection">
+			<button class="color-format-tab" role="tab" aria-selected="true" aria-controls="oklch-panel" id="oklch-tab" data-format="oklch">OKLCH</button>
+			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="hex-panel" id="hex-tab" data-format="hex">Hex</button>
+			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="rgb-panel" id="rgb-tab" data-format="rgb">RGB</button>
+			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="hsl-panel" id="hsl-tab" data-format="hsl">HSL</button>
+			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="cssvar-panel" id="cssvar-tab" data-format="cssvar">CSS Variable</button>
+		</div>
+		
+		<h2>Core Colors</h2>
+		<div class="colors-grid">
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background);" data-color-var="--background" data-color-source="--bg">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Background</h3>
+						<p class="color-swatch__var">--background</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background-alt);" data-color-var="--background-alt" data-color-source="--bg-alt">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Background Alt</h3>
+						<p class="color-swatch__var">--background-alt</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-background-alt" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--text); color: var(--background);" data-color-var="--text" data-color-source="--fg">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Text</h3>
+						<p class="color-swatch__var">--text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--text-dim); color: var(--background);" data-color-var="--text-dim" data-color-source="--fg-dim">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Text Dim</h3>
+						<p class="color-swatch__var">--text-dim</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-text-dim" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--border);" data-color-var="--border" data-color-source="--current-line">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Border</h3>
+						<p class="color-swatch__var">--border</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-border" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Accent Colors</h2>
+		<div class="colors-grid">
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--accent); color: var(--accent-text);" data-color-var="--accent" data-color-source="--purple,--cyan,--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Accent</h3>
+						<p class="color-swatch__var">--accent</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--accent-hover); color: var(--accent-text);" data-color-var="--accent-hover" data-color-source="--pink,--purple,--cyan">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Accent Hover</h3>
+						<p class="color-swatch__var">--accent-hover</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-accent-hover" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Semantic Colors</h2>
+		<div class="colors-grid">
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--success); color: var(--success-text);" data-color-var="--success" data-color-source="--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Success</h3>
+						<p class="color-swatch__var">--success</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-success" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--warning); color: var(--warning-text);" data-color-var="--warning" data-color-source="--yellow">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Warning</h3>
+						<p class="color-swatch__var">--warning</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-warning" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--error); color: var(--error-text);" data-color-var="--error" data-color-source="--red">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Error</h3>
+						<p class="color-swatch__var">--error</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--info); color: var(--info-text);" data-color-var="--info" data-color-source="--cyan">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Info</h3>
+						<p class="color-swatch__var">--info</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard id="copy-color-info" value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+			</Card>
+		</div>
+	</section>
+</DocsLayout>
+
+<style>
+	.color-format-tabs {
+		display: flex;
+		gap: 0.5rem;
+		margin: 2rem 0 1rem 0;
+		border-bottom: 2px solid var(--border);
+		padding-bottom: 0.5rem;
+		overflow-x: auto;
+	}
+	
+	.color-format-tab {
+		padding: 0.5rem 1rem;
+		background: none;
+		border: none;
+		border-bottom: 2px solid transparent;
+		color: var(--text-dim);
+		font-weight: var(--font-weight-medium);
+		cursor: pointer;
+		transition: color 0.2s, border-color 0.2s;
+		margin-bottom: -0.5rem;
+		white-space: nowrap;
+	}
+	
+	.color-format-tab:hover {
+		color: var(--text);
+	}
+	
+	.color-format-tab[aria-selected="true"] {
+		color: var(--accent);
+		border-bottom-color: var(--accent);
+	}
+	
+	.color-format-tab:focus-visible {
+		outline: 2px solid var(--accent);
+		outline-offset: 2px;
+		border-radius: 0.25rem;
+	}
+	
+	.colors-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1.5rem;
+		margin: 2rem 0;
+	}
+	
+	.color-swatch {
+		min-height: 200px;
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		position: relative;
+		overflow: hidden;
+	}
+	
+	.color-swatch__info {
+		background-color: oklch(from var(--background-alt) l c h / 95%);
+		backdrop-filter: blur(8px);
+		padding: 1rem;
+		border-radius: 0.375rem;
+		margin-top: auto;
+	}
+	
+	.color-swatch__name {
+		margin: 0 0 0.25rem 0;
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+	}
+	
+	.color-swatch__var {
+		margin: 0 0 0.75rem 0;
+		font-size: var(--font-size-sm);
+		font-family: var(--font-family-mono);
+		color: var(--text-dim);
+	}
+	
+	.color-swatch__formats {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+	}
+	
+	.color-format__copy {
+		width: 100%;
+	}
+	
+	@media (width <= 640px) {
+		.colors-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
+
+<script>
+	// @ts-nocheck
+	(function initColorFormats() {
+		// Wait for DOM to be ready
+		const init = () => {
+			// Theme OKLCH mappings - maps semantic vars to their source vars and OKLCH values per theme
+			const themeOklchMap = {
+			'dracula-at-night': {
+				'--background': 'oklch(15% 0.015 270.5deg)',
+				'--background-alt': 'oklch(12% 0.012 270.5deg)',
+				'--text': 'oklch(95% 0.003 100.2deg)',
+				'--text-dim': 'oklch(85% 0.003 100.2deg)',
+				'--border': 'oklch(25% 0.022 270.5deg)',
+				'--accent': 'oklch(65% 0.180 290.1deg)',
+				'--accent-hover': 'oklch(70% 0.195 340.1deg)',
+				'--success': 'oklch(70% 0.195 150.1deg)',
+				'--warning': 'oklch(85% 0.150 100.1deg)',
+				'--error': 'oklch(60% 0.215 25.1deg)',
+				'--info': 'oklch(80% 0.115 220.1deg)',
+			},
+			'shades-of-purple': {
+				'--background': 'oklch(18% 0.08 290deg)',
+				'--background-alt': 'oklch(15% 0.08 290deg)',
+				'--text': 'oklch(95% 0.01 300deg)',
+				'--text-dim': 'oklch(75% 0.05 300deg)',
+				'--border': 'oklch(25% 0.10 290deg)',
+				'--accent': 'oklch(65% 0.25 290deg)',
+				'--accent-hover': 'oklch(75% 0.22 340deg)',
+				'--success': 'oklch(70% 0.20 150deg)',
+				'--warning': 'oklch(85% 0.18 100deg)',
+				'--error': 'oklch(65% 0.22 25deg)',
+				'--info': 'oklch(75% 0.15 220deg)',
+			},
+			'night-owl': {
+				'--background': 'oklch(12% 0.02 240deg)',
+				'--background-alt': 'oklch(10% 0.02 240deg)',
+				'--text': 'oklch(90% 0.01 240deg)',
+				'--text-dim': 'oklch(70% 0.02 240deg)',
+				'--border': 'oklch(20% 0.03 240deg)',
+				'--accent': 'oklch(75% 0.15 210deg)',
+				'--accent-hover': 'oklch(65% 0.20 280deg)',
+				'--success': 'oklch(70% 0.20 150deg)',
+				'--warning': 'oklch(85% 0.18 90deg)',
+				'--error': 'oklch(65% 0.22 20deg)',
+				'--info': 'oklch(75% 0.15 210deg)',
+			},
+			'winter-is-coming-dark-black': {
+				'--background': 'oklch(8% 0 0deg)',
+				'--background-alt': 'oklch(6% 0 0deg)',
+				'--text': 'oklch(92% 0.01 0deg)',
+				'--text-dim': 'oklch(70% 0.01 0deg)',
+				'--border': 'oklch(15% 0.01 0deg)',
+				'--accent': 'oklch(80% 0.18 210deg)',
+				'--accent-hover': 'oklch(70% 0.22 280deg)',
+				'--success': 'oklch(75% 0.22 150deg)',
+				'--warning': 'oklch(88% 0.20 90deg)',
+				'--error': 'oklch(68% 0.24 20deg)',
+				'--info': 'oklch(80% 0.18 210deg)',
+			},
+			'nord-light': {
+				'--background': 'oklch(92% 0.01 240deg)',
+				'--background-alt': 'oklch(95% 0.01 240deg)',
+				'--text': 'oklch(30% 0.02 240deg)',
+				'--text-dim': 'oklch(40% 0.02 240deg)',
+				'--border': 'oklch(88% 0.02 240deg)',
+				'--accent': 'oklch(70% 0.10 200deg)',
+				'--accent-hover': 'oklch(65% 0.12 280deg)',
+				'--success': 'oklch(65% 0.15 150deg)',
+				'--warning': 'oklch(80% 0.15 90deg)',
+				'--error': 'oklch(60% 0.15 20deg)',
+				'--info': 'oklch(70% 0.10 200deg)',
+			},
+			'grey-light-pro': {
+				'--background': 'oklch(95% 0 0deg)',
+				'--background-alt': 'oklch(92% 0 0deg)',
+				'--text': 'oklch(25% 0 0deg)',
+				'--text-dim': 'oklch(45% 0 0deg)',
+				'--border': 'oklch(90% 0 0deg)',
+				'--accent': 'oklch(65% 0.08 210deg)',
+				'--accent-hover': 'oklch(60% 0.10 280deg)',
+				'--success': 'oklch(60% 0.12 150deg)',
+				'--warning': 'oklch(75% 0.12 90deg)',
+				'--error': 'oklch(58% 0.12 20deg)',
+				'--info': 'oklch(65% 0.08 210deg)',
+			},
+			'snazzy-light': {
+				'--background': 'oklch(98% 0.01 0deg)',
+				'--background-alt': 'oklch(95% 0.01 0deg)',
+				'--text': 'oklch(20% 0.02 0deg)',
+				'--text-dim': 'oklch(40% 0.02 0deg)',
+				'--border': 'oklch(92% 0.02 0deg)',
+				'--accent': 'oklch(70% 0.20 210deg)',
+				'--accent-hover': 'oklch(65% 0.25 280deg)',
+				'--success': 'oklch(65% 0.25 150deg)',
+				'--warning': 'oklch(85% 0.25 90deg)',
+				'--error': 'oklch(65% 0.28 20deg)',
+				'--info': 'oklch(70% 0.20 210deg)',
+			},
+			'tiny-light': {
+				'--background': 'oklch(97% 0.005 0deg)',
+				'--background-alt': 'oklch(94% 0.005 0deg)',
+				'--text': 'oklch(30% 0.01 0deg)',
+				'--text-dim': 'oklch(50% 0.01 0deg)',
+				'--border': 'oklch(91% 0.01 0deg)',
+				'--accent': 'oklch(58% 0.12 150deg)',
+				'--accent-hover': 'oklch(62% 0.10 200deg)',
+				'--success': 'oklch(58% 0.12 150deg)',
+				'--warning': 'oklch(72% 0.12 90deg)',
+				'--error': 'oklch(56% 0.12 20deg)',
+				'--info': 'oklch(62% 0.10 200deg)',
+			},
+		};
+		
+			let currentFormat = 'oklch';
+			
+			const getCurrentTheme = () => {
+				return document.documentElement.getAttribute('data-theme') || 'dracula-at-night';
+			};
+			
+			/**
+			 * @param {string} colorVar
+			 * @returns {string}
+			 */
+			const getOklchValue = (/** @type {string} */ colorVar) => {
+				const theme = getCurrentTheme();
+				if (!theme || !themeOklchMap.hasOwnProperty(theme)) return '';
+				// @ts-ignore - Dynamic theme access
+				const themeMap = themeOklchMap[theme];
+				if (!themeMap || !themeMap.hasOwnProperty(colorVar)) return '';
+				return themeMap[colorVar] || '';
+			};
+			
+			/**
+			 * Convert OKLCH to RGB
+			 * @param {string} oklch - OKLCH color string (e.g., "oklch(65% 0.180 290.1deg)")
+			 * @returns {{r: number, g: number, b: number} | null}
+			 */
+			const oklchToRgb = (/** @type {string} */ oklch) => {
+				try {
+					const match = oklch.match(/oklch\(([\d.]+)%\s+([\d.]+)\s+([\d.]+)deg\)/);
+					if (!match) return null;
+					
+					const L = parseFloat(match[1]) / 100; // Lightness 0-1
+					const C = parseFloat(match[2]); // Chroma
+					const H = (parseFloat(match[3]) * Math.PI) / 180; // Hue in radians
+					
+					// Convert OKLCH to linear RGB
+					const a = C * Math.cos(H);
+					const b = C * Math.sin(H);
+					
+					// Convert OKLCH to linear sRGB
+					let l_ = L + 0.3963377774 * a + 0.2158037573 * b;
+					let m_ = L - 0.1055613458 * a - 0.0638541728 * b;
+					let s_ = L - 0.0894841775 * a - 1.2914855480 * b;
+					
+					l_ = l_ * l_ * l_;
+					m_ = m_ * m_ * m_;
+					s_ = s_ * s_ * s_;
+					
+					let r = +4.0767416621 * l_ - 3.3077115913 * m_ + 0.2309699292 * s_;
+					let g = -1.2684380046 * l_ + 2.6097574011 * m_ - 0.3413193965 * s_;
+					let bl = -0.0041960863 * l_ - 0.7034186147 * m_ + 1.7076147010 * s_;
+					
+					// Apply gamma correction
+					r = r > 0.0031308 ? 1.055 * Math.pow(r, 1.0 / 2.4) - 0.055 : 12.92 * r;
+					g = g > 0.0031308 ? 1.055 * Math.pow(g, 1.0 / 2.4) - 0.055 : 12.92 * g;
+					bl = bl > 0.0031308 ? 1.055 * Math.pow(bl, 1.0 / 2.4) - 0.055 : 12.92 * bl;
+					
+					// Clamp to 0-255
+					r = Math.round(Math.max(0, Math.min(255, r * 255)));
+					g = Math.round(Math.max(0, Math.min(255, g * 255)));
+					bl = Math.round(Math.max(0, Math.min(255, bl * 255)));
+					
+					return { r, g, b: bl };
+				} catch (error) {
+					return null;
+				}
+			};
+			
+			/**
+			 * Convert RGB to Hex, RGB string, and HSL
+			 * @param {number} r - Red (0-255)
+			 * @param {number} g - Green (0-255)
+			 * @param {number} b - Blue (0-255)
+			 * @returns {{hex: string, rgb: string, hsl: string}}
+			 */
+			const rgbToFormats = (/** @type {number} */ r, /** @type {number} */ g, /** @type {number} */ b) => {
+				// Convert to hex
+				const hex = '#' + [r, g, b].map(x => {
+					const hex = x.toString(16);
+					return hex.length === 1 ? '0' + hex : hex;
+				}).join('').toUpperCase();
+				
+				// Convert to HSL
+				const rNorm = r / 255;
+				const gNorm = g / 255;
+				const bNorm = b / 255;
+				const max = Math.max(rNorm, gNorm, bNorm);
+				const min = Math.min(rNorm, gNorm, bNorm);
+				const delta = max - min;
+				
+				let h = 0;
+				let s = 0;
+				const l = (max + min) / 2;
+				
+				if (delta !== 0) {
+					s = l > 0.5 ? delta / (2 - max - min) : delta / (max + min);
+					if (max === rNorm) {
+						h = ((gNorm - bNorm) / delta + (gNorm < bNorm ? 6 : 0)) / 6;
+					} else if (max === gNorm) {
+						h = ((bNorm - rNorm) / delta + 2) / 6;
+					} else {
+						h = ((rNorm - gNorm) / delta + 4) / 6;
+					}
+				}
+				
+				const hsl = `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
+				const rgbString = `rgb(${r}, ${g}, ${b})`;
+				
+				return { hex, rgb: rgbString, hsl };
+			};
+			
+			/**
+			 * @param {string} colorVar
+			 * @returns {{hex: string, rgb: string, hsl: string} | null}
+			 */
+			const getComputedColor = (/** @type {string} */ colorVar) => {
+				try {
+					// First, try to get OKLCH value from theme map
+					const oklch = getOklchValue(colorVar);
+					
+					// If we have OKLCH, convert it directly
+					if (oklch) {
+						const rgb = oklchToRgb(oklch);
+						if (rgb) {
+							return rgbToFormats(rgb.r, rgb.g, rgb.b);
+						}
+					}
+					
+					// Fallback: Try to get computed RGB from browser
+					const tempEl = document.createElement('div');
+					tempEl.style.position = 'absolute';
+					tempEl.style.visibility = 'hidden';
+					tempEl.style.width = '1px';
+					tempEl.style.height = '1px';
+					tempEl.style.backgroundColor = `var(${colorVar})`;
+					document.body.appendChild(tempEl);
+					
+					// Force a reflow to ensure styles are computed
+					void tempEl.offsetHeight;
+					
+					const computedColor = window.getComputedStyle(tempEl).backgroundColor;
+					document.body.removeChild(tempEl);
+					
+					// Handle both rgb() and rgba() formats
+					const rgbMatch = computedColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
+					if (rgbMatch) {
+						const r = parseInt(rgbMatch[1], 10);
+						const g = parseInt(rgbMatch[2], 10);
+						const b = parseInt(rgbMatch[3], 10);
+						
+						// Validate RGB values
+						if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+							return rgbToFormats(r, g, b);
+						}
+					}
+					
+					// If all else fails, return null
+					return null;
+				} catch (error) {
+					// If anything fails, return null
+					return null;
+				}
+			};
+			
+			const updateColorValues = () => {
+				const swatches = document.querySelectorAll('[data-color-var]');
+				
+				if (swatches.length === 0) {
+					return;
+				}
+				
+				swatches.forEach((swatch) => {
+					try {
+						const colorVar = swatch.getAttribute('data-color-var');
+						if (!colorVar) return;
+						
+						// Get computed color (for hex, rgb, hsl)
+						const computed = getComputedColor(colorVar);
+						// Get OKLCH value from theme map
+						const oklch = getOklchValue(colorVar);
+						// CSS variable format
+						const cssVar = `var(${colorVar})`;
+						
+						let value = '';
+						let formatLabel = '';
+						
+						// Determine value based on current format
+						switch (currentFormat) {
+							case 'oklch':
+								value = oklch || cssVar;
+								formatLabel = 'OKLCH';
+								break;
+							case 'hex':
+								value = computed ? computed.hex : (oklch || cssVar);
+								formatLabel = 'Hex';
+								break;
+							case 'rgb':
+								value = computed ? computed.rgb : (oklch || cssVar);
+								formatLabel = 'RGB';
+								break;
+							case 'hsl':
+								value = computed ? computed.hsl : (oklch || cssVar);
+								formatLabel = 'HSL';
+								break;
+							case 'cssvar':
+								value = cssVar;
+								formatLabel = 'CSS Variable';
+								break;
+							default:
+								value = oklch || cssVar;
+								formatLabel = 'OKLCH';
+						}
+						
+						// Ensure we have a value - if not, skip this swatch
+						if (!value || value.trim() === '') {
+							return;
+						}
+						
+						// Try multiple methods to find the copy button
+						const colorVarName = colorVar.replace('--', '');
+						const expectedId = `copy-color-${colorVarName}`;
+						
+						// Method 1: Try by ID
+						let copyButton = document.getElementById(expectedId);
+						
+						// Method 2: Try within the swatch by data attribute
+						if (!copyButton) {
+							copyButton = swatch.querySelector('[data-color-copy]');
+						}
+						
+						// Method 3: Try within the swatch info div
+						if (!copyButton) {
+							const swatchInfo = swatch.querySelector('.color-swatch__info');
+							if (swatchInfo) {
+								copyButton = swatchInfo.querySelector('[data-color-copy]');
+							}
+						}
+						
+						// Method 4: Try by class within swatch
+						if (!copyButton) {
+							copyButton = swatch.querySelector('.copy-to-clipboard');
+						}
+						
+						if (!copyButton) {
+							return;
+						}
+						
+						// Update the data attributes (this triggers MutationObserver)
+						copyButton.setAttribute('data-copy-format', formatLabel);
+						copyButton.setAttribute('data-copy-value', value);
+						
+						// Directly update the text span to ensure it's visible immediately
+						const textSpan = copyButton.querySelector('.copy-to-clipboard__text');
+						if (textSpan) {
+							textSpan.textContent = value;
+						}
+						
+						// Force a re-render by triggering a custom event
+						copyButton.dispatchEvent(new CustomEvent('value-updated', { 
+							bubbles: false, 
+							detail: { value, format: formatLabel } 
+						}));
+					} catch (error) {
+						// Silently continue if there's an error with this swatch
+						console.warn('Error updating color value:', error);
+					}
+				});
+			};
+			
+			// Tab switching
+			const tabs = document.querySelectorAll('.color-format-tab');
+			
+			tabs.forEach((tab) => {
+				tab.addEventListener('click', () => {
+					const format = tab.getAttribute('data-format');
+					if (!format) return;
+					
+					currentFormat = format;
+					
+					// Update tab states
+					tabs.forEach((t) => {
+						t.setAttribute('aria-selected', 'false');
+					});
+					tab.setAttribute('aria-selected', 'true');
+					
+					// Update color values
+					updateColorValues();
+				});
+				
+				tab.addEventListener('keydown', (e) => {
+					if (e && 'key' in e) {
+						const keyEvent = e;
+						if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+							keyEvent.preventDefault();
+							const tabElement = tab;
+							if (tabElement && 'click' in tabElement && typeof tabElement.click === 'function') {
+								tabElement.click();
+							}
+						}
+					}
+				});
+			});
+			
+			// Wait for CopyToClipboard components to be initialized
+			const waitForComponents = (callback, maxAttempts = 30, attempt = 0) => {
+				const buttons = document.querySelectorAll('[data-color-copy]');
+				const swatches = document.querySelectorAll('[data-color-var]');
+				
+				// Ensure we have both swatches and buttons
+				if (swatches.length === 0 || buttons.length === 0) {
+					if (attempt < maxAttempts) {
+						setTimeout(() => waitForComponents(callback, maxAttempts, attempt + 1), 100);
+					} else {
+						// Even if not all found, try to run anyway
+						callback();
+					}
+					return;
+				}
+				
+				// Check if buttons are initialized (CopyToClipboard sets data-copy-initialized)
+				const initializedCount = Array.from(buttons).filter(btn => btn.hasAttribute('data-copy-initialized')).length;
+				
+				// Run if all are initialized, or if we've waited long enough
+				if (initializedCount === buttons.length || attempt >= maxAttempts) {
+					callback();
+					return;
+				}
+				
+				setTimeout(() => waitForComponents(callback, maxAttempts, attempt + 1), 100);
+			};
+			
+			// Initial update - ensure everything is ready
+			const runInitialUpdate = () => {
+				waitForComponents(() => {
+					// Multiple updates to ensure all values are set correctly
+					// First update
+					updateColorValues();
+					
+					// Second update after a short delay
+					setTimeout(() => {
+						updateColorValues();
+					}, 150);
+					
+					// Third update to catch any edge cases
+					setTimeout(() => {
+						updateColorValues();
+					}, 400);
+					
+					// Final update to ensure everything is set
+					setTimeout(() => {
+						updateColorValues();
+					}, 700);
+				});
+			};
+			
+			// Start initialization
+			if (document.readyState === 'loading') {
+				document.addEventListener('DOMContentLoaded', () => {
+					setTimeout(runInitialUpdate, 200);
+				});
+			} else {
+				setTimeout(runInitialUpdate, 200);
+			}
+			
+			// Update when theme changes
+			document.addEventListener('themechange', () => {
+				setTimeout(() => updateColorValues(), 100);
+			});
+			window.addEventListener('storage', () => {
+				setTimeout(() => updateColorValues(), 100);
+			});
+			
+			let lastTheme = getCurrentTheme();
+			setInterval(() => {
+				const currentTheme = getCurrentTheme();
+				if (currentTheme !== lastTheme) {
+					lastTheme = currentTheme;
+					setTimeout(() => updateColorValues(), 100);
+				}
+			}, 500);
+		};
+		
+		// Start initialization - wait for DOM
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', init);
+		} else {
+			// Small delay to ensure all components are loaded
+			setTimeout(init, 50);
+		}
+	})();
+</script>

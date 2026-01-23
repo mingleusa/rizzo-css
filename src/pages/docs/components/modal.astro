@@ -1,0 +1,91 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ModalComponent from '../../../components/Modal.astro';
+---
+
+<DocsLayout title="Modal Component" description="Accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay">
+	<section>
+		<h2>Modal Component</h2>
+		<p>An accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay.</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Click the button below to open a modal dialog:</p>
+			<button class="btn btn-primary" onclick="window.openModal_docs_modal && window.openModal_docs_modal()">Open Example Modal</button>
+		</div>
+		
+		<ModalComponent id="docs-modal" title="Example Modal" size="md" open={false}>
+			<p>This is an example modal dialog. It demonstrates:</p>
+			<ul>
+				<li>Focus trapping - Tab cycles within the modal</li>
+				<li>Keyboard navigation - Escape key closes the modal</li>
+				<li>Backdrop overlay with blur effect</li>
+				<li>Theme-aware styling</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_docs_modal && window.closeModal_docs_modal()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_docs_modal && window.closeModal_docs_modal()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<h3>Usage</h3>
+		<pre><code>{`---
+import ModalComponent from '../components/Modal.astro';
+import Button from '../components/Button.astro';
+---
+
+<ModalComponent id="example-modal" title="Example Modal" size="md">
+  <p>Modal content goes here.</p>
+  
+  <div slot="footer">
+    <Button>Cancel</Button>
+    <Button class="btn-primary">Confirm</Button>
+  </div>
+</ModalComponent>
+
+<Button onclick="window.openModal_example_modal()">Open Modal</Button>`}</code></pre>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code> (string, optional) - Unique ID for the modal (auto-generated if not provided)</li>
+			<li><code>title</code> (string, optional) - Modal title (default: "Modal")</li>
+			<li><code>size</code> ('sm' | 'md' | 'lg', optional) - Modal size (default: "md")</li>
+			<li><code>open</code> (boolean, optional) - Whether modal is open by default (default: false)</li>
+			<li><code>closeOnOverlayClick</code> (boolean, optional) - Close when clicking overlay (default: true)</li>
+			<li><code>closeOnEscape</code> (boolean, optional) - Close on Escape key (default: true)</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+		
+		<h3>Slots</h3>
+		<ul>
+			<li><strong>Default slot</strong> - Main modal content (goes in <code>modal__body</code>)</li>
+			<li><strong>footer</strong> - Footer content with action buttons</li>
+		</ul>
+		
+		<h3>Programmatic Control</h3>
+		<p>Each modal exposes global functions based on its ID (hyphens converted to underscores):</p>
+		<pre><code>{`// Open modal (ID: example-modal becomes example_modal)
+window.openModal_example_modal();
+
+// Close modal
+window.closeModal_example_modal();`}</code></pre>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Full keyboard accessibility (Tab, Shift+Tab, Escape)</li>
+			<li>Focus trapping - focus stays within modal when open</li>
+			<li>ARIA attributes for screen readers</li>
+			<li>Backdrop overlay with blur effect</li>
+			<li>Responsive design (mobile-friendly)</li>
+			<li>Theme-aware styling using semantic variables</li>
+			<li>Respects <code>prefers-reduced-motion</code></li>
+		</ul>
+		
+		<h3>Sizes</h3>
+		<ul>
+			<li><code>sm</code> - Small (24rem / 384px max-width)</li>
+			<li><code>md</code> - Medium (32rem / 512px max-width) - default</li>
+			<li><code>lg</code> - Large (48rem / 768px max-width)</li>
+		</ul>
+	</section>
+</DocsLayout>

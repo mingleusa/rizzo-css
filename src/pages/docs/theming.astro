@@ -1,32 +1,131 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import Card from '../../components/Card.astro';
+import Moon from '../../components/icons/Moon.astro';
+import Palette from '../../components/icons/Palette.astro';
+import Owl from '../../components/icons/Owl.astro';
+import Snowflake from '../../components/icons/Snowflake.astro';
+import IceCream from '../../components/icons/IceCream.astro';
+import Circle from '../../components/icons/Circle.astro';
+import Rainbow from '../../components/icons/Rainbow.astro';
+import Eye from '../../components/icons/Eye.astro';
 ---
 
-<DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide">
+<DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
 	<section>
 		<h2>Available Themes</h2>
-		<p>Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories.</p>
-		
-		<h3>Dark Themes</h3>
-		<ul>
-			<li><strong>Dracula At Night</strong> (<code>dracula-at-night</code>) - A darker fork of Dracula theme by bceskavich</li>
-			<li><strong>Shades of Purple</strong> (<code>shades-of-purple</code>) - Professional theme with bold purple shades by Ahmad Awais</li>
-			<li><strong>Night Owl</strong> (<code>night-owl</code>) - Optimized for nighttime coding by Sarah Drasner</li>
-			<li><strong>Winter is Coming Dark Black</strong> (<code>winter-is-coming-dark-black</code>) - Very dark black with vibrant accents by John Papa</li>
-		</ul>
-		
-		<h3>Light Themes</h3>
-		<ul>
-			<li><strong>Nord Light</strong> (<code>nord-light</code>) - Arctic, north-bluish color palette by arcticicestudio</li>
-			<li><strong>Grey Light Pro</strong> (<code>grey-light-pro</code>) - Soft grey theme, easier on the eyes by Emilio Lanzalaco</li>
-			<li><strong>Snazzy Light</strong> (<code>snazzy-light</code>) - Vivid colors for bright environments by Florian Reuschel</li>
-			<li><strong>Tiny Light</strong> (<code>tiny-light</code>) - Minimal, eye-friendly theme by luqimin</li>
-		</ul>
+		<p>Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
 		
 		<div class="example">
 			<div class="example-title">Try Themes</div>
 			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Dark Themes</h2>
+		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Moon width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/dracula-at-night">Dracula At Night</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">A darker fork of Dracula theme</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> bceskavich</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>dracula-at-night</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Palette width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/shades-of-purple">Shades of Purple</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Professional theme with bold purple shades</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Ahmad Awais</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>shades-of-purple</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Owl width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/night-owl">Night Owl</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Optimized for nighttime coding</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Sarah Drasner</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>night-owl</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Snowflake width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/winter-is-coming-dark-black">Winter is Coming</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Very dark black with vibrant accents</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> John Papa</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>winter-is-coming-dark-black</code></p>
+				</div>
+			</Card>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Light Themes</h2>
+		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<IceCream width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/nord-light">Nord Light</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Arctic, north-bluish color palette</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> arcticicestudio</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>nord-light</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Circle width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/grey-light-pro">Grey Light Pro</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Soft grey theme, easier on the eyes</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Emilio Lanzalaco</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>grey-light-pro</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/snazzy-light">Snazzy Light</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Vivid colors for bright environments</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Florian Reuschel</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>snazzy-light</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Eye width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/tiny-light">Tiny Light</a></h3>
+					</div>
+					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Minimal, eye-friendly theme</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> luqimin</p>
+					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>tiny-light</code></p>
+				</div>
+			</Card>
 		</div>
 	</section>
 	

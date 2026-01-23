@@ -91,6 +91,19 @@ const { open = false } = Astro.props;
           </label>
           <p class="settings__help-text">Increase contrast for better visibility</p>
         </div>
+
+        <div class="settings__control">
+          <label class="settings__checkbox-label">
+            <input
+              type="checkbox"
+              class="settings__checkbox"
+              data-hide-scrollbars
+              aria-label="Hide scrollbars"
+            />
+            <span>Hide scrollbars</span>
+          </label>
+          <p class="settings__help-text">Hide scrollbars while maintaining scroll functionality</p>
+        </div>
       </section>
     </div>
   </div>
@@ -101,19 +114,20 @@ const { open = false } = Astro.props;
     const settings = document.querySelector('[data-settings]');
     if (!settings) return;
 
-    const overlay = settings.querySelector('[data-settings-overlay]') as HTMLElement | null;
-    const panel = settings.querySelector('.settings__panel') as HTMLElement | null;
-    const closeBtn = settings.querySelector('[data-settings-close]') as HTMLButtonElement | null;
-    const fontSizeSlider = settings.querySelector('[data-font-size-slider]') as HTMLInputElement | null;
-    const fontSizeValue = settings.querySelector('[data-font-size-value]') as HTMLElement | null;
-    const reducedMotion = settings.querySelector('[data-reduced-motion]') as HTMLInputElement | null;
-    const highContrast = settings.querySelector('[data-high-contrast]') as HTMLInputElement | null;
+    const overlay = settings.querySelector('[data-settings-overlay]');
+    const panel = settings.querySelector('.settings__panel');
+    const closeBtn = settings.querySelector('[data-settings-close]');
+    const fontSizeSlider = settings.querySelector('[data-font-size-slider]');
+    const fontSizeValue = settings.querySelector('[data-font-size-value]');
+    const reducedMotion = settings.querySelector('[data-reduced-motion]');
+    const highContrast = settings.querySelector('[data-high-contrast]');
+    const hideScrollbars = settings.querySelector('[data-hide-scrollbars]');
     const html = document.documentElement;
 
     if (!panel || !overlay || !closeBtn) return;
 
     // Update slider progress fill
-    const updateSliderProgress = (slider: HTMLInputElement) => {
+    const updateSliderProgress = (slider) => {
       const min = parseFloat(slider.min);
       const max = parseFloat(slider.max);
       const value = parseFloat(slider.value);
@@ -145,23 +159,45 @@ const { open = false } = Astro.props;
         highContrast.checked = savedHighContrast;
         html.classList.toggle('high-contrast', savedHighContrast);
       }
+
+      const savedHideScrollbars = localStorage.getItem('hideScrollbars') === 'true';
+      if (hideScrollbars) {
+        hideScrollbars.checked = savedHideScrollbars;
+        html.classList.toggle('hide-scrollbars', savedHideScrollbars);
+      }
     };
 
     // Apply font size
-    const applyFontSize = (scale: number) => {
+    const applyFontSize = (scale) => {
       html.style.setProperty('--font-size-scale', scale.toString());
       if (fontSizeValue) {
         fontSizeValue.textContent = `${Math.round(scale * 100)}%`;
       }
     };
 
+    // Focus trap helper
+    const getFocusableElements = (container) => {
+      const focusableSelectors = [
+        'button:not([disabled])',
+        'a[href]',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(', ');
+      return Array.from(container.querySelectorAll(focusableSelectors));
+    };
+
+    let previousActiveElement = null;
+
     // Open settings
     const openSettings = () => {
+      previousActiveElement = document.activeElement;
       settings.setAttribute('aria-hidden', 'false');
-      overlay?.setAttribute('aria-hidden', 'false');
+      if (overlay) overlay.setAttribute('aria-hidden', 'false');
       panel.setAttribute('aria-hidden', 'false');
       panel.setAttribute('data-open', 'true');
-      closeBtn?.focus();
+      if (closeBtn) closeBtn.focus();
     };
 
     // Close settings
@@ -170,6 +206,11 @@ const { open = false } = Astro.props;
       overlay?.setAttribute('aria-hidden', 'true');
       panel.setAttribute('aria-hidden', 'true');
       panel.removeAttribute('data-open');
+      // Return focus to previous element
+      if (previousActiveElement) {
+        previousActiveElement.focus();
+        previousActiveElement = null;
+      }
     };
 
     // Event listeners
@@ -177,40 +218,85 @@ const { open = false } = Astro.props;
     
     overlay?.addEventListener('click', closeSettings);
 
-    // Escape key to close
-    document.addEventListener('keydown', (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && panel.getAttribute('data-open') === 'true') {
+    // Focus trapping and keyboard handlers
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (panel.getAttribute('data-open') !== 'true') return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
         closeSettings();
+        return;
       }
-    });
+
+      // Focus trap: Tab key
+      if (e.key === 'Tab') {
+        const focusableElements = getFocusableElements(panel);
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const activeElement = document.activeElement as HTMLElement;
+
+        if (e.shiftKey) {
+          // Shift + Tab: move backwards
+          if (activeElement === firstElement || !panel.contains(activeElement)) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab: move forwards
+          if (activeElement === lastElement || !panel.contains(activeElement)) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
 
     // Font size slider
-    fontSizeSlider?.addEventListener('input', (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      const scale = parseFloat(target.value);
-      applyFontSize(scale);
-      updateSliderProgress(target);
-      localStorage.setItem('fontSizeScale', scale.toString());
-    });
+    if (fontSizeSlider) {
+      fontSizeSlider.addEventListener('input', (e) => {
+        const target = e.target;
+        const scale = parseFloat(target.value);
+        applyFontSize(scale);
+        updateSliderProgress(target);
+        localStorage.setItem('fontSizeScale', scale.toString());
+      });
+    }
 
     // Reduced motion
-    reducedMotion?.addEventListener('change', (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      html.classList.toggle('reduced-motion', target.checked);
-      localStorage.setItem('reducedMotion', target.checked.toString());
-    });
+    if (reducedMotion) {
+      reducedMotion.addEventListener('change', (e) => {
+        const target = e.target;
+        html.classList.toggle('reduced-motion', target.checked);
+        localStorage.setItem('reducedMotion', target.checked.toString());
+      });
+    }
 
     // High contrast
-    highContrast?.addEventListener('change', (e: Event) => {
-      const target = e.target as HTMLInputElement;
-      html.classList.toggle('high-contrast', target.checked);
-      localStorage.setItem('highContrast', target.checked.toString());
-    });
+    if (highContrast) {
+      highContrast.addEventListener('change', (e) => {
+        const target = e.target;
+        html.classList.toggle('high-contrast', target.checked);
+        localStorage.setItem('highContrast', target.checked.toString());
+      });
+    }
+
+    // Hide scrollbars
+    if (hideScrollbars) {
+      hideScrollbars.addEventListener('change', (e) => {
+        const target = e.target;
+        html.classList.toggle('hide-scrollbars', target.checked);
+        localStorage.setItem('hideScrollbars', target.checked.toString());
+      });
+    }
 
     // Load settings on init
     loadSettings();
 
     // Expose open function globally
-    (window as any).openSettings = openSettings;
+    window.openSettings = openSettings;
   })();
 </script>

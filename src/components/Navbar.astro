@@ -11,14 +11,62 @@ const { siteName = 'Rizzo CSS', logo } = Astro.props;
 // Get current URL pathname
 const currentPath = Astro.url.pathname;
 
-// Navigation links
-const navLinks = [
+// Navigation links with optional sub-links
+interface NavLink {
+  href: string;
+  label: string;
+  subLinks?: Array<{ href: string; label: string }>;
+}
+
+const navLinks: NavLink[] = [
   { href: '/', label: 'Home' },
-  { href: '/docs/getting-started', label: 'Getting Started' },
-  { href: '/docs/components', label: 'Components' },
-  { href: '/docs/theming', label: 'Themes' },
-  { href: '/docs/design-system', label: 'Design System' },
-  { href: '/docs/accessibility', label: 'Accessibility' },
+  {
+    href: '/docs/getting-started',
+    label: 'Documentation',
+    subLinks: [
+      { href: '/docs/getting-started', label: 'Getting Started' },
+      { href: '/docs/design-system', label: 'Design System' },
+      { href: '/docs/accessibility', label: 'Accessibility' },
+    ],
+  },
+  {
+    href: '/docs/components',
+    label: 'Components',
+    subLinks: [
+      { href: '/docs/components', label: 'Overview' },
+      { href: '/docs/components/navbar', label: 'Navbar' },
+      { href: '/docs/components/settings', label: 'Settings' },
+      { href: '/docs/components/theme-switcher', label: 'Theme Switcher' },
+      { href: '/docs/components/button', label: 'Button' },
+      { href: '/docs/components/icons', label: 'Icons' },
+      { href: '/docs/components/copy-to-clipboard', label: 'CopyToClipboard' },
+      { href: '/docs/components/forms', label: 'Forms' },
+      { href: '/docs/components/cards', label: 'Cards' },
+      { href: '/docs/components/modal', label: 'Modal' },
+    ],
+  },
+  {
+    href: '/docs/theming',
+    label: 'Themes',
+    subLinks: [
+      { href: '/docs/theming', label: 'Overview' },
+      { href: '/docs/themes/dracula-at-night', label: 'Dracula At Night' },
+      { href: '/docs/themes/shades-of-purple', label: 'Shades of Purple' },
+      { href: '/docs/themes/night-owl', label: 'Night Owl' },
+      { href: '/docs/themes/winter-is-coming-dark-black', label: 'Winter is Coming' },
+      { href: '/docs/themes/nord-light', label: 'Nord Light' },
+      { href: '/docs/themes/grey-light-pro', label: 'Grey Light Pro' },
+      { href: '/docs/themes/snazzy-light', label: 'Snazzy Light' },
+      { href: '/docs/themes/tiny-light', label: 'Tiny Light' },
+    ],
+  },
+  {
+    href: '/docs/colors',
+    label: 'Reference',
+    subLinks: [
+      { href: '/docs/colors', label: 'Colors' },
+    ],
+  },
 ];
 ---
 
@@ -52,15 +100,50 @@ const navLinks = [
     <div class="navbar__menu" id="navbar-menu" role="menu">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+        const hasSubLinks = link.subLinks && link.subLinks.length > 0;
+        const subLinkId = hasSubLinks ? `navbar-submenu-${link.label.toLowerCase().replace(/\s+/g, '-')}` : undefined;
+        
         return (
-          <a 
-            href={link.href} 
-            class="navbar__link" 
-            role="menuitem"
-            aria-current={isActive ? 'page' : undefined}
-          >
-            {link.label}
-          </a>
+          <div class={`navbar__item ${hasSubLinks ? 'navbar__item--has-dropdown' : ''}`}>
+            <a 
+              href={link.href} 
+              class="navbar__link" 
+              role="menuitem"
+              aria-current={isActive && !hasSubLinks ? 'page' : undefined}
+              aria-expanded={hasSubLinks ? 'false' : undefined}
+              aria-haspopup={hasSubLinks ? 'true' : undefined}
+              aria-controls={subLinkId}
+              data-dropdown-toggle={hasSubLinks ? subLinkId : undefined}
+            >
+              {link.label}
+              {hasSubLinks && (
+                <svg class="navbar__dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <title>Dropdown menu</title>
+                  <path d="M2 4l4 4 4-4"/>
+                </svg>
+              )}
+            </a>
+            {hasSubLinks && (
+              <ul class="navbar__submenu" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
+                {link.subLinks.map((subLink) => {
+                  const isSubActive = currentPath === subLink.href;
+                  return (
+                    <li role="none">
+                      <a
+                        href={subLink.href}
+                        class="navbar__sublink"
+                        role="menuitem"
+                        aria-label={subLink.label}
+                        aria-current={isSubActive ? 'page' : undefined}
+                      >
+                        {subLink.label}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </div>
         );
       })}
       <div class="navbar__actions">
@@ -83,44 +166,232 @@ const navLinks = [
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
 
-    const toggle = navbar.querySelector('.navbar__toggle') as HTMLButtonElement | null;
-    const menu = navbar.querySelector('.navbar__menu') as HTMLElement | null;
+    const toggle = navbar.querySelector('.navbar__toggle');
+    const menu = navbar.querySelector('.navbar__menu');
     
     if (!toggle || !menu) return;
 
-    const toggleMenu = (open?: boolean) => {
-      const isOpen = open ?? menu.classList.contains('navbar__menu--open');
+    const toggleMenu = (open) => {
+      const isOpen = open !== undefined ? open : menu.classList.contains('navbar__menu--open');
       menu.classList.toggle('navbar__menu--open', !isOpen);
       toggle.setAttribute('aria-expanded', (!isOpen).toString());
     };
 
     toggle.addEventListener('click', () => toggleMenu());
 
+    // Dropdown menu handling
+    const dropdownToggles = navbar.querySelectorAll('[data-dropdown-toggle]');
+    dropdownToggles.forEach((toggle) => {
+      const item = toggle.closest('.navbar__item--has-dropdown');
+      if (!item) return;
+
+      const submenu = item.querySelector('.navbar__submenu');
+      const sublinks = submenu ? Array.from(submenu.querySelectorAll('.navbar__sublink')) : [];
+
+      // Adjust dropdown alignment to prevent overflow
+      const adjustDropdownPosition = () => {
+        if (!submenu || window.innerWidth <= 1023) return; // Skip on mobile
+        
+        // Temporarily make visible to measure
+        const wasVisible = submenu.style.visibility !== 'hidden';
+        if (!wasVisible) {
+          submenu.style.visibility = 'hidden';
+          submenu.style.opacity = '1';
+          submenu.style.display = 'block';
+        }
+        
+        const itemRect = item.getBoundingClientRect();
+        const submenuWidth = submenu.offsetWidth || submenu.scrollWidth;
+        const viewportWidth = window.innerWidth;
+        const padding = 16; // Viewport padding
+        
+        // Check if dropdown would overflow on the right
+        if (itemRect.left + submenuWidth > viewportWidth - padding) {
+          // Align to right edge of parent item
+          submenu.style.left = 'auto';
+          submenu.style.right = '0';
+        } else {
+          // Default: align to left edge
+          submenu.style.left = '0';
+          submenu.style.right = 'auto';
+        }
+        
+        // Restore visibility state
+        if (!wasVisible) {
+          submenu.style.visibility = '';
+          submenu.style.opacity = '';
+          submenu.style.display = '';
+        }
+      };
+
+      const handleToggle = (e) => {
+        e.preventDefault();
+        const isExpanded = item.getAttribute('aria-expanded') === 'true';
+        item.setAttribute('aria-expanded', (!isExpanded).toString());
+        
+        // Adjust position when opening
+        if (!isExpanded) {
+          setTimeout(() => {
+            adjustDropdownPosition();
+          }, 0);
+        }
+        
+        // Focus management
+        if (!isExpanded && sublinks.length > 0) {
+          setTimeout(() => sublinks[0].focus(), 0);
+        }
+      };
+
+      toggle.addEventListener('click', handleToggle);
+
+      // Keyboard navigation on dropdown toggle
+      toggle.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          handleToggle(e);
+        } else if (e.key === 'ArrowDown' && sublinks.length > 0) {
+          e.preventDefault();
+          const isExpanded = item.getAttribute('aria-expanded') === 'true';
+          if (!isExpanded) {
+            item.setAttribute('aria-expanded', 'true');
+            adjustDropdownPosition();
+          }
+          setTimeout(() => sublinks[0].focus(), 0);
+        } else if (e.key === 'ArrowUp' && sublinks.length > 0) {
+          e.preventDefault();
+          const isExpanded = item.getAttribute('aria-expanded') === 'true';
+          if (!isExpanded) {
+            item.setAttribute('aria-expanded', 'true');
+            adjustDropdownPosition();
+          }
+          // Focus last item when ArrowUp from toggle
+          setTimeout(() => sublinks[sublinks.length - 1].focus(), 0);
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          item.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Keyboard navigation within submenu
+      if (submenu) {
+        submenu.addEventListener('keydown', (e: KeyboardEvent) => {
+          const currentIndex = sublinks.findIndex(link => link === document.activeElement);
+          
+          if (e.key === 'Escape') {
+            e.preventDefault();
+            item.setAttribute('aria-expanded', 'false');
+            (toggle as HTMLElement).focus();
+          } else if (e.key === 'ArrowDown') {
+            e.preventDefault();
+            const nextIndex = (currentIndex + 1) % sublinks.length;
+            sublinks[nextIndex].focus();
+          } else if (e.key === 'ArrowUp') {
+            e.preventDefault();
+            const prevIndex = currentIndex <= 0 ? sublinks.length - 1 : currentIndex - 1;
+            sublinks[prevIndex].focus();
+          } else if (e.key === 'Home') {
+            e.preventDefault();
+            sublinks[0].focus();
+          } else if (e.key === 'End') {
+            e.preventDefault();
+            sublinks[sublinks.length - 1].focus();
+          } else if (e.key === 'Tab') {
+            // Close dropdown when Tab is pressed (allows natural tab flow)
+            item.setAttribute('aria-expanded', 'false');
+          } else if (e.key === 'Enter' || e.key === ' ') {
+            // Allow Enter/Space to activate links naturally
+            // The click handler will handle navigation
+          }
+        });
+      }
+
+      // Adjust on hover (for desktop)
+      if (window.innerWidth > 1023) {
+        item.addEventListener('mouseenter', () => {
+          // Small delay to ensure submenu is rendered
+          requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+              adjustDropdownPosition();
+            });
+          });
+        });
+      }
+
+      // Adjust on window resize
+      window.addEventListener('resize', adjustDropdownPosition);
+
+      // Close on outside click
+      document.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target && !item.contains(target)) {
+          item.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+
     // Close menu on outside click
     document.addEventListener('click', (e) => {
-      const target = e.target as Node | null;
+      const target = e.target;
       if (target && !navbar.contains(target)) {
         menu.classList.remove('navbar__menu--open');
         toggle.setAttribute('aria-expanded', 'false');
+        // Close all dropdowns
+        dropdownToggles.forEach((dt) => {
+          const item = dt.closest('.navbar__item--has-dropdown');
+          if (item) item.setAttribute('aria-expanded', 'false');
+        });
       }
     });
 
     // Close menu on Escape key
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && menu.classList.contains('navbar__menu--open')) {
-        toggleMenu(false);
-        toggle.focus();
+      if (e.key === 'Escape') {
+        if (menu.classList.contains('navbar__menu--open')) {
+          toggleMenu(false);
+          toggle.focus();
+        }
+        // Close all dropdowns
+        dropdownToggles.forEach((dt) => {
+          const item = dt.closest('.navbar__item--has-dropdown');
+          if (item) {
+            item.setAttribute('aria-expanded', 'false');
+            dt.focus();
+          }
+        });
       }
     });
 
+    // Settings button keyboard handler
+    const settingsBtn = navbar.querySelector('.navbar__settings-btn');
+    if (settingsBtn) {
+      settingsBtn.addEventListener('click', () => {
+        if (window.openSettings) {
+          window.openSettings();
+        }
+      });
+      settingsBtn.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (window.openSettings) {
+            window.openSettings();
+          }
+        }
+      });
+    }
+
     // Handle window resize
-    let resizeTimer: ReturnType<typeof setTimeout>;
+    let resizeTimer;
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (window.innerWidth >= 1024) {
           menu.classList.remove('navbar__menu--open');
           toggle.setAttribute('aria-expanded', 'false');
+          // Close all dropdowns
+          dropdownToggles.forEach((dt) => {
+            const item = dt.closest('.navbar__item--has-dropdown');
+            if (item) item.setAttribute('aria-expanded', 'false');
+          });
         }
       }, 250);
     });
