@@ -1,5 +1,13 @@
 ---
 import Gear from './icons/Gear.astro';
+import Search from './Search.astro';
+
+// Extend Window interface for openSettings
+declare global {
+  interface Window {
+    openSettings?: () => void;
+  }
+}
 
 interface Props {
   siteName?: string;
@@ -43,6 +51,8 @@ const navLinks: NavLink[] = [
       { href: '/docs/components/forms', label: 'Forms' },
       { href: '/docs/components/cards', label: 'Cards' },
       { href: '/docs/components/modal', label: 'Modal' },
+      { href: '/docs/components/alert', label: 'Alert' },
+      { href: '/docs/components/search', label: 'Search' },
     ],
   },
   {
@@ -79,6 +89,19 @@ const navLinks: NavLink[] = [
       <a href="/" class="navbar__brand-link" aria-label={`${siteName} home`}>
         {siteName}
       </a>
+    </div>
+    
+    <div class="navbar__actions-desktop">
+      <Search />
+      <button
+        class="navbar__settings-btn"
+        type="button"
+        aria-label="Open settings"
+        onclick="window.openSettings && window.openSettings()"
+      >
+        <Gear class="navbar__settings-icon" width={20} height={20} />
+        <span class="navbar__settings-label">Settings</span>
+      </button>
     </div>
     
     <button
@@ -123,7 +146,7 @@ const navLinks: NavLink[] = [
                 </svg>
               )}
             </a>
-            {hasSubLinks && (
+            {hasSubLinks && link.subLinks && (
               <ul class="navbar__submenu" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
                 {link.subLinks.map((subLink) => {
                   const isSubActive = currentPath === subLink.href;
@@ -146,17 +169,6 @@ const navLinks: NavLink[] = [
           </div>
         );
       })}
-      <div class="navbar__actions">
-        <button
-          class="navbar__settings-btn"
-          type="button"
-          aria-label="Open settings"
-          onclick="window.openSettings && window.openSettings()"
-        >
-          <Gear class="navbar__settings-icon" width={20} height={20} />
-          <span class="navbar__settings-label">Settings</span>
-        </button>
-      </div>
     </div>
   </div>
 </nav>
@@ -171,8 +183,37 @@ const navLinks: NavLink[] = [
     
     if (!toggle || !menu) return;
 
-    const toggleMenu = (open) => {
+    const toggleMenu = (open?: boolean) => {
       const isOpen = open !== undefined ? open : menu.classList.contains('navbar__menu--open');
+      const willBeOpen = !isOpen;
+      
+      // On mobile, close search if it's open when opening menu
+      const isMobile = window.innerWidth <= 1023;
+      if (isMobile && !isOpen) {
+        // Menu is about to open, close search if open
+        const searchPanel = document.querySelector('.search__panel');
+        if (searchPanel && searchPanel.getAttribute('aria-hidden') === 'false') {
+          // Find and trigger search close
+          const search = document.querySelector('[data-search]');
+          if (search && search.__searchInstance && search.__searchInstance.closeSearch) {
+            search.__searchInstance.closeSearch();
+          } else {
+            // Fallback: trigger overlay click to close
+            const searchOverlay = document.querySelector('[data-search-overlay]');
+            if (searchOverlay) {
+              searchOverlay.click();
+            }
+          }
+        }
+      }
+      
+      // Toggle class on navbar to hide/show bottom border
+      if (willBeOpen) {
+        navbar.classList.add('navbar--menu-open');
+      } else {
+        navbar.classList.remove('navbar--menu-open');
+      }
+      
       menu.classList.toggle('navbar__menu--open', !isOpen);
       toggle.setAttribute('aria-expanded', (!isOpen).toString());
     };
@@ -192,39 +233,41 @@ const navLinks: NavLink[] = [
       const adjustDropdownPosition = () => {
         if (!submenu || window.innerWidth <= 1023) return; // Skip on mobile
         
+        const submenuEl = submenu as HTMLElement;
+        
         // Temporarily make visible to measure
-        const wasVisible = submenu.style.visibility !== 'hidden';
+        const wasVisible = submenuEl.style.visibility !== 'hidden';
         if (!wasVisible) {
-          submenu.style.visibility = 'hidden';
-          submenu.style.opacity = '1';
-          submenu.style.display = 'block';
+          submenuEl.style.visibility = 'hidden';
+          submenuEl.style.opacity = '1';
+          submenuEl.style.display = 'block';
         }
         
         const itemRect = item.getBoundingClientRect();
-        const submenuWidth = submenu.offsetWidth || submenu.scrollWidth;
+        const submenuWidth = submenuEl.offsetWidth || submenuEl.scrollWidth;
         const viewportWidth = window.innerWidth;
         const padding = 16; // Viewport padding
         
         // Check if dropdown would overflow on the right
         if (itemRect.left + submenuWidth > viewportWidth - padding) {
           // Align to right edge of parent item
-          submenu.style.left = 'auto';
-          submenu.style.right = '0';
+          submenuEl.style.left = 'auto';
+          submenuEl.style.right = '0';
         } else {
           // Default: align to left edge
-          submenu.style.left = '0';
-          submenu.style.right = 'auto';
+          submenuEl.style.left = '0';
+          submenuEl.style.right = 'auto';
         }
         
         // Restore visibility state
         if (!wasVisible) {
-          submenu.style.visibility = '';
-          submenu.style.opacity = '';
-          submenu.style.display = '';
+          submenuEl.style.visibility = '';
+          submenuEl.style.opacity = '';
+          submenuEl.style.display = '';
         }
       };
 
-      const handleToggle = (e) => {
+      const handleToggle = (e: Event) => {
         e.preventDefault();
         const isExpanded = item.getAttribute('aria-expanded') === 'true';
         item.setAttribute('aria-expanded', (!isExpanded).toString());
@@ -238,67 +281,69 @@ const navLinks: NavLink[] = [
         
         // Focus management
         if (!isExpanded && sublinks.length > 0) {
-          setTimeout(() => sublinks[0].focus(), 0);
+          setTimeout(() => (sublinks[0] as HTMLElement).focus(), 0);
         }
       };
 
       toggle.addEventListener('click', handleToggle);
 
       // Keyboard navigation on dropdown toggle
-      toggle.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
+      toggle.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
           handleToggle(e);
-        } else if (e.key === 'ArrowDown' && sublinks.length > 0) {
-          e.preventDefault();
+        } else if (keyEvent.key === 'ArrowDown' && sublinks.length > 0) {
+          keyEvent.preventDefault();
           const isExpanded = item.getAttribute('aria-expanded') === 'true';
           if (!isExpanded) {
             item.setAttribute('aria-expanded', 'true');
             adjustDropdownPosition();
           }
-          setTimeout(() => sublinks[0].focus(), 0);
-        } else if (e.key === 'ArrowUp' && sublinks.length > 0) {
-          e.preventDefault();
+          setTimeout(() => (sublinks[0] as HTMLElement).focus(), 0);
+        } else if (keyEvent.key === 'ArrowUp' && sublinks.length > 0) {
+          keyEvent.preventDefault();
           const isExpanded = item.getAttribute('aria-expanded') === 'true';
           if (!isExpanded) {
             item.setAttribute('aria-expanded', 'true');
             adjustDropdownPosition();
           }
           // Focus last item when ArrowUp from toggle
-          setTimeout(() => sublinks[sublinks.length - 1].focus(), 0);
-        } else if (e.key === 'Escape') {
-          e.preventDefault();
+          setTimeout(() => (sublinks[sublinks.length - 1] as HTMLElement).focus(), 0);
+        } else if (keyEvent.key === 'Escape') {
+          keyEvent.preventDefault();
           item.setAttribute('aria-expanded', 'false');
         }
       });
 
       // Keyboard navigation within submenu
       if (submenu) {
-        submenu.addEventListener('keydown', (e: KeyboardEvent) => {
+        submenu.addEventListener('keydown', (e: Event) => {
+          const keyEvent = e as KeyboardEvent;
           const currentIndex = sublinks.findIndex(link => link === document.activeElement);
           
-          if (e.key === 'Escape') {
-            e.preventDefault();
+          if (keyEvent.key === 'Escape') {
+            keyEvent.preventDefault();
             item.setAttribute('aria-expanded', 'false');
             (toggle as HTMLElement).focus();
-          } else if (e.key === 'ArrowDown') {
-            e.preventDefault();
+          } else if (keyEvent.key === 'ArrowDown') {
+            keyEvent.preventDefault();
             const nextIndex = (currentIndex + 1) % sublinks.length;
-            sublinks[nextIndex].focus();
-          } else if (e.key === 'ArrowUp') {
-            e.preventDefault();
+            (sublinks[nextIndex] as HTMLElement).focus();
+          } else if (keyEvent.key === 'ArrowUp') {
+            keyEvent.preventDefault();
             const prevIndex = currentIndex <= 0 ? sublinks.length - 1 : currentIndex - 1;
-            sublinks[prevIndex].focus();
-          } else if (e.key === 'Home') {
-            e.preventDefault();
-            sublinks[0].focus();
-          } else if (e.key === 'End') {
-            e.preventDefault();
-            sublinks[sublinks.length - 1].focus();
-          } else if (e.key === 'Tab') {
+            (sublinks[prevIndex] as HTMLElement).focus();
+          } else if (keyEvent.key === 'Home') {
+            keyEvent.preventDefault();
+            (sublinks[0] as HTMLElement).focus();
+          } else if (keyEvent.key === 'End') {
+            keyEvent.preventDefault();
+            (sublinks[sublinks.length - 1] as HTMLElement).focus();
+          } else if (keyEvent.key === 'Tab') {
             // Close dropdown when Tab is pressed (allows natural tab flow)
             item.setAttribute('aria-expanded', 'false');
-          } else if (e.key === 'Enter' || e.key === ' ') {
+          } else if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
             // Allow Enter/Space to activate links naturally
             // The click handler will handle navigation
           }
@@ -323,7 +368,7 @@ const navLinks: NavLink[] = [
       // Close on outside click
       document.addEventListener('click', (e) => {
         const target = e.target;
-        if (target && !item.contains(target)) {
+        if (target && target instanceof Node && !item.contains(target)) {
           item.setAttribute('aria-expanded', 'false');
         }
       });
@@ -331,8 +376,8 @@ const navLinks: NavLink[] = [
 
     // Close menu on outside click
     document.addEventListener('click', (e) => {
-      const target = e.target;
-      if (target && !navbar.contains(target)) {
+      const target = e.target as Node | null;
+      if (target && !navbar.contains(target as Node)) {
         menu.classList.remove('navbar__menu--open');
         toggle.setAttribute('aria-expanded', 'false');
         // Close all dropdowns
@@ -344,18 +389,19 @@ const navLinks: NavLink[] = [
     });
 
     // Close menu on Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener('keydown', (e: Event) => {
+      const keyEvent = e as KeyboardEvent;
+      if (keyEvent.key === 'Escape') {
         if (menu.classList.contains('navbar__menu--open')) {
           toggleMenu(false);
-          toggle.focus();
+          (toggle as HTMLElement).focus();
         }
         // Close all dropdowns
         dropdownToggles.forEach((dt) => {
           const item = dt.closest('.navbar__item--has-dropdown');
           if (item) {
             item.setAttribute('aria-expanded', 'false');
-            dt.focus();
+            (dt as HTMLElement).focus();
           }
         });
       }
@@ -369,9 +415,10 @@ const navLinks: NavLink[] = [
           window.openSettings();
         }
       });
-      settingsBtn.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
+      settingsBtn.addEventListener('keydown', (e: Event) => {
+        const keyEvent = e as KeyboardEvent;
+        if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+          keyEvent.preventDefault();
           if (window.openSettings) {
             window.openSettings();
           }
@@ -380,9 +427,9 @@ const navLinks: NavLink[] = [
     }
 
     // Handle window resize
-    let resizeTimer;
+    let resizeTimer: ReturnType<typeof setTimeout> | undefined;
     window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
+      if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         if (window.innerWidth >= 1024) {
           menu.classList.remove('navbar__menu--open');

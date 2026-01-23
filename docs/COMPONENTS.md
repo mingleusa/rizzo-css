@@ -13,6 +13,8 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
+- [Search](/docs/components/search) - Search component with Algolia integration
+- [Alert](/docs/components/alert) - Alert/notification component
 
 ## Component Features
 
@@ -27,7 +29,7 @@ All components in Rizzo CSS share these core features:
 
 ## Navbar
 
-A responsive, accessible navigation bar with integrated theme switcher.
+A responsive, accessible navigation bar with search, settings button, and mobile menu.
 
 ### Usage
 
@@ -46,18 +48,15 @@ import Navbar from '../components/Navbar.astro';
 
 ### Features
 
-- Responsive mobile menu with hamburger toggle (activates at 1024px and below)
-- Smooth hamburger-to-X animation
-- Active link indicator with underline matching hover effect
-- Dropdown menus with sub-links (Components and Themes dropdowns)
-- Dropdown arrow rotates on hover
-- Smart dropdown alignment (prevents viewport overflow)
-- Full keyboard navigation for dropdowns (Arrow keys, Enter, Space, Escape, Home, End, Tab)
-- Keyboard accessible with full ARIA support
-- Settings button (gear icon) that opens Settings panel
+- **Desktop**: Search and settings on far right, dropdown menus with smart alignment
+- **Mobile**: Search on far right, settings on far right, hamburger menu with smooth transitions
+- Responsive mobile menu (activates at 1024px and below) with full-width layout
+- Smooth hamburger-to-X animation and menu open/close transitions
+- Active link indicator with underline
+- Dropdown menus with sub-links and keyboard navigation
+- Full-width border that spans 100vw
+- Settings button opens Settings panel
 - Sticky positioning at top
-- Full width layout with no gaps
-- Theme flash prevention (inline script in Layout)
 
 See [Navbar Documentation](/docs/components/navbar) for complete details.
 
@@ -91,12 +90,14 @@ window.openSettings();
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root
 - **Hide Scrollbars Toggle** - Applies `.hide-scrollbars` class to document root
 - Slide-in panel with overlay
+- **Opening and closing animations** - Smooth slide-in from right with overlay fade (respects `prefers-reduced-motion`)
 - All settings persist in localStorage
 - Full keyboard navigation (Escape to close)
 - Focus trapping - Tab cycles within panel when open
 - Accessible ARIA attributes
 - Returns focus to trigger element on close
 - Slider track visibility optimized for all themes (dark color for tiny-light theme)
+- **Mobile responsive** - Full width on mobile devices, optimized layout
 
 ### Sections
 
@@ -108,369 +109,190 @@ See [Settings Documentation](/docs/components/settings) for complete details.
 
 ## Theme Switcher
 
-An accessible dropdown menu for switching between themes. Integrated into the Settings component.
-
-### Usage
-
-```astro
----
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
----
-
-<ThemeSwitcher />
-```
+An accessible dropdown menu for switching between themes, integrated into the Settings component.
 
 ### Features
 
-- Groups themes by Dark/Light
-- Each theme has its own icon (Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)
-- Active theme displays its name and icon in the trigger button
-- Active theme option shows its theme background color
-- Persists selection in localStorage
-- Full keyboard navigation
+- Groups themes by Dark/Light with theme-specific icons
+- Active theme displays name and icon in trigger button
+- Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)
 - Accessible ARIA menu pattern
-- Works standalone or within Settings panel
-
-### Keyboard Navigation
-
-- `Enter`/`Space` - Open/close menu
-- `ArrowDown`/`ArrowUp` - Navigate options
-- `Home`/`End` - Jump to first/last
-- `Escape` - Close menu
-
-### Accessibility
-
-- ARIA menu pattern with `role="menu"` and `role="menuitemradio"`
-- Keyboard accessible (Arrow keys, Enter, Space, Escape, Home, End)
-- Screen reader support with proper ARIA attributes
-- Focus management and tabindex handling
-- `aria-hidden` and `aria-expanded` state management
+- Persists selection in localStorage
 
 ## Button Component
 
-### Button.astro
+Semantic button component with variants using theme variables.
 
-A simple button component:
+### Variants
 
-```astro
----
-import Button from '../components/Button.astro';
----
+- `btn-primary`, `btn-success`, `btn-warning`, `btn-error`, `btn-info`, `btn-outline`
 
-<Button>Click me</Button>
-```
-
-### Button Classes
-
-Use semantic button classes with theme variables:
-
-```html
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-error">Error</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>
-```
-
-All buttons:
-- Use semantic theme variables
-- Have hover and focus states
-- Support disabled state
-- Are keyboard accessible
+All buttons are keyboard accessible and theme-aware.
 
 See [Button Documentation](/docs/components/button) for complete details.
 
 ## Card Component
 
-A flexible card component with variants, sections, and image support.
-
-### Usage
-
-```astro
----
-import Card from '../components/Card.astro';
----
-
-<Card>
-  <h3>Card Title</h3>
-  <p>Card content</p>
-</Card>
-```
+Flexible card component with variants, sections, and image support.
 
 ### Variants
 
 - `default` - Standard card with border
-- `elevated` - Card with shadow, no border (lifts on hover)
+- `elevated` - Card with shadow (lifts on hover)
 - `outlined` - Transparent background with border
 - `filled` - Uses main background color
 
-### Card Sections
+### Sections
 
-Use `card__header`, `card__body`, and `card__footer` classes for structured cards:
+Use `card__header`, `card__body`, and `card__footer` classes for structured cards.
 
-```html
-<Card>
-  <div class="card__header">
-    <h3 class="card__title">Card Title</h3>
-    <p class="card__subtitle">Subtitle</p>
-  </div>
-  <div class="card__body">
-    <p>Card content</p>
-  </div>
-  <div class="card__footer">
-    <button class="btn">Action</button>
-  </div>
-</Card>
-```
-
-### Card with Image
-
-```html
-<Card variant="elevated">
-  <img src="image.jpg" alt="Description" class="card__image" />
-  <div class="card__header">
-    <h3 class="card__title">Card Title</h3>
-  </div>
-  <div class="card__body">
-    <p>Card content</p>
-  </div>
-</Card>
-```
-
-See [Card Documentation](./cards.md) for complete examples and API.
+See [Card Documentation](/docs/components/cards) for complete examples.
 
 ## Modal Component
 
-An accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay.
+Accessible modal/dialog component with focus trapping and keyboard navigation.
+
+### Features
+
+- Focus trapping and keyboard navigation
+- Backdrop overlay with blur effect
+- Sizes: sm, md (default), lg
+- Programmatic control via global functions
+- Accessible ARIA attributes
+- Theme-aware styling
+
+See [Modal Documentation](/docs/components/modal) for complete details.
+
+## Search Component
+
+A powerful search component with Algolia integration and live filtering.
+
+### Features
+
+- Algolia integration with client-side fallback
+- Keyboard shortcut (Cmd+K / Ctrl+K)
+- Close button on desktop (X icon with screen reader label)
+- Mobile responsive with full-width panel
+- Live search results as you type
+- Full keyboard navigation
+- Mutually exclusive with mobile menu (only one open at a time)
+
+See [Search Documentation](/docs/components/search) for complete details.
+
+## Alert Component
+
+An accessible alert/notification component for displaying important messages to users.
 
 ### Usage
 
 ```astro
 ---
-import Modal from '../components/Modal.astro';
-import Button from '../components/Button.astro';
+import Alert from '../components/Alert.astro';
 ---
 
-<Modal id="example-modal" title="Example Modal" size="md">
-  <p>Modal content goes here.</p>
-  
-  <div slot="footer">
-    <Button>Cancel</Button>
-    <Button class="btn-primary">Confirm</Button>
-  </div>
-</Modal>
+<Alert variant="success" dismissible>
+  Your changes have been saved successfully!
+</Alert>
 
-<Button onclick="window.openModal_example-modal()">Open Modal</Button>
+<Alert variant="error">
+  An error occurred. Please try again.
+</Alert>
+
+<Alert variant="warning" dismissible>
+  This action cannot be undone.
+</Alert>
+
+<Alert variant="info">
+  New features are available. Check them out!
+</Alert>
 ```
 
 ### Props
 
-- `id` (string, optional) - Unique ID for the modal (auto-generated if not provided)
-- `title` (string, optional) - Modal title (default: "Modal")
-- `size` ('sm' | 'md' | 'lg', optional) - Modal size (default: "md")
-- `open` (boolean, optional) - Whether modal is open by default (default: false)
-- `closeOnOverlayClick` (boolean, optional) - Close when clicking overlay (default: true)
-- `closeOnEscape` (boolean, optional) - Close on Escape key (default: true)
+- `variant` ('success' | 'error' | 'warning' | 'info', optional) - Alert variant (default: 'info')
+- `dismissible` (boolean, optional) - Whether alert can be dismissed (default: false)
 - `class` (string, optional) - Additional CSS classes
 
-### Slots
+### Variants
 
-- **Default slot** - Main modal content (goes in `modal__body`)
-- **footer** - Footer content with action buttons
-
-### Programmatic Control
-
-Each modal exposes global functions based on its ID (hyphens converted to underscores):
-
-```javascript
-// Open modal (ID: example-modal becomes example_modal)
-window.openModal_example_modal();
-
-// Close modal
-window.closeModal_example_modal();
-```
+- `success` - Green/positive feedback
+- `error` - Red/error messages
+- `warning` - Yellow/caution messages
+- `info` - Blue/informational messages
 
 ### Features
 
-- Full keyboard accessibility (Tab, Shift+Tab, Escape)
-- Focus trapping - focus stays within modal when open
-- ARIA attributes for screen readers
-- Backdrop overlay with blur effect
-- Responsive design (mobile-friendly)
-- Theme-aware styling using semantic variables
-- Respects `prefers-reduced-motion`
-
-### Sizes
-
-- `sm` - Small (24rem / 384px max-width)
-- `md` - Medium (32rem / 512px max-width) - default
-- `lg` - Large (48rem / 768px max-width)
+- Four semantic variants (success, error, warning, info)
+- Optional dismissible functionality with close button
+- Accessible ARIA attributes
+- Theme-aware styling
+- Smooth dismiss animation (respects `prefers-reduced-motion`)
 
 ### Accessibility
 
-- Proper ARIA roles and attributes (`role="dialog"`, `aria-modal="true"`)
-- Focus management - returns focus to trigger element on close
-- Keyboard navigation - Tab cycles through focusable elements
-- Escape key closes modal (if enabled)
-- Screen reader announcements via `aria-labelledby`
+- Proper ARIA roles (`role="alert"` for non-dismissible, `role="alertdialog"` for dismissible)
+- Screen reader announcements
+- Keyboard accessible close button
+- Focus management on dismiss
 
-See [Modal Documentation](/docs/components/modal) for complete details.
+See [Alert Documentation](/docs/components/alert) for complete details.
 
 ## Layout Components
 
-### Container
-
-The default container class:
-
-```html
-<div class="container">
-  <!-- Content -->
-</div>
-```
-
-**Default container**: 1200px max-width with 1rem horizontal padding and auto margins.
-
 ### Container Utilities
 
-Container utilities provide responsive containers with automatic centering and padding:
-
-- `.container-sm` - 640px max-width
-- `.container-md` - 768px max-width
-- `.container-lg` - 1024px max-width
-- `.container-xl` - 1280px max-width
-- `.container-2xl` - 1536px max-width
-- `.container-full` - 100% width (with padding)
-
-All containers include auto left/right margins (centering) and 1rem horizontal padding.
+Responsive containers with automatic centering and padding:
+- `.container-sm` through `.container-2xl` (640px to 1536px max-width)
+- `.container-full` - 100% width with padding
+- Default `.container` - 1200px max-width
 
 ### Max-Width Utilities
 
-Max-width utilities constrain element width without centering or padding:
-
-**Size-Based:**
-- `.max-w-xs` through `.max-w-7xl` (320px to 1280px)
-- `.max-w-full` - 100%
-- `.max-w-none` - No max-width
-
-**Screen-Based:**
-- `.max-w-screen-sm` - 640px
-- `.max-w-screen-md` - 768px
-- `.max-w-screen-lg` - 1024px
-- `.max-w-screen-xl` - 1280px
-- `.max-w-screen-2xl` - 1536px
+Constrain element width without centering:
+- Size-based: `.max-w-xs` through `.max-w-7xl` (320px to 1280px)
+- Screen-based: `.max-w-screen-sm` through `.max-w-screen-2xl`
 
 See [Design System Documentation](./DESIGN_SYSTEM.md) for complete utility reference.
 
 ## Icon Components
 
-Reusable SVG icon components using Tabler Icons (MIT licensed):
+Reusable SVG icon components using Tabler Icons (MIT licensed).
 
 ### Available Icons
 
-- **Gear** - Settings/configuration icon
-- **Close** - Close/dismiss icon
-- **ChevronDown** - Dropdown indicator
-- **Moon** - Dracula At Night theme icon
-- **Palette** - Shades of Purple theme icon
-- **Owl** - Night Owl theme icon
-- **Snowflake** - Winter is Coming theme icon
-- **IceCream** - Nord Light theme icon
-- **Circle** - Grey Light Pro theme icon
-- **Rainbow** - Snazzy Light theme icon
-- **Eye** - Tiny Light theme icon
-- **Copy** - Copy to clipboard icon
-- **Check** - Checkmark/success icon
+Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check
 
-### Usage
-
-```astro
----
-import Gear from '../components/icons/Gear.astro';
-import Moon from '../components/icons/Moon.astro';
----
-
-<Gear width={20} height={20} />
-<Moon width={16} height={16} class="my-icon" />
-```
-
-### Icon Props
-
-All icons:
-- Accept `width` and `height` props (default: 16)
-- Accept optional `class` prop for styling
-- Use `currentColor` for theming (adapts to theme)
-- Include `aria-hidden="true"` by default
-- Are accessible and theme-aware
+All icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and are accessible.
 
 See [Icon Components Documentation](/docs/components/icons) for complete details.
 
 ## Form Components
 
-Rizzo CSS includes a comprehensive set of accessible form components. See the [Forms Documentation](/docs/components/forms) for complete details and examples.
+Comprehensive set of accessible form components with validation states.
 
-### Available Form Components
+### Components
 
-- **FormGroup** - Wrapper component for form fields with labels, help text, and error/success messages
-- **Input** - Text input component with validation states and sizes (text, email, password, number, etc.)
-- **Textarea** - Multi-line text input component
-- **Select** - Dropdown selection component
-- **Checkbox** - Checkbox input component
-- **Radio** - Radio button component
+- **FormGroup** - Wrapper with labels, help text, and error/success messages
+- **Input** - Text input with validation states and sizes
+- **Textarea** - Multi-line text input
+- **Select** - Dropdown selection
+- **Checkbox** - Checkbox input
+- **Radio** - Radio button
 
-### Quick Example
+All form components support validation states, multiple sizes, and are fully accessible.
 
-```astro
----
-import FormGroup from '../components/FormGroup.astro';
-import Input from '../components/Input.astro';
----
-
-<FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
-  <Input type="email" id="email" name="email" placeholder="you@example.com" />
-</FormGroup>
-```
-
-All form components:
-- Use semantic theme variables
-- Support validation states (error, success)
-- Support multiple sizes (sm, md, lg)
-- Are fully accessible with ARIA attributes
-- Work with all themes
-
-See [Forms Documentation](/docs/components/forms) for complete usage examples and API documentation.
+See [Forms Documentation](/docs/components/forms) for complete examples.
 
 ## CopyToClipboard Component
 
-A reusable component for copying text values to the clipboard with visual feedback.
-
-### Usage
-
-```astro
----
-import CopyToClipboard from '../components/CopyToClipboard.astro';
----
-
-<CopyToClipboard value="example@email.com" format="Email" />
-<CopyToClipboard value="var(--accent)" format="CSS Variable" />
-<CopyToClipboard value="#FF5733" format="Hex" />
-```
-
-### Props
-
-- `value` (string, required) - The text value to copy
-- `label` (string, optional) - ARIA label for the button
-- `format` (string, optional) - Format name shown in feedback message
-- `class` (string, optional) - Additional CSS classes
+Component for copying text values to the clipboard with visual feedback.
 
 ### Features
 
-- Visual feedback with icon change (copy → checkmark)
-- Accessible with ARIA labels and keyboard support
-- Fallback for older browsers (document.execCommand)
-- Theme-aware styling
+- Visual feedback (copy → checkmark icon)
+- Accessible with ARIA labels
 - Auto-reset after 2 seconds
+- Theme-aware styling
 
 See [CopyToClipboard Documentation](/docs/components/copy-to-clipboard) for complete details.
 

@@ -1,0 +1,124 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Search from '../../../components/Search.astro';
+---
+
+<DocsLayout title="Search Component" description="Search component with Algolia integration and live filtering">
+	<section>
+		<h2>Search Component</h2>
+		<p>An accessible search component with Algolia integration for fast, relevant search results. Includes live filtering, keyboard navigation, and a client-side fallback.</p>
+	</section>
+	
+	<section>
+		<h2>Features</h2>
+		<ul>
+			<li>Algolia integration with client-side fallback</li>
+			<li>Keyboard shortcut - <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd> to open</li>
+			<li>Close button on desktop (X icon with screen reader label)</li>
+			<li>Close button on mobile with text label</li>
+			<li>Live search results as you type</li>
+			<li>Full keyboard navigation (Arrow keys, Enter, Escape, Tab)</li>
+			<li>Mobile responsive - Full-width panel on mobile</li>
+			<li>Mutually exclusive with mobile menu (only one open at a time)</li>
+			<li>Accessible - ARIA attributes and screen reader support</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Live Example</h2>
+		<p>The search component is available in the navbar. Click the search button or press <kbd>Ctrl+K</kbd> to try it!</p>
+		
+		<div class="example">
+			<div class="example-title">Standalone Search</div>
+			<Search />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<pre><code>{`---
+import Search from '../components/Search.astro';
+---
+
+<!-- Basic usage (client-side search) -->
+<Search />
+
+<!-- With Algolia -->
+<Search 
+  useAlgolia={true}
+  algoliaAppId="YOUR_APP_ID"
+  algoliaApiKey="YOUR_SEARCH_API_KEY"
+  algoliaIndexName="rizzo-css-docs"
+/>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Props</h2>
+		<ul>
+			<li><code>useAlgolia</code> (boolean, optional) - Enable Algolia search (default: <code>false</code>)</li>
+			<li><code>algoliaAppId</code> (string, optional) - Algolia Application ID</li>
+			<li><code>algoliaApiKey</code> (string, optional) - Algolia Search-Only API Key</li>
+			<li><code>algoliaIndexName</code> (string, optional) - Algolia index name (default: <code>"rizzo-css-docs"</code>)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Keyboard Shortcuts</h2>
+		<ul>
+			<li><kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd> - Open/close search</li>
+			<li><kbd>Escape</kbd> - Close search</li>
+			<li><kbd>Arrow Down</kbd> - Navigate to next result</li>
+			<li><kbd>Arrow Up</kbd> - Navigate to previous result</li>
+			<li><kbd>Enter</kbd> - Navigate to selected result</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Algolia Setup</h2>
+		<p>To use Algolia search in production:</p>
+		<ol>
+			<li>Create an account at <a href="https://www.algolia.com/" target="_blank" rel="noopener noreferrer">algolia.com</a></li>
+			<li>Create a new application and get your credentials</li>
+			<li>Index your documentation using the indexing script:
+				<pre><code>{`# Install Algolia client
+pnpm add algoliasearch
+
+# Set environment variables
+export ALGOLIA_APP_ID="your-app-id"
+export ALGOLIA_API_KEY="your-admin-api-key"
+export ALGOLIA_INDEX_NAME="rizzo-css-docs"
+
+# Run indexing script
+node scripts/index-docs.js`}</code></pre>
+			</li>
+			<li>Configure your Search component with the credentials</li>
+		</ol>
+		<p>See <a href="/docs/search">Search Documentation</a> for complete setup instructions.</p>
+	</section>
+	
+	<section>
+		<h2>Accessibility</h2>
+		<p>The Search component includes comprehensive accessibility features:</p>
+		<ul>
+			<li><strong>ARIA Roles:</strong> <code>role="dialog"</code>, <code>role="listbox"</code>, <code>role="option"</code></li>
+			<li><strong>ARIA Labels:</strong> Descriptive labels for all interactive elements</li>
+			<li><strong>Keyboard Navigation:</strong> Full keyboard support for all interactions</li>
+			<li><strong>Focus Management:</strong> Focus trapping and restoration</li>
+			<li><strong>Screen Reader Support:</strong> Proper announcements and labels</li>
+			<li><strong>Live Regions:</strong> Search results announced to screen readers</li>
+		</ul>
+	</section>
+</DocsLayout>
+
+<style>
+	kbd {
+		display: inline-block;
+		padding: 0.125rem 0.375rem;
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.25rem;
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-xs);
+		line-height: 1;
+	}
+</style>

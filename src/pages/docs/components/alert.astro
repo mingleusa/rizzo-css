@@ -1,0 +1,136 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Alert from '../../../components/Alert.astro';
+---
+
+<DocsLayout title="Alert Component" description="Accessible alert component with variants and dismissible functionality">
+	<section>
+		<h2>Alert Component</h2>
+		<p>An accessible alert component for displaying important messages to users. Supports success, error, warning, and info variants with optional dismissible functionality.</p>
+	</section>
+	
+	<section>
+		<h2>Variants</h2>
+		<p>Alerts come in four semantic variants that use theme-aware colors:</p>
+		
+		<div class="example">
+			<div class="example-title">Success Alert</div>
+			<Alert variant="success">
+				<strong>Success!</strong> Your changes have been saved successfully.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Error Alert</div>
+			<Alert variant="error">
+				<strong>Error!</strong> Something went wrong. Please try again.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Warning Alert</div>
+			<Alert variant="warning">
+				<strong>Warning!</strong> This action cannot be undone.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Info Alert</div>
+			<Alert variant="info">
+				<strong>Info:</strong> New features are available in the latest update.
+			</Alert>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Dismissible Alerts</h2>
+		<p>Add the <code>dismissible</code> prop to allow users to close the alert:</p>
+		
+		<div class="example">
+			<div class="example-title">Dismissible Success Alert</div>
+			<Alert variant="success" dismissible>
+				<strong>Success!</strong> This alert can be dismissed by clicking the close button.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Dismissible Error Alert</div>
+			<Alert variant="error" dismissible>
+				<strong>Error!</strong> This alert can be dismissed.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Dismissible Warning Alert</div>
+			<Alert variant="warning" dismissible>
+				<strong>Warning!</strong> This alert can be dismissed.
+			</Alert>
+		</div>
+		
+		<div class="example">
+			<div class="example-title">Dismissible Info Alert</div>
+			<Alert variant="info" dismissible>
+				<strong>Info:</strong> This alert can be dismissed.
+			</Alert>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<pre><code>{`---
+import Alert from '../components/Alert.astro';
+---
+
+<!-- Basic alert -->
+<Alert variant="success">
+  Your changes have been saved.
+</Alert>
+
+<!-- Dismissible alert -->
+<Alert variant="error" dismissible>
+  An error occurred. Please try again.
+</Alert>
+
+<!-- With custom ID -->
+<Alert variant="info" id="custom-alert" dismissible>
+  Custom alert with ID.
+</Alert>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Props</h2>
+		<ul>
+			<li><code>variant</code> (string, optional) - Alert variant: <code>"success"</code>, <code>"error"</code>, <code>"warning"</code>, or <code>"info"</code> (default: <code>"info"</code>)</li>
+			<li><code>dismissible</code> (boolean, optional) - Whether the alert can be dismissed (default: <code>false</code>)</li>
+			<li><code>id</code> (string, optional) - Unique ID for the alert. If not provided, a random ID will be generated</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Features</h2>
+		<ul>
+			<li>Four semantic variants (success, error, warning, info)</li>
+			<li>Theme-aware colors using semantic variables</li>
+			<li>Dismissible functionality with smooth animations</li>
+			<li>Full keyboard accessibility (Enter/Space to dismiss)</li>
+			<li>ARIA attributes for screen readers (<code>role="alert"</code>, <code>aria-live="polite"</code>)</li>
+			<li>Screen reader announcements when dismissed</li>
+			<li>Respects <code>prefers-reduced-motion</code></li>
+			<li>Focus management for close button</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Accessibility</h2>
+		<p>The Alert component includes comprehensive accessibility features:</p>
+		<ul>
+			<li><strong>ARIA Roles:</strong> Uses <code>role="alert"</code> for important messages</li>
+			<li><strong>Live Regions:</strong> <code>aria-live="polite"</code> for screen reader announcements</li>
+			<li><strong>Labels:</strong> Each variant has an appropriate <code>aria-label</code></li>
+			<li><strong>Keyboard Support:</strong> Close button responds to Enter/Space keys</li>
+			<li><strong>Focus Management:</strong> Close button has visible focus indicators</li>
+			<li><strong>Screen Reader Feedback:</strong> Announces when alerts are dismissed</li>
+		</ul>
+	</section>
+</DocsLayout>

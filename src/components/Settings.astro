@@ -193,24 +193,47 @@ const { open = false } = Astro.props;
     // Open settings
     const openSettings = () => {
       previousActiveElement = document.activeElement;
+      
+      // First, make elements visible but keep panel off-screen
       settings.setAttribute('aria-hidden', 'false');
       if (overlay) overlay.setAttribute('aria-hidden', 'false');
       panel.setAttribute('aria-hidden', 'false');
-      panel.setAttribute('data-open', 'true');
-      if (closeBtn) closeBtn.focus();
+      
+      // Ensure panel starts in closed position (remove data-open if it exists)
+      panel.removeAttribute('data-open');
+      
+      // Force a reflow to ensure the closed state is rendered
+      void panel.offsetHeight;
+      
+      // Then animate in - use double requestAnimationFrame for reliable animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          panel.setAttribute('data-open', 'true');
+          if (closeBtn) closeBtn.focus();
+        });
+      });
     };
 
     // Close settings
     const closeSettings = () => {
-      settings.setAttribute('aria-hidden', 'true');
-      overlay?.setAttribute('aria-hidden', 'true');
-      panel.setAttribute('aria-hidden', 'true');
+      // Remove data-open first to trigger close animation
       panel.removeAttribute('data-open');
-      // Return focus to previous element
-      if (previousActiveElement) {
-        previousActiveElement.focus();
-        previousActiveElement = null;
-      }
+      
+      // Wait for animation to complete before hiding
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animationDuration = prefersReducedMotion ? 0 : 300;
+      
+      setTimeout(() => {
+        settings.setAttribute('aria-hidden', 'true');
+        overlay?.setAttribute('aria-hidden', 'true');
+        panel.setAttribute('aria-hidden', 'true');
+        
+        // Return focus to previous element
+        if (previousActiveElement) {
+          previousActiveElement.focus();
+          previousActiveElement = null;
+        }
+      }, animationDuration);
     };
 
     // Event listeners

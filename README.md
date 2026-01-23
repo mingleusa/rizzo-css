@@ -109,15 +109,17 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with dropdown menus, settings button, and mobile menu (sticky positioning, full width)
-- **Settings** - Comprehensive settings panel with theme switcher, font size control, and accessibility options
-- **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (ARIA menu pattern, integrated in Settings)
+- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Mobile menu with smooth transitions and full-width layout
+- **Settings** - Settings panel with theme switcher, font size control, and accessibility options. Opening/closing animations, mobile responsive
+- **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
 - **Button** - Semantic button component with variants
-- **Icons** - Reusable SVG icon components using Tabler Icons (Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check)
+- **Icons** - Reusable SVG icon components using Tabler Icons
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
-- **Card** - Flexible card component with variants (elevated, outlined, filled), sections, and image support
+- **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation
-- **CopyToClipboard** - Copy to clipboard component with visual feedback and unique ID support
+- **CopyToClipboard** - Copy to clipboard component with visual feedback
+- **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
+- **Alert** - Alert/notification component with variants and dismissible functionality
 
 All components:
 - Use semantic theme variables with contrast-aware text colors

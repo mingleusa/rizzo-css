@@ -1,0 +1,105 @@
+---
+import Close from './icons/Close.astro';
+
+interface Props {
+  variant?: 'success' | 'error' | 'warning' | 'info';
+  dismissible?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const {
+  variant = 'info',
+  dismissible = false,
+  class: className = '',
+  id,
+} = Astro.props;
+
+const alertId = id || `alert-${Math.random().toString(36).substr(2, 9)}`;
+const variantClass = `alert--${variant}`;
+const classes = `alert ${variantClass} ${className}`.trim();
+
+// ARIA labels based on variant
+const ariaLabels = {
+  success: 'Success message',
+  error: 'Error message',
+  warning: 'Warning message',
+  info: 'Information message',
+};
+---
+
+<div
+  class={classes}
+  id={alertId}
+  role="alert"
+  aria-live="polite"
+  aria-atomic="true"
+  aria-label={ariaLabels[variant]}
+>
+  <div class="alert__content">
+    <slot />
+  </div>
+  {dismissible && (
+    <button
+      type="button"
+      class="alert__close"
+      aria-label="Dismiss alert"
+      data-alert-close
+      aria-controls={alertId}
+    >
+      <Close width={16} height={16} />
+    </button>
+  )}
+</div>
+
+<script>
+  (function initAlert() {
+    const init = () => {
+      const alerts = document.querySelectorAll('.alert');
+      
+      alerts.forEach((alert) => {
+        // Skip if already initialized
+        if (alert.hasAttribute('data-alert-initialized')) return;
+        alert.setAttribute('data-alert-initialized', 'true');
+        
+        const closeBtn = alert.querySelector('[data-alert-close]');
+        if (!closeBtn) return;
+        
+        const closeAlert = () => {
+          // Announce dismissal to screen readers
+          const announcement = document.createElement('div');
+          announcement.setAttribute('role', 'status');
+          announcement.setAttribute('aria-live', 'polite');
+          announcement.className = 'sr-only';
+          announcement.textContent = 'Alert dismissed';
+          document.body.appendChild(announcement);
+          
+          // Remove alert with animation
+          alert.style.opacity = '0';
+          alert.style.transform = 'translateY(-10px)';
+          
+          setTimeout(() => {
+            alert.remove();
+            document.body.removeChild(announcement);
+          }, 200);
+        };
+        
+        closeBtn.addEventListener('click', closeAlert);
+        
+        // Keyboard support
+        closeBtn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            closeAlert();
+          }
+        });
+      });
+    };
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
