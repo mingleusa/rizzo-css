@@ -51,6 +51,7 @@ rizzo-css/
 │       ├── typography.css
 │       ├── utilities.css
 │       ├── variables.css
+│       ├── media-queries.css
 │       └── themes/      # Theme files
 │           ├── dark/
 │           │   ├── dracula-at-night.css
@@ -203,7 +204,8 @@ CSS is organized into logical files:
 - `accessibility.css` - Accessibility utilities
 - `buttons.css` - Button component styles
 - `layout.css` - Layout utilities
-- `utilities.css` - Utility classes
+- `utilities.css` - Utility classes (colors, spacing, borders)
+- `media-queries.css` - Responsive breakpoints and media query definitions
 - `components.css` - Component styles (Navbar, Settings, ThemeSwitcher)
 - `themes/` - Theme definitions (dark/light)
 
@@ -226,4 +228,21 @@ All styles use semantic theme variables:
 - **Linting**: Stylelint configured for BEM naming convention
 - **No Inline Styles**: All component styles are in external CSS files
 
-See [Design System Documentation](./DESIGN_SYSTEM.md) for available variables.
+### Spacing Utilities
+
+Rizzo CSS includes comprehensive spacing utilities for margins and padding:
+
+```html
+<!-- Margin utilities -->
+<div class="m-4">Margin on all sides</div>
+<div class="mx-auto">Centered with auto margins</div>
+<div class="mt-6 mb-4">Top and bottom margins</div>
+
+<!-- Padding utilities -->
+<div class="p-4">Padding on all sides</div>
+<div class="px-6 py-4">Horizontal and vertical padding</div>
+
+<!-- Sizes: 0, 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px), 24 (96px) -->
+```
+
+See [Design System Documentation](./DESIGN_SYSTEM.md) for available variables and utilities.

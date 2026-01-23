@@ -162,11 +162,84 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 	</section>
 	
 	<section>
+		<h2>Spacing Utilities</h2>
+		<p>Rizzo CSS includes comprehensive spacing utilities for margins and padding using a consistent scale:</p>
+		
+		<h3>Spacing Scale</h3>
+		<p>All spacing uses rem units for consistency and accessibility:</p>
+		<ul>
+			<li><code>0</code> - 0</li>
+			<li><code>1</code> - 0.25rem (4px)</li>
+			<li><code>2</code> - 0.5rem (8px)</li>
+			<li><code>3</code> - 0.75rem (12px)</li>
+			<li><code>4</code> - 1rem (16px)</li>
+			<li><code>5</code> - 1.25rem (20px)</li>
+			<li><code>6</code> - 1.5rem (24px)</li>
+			<li><code>8</code> - 2rem (32px)</li>
+			<li><code>10</code> - 2.5rem (40px)</li>
+			<li><code>12</code> - 3rem (48px)</li>
+			<li><code>16</code> - 4rem (64px)</li>
+			<li><code>20</code> - 5rem (80px)</li>
+			<li><code>24</code> - 6rem (96px)</li>
+		</ul>
+		
+		<h3>Margin Utilities</h3>
+		<p>Margin classes: <code>.m-{'{size}'}</code>, <code>.mt-{'{size}'}</code>, <code>.mr-{'{size}'}</code>, <code>.mb-{'{size}'}</code>, <code>.ml-{'{size}'}</code>, <code>.mx-{'{size}'}</code>, <code>.my-{'{size}'}</code></p>
+		<p>Auto margins: <code>.m-auto</code>, <code>.mx-auto</code>, <code>.my-auto</code> (for centering)</p>
+		
+		<h3>Padding Utilities</h3>
+		<p>Padding classes: <code>.p-{'{size}'}</code>, <code>.pt-{'{size}'}</code>, <code>.pr-{'{size}'}</code>, <code>.pb-{'{size}'}</code>, <code>.pl-{'{size}'}</code>, <code>.px-{'{size}'}</code>, <code>.py-{'{size}'}</code></p>
+		
+		<h3>Examples</h3>
+		<pre><code>{`<!-- Margin examples -->
+<div class="m-4">Margin on all sides</div>
+<div class="mx-auto">Centered with auto margins</div>
+<div class="mt-6 mb-4">Top and bottom margins</div>
+
+<!-- Padding examples -->
+<div class="p-4">Padding on all sides</div>
+<div class="px-6 py-4">Horizontal and vertical padding</div>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Media Queries</h2>
+		<p>Rizzo CSS includes a dedicated <code>media-queries.css</code> file with responsive breakpoints:</p>
+		
+		<h3>Breakpoints</h3>
+		<ul>
+			<li><code>640px</code> (sm) - Small devices, landscape phones</li>
+			<li><code>768px</code> (md) - Tablets</li>
+			<li><code>1024px</code> (lg) - Desktops</li>
+			<li><code>1280px</code> (xl) - Large desktops</li>
+			<li><code>1536px</code> (2xl) - Larger desktops</li>
+		</ul>
+		
+		<h3>Usage</h3>
+		<pre><code>{`/* Mobile-first approach */
+@media (width >= 768px) {
+  /* Tablet and up styles */
+}
+
+@media (width <= 1023px) {
+  /* Tablet and down styles */
+}`}</code></pre>
+		
+		<h3>Accessibility Media Queries</h3>
+		<p>The media queries file also includes:</p>
+		<ul>
+			<li><code>prefers-reduced-motion</code> - Respects user motion preferences</li>
+			<li><code>prefers-contrast: high</code> - Enhanced contrast support</li>
+		</ul>
+	</section>
+	
+	<section>
 		<h2>Best Practices</h2>
 		<ol>
 			<li><strong>Always use semantic variables</strong> - Never hardcode colors</li>
 			<li><strong>Use contrast-aware text colors</strong> - Use <code>--accent-text</code>, <code>--success-text</code>, etc. when using colored backgrounds</li>
 			<li><strong>Use appropriate variables</strong> - <code>--background-alt</code> for cards, <code>--background</code> for page background</li>
+			<li><strong>Use spacing utilities</strong> - Use margin and padding utility classes for consistent spacing</li>
+			<li><strong>Mobile-first responsive design</strong> - Start with mobile styles, then add larger breakpoint styles</li>
 			<li><strong>Maintain contrast</strong> - All themes meet WCAG AA contrast requirements automatically</li>
 			<li><strong>Test with multiple themes</strong> - Verify components work with both light and dark themes</li>
 			<li><strong>No inline styles</strong> - All CSS should be in external files (<code>components.css</code>, <code>buttons.css</code>, etc.)</li>

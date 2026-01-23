@@ -118,7 +118,7 @@ const navLinks = [
     window.addEventListener('resize', () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 1024) {
           menu.classList.remove('navbar__menu--open');
           toggle.setAttribute('aria-expanded', 'false');
         }

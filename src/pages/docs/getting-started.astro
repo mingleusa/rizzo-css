@@ -38,9 +38,18 @@ pnpm install`}</code></pre>
 │       ├── typography.css
 │       ├── utilities.css
 │       ├── variables.css
+│       ├── media-queries.css
 │       └── themes/      # Theme files
 │           ├── dark/
+│           │   ├── dracula-at-night.css
+│           │   ├── night-owl.css
+│           │   ├── shades-of-purple.css
+│           │   └── winter-is-coming-dark-black.css
 │           └── light/
+│               ├── grey-light-pro.css
+│               ├── nord-light.css
+│               ├── snazzy-light.css
+│               └── tiny-light.css
 ├── docs/                # Documentation
 ├── public/              # Static assets
 │   └── css/             # Generated CSS
@@ -151,7 +160,8 @@ import Button from '../components/Button.astro';
 			<li><code>accessibility.css</code> - Accessibility utilities</li>
 			<li><code>buttons.css</code> - Button component styles</li>
 			<li><code>layout.css</code> - Layout utilities</li>
-			<li><code>utilities.css</code> - Utility classes</li>
+			<li><code>utilities.css</code> - Utility classes (colors, spacing, borders)</li>
+			<li><code>media-queries.css</code> - Responsive breakpoints and media query definitions</li>
 			<li><code>components.css</code> - Component styles (Navbar, Settings, ThemeSwitcher)</li>
 			<li><code>themes/</code> - Theme definitions (dark/light)</li>
 		</ul>
@@ -171,6 +181,19 @@ import Button from '../components/Button.astro';
 			<li><strong>Linting</strong>: Stylelint configured for BEM naming convention</li>
 			<li><strong>No Inline Styles</strong>: All component styles are in external CSS files</li>
 		</ul>
-		<p>See <a href="/docs/design-system">Design System Documentation</a> for available variables.</p>
+		
+		<h3>Spacing Utilities</h3>
+		<p>Rizzo CSS includes comprehensive spacing utilities for margins and padding:</p>
+		<pre><code>{`<!-- Margin utilities -->
+<div class="m-4">Margin on all sides</div>
+<div class="mx-auto">Centered with auto margins</div>
+<div class="mt-6 mb-4">Top and bottom margins</div>
+
+<!-- Padding utilities -->
+<div class="p-4">Padding on all sides</div>
+<div class="px-6 py-4">Horizontal and vertical padding</div>
+
+<!-- Sizes: 0, 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px), 24 (96px) -->`}</code></pre>
+		<p>See <a href="/docs/design-system">Design System Documentation</a> for available variables and utilities.</p>
 	</section>
 </DocsLayout>

@@ -23,7 +23,9 @@ import Navbar from '../components/Navbar.astro';
 
 ### Features
 
-- Responsive mobile menu with hamburger toggle
+- Responsive mobile menu with hamburger toggle (activates at 1024px and below)
+- Smooth hamburger-to-X animation
+- Active link indicator with underline
 - Keyboard accessible with full ARIA support
 - ARIA labels and roles
 - Settings button (gear icon) that opens Settings panel

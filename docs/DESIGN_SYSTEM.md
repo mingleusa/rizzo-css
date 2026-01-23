@@ -77,6 +77,72 @@ Rizzo CSS includes a comprehensive typography system:
 
 - `--selection` - Text selection background color (default: `oklch(70% 0.15 250deg)`)
 
+### Spacing Utilities
+
+Rizzo CSS includes comprehensive spacing utilities for margins and padding using a consistent scale:
+
+**Spacing Scale:**
+All spacing uses rem units for consistency and accessibility:
+- `0` - 0
+- `1` - 0.25rem (4px)
+- `2` - 0.5rem (8px)
+- `3` - 0.75rem (12px)
+- `4` - 1rem (16px)
+- `5` - 1.25rem (20px)
+- `6` - 1.5rem (24px)
+- `8` - 2rem (32px)
+- `10` - 2.5rem (40px)
+- `12` - 3rem (48px)
+- `16` - 4rem (64px)
+- `20` - 5rem (80px)
+- `24` - 6rem (96px)
+
+**Margin Utilities:**
+- `.m-{size}`, `.mt-{size}`, `.mr-{size}`, `.mb-{size}`, `.ml-{size}`, `.mx-{size}`, `.my-{size}`
+- Auto margins: `.m-auto`, `.mx-auto`, `.my-auto` (for centering)
+
+**Padding Utilities:**
+- `.p-{size}`, `.pt-{size}`, `.pr-{size}`, `.pb-{size}`, `.pl-{size}`, `.px-{size}`, `.py-{size}`
+
+**Examples:**
+```html
+<!-- Margin examples -->
+<div class="m-4">Margin on all sides</div>
+<div class="mx-auto">Centered with auto margins</div>
+<div class="mt-6 mb-4">Top and bottom margins</div>
+
+<!-- Padding examples -->
+<div class="p-4">Padding on all sides</div>
+<div class="px-6 py-4">Horizontal and vertical padding</div>
+```
+
+### Media Queries
+
+Rizzo CSS includes a dedicated `media-queries.css` file with responsive breakpoints:
+
+**Breakpoints:**
+- `640px` (sm) - Small devices, landscape phones
+- `768px` (md) - Tablets
+- `1024px` (lg) - Desktops
+- `1280px` (xl) - Large desktops
+- `1536px` (2xl) - Larger desktops
+
+**Usage:**
+```css
+/* Mobile-first approach */
+@media (width >= 768px) {
+  /* Tablet and up styles */
+}
+
+@media (width <= 1023px) {
+  /* Tablet and down styles */
+}
+```
+
+**Accessibility Media Queries:**
+- `prefers-reduced-motion` - Respects user motion preferences
+- `prefers-contrast: high` - Enhanced contrast support
+
 ## Color Format
 
 All colors use **OKLCH** format for better perceptual uniformity:
@@ -152,10 +218,12 @@ This ensures:
 1. **Always use semantic variables** - Never hardcode colors
 2. **Use contrast-aware text colors** - Use `--accent-text`, `--success-text`, etc. when using colored backgrounds
 3. **Use appropriate variables** - `--background-alt` for cards, `--background` for page background
-4. **Maintain contrast** - All themes meet WCAG AA contrast requirements automatically
-5. **Test with multiple themes** - Verify components work with both light and dark themes
-6. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.)
-7. **Follow BEM naming** - Use block__element--modifier pattern for all component classes
-8. **Accessibility first** - All components must be keyboard navigable and screen reader friendly
-9. **Use typography variables** - Use `--font-size-*`, `--font-weight-*`, `--line-height-*` for consistent typography
-10. **Respect font size scale** - All font sizes automatically scale with `--font-size-scale` variable
+4. **Use spacing utilities** - Use margin and padding utility classes for consistent spacing
+5. **Mobile-first responsive design** - Start with mobile styles, then add larger breakpoint styles
+6. **Maintain contrast** - All themes meet WCAG AA contrast requirements automatically
+7. **Test with multiple themes** - Verify components work with both light and dark themes
+8. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.)
+9. **Follow BEM naming** - Use block__element--modifier pattern for all component classes
+10. **Accessibility first** - All components must be keyboard navigable and screen reader friendly
+11. **Use typography variables** - Use `--font-size-*`, `--font-weight-*`, `--line-height-*` for consistent typography
+12. **Respect font size scale** - All font sizes automatically scale with `--font-size-scale` variable

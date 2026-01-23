@@ -17,11 +17,14 @@ import ChevronDown from '../../components/icons/ChevronDown.astro';
 			<div class="example-title">Example</div>
 			<p>The navbar is already included in the Layout component. It includes:</p>
 			<ul>
-				<li>Responsive mobile menu with hamburger toggle</li>
+				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
+				<li>Smooth hamburger-to-X animation</li>
+				<li>Active link indicator with underline matching hover effect</li>
 				<li>Keyboard accessible with full ARIA support</li>
 				<li>Settings button (gear icon) that opens Settings panel</li>
 				<li>Sticky positioning at top</li>
 				<li>Full width layout with no gaps</li>
+				<li>Theme flash prevention (inline script in Layout)</li>
 			</ul>
 		</div>
 		
@@ -40,9 +43,14 @@ import Navbar from '../components/Navbar.astro';
 		<h3>Features</h3>
 		<ul>
 			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons</li>
-			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator</li>
+			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable)</li>
 			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root</li>
 			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root</li>
+			<li>Slide-in panel with overlay</li>
+			<li>All settings persist in localStorage</li>
+			<li>Full keyboard navigation (Escape to close)</li>
+			<li>Accessible ARIA attributes</li>
+			<li>Slider track visibility optimized for all themes (dark color for tiny-light theme)</li>
 		</ul>
 		
 		<div class="example">
@@ -61,7 +69,18 @@ import Navbar from '../components/Navbar.astro';
 			<li>Each theme has its own icon (Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)</li>
 			<li>Active theme displays its name and icon in the trigger button</li>
 			<li>Active theme option shows its theme background color</li>
+			<li>Persists selection in localStorage</li>
 			<li>Full keyboard navigation</li>
+			<li>Accessible ARIA menu pattern</li>
+			<li>Works standalone or within Settings panel</li>
+		</ul>
+		
+		<h3>Keyboard Navigation</h3>
+		<ul>
+			<li><code>Enter</code>/<code>Space</code> - Open/close menu</li>
+			<li><code>ArrowDown</code>/<code>ArrowUp</code> - Navigate options</li>
+			<li><code>Home</code>/<code>End</code> - Jump to first/last</li>
+			<li><code>Escape</code> - Close menu</li>
 		</ul>
 		
 		<div class="example">
@@ -94,6 +113,14 @@ import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 				<button class="btn btn-outline">Outline</button>
 			</div>
 		</div>
+		
+		<p>All buttons:</p>
+		<ul>
+			<li>Use semantic theme variables</li>
+			<li>Have hover and focus states</li>
+			<li>Support disabled state</li>
+			<li>Are keyboard accessible</li>
+		</ul>
 		
 		<h3>Code Example</h3>
 		<pre><code>{`<!-- Using component -->
@@ -157,5 +184,20 @@ import Moon from '../components/icons/Moon.astro';
 			<li><code>class</code> - Optional CSS class for styling</li>
 		</ul>
 		<p>All icons use <code>currentColor</code> for theming and adapt to the current theme.</p>
+	</section>
+	
+	<section>
+		<h2>Layout Components</h2>
+		
+		<h3>Container</h3>
+		<pre><code>{`<div class="container">
+  <!-- Content -->
+</div>`}</code></pre>
+		
+		<h3>Card</h3>
+		<pre><code>{`<div class="card">
+  <h3>Card Title</h3>
+  <p>Card content</p>
+</div>`}</code></pre>
 	</section>
 </DocsLayout>

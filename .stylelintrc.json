@@ -2,11 +2,18 @@
   "extends": ["stylelint-config-standard"],
   "rules": {
     "selector-class-pattern": [
-      "^[a-z]([a-z0-9-]+)?(__([a-z0-9-]+))?(--([a-z0-9-]+))?$",
+      "^(?:[a-z]([a-z0-9-]+)?(__([a-z0-9-]+))?(--([a-z0-9-]+))?|[a-z]+-[0-9]+|sr-only|visually-hidden|skip-link|container|card|btn|text-|bg-|border-)$",
       {
-        "message": "Expected class selector to follow BEM naming convention (block__element--modifier)"
+        "message": "Expected class selector to follow BEM naming convention (block__element--modifier) or be a utility class"
       }
     ],
-    "no-descending-specificity": null
+    "no-descending-specificity": null,
+    "declaration-block-single-line-max-declarations": null,
+    "media-feature-name-value-no-unknown": [
+      true,
+      {
+        "ignoreMediaFeatureNames": ["prefers-contrast"]
+      }
+    ]
   }
 }

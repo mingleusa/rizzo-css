@@ -1,0 +1,74 @@
+/* Media Queries - Responsive Breakpoints */
+
+/* Mobile First Approach - Base styles are for mobile */
+
+/* Small devices (landscape phones, 640px and up) */
+@media (width >= 640px) {
+  /* Add responsive styles here */
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (width >= 768px) {
+  /* Add responsive styles here */
+}
+
+/* Large devices (desktops, 1024px and up) */
+@media (width >= 1024px) {
+  /* Add responsive styles here */
+}
+
+/* Extra large devices (large desktops, 1280px and up) */
+@media (width >= 1280px) {
+  /* Add responsive styles here */
+}
+
+/* 2XL devices (larger desktops, 1536px and up) */
+@media (width >= 1536px) {
+  /* Add responsive styles here */
+}
+
+/* Max-width breakpoints (for targeting smaller screens) */
+
+/* Small devices and down (max-width: 639px) */
+@media (width <= 639px) {
+  /* Add mobile-only styles here */
+}
+
+/* Medium devices and down (max-width: 767px) */
+@media (width <= 767px) {
+  /* Add tablet-and-down styles here */
+}
+
+/* Large devices and down (max-width: 1023px) */
+@media (width <= 1023px) {
+  /* Add desktop-and-down styles here */
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High Contrast */
+/* stylelint-disable-next-line media-feature-name-value-no-unknown */
+@media (prefers-contrast: high) {
+  :root {
+    --border: oklch(from var(--border) calc(l - 10%) c h);
+  }
+  
+  * {
+    border-width: 2px;
+  }
+}
+
+/* Dark Mode Preference (optional - we use theme switcher instead) */
+@media (prefers-color-scheme: dark) {
+  /* Optional: Can be used as fallback if no theme is set */
+}
