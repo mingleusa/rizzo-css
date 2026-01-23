@@ -1,0 +1,162 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+---
+
+<DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide">
+	<section>
+		<h2>Available Themes</h2>
+		<p>Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories.</p>
+		
+		<h3>Dark Themes</h3>
+		<ul>
+			<li><strong>Dracula At Night</strong> (<code>dracula-at-night</code>) - A darker fork of Dracula theme by bceskavich</li>
+			<li><strong>Shades of Purple</strong> (<code>shades-of-purple</code>) - Professional theme with bold purple shades by Ahmad Awais</li>
+			<li><strong>Night Owl</strong> (<code>night-owl</code>) - Optimized for nighttime coding by Sarah Drasner</li>
+			<li><strong>Winter is Coming Dark Black</strong> (<code>winter-is-coming-dark-black</code>) - Very dark black with vibrant accents by John Papa</li>
+		</ul>
+		
+		<h3>Light Themes</h3>
+		<ul>
+			<li><strong>Nord Light</strong> (<code>nord-light</code>) - Arctic, north-bluish color palette by arcticicestudio</li>
+			<li><strong>Grey Light Pro</strong> (<code>grey-light-pro</code>) - Soft grey theme, easier on the eyes by Emilio Lanzalaco</li>
+			<li><strong>Snazzy Light</strong> (<code>snazzy-light</code>) - Vivid colors for bright environments by Florian Reuschel</li>
+			<li><strong>Tiny Light</strong> (<code>tiny-light</code>) - Minimal, eye-friendly theme by luqimin</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Try Themes</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Using Themes</h2>
+		
+		<h3>Setting Theme</h3>
+		<p>Set the theme via the <code>data-theme</code> attribute on the HTML element:</p>
+		<pre><code>{`<html lang="en" data-theme="dracula-at-night">`}</code></pre>
+		
+		<h3>Programmatic Theme Switching</h3>
+		<p>The <code>ThemeSwitcher</code> component handles theme switching automatically. It:</p>
+		<ul>
+			<li>Updates the <code>data-theme</code> attribute</li>
+			<li>Persists choice in <code>localStorage</code></li>
+			<li>Updates all components instantly</li>
+		</ul>
+		
+		<h3>Manual Theme Switching</h3>
+		<pre><code>{`// Set theme
+document.documentElement.setAttribute('data-theme', 'night-owl');
+
+// Save to localStorage
+localStorage.setItem('theme', 'night-owl');
+
+// Load saved theme
+const savedTheme = localStorage.getItem('theme') || 'dracula-at-night';
+document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Theme File Structure</h2>
+		<p>Themes are organized in <code>src/styles/themes/</code>:</p>
+		<pre><code>{`themes/
+├── dark/
+│   ├── dracula-at-night.css
+│   ├── shades-of-purple.css
+│   ├── night-owl.css
+│   └── winter-is-coming-dark-black.css
+└── light/
+    ├── nord-light.css
+    ├── grey-light-pro.css
+    ├── snazzy-light.css
+    └── tiny-light.css`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Creating Custom Themes</h2>
+		<ol>
+			<li>Create a new theme file in <code>src/styles/themes/dark/</code> or <code>src/styles/themes/light/</code></li>
+			<li>Use the <code>[data-theme="your-theme-name"]</code> selector</li>
+			<li>Define all semantic variables including contrast-aware text colors</li>
+			<li>Import in <code>src/styles/main.css</code></li>
+		</ol>
+		
+		<h3>Example Theme</h3>
+		<pre><code>{`/* My Custom Theme */
+/* Author: Your Name */
+
+[data-theme="my-theme"] {
+  --bg: oklch(15% 0.015 270.5deg);
+  --bg-alt: oklch(12% 0.012 270.5deg);
+  --fg: oklch(95% 0.003 100.2deg);
+  --fg-dim: oklch(85% 0.003 100.2deg);
+  --current-line: oklch(25% 0.022 270.5deg);
+  --selection: oklch(25% 0.022 270.5deg);
+  
+  /* Accent colors */
+  --accent-color: oklch(65% 0.180 290.1deg);
+  --accent-hover-color: oklch(70% 0.195 340.1deg);
+  
+  /* Semantic mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: var(--current-line);
+  --accent: var(--accent-color);
+  --accent-hover: var(--accent-hover-color);
+  
+  /* Contrast-aware text colors */
+  --accent-text: oklch(100% 0 0deg); /* White text for dark accent */
+  --success-text: oklch(100% 0 0deg);
+  --warning-text: oklch(20% 0 0deg); /* Dark text for light yellow */
+  --error-text: oklch(100% 0 0deg);
+  --info-text: oklch(100% 0 0deg);
+}`}</code></pre>
+		
+		<h3>Contrast Text Colors</h3>
+		<p>When creating themes, ensure proper contrast by setting text colors based on background lightness:</p>
+		<ul>
+			<li><strong>Dark backgrounds</strong> (&lt; 50% lightness): Use white text (<code>oklch(100% 0 0deg)</code>)</li>
+			<li><strong>Light backgrounds</strong> (&gt;= 50% lightness): Use dark text (<code>oklch(20% 0 0deg)</code>)</li>
+			<li><strong>Warning colors</strong> (typically 80%+ lightness): Always use dark text</li>
+		</ul>
+		<p>This ensures WCAG AA compliance (4.5:1 contrast ratio for normal text).</p>
+	</section>
+	
+	<section>
+		<h2>Color Format</h2>
+		<p>All themes use <strong>OKLCH</strong> format with percentages and degrees:</p>
+		<pre><code>{`--bg: oklch(15% 0.015 270.5deg);`}</code></pre>
+		<p>Format: <code>oklch(lightness% chroma hue)</code></p>
+		
+		<h3>OKLCH Benefits</h3>
+		<ul>
+			<li>Perceptually uniform color space</li>
+			<li>Better color manipulation</li>
+			<li>Consistent appearance across displays</li>
+		</ul>
+		
+		<h3>Color Conversion</h3>
+		<p>To convert from hex to OKLCH:</p>
+		<ul>
+			<li>Use online tools like <a href="https://oklch.com" target="_blank" rel="noopener">oklch.com</a></li>
+			<li>Or use <a href="https://www.hex2oklch.com/" target="_blank" rel="noopener">hex2oklch.com</a></li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Theme Persistence</h2>
+		<p>The theme switcher automatically saves the selected theme to <code>localStorage</code> and restores it on page load. An inline script in <code>Layout.astro</code> prevents theme flash by setting the theme immediately before the page renders.</p>
+	</section>
+	
+	<section>
+		<h2>Theme-Specific Overrides</h2>
+		<p>Some themes include specific overrides for better visibility:</p>
+		<ul>
+			<li><strong>Tiny Light Theme</strong>: Navbar link hover effects use dark color (<code>var(--text)</code>) instead of accent color for better visibility on the very light background</li>
+			<li><strong>Tiny Light Theme</strong>: Font size slider uses dark colors for track and thumb for visibility</li>
+		</ul>
+	</section>
+</DocsLayout>

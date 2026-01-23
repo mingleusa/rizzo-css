@@ -1,0 +1,161 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Button from '../../components/Button.astro';
+import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import Gear from '../../components/icons/Gear.astro';
+import Close from '../../components/icons/Close.astro';
+import ChevronDown from '../../components/icons/ChevronDown.astro';
+---
+
+<DocsLayout title="Components" description="Component library with usage examples and live demos">
+	<section>
+		<h2>Navbar</h2>
+		<p>A responsive, accessible navigation bar with integrated settings button.</p>
+		
+		<h3>Usage</h3>
+		<div class="example">
+			<div class="example-title">Example</div>
+			<p>The navbar is already included in the Layout component. It includes:</p>
+			<ul>
+				<li>Responsive mobile menu with hamburger toggle</li>
+				<li>Keyboard accessible with full ARIA support</li>
+				<li>Settings button (gear icon) that opens Settings panel</li>
+				<li>Sticky positioning at top</li>
+				<li>Full width layout with no gaps</li>
+			</ul>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`---
+import Navbar from '../components/Navbar.astro';
+---
+
+<Navbar siteName="My Site" />`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Settings</h2>
+		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
+		
+		<h3>Features</h3>
+		<ul>
+			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons</li>
+			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator</li>
+			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root</li>
+			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Try it</div>
+			<p>Click the gear icon in the navbar to open the Settings panel.</p>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Switcher</h2>
+		<p>An accessible dropdown menu for switching between themes. Integrated into the Settings component.</p>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Groups themes by Dark/Light</li>
+			<li>Each theme has its own icon (Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye)</li>
+			<li>Active theme displays its name and icon in the trigger button</li>
+			<li>Active theme option shows its theme background color</li>
+			<li>Full keyboard navigation</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ThemeSwitcher />
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`---
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+---
+
+<ThemeSwitcher />`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Button Component</h2>
+		<p>Semantic button component with variants using theme variables.</p>
+		
+		<h3>Button Variants</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: 0.75rem;">
+				<button class="btn">Default</button>
+				<button class="btn btn-primary">Primary</button>
+				<button class="btn btn-success">Success</button>
+				<button class="btn btn-warning">Warning</button>
+				<button class="btn btn-error">Error</button>
+				<button class="btn btn-info">Info</button>
+				<button class="btn btn-outline">Outline</button>
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`<!-- Using component -->
+---
+import Button from '../components/Button.astro';
+---
+
+<Button>Click me</Button>
+
+<!-- Using classes -->
+<button class="btn">Default</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-error">Error</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-outline">Outline</button>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Icon Components</h2>
+		<p>Reusable SVG icon components using Tabler Icons (MIT licensed).</p>
+		
+		<h3>Available Icons</h3>
+		<ul>
+			<li><strong>Gear</strong> - Settings/configuration icon</li>
+			<li><strong>Close</strong> - Close/dismiss icon</li>
+			<li><strong>ChevronDown</strong> - Dropdown indicator</li>
+			<li><strong>Moon</strong> - Dracula At Night theme icon</li>
+			<li><strong>Palette</strong> - Shades of Purple theme icon</li>
+			<li><strong>Owl</strong> - Night Owl theme icon</li>
+			<li><strong>Snowflake</strong> - Winter is Coming theme icon</li>
+			<li><strong>IceCream</strong> - Nord Light theme icon</li>
+			<li><strong>Circle</strong> - Grey Light Pro theme icon</li>
+			<li><strong>Rainbow</strong> - Snazzy Light theme icon</li>
+			<li><strong>Eye</strong> - Tiny Light theme icon</li>
+		</ul>
+		
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;">
+				<div><Gear width={24} height={24} /> Gear</div>
+				<div><Close width={24} height={24} /> Close</div>
+				<div><ChevronDown width={24} height={24} /> ChevronDown</div>
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`---
+import Gear from '../components/icons/Gear.astro';
+import Moon from '../components/icons/Moon.astro';
+---
+
+<Gear width={20} height={20} />
+<Moon width={16} height={16} class="my-icon" />`}</code></pre>
+		
+		<h3>Icon Props</h3>
+		<ul>
+			<li><code>width</code> - Icon width (default: 16)</li>
+			<li><code>height</code> - Icon height (default: 16)</li>
+			<li><code>class</code> - Optional CSS class for styling</li>
+		</ul>
+		<p>All icons use <code>currentColor</code> for theming and adapt to the current theme.</p>
+	</section>
+</DocsLayout>

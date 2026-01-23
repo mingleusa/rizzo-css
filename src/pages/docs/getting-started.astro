@@ -1,0 +1,176 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Getting Started" description="Installation, project structure, and quick start guide">
+	<section>
+		<h2>Installation</h2>
+		<p>Rizzo CSS is built on Astro. To use it in your project:</p>
+		<pre><code>{`# Clone or copy the project
+git clone <repository-url>
+cd rizzo-css
+
+# Install dependencies
+pnpm install`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Project Structure</h2>
+		<pre><code>{`rizzo-css/
+├── src/
+│   ├── components/      # Astro components
+│   │   ├── Button.astro
+│   │   ├── Navbar.astro
+│   │   ├── Settings.astro
+│   │   ├── ThemeSwitcher.astro
+│   │   └── icons/      # Icon components
+│   ├── layouts/         # Page layouts
+│   │   └── Layout.astro
+│   ├── pages/           # Route pages
+│   └── styles/          # CSS files
+│       ├── accessibility.css
+│       ├── base.css
+│       ├── buttons.css
+│       ├── components.css
+│       ├── layout.css
+│       ├── main.css
+│       ├── reset.css
+│       ├── typography.css
+│       ├── utilities.css
+│       ├── variables.css
+│       └── themes/      # Theme files
+│           ├── dark/
+│           └── light/
+├── docs/                # Documentation
+├── public/              # Static assets
+│   └── css/             # Generated CSS
+│       └── main.min.css
+└── scripts/             # Build scripts
+    └── build-css.js`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Development</h2>
+		<p>Start the development server:</p>
+		<pre><code>{`pnpm dev`}</code></pre>
+		<p>The site will be available at <code>http://localhost:4321</code></p>
+	</section>
+	
+	<section>
+		<h2>Building</h2>
+		<p>Build for production:</p>
+		<pre><code>{`pnpm build`}</code></pre>
+		<p>This will:</p>
+		<ol>
+			<li>Build and minify CSS to <code>public/css/main.min.css</code></li>
+			<li>Build the Astro site to <code>dist/</code></li>
+		</ol>
+	</section>
+	
+	<section>
+		<h2>Using Components</h2>
+		
+		<h3>Navbar</h3>
+		<p>The navbar component includes a settings button:</p>
+		<pre><code>{`---
+import Navbar from '../components/Navbar.astro';
+---
+
+<Navbar siteName="My Site" />`}</code></pre>
+		<p><strong>Props:</strong></p>
+		<ul>
+			<li><code>siteName</code> (string, optional) - Site name displayed in navbar (default: "Rizzo CSS")</li>
+			<li><code>logo</code> (string, optional) - Path to logo image</li>
+		</ul>
+		<p>The navbar includes a settings button that opens the Settings panel.</p>
+		
+		<h3>Settings</h3>
+		<p>The Settings component provides a comprehensive settings panel:</p>
+		<pre><code>{`---
+import Settings from '../components/Settings.astro';
+---
+
+<Settings open={false} />`}</code></pre>
+		<p><strong>Features:</strong></p>
+		<ul>
+			<li>Theme switcher (integrated ThemeSwitcher component)</li>
+			<li>Font size slider (75% - 150% with filled track)</li>
+			<li>Reduce motion toggle</li>
+			<li>High contrast toggle</li>
+			<li>All settings persist in localStorage</li>
+			<li>Accessible with keyboard navigation and ARIA attributes</li>
+		</ul>
+		<p><strong>Opening Settings:</strong> The Settings panel is opened via <code>window.openSettings()</code> function, which is exposed globally. The Navbar component includes a settings button that calls this function.</p>
+		
+		<h3>Theme Switcher</h3>
+		<p>The ThemeSwitcher is integrated into the Settings panel, but can also be used standalone:</p>
+		<pre><code>{`---
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+---
+
+<ThemeSwitcher />`}</code></pre>
+		<p>The theme switcher automatically:</p>
+		<ul>
+			<li>Groups themes by Dark/Light</li>
+			<li>Shows active theme name and icon in trigger button</li>
+			<li>Each theme has its own icon</li>
+			<li>Persists selection in localStorage</li>
+			<li>Supports full keyboard navigation</li>
+		</ul>
+		
+		<h3>Button</h3>
+		<p>Use the button component:</p>
+		<pre><code>{`---
+import Button from '../components/Button.astro';
+---
+
+<Button>Click me</Button>`}</code></pre>
+		<p>Or use button classes:</p>
+		<pre><code>{`<button class="btn">Default</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-outline">Outline</button>`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Using Themes</h2>
+		<p>Themes are applied via the <code>data-theme</code> attribute on the HTML element:</p>
+		<pre><code>{`<html lang="en" data-theme="dracula-at-night">`}</code></pre>
+		<p>See <a href="/docs/theming">Theming Documentation</a> for more details.</p>
+	</section>
+	
+	<section>
+		<h2>CSS Architecture</h2>
+		
+		<h3>File Organization</h3>
+		<p>CSS is organized into logical files:</p>
+		<ul>
+			<li><code>variables.css</code> - Default theme variables and typography system</li>
+			<li><code>reset.css</code> - Modern CSS reset</li>
+			<li><code>base.css</code> - Base HTML element styles</li>
+			<li><code>typography.css</code> - Typography system (font families, sizes, weights, line heights, utilities)</li>
+			<li><code>accessibility.css</code> - Accessibility utilities</li>
+			<li><code>buttons.css</code> - Button component styles</li>
+			<li><code>layout.css</code> - Layout utilities</li>
+			<li><code>utilities.css</code> - Utility classes</li>
+			<li><code>components.css</code> - Component styles (Navbar, Settings, ThemeSwitcher)</li>
+			<li><code>themes/</code> - Theme definitions (dark/light)</li>
+		</ul>
+		
+		<h3>Semantic Variables</h3>
+		<p>All styles use semantic theme variables:</p>
+		<pre><code>{`.my-component {
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+}`}</code></pre>
+		
+		<h3>PostCSS Processing</h3>
+		<ul>
+			<li><strong>Development</strong>: PostCSS processes imports and adds vendor prefixes</li>
+			<li><strong>Production</strong>: CSS is minified via <code>build:css</code> script</li>
+			<li><strong>Linting</strong>: Stylelint configured for BEM naming convention</li>
+			<li><strong>No Inline Styles</strong>: All component styles are in external CSS files</li>
+		</ul>
+		<p>See <a href="/docs/design-system">Design System Documentation</a> for available variables.</p>
+	</section>
+</DocsLayout>

@@ -142,8 +142,13 @@
 }
 
 .navbar__link:hover::after,
-.navbar__link:focus-visible::after {
+.navbar__link:focus-visible::after,
+.navbar__link[aria-current="page"]::after {
   width: 100%;
+}
+
+.navbar__link[aria-current="page"] {
+  color: var(--accent);
 }
 
   .navbar__actions {
@@ -647,7 +652,8 @@
   background-color: var(--text);
 }
 
-[data-theme="tiny-light"] .navbar__link:hover {
+[data-theme="tiny-light"] .navbar__link:hover,
+[data-theme="tiny-light"] .navbar__link[aria-current="page"] {
   color: var(--text);
 }
 

@@ -1,0 +1,179 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Design System" description="Core design principles and semantic variables">
+	<section>
+		<h2>Semantic Variables</h2>
+		<p>Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme.</p>
+		
+		<h3>Core Variables</h3>
+		<ul>
+			<li><code>--background</code> - Main background color</li>
+			<li><code>--background-alt</code> - Alternative background (cards, panels)</li>
+			<li><code>--text</code> - Primary text color</li>
+			<li><code>--text-dim</code> - Dimmed/secondary text color</li>
+			<li><code>--border</code> - Border color</li>
+			<li><code>--accent</code> - Primary accent color</li>
+			<li><code>--accent-hover</code> - Accent color on hover</li>
+		</ul>
+		
+		<h3>Semantic Colors</h3>
+		<ul>
+			<li><code>--success</code> - Success state color</li>
+			<li><code>--success-text</code> - Text color for success backgrounds (contrast-aware)</li>
+			<li><code>--warning</code> - Warning state color</li>
+			<li><code>--warning-text</code> - Text color for warning backgrounds (contrast-aware)</li>
+			<li><code>--error</code> - Error state color</li>
+			<li><code>--error-text</code> - Text color for error backgrounds (contrast-aware)</li>
+			<li><code>--info</code> - Informational color</li>
+			<li><code>--info-text</code> - Text color for info backgrounds (contrast-aware)</li>
+		</ul>
+		
+		<h3>Contrast-Aware Text Colors</h3>
+		<p>All semantic colors include corresponding text color variables that automatically provide proper contrast:</p>
+		<ul>
+			<li><code>--accent-text</code> - Text color for accent backgrounds (white on dark accents, dark on light accents)</li>
+			<li><code>--success-text</code> - Text color for success backgrounds</li>
+			<li><code>--warning-text</code> - Text color for warning backgrounds (typically dark text on light yellow)</li>
+			<li><code>--error-text</code> - Text color for error backgrounds</li>
+			<li><code>--info-text</code> - Text color for info backgrounds</li>
+		</ul>
+		<p>These variables ensure WCAG AA contrast compliance (4.5:1 for normal text, 3:1 for large text).</p>
+	</section>
+	
+	<section>
+		<h2>Typography System</h2>
+		<p>Rizzo CSS includes a comprehensive typography system:</p>
+		
+		<h3>Font Families</h3>
+		<ul>
+			<li><code>--font-family-sans</code> - System sans-serif stack</li>
+			<li><code>--font-family-serif</code> - System serif stack</li>
+			<li><code>--font-family-mono</code> - System monospace stack</li>
+			<li><code>--font-family</code> - Default font family (sans-serif)</li>
+		</ul>
+		
+		<h3>Font Weights</h3>
+		<ul>
+			<li><code>--font-weight-light</code> (300)</li>
+			<li><code>--font-weight-normal</code> (400)</li>
+			<li><code>--font-weight-medium</code> (500)</li>
+			<li><code>--font-weight-semibold</code> (600)</li>
+			<li><code>--font-weight-bold</code> (700)</li>
+			<li><code>--font-weight-extrabold</code> (800)</li>
+		</ul>
+		
+		<h3>Font Sizes (scalable via <code>--font-size-scale</code>)</h3>
+		<p>All sizes use <code>calc()</code> with <code>--font-size-scale</code> for dynamic scaling:</p>
+		<ul>
+			<li><code>--font-size-xs</code> through <code>--font-size-6xl</code> (0.75rem to 3.75rem base)</li>
+		</ul>
+		
+		<h3>Line Heights</h3>
+		<ul>
+			<li><code>--line-height-tight</code> through <code>--line-height-loose</code> (1.25 to 2)</li>
+		</ul>
+		
+		<h3>Letter Spacing</h3>
+		<ul>
+			<li><code>--letter-spacing-tighter</code> through <code>--letter-spacing-widest</code> (-0.05em to 0.1em)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Shadow and Overlay Variables</h2>
+		<ul>
+			<li><code>--shadow-color</code> - Base shadow color (black: <code>oklch(0% 0 0deg)</code>)</li>
+			<li><code>--shadow-sm</code>, <code>--shadow</code>, <code>--shadow-md</code>, <code>--shadow-lg</code>, <code>--shadow-xl</code> - Shadow presets with varying opacity</li>
+			<li><code>--overlay</code> - Overlay color for modals and overlays (50% opacity of <code>--shadow-color</code>)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Selection Color</h2>
+		<ul>
+			<li><code>--selection</code> - Text selection background color (default: <code>oklch(70% 0.15 250deg)</code>)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Color Format</h2>
+		<p>All colors use <strong>OKLCH</strong> format for better perceptual uniformity:</p>
+		<pre><code>{`--accent: oklch(65% 0.25 290deg);`}</code></pre>
+		<p>OKLCH format uses:</p>
+		<ul>
+			<li><strong>Lightness</strong> as percentage (0% = black, 100% = white)</li>
+			<li><strong>Chroma</strong> as decimal (0 = grayscale, higher = more saturated)</li>
+			<li><strong>Hue</strong> in degrees (0-360deg)</li>
+		</ul>
+		<p>OKLCH provides:</p>
+		<ul>
+			<li>Perceptually uniform color space</li>
+			<li>Better color manipulation</li>
+			<li>Consistent appearance across displays</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Using Variables</h2>
+		
+		<h3>In CSS</h3>
+		<pre><code>{`.my-component {
+  background-color: var(--background);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.my-button {
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.my-button:hover {
+  background-color: var(--accent-hover);
+  color: var(--accent-text);
+}`}</code></pre>
+		
+		<h3>In Components</h3>
+		<p><strong>Note</strong>: All component styles should be in external CSS files (<code>components.css</code>), not inline <code>&lt;style&gt;</code> blocks. Components use CSS variables from the semantic theme system.</p>
+		<p>Component CSS structure:</p>
+		<pre><code>{`/* In src/styles/components.css */
+.my-component {
+  background: var(--background-alt);
+  color: var(--text);
+}`}</code></pre>
+	</section>
+	
+	<section>
+		<h2>Naming Convention</h2>
+		<p>All component classes use <strong>BEM (Block Element Modifier)</strong> naming:</p>
+		<ul>
+			<li><strong>Block</strong>: <code>.navbar</code>, <code>.theme-switcher</code></li>
+			<li><strong>Element</strong>: <code>.navbar__container</code>, <code>.theme-switcher__menu</code></li>
+			<li><strong>Modifier</strong>: <code>.navbar__menu--open</code>, <code>.theme-switcher__option--active</code></li>
+		</ul>
+		<p>This ensures:</p>
+		<ul>
+			<li>Clear component structure</li>
+			<li>Easy to understand relationships</li>
+			<li>Consistent naming across the design system</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Best Practices</h2>
+		<ol>
+			<li><strong>Always use semantic variables</strong> - Never hardcode colors</li>
+			<li><strong>Use contrast-aware text colors</strong> - Use <code>--accent-text</code>, <code>--success-text</code>, etc. when using colored backgrounds</li>
+			<li><strong>Use appropriate variables</strong> - <code>--background-alt</code> for cards, <code>--background</code> for page background</li>
+			<li><strong>Maintain contrast</strong> - All themes meet WCAG AA contrast requirements automatically</li>
+			<li><strong>Test with multiple themes</strong> - Verify components work with both light and dark themes</li>
+			<li><strong>No inline styles</strong> - All CSS should be in external files (<code>components.css</code>, <code>buttons.css</code>, etc.)</li>
+			<li><strong>Follow BEM naming</strong> - Use block__element--modifier pattern for all component classes</li>
+			<li><strong>Accessibility first</strong> - All components must be keyboard navigable and screen reader friendly</li>
+			<li><strong>Use typography variables</strong> - Use <code>--font-size-*</code>, <code>--font-weight-*</code>, <code>--line-height-*</code> for consistent typography</li>
+			<li><strong>Respect font size scale</strong> - All font sizes automatically scale with <code>--font-size-scale</code> variable</li>
+		</ol>
+	</section>
+</DocsLayout>

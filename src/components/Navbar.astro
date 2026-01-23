@@ -7,6 +7,19 @@ interface Props {
 }
 
 const { siteName = 'Rizzo CSS', logo } = Astro.props;
+
+// Get current URL pathname
+const currentPath = Astro.url.pathname;
+
+// Navigation links
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/docs/getting-started', label: 'Getting Started' },
+  { href: '/docs/components', label: 'Components' },
+  { href: '/docs/theming', label: 'Themes' },
+  { href: '/docs/design-system', label: 'Design System' },
+  { href: '/docs/accessibility', label: 'Accessibility' },
+];
 ---
 
 <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -37,9 +50,19 @@ const { siteName = 'Rizzo CSS', logo } = Astro.props;
     </button>
     
     <div class="navbar__menu" id="navbar-menu" role="menu">
-      <a href="/" class="navbar__link" role="menuitem">Home</a>
-      <a href="/docs" class="navbar__link" role="menuitem">Documentation</a>
-      <a href="/themes" class="navbar__link" role="menuitem">Themes</a>
+      {navLinks.map((link) => {
+        const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
+        return (
+          <a 
+            href={link.href} 
+            class="navbar__link" 
+            role="menuitem"
+            aria-current={isActive ? 'page' : undefined}
+          >
+            {link.label}
+          </a>
+        );
+      })}
       <div class="navbar__actions">
         <button
           class="navbar__settings-btn"

@@ -1,0 +1,197 @@
+---
+import Layout from './Layout.astro';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+
+<Layout>
+	<div class="docs">
+		<div class="docs__container">
+			<header class="docs__header">
+				<h1 class="docs__title">{title}</h1>
+				{description && <p class="docs__description">{description}</p>}
+			</header>
+			
+			<div class="docs__content">
+				<slot />
+			</div>
+		</div>
+	</div>
+</Layout>
+
+<style>
+	.docs {
+		padding: 2rem 1rem;
+		min-height: calc(100vh - 4rem);
+	}
+	
+	.docs__container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	
+	.docs__header {
+		margin-bottom: 3rem;
+		padding-bottom: 2rem;
+		border-bottom: 1px solid var(--border);
+	}
+	
+	.docs__title {
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--text);
+		margin: 0 0 1rem 0;
+		line-height: var(--line-height-tight);
+	}
+	
+	.docs__description {
+		font-size: var(--font-size-lg);
+		color: var(--text-dim);
+		margin: 0;
+		line-height: var(--line-height-relaxed);
+	}
+	
+	.docs__content {
+		color: var(--text);
+		line-height: var(--line-height-relaxed);
+	}
+	
+	/* Documentation typography */
+	.docs__content :global(h2) {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		margin-top: 3rem;
+		margin-bottom: 1.5rem;
+		color: var(--text);
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid var(--border);
+	}
+	
+	.docs__content :global(h3) {
+		font-size: var(--font-size-2xl);
+		font-weight: var(--font-weight-semibold);
+		margin-top: 2rem;
+		margin-bottom: 1rem;
+		color: var(--text);
+	}
+	
+	.docs__content :global(h4) {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-semibold);
+		margin-top: 1.5rem;
+		margin-bottom: 0.75rem;
+		color: var(--text);
+	}
+	
+	.docs__content :global(p) {
+		margin-bottom: 1.25rem;
+	}
+	
+	.docs__content :global(ul),
+	.docs__content :global(ol) {
+		margin-bottom: 1.25rem;
+		padding-left: 2rem;
+	}
+	
+	.docs__content :global(li) {
+		margin-bottom: 0.5rem;
+	}
+	
+	.docs__content :global(code) {
+		background-color: var(--background-alt);
+		color: var(--accent);
+		padding: 0.125rem 0.375rem;
+		border-radius: 0.25rem;
+		font-family: var(--font-family-mono);
+		font-size: 0.9em;
+	}
+	
+	.docs__content :global(pre) {
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		overflow-x: auto;
+		margin-bottom: 1.5rem;
+	}
+	
+	.docs__content :global(pre code) {
+		background-color: transparent;
+		color: var(--text);
+		padding: 0;
+	}
+	
+	.docs__content :global(blockquote) {
+		border-left: 4px solid var(--accent);
+		padding-left: 1.5rem;
+		margin: 1.5rem 0;
+		color: var(--text-dim);
+		font-style: italic;
+	}
+	
+	.docs__content :global(table) {
+		width: 100%;
+		border-collapse: collapse;
+		margin-bottom: 1.5rem;
+	}
+	
+	.docs__content :global(th),
+	.docs__content :global(td) {
+		padding: 0.75rem;
+		text-align: left;
+		border-bottom: 1px solid var(--border);
+	}
+	
+	.docs__content :global(th) {
+		font-weight: var(--font-weight-semibold);
+		background-color: var(--background-alt);
+	}
+	
+	.docs__content :global(a) {
+		color: var(--accent);
+		text-decoration: none;
+		transition: color 0.2s;
+	}
+	
+	.docs__content :global(a:hover) {
+		color: var(--accent-hover);
+		text-decoration: underline;
+	}
+	
+	.docs__content :global(hr) {
+		border: none;
+		border-top: 1px solid var(--border);
+		margin: 2rem 0;
+	}
+	
+	/* Example sections */
+	.docs__content :global(.example) {
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		margin: 1.5rem 0;
+	}
+	
+	.docs__content :global(.example-title) {
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-wide);
+		color: var(--text-dim);
+		margin-bottom: 1rem;
+	}
+	
+	.docs__content :global(section) {
+		margin-bottom: 3rem;
+	}
+	
+	.docs__content :global(section:last-child) {
+		margin-bottom: 0;
+	}
+</style>

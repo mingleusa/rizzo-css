@@ -1,8 +1,265 @@
 ---
-import Button from '../components/Button.astro';
 import Layout from '../layouts/Layout.astro';
+import Button from '../components/Button.astro';
+import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 ---
 
 <Layout>
-	<Button />
+	<div class="home">
+		<div class="home__container">
+			<header class="home__hero">
+				<h1 class="home__title">Rizzo CSS</h1>
+				<p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.</p>
+			</header>
+			
+			<section class="home__features">
+				<h2 class="home__section-title">Features</h2>
+				<div class="home__grid">
+					<div class="home__card">
+						<h3>🎨 8 Beautiful Themes</h3>
+						<p>4 dark and 4 light themes with OKLCH color format for better color manipulation and perceptual uniformity.</p>
+					</div>
+					<div class="home__card">
+						<h3>♿ Accessibility First</h3>
+						<p>WCAG AA compliant with keyboard navigation, ARIA attributes, and screen reader support built-in.</p>
+					</div>
+					<div class="home__card">
+						<h3>🎯 Semantic Variables</h3>
+						<p>Use semantic CSS variables that automatically adapt to themes. No hardcoded colors.</p>
+					</div>
+					<div class="home__card">
+						<h3>📦 Ready Components</h3>
+						<p>Navbar, Settings panel, Theme Switcher, Buttons, and more - all accessible and themeable.</p>
+					</div>
+					<div class="home__card">
+						<h3>🔧 PostCSS Powered</h3>
+						<p>SCSS/SASS-like imports, autoprefixing, and production minification with cssnano.</p>
+					</div>
+					<div class="home__card">
+						<h3>📐 Typography System</h3>
+						<p>Comprehensive typography with scalable font sizes, weights, line heights, and utilities.</p>
+					</div>
+				</div>
+			</section>
+			
+			<section class="home__examples">
+				<h2 class="home__section-title">Quick Examples</h2>
+				
+				<div class="home__example">
+					<h3>Buttons</h3>
+					<div class="home__button-group">
+						<button class="btn">Default</button>
+						<button class="btn btn-primary">Primary</button>
+						<button class="btn btn-success">Success</button>
+						<button class="btn btn-warning">Warning</button>
+						<button class="btn btn-error">Error</button>
+						<button class="btn btn-info">Info</button>
+						<button class="btn btn-outline">Outline</button>
+					</div>
+				</div>
+				
+				<div class="home__example">
+					<h3>Theme Switcher</h3>
+					<p>Try switching themes using the theme switcher below or the settings button in the navbar (gear icon).</p>
+					<div class="home__theme-demo">
+						<ThemeSwitcher />
+					</div>
+				</div>
+			</section>
+			
+			<section class="home__docs">
+				<h2 class="home__section-title">Documentation</h2>
+				<div class="home__docs-grid">
+					<a href="/docs/getting-started" class="home__doc-card">
+						<h3>Getting Started</h3>
+						<p>Installation, project structure, and quick start guide</p>
+					</a>
+					<a href="/docs/components" class="home__doc-card">
+						<h3>Components</h3>
+						<p>Component library with usage examples and live demos</p>
+					</a>
+					<a href="/docs/theming" class="home__doc-card">
+						<h3>Theming</h3>
+						<p>Theme system, custom themes, and color format guide</p>
+					</a>
+					<a href="/docs/design-system" class="home__doc-card">
+						<h3>Design System</h3>
+						<p>Semantic variables, typography, and design principles</p>
+					</a>
+					<a href="/docs/accessibility" class="home__doc-card">
+						<h3>Accessibility</h3>
+						<p>Accessibility guidelines, utilities, and best practices</p>
+					</a>
+				</div>
+			</section>
+		</div>
+	</div>
 </Layout>
+
+<style>
+	.home {
+		padding: 2rem 1rem;
+	}
+	
+	.home__container {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+	
+	.home__hero {
+		text-align: center;
+		padding: 4rem 0;
+		margin-bottom: 4rem;
+	}
+	
+	.home__title {
+		font-size: var(--font-size-5xl);
+		font-weight: var(--font-weight-extrabold);
+		color: var(--text);
+		margin: 0 0 1.5rem 0;
+		line-height: var(--line-height-tight);
+	}
+	
+	.home__subtitle {
+		font-size: var(--font-size-xl);
+		color: var(--text-dim);
+		max-width: 700px;
+		margin: 0 auto;
+		line-height: var(--line-height-relaxed);
+	}
+	
+	.home__section-title {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--text);
+		margin-bottom: 2rem;
+		text-align: center;
+	}
+	
+	.home__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		gap: 1.5rem;
+		margin-bottom: 4rem;
+	}
+	
+	.home__card {
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+	}
+	
+	.home__card h3 {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text);
+		margin: 0 0 0.75rem 0;
+	}
+	
+	.home__card p {
+		color: var(--text-dim);
+		margin: 0;
+		line-height: var(--line-height-relaxed);
+	}
+	
+	.home__examples {
+		margin-bottom: 4rem;
+	}
+	
+	.home__example {
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.5rem;
+		padding: 2rem;
+		margin-bottom: 2rem;
+	}
+	
+	.home__example h3 {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text);
+		margin: 0 0 1rem 0;
+	}
+	
+	.home__example p {
+		color: var(--text-dim);
+		margin-bottom: 1rem;
+	}
+	
+	.home__button-group {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 0.75rem;
+	}
+	
+	.home__theme-demo {
+		max-width: 300px;
+	}
+	
+	/* Ensure theme switcher works on home page */
+	.home__theme-demo .theme-switcher {
+		width: 100%;
+		position: relative;
+		z-index: 10;
+	}
+	
+	.home__theme-demo .theme-switcher__menu {
+		z-index: 1000;
+	}
+	
+	.home__docs {
+		margin-bottom: 2rem;
+	}
+	
+	.home__docs-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 1.5rem;
+	}
+	
+	.home__doc-card {
+		background-color: var(--background-alt);
+		border: 1px solid var(--border);
+		border-radius: 0.5rem;
+		padding: 1.5rem;
+		text-decoration: none;
+		color: var(--text);
+		transition: all 0.2s;
+		display: block;
+	}
+	
+	.home__doc-card:hover {
+		border-color: var(--accent);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-md);
+	}
+	
+	.home__doc-card h3 {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		color: var(--accent);
+		margin: 0 0 0.5rem 0;
+	}
+	
+	.home__doc-card p {
+		color: var(--text-dim);
+		margin: 0;
+		line-height: var(--line-height-relaxed);
+	}
+	
+	@media (width <= 640px) {
+		.home__title {
+			font-size: var(--font-size-4xl);
+		}
+		
+		.home__subtitle {
+			font-size: var(--font-size-lg);
+		}
+		
+		.home__grid,
+		.home__docs-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>
