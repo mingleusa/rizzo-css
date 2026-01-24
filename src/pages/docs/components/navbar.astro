@@ -13,6 +13,8 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 			<div class="example-title">Live Example</div>
 			<p>The navbar is already included in the Layout component at the top of this page. It includes:</p>
 			<ul>
+				<li><strong>Desktop:</strong> 2-column dropdown layout for Components and Themes with vertical divider</li>
+				<li><strong>Mobile:</strong> Menu toggle on left, search/settings on right, improved spacing</li>
 				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
 				<li>Smooth hamburger-to-X animation</li>
 				<li>Active link indicator with underline matching hover effect</li>
@@ -25,6 +27,7 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 				<li>Sticky positioning at top</li>
 				<li>Full width layout with no gaps</li>
 				<li>Theme flash prevention (inline script in Layout)</li>
+				<li>All styles use design system CSS variables for framework portability</li>
 			</ul>
 		</div>
 		
@@ -43,15 +46,30 @@ import Navbar from '../components/Navbar.astro';
 		
 		<h3>Features</h3>
 		<ul>
-			<li>Search and settings buttons on far right (desktop)</li>
-			<li>Search on far right, settings on far right, hamburger menu (mobile)</li>
+			<li><strong>Desktop Layout:</strong>
+				<ul>
+					<li>Search and settings buttons on far right</li>
+					<li><strong>2-column dropdown layout</strong> - Components and Themes dropdowns display in a 2-column grid with vertical divider for better navigation</li>
+					<li>Smart dropdown positioning - Automatically adjusts to prevent viewport overflow</li>
+					<li>Dropdown arrow rotates on hover/expand</li>
+				</ul>
+			</li>
+			<li><strong>Mobile Layout:</strong>
+				<ul>
+					<li>Mobile menu toggle positioned on the left (after logo/brand)</li>
+					<li>Search and settings remain on the right</li>
+					<li>Responsive mobile menu (activates at 1024px and below) with full-width layout</li>
+					<li>Increased vertical spacing for better readability, especially in dropdown menus</li>
+					<li>Mobile menu links start from left edge with minimal padding</li>
+					<li>Mutually exclusive with search (only one open at a time on mobile)</li>
+				</ul>
+			</li>
 			<li>Full-width border (100vw) that spans entire viewport</li>
 			<li>Responsive mobile menu with smooth open/close transitions</li>
-			<li>Mobile menu links start from left edge with minimal padding</li>
-			<li>Dropdown menus with keyboard navigation</li>
+			<li>Dropdown menus with full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)</li>
 			<li>Active link indicator with underline</li>
 			<li>Sticky positioning at top</li>
-			<li>Mutually exclusive with search (only one open at a time on mobile)</li>
+			<li>All styles use design system variables for easy framework portability</li>
 		</ul>
 	</section>
 </DocsLayout>

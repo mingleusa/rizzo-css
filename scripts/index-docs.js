@@ -160,6 +160,12 @@ const componentPages = [
     description: 'Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling'
   },
   { 
+    title: 'Tabs', 
+    url: '/docs/components/tabs', 
+    category: 'Components',
+    description: 'Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)'
+  },
+  { 
     title: 'Toast', 
     url: '/docs/components/toast', 
     category: 'Components',

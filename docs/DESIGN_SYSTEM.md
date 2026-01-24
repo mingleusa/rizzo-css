@@ -558,8 +558,53 @@ Component CSS structure:
 .my-component {
   background: var(--background-alt);
   color: var(--text);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  transition: background-color var(--transition-base);
 }
 ```
+
+### Component Layout Patterns
+
+**Navbar Dropdown Layout:**
+The navbar uses CSS Grid for efficient dropdown layouts. Components and Themes dropdowns use a 2-column grid layout on desktop:
+
+```css
+/* 2-column dropdown layout using design system variables */
+.navbar__submenu#navbar-submenu-components,
+.navbar__submenu#navbar-submenu-themes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  min-width: var(--spacing-96); /* 24rem / 384px */
+  max-width: var(--spacing-96);
+  width: var(--spacing-96);
+  padding: var(--spacing-2);
+  position: relative;
+}
+
+/* Vertical divider using border color variable */
+.navbar__submenu#navbar-submenu-components::before,
+.navbar__submenu#navbar-submenu-themes::before {
+  content: '';
+  position: absolute;
+  top: var(--spacing-2);
+  bottom: var(--spacing-2);
+  left: 50%;
+  width: 1px;
+  background-color: var(--border);
+  transform: translateX(-50%);
+  z-index: 1;
+  pointer-events: none;
+}
+```
+
+This pattern demonstrates:
+- Using CSS Grid with design system spacing variables
+- Creating visual dividers with semantic border colors
+- Responsive behavior (single column on mobile)
+- All values use design system variables for portability
 
 ## Theme Structure
 
@@ -580,17 +625,17 @@ This ensures:
 
 ## Best Practices
 
-1. **Design System as Source of Truth** - Always use CSS variables and utility classes from the design system. Never hardcode values (colors, spacing, sizes, transitions, etc.). This ensures consistency and makes framework porting easier.
-2. **Always use semantic variables** - Never hardcode colors, spacing, sizes, or other values
+1. **Design System as Source of Truth** - Always use CSS variables and utility classes from the design system. Never hardcode values (colors, spacing, sizes, transitions, etc.). This ensures consistency and makes framework porting easier. **All styling must use design system variables for easy portability to Vue, React, and Svelte.**
+2. **Always use semantic variables** - Never hardcode colors, spacing, sizes, or other values. Use `var(--spacing-*)`, `var(--radius-*)`, `var(--transition-*)`, etc.
 3. **Use contrast-aware text colors** - Use `--accent-text`, `--success-text`, etc. when using colored backgrounds
 4. **Use appropriate variables** - `--background-alt` for cards, `--background` for page background
 5. **Use utility classes** - Leverage spacing, sizing, display, position, border, flexbox, grid, and gap utilities for consistent styling
 6. **Use spacing utilities** - Use margin and padding utility classes for consistent spacing
-7. **Use CSS variables for all values** - Use `--spacing-*`, `--radius-*`, `--transition-*`, `--opacity-*`, `--scale-*`, `--z-*`, etc. instead of hardcoded values
+7. **Use CSS variables for all values** - Use `--spacing-*`, `--radius-*`, `--transition-*`, `--opacity-*`, `--scale-*`, `--z-*`, `--outline-width`, `--outline-offset`, etc. instead of hardcoded values
 8. **Mobile-first responsive design** - Start with mobile styles, then add larger breakpoint styles using responsive utility prefixes (sm:, md:, lg:, xl:, xxl:)
 9. **Maintain contrast** - All themes meet WCAG AA contrast requirements automatically
 10. **Test with multiple themes** - Verify components work with both light and dark themes
-11. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.)
+11. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.). If inline styles are necessary (e.g., in documentation examples), always use design system variables.
 12. **Follow BEM naming** - Use block__element--modifier pattern for all component classes
 13. **Accessibility first** - All components must be keyboard navigable and screen reader friendly
 14. **Use typography variables** - Use `--font-size-*`, `--font-weight-*`, `--line-height-*` for consistent typography
@@ -600,3 +645,5 @@ This ensures:
 18. **Use opacity variables** - Use `--opacity-*` variables instead of hardcoded opacity values
 19. **Use transform scale variables** - Use `--scale-*` variables for consistent transform animations
 20. **Use z-index variables** - Use `--z-*` variables for consistent layering
+21. **Use outline variables** - Use `--outline-width` and `--outline-offset` for consistent focus indicators
+22. **Component layout patterns** - Use CSS Grid with design system spacing for multi-column layouts (e.g., navbar 2-column dropdowns)

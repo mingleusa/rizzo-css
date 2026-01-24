@@ -56,6 +56,7 @@ const navLinks: NavLink[] = [
       { href: '/docs/components/search', label: 'Search' },
       { href: '/docs/components/tooltip', label: 'Tooltip' },
       { href: '/docs/components/dropdown', label: 'Dropdown' },
+      { href: '/docs/components/tabs', label: 'Tabs' },
       { href: '/docs/components/copy-to-clipboard', label: 'CopyToClipboard' },
       { href: '/docs/components/icons', label: 'Icons' },
     ],
@@ -127,7 +128,7 @@ const navLinks: NavLink[] = [
         return (
           <div class={`navbar__item ${hasSubLinks ? 'navbar__item--has-dropdown' : ''}`}>
             <a 
-              href={link.href} 
+              href={hasSubLinks ? '#' : link.href}
               class="navbar__link" 
               role="menuitem"
               aria-label={link.label}
@@ -136,6 +137,7 @@ const navLinks: NavLink[] = [
               aria-haspopup={hasSubLinks ? 'true' : undefined}
               aria-controls={subLinkId}
               data-dropdown-toggle={hasSubLinks ? subLinkId : undefined}
+              data-dropdown-href={hasSubLinks ? link.href : undefined}
             >
               {link.label}
               {hasSubLinks && (
@@ -217,7 +219,14 @@ const navLinks: NavLink[] = [
       toggle.setAttribute('aria-expanded', (!isOpen).toString());
     };
 
-    toggle.addEventListener('click', () => toggleMenu());
+    toggle.addEventListener('click', (e) => {
+      // Don't toggle if clicking on a dropdown toggle
+      const target = e.target as Element;
+      if (target && target.closest('[data-dropdown-toggle]')) {
+        return;
+      }
+      toggleMenu();
+    });
 
     // Dropdown menu handling
     const dropdownToggles = navbar.querySelectorAll('[data-dropdown-toggle]');
@@ -268,23 +277,40 @@ const navLinks: NavLink[] = [
 
       const handleToggle = (e: Event) => {
         e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        
+        const isMobile = window.innerWidth <= 1023;
         const isExpanded = item.getAttribute('aria-expanded') === 'true';
+        
+        // On mobile, preserve scroll position to prevent jarring
+        let scrollTop = 0;
+        if (isMobile && menu) {
+          scrollTop = (menu as HTMLElement).scrollTop;
+        }
+        
         item.setAttribute('aria-expanded', (!isExpanded).toString());
         
         // Adjust position when opening
         if (!isExpanded) {
           setTimeout(() => {
             adjustDropdownPosition();
+            
+            // Restore scroll position on mobile to prevent jarring
+            if (isMobile && menu) {
+              (menu as HTMLElement).scrollTop = scrollTop;
+            }
           }, 0);
         }
         
-        // Focus management
-        if (!isExpanded && sublinks.length > 0) {
+        // Focus management - only on desktop
+        if (!isMobile && !isExpanded && sublinks.length > 0) {
           setTimeout(() => (sublinks[0] as HTMLElement).focus(), 0);
         }
       };
 
-      toggle.addEventListener('click', handleToggle);
+      // Always use capture phase to ensure we handle it before any other listeners
+      toggle.addEventListener('click', handleToggle, true);
 
       // Keyboard navigation on dropdown toggle
       toggle.addEventListener('keydown', (e: Event) => {
@@ -367,7 +393,12 @@ const navLinks: NavLink[] = [
       // Close on outside click
       document.addEventListener('click', (e) => {
         const target = e.target;
-        if (target && target instanceof Node && !item.contains(target)) {
+        // Don't close if clicking on the dropdown toggle or its children
+        const clickedToggle = target && target instanceof Element && (
+          target === toggle || 
+          target.closest('[data-dropdown-toggle]') === toggle
+        );
+        if (target && target instanceof Node && !item.contains(target) && !clickedToggle) {
           item.setAttribute('aria-expanded', 'false');
         }
       });
@@ -376,6 +407,20 @@ const navLinks: NavLink[] = [
     // Close menu on outside click
     document.addEventListener('click', (e) => {
       const target = e.target as Node | null;
+      // Don't close if clicking inside the navbar (including dropdown toggles and their children)
+      if (target && navbar.contains(target as Node)) {
+        // Also check if it's specifically a dropdown toggle or submenu item
+        const element = target as Element;
+        if (element && (
+          element.closest('[data-dropdown-toggle]') ||
+          element.closest('.navbar__submenu') ||
+          element.closest('.navbar__sublink')
+        )) {
+          return; // Click is on dropdown-related element, don't close menu
+        }
+        return; // Click is inside navbar, don't close menu
+      }
+      // Only close if clicking completely outside the navbar
       if (target && !navbar.contains(target as Node)) {
         menu.classList.remove('navbar__menu--open');
         toggle.setAttribute('aria-expanded', 'false');

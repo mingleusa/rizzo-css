@@ -1,0 +1,216 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import TabsComponent from '../../../components/Tabs.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Tabs Component" description="Accessible tabs component with keyboard navigation and ARIA tab pattern">
+	<section>
+		<h2>Tabs Component</h2>
+		<p>An accessible tabs component for organizing content into multiple panels. Supports full keyboard navigation and follows ARIA tab pattern best practices.</p>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>tabs</code> (array, required) - Array of tab objects with <code>id</code> and <code>label</code> properties</li>
+			<li><code>id</code> (string, optional) - Unique identifier for the tabs component</li>
+			<li><code>defaultTab</code> (string, optional) - ID of the tab to show by default (defaults to first tab)</li>
+			<li><code>variant</code> (string, optional) - Visual variant: <code>'default'</code>, <code>'pills'</code>, or <code>'underline'</code> (default: <code>'default'</code>)</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Tab Object Structure</h3>
+		<ul>
+			<li><code>id</code> (string, required) - Unique identifier for the tab</li>
+			<li><code>label</code> (string, required) - Display text for the tab button</li>
+			<li><code>content</code> (string, optional) - HTML content for the tab panel (alternative to using slots)</li>
+		</ul>
+
+		<h3>Basic Usage</h3>
+		<p>Provide panel content as children in the same order as the tabs array:</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				tabs={[
+					{ id: 'overview', label: 'Overview' },
+					{ id: 'features', label: 'Features' },
+					{ id: 'pricing', label: 'Pricing' },
+				]}
+			>
+				<div>
+					<h4>Overview</h4>
+					<p>This is the overview content. It provides a general introduction to the topic.</p>
+				</div>
+				<div>
+					<h4>Features</h4>
+					<ul>
+						<li>Feature 1: Accessible design</li>
+						<li>Feature 2: Keyboard navigation</li>
+						<li>Feature 3: Theme-aware styling</li>
+					</ul>
+				</div>
+				<div>
+					<h4>Pricing</h4>
+					<p>Choose the plan that works best for you.</p>
+				</div>
+			</TabsComponent>
+		</div>
+
+		<CodeBlock code={`---
+import Tabs from '../components/Tabs.astro';
+---
+
+<Tabs
+  tabs={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: 'Features' },
+    { id: 'pricing', label: 'Pricing' },
+  ]}
+>
+  <div>
+    <h4>Overview</h4>
+    <p>Overview content here</p>
+  </div>
+  <div>
+    <h4>Features</h4>
+    <p>Features content here</p>
+  </div>
+  <div>
+    <h4>Pricing</h4>
+    <p>Pricing content here</p>
+  </div>
+</Tabs>`} language="astro" />
+
+		<h3>With Content Property</h3>
+		<p>You can also provide content directly in the tab object:</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				tabs={[
+					{ id: 'tab1', label: 'Tab 1', content: '<p>Content for tab 1</p>' },
+					{ id: 'tab2', label: 'Tab 2', content: '<p>Content for tab 2</p>' },
+					{ id: 'tab3', label: 'Tab 3', content: '<p>Content for tab 3</p>' },
+				]}
+			/>
+		</div>
+
+		<CodeBlock code={`<Tabs
+  tabs={[
+    { id: 'tab1', label: 'Tab 1', content: '<p>Content for tab 1</p>' },
+    { id: 'tab2', label: 'Tab 2', content: '<p>Content for tab 2</p>' },
+    { id: 'tab3', label: 'Tab 3', content: '<p>Content for tab 3</p>' },
+  ]}
+/>`} language="astro" />
+
+		<h3>Variants</h3>
+		
+		<h4>Default Variant</h4>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				variant="default"
+				tabs={[
+					{ id: 'default1', label: 'Tab 1' },
+					{ id: 'default2', label: 'Tab 2' },
+					{ id: 'default3', label: 'Tab 3' },
+				]}
+			>
+				<div><p>Default variant with bottom border indicator</p></div>
+				<div><p>Tab 2 content</p></div>
+				<div><p>Tab 3 content</p></div>
+			</TabsComponent>
+		</div>
+
+		<h4>Pills Variant</h4>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				variant="pills"
+				tabs={[
+					{ id: 'pills1', label: 'Tab 1' },
+					{ id: 'pills2', label: 'Tab 2' },
+					{ id: 'pills3', label: 'Tab 3' },
+				]}
+			>
+				<div><p>Pills variant with filled background for active tab</p></div>
+				<div><p>Tab 2 content</p></div>
+				<div><p>Tab 3 content</p></div>
+			</TabsComponent>
+		</div>
+
+		<h4>Underline Variant</h4>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				variant="underline"
+				tabs={[
+					{ id: 'underline1', label: 'Tab 1' },
+					{ id: 'underline2', label: 'Tab 2' },
+					{ id: 'underline3', label: 'Tab 3' },
+				]}
+			>
+				<div><p>Underline variant with thicker bottom border for active tab</p></div>
+				<div><p>Tab 2 content</p></div>
+				<div><p>Tab 3 content</p></div>
+			</TabsComponent>
+		</div>
+
+		<h3>Default Tab</h3>
+		<p>You can specify which tab should be active by default:</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<TabsComponent
+				defaultTab="second"
+				tabs={[
+					{ id: 'first', label: 'First' },
+					{ id: 'second', label: 'Second' },
+					{ id: 'third', label: 'Third' },
+				]}
+			>
+				<div><p>First tab content</p></div>
+				<div><p>Second tab is active by default</p></div>
+				<div><p>Third tab content</p></div>
+			</TabsComponent>
+		</div>
+
+		<CodeBlock code={`<Tabs
+  defaultTab="second"
+  tabs={[
+    { id: 'first', label: 'First' },
+    { id: 'second', label: 'Second' },
+    { id: 'third', label: 'Third' },
+  ]}
+>
+  <div>First tab content</div>
+  <div>Second tab content</div>
+  <div>Third tab content</div>
+</Tabs>`} language="astro" />
+
+		<h3>Features</h3>
+		<ul>
+			<li><strong>ARIA Tab Pattern</strong> - Full ARIA support with <code>role="tablist"</code>, <code>role="tab"</code>, <code>role="tabpanel"</code>, <code>aria-selected</code>, <code>aria-controls</code>, and <code>aria-labelledby</code></li>
+			<li><strong>Keyboard Navigation</strong> - Arrow keys (Left/Right or Up/Down), Home, End, Enter, and Space for activation</li>
+			<li><strong>Three Variants</strong> - Default (border indicator), Pills (filled background), and Underline (thicker border)</li>
+			<li><strong>Theme-Aware</strong> - Automatically adapts to all 8 available themes</li>
+			<li><strong>Responsive</strong> - Horizontal scrolling on mobile for many tabs</li>
+			<li><strong>Accessible</strong> - WCAG AA compliant with proper focus indicators</li>
+		</ul>
+
+		<h3>Keyboard Navigation</h3>
+		<ul>
+			<li><strong>Arrow Right / Arrow Down</strong> - Move to next tab</li>
+			<li><strong>Arrow Left / Arrow Up</strong> - Move to previous tab</li>
+			<li><strong>Home</strong> - Move to first tab</li>
+			<li><strong>End</strong> - Move to last tab</li>
+			<li><strong>Enter / Space</strong> - Activate focused tab</li>
+			<li><strong>Tab</strong> - Move focus to tab panel content</li>
+		</ul>
+
+		<h3>Accessibility</h3>
+		<ul>
+			<li><strong>ARIA Attributes</strong> - Proper <code>role</code>, <code>aria-selected</code>, <code>aria-controls</code>, <code>aria-labelledby</code>, and <code>aria-hidden</code> attributes</li>
+			<li><strong>Focus Management</strong> - Only active tab is in tab order (<code>tabindex="0"</code>), others are <code>tabindex="-1"</code></li>
+			<li><strong>Screen Reader Support</strong> - Proper announcements when tabs change</li>
+			<li><strong>Focus Indicators</strong> - Visible focus outline using <code>--accent</code> color</li>
+		</ul>
+	</section>
+</DocsLayout>

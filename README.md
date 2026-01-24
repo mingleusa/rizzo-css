@@ -20,7 +20,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **8 Built-in Themes** - 4 dark and 4 light themes with semantic variable support
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 15+ accessible, themeable components
+- 📦 **Comprehensive Components** - 17+ accessible, themeable components
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -111,7 +111,7 @@ CSS is organized into logical files:
 - `sizes.css` - Width, height, min/max dimensions, and container utilities
 - `utilities.css` - Comprehensive utility classes (display, position, borders, flexbox, grid, gap, animations, colors, focus states)
 - `forms.css` - Form component styles
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown, Tabs, Search)
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
 - `themes/` - Theme definitions (dark/light folders)
@@ -137,7 +137,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Mobile menu with smooth transitions and full-width layout
+- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Desktop dropdowns use 2-column layout for Components and Themes with vertical divider. Mobile menu toggle on left, search/settings on right, with improved spacing and smooth transitions
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
 - **Button** - Semantic button component with variants using theme variables
@@ -153,6 +153,7 @@ Accessible, themeable components:
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
 - **Dropdown** - Accessible dropdown menu component with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
+- **Tabs** - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 
 All components:
 - Use semantic theme variables with contrast-aware text colors

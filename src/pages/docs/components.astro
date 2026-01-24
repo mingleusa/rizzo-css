@@ -146,6 +146,15 @@ import Card from '../../components/Card.astro';
 					</div>
 				</Card>
 			</a>
+			
+			<a href="/docs/components/tabs" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 var(--spacing-2) 0;">Tabs</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Accessible tabs component with keyboard navigation and ARIA tab pattern</p>
+					</div>
+				</Card>
+			</a>
 		</div>
 	</section>
 	
@@ -176,8 +185,8 @@ import Card from '../../components/Card.astro';
 	}
 	
 	.component-card-link:focus-visible {
-		outline: 2px solid var(--accent);
-		outline-offset: 4px;
+		outline: var(--outline-width) solid var(--accent);
+		outline-offset: var(--outline-offset);
 		border-radius: var(--radius-lg);
 	}
 	

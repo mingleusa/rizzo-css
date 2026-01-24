@@ -109,17 +109,17 @@ The Search component includes:
 
 ### Styling
 
-The Search component uses semantic theme variables and can be customized via CSS:
+The Search component uses semantic theme variables and can be customized via CSS. **Always use design system variables** for consistency and framework portability:
 
 ```css
-/* Customize search panel */
+/* Customize search panel using design system variables */
 .search__panel {
-  max-width: 800px; /* Wider search panel */
+  max-width: var(--spacing-200); /* 50rem / 800px - wider search panel */
 }
 
-/* Customize result items */
+/* Customize result items using spacing variables */
 .search__result-item {
-  padding: 1rem; /* More padding */
+  padding: var(--spacing-4); /* More padding using design system spacing */
 }
 ```
 

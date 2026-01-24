@@ -40,6 +40,8 @@ rizzo-css/
 │   │   ├── ThemeSwitcher.astro
 │   │   ├── Toast.astro
 │   │   ├── Tooltip.astro
+│   │   ├── Dropdown.astro
+│   │   ├── Tabs.astro
 │   │   └── icons/      # Icon components
 │   │       ├── Copy.astro
 │   │       ├── Check.astro
@@ -57,7 +59,9 @@ rizzo-css/
 │   │       ├── Snowflake.astro
 │   │       └── devicons/  # Devicon brand icons
 │   │           ├── Astro.astro
+│   │           ├── Bash.astro
 │   │           ├── Css3.astro
+│   │           ├── Git.astro
 │   │           ├── Html5.astro
 │   │           ├── Javascript.astro
 │   │           ├── Nodejs.astro
@@ -146,6 +150,7 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Search](/docs/components/search) - Search component with Algolia integration
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
+- [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 
 See the [Components Documentation](/docs/components) for an overview and links to all component pages.
 
@@ -184,7 +189,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown, Tabs, Search)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables

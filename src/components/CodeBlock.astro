@@ -7,6 +7,8 @@ import Javascript from './icons/devicons/Javascript.astro';
 import Nodejs from './icons/devicons/Nodejs.astro';
 import AstroIcon from './icons/devicons/Astro.astro';
 import Plaintext from './icons/devicons/Plaintext.astro';
+import Git from './icons/devicons/Git.astro';
+import Bash from './icons/devicons/Bash.astro';
 
 interface Props {
   code: string;
@@ -67,7 +69,19 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
-        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext'].includes(languageLower) && (
+        {languageLower === 'git' && (
+          <>
+            <Git width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {(languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh') && (
+          <>
+            <Bash width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'bash', 'shell', 'sh'].includes(languageLower) && (
           <span class="code-block__language-text">{language}</span>
         )}
         <span class="sr-only">{languageLabel}</span>

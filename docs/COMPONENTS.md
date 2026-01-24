@@ -19,6 +19,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Search](/docs/components/search) - Search component with Algolia integration
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
+- [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 
 ## Component Features
 
@@ -53,9 +54,14 @@ import Navbar from '../components/Navbar.astro';
 ### Features
 
 - **Desktop**: Search and settings on far right, dropdown menus with smart alignment
-- **Mobile**: Search on far right, settings on far right, hamburger menu with smooth transitions
-- Responsive mobile menu (activates at 1024px and below) with full-width layout
-- Smooth hamburger-to-X animation and menu open/close transitions
+  - **2-column dropdown layout** - Components and Themes dropdowns display in a 2-column grid layout with a vertical divider for better navigation and space efficiency
+  - Smart dropdown positioning - Automatically adjusts to prevent overflow
+- **Mobile**: 
+  - Mobile menu toggle positioned on the left (after logo/brand)
+  - Search and settings remain on the right
+  - Responsive mobile menu (activates at 1024px and below) with full-width layout
+  - Increased vertical spacing for better readability, especially in dropdown menus
+  - Smooth hamburger-to-X animation and menu open/close transitions
 - Active link indicator with underline
 - Dropdown menus with sub-links and keyboard navigation
 - Full-width border that spans 100vw
@@ -427,7 +433,7 @@ All regular icons accept `width`, `height`, and `class` props, use `currentColor
 
 ### Devicons (Colored Brand Icons)
 
-CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext
+CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext, Git, Bash
 
 Devicons use brand colors and are visible on both light and dark themes. They include colored gradients and paths optimized for visibility across all themes.
 
@@ -625,6 +631,67 @@ import Dropdown from '../components/Dropdown.astro';
 - Mobile responsive
 
 See [Dropdown Documentation](/docs/components/dropdown) for complete details and live examples.
+
+## Tabs Component
+
+An accessible tabs component for organizing content into multiple panels.
+
+### Usage
+
+```astro
+---
+import Tabs from '../components/Tabs.astro';
+---
+
+<Tabs
+  tabs={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: 'Features' },
+    { id: 'pricing', label: 'Pricing' },
+  ]}
+>
+  <div>
+    <h4>Overview</h4>
+    <p>Overview content here</p>
+  </div>
+  <div>
+    <h4>Features</h4>
+    <p>Features content here</p>
+  </div>
+  <div>
+    <h4>Pricing</h4>
+    <p>Pricing content here</p>
+  </div>
+</Tabs>
+```
+
+### Props
+
+- `tabs` (array, required) - Array of tab objects with `id` and `label` properties
+- `id` (string, optional) - Unique identifier for the tabs component
+- `defaultTab` (string, optional) - ID of the tab to show by default (defaults to first tab)
+- `variant` (string, optional) - Visual variant: `'default'`, `'pills'`, or `'underline'` (default: `'default'`)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **ARIA Tab Pattern** - Full ARIA support with `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`, and `aria-labelledby`
+- **Keyboard Navigation** - Arrow keys (Left/Right or Up/Down), Home, End, Enter, and Space for activation
+- **Three Variants** - Default (border indicator), Pills (filled background), and Underline (thicker border)
+- **Theme-Aware** - Automatically adapts to all 8 available themes
+- **Responsive** - Horizontal scrolling on mobile for many tabs
+- **Accessible** - WCAG AA compliant with proper focus indicators
+
+### Keyboard Navigation
+
+- **Arrow Right / Arrow Down** - Move to next tab
+- **Arrow Left / Arrow Up** - Move to previous tab
+- **Home** - Move to first tab
+- **End** - Move to last tab
+- **Enter / Space** - Activate focused tab
+- **Tab** - Move focus to tab panel content
+
+See [Tabs Documentation](/docs/components/tabs) for complete details.
 
 ## Utility Classes
 
