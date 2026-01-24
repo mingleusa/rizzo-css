@@ -185,6 +185,43 @@ Max-width utilities constrain element width without centering or padding:
 </div>
 ```
 
+### Sizing Utilities
+
+Rizzo CSS includes comprehensive sizing utilities for width, height, and min/max dimensions:
+
+**Width Utilities:**
+- `.w-auto`, `.w-full`, `.w-screen`, `.w-fit`, `.w-max`, `.w-min`
+- `.w-0`, `.w-1` through `.w-64` (0 to 16rem in increments)
+
+**Height Utilities:**
+- `.h-auto`, `.h-full`, `.h-screen`, `.h-fit`, `.h-max`, `.h-min`
+- `.h-0`, `.h-1` through `.h-64` (0 to 16rem in increments)
+
+**Min-Width Utilities:**
+- `.min-w-0`, `.min-w-full`, `.min-w-min`, `.min-w-max`, `.min-w-fit`
+
+**Min-Height Utilities:**
+- `.min-h-0`, `.min-h-full`, `.min-h-screen`, `.min-h-fit`, `.min-h-max`, `.min-h-min`
+
+**Max-Height Utilities:**
+- `.max-h-none`, `.max-h-full`, `.max-h-screen`, `.max-h-fit`, `.max-h-max`, `.max-h-min`
+- `.max-h-0`, `.max-h-1` through `.max-h-64` (0 to 16rem in increments)
+
+**Examples:**
+```html
+<!-- Full width and height -->
+<div class="w-full h-screen">Full viewport</div>
+
+<!-- Fixed dimensions -->
+<div class="w-64 h-48">Fixed size</div>
+
+<!-- Minimum height -->
+<div class="min-h-screen">At least viewport height</div>
+
+<!-- Maximum height with scrolling -->
+<div class="max-h-96 overflow-auto">Scrollable content</div>
+```
+
 ### Media Queries
 
 Rizzo CSS includes a dedicated `media-queries.css` file with responsive breakpoints:

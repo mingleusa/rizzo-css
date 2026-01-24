@@ -59,6 +59,8 @@ rizzo-css/
 │       ├── layout.css
 │       ├── main.css
 │       ├── reset.css
+│       ├── spacing.css
+│       ├── sizes.css
 │       ├── typography.css
 │       ├── utilities.css
 │       ├── variables.css
@@ -156,7 +158,9 @@ CSS is organized into logical files:
 - `accessibility.css` - Accessibility utilities
 - `buttons.css` - Button component styles
 - `layout.css` - Layout utilities
-- `utilities.css` - Utility classes (colors, spacing, borders, containers, max-width)
+- `spacing.css` - Margin and padding utility classes
+- `sizes.css` - Width, height, min/max dimensions, and container utilities
+- `utilities.css` - Utility classes (colors, borders, focus states)
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions

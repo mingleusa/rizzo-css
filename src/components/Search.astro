@@ -141,7 +141,18 @@ const resultsId = `${searchId}-results`;
       const inputId = input.id || '';
       const searchId = inputId.replace('-input', '') || `search-${Math.random().toString(36).substr(2, 9)}`;
       
-      console.log('Search initialized with searchId:', searchId);
+      // Log search configuration
+      console.log('🔍 Search initialized with searchId:', searchId);
+      if (useAlgolia && algoliaAppId && algoliaApiKey) {
+        console.log('✅ Algolia search enabled');
+        console.log('   App ID:', algoliaAppId.substring(0, 8) + '...');
+        console.log('   Index:', algoliaIndexName);
+      } else {
+        console.log('ℹ️  Using client-side search (Algolia not configured)');
+        if (useAlgolia) {
+          console.warn('   ⚠️  Algolia enabled but credentials missing');
+        }
+      }
 
       let previousActiveElement = null;
       let searchTimeout = null;
@@ -156,19 +167,20 @@ const resultsId = `${searchId}-results`;
         { title: 'Getting Started', url: '/docs/getting-started', category: 'Documentation', content: 'Installation, project structure, and quick start guide' },
         { title: 'Design System', url: '/docs/design-system', category: 'Documentation', content: 'Core design principles, semantic variables, spacing, typography, and utilities' },
         { title: 'Theming', url: '/docs/theming', category: 'Documentation', content: 'Theme system documentation and custom theme creation' },
-        { title: 'Colors', url: '/docs/colors', category: 'Reference', content: 'Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)' },
+        { title: 'Colors', url: '/docs/colors', category: 'Documentation', content: 'Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)' },
         { title: 'Accessibility', url: '/docs/accessibility', category: 'Documentation', content: 'Accessibility guidelines and utility classes' },
         { title: 'Components Overview', url: '/docs/components', category: 'Components', content: 'Component library with usage examples and live demos' },
         { title: 'Navbar', url: '/docs/components/navbar', category: 'Components', content: 'Responsive, accessible navigation bar' },
         { title: 'Settings', url: '/docs/components/settings', category: 'Components', content: 'Comprehensive settings panel for theme switching and accessibility options' },
         { title: 'Theme Switcher', url: '/docs/components/theme-switcher', category: 'Components', content: 'Accessible theme switcher with theme icons and keyboard navigation' },
         { title: 'Button', url: '/docs/components/button', category: 'Components', content: 'Semantic button component with variants' },
-        { title: 'Icons', url: '/docs/components/icons', category: 'Components', content: 'Reusable SVG icon components using Tabler Icons' },
-        { title: 'CopyToClipboard', url: '/docs/components/copy-to-clipboard', category: 'Components', content: 'Copy to clipboard component with visual feedback' },
         { title: 'Forms', url: '/docs/components/forms', category: 'Components', content: 'Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)' },
         { title: 'Cards', url: '/docs/components/cards', category: 'Components', content: 'Flexible card component with variants, sections, and image support' },
         { title: 'Modal', url: '/docs/components/modal', category: 'Components', content: 'Accessible modal/dialog component with focus trapping and keyboard navigation' },
         { title: 'Alert', url: '/docs/components/alert', category: 'Components', content: 'Accessible alert component with variants and dismissible functionality' },
+        { title: 'Search', url: '/docs/components/search', category: 'Components', content: 'Search component with Algolia integration and live filtering' },
+        { title: 'CopyToClipboard', url: '/docs/components/copy-to-clipboard', category: 'Components', content: 'Copy to clipboard component with visual feedback' },
+        { title: 'Icons', url: '/docs/components/icons', category: 'Components', content: 'Reusable SVG icon components using Tabler Icons' },
         { title: 'Dracula At Night', url: '/docs/themes/dracula-at-night', category: 'Themes', content: 'Dark theme - A darker fork of Dracula theme' },
         { title: 'Shades of Purple', url: '/docs/themes/shades-of-purple', category: 'Themes', content: 'Dark theme - Professional theme with bold purple shades' },
         { title: 'Night Owl', url: '/docs/themes/night-owl', category: 'Themes', content: 'Dark theme - Optimized for nighttime coding' },
@@ -252,6 +264,7 @@ const resultsId = `${searchId}-results`;
       // Algolia search function (if enabled)
       const performAlgoliaSearch = async (query) => {
         if (!useAlgolia || !algoliaAppId || !algoliaApiKey) {
+          console.log('Algolia not configured, using client-side search');
           return performClientSearch(query);
         }
 
@@ -262,14 +275,16 @@ const resultsId = `${searchId}-results`;
           // Try to use npm package first (v5)
           try {
             const algoliaModule = await import('algoliasearch');
-            algoliasearch = algoliaModule.algoliasearch;
+            algoliasearch = algoliaModule.algoliasearch || algoliaModule.default?.algoliasearch;
             
             if (algoliasearch && typeof algoliasearch === 'function') {
               useV5 = true;
+              console.log('Using Algolia v5 client');
             } else {
               throw new Error('Algolia v5 not available');
             }
           } catch (npmError) {
+            console.warn('Algolia npm package not available, trying CDN fallback:', npmError.message);
             // Fallback to CDN (v4)
             try {
               const algoliaModule = await import('https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js');
@@ -278,7 +293,9 @@ const resultsId = `${searchId}-results`;
               if (!algoliasearch || typeof algoliasearch !== 'function') {
                 throw new Error('Algolia client not available');
               }
+              console.log('Using Algolia v4 client (CDN)');
             } catch (cdnError) {
+              console.error('Failed to load Algolia client from CDN:', cdnError.message);
               throw new Error('Algolia client not available');
             }
           }
@@ -289,6 +306,7 @@ const resultsId = `${searchId}-results`;
           
           if (useV5) {
             // Use v5 API
+            console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
             const response = await client.search({
               requests: [{
                 indexName: algoliaIndexName,
@@ -302,8 +320,10 @@ const resultsId = `${searchId}-results`;
             });
             
             results = response.results[0]?.hits || [];
+            console.log(`Algolia returned ${results.length} results`);
           } else {
             // Use v4 API (fallback)
+            console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
             const index = client.initIndex(algoliaIndexName);
             const searchResponse = await index.search(query, {
               hitsPerPage: 10,
@@ -312,6 +332,7 @@ const resultsId = `${searchId}-results`;
             });
             
             results = searchResponse.hits || [];
+            console.log(`Algolia returned ${results.length} results`);
           }
 
           return results.map((hit) => ({
@@ -322,6 +343,14 @@ const resultsId = `${searchId}-results`;
           }));
         } catch (error) {
           console.warn('Algolia search failed, falling back to client-side search:', error);
+          console.error('Algolia error details:', {
+            message: error.message,
+            stack: error.stack,
+            useAlgolia,
+            hasAppId: !!algoliaAppId,
+            hasApiKey: !!algoliaApiKey,
+            indexName: algoliaIndexName
+          });
           return performClientSearch(query);
         }
       };
@@ -598,17 +627,24 @@ const resultsId = `${searchId}-results`;
         noResultsState?.setAttribute('hidden', 'true');
 
         // Debounce search - shorter delay for more responsive feel
-        searchTimeout = setTimeout(() => {
+        searchTimeout = setTimeout(async () => {
           try {
-            // Always use client-side search (works immediately, no async needed)
-            const results = performClientSearch(trimmedQuery);
+            let results = [];
+            
+            // Use Algolia if configured, otherwise fall back to client-side search
+            if (useAlgolia && algoliaAppId && algoliaApiKey) {
+              console.log('Using Algolia search for query:', trimmedQuery);
+              results = await performAlgoliaSearch(trimmedQuery);
+            } else {
+              console.log('Using client-side search for query:', trimmedQuery);
+              results = performClientSearch(trimmedQuery);
+            }
             
             // Debug logging
-            console.log('Search query:', trimmedQuery);
             console.log('Search results:', results);
             console.log('Results count:', results ? results.length : 0);
             
-            // Render results immediately
+            // Render results
             if (Array.isArray(results) && results.length > 0) {
               renderResults(results);
             } else {
@@ -617,9 +653,16 @@ const resultsId = `${searchId}-results`;
             }
           } catch (error) {
             console.error('Search error:', error);
-            renderResults([]);
+            // Fall back to client-side search on error
+            try {
+              const fallbackResults = performClientSearch(trimmedQuery);
+              renderResults(fallbackResults);
+            } catch (fallbackError) {
+              console.error('Fallback search error:', fallbackError);
+              renderResults([]);
+            }
           }
-        }, 150);
+        }, useAlgolia && algoliaAppId && algoliaApiKey ? 300 : 150);
       };
 
       // Trap focus within search panel - only for Tab key navigation

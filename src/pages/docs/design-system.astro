@@ -332,6 +332,79 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 	</section>
 	
 	<section>
+		<h2>Sizing Utilities</h2>
+		<p>Rizzo CSS includes comprehensive sizing utilities for width, height, and min/max dimensions:</p>
+		
+		<h3>Width Utilities</h3>
+		<ul>
+			<li><code>.w-auto</code>, <code>.w-full</code>, <code>.w-screen</code>, <code>.w-fit</code>, <code>.w-max</code>, <code>.w-min</code></li>
+			<li><code>.w-0</code>, <code>.w-1</code> through <code>.w-64</code> (0 to 16rem in increments)</li>
+		</ul>
+		
+		<h3>Height Utilities</h3>
+		<ul>
+			<li><code>.h-auto</code>, <code>.h-full</code>, <code>.h-screen</code>, <code>.h-fit</code>, <code>.h-max</code>, <code>.h-min</code></li>
+			<li><code>.h-0</code>, <code>.h-1</code> through <code>.h-64</code> (0 to 16rem in increments)</li>
+		</ul>
+		
+		<h3>Min-Width Utilities</h3>
+		<ul>
+			<li><code>.min-w-0</code>, <code>.min-w-full</code>, <code>.min-w-min</code>, <code>.min-w-max</code>, <code>.min-w-fit</code></li>
+		</ul>
+		
+		<h3>Min-Height Utilities</h3>
+		<ul>
+			<li><code>.min-h-0</code>, <code>.min-h-full</code>, <code>.min-h-screen</code>, <code>.min-h-fit</code>, <code>.min-h-max</code>, <code>.min-h-min</code></li>
+		</ul>
+		
+		<h3>Max-Height Utilities</h3>
+		<ul>
+			<li><code>.max-h-none</code>, <code>.max-h-full</code>, <code>.max-h-screen</code>, <code>.max-h-fit</code>, <code>.max-h-max</code>, <code>.max-h-min</code></li>
+			<li><code>.max-h-0</code>, <code>.max-h-1</code> through <code>.max-h-64</code> (0 to 16rem in increments)</li>
+		</ul>
+		
+		<h3>Examples</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="w-full" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					Full width (w-full)
+				</div>
+			</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="w-64 h-32" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					Fixed dimensions (w-64 h-32)
+				</div>
+			</div>
+			<div style="margin-bottom: 1rem;">
+				<div class="min-h-48" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					Minimum height (min-h-48)
+				</div>
+			</div>
+			<div>
+				<div class="max-h-32 overflow-auto" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+					<div>Scrollable content with max height (max-h-32)</div>
+					<div>This box has a maximum height and will scroll if content exceeds it.</div>
+					<div>You can add more content here to see the scrolling behavior.</div>
+				</div>
+			</div>
+		</div>
+		
+		<h3>Code Example</h3>
+		<pre><code>{`<!-- Full width and height -->
+<div class="w-full h-screen">Full viewport</div>
+
+<!-- Fixed dimensions -->
+<div class="w-64 h-48">Fixed size</div>
+
+<!-- Minimum height -->
+<div class="min-h-screen">At least viewport height</div>
+
+<!-- Maximum height with scrolling -->
+<div class="max-h-96 overflow-auto">Scrollable content</div>`}</code></pre>
+	</section>
+	
+	<section>
 		<h2>Media Queries</h2>
 		<p>Rizzo CSS includes a dedicated <code>media-queries.css</code> file with responsive breakpoints:</p>
 		

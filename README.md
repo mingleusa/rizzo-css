@@ -81,7 +81,9 @@ CSS is organized into logical files:
 - `accessibility.css` - Accessibility utilities
 - `buttons.css` - Button component styles
 - `layout.css` - Layout utilities
-- `utilities.css` - Utility classes (spacing, containers, max-width, colors, borders)
+- `spacing.css` - Margin and padding utility classes
+- `sizes.css` - Width, height, min/max dimensions, and container utilities
+- `utilities.css` - Utility classes (colors, borders, focus states)
 - `forms.css` - Form component styles
 - `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card)
 - `pages.css` - Page-specific styles

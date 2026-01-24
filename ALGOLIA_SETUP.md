@@ -23,6 +23,21 @@ In your Algolia dashboard, go to **API Keys**:
 - **Search-Only API Key** - Safe to expose in browser (for Search component)
 - **Admin API Key** - Keep secret! (for indexing only)
 
+**Note:** Algolia's dashboard may show a command like this in step 3:
+
+```bash
+npx create-instantsearch-app@latest instantsearch-app \
+    --name 'instantsearch-app' \
+    --template 'InstantSearch.js' \
+    --app-id 'YOUR_APP_ID' \
+    --api-key 'YOUR_SEARCH_ONLY_KEY' \
+    --index-name 'rizzo-css-docs' \
+    --attributes-to-display 'title' \
+    --no-interactive
+```
+
+**You do NOT need to run this command.** This creates a separate InstantSearch.js demo app, which is a different approach than what Rizzo CSS uses. Rizzo CSS has its own custom Search component that integrates directly with Algolia's JavaScript client (`algoliasearch`). You can skip this and proceed to the next step.
+
 ### 3. Configure Environment Variables
 
 #### Option A: Using .env file (Recommended)
@@ -86,6 +101,35 @@ The Search component will automatically use Algolia if:
 - `PUBLIC_ALGOLIA_APP_ID` is set
 - `PUBLIC_ALGOLIA_SEARCH_KEY` is set
 - Or `PUBLIC_ALGOLIA_ENABLED=true` is set
+
+**To verify Algolia is working:**
+
+1. **Check Browser Console**
+   - Open your site in a browser
+   - Open Developer Tools (F12)
+   - Look for search initialization messages:
+     - `✅ Algolia search enabled` - Algolia is configured and ready
+     - `ℹ️ Using client-side search` - Using fallback (Algolia not configured)
+
+2. **Test Search**
+   - Press `Ctrl+K` (or `Cmd+K` on Mac) to open search
+   - Type a search query
+   - Check console for:
+     - `Using Algolia search for query: "your-query"` - Algolia is being used
+     - `Algolia returned X results` - Search was successful
+     - If you see `Using client-side search`, Algolia is not being used
+
+3. **Verify Index**
+   - Go to your Algolia dashboard
+   - Navigate to your index
+   - Check that records exist
+   - Test a search query in the Algolia dashboard
+
+4. **Check Network Tab**
+   - Open Developer Tools → Network tab
+   - Perform a search
+   - Look for requests to `algolia.net` or `algolianet.com`
+   - Successful requests indicate Algolia is working
 
 ## Environment Variables Reference
 
