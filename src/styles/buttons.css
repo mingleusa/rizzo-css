@@ -5,7 +5,7 @@ button,
   background-color: var(--accent);
   color: var(--accent-text);
   border: 1px solid var(--border);
-  padding: 0.5rem 1rem;
+  padding: var(--spacing-2) var(--spacing-4);
   border-radius: 0.375rem;
   cursor: pointer;
   font-family: var(--font-family);

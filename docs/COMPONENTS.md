@@ -84,14 +84,14 @@ window.openSettings();
 
 ### Features
 
-- **Theme Switcher** - Integrated ThemeSwitcher component with theme icons
-- **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable)
-- **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root
-- **High Contrast Toggle** - Applies `.high-contrast` class to document root
-- **Hide Scrollbars Toggle** - Applies `.hide-scrollbars` class to document root
+- **Theme Switcher** - Integrated ThemeSwitcher component with theme icons (persists in localStorage as `theme`)
+- **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable). Persists in localStorage as `fontSizeScale`
+- **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
+- **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
+- **Scrollbar Style** - Radio button group with three options: Thin (default), Thick, and Hidden. Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
 - Slide-in panel with overlay
 - **Opening and closing animations** - Smooth slide-in from right with overlay fade (respects `prefers-reduced-motion`)
-- All settings persist in localStorage
+- **All settings persist in localStorage** - All preferences are automatically saved and restored on page load
 - Full keyboard navigation (Escape to close)
 - Focus trapping - Tab cycles within panel when open
 - Accessible ARIA attributes
@@ -103,7 +103,17 @@ window.openSettings();
 
 1. **Theme** - Theme switcher dropdown
 2. **Font Size** - Slider with live preview (75% - 150%)
-3. **Accessibility** - Reduce motion, high contrast, and hide scrollbars toggles
+3. **Accessibility** - Reduce motion, high contrast, and scrollbar style options
+
+### Settings Persistence
+
+All settings options automatically persist to localStorage and are restored when the page loads:
+
+- `theme` - Selected theme name (e.g., `dracula-at-night`, `nord-light`)
+- `fontSizeScale` - Font size multiplier (e.g., `1.0` for 100%, `1.25` for 125%)
+- `reducedMotion` - Boolean string (`true` or `false`)
+- `highContrast` - Boolean string (`true` or `false`)
+- `scrollbarStyle` - Scrollbar style preference (`thin`, `thick`, or `hidden`)
 
 See [Settings Documentation](/docs/components/settings) for complete details.
 

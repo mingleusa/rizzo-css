@@ -103,7 +103,7 @@ Rizzo CSS includes **8 built-in themes** (4 dark, 4 light) with semantic variabl
 - Themes use OKLCH color format for better color manipulation
 - **Contrast-aware text colors** - Automatic text color selection based on background lightness for WCAG AA compliance
 - Settings panel for theme switching, font size adjustment, and accessibility options
-- Theme preference persists in localStorage
+- **All settings persist in localStorage** - Theme, font size, reduced motion, high contrast, and scrollbar style preferences are automatically saved and restored
 - Shadow and overlay variables for theme-aware effects
 
 See [Theming Documentation](./docs/THEMING.md) for details.
@@ -112,7 +112,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 
 Accessible, themeable components:
 - **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Mobile menu with smooth transitions and full-width layout
-- **Settings** - Settings panel with theme switcher, font size control, and accessibility options. Opening/closing animations, mobile responsive
+- **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
 - **Button** - Semantic button component with variants
 - **Icons** - Reusable SVG icon components using Tabler Icons

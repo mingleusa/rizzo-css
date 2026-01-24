@@ -52,7 +52,7 @@ code {
   font-size: var(--font-size-sm);
   background-color: var(--background-alt);
   color: var(--text);
-  padding: 0.125rem 0.25rem;
+  padding: var(--spacing-0-125) var(--spacing-1);
   border-radius: 0.25rem;
 }
 
@@ -62,7 +62,7 @@ pre {
   line-height: var(--line-height-relaxed);
   background-color: var(--background-alt);
   color: var(--text);
-  padding: 1rem;
+  padding: var(--spacing-4);
   border-radius: 0.5rem;
   border: 1px solid var(--border);
   overflow-x: auto;

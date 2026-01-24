@@ -37,8 +37,19 @@ const cssPath = import.meta.env.PROD
 					if (localStorage.getItem('highContrast') === 'true') {
 						document.documentElement.classList.add('high-contrast');
 					}
-					if (localStorage.getItem('hideScrollbars') === 'true') {
-						document.documentElement.classList.add('hide-scrollbars');
+					// Load scrollbar style preference
+					const savedScrollbarStyle = localStorage.getItem('scrollbarStyle') || 'thin';
+					if (savedScrollbarStyle === 'thick') {
+						document.documentElement.classList.add('scrollbar-thick');
+					} else if (savedScrollbarStyle === 'hidden') {
+						document.documentElement.classList.add('scrollbar-hidden', 'hide-scrollbars');
+					}
+					// 'thin' is the default, no class needed
+					
+					// Backward compatibility: check old hideScrollbars setting
+					if (!savedScrollbarStyle && localStorage.getItem('hideScrollbars') === 'true') {
+						document.documentElement.classList.add('scrollbar-hidden', 'hide-scrollbars');
+						localStorage.setItem('scrollbarStyle', 'hidden');
 					}
 				} catch (e) {
 					// localStorage may not be available

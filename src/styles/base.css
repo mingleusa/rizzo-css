@@ -28,6 +28,8 @@ a:hover {
 
 /* Scrollbar Styling - Using semantic theme variables */
 
+/* Default: Thin Scrollbar (0.5rem) */
+
 /* Webkit browsers (Chrome, Safari, Edge) */
 ::-webkit-scrollbar {
   width: 0.5rem;
@@ -58,29 +60,44 @@ a:hover {
   background-color: var(--background);
 }
 
-/* Firefox */
+/* Firefox - Default Thin */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--border) var(--background);
 }
 
+/* Thick Scrollbar Option */
+.scrollbar-thick ::-webkit-scrollbar {
+  width: 1rem;
+  height: 1rem;
+}
+
+.scrollbar-thick * {
+  scrollbar-width: auto;
+  scrollbar-color: var(--border) var(--background);
+}
+
 /* Hide Scrollbars Option */
+.scrollbar-hidden ::-webkit-scrollbar,
 .hide-scrollbars ::-webkit-scrollbar {
   width: 0;
   height: 0;
   display: none;
 }
 
+.scrollbar-hidden *,
 .hide-scrollbars * {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
+.scrollbar-hidden,
 .hide-scrollbars {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
+.scrollbar-hidden::-webkit-scrollbar,
 .hide-scrollbars::-webkit-scrollbar {
   width: 0;
   height: 0;

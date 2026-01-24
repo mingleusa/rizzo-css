@@ -93,16 +93,46 @@ const { open = false } = Astro.props;
         </div>
 
         <div class="settings__control">
-          <label class="settings__checkbox-label">
-            <input
-              type="checkbox"
-              class="settings__checkbox"
-              data-hide-scrollbars
-              aria-label="Hide scrollbars"
-            />
-            <span>Hide scrollbars</span>
+          <label class="settings__label">
+            <span class="settings__label-text">Scrollbar style</span>
           </label>
-          <p class="settings__help-text">Hide scrollbars while maintaining scroll functionality</p>
+          <div class="settings__radio-group" role="radiogroup" aria-label="Scrollbar style">
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="thin"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Thin scrollbar"
+                checked
+              />
+              <span>Thin</span>
+            </label>
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="thick"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Thick scrollbar"
+              />
+              <span>Thick</span>
+            </label>
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="hidden"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Hidden scrollbars"
+              />
+              <span>Hidden</span>
+            </label>
+          </div>
+          <p class="settings__help-text">Choose your preferred scrollbar appearance</p>
         </div>
       </section>
     </div>
@@ -121,7 +151,7 @@ const { open = false } = Astro.props;
     const fontSizeValue = settings.querySelector('[data-font-size-value]');
     const reducedMotion = settings.querySelector('[data-reduced-motion]');
     const highContrast = settings.querySelector('[data-high-contrast]');
-    const hideScrollbars = settings.querySelector('[data-hide-scrollbars]');
+    const scrollbarStyleRadios = settings.querySelectorAll('[data-scrollbar-style]');
     const html = document.documentElement;
 
     if (!panel || !overlay || !closeBtn) return;
@@ -160,11 +190,15 @@ const { open = false } = Astro.props;
         html.classList.toggle('high-contrast', savedHighContrast);
       }
 
-      const savedHideScrollbars = localStorage.getItem('hideScrollbars') === 'true';
-      if (hideScrollbars) {
-        hideScrollbars.checked = savedHideScrollbars;
-        html.classList.toggle('hide-scrollbars', savedHideScrollbars);
-      }
+      // Load scrollbar style preference
+      const savedScrollbarStyle = localStorage.getItem('scrollbarStyle') || 'thin';
+      scrollbarStyleRadios.forEach((radio) => {
+        const radioInput = radio as HTMLInputElement;
+        if (radioInput && radioInput.value === savedScrollbarStyle) {
+          radioInput.checked = true;
+        }
+      });
+      applyScrollbarStyle(savedScrollbarStyle);
     };
 
     // Apply font size
@@ -281,40 +315,63 @@ const { open = false } = Astro.props;
     // Font size slider
     if (fontSizeSlider) {
       fontSizeSlider.addEventListener('input', (e) => {
-        const target = e.target;
-        const scale = parseFloat(target.value);
-        applyFontSize(scale);
-        updateSliderProgress(target);
-        localStorage.setItem('fontSizeScale', scale.toString());
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          const scale = parseFloat(target.value);
+          applyFontSize(scale);
+          updateSliderProgress(target);
+          localStorage.setItem('fontSizeScale', scale.toString());
+        }
       });
     }
 
     // Reduced motion
     if (reducedMotion) {
       reducedMotion.addEventListener('change', (e) => {
-        const target = e.target;
-        html.classList.toggle('reduced-motion', target.checked);
-        localStorage.setItem('reducedMotion', target.checked.toString());
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          html.classList.toggle('reduced-motion', target.checked);
+          localStorage.setItem('reducedMotion', target.checked.toString());
+        }
       });
     }
 
     // High contrast
     if (highContrast) {
       highContrast.addEventListener('change', (e) => {
-        const target = e.target;
-        html.classList.toggle('high-contrast', target.checked);
-        localStorage.setItem('highContrast', target.checked.toString());
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          html.classList.toggle('high-contrast', target.checked);
+          localStorage.setItem('highContrast', target.checked.toString());
+        }
       });
     }
 
-    // Hide scrollbars
-    if (hideScrollbars) {
-      hideScrollbars.addEventListener('change', (e) => {
-        const target = e.target;
-        html.classList.toggle('hide-scrollbars', target.checked);
-        localStorage.setItem('hideScrollbars', target.checked.toString());
+    // Apply scrollbar style
+    const applyScrollbarStyle = (style: string) => {
+      // Remove all scrollbar classes
+      html.classList.remove('scrollbar-thin', 'scrollbar-thick', 'scrollbar-hidden', 'hide-scrollbars');
+      
+      // Add the appropriate class
+      if (style === 'thick') {
+        html.classList.add('scrollbar-thick');
+      } else if (style === 'hidden') {
+        html.classList.add('scrollbar-hidden', 'hide-scrollbars'); // Keep hide-scrollbars for backward compatibility
+      }
+      // 'thin' is the default, no class needed
+    };
+
+    // Scrollbar style radio buttons
+    scrollbarStyleRadios.forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target && target.checked) {
+          const style = target.value;
+          applyScrollbarStyle(style);
+          localStorage.setItem('scrollbarStyle', style);
+        }
       });
-    }
+    });
 
     // Load settings on init
     loadSettings();

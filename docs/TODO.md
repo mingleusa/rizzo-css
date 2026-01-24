@@ -283,7 +283,7 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
 - ✅ Container Utilities (responsive containers with auto-centering)
 - ✅ Max-Width Utilities (xs to 7xl, screen sizes)
 - ✅ Shadow Utilities (theme-aware shadow system)
-- ✅ Scrollbar Styling (theme-aware, with hide option)
+- ✅ Scrollbar Styling (theme-aware, with three style options: thin, thick, hidden)
 
 ### Documentation
 - ✅ Component Examples (live examples for all components)
@@ -296,9 +296,10 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
 - ✅ Color Format Conversion (OKLCH to Hex, RGB, HSL)
 - ✅ Copy-to-Clipboard Functionality (with format selection)
 - ✅ Theme Flash Prevention
-- ✅ Settings Persistence (localStorage)
+- ✅ Settings Persistence (localStorage) - All settings (theme, font size, reduced motion, high contrast, scrollbar style) automatically persist
 - ✅ Keyboard Navigation (all components)
 - ✅ Accessibility (WCAG AA compliant)
+- ✅ Scrollbar Style Options (thin, thick, hidden) with localStorage persistence
 
 ## Priority Legend
 
