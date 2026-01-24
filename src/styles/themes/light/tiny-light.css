@@ -37,7 +37,7 @@
   --success: var(--green);
   --success-text: oklch(20% 0 0deg); /* Dark text on light success (58% lightness) for WCAG AA contrast */
   --warning: var(--yellow);
-  --warning-text: oklch(20% 0 0deg); /* Dark text on warning (72% lightness) for WCAG AA contrast */
+  --warning-text: oklch(100% 0 0deg); /* White text on warning (72% lightness) for WCAG AA contrast */
   --error: var(--red);
   --error-text: oklch(20% 0 0deg); /* Dark text on light error (56% lightness) for WCAG AA contrast */
   --info: var(--cyan);

@@ -114,14 +114,16 @@ Accessible, themeable components:
 - **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Mobile menu with smooth transitions and full-width layout
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
-- **Button** - Semantic button component with variants
+- **Button** - Semantic button component with variants using theme variables
+- **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
 - **Icons** - Reusable SVG icon components using Tabler Icons
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
-- **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation
+- **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
-- **Alert** - Alert/notification component with variants and dismissible functionality
+- **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
+- **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 
 All components:
 - Use semantic theme variables with contrast-aware text colors
@@ -145,6 +147,7 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Colors](./docs/COLORS.md) - Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)
 - [Components](./docs/COMPONENTS.md) - Component library and usage examples
 - [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
+- [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
 
 ## 📚 External Resources

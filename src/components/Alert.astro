@@ -4,6 +4,7 @@ import Close from './icons/Close.astro';
 interface Props {
   variant?: 'success' | 'error' | 'warning' | 'info';
   dismissible?: boolean;
+  autoDismiss?: number; // Duration in milliseconds (0 = disabled)
   class?: string;
   id?: string;
 }
@@ -11,6 +12,7 @@ interface Props {
 const {
   variant = 'info',
   dismissible = false,
+  autoDismiss = 0, // 0 means disabled
   class: className = '',
   id,
 } = Astro.props;
@@ -52,38 +54,62 @@ const ariaLabels = {
   )}
 </div>
 
-<script>
+<script define:vars={{ alertId, autoDismiss }}>
   (function initAlert() {
     const init = () => {
-      const alerts = document.querySelectorAll('.alert');
+      const alert = document.querySelector(`#${alertId}`);
+      if (!alert) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+          return;
+        }
+        return;
+      }
       
-      alerts.forEach((alert) => {
-        // Skip if already initialized
-        if (alert.hasAttribute('data-alert-initialized')) return;
-        alert.setAttribute('data-alert-initialized', 'true');
+      // Skip if already initialized
+      if (alert.hasAttribute('data-alert-initialized')) return;
+      alert.setAttribute('data-alert-initialized', 'true');
+      
+      const closeBtn = alert.querySelector('[data-alert-close]');
+      
+      let closeAlert = () => {
+        // Announce dismissal to screen readers
+        const announcement = document.createElement('div');
+        announcement.setAttribute('role', 'status');
+        announcement.setAttribute('aria-live', 'polite');
+        announcement.className = 'sr-only';
+        announcement.textContent = 'Alert dismissed';
+        document.body.appendChild(announcement);
         
-        const closeBtn = alert.querySelector('[data-alert-close]');
-        if (!closeBtn) return;
+        // Remove alert with animation
+        alert.style.opacity = '0';
+        alert.style.transform = 'translateY(-10px)';
         
-        const closeAlert = () => {
-          // Announce dismissal to screen readers
-          const announcement = document.createElement('div');
-          announcement.setAttribute('role', 'status');
-          announcement.setAttribute('aria-live', 'polite');
-          announcement.className = 'sr-only';
-          announcement.textContent = 'Alert dismissed';
-          document.body.appendChild(announcement);
-          
-          // Remove alert with animation
-          alert.style.opacity = '0';
-          alert.style.transform = 'translateY(-10px)';
-          
-          setTimeout(() => {
-            alert.remove();
+        setTimeout(() => {
+          alert.remove();
+          if (document.body.contains(announcement)) {
             document.body.removeChild(announcement);
-          }, 200);
-        };
+          }
+        }, 200);
+      };
+      
+      // Auto-dismiss functionality
+      if (autoDismiss > 0) {
+        const timeoutId = setTimeout(() => {
+          closeAlert();
+        }, autoDismiss);
         
+        // Clear timeout if user manually dismisses
+        if (closeBtn) {
+          const originalClose = closeAlert;
+          closeAlert = () => {
+            clearTimeout(timeoutId);
+            originalClose();
+          };
+        }
+      }
+      
+      if (closeBtn) {
         closeBtn.addEventListener('click', closeAlert);
         
         // Keyboard support
@@ -93,7 +119,7 @@ const ariaLabels = {
             closeAlert();
           }
         });
-      });
+      }
     };
     
     if (document.readyState === 'loading') {

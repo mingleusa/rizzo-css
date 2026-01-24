@@ -143,8 +143,20 @@ button:disabled,
   pointer-events: none;
 }
 
-/* ARIA live regions */
-[aria-live] {
+/* ARIA live regions - Only hide screen reader-only announcements */
+
+/* Visible components like alerts and toasts should NOT be hidden */
+[aria-live]:not(.alert, [role="alert"], [role="status"], .toast-container, .toast-container *, .search__results, .search__loading-text, .search__no-results-text) {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Screen reader-only class for announcements */
+.sr-only[aria-live],
+[aria-live].sr-only {
   position: absolute;
   left: -10000px;
   width: 1px;

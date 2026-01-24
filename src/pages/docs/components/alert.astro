@@ -1,6 +1,5 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Alert from '../../../components/Alert.astro';
 ---
 
 <DocsLayout title="Alert Component" description="Accessible alert component with variants and dismissible functionality">
@@ -11,67 +10,32 @@ import Alert from '../../../components/Alert.astro';
 	
 	<section>
 		<h2>Variants</h2>
-		<p>Alerts come in four semantic variants that use theme-aware colors:</p>
+		<p>Alerts come in four semantic variants that use theme-aware colors. Click the buttons below to see them in action:</p>
 		
 		<div class="example">
-			<div class="example-title">Success Alert</div>
-			<Alert variant="success">
-				<strong>Success!</strong> Your changes have been saved successfully.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Error Alert</div>
-			<Alert variant="error">
-				<strong>Error!</strong> Something went wrong. Please try again.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Warning Alert</div>
-			<Alert variant="warning">
-				<strong>Warning!</strong> This action cannot be undone.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Info Alert</div>
-			<Alert variant="info">
-				<strong>Info:</strong> New features are available in the latest update.
-			</Alert>
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3); margin-bottom: var(--spacing-4);">
+				<button class="btn btn-success" onclick="showAlert('success', 'Success! Your changes have been saved successfully.')">Show Success Alert</button>
+				<button class="btn btn-error" onclick="showAlert('error', 'Error! Something went wrong. Please try again.')">Show Error Alert</button>
+				<button class="btn btn-warning" onclick="showAlert('warning', 'Warning! This action cannot be undone.')">Show Warning Alert</button>
+				<button class="btn btn-info" onclick="showAlert('info', 'Info: New features are available in the latest update.')">Show Info Alert</button>
+			</div>
+			<div id="alert-examples-container" class="alert-examples-container" style="min-height: 1px; margin-top: var(--spacing-4);"></div>
 		</div>
 	</section>
 	
 	<section>
-		<h2>Dismissible Alerts</h2>
-		<p>Add the <code>dismissible</code> prop to allow users to close the alert:</p>
+		<h2>Auto-Dismiss</h2>
+		<p>Alerts can automatically dismiss after a set duration:</p>
 		
 		<div class="example">
-			<div class="example-title">Dismissible Success Alert</div>
-			<Alert variant="success" dismissible>
-				<strong>Success!</strong> This alert can be dismissed by clicking the close button.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Dismissible Error Alert</div>
-			<Alert variant="error" dismissible>
-				<strong>Error!</strong> This alert can be dismissed.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Dismissible Warning Alert</div>
-			<Alert variant="warning" dismissible>
-				<strong>Warning!</strong> This alert can be dismissed.
-			</Alert>
-		</div>
-		
-		<div class="example">
-			<div class="example-title">Dismissible Info Alert</div>
-			<Alert variant="info" dismissible>
-				<strong>Info:</strong> This alert can be dismissed.
-			</Alert>
+			<div class="example-title">Auto-Dismiss Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3); margin-bottom: var(--spacing-4);">
+				<button class="btn btn-primary" onclick="showAlert('success', 'This alert will auto-dismiss in 3 seconds', true, 3000, 'alert-auto-dismiss-container')">3 Second Auto-Dismiss</button>
+				<button class="btn btn-primary" onclick="showAlert('info', 'This alert will auto-dismiss in 5 seconds', true, 5000, 'alert-auto-dismiss-container')">5 Second Auto-Dismiss</button>
+				<button class="btn btn-primary" onclick="showAlert('warning', 'This alert will auto-dismiss in 7 seconds', true, 7000, 'alert-auto-dismiss-container')">7 Second Auto-Dismiss</button>
+			</div>
+			<div id="alert-auto-dismiss-container" class="alert-examples-container" style="min-height: 1px; margin-top: var(--spacing-4);"></div>
 		</div>
 	</section>
 	
@@ -91,9 +55,9 @@ import Alert from '../components/Alert.astro';
   An error occurred. Please try again.
 </Alert>
 
-<!-- With custom ID -->
-<Alert variant="info" id="custom-alert" dismissible>
-  Custom alert with ID.
+<!-- Auto-dismiss alert -->
+<Alert variant="success" dismissible autoDismiss={5000}>
+  This alert will automatically dismiss in 5 seconds.
 </Alert>`}</code></pre>
 	</section>
 	
@@ -102,6 +66,7 @@ import Alert from '../components/Alert.astro';
 		<ul>
 			<li><code>variant</code> (string, optional) - Alert variant: <code>"success"</code>, <code>"error"</code>, <code>"warning"</code>, or <code>"info"</code> (default: <code>"info"</code>)</li>
 			<li><code>dismissible</code> (boolean, optional) - Whether the alert can be dismissed (default: <code>false</code>)</li>
+			<li><code>autoDismiss</code> (number, optional) - Auto-dismiss duration in milliseconds. Set to <code>0</code> to disable (default: <code>0</code>). Common values: <code>3000</code> (3s), <code>5000</code> (5s), <code>7000</code> (7s)</li>
 			<li><code>id</code> (string, optional) - Unique ID for the alert. If not provided, a random ID will be generated</li>
 			<li><code>class</code> (string, optional) - Additional CSS classes</li>
 		</ul>
@@ -113,12 +78,16 @@ import Alert from '../components/Alert.astro';
 			<li>Four semantic variants (success, error, warning, info)</li>
 			<li>Theme-aware colors using semantic variables</li>
 			<li>Dismissible functionality with smooth animations</li>
+			<li><strong>Auto-dismiss functionality</strong> - Automatically dismiss after a set duration</li>
 			<li>Full keyboard accessibility (Enter/Space to dismiss)</li>
 			<li>ARIA attributes for screen readers (<code>role="alert"</code>, <code>aria-live="polite"</code>)</li>
 			<li>Screen reader announcements when dismissed</li>
 			<li>Respects <code>prefers-reduced-motion</code></li>
 			<li>Focus management for close button</li>
 		</ul>
+		
+		<h3>Toast Notifications</h3>
+		<p>For toast notifications (fixed position alerts), see the <a href="/docs/components/toast">Toast Component documentation</a>.</p>
 	</section>
 	
 	<section>
@@ -134,3 +103,143 @@ import Alert from '../components/Alert.astro';
 		</ul>
 	</section>
 </DocsLayout>
+
+<script is:inline>
+	// Make function available globally immediately
+	function showAlert(variant, message, dismissible, autoDismiss, containerId) {
+		if (!message) return;
+		
+		variant = variant || 'info';
+		dismissible = dismissible !== undefined ? dismissible : true;
+		autoDismiss = autoDismiss !== undefined ? autoDismiss : 0;
+		containerId = containerId || 'alert-examples-container';
+		
+		// Find the specific alert container
+		var container = document.getElementById(containerId);
+		if (!container) {
+			// Fallback to first container with class
+			container = document.querySelector('.alert-examples-container');
+		}
+		
+		if (!container) {
+			console.error('Alert container not found:', containerId);
+			return;
+		}
+		
+		var alertId = 'alert-' + Math.random().toString(36).substr(2, 9);
+		var alertEl = document.createElement('div');
+		alertEl.id = alertId;
+		alertEl.className = 'alert alert--' + variant;
+		alertEl.setAttribute('role', 'alert');
+		alertEl.setAttribute('aria-live', 'polite');
+		
+		// Ensure alert is visible and has proper display
+		alertEl.style.display = 'flex';
+		alertEl.style.visibility = 'visible';
+		alertEl.style.opacity = '1';
+		
+		var content = document.createElement('div');
+		content.className = 'alert__content';
+		// Extract variant label and message - remove duplicate variant label from message
+		var variantLabel = variant.charAt(0).toUpperCase() + variant.slice(1);
+		var variantPrefix = variantLabel + '!';
+		var variantPrefixWithColon = variantLabel + ':';
+		
+		// Remove variant label from the beginning of the message if it exists
+		var cleanMessage = message;
+		if (message.toLowerCase().startsWith(variantPrefix.toLowerCase())) {
+			cleanMessage = message.substring(variantPrefix.length).trim();
+		} else if (message.toLowerCase().startsWith(variantPrefixWithColon.toLowerCase())) {
+			cleanMessage = message.substring(variantPrefixWithColon.length).trim();
+		}
+		
+		// Show just the variant label in bold, then the clean message
+		content.innerHTML = '<strong>' + variantPrefix + '</strong> ' + cleanMessage;
+		// Ensure content is visible
+		content.style.color = 'inherit';
+		content.style.display = 'block';
+		content.style.visibility = 'visible';
+		content.style.opacity = '1';
+		alertEl.appendChild(content);
+		
+		var closeBtn = null;
+		if (dismissible) {
+			closeBtn = document.createElement('button');
+			closeBtn.type = 'button';
+			closeBtn.className = 'alert__close';
+			closeBtn.setAttribute('aria-label', 'Dismiss alert');
+			closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
+			// Ensure close button is visible
+			closeBtn.style.color = 'inherit';
+			closeBtn.style.opacity = '0.8';
+			closeBtn.style.display = 'flex';
+			closeBtn.style.visibility = 'visible';
+			alertEl.appendChild(closeBtn);
+		}
+		
+		container.appendChild(alertEl);
+		
+		// Force CSS to apply after element is in DOM - especially important for warning variant
+		requestAnimationFrame(function() {
+			// Force reflow to apply CSS classes
+			alertEl.offsetHeight;
+			
+			// Get computed styles
+			var computedStyle = window.getComputedStyle(alertEl);
+			var textColor = computedStyle.color;
+			var bgColor = computedStyle.backgroundColor;
+			
+			// For warning alerts, ensure theme variable text color is applied
+			if (variant === 'warning') {
+				// Use CSS variable for theming support
+				alertEl.style.color = 'var(--warning-text)';
+				content.style.color = 'var(--warning-text)';
+				if (closeBtn) {
+					closeBtn.style.color = 'var(--warning-text)';
+					closeBtn.style.opacity = '0.9';
+				}
+			} else {
+				// For other variants, just ensure color is inherited
+				if (textColor && textColor !== 'transparent' && textColor !== 'rgba(0, 0, 0, 0)') {
+					content.style.color = textColor;
+				} else {
+					content.style.color = 'inherit';
+				}
+			}
+			
+			// Double-check content is visible
+			var contentStyle = window.getComputedStyle(content);
+			if (contentStyle.display === 'none' || contentStyle.visibility === 'hidden' || contentStyle.opacity === '0') {
+				content.style.display = 'block';
+				content.style.visibility = 'visible';
+				content.style.opacity = '1';
+			}
+		});
+		
+		var closeAlert = function() {
+			alertEl.style.opacity = '0';
+			alertEl.style.transform = 'translateY(-10px)';
+			setTimeout(function() {
+				if (alertEl && alertEl.parentNode) {
+					alertEl.remove();
+				}
+			}, 200);
+		};
+		
+		if (closeBtn) {
+			closeBtn.addEventListener('click', closeAlert);
+			
+			if (autoDismiss > 0) {
+				var timeoutId = setTimeout(closeAlert, autoDismiss);
+				closeBtn.addEventListener('click', function() {
+					clearTimeout(timeoutId);
+				});
+			}
+		} else if (autoDismiss > 0) {
+			setTimeout(closeAlert, autoDismiss);
+		}
+	}
+	
+	// Make available on window for global access
+	window.showAlert = showAlert;
+</script>

@@ -160,7 +160,7 @@ When creating themes, ensure proper contrast by setting text colors based on bac
 
 - **Dark backgrounds** (< 50% lightness): Use white text (`oklch(100% 0 0deg)`)
 - **Light backgrounds** (>= 50% lightness): Use dark text (`oklch(20% 0 0deg)`)
-- **Warning colors** (typically 80%+ lightness): Always use dark text
+- **Warning colors** (typically 80%+ lightness): Use white text (`oklch(100% 0 0deg)`) for better visibility and consistency across all themes
 
 This ensures WCAG AA compliance (4.5:1 contrast ratio for normal text).
 

@@ -8,9 +8,63 @@ import ModalComponent from '../../../components/Modal.astro';
 		<h2>Modal Component</h2>
 		<p>An accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay.</p>
 		
+		<h3>Modal Sizes</h3>
+		<p>Modals come in three sizes: small, medium (default), and large. Click the buttons below to see each size:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-primary" onclick="window.openModal_modal_sm && window.openModal_modal_sm()">Open Small Modal</button>
+				<button class="btn btn-primary" onclick="window.openModal_modal_md && window.openModal_modal_md()">Open Medium Modal</button>
+				<button class="btn btn-primary" onclick="window.openModal_modal_lg && window.openModal_modal_lg()">Open Large Modal</button>
+			</div>
+		</div>
+		
+		<ModalComponent id="modal-sm" title="Small Modal" size="sm" open={false}>
+			<p>This is a <strong>small modal</strong> (24rem / 384px max-width). Perfect for:</p>
+			<ul>
+				<li>Confirmation dialogs</li>
+				<li>Simple alerts</li>
+				<li>Quick actions</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_sm && window.closeModal_modal_sm()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_sm && window.closeModal_modal_sm()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<ModalComponent id="modal-md" title="Medium Modal" size="md" open={false}>
+			<p>This is a <strong>medium modal</strong> (32rem / 512px max-width) - the default size. Great for:</p>
+			<ul>
+				<li>Standard forms</li>
+				<li>Content dialogs</li>
+				<li>Most use cases</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_md && window.closeModal_modal_md()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_md && window.closeModal_modal_md()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<ModalComponent id="modal-lg" title="Large Modal" size="lg" open={false}>
+			<p>This is a <strong>large modal</strong> (48rem / 768px max-width). Ideal for:</p>
+			<ul>
+				<li>Complex forms</li>
+				<li>Detailed content</li>
+				<li>Multi-step processes</li>
+				<li>Rich media content</li>
+			</ul>
+			<p>Large modals provide more space for content while still maintaining a focused, centered dialog experience.</p>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_lg && window.closeModal_modal_lg()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_lg && window.closeModal_modal_lg()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<h3>Standard Example</h3>
 		<div class="example">
 			<div class="example-title">Live Example</div>
-			<p>Click the button below to open a modal dialog:</p>
+			<p>Click the button below to open a standard modal dialog:</p>
 			<button class="btn btn-primary" onclick="window.openModal_docs_modal && window.openModal_docs_modal()">Open Example Modal</button>
 		</div>
 		
@@ -81,11 +135,13 @@ window.closeModal_example_modal();`}</code></pre>
 			<li>Respects <code>prefers-reduced-motion</code></li>
 		</ul>
 		
-		<h3>Sizes</h3>
+		<h3>Size Variants</h3>
+		<p>Control the modal width using the <code>size</code> prop:</p>
 		<ul>
-			<li><code>sm</code> - Small (24rem / 384px max-width)</li>
-			<li><code>md</code> - Medium (32rem / 512px max-width) - default</li>
-			<li><code>lg</code> - Large (48rem / 768px max-width)</li>
+			<li><code>sm</code> - Small (24rem / 384px max-width) - Best for confirmation dialogs and simple alerts</li>
+			<li><code>md</code> - Medium (32rem / 512px max-width) - Default size, great for most use cases</li>
+			<li><code>lg</code> - Large (48rem / 768px max-width) - Ideal for complex forms and detailed content</li>
 		</ul>
+		<p><strong>Note:</strong> On mobile devices (≤640px), all modals automatically use 95vw width for better mobile experience.</p>
 	</section>
 </DocsLayout>

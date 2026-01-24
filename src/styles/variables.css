@@ -81,7 +81,7 @@
   --success: oklch(60.2% 0.182 145.1deg);
   --success-text: oklch(20% 0 0deg); /* Dark text on light success (60% lightness) for WCAG AA contrast */
   --warning: oklch(80.2% 0.152 90.1deg);
-  --warning-text: oklch(20% 0 0deg); /* Dark text on warning (80% lightness) for WCAG AA contrast */
+  --warning-text: oklch(100% 0 0deg); /* White text on warning (80% lightness) for WCAG AA contrast */
   --error: oklch(55.2% 0.218 25.1deg);
   --error-text: oklch(100% 0 0deg); /* White text on error (55% lightness) for WCAG AA contrast */
   --info: oklch(60.2% 0.118 210.1deg);

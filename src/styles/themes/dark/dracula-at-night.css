@@ -37,7 +37,7 @@
   --success: var(--green);
   --success-text: oklch(100% 0 0deg); /* White text on success for contrast */
   --warning: var(--yellow);
-  --warning-text: oklch(20% 0 0deg); /* Dark text on warning for contrast */
+  --warning-text: oklch(100% 0 0deg); /* White text on warning for contrast */
   --error: var(--red);
   --error-text: oklch(100% 0 0deg); /* White text on error for contrast */
   --info: var(--cyan);

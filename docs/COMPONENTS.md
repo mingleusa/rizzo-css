@@ -14,7 +14,8 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
 - [Search](/docs/components/search) - Search component with Algolia integration
-- [Alert](/docs/components/alert) - Alert/notification component
+- [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
+- [Toast](/docs/components/toast) - Fixed position toast notifications
 
 ## Component Features
 
@@ -141,6 +142,40 @@ All buttons are keyboard accessible and theme-aware.
 
 See [Button Documentation](/docs/components/button) for complete details.
 
+## Badge Component
+
+Small labels and tags for displaying status, categories, or counts.
+
+### Features
+
+- **Variants** - `badge--primary`, `badge--success`, `badge--warning`, `badge--error`, `badge--info`
+- **Sizes** - `badge--sm`, `badge--md` (default), `badge--lg`
+- **Pill variant** - Fully rounded badges with `badge--pill` class
+- Inline element - Can be used within text or alongside other components
+- Theme-aware styling using semantic variables
+
+### Usage
+
+```astro
+---
+import Badge from '../components/Badge.astro';
+---
+
+<Badge variant="primary">New</Badge>
+<Badge variant="success" size="sm">Active</Badge>
+<Badge variant="error" pill>Urgent</Badge>
+```
+
+Or using classes:
+
+```html
+<span class="badge badge--primary">Primary</span>
+<span class="badge badge--success badge--sm">Small Success</span>
+<span class="badge badge--error badge--lg badge--pill">Large Pill Error</span>
+```
+
+See [Badge Documentation](/docs/components/badge) for complete details.
+
 ## Card Component
 
 Flexible card component with variants, sections, and image support.
@@ -166,12 +201,19 @@ Accessible modal/dialog component with focus trapping and keyboard navigation.
 
 - Focus trapping and keyboard navigation
 - Backdrop overlay with blur effect
-- Sizes: sm, md (default), lg
+- **Three sizes**: `sm` (24rem), `md` (32rem, default), `lg` (48rem)
 - Programmatic control via global functions
 - Accessible ARIA attributes
 - Theme-aware styling
+- Responsive design (95vw on mobile)
 
-See [Modal Documentation](/docs/components/modal) for complete details.
+### Size Variants
+
+- `sm` - Small (384px) - Best for confirmation dialogs
+- `md` - Medium (512px) - Default, great for most use cases
+- `lg` - Large (768px) - Ideal for complex forms and detailed content
+
+See [Modal Documentation](/docs/components/modal) for complete details and live examples.
 
 ## Search Component
 
@@ -191,10 +233,11 @@ See [Search Documentation](/docs/components/search) for complete details.
 
 ## Alert Component
 
-An accessible alert/notification component for displaying important messages to users.
+An accessible alert/notification component for displaying important messages to users. Supports both static usage in Astro templates and dynamic creation via JavaScript.
 
 ### Usage
 
+**Static Usage (Astro Component):**
 ```astro
 ---
 import Alert from '../components/Alert.astro';
@@ -217,35 +260,117 @@ import Alert from '../components/Alert.astro';
 </Alert>
 ```
 
+**Dynamic Usage (JavaScript):**
+```javascript
+// Show alert programmatically
+showAlert('success', 'Success! Your changes have been saved successfully.');
+showAlert('error', 'Error! Something went wrong.');
+showAlert('warning', 'Warning! This action cannot be undone.', true, 7000); // Auto-dismiss in 7 seconds
+```
+
 ### Props
 
 - `variant` ('success' | 'error' | 'warning' | 'info', optional) - Alert variant (default: 'info')
 - `dismissible` (boolean, optional) - Whether alert can be dismissed (default: false)
+- `autoDismiss` (number, optional) - Auto-dismiss duration in milliseconds. Set to `0` to disable (default: 0)
+- `id` (string, optional) - Unique ID for the alert. If not provided, a random ID will be generated
 - `class` (string, optional) - Additional CSS classes
 
 ### Variants
 
 - `success` - Green/positive feedback
 - `error` - Red/error messages
-- `warning` - Yellow/caution messages
+- `warning` - Yellow/caution messages (uses white text for contrast)
 - `info` - Blue/informational messages
 
 ### Features
 
 - Four semantic variants (success, error, warning, info)
 - Optional dismissible functionality with close button
-- Accessible ARIA attributes
-- Theme-aware styling
+- **Auto-dismiss functionality** - Automatically dismiss after a set duration
+- **Dynamic creation** - Create alerts programmatically via `showAlert()` function
+- **Live examples** - Interactive examples on documentation page
+- Accessible ARIA attributes (`role="alert"`, `aria-live="polite"`)
+- Theme-aware styling using semantic variables
 - Smooth dismiss animation (respects `prefers-reduced-motion`)
+- Proper spacing between multiple alerts
+- Contrast-aware text colors (white text on warning alerts for visibility)
 
 ### Accessibility
 
-- Proper ARIA roles (`role="alert"` for non-dismissible, `role="alertdialog"` for dismissible)
+- Proper ARIA roles (`role="alert"` with `aria-live="polite"`)
 - Screen reader announcements
 - Keyboard accessible close button
 - Focus management on dismiss
+- WCAG AA contrast compliance
 
-See [Alert Documentation](/docs/components/alert) for complete details.
+See [Alert Documentation](/docs/components/alert) for complete details and live examples.
+
+## Toast Component
+
+Fixed position toast notifications with auto-dismiss and programmatic control. Toasts are available globally via `window.showToast()` on all pages.
+
+### Usage
+
+**Programmatic Usage (Global Functions):**
+```javascript
+// Show a toast (functions available globally via window.showToast)
+showToast('Success! Your changes have been saved.', {
+  variant: 'success',
+  position: 'top-right',
+  autoDismiss: 5000
+});
+
+// Show toast with different position
+showToast('Error occurred', {
+  variant: 'error',
+  position: 'bottom-left',
+  autoDismiss: 3000
+});
+
+// Show toast without auto-dismiss
+showToast('This toast stays until dismissed', {
+  variant: 'info',
+  autoDismiss: 0
+});
+
+// Remove all toasts
+removeAllToasts();
+
+// Remove specific toast by ID
+const toastId = showToast('This will be removed', { variant: 'info' });
+setTimeout(() => removeToast(toastId), 2000);
+```
+
+### Features
+
+- **Six position options** - top/bottom + left/center/right
+- **Automatic stacking** - Multiple toasts stack vertically in the same position
+- **Auto-dismiss** - Customizable duration (default: 5 seconds, set to 0 to disable)
+- **Programmatic control** - `showToast()`, `removeToast()`, `removeAllToasts()` available globally
+- **Live examples** - Interactive examples on documentation page
+- Smooth slide-in animations (respects `prefers-reduced-motion`)
+- All alert variants supported (success, error, warning, info)
+- Mobile responsive (full width on mobile)
+- Accessible with ARIA attributes (`role="alert"`, `aria-live="polite"`)
+- Theme-aware styling using semantic variables
+- Contrast-aware text colors (white text on warning toasts for visibility)
+
+### Toast Options
+
+- `variant` (string, optional) - Alert variant: 'success', 'error', 'warning', 'info' (default: 'info')
+- `position` (string, optional) - Position: 'top-right', 'top-left', 'top-center', 'bottom-right', 'bottom-left', 'bottom-center' (default: 'top-right')
+- `autoDismiss` (number, optional) - Duration in milliseconds (default: 5000, set to 0 to disable)
+- `dismissible` (boolean, optional) - Whether toast can be manually dismissed (default: true)
+
+### Global Functions
+
+Toast functions are automatically available on all pages via `Layout.astro`:
+- `window.showToast(message, options)` - Show a toast notification
+- `window.removeToast(toastId)` - Remove a specific toast by ID
+- `window.removeAllToasts()` - Remove all visible toasts
+
+See [Toast Documentation](/docs/components/toast) for complete details and live examples.
 
 ## Layout Components
 

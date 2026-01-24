@@ -56,6 +56,251 @@ const cssPath = import.meta.env.PROD
 				}
 			})();
 		</script>
+		<script is:inline>
+			// Toast notification functions - available globally immediately
+			(function() {
+				if (typeof window === 'undefined') return;
+				if (window.showToast) return; // Already defined
+				
+				// Helper function
+				function ensureDOMReady(callback) {
+					if (document.body) {
+						callback();
+					} else if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', callback);
+					} else {
+						setTimeout(callback, 0);
+					}
+				}
+				
+				function showToast(message, options) {
+					console.log('showToast called with:', message, options);
+					if (!message) {
+						console.error('showToast: No message provided');
+						return null;
+					}
+					options = options || {};
+					var variant = options.variant || 'info';
+					var position = options.position || 'top-right';
+					var autoDismiss = options.autoDismiss !== undefined ? options.autoDismiss : 5000;
+					var dismissible = options.dismissible !== undefined ? options.dismissible : true;
+					var toastId = 'toast-' + Math.random().toString(36).substr(2, 9);
+					console.log('Creating toast:', { variant, position, autoDismiss, dismissible, toastId });
+					
+					function createToast() {
+						if (!document.body) {
+							console.error('showToast: document.body not available');
+							return;
+						}
+						
+						var containerId = 'toast-container-' + position;
+						var container = document.getElementById(containerId);
+						if (!container) {
+							container = document.createElement('div');
+							container.id = containerId;
+							container.className = 'toast-container toast-container--' + position;
+							// Ensure container is visible
+							container.style.display = 'flex';
+							container.style.visibility = 'visible';
+							container.style.zIndex = '1100';
+							document.body.appendChild(container);
+						}
+						
+						var toast = document.createElement('div');
+						toast.id = toastId;
+						toast.className = 'alert alert--' + variant;
+						toast.setAttribute('role', 'alert');
+						toast.setAttribute('aria-live', 'polite');
+						// Ensure toast is visible
+						toast.style.display = 'flex';
+						toast.style.visibility = 'visible';
+						toast.style.opacity = '0';
+						toast.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out';
+						
+						var isRight = position.indexOf('right') !== -1;
+						var isLeft = position.indexOf('left') !== -1;
+						if (isRight) {
+							toast.style.transform = 'translateX(100%)';
+						} else if (isLeft) {
+							toast.style.transform = 'translateX(-100%)';
+						} else {
+							toast.style.transform = 'translateY(-100%)';
+						}
+						
+						var content = document.createElement('div');
+						content.className = 'alert__content';
+						content.textContent = message;
+						// Ensure content is visible
+						content.style.color = 'inherit';
+						content.style.display = 'block';
+						content.style.visibility = 'visible';
+						toast.appendChild(content);
+						
+						if (dismissible) {
+							var closeBtn = document.createElement('button');
+							closeBtn.type = 'button';
+							closeBtn.className = 'alert__close';
+							closeBtn.setAttribute('aria-label', 'Dismiss toast');
+							closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
+							// Ensure close button is visible
+							closeBtn.style.color = 'inherit';
+							closeBtn.style.opacity = '0.8';
+							closeBtn.style.display = 'flex';
+							closeBtn.style.visibility = 'visible';
+							toast.appendChild(closeBtn);
+							
+							closeBtn.addEventListener('click', function() {
+								toast.style.opacity = '0';
+								if (isRight) {
+									toast.style.transform = 'translateX(100%)';
+								} else if (isLeft) {
+									toast.style.transform = 'translateX(-100%)';
+								} else {
+									toast.style.transform = 'translateY(-100%)';
+								}
+								setTimeout(function() {
+									if (toast && toast.parentNode) toast.remove();
+									if (container && container.children.length === 0) container.remove();
+								}, 300);
+							});
+						}
+						
+						container.appendChild(toast);
+						console.log('Toast appended to container');
+						
+						// Force CSS to apply and ensure visibility
+						requestAnimationFrame(function() {
+							console.log('requestAnimationFrame callback executing');
+							// Force reflow
+							toast.offsetHeight;
+							
+							// For warning toasts, ensure white text
+							if (variant === 'warning') {
+								var computedStyle = window.getComputedStyle(toast);
+								toast.style.color = 'var(--warning-text)';
+								content.style.color = 'var(--warning-text)';
+								if (closeBtn) {
+									closeBtn.style.color = 'var(--warning-text)';
+								}
+							}
+							
+							// Animate in
+							setTimeout(function() {
+								requestAnimationFrame(function() {
+									toast.style.opacity = '1';
+									if (isRight || isLeft) {
+										toast.style.transform = 'translateX(0)';
+									} else {
+										toast.style.transform = 'translateY(0)';
+									}
+								});
+							}, 10);
+						});
+						
+						if (autoDismiss > 0) {
+							setTimeout(function() {
+								if (toast && toast.parentNode) {
+									toast.style.opacity = '0';
+									if (isRight) {
+										toast.style.transform = 'translateX(100%)';
+									} else if (isLeft) {
+										toast.style.transform = 'translateX(-100%)';
+									} else {
+										toast.style.transform = 'translateY(-100%)';
+									}
+									setTimeout(function() {
+										if (toast && toast.parentNode) toast.remove();
+										if (container && container.children.length === 0) container.remove();
+									}, 300);
+								}
+							}, autoDismiss);
+						}
+					}
+					
+					if (document.body) {
+						createToast();
+					} else if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', createToast);
+					} else {
+						setTimeout(createToast, 0);
+					}
+					
+					return toastId;
+				}
+				
+				// Make functions available globally
+				window.showToast = showToast;
+				
+				function removeToast(toastId) {
+					function remove() {
+						var toast = document.getElementById(toastId);
+						if (toast) {
+							var container = toast.parentElement;
+							var position = container ? container.id.replace('toast-container-', '') : 'top-right';
+							toast.style.opacity = '0';
+							var isRight = position.indexOf('right') !== -1;
+							var isLeft = position.indexOf('left') !== -1;
+							if (isRight) {
+								toast.style.transform = 'translateX(100%)';
+							} else if (isLeft) {
+								toast.style.transform = 'translateX(-100%)';
+							} else {
+								toast.style.transform = 'translateY(-100%)';
+							}
+							setTimeout(function() {
+								if (toast && toast.parentNode) toast.remove();
+								if (container && container.classList.contains('toast-container') && container.children.length === 0) {
+									container.remove();
+								}
+							}, 300);
+						}
+					}
+					if (document.body) {
+						remove();
+					} else if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', remove);
+					} else {
+						setTimeout(remove, 0);
+					}
+				}
+				
+				window.removeToast = removeToast;
+				
+				function removeAllToasts() {
+					function removeAll() {
+						var containers = document.querySelectorAll('.toast-container');
+						for (var i = 0; i < containers.length; i++) {
+							var container = containers[i];
+							var position = container.id.replace('toast-container-', '');
+							var toasts = container.querySelectorAll('.alert');
+							for (var j = 0; j < toasts.length; j++) {
+								var toastEl = toasts[j];
+								toastEl.style.opacity = '0';
+								var isRight = position.indexOf('right') !== -1;
+								var isLeft = position.indexOf('left') !== -1;
+								if (isRight) {
+									toastEl.style.transform = 'translateX(100%)';
+								} else if (isLeft) {
+									toastEl.style.transform = 'translateX(-100%)';
+								} else {
+									toastEl.style.transform = 'translateY(-100%)';
+								}
+							}
+							setTimeout(function() { container.remove(); }, 300);
+						}
+					}
+					if (document.body) {
+						removeAll();
+					} else if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', removeAll);
+					} else {
+						setTimeout(removeAll, 0);
+					}
+				}
+				
+				window.removeAllToasts = removeAllToasts;
+			})();
+		</script>
 		<link rel="stylesheet" href={cssPath} />
 		<title>Rizzo CSS</title>
 	</head>

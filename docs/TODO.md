@@ -25,19 +25,19 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
   - [x] Focus trapping
   - [x] Backdrop/overlay
   - [x] Close button and Escape key handling
-  - [ ] Modal sizes (small, medium, large) - Base implementation complete, sizes can be added
+  - [x] Modal sizes (small, medium, large) - All three sizes implemented with live examples
 
 - [x] **Alert/Notification Component** ✅ COMPLETED
   - [x] Success, error, warning, info variants
   - [x] Dismissible alerts
-  - [ ] Toast notifications
-  - [ ] Auto-dismiss functionality
+  - [x] Toast notifications - Fixed position toasts with programmatic control
+  - [x] Auto-dismiss functionality - Customizable duration with manual dismiss option
 
 ### Medium Priority
-- [ ] **Badge Component**
-  - [ ] Badge variants (primary, success, warning, error, info)
-  - [ ] Badge sizes
-  - [ ] Pills and rounded variants
+- [x] **Badge Component** ✅ COMPLETED
+  - [x] Badge variants (primary, success, warning, error, info)
+  - [x] Badge sizes (sm, md, lg)
+  - [x] Pills and rounded variants
 
 - [ ] **Tooltip Component**
   - [ ] Accessible tooltips with ARIA
@@ -249,6 +249,15 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
   - [ ] CDN setup
   - [ ] Versioned releases
 
+- [ ] **Multi-Framework Support**
+  - [ ] Core CSS package (`@rizzo-css/core`)
+  - [ ] JavaScript utilities extraction
+  - [ ] React components (`@rizzo-css/react`)
+  - [ ] Vue components (`@rizzo-css/vue`)
+  - [ ] Svelte components (`@rizzo-css/svelte`)
+  
+  See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) for detailed implementation plan.
+
 ## 🎨 Community
 
 - [ ] **Contributing Guide**
@@ -268,13 +277,15 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
 - ✅ **Navbar** - Responsive navigation with search, settings, dropdowns, mobile menu with smooth transitions, full-width border
 - ✅ **Settings** - Settings panel with theme switcher, font size, accessibility options, opening/closing animations, mobile responsive
 - ✅ **Search** - Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop/mobile, mobile responsive, mutually exclusive with mobile menu
-- ✅ **Alert** - Variants (success, error, warning, info), dismissible functionality
+- ✅ **Alert** - Variants (success, error, warning, info), dismissible functionality, auto-dismiss
+- ✅ **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control
 - ✅ **Form Components** - FormGroup, Input, Textarea, Select, Checkbox, Radio with validation states
 - ✅ **Card** - Variants (elevated, outlined, filled), sections, images
 - ✅ **Modal** - Accessible modal with focus trapping and keyboard navigation
 - ✅ **CopyToClipboard** - Copy component with visual feedback and unique ID support
 - ✅ **ThemeSwitcher** - Accessible dropdown with theme icons and keyboard navigation
 - ✅ **Button** - Semantic button component with variants
+- ✅ **Badge** - Small labels and tags with variants, sizes, and pill option
 - ✅ **Icons** - Reusable SVG icon components using Tabler Icons
 
 ### Utilities

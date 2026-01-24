@@ -1,0 +1,113 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Badge from '../../../components/Badge.astro';
+---
+
+<DocsLayout title="Badge Component" description="Small labels and tags for displaying status, categories, or counts">
+	<section>
+		<h2>Badge Component</h2>
+		<p>Small labels and tags for displaying status, categories, or counts. Badges are inline elements that can be used within text or alongside other components.</p>
+		
+		<h3>Badge Variants</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center;">
+				<Badge variant="primary">Primary</Badge>
+				<Badge variant="success">Success</Badge>
+				<Badge variant="warning">Warning</Badge>
+				<Badge variant="error">Error</Badge>
+				<Badge variant="info">Info</Badge>
+			</div>
+		</div>
+		
+		<h3>Badge Sizes</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center;">
+				<Badge variant="primary" size="sm">Small</Badge>
+				<Badge variant="primary" size="md">Medium</Badge>
+				<Badge variant="primary" size="lg">Large</Badge>
+			</div>
+		</div>
+		
+		<h3>Pill Badges</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center;">
+				<Badge variant="primary" pill>Pill Primary</Badge>
+				<Badge variant="success" pill>Pill Success</Badge>
+				<Badge variant="warning" pill size="sm">Small Pill</Badge>
+				<Badge variant="error" pill size="lg">Large Pill</Badge>
+			</div>
+		</div>
+		
+		<h3>Usage in Context</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+				<p>You have <Badge variant="info">3</Badge> new messages.</p>
+				<p>Status: <Badge variant="success" pill>Active</Badge></p>
+				<p>Priority: <Badge variant="error" size="sm">High</Badge></p>
+				<div style="display: flex; align-items: center; gap: var(--spacing-2);">
+					<span>Categories:</span>
+					<Badge variant="primary" size="sm">Design</Badge>
+					<Badge variant="info" size="sm">Development</Badge>
+					<Badge variant="success" size="sm" pill>Completed</Badge>
+				</div>
+			</div>
+		</div>
+		
+		<p>All badges:</p>
+		<ul>
+			<li>Use semantic theme variables</li>
+			<li>Are inline elements (can be used within text)</li>
+			<li>Support multiple variants and sizes</li>
+			<li>Have pill/rounded variant option</li>
+			<li>Automatically adapt to theme changes</li>
+		</ul>
+		
+		<h3>Usage</h3>
+		<pre><code>{`<!-- Using component -->
+---
+import Badge from '../components/Badge.astro';
+---
+
+<Badge variant="primary">New</Badge>
+<Badge variant="success" size="sm">Active</Badge>
+<Badge variant="error" pill>Urgent</Badge>
+
+<!-- Using classes -->
+<span class="badge badge--primary">Primary</span>
+<span class="badge badge--success badge--sm">Small Success</span>
+<span class="badge badge--error badge--lg badge--pill">Large Pill Error</span>`}</code></pre>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>variant</code> (optional) - Badge variant: <code>primary</code>, <code>success</code>, <code>warning</code>, <code>error</code>, <code>info</code> (default: <code>primary</code>)</li>
+			<li><code>size</code> (optional) - Badge size: <code>sm</code>, <code>md</code>, <code>lg</code> (default: <code>md</code>)</li>
+			<li><code>pill</code> (optional) - Boolean to enable pill/rounded variant (default: <code>false</code>)</li>
+			<li><code>class</code> (optional) - Additional CSS classes</li>
+		</ul>
+		
+		<h3>Badge Variants</h3>
+		<ul>
+			<li><code>badge--primary</code> - Primary/accent color badge</li>
+			<li><code>badge--success</code> - Success/positive badge</li>
+			<li><code>badge--warning</code> - Warning badge</li>
+			<li><code>badge--error</code> - Error/destructive badge</li>
+			<li><code>badge--info</code> - Informational badge</li>
+		</ul>
+		
+		<h3>Badge Sizes</h3>
+		<ul>
+			<li><code>badge--sm</code> - Small badge (extra small font, minimal padding)</li>
+			<li><code>badge--md</code> - Medium badge (small font, standard padding) - default</li>
+			<li><code>badge--lg</code> - Large badge (base font, larger padding)</li>
+		</ul>
+		
+		<h3>Pill Variant</h3>
+		<p>Add the <code>badge--pill</code> class or <code>pill</code> prop to create fully rounded badges:</p>
+		<pre><code>{`<Badge variant="primary" pill>Pill Badge</Badge>
+<span class="badge badge--primary badge--pill">Pill Badge</span>`}</code></pre>
+	</section>
+</DocsLayout>

@@ -1,0 +1,152 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Toast Component" description="Fixed position toast notifications with auto-dismiss and programmatic control">
+	<section>
+		<h2>Toast Notifications</h2>
+		<p>Toast notifications are fixed-position alerts that appear in a corner or center of the screen. They're perfect for non-intrusive notifications, success messages, and temporary feedback.</p>
+		
+		<h3>Programmatic Toast Creation</h3>
+		<p>The easiest way to show toasts is using the <code>showToast()</code> function:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-success" onclick="window.showToast && window.showToast('Success! Your changes have been saved.', { variant: 'success' })">Show Success Toast</button>
+				<button class="btn btn-error" onclick="window.showToast && window.showToast('Error! Something went wrong.', { variant: 'error' })">Show Error Toast</button>
+				<button class="btn btn-warning" onclick="window.showToast && window.showToast('Warning! Please review your changes.', { variant: 'warning' })">Show Warning Toast</button>
+				<button class="btn btn-info" onclick="window.showToast && window.showToast('Info: New features are available.', { variant: 'info' })">Show Info Toast</button>
+			</div>
+		</div>
+		
+		<h3>Toast Positions</h3>
+		<p>Toasts can be positioned in six different locations:</p>
+		
+		<div class="example">
+			<div class="example-title">Position Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Top Right Toast', { position: 'top-right' })">Top Right</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Top Left Toast', { position: 'top-left' })">Top Left</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Top Center Toast', { position: 'top-center' })">Top Center</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Bottom Right Toast', { position: 'bottom-right' })">Bottom Right</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Bottom Left Toast', { position: 'bottom-left' })">Bottom Left</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('Bottom Center Toast', { position: 'bottom-center' })">Bottom Center</button>
+			</div>
+		</div>
+		
+		<h3>Auto-Dismiss</h3>
+		<p>Toasts automatically dismiss after 5 seconds by default. You can customize the duration:</p>
+		
+		<div class="example">
+			<div class="example-title">Auto-Dismiss Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('This toast dismisses in 3 seconds', { autoDismiss: 3000 })">3 Second Toast</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('This toast dismisses in 7 seconds', { autoDismiss: 7000 })">7 Second Toast</button>
+				<button class="btn btn-primary" onclick="window.showToast && window.showToast('This toast will not auto-dismiss', { autoDismiss: 0 })">No Auto-Dismiss</button>
+			</div>
+		</div>
+		
+		<h3>Multiple Toasts</h3>
+		<p>Multiple toasts stack vertically in the same position:</p>
+		
+		<div class="example">
+			<div class="example-title">Stacked Toasts</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-primary" onclick="if(window.showToast){window.showToast('First toast', { variant: 'success' }); setTimeout(function() { window.showToast('Second toast', { variant: 'info' }); }, 500); setTimeout(function() { window.showToast('Third toast', { variant: 'warning' }); }, 1000);}">Show Multiple Toasts</button>
+				<button class="btn" onclick="window.removeAllToasts && window.removeAllToasts()">Clear All Toasts</button>
+			</div>
+		</div>
+		
+		<h3>Usage</h3>
+		<p>Import the toast utility and use it programmatically:</p>
+		<pre><code>{`// Import toast utility
+import { showToast, removeToast, removeAllToasts } from '../utils/toast';
+
+// Show a simple toast
+showToast('Success! Your changes have been saved.', {
+  variant: 'success'
+});
+
+// Show toast with custom options
+showToast('Error occurred', {
+  variant: 'error',
+  position: 'top-right',
+  autoDismiss: 5000,
+  dismissible: true
+});
+
+// Remove a specific toast by ID
+const toastId = showToast('This will be removed', { variant: 'info' });
+setTimeout(() => removeToast(toastId), 2000);
+
+// Remove all toasts
+removeAllToasts();`}</code></pre>
+		
+		<p>Or use the global functions (available after importing the utility):</p>
+		<pre><code>{`// Global functions (available on window)
+window.showToast('Success!', { variant: 'success' });
+window.removeToast('toast-id');
+window.removeAllToasts();`}</code></pre>
+		
+		<h3>Toast Options</h3>
+		<ul>
+			<li><code>variant</code> (string, optional) - Toast variant: <code>"success"</code>, <code>"error"</code>, <code>"warning"</code>, or <code>"info"</code> (default: <code>"info"</code>)</li>
+			<li><code>dismissible</code> (boolean, optional) - Whether the toast can be manually dismissed (default: <code>true</code>)</li>
+			<li><code>autoDismiss</code> (number, optional) - Auto-dismiss duration in milliseconds. Set to <code>0</code> to disable (default: <code>5000</code>)</li>
+			<li><code>position</code> (string, optional) - Toast position: <code>"top-right"</code>, <code>"top-left"</code>, <code>"top-center"</code>, <code>"bottom-right"</code>, <code>"bottom-left"</code>, <code>"bottom-center"</code> (default: <code>"top-right"</code>)</li>
+			<li><code>id</code> (string, optional) - Unique ID for the toast. If not provided, a random ID will be generated</li>
+		</ul>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Fixed positioning in six locations (top/bottom + left/center/right)</li>
+			<li>Automatic stacking of multiple toasts</li>
+			<li>Auto-dismiss with customizable duration (default: 5 seconds)</li>
+			<li>Smooth slide-in animations (respects <code>prefers-reduced-motion</code>)</li>
+			<li>All alert variants supported (success, error, warning, info)</li>
+			<li>Programmatic control via <code>showToast()</code>, <code>removeToast()</code>, <code>removeAllToasts()</code></li>
+			<li>Mobile responsive (full width on mobile)</li>
+			<li>Accessible with ARIA attributes</li>
+			<li>Theme-aware styling</li>
+		</ul>
+		
+		<h3>Toast Component (Static)</h3>
+		<p>For static toast components in Astro templates, you can use the <code>Toast</code> component:</p>
+		<pre><code>{`---
+import Toast from '../components/Toast.astro';
+---
+
+<Toast variant="success" position="top-right" autoDismiss={5000}>
+  Your changes have been saved!
+</Toast>`}</code></pre>
+		
+		<p><strong>Note:</strong> For dynamic toast notifications, use the programmatic <code>showToast()</code> function instead. The toast functions are available globally on all pages via <code>window.showToast()</code>, <code>window.removeToast()</code>, and <code>window.removeAllToasts()</code>.</p>
+	</section>
+</DocsLayout>
+
+<script is:inline>
+	// Toast functions are available via window.showToast from Layout.astro
+	// All onclick handlers use window.showToast directly
+	// This script just verifies they're available and logs for debugging
+	(function() {
+		function checkFunctions() {
+			if (typeof window !== 'undefined' && window.showToast) {
+				console.log('Toast functions verified:', {
+					showToast: typeof window.showToast,
+					removeAllToasts: typeof window.removeAllToasts,
+					removeToast: typeof window.removeToast
+				});
+			} else {
+				console.warn('Toast functions not yet available, retrying...');
+				setTimeout(checkFunctions, 50);
+			}
+		}
+		
+		if (document.readyState === 'loading') {
+			document.addEventListener('DOMContentLoaded', checkFunctions);
+		} else {
+			checkFunctions();
+		}
+	})();
+</script>

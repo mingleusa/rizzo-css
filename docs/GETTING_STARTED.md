@@ -121,11 +121,15 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Settings](/docs/components/settings) - Comprehensive settings panel
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
 - [Button](/docs/components/button) - Semantic button component
+- [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Icons](/docs/components/icons) - Reusable SVG icon components
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
+- [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
+- [Toast](/docs/components/toast) - Fixed position toast notifications
+- [Search](/docs/components/search) - Search component with Algolia integration
 
 See the [Components Documentation](/docs/components) for an overview and links to all component pages.
 
