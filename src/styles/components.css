@@ -443,6 +443,30 @@
     order: 1;
     margin-left: var(--spacing-2);
     margin-right: 0;
+
+    /* Enhanced mobile menu button design */
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+  }
+  
+  .navbar__toggle:hover {
+    background-color: var(--background);
+    border-color: var(--accent);
+  }
+  
+  .navbar__toggle-icon {
+    width: var(--spacing-5) !important; /* Larger icon container */
+    height: var(--spacing-5) !important; /* Square container */
+  }
+  
+  .navbar__toggle-icon span {
+    height: calc(var(--spacing-0-125) * 1.5) !important; /* 3px - balanced thickness between 2px and 6px */
+    border-radius: var(--radius-sm);
   }
 
   .navbar__menu {
@@ -2180,7 +2204,7 @@
 @media (width <= 1023px) {
   .search__trigger {
     gap: var(--spacing-2); /* Match settings button gap exactly */
-    padding: var(--spacing-2) var(--spacing-4); /* Match settings button padding exactly */
+    padding: var(--spacing-2) var(--spacing-6); /* Match settings button padding exactly */
     width: 100%;
     justify-content: flex-start; /* Match settings button alignment */
   }

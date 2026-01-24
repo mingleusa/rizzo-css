@@ -483,24 +483,27 @@ A code block component with integrated copy-to-clipboard functionality. Used thr
 
 ### Features
 
-- **Icon-only copy button** - Clean copy button that doesn't duplicate code content
+- **Icon-only copy button** - Clean copy button that doesn't duplicate code content (20px icons for better visibility)
 - **Reads from code block** - Button copies the actual code from the `<code>` element
-- **Language icons** - Displays colored brand icons (Devicons) for supported languages in the header
+- **Language icons** - Displays colored brand icons (Devicons) for supported languages in the header (20px icons for better visibility)
 - **Responsive labels** - Language text appears next to icons on large screens (≥768px), hidden on mobile for screen readers only
+- **Vertically centered alignment** - Icons and copy button are properly aligned on both desktop and mobile
 - **Theme-aware styling** - Matches current theme with proper contrast
 - **Accessible** - Proper ARIA labels, keyboard support, and screen reader text
 
 ### Supported Languages
 
-The CodeBlock component displays icons for:
+The CodeBlock component displays 20px colored brand icons (Devicons) for:
 - **CSS** - CSS3 brand icon
 - **HTML** - HTML5 brand icon
 - **JavaScript** - JavaScript brand icon
 - **Node.js** - Node.js brand icon
 - **Astro** - Astro brand icon (with theme-aware color adjustments)
 - **Plaintext** - Plaintext icon (theme-aware)
+- **Git** - Git brand icon
+- **Bash/Shell** - Bash brand icon
 
-For unsupported languages, the component falls back to text labels.
+For unsupported languages, the component falls back to text labels. All icons are displayed at 20px size for better visibility and are vertically centered with the copy button.
 
 ### Usage
 
@@ -517,7 +520,7 @@ import CodeBlock from '../components/CodeBlock.astro';
 ### Props
 
 - `code` (string, required) - The code content to display
-- `language` (string, optional) - Language identifier (e.g., "javascript", "nodejs", "astro", "css", "html", "plaintext")
+- `language` (string, optional) - Language identifier (e.g., "javascript", "nodejs", "astro", "css", "html", "plaintext", "git", "bash", "shell", "sh")
 - `class` (string, optional) - Additional CSS classes
 
 **Note**: All code examples throughout the documentation use this component, ensuring consistent styling and easy copying. Language icons are automatically displayed for supported languages.

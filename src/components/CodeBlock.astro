@@ -35,49 +35,49 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
       <span class="code-block__language" aria-label={languageLabel}>
         {languageLower === 'css' && (
           <>
-            <Css3 width={16} height={16} class="code-block__language-icon" />
+            <Css3 width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'html' && (
           <>
-            <Html5 width={16} height={16} class="code-block__language-icon" />
+            <Html5 width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'javascript' && (
           <>
-            <Javascript width={16} height={16} class="code-block__language-icon" />
+            <Javascript width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'nodejs' && (
           <>
-            <Nodejs width={16} height={16} class="code-block__language-icon" />
+            <Nodejs width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'astro' && (
           <>
-            <AstroIcon width={16} height={16} class="code-block__language-icon" />
+            <AstroIcon width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'plaintext' && (
           <>
-            <Plaintext width={16} height={16} class="code-block__language-icon" />
+            <Plaintext width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {languageLower === 'git' && (
           <>
-            <Git width={16} height={16} class="code-block__language-icon" />
+            <Git width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
         {(languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh') && (
           <>
-            <Bash width={16} height={16} class="code-block__language-icon" />
+            <Bash width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
@@ -96,10 +96,10 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
       id={copyButtonId}
     >
       <span class="code-block__copy-icon code-block__copy-icon--copy" aria-hidden="true">
-        <Copy width={16} height={16} />
+        <Copy width={20} height={20} />
       </span>
       <span class="code-block__copy-icon code-block__copy-icon--check" aria-hidden="true">
-        <Check width={16} height={16} />
+        <Check width={20} height={20} />
       </span>
       <span class="sr-only">Copy code</span>
     </button>
@@ -246,6 +246,13 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
     display: block;
     flex-shrink: 0;
     color: var(--text-dim);
+    width: var(--spacing-5); /* 20px - larger for better visibility */
+    height: var(--spacing-5);
+  }
+  
+  .code-block__language-icon svg {
+    width: 100%;
+    height: 100%;
   }
   
   .code-block__language-text {
@@ -292,9 +299,14 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: var(--spacing-4);
-    height: var(--spacing-4);
+    width: var(--spacing-5); /* 20px - larger for better visibility */
+    height: var(--spacing-5);
     transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+  
+  .code-block__copy-icon svg {
+    width: 100%;
+    height: 100%;
   }
   
   .code-block__copy-icon--copy {
@@ -335,14 +347,18 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
   
   @media (width <= 640px) {
     .code-block__header {
-      flex-direction: column;
-      align-items: flex-start;
+      flex-direction: row; /* Keep horizontal layout on mobile */
+      align-items: center; /* Vertically center all items */
       gap: var(--spacing-2);
     }
     
-    .code-block__copy {
-      margin-left: 0;
-      width: 100%;
+    .code-block__language {
+      align-items: center; /* Ensure language icon is vertically centered */
+    }
+    
+    .code-block__copy-btn {
+      margin-left: auto; /* Push copy button to the right */
+      flex-shrink: 0; /* Prevent copy button from shrinking */
     }
   }
 </style>
