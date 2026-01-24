@@ -1,15 +1,41 @@
 # Rizzo CSS
 
+<div align="center">
+
+![Astro](https://img.shields.io/badge/Astro-5.16.13-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![PostCSS](https://img.shields.io/badge/PostCSS-8.5.6-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white)
+![Stylelint](https://img.shields.io/badge/Stylelint-17.0.0-263238?style=for-the-badge&logo=stylelint&logoColor=white)
+
 A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.
+
+[Getting Started](#-getting-started) • [Documentation](#-documentation) • [Components](#-components) • [Theming](#-theming-system)
+
+</div>
+
+---
+
+## ✨ Features
+
+- 🎨 **8 Built-in Themes** - 4 dark and 4 light themes with semantic variable support
+- ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
+- 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
+- 📦 **Comprehensive Components** - 15+ accessible, themeable components
+- 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
+- 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
+- 📱 **Responsive** - Mobile-first design with responsive breakpoints
+- ⚡ **Optimized** - PostCSS processing with minification and vendor prefixes
+- 🎯 **Design System as Source of Truth** - 165+ CSS variables ensure all styling is consistent and framework-portable
 
 ## 🛠️ Tech Stack
 
-- **[Astro](https://astro.build)** - Web framework
-- **[PostCSS](https://postcss.org/)** - CSS transformation with import support
-- **[postcss-import](https://github.com/postcss/postcss-import)** - CSS import support (SCSS/SASS-like)
-- **[Autoprefixer](https://github.com/postcss/autoprefixer)** - Automatic vendor prefixes
-- **[cssnano](https://cssnano.co/)** - CSS minification
-- **[Stylelint](https://stylelint.io/)** - CSS linter
+- **[Astro](https://astro.build)** `^5.16.13` - Web framework
+- **[PostCSS](https://postcss.org/)** `^8.5.6` - CSS transformation with import support
+- **[postcss-import](https://github.com/postcss/postcss-import)** `^16.1.1` - CSS import support (SCSS/SASS-like)
+- **[Autoprefixer](https://github.com/postcss/autoprefixer)** `^10.4.23` - Automatic vendor prefixes
+- **[cssnano](https://cssnano.co/)** `^7.1.2` - CSS minification
+- **[Stylelint](https://stylelint.io/)** `^17.0.0` - CSS linter
+- **[Algolia Search](https://www.algolia.com/)** `^5.47.0` - Search integration
 - **OKLCH color format** - Perceptually uniform color space
 
 ## 🚀 Getting Started
@@ -83,7 +109,7 @@ CSS is organized into logical files:
 - `layout.css` - Layout utilities
 - `spacing.css` - Margin and padding utility classes
 - `sizes.css` - Width, height, min/max dimensions, and container utilities
-- `utilities.css` - Utility classes (colors, borders, focus states)
+- `utilities.css` - Comprehensive utility classes (display, position, borders, flexbox, grid, gap, animations, colors, focus states)
 - `forms.css` - Form component styles
 - `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown)
 - `pages.css` - Page-specific styles

@@ -53,7 +53,7 @@ code {
   background-color: var(--background-alt);
   color: var(--text);
   padding: var(--spacing-0-125) var(--spacing-1);
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
 }
 
 pre {
@@ -63,7 +63,7 @@ pre {
   background-color: var(--background-alt);
   color: var(--text);
   padding: var(--spacing-4);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   overflow-x: auto;
 }

@@ -71,7 +71,6 @@ const docsPages = [
   { title: 'Colors', url: '/docs/colors', file: 'docs/COLORS.md', category: 'Documentation' },
   { title: 'Components', url: '/docs/components', file: 'docs/COMPONENTS.md', category: 'Components' },
   { title: 'Accessibility', url: '/docs/accessibility', file: 'docs/ACCESSIBILITY.md', category: 'Documentation' },
-  { title: 'Search', url: '/docs/components/search', file: 'docs/SEARCH.md', category: 'Documentation' },
 ];
 
 // Component pages with descriptions
@@ -142,6 +141,30 @@ const componentPages = [
     category: 'Components',
     description: 'Reusable SVG icon components using Tabler Icons (MIT licensed) with theme-aware styling using currentColor'
   },
+  { 
+    title: 'Badge', 
+    url: '/docs/components/badge', 
+    category: 'Components',
+    description: 'Small labels and tags for displaying status, categories, or counts with variants (primary, success, warning, error, info), sizes (sm, md, lg), and pill option'
+  },
+  { 
+    title: 'Dropdown', 
+    url: '/docs/components/dropdown', 
+    category: 'Components',
+    description: 'Accessible dropdown menu component with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers'
+  },
+  { 
+    title: 'Tooltip', 
+    url: '/docs/components/tooltip', 
+    category: 'Components',
+    description: 'Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling'
+  },
+  { 
+    title: 'Toast', 
+    url: '/docs/components/toast', 
+    category: 'Components',
+    description: 'Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via window.showToast() with six position options'
+  },
 ];
 
 const themePages = [
@@ -192,12 +215,19 @@ function buildRecords() {
   // Add documentation pages
   docsPages.forEach((page) => {
     const content = readMarkdownFile(page.file);
+    
+    // For design-system, truncate more aggressively to stay under 10KB limit
+    // The record size includes metadata (objectID, title, url, category, type, hierarchy)
+    // So we need to leave room for that (~500-1000 bytes)
+    // JSON stringification adds overhead, so we use 7500 for design-system to be safe
+    const maxContentLength = page.title === 'Design System' ? 7500 : 9000;
+    
     records.push({
       objectID: page.url.replace(/\//g, '_').replace(/^_/, ''), // Convert URL to valid objectID
       title: page.title,
       url: page.url,
       category: page.category,
-      content: content.substring(0, 10000), // Increased limit for better search
+      content: content.substring(0, maxContentLength), // Truncate to stay under 10KB total record size
       type: 'documentation',
       // Hierarchy for better search results
       hierarchy: {

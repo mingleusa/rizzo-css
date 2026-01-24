@@ -11,7 +11,7 @@ import Card from '../../components/Card.astro';
 	
 	<section>
 		<h2>Available Components</h2>
-		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr)); gap: var(--spacing-6); margin: var(--spacing-8) 0;">
 			<a href="/docs/components/navbar" class="component-card-link">
 				<Card variant="elevated">
 					<div class="card__body">
@@ -168,11 +168,11 @@ import Card from '../../components/Card.astro';
 		text-decoration: none;
 		color: inherit;
 		display: block;
-		transition: transform 0.2s;
+		transition: transform var(--transition-base);
 	}
 	
 	.component-card-link:hover {
-		transform: translateY(-2px);
+		transform: translateY(calc(-1 * var(--spacing-0-125)));
 	}
 	
 	.component-card-link:focus-visible {

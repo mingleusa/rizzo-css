@@ -172,7 +172,7 @@ CSS is organized into logical files:
 - `layout.css` - Layout utilities
 - `spacing.css` - Margin and padding utility classes
 - `sizes.css` - Width, height, min/max dimensions, and container utilities
-- `utilities.css` - Utility classes (colors, borders, focus states)
+- `utilities.css` - Comprehensive utility classes (display, position, borders, flexbox, grid, gap, animations, colors, focus states)
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
@@ -181,15 +181,36 @@ CSS is organized into logical files:
 
 ### Semantic Variables
 
-All styles use semantic theme variables:
+All styles use semantic theme variables. **The design system is the source of truth for all styling** - all hardcoded values have been replaced with CSS variables and utility classes:
 
 ```css
 .my-component {
   background-color: var(--background);
   color: var(--text);
   border: 1px solid var(--border);
+  padding: var(--spacing-4);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-base);
+  opacity: var(--opacity-100);
+  z-index: var(--z-dropdown);
 }
 ```
+
+Available variable categories:
+- **Spacing**: `--spacing-*` (0 through 2500, including fractional values)
+- **Border Radius**: `--radius-*` (none, sm, md, lg, xl, 2xl, 3xl, full)
+- **Z-Index**: `--z-*` (base, dropdown, modal, tooltip, toast, navbar, settings, etc.)
+- **Transitions**: `--transition-*` (fast, base, slow, slower, slowest, ease-out, ease-in)
+- **Opacity**: `--opacity-*` (0, 50, 60, 70, 80, 90, 100)
+- **Transform Scale**: `--scale-*` (80, 95, 100, 110)
+- **Blur**: `--blur-*` (sm, md, lg)
+- **Viewport Heights**: `--vh-*` (80, 90)
+- **Touch Targets**: `--touch-target-min`
+- **Max Heights**: `--max-height-*` (dropdown, modal)
+- **Easing**: `--ease-in-out-cubic`
+- And more...
+
+See [Design System Documentation](./DESIGN_SYSTEM.md) for complete variable reference.
 
 ### PostCSS Processing
 

@@ -6,11 +6,11 @@ button,
   color: var(--accent-text);
   border: 1px solid var(--border);
   padding: var(--spacing-2) var(--spacing-4);
-  border-radius: 0.375rem;
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-family: var(--font-family);
   font-size: inherit;
-  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+  transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
 button:hover,
@@ -21,12 +21,12 @@ button:hover,
 
 button:active,
 .btn:active {
-  opacity: 0.9;
+  opacity: var(--opacity-90);
 }
 
 button:disabled,
 .btn:disabled {
-  opacity: 0.5;
+  opacity: var(--opacity-50);
   cursor: not-allowed;
 }
 

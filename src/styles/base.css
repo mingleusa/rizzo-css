@@ -28,22 +28,22 @@ a:hover {
 
 /* Scrollbar Styling - Using semantic theme variables */
 
-/* Default: Thin Scrollbar (0.5rem) */
+/* Default: Thin Scrollbar */
 ::-webkit-scrollbar {
-  width: 0.5rem;
-  height: 0.5rem;
+  width: var(--spacing-2);
+  height: var(--spacing-2);
 }
 
 ::-webkit-scrollbar-track {
   background-color: var(--background);
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: var(--border);
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
   border: 1px solid var(--background);
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-base);
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -67,20 +67,20 @@ a:hover {
 /* Thick Scrollbar Option - Must override default */
 .scrollbar-thick ::-webkit-scrollbar,
 .scrollbar-thick::-webkit-scrollbar {
-  width: 1.5rem !important;
-  height: 1.5rem !important;
+  width: var(--spacing-6) !important;
+  height: var(--spacing-6) !important;
 }
 
 .scrollbar-thick ::-webkit-scrollbar-track {
   background-color: var(--background);
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
 }
 
 .scrollbar-thick ::-webkit-scrollbar-thumb {
   background-color: var(--border);
-  border-radius: 0.25rem;
+  border-radius: var(--radius);
   border: 1px solid var(--background);
-  transition: background-color 0.2s;
+  transition: background-color var(--transition-base);
 }
 
 .scrollbar-thick ::-webkit-scrollbar-thumb:hover {

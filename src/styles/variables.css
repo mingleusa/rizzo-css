@@ -68,6 +68,120 @@
   --spacing-0-375: 0.375rem;  /* 6px */
   --spacing-0-625: 0.625rem;   /* 10px */
   --spacing-0-875: 0.875rem;   /* 14px */
+  --spacing-28: 7rem;          /* 112px */
+  --spacing-32: 8rem;          /* 128px */
+  --spacing-36: 9rem;          /* 144px */
+  --spacing-40: 10rem;         /* 160px */
+  --spacing-48: 12rem;         /* 192px */
+  --spacing-56: 14rem;         /* 224px */
+  --spacing-64: 16rem;         /* 256px */
+  --spacing-72: 18rem;         /* 288px */
+  --spacing-80: 20rem;         /* 320px */
+  --spacing-96: 24rem;         /* 384px */
+  --spacing-50: 12.5rem;       /* 200px */
+  --spacing-100: 25rem;        /* 400px */
+  --spacing-150: 37.5rem;      /* 600px */
+  --spacing-14: 3.5rem;        /* 56px */
+  --spacing-15: 3.75rem;       /* 60px */
+  --spacing-75: 18.75rem;      /* 300px */
+  --spacing-175: 43.75rem;     /* 700px */
+  --spacing-70: 17.5rem;        /* 280px */
+  --spacing-105: 26.25rem;      /* 420px */
+  --spacing-2500: 2500rem;     /* Very large negative value for screen reader positioning */
+
+  /* Border Radius Scale */
+  --radius-none: 0;
+  --radius-sm: 0.125rem;   /* 2px */
+  --radius: 0.25rem;        /* 4px */
+  --radius-md: 0.375rem;    /* 6px */
+  --radius-lg: 0.5rem;      /* 8px */
+  --radius-xl: 0.75rem;     /* 12px */
+  --radius-2xl: 1rem;       /* 16px */
+  --radius-3xl: 1.5rem;     /* 24px */
+  --radius-full: 9999px;
+
+  /* Z-Index Scale */
+  --z-base: 0;
+  --z-1: 1;
+  --z-2: 2;
+  --z-3: 3;
+  --z-10: 10;
+  --z-dropdown: 10;
+  --z-dropdown-submenu: 11;
+  --z-sticky: 50;
+  --z-fixed: 100;
+  --z-search-overlay: 98;
+  --z-search-panel: 99;
+  --z-modal-backdrop: 1999;
+  --z-modal: 2000;
+  --z-tooltip: 3000;
+  --z-toast: 4000;
+  --z-settings: 10000;
+  --z-navbar: 5000;
+  --z-navbar-mobile-menu: 101;
+  --z-navbar-search-overlay: 98;
+  --z-navbar-search-panel: 99;
+  --z-navbar-mobile-search-overlay: 101;
+  --z-navbar-mobile-search-panel: 102;
+
+  /* Transition Durations */
+  --transition-fast: 150ms;
+  --transition-base: 200ms;
+  --transition-slow: 300ms;
+  --transition-slower: 350ms;
+  --transition-slowest: 400ms;
+  --transition-ease-out: 300ms ease-out;
+  --transition-ease-in: 300ms ease-in;
+
+  /* Blur Values */
+  --blur-sm: 4px;
+  --blur: 8px;
+  --blur-md: 12px;
+  --blur-lg: 16px;
+
+  /* Outline Values */
+  --outline-width: 2px;
+  --outline-offset: 2px;
+
+  /* Container Max Widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
+  --container-default: 1200px;
+
+  /* Viewport Heights */
+  --vh-80: 80vh;
+  --vh-90: 90vh;
+
+  /* Touch Target Sizes */
+  --touch-target-min: 3rem; /* 48px - WCAG AA compliant minimum */
+
+  /* Max Heights */
+  --max-height-dropdown: 600px;
+  --max-height-modal: 32rem;
+
+  /* Cubic Bezier Easing */
+  --ease-in-out-cubic: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Transform Scale Values */
+  --scale-80: 0.8;
+  --scale-95: 0.95;
+  --scale-100: 1;
+  --scale-110: 1.1;
+
+  /* Border Width Values (for tooltip arrows and other uses) */
+  --border-width-arrow: 6px;
+
+  /* Opacity Values */
+  --opacity-0: 0;
+  --opacity-50: 0.5;
+  --opacity-60: 0.6;
+  --opacity-70: 0.7;
+  --opacity-80: 0.8;
+  --opacity-90: 0.9;
+  --opacity-100: 1;
 
   /* Default theme variables (fallback when no theme is active) */
   --background: oklch(100% 0 0deg);
@@ -98,4 +212,8 @@
   --shadow-lg: 0 10px 15px -3px oklch(from var(--shadow-color) l c h / 10%), 0 4px 6px -4px oklch(from var(--shadow-color) l c h / 5%);
   --shadow-xl: 0 20px 25px -5px oklch(from var(--shadow-color) l c h / 10%), 0 8px 10px -6px oklch(from var(--shadow-color) l c h / 4%);
   --overlay: oklch(from var(--shadow-color) l c h / 50%);
+  
+  /* Inset Shadow Values */
+  --shadow-inset-sm: inset 0 var(--spacing-0-125) var(--spacing-0-125) oklch(from var(--shadow-color) l c h / 10%);
+  --shadow-inset: inset 0 var(--spacing-0-125) var(--spacing-0-125) oklch(from var(--shadow-color) l c h / 10%);
 }

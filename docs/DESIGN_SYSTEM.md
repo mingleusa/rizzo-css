@@ -1,6 +1,6 @@
 # Design System
 
-Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme.
+Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** - all hardcoded values have been replaced with CSS variables and utility classes, ensuring consistency and making it easy to port to other frameworks (Vue, React, Svelte) by only porting JavaScript.
 
 ## Semantic Variables
 
@@ -77,12 +77,46 @@ Rizzo CSS includes a comprehensive typography system:
 
 - `--selection` - Text selection background color (default: `oklch(70% 0.15 250deg)`)
 
+### Additional Design Variables
+
+**Opacity Values:**
+- `--opacity-0` (0) - Fully transparent
+- `--opacity-50` (0.5) - 50% opacity
+- `--opacity-60` (0.6) - 60% opacity (commonly used for disabled states)
+- `--opacity-70` (0.7) - 70% opacity
+- `--opacity-80` (0.8) - 80% opacity
+- `--opacity-90` (0.9) - 90% opacity
+- `--opacity-100` (1) - Fully opaque
+
+**Transform Scale Values:**
+- `--scale-80` (0.8) - 80% scale
+- `--scale-95` (0.95) - 95% scale (commonly used for tooltip animations)
+- `--scale-100` (1) - 100% scale (normal size)
+- `--scale-110` (1.1) - 110% scale (hover effects)
+
+**Border Width Values:**
+- `--border-width-arrow` (6px) - Border width for tooltip arrows and similar UI elements
+
+**Viewport Heights:**
+- `--vh-80` (80vh) - 80% of viewport height
+- `--vh-90` (90vh) - 90% of viewport height
+
+**Touch Target Sizes:**
+- `--touch-target-min` (3rem / 48px) - WCAG AA compliant minimum touch target size
+
+**Max Heights:**
+- `--max-height-dropdown` (600px) - Maximum height for dropdown menus
+- `--max-height-modal` (32rem) - Maximum height for modal dialogs
+
+**Cubic Bezier Easing:**
+- `--ease-in-out-cubic` - `cubic-bezier(0.4, 0, 0.2, 1)` - Smooth easing function for animations
+
 ### Spacing Utilities
 
 Rizzo CSS includes comprehensive spacing utilities for margins and padding using a consistent scale:
 
 **Spacing Scale:**
-All spacing uses rem units for consistency and accessibility:
+All spacing uses rem units for consistency and accessibility. The spacing scale includes:
 - `0` - 0
 - `1` - 0.25rem (4px)
 - `2` - 0.5rem (8px)
@@ -96,6 +130,11 @@ All spacing uses rem units for consistency and accessibility:
 - `16` - 4rem (64px)
 - `20` - 5rem (80px)
 - `24` - 6rem (96px)
+- Extended scale: `28`, `32`, `36`, `40`, `48`, `56`, `64`, `72`, `80`, `96`, `100`, `150`, and more
+- Fractional values: `0-125` (2px), `0-375` (6px), `0-625` (10px), `0-875` (14px)
+- Special values: `14`, `15`, `50`, `70`, `75`, `105`, `175`, `2500` (for screen reader positioning)
+
+All spacing values are available as CSS variables: `--spacing-{size}`
 
 **Margin Utilities:**
 - `.m-{size}`, `.mt-{size}`, `.mr-{size}`, `.mb-{size}`, `.ml-{size}`, `.mx-{size}`, `.my-{size}`
@@ -222,6 +261,214 @@ Rizzo CSS includes comprehensive sizing utilities for width, height, and min/max
 <div class="max-h-96 overflow-auto">Scrollable content</div>
 ```
 
+### Display Utilities
+
+Display utilities control how elements are displayed:
+
+**Display Types:**
+- `.block`, `.inline-block`, `.inline`
+- `.flex`, `.inline-flex`
+- `.grid`, `.inline-grid`
+- `.table`, `.table-row`, `.table-cell`
+- `.contents`, `.list-item`
+- `.hidden` - Hide element (display: none)
+
+**Responsive Display:**
+All display utilities have responsive variants using breakpoint prefixes:
+- `.sm:{display}` - Applies at 640px and up
+- `.md:{display}` - Applies at 768px and up
+- `.lg:{display}` - Applies at 1024px and up
+- `.xl:{display}` - Applies at 1280px and up
+- `.xxl:{display}` - Applies at 1536px and up
+
+**Examples:**
+```html
+<!-- Hide on mobile, show on desktop -->
+<div class="hidden md:block">Visible on tablet and up</div>
+
+<!-- Flex on mobile, grid on desktop -->
+<div class="flex lg:grid">Responsive layout</div>
+```
+
+### Position Utilities
+
+Position utilities control element positioning:
+
+**Position Types:**
+- `.static` - Default positioning
+- `.relative` - Relative to normal position
+- `.absolute` - Absolute positioning
+- `.fixed` - Fixed to viewport
+- `.sticky` - Sticky positioning
+
+**Z-Index Scale:**
+- `.z-0`, `.z-10`, `.z-20`, `.z-30`, `.z-40`, `.z-50`, `.z-auto`
+- Component-specific z-index classes:
+  - `.z-dropdown` (1000)
+  - `.z-dropdown-submenu` (1001)
+  - `.z-modal` (2000)
+  - `.z-modal-backdrop` (1999)
+  - `.z-tooltip` (3000)
+  - `.z-toast` (4000)
+  - `.z-navbar` (5000)
+
+**Examples:**
+```html
+<!-- Fixed header -->
+<header class="fixed top-0 z-navbar">Fixed header</header>
+
+<!-- Sticky sidebar -->
+<aside class="sticky top-4">Sticky sidebar</aside>
+```
+
+### Border Utilities
+
+Border utilities provide comprehensive border styling:
+
+**Border Radius:**
+- `.rounded-none`, `.rounded-sm`, `.rounded`, `.rounded-md`, `.rounded-lg`, `.rounded-xl`, `.rounded-2xl`, `.rounded-3xl`, `.rounded-full`
+- Side-specific: `.rounded-t-*`, `.rounded-r-*`, `.rounded-b-*`, `.rounded-l-*`
+
+**Border Width:**
+- `.border-0`, `.border`, `.border-2`, `.border-4`, `.border-8`
+- Side-specific: `.border-t-*`, `.border-r-*`, `.border-b-*`, `.border-l-*`
+
+**Border Colors (using theme variables):**
+- `.border-transparent`
+- `.border-color` (uses `--border`)
+- `.border-accent` (uses `--accent`)
+- `.border-success`, `.border-warning`, `.border-error`, `.border-info`
+
+**Examples:**
+```html
+<!-- Rounded card -->
+<div class="rounded-lg border border-color">Card</div>
+
+<!-- Full rounded button -->
+<button class="rounded-full border-2 border-accent">Button</button>
+```
+
+### Flexbox Utilities
+
+Comprehensive flexbox utilities for flexible layouts:
+
+**Flex Direction:**
+- `.flex-row`, `.flex-row-reverse`, `.flex-col`, `.flex-col-reverse`
+
+**Flex Wrap:**
+- `.flex-wrap`, `.flex-wrap-reverse`, `.flex-nowrap`
+
+**Justify Content:**
+- `.justify-start`, `.justify-end`, `.justify-center`
+- `.justify-between`, `.justify-around`, `.justify-evenly`
+
+**Align Items:**
+- `.items-start`, `.items-end`, `.items-center`
+- `.items-baseline`, `.items-stretch`
+
+**Align Self:**
+- `.self-auto`, `.self-start`, `.self-end`, `.self-center`, `.self-stretch`, `.self-baseline`
+
+**Flex Grow/Shrink:**
+- `.flex-1`, `.flex-auto`, `.flex-initial`, `.flex-none`
+- `.grow`, `.grow-0`, `.shrink`, `.shrink-0`
+
+**Examples:**
+```html
+<!-- Centered flex container -->
+<div class="flex items-center justify-center">Centered content</div>
+
+<!-- Space between items -->
+<div class="flex justify-between">Space between</div>
+```
+
+### Grid Utilities
+
+CSS Grid utilities for complex layouts:
+
+**Grid Template Columns:**
+- `.grid-cols-1` through `.grid-cols-12`, `.grid-cols-none`
+
+**Grid Template Rows:**
+- `.grid-rows-1` through `.grid-rows-6`, `.grid-rows-none`
+
+**Grid Column Span:**
+- `.col-auto`, `.col-span-1` through `.col-span-6`, `.col-span-full`
+
+**Grid Row Span:**
+- `.row-auto`, `.row-span-1` through `.row-span-6`, `.row-span-full`
+
+**Examples:**
+```html
+<!-- 3-column grid -->
+<div class="grid grid-cols-3 gap-4">
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>
+
+<!-- Responsive grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+  Responsive grid
+</div>
+```
+
+### Gap Utilities
+
+Gap utilities for flexbox and grid layouts using the spacing scale:
+
+**Gap (both row and column):**
+- `.gap-0`, `.gap-1` through `.gap-24` (using spacing scale variables)
+
+**Column Gap:**
+- `.gap-x-0`, `.gap-x-1` through `.gap-x-24`
+
+**Row Gap:**
+- `.gap-y-0`, `.gap-y-1` through `.gap-y-24`
+
+**Examples:**
+```html
+<!-- Grid with gap -->
+<div class="grid grid-cols-3 gap-4">Grid with spacing</div>
+
+<!-- Different row and column gaps -->
+<div class="flex flex-col gap-y-2 gap-x-4">Different gaps</div>
+```
+
+### Animation & Transition Utilities
+
+Transition utilities that respect `prefers-reduced-motion`:
+
+**Transition Properties:**
+- `.transition-none`, `.transition-all`, `.transition`
+- `.transition-colors`, `.transition-opacity`, `.transition-shadow`, `.transition-transform`
+
+**Transition Duration:**
+- `.duration-75`, `.duration-100`, `.duration-150`, `.duration-200`, `.duration-300`, `.duration-500`, `.duration-700`, `.duration-1000`
+
+**Transition Timing Functions:**
+- `.ease-linear`, `.ease-in`, `.ease-out`, `.ease-in-out`
+
+**Transition Delay:**
+- `.delay-75`, `.delay-100`, `.delay-150`, `.delay-200`, `.delay-300`, `.delay-500`, `.delay-700`, `.delay-1000`
+
+**Combined Utilities:**
+- `.transition-fast` (150ms, ease-in-out)
+- `.transition-base` (200ms, ease-in-out)
+- `.transition-slow` (300ms, ease-in-out)
+
+**Accessibility:**
+All transition utilities automatically respect `prefers-reduced-motion` and reduce to 0.01ms duration when the user prefers reduced motion.
+
+**Examples:**
+```html
+<!-- Fast color transition -->
+<button class="transition-colors duration-200">Hover me</button>
+
+<!-- Combined transition -->
+<div class="transition-base hover:shadow-lg">Smooth transition</div>
+```
+
 ### Media Queries
 
 Rizzo CSS includes a dedicated `media-queries.css` file with responsive breakpoints:
@@ -332,15 +579,23 @@ This ensures:
 
 ## Best Practices
 
-1. **Always use semantic variables** - Never hardcode colors
-2. **Use contrast-aware text colors** - Use `--accent-text`, `--success-text`, etc. when using colored backgrounds
-3. **Use appropriate variables** - `--background-alt` for cards, `--background` for page background
-4. **Use spacing utilities** - Use margin and padding utility classes for consistent spacing
-5. **Mobile-first responsive design** - Start with mobile styles, then add larger breakpoint styles
-6. **Maintain contrast** - All themes meet WCAG AA contrast requirements automatically
-7. **Test with multiple themes** - Verify components work with both light and dark themes
-8. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.)
-9. **Follow BEM naming** - Use block__element--modifier pattern for all component classes
-10. **Accessibility first** - All components must be keyboard navigable and screen reader friendly
-11. **Use typography variables** - Use `--font-size-*`, `--font-weight-*`, `--line-height-*` for consistent typography
-12. **Respect font size scale** - All font sizes automatically scale with `--font-size-scale` variable
+1. **Design System as Source of Truth** - Always use CSS variables and utility classes from the design system. Never hardcode values (colors, spacing, sizes, transitions, etc.). This ensures consistency and makes framework porting easier.
+2. **Always use semantic variables** - Never hardcode colors, spacing, sizes, or other values
+3. **Use contrast-aware text colors** - Use `--accent-text`, `--success-text`, etc. when using colored backgrounds
+4. **Use appropriate variables** - `--background-alt` for cards, `--background` for page background
+5. **Use utility classes** - Leverage spacing, sizing, display, position, border, flexbox, grid, and gap utilities for consistent styling
+6. **Use spacing utilities** - Use margin and padding utility classes for consistent spacing
+7. **Use CSS variables for all values** - Use `--spacing-*`, `--radius-*`, `--transition-*`, `--opacity-*`, `--scale-*`, `--z-*`, etc. instead of hardcoded values
+8. **Mobile-first responsive design** - Start with mobile styles, then add larger breakpoint styles using responsive utility prefixes (sm:, md:, lg:, xl:, xxl:)
+9. **Maintain contrast** - All themes meet WCAG AA contrast requirements automatically
+10. **Test with multiple themes** - Verify components work with both light and dark themes
+11. **No inline styles** - All CSS should be in external files (`components.css`, `buttons.css`, etc.)
+12. **Follow BEM naming** - Use block__element--modifier pattern for all component classes
+13. **Accessibility first** - All components must be keyboard navigable and screen reader friendly
+14. **Use typography variables** - Use `--font-size-*`, `--font-weight-*`, `--line-height-*` for consistent typography
+15. **Respect font size scale** - All font sizes automatically scale with `--font-size-scale` variable
+16. **Respect reduced motion** - All transition utilities automatically respect `prefers-reduced-motion`
+17. **Use theme-aware utilities** - Border colors, text colors, and background colors use semantic theme variables
+18. **Use opacity variables** - Use `--opacity-*` variables instead of hardcoded opacity values
+19. **Use transform scale variables** - Use `--scale-*` variables for consistent transform animations
+20. **Use z-index variables** - Use `--z-*` variables for consistent layering

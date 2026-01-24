@@ -18,7 +18,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
-- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation and menu items
+- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
 
 ## Component Features
 
@@ -390,7 +390,30 @@ Constrain element width without centering:
 - Size-based: `.max-w-xs` through `.max-w-7xl` (320px to 1280px)
 - Screen-based: `.max-w-screen-sm` through `.max-w-screen-2xl`
 
-See [Design System Documentation](./DESIGN_SYSTEM.md) for complete utility reference.
+## Utility Classes
+
+Rizzo CSS includes comprehensive utility classes for rapid development:
+
+### Spacing & Sizing
+- **Spacing Utilities** - Margin and padding utilities (m-*, p-*, mx-*, my-*, px-*, py-*)
+- **Sizing Utilities** - Width, height, min/max dimensions (w-*, h-*, min-w-*, max-w-*, etc.)
+
+### Layout
+- **Display Utilities** - Display types with responsive variants (block, flex, grid, hidden, etc.)
+- **Position Utilities** - Position types and z-index scale (static, relative, absolute, fixed, sticky, z-*)
+- **Flexbox Utilities** - Comprehensive flexbox utilities (flex-direction, flex-wrap, justify-content, align-items, etc.)
+- **Grid Utilities** - CSS Grid utilities (grid-cols-*, grid-rows-*, col-span-*, row-span-*)
+- **Gap Utilities** - Gap utilities for flexbox and grid (gap-*, gap-x-*, gap-y-*)
+
+### Styling
+- **Border Utilities** - Border radius, width, and color utilities (rounded-*, border-*, border-color, etc.)
+- **Shadow Utilities** - Theme-aware shadow system (shadow-sm, shadow, shadow-md, shadow-lg, shadow-xl)
+- **Color Utilities** - Background and text color utilities using semantic theme variables (bg-*, text-*, text-on-*)
+
+### Animation
+- **Animation Utilities** - Transition utilities that respect prefers-reduced-motion (transition-*, duration-*, ease-*, delay-*)
+
+See [Design System Documentation](./DESIGN_SYSTEM.md) for complete utility reference with examples.
 
 ## Icon Components
 
