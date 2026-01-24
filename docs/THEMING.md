@@ -148,7 +148,7 @@ Example:
   /* For light themes (accent >= 50% lightness): use dark text */
   --accent-text: oklch(100% 0 0deg); /* White text for dark accent */
   --success-text: oklch(100% 0 0deg);
-  --warning-text: oklch(20% 0 0deg); /* Dark text for light yellow */
+  --warning-text: oklch(100% 0 0deg); /* White text for better visibility and consistency across all themes */
   --error-text: oklch(100% 0 0deg);
   --info-text: oklch(100% 0 0deg);
 }

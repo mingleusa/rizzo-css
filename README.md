@@ -85,7 +85,7 @@ CSS is organized into logical files:
 - `sizes.css` - Width, height, min/max dimensions, and container utilities
 - `utilities.css` - Utility classes (colors, borders, focus states)
 - `forms.css` - Form component styles
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip)
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
 - `themes/` - Theme definitions (dark/light folders)
@@ -124,6 +124,7 @@ Accessible, themeable components:
 - **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
+- **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
 
 All components:
 - Use semantic theme variables with contrast-aware text colors

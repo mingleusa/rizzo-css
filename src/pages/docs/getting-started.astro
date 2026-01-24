@@ -1,22 +1,23 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Getting Started" description="Installation, project structure, and quick start guide">
 	<section>
 		<h2>Installation</h2>
 		<p>Rizzo CSS is built on Astro. To use it in your project:</p>
-		<pre><code>{`# Clone or copy the project
+		<CodeBlock code={`# Clone or copy the project
 git clone <repository-url>
 cd rizzo-css
 
 # Install dependencies
-pnpm install`}</code></pre>
+pnpm install`} language="bash" />
 	</section>
 	
 	<section>
 		<h2>Project Structure</h2>
-		<pre><code>{`rizzo-css/
+		<CodeBlock code={`rizzo-css/
 ├── src/
 │   ├── components/      # Astro components
 │   │   ├── Button.astro
@@ -73,20 +74,20 @@ pnpm install`}</code></pre>
 │   └── css/             # Generated CSS
 │       └── main.min.css
 └── scripts/             # Build scripts
-    └── build-css.js`}</code></pre>
+    └── build-css.js`} language="text" />
 	</section>
 	
 	<section>
 		<h2>Development</h2>
 		<p>Start the development server:</p>
-		<pre><code>{`pnpm dev`}</code></pre>
+		<CodeBlock code={`pnpm dev`} language="bash" />
 		<p>The site will be available at <code>http://localhost:4321</code></p>
 	</section>
 	
 	<section>
 		<h2>Building</h2>
 		<p>Build for production:</p>
-		<pre><code>{`pnpm build`}</code></pre>
+		<CodeBlock code={`pnpm build`} language="bash" />
 		<p>This will:</p>
 		<ol>
 			<li>Build and minify CSS to <code>public/css/main.min.css</code></li>
@@ -113,6 +114,7 @@ pnpm install`}</code></pre>
 			<li><a href="/docs/components/alert">Alert</a> - Alert/notification component with auto-dismiss</li>
 			<li><a href="/docs/components/toast">Toast</a> - Fixed position toast notifications</li>
 			<li><a href="/docs/components/search">Search</a> - Search component with Algolia integration</li>
+			<li><a href="/docs/components/tooltip">Tooltip</a> - Accessible tooltip component with positioning options</li>
 		</ul>
 		
 		<p>See the <a href="/docs/components">Components Documentation</a> for an overview and links to all component pages.</p>
@@ -121,7 +123,7 @@ pnpm install`}</code></pre>
 	<section>
 		<h2>Using Themes</h2>
 		<p>Themes are applied via the <code>data-theme</code> attribute on the HTML element:</p>
-		<pre><code>{`<html lang="en" data-theme="dracula-at-night">`}</code></pre>
+		<CodeBlock code={`<html lang="en" data-theme="dracula-at-night">`} language="html" />
 		<p>See <a href="/docs/theming">Theming Documentation</a> for more details.</p>
 	</section>
 	
@@ -150,11 +152,11 @@ pnpm install`}</code></pre>
 		
 		<h3>Semantic Variables</h3>
 		<p>All styles use semantic theme variables:</p>
-		<pre><code>{`.my-component {
+		<CodeBlock code={`.my-component {
   background-color: var(--background);
   color: var(--text);
   border: 1px solid var(--border);
-}`}</code></pre>
+}`} language="css" />
 		
 		<h3>PostCSS Processing</h3>
 		<ul>
@@ -166,7 +168,7 @@ pnpm install`}</code></pre>
 		
 		<h3>Spacing Utilities</h3>
 		<p>Rizzo CSS includes comprehensive spacing utilities for margins and padding:</p>
-		<pre><code>{`<!-- Margin utilities -->
+		<CodeBlock code={`<!-- Margin utilities -->
 <div class="m-4">Margin on all sides</div>
 <div class="mx-auto">Centered with auto margins</div>
 <div class="mt-6 mb-4">Top and bottom margins</div>
@@ -175,7 +177,7 @@ pnpm install`}</code></pre>
 <div class="p-4">Padding on all sides</div>
 <div class="px-6 py-4">Horizontal and vertical padding</div>
 
-<!-- Sizes: 0, 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px), 24 (96px) -->`}</code></pre>
+<!-- Sizes: 0, 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px), 24 (96px) -->`} language="html" />
 		<p>See <a href="/docs/design-system">Design System Documentation</a> for available variables and utilities.</p>
 	</section>
 </DocsLayout>

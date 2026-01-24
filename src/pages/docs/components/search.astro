@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Search from '../../../components/Search.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Search Component" description="Search component with Algolia integration and live filtering">
@@ -36,7 +37,7 @@ import Search from '../../../components/Search.astro';
 	
 	<section>
 		<h2>Usage</h2>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Search from '../components/Search.astro';
 ---
 
@@ -49,7 +50,7 @@ import Search from '../components/Search.astro';
   algoliaAppId="YOUR_APP_ID"
   algoliaApiKey="YOUR_SEARCH_API_KEY"
   algoliaIndexName="rizzo-css-docs"
-/>`}</code></pre>
+/>`} language="astro" />
 	</section>
 	
 	<section>
@@ -80,7 +81,7 @@ import Search from '../components/Search.astro';
 			<li>Create an account at <a href="https://www.algolia.com/" target="_blank" rel="noopener noreferrer">algolia.com</a></li>
 			<li>Create a new application and get your credentials</li>
 			<li>Index your documentation using the indexing script:
-				<pre><code>{`# Install Algolia client
+				<CodeBlock code={`# Install Algolia client
 pnpm add algoliasearch
 
 # Set environment variables
@@ -89,7 +90,7 @@ export ALGOLIA_API_KEY="your-admin-api-key"
 export ALGOLIA_INDEX_NAME="rizzo-css-docs"
 
 # Run indexing script
-node scripts/index-docs.js`}</code></pre>
+node scripts/index-docs.js`} language="bash" />
 			</li>
 			<li>Configure your Search component with the credentials</li>
 		</ol>

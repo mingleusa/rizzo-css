@@ -6,6 +6,7 @@ import Textarea from '../../../components/Textarea.astro';
 import Select from '../../../components/Select.astro';
 import Checkbox from '../../../components/Checkbox.astro';
 import Radio from '../../../components/Radio.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Form Components" description="Accessible form components with validation states and examples">
@@ -37,14 +38,14 @@ import Radio from '../../../components/Radio.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import FormGroup from '../components/FormGroup.astro';
 import Input from '../components/Input.astro';
 ---
 
 <FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
   <Input type="email" id="email" name="email" placeholder="you@example.com" />
-</FormGroup>`}</code></pre>
+</FormGroup>`} language="astro" />
 	</section>
 
 	<section>
@@ -109,7 +110,7 @@ import Input from '../components/Input.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import FormGroup from '../components/FormGroup.astro';
 import Input from '../components/Input.astro';
 ---
@@ -121,7 +122,7 @@ import Input from '../components/Input.astro';
 <!-- With error state -->
 <FormGroup label="Email" labelFor="email-error" error="Invalid email address">
   <Input type="email" id="email-error" name="email" error />
-</FormGroup>`}</code></pre>
+</FormGroup>`} language="astro" />
 	</section>
 
 	<section>
@@ -144,14 +145,14 @@ import Input from '../components/Input.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import FormGroup from '../components/FormGroup.astro';
 import Textarea from '../components/Textarea.astro';
 ---
 
 <FormGroup label="Message" labelFor="message" help="Enter your message here">
   <Textarea id="message" name="message" rows={5} placeholder="Your message..." />
-</FormGroup>`}</code></pre>
+</FormGroup>`} language="astro" />
 	</section>
 
 	<section>
@@ -178,7 +179,7 @@ import Textarea from '../components/Textarea.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import FormGroup from '../components/FormGroup.astro';
 import Select from '../components/Select.astro';
 ---
@@ -190,7 +191,7 @@ import Select from '../components/Select.astro';
     <option value="ca">Canada</option>
     <option value="uk">United Kingdom</option>
   </Select>
-</FormGroup>`}</code></pre>
+</FormGroup>`} language="astro" />
 	</section>
 
 	<section>
@@ -225,7 +226,7 @@ import Select from '../components/Select.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Checkbox from '../components/Checkbox.astro';
 ---
 
@@ -244,7 +245,7 @@ import Checkbox from '../components/Checkbox.astro';
     <Checkbox id="opt2" name="options" value="2" />
     Option 2
   </label>
-</div>`}</code></pre>
+</div>`} language="astro" />
 	</section>
 
 	<section>
@@ -278,7 +279,7 @@ import Checkbox from '../components/Checkbox.astro';
 		</div>
 
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Radio from '../components/Radio.astro';
 ---
 
@@ -294,7 +295,7 @@ import Radio from '../components/Radio.astro';
       PayPal
     </label>
   </div>
-</fieldset>`}</code></pre>
+</fieldset>`} language="astro" />
 	</section>
 
 	<section>
@@ -354,9 +355,9 @@ import Radio from '../components/Radio.astro';
 		
 		<h3>Customization</h3>
 		<p>You can customize form inputs using CSS variables or by adding custom classes:</p>
-		<pre><code>{`.custom-input {
+		<CodeBlock code={`.custom-input {
   border-radius: 0.5rem;
   padding: 1rem;
-}`}</code></pre>
+}`} language="css" />
 	</section>
 </DocsLayout>

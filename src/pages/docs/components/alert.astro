@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Alert Component" description="Accessible alert component with variants and dismissible functionality">
@@ -41,7 +42,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 	
 	<section>
 		<h2>Usage</h2>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Alert from '../components/Alert.astro';
 ---
 
@@ -58,7 +59,7 @@ import Alert from '../components/Alert.astro';
 <!-- Auto-dismiss alert -->
 <Alert variant="success" dismissible autoDismiss={5000}>
   This alert will automatically dismiss in 5 seconds.
-</Alert>`}</code></pre>
+</Alert>`} language="astro" />
 	</section>
 	
 	<section>

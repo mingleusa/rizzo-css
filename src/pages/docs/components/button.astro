@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Button Component" description="Semantic button component with variants using theme variables">
@@ -30,7 +31,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 		</ul>
 		
 		<h3>Usage</h3>
-		<pre><code>{`<!-- Using component -->
+		<CodeBlock code={`<!-- Using component -->
 ---
 import Button from '../components/Button.astro';
 ---
@@ -44,7 +45,7 @@ import Button from '../components/Button.astro';
 <button class="btn btn-warning">Warning</button>
 <button class="btn btn-error">Error</button>
 <button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>`}</code></pre>
+<button class="btn btn-outline">Outline</button>`} language="astro" />
 		
 		<h3>Button Variants</h3>
 		<ul>

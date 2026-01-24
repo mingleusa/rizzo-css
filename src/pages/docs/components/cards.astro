@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Card from '../../../components/Card.astro';
 import Button from '../../../components/Button.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Card Component" description="Flexible card component with variants, sections, and image support">
@@ -23,14 +24,14 @@ import Button from '../../../components/Button.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Card from '../components/Card.astro';
 ---
 
 <Card>
   <h3>Card Title</h3>
   <p>Card content goes here</p>
-</Card>`}</code></pre>
+</Card>`} language="astro" />
 	</section>
 
 	<section>
@@ -74,7 +75,7 @@ import Card from '../components/Card.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Card from '../components/Card.astro';
 ---
 
@@ -91,7 +92,7 @@ import Card from '../components/Card.astro';
 <Card variant="filled">
   <h3>Filled Card</h3>
   <p>Content</p>
-</Card>`}</code></pre>
+</Card>`} language="astro" />
 	</section>
 
 	<section>
@@ -117,7 +118,7 @@ import Card from '../components/Card.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Card from '../components/Card.astro';
 import Button from '../components/Button.astro';
 ---
@@ -133,7 +134,7 @@ import Button from '../components/Button.astro';
   <div class="card__footer">
     <Button>Action</Button>
   </div>
-</Card>`}</code></pre>
+</Card>`} language="astro" />
 		
 		<h3>Section Classes</h3>
 		<ul>
@@ -165,7 +166,7 @@ import Button from '../components/Button.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Card from '../components/Card.astro';
 ---
 
@@ -177,7 +178,7 @@ import Card from '../components/Card.astro';
   <div class="card__body">
     <p>Card content</p>
   </div>
-</Card>`}</code></pre>
+</Card>`} language="astro" />
 	</section>
 
 	<section>
@@ -223,10 +224,10 @@ import Card from '../components/Card.astro';
 		
 		<h3>Customization</h3>
 		<p>You can customize cards using CSS variables or by adding custom classes:</p>
-		<pre><code>{`.custom-card {
+		<CodeBlock code={`.custom-card {
   border-radius: 1rem;
   padding: 2rem;
-}`}</code></pre>
+}`} language="css" />
 	</section>
 
 	<section>

@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Design System" description="Core design principles and semantic variables">
@@ -100,7 +101,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 	<section>
 		<h2>Color Format</h2>
 		<p>All colors use <strong>OKLCH</strong> format for better perceptual uniformity:</p>
-		<pre><code>{`--accent: oklch(65% 0.25 290deg);`}</code></pre>
+		<CodeBlock code={`--accent: oklch(65% 0.25 290deg);`} language="css" />
 		<p>OKLCH format uses:</p>
 		<ul>
 			<li><strong>Lightness</strong> as percentage (0% = black, 100% = white)</li>
@@ -119,7 +120,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		<h2>Using Variables</h2>
 		
 		<h3>In CSS</h3>
-		<pre><code>{`.my-component {
+		<CodeBlock code={`.my-component {
   background-color: var(--background);
   color: var(--text);
   border: 1px solid var(--border);
@@ -133,16 +134,16 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 .my-button:hover {
   background-color: var(--accent-hover);
   color: var(--accent-text);
-}`}</code></pre>
+}`} language="css" />
 		
 		<h3>In Components</h3>
 		<p><strong>Note</strong>: All component styles should be in external CSS files (<code>components.css</code>), not inline <code>&lt;style&gt;</code> blocks. Components use CSS variables from the semantic theme system.</p>
 		<p>Component CSS structure:</p>
-		<pre><code>{`/* In src/styles/components.css */
+		<CodeBlock code={`/* In src/styles/components.css */
 .my-component {
   background: var(--background-alt);
   color: var(--text);
-}`}</code></pre>
+}`} language="css" />
 	</section>
 	
 	<section>
@@ -221,14 +222,14 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`<!-- Margin examples -->
+		<CodeBlock code={`<!-- Margin examples -->
 <div class="m-4">Margin on all sides</div>
 <div class="mx-auto">Centered with auto margins</div>
 <div class="mt-6 mb-4">Top and bottom margins</div>
 
 <!-- Padding examples -->
 <div class="p-4">Padding on all sides</div>
-<div class="px-6 py-4">Horizontal and vertical padding</div>`}</code></pre>
+<div class="px-6 py-4">Horizontal and vertical padding</div>`} language="html" />
 	</section>
 	
 	<section>
@@ -262,7 +263,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`<!-- Small container -->
+		<CodeBlock code={`<!-- Small container -->
 <div class="container-sm">
   Content constrained to 640px
 </div>
@@ -275,7 +276,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 <!-- Full width with padding -->
 <div class="container-full">
   Full width with horizontal padding
-</div>`}</code></pre>
+</div>`} language="html" />
 	</section>
 	
 	<section>
@@ -320,7 +321,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`<!-- Constrain text width for readability -->
+		<CodeBlock code={`<!-- Constrain text width for readability -->
 <p class="max-w-2xl">
   This paragraph is constrained to 672px for optimal readability.
 </p>
@@ -328,7 +329,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 <!-- Constrain to screen breakpoint -->
 <div class="max-w-screen-lg">
   Content constrained to 1024px
-</div>`}</code></pre>
+</div>`} language="html" />
 	</section>
 	
 	<section>
@@ -391,7 +392,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`<!-- Full width and height -->
+		<CodeBlock code={`<!-- Full width and height -->
 <div class="w-full h-screen">Full viewport</div>
 
 <!-- Fixed dimensions -->
@@ -401,7 +402,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 <div class="min-h-screen">At least viewport height</div>
 
 <!-- Maximum height with scrolling -->
-<div class="max-h-96 overflow-auto">Scrollable content</div>`}</code></pre>
+<div class="max-h-96 overflow-auto">Scrollable content</div>`} language="html" />
 	</section>
 	
 	<section>
@@ -418,14 +419,14 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		</ul>
 		
 		<h3>Usage</h3>
-		<pre><code>{`/* Mobile-first approach */
+		<CodeBlock code={`/* Mobile-first approach */
 @media (width >= 768px) {
   /* Tablet and up styles */
 }
 
 @media (width <= 1023px) {
   /* Tablet and down styles */
-}`}</code></pre>
+}`} language="css" />
 		
 		<h3>Accessibility Media Queries</h3>
 		<p>The media queries file also includes:</p>

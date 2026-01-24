@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ModalComponent from '../../../components/Modal.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Modal Component" description="Accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay">
@@ -83,7 +84,7 @@ import ModalComponent from '../../../components/Modal.astro';
 		</ModalComponent>
 		
 		<h3>Usage</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import ModalComponent from '../components/Modal.astro';
 import Button from '../components/Button.astro';
 ---
@@ -97,7 +98,7 @@ import Button from '../components/Button.astro';
   </div>
 </ModalComponent>
 
-<Button onclick="window.openModal_example_modal()">Open Modal</Button>`}</code></pre>
+<Button onclick="window.openModal_example_modal()">Open Modal</Button>`} language="astro" />
 		
 		<h3>Props</h3>
 		<ul>
@@ -118,11 +119,11 @@ import Button from '../components/Button.astro';
 		
 		<h3>Programmatic Control</h3>
 		<p>Each modal exposes global functions based on its ID (hyphens converted to underscores):</p>
-		<pre><code>{`// Open modal (ID: example-modal becomes example_modal)
+		<CodeBlock code={`// Open modal (ID: example-modal becomes example_modal)
 window.openModal_example_modal();
 
 // Close modal
-window.closeModal_example_modal();`}</code></pre>
+window.closeModal_example_modal();`} language="javascript" />
 		
 		<h3>Features</h3>
 		<ul>

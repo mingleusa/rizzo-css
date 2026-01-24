@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Accessibility" description="Accessibility guidelines, utilities, and best practices">
@@ -40,30 +41,30 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		
 		<h3>Screen Reader Only</h3>
 		<p>Hide content visually but keep it available to screen readers:</p>
-		<pre><code>{`<span class="sr-only">Screen reader only text</span>`}</code></pre>
+		<CodeBlock code={`<span class="sr-only">Screen reader only text</span>`} language="html" />
 		<p>Uses modern <code>clip-path: inset(50%)</code> instead of deprecated <code>clip</code> property.</p>
 		
 		<h3>Focusable Screen Reader Content</h3>
 		<p>Make screen reader content focusable:</p>
-		<pre><code>{`<a href="#content" class="sr-only sr-only-focusable">Skip to content</a>`}</code></pre>
+		<CodeBlock code={`<a href="#content" class="sr-only sr-only-focusable">Skip to content</a>`} language="html" />
 		<p>When focused, the content becomes visible and accessible.</p>
 		
 		<h3>Skip Links</h3>
 		<p>Skip to main content link:</p>
-		<pre><code>{`<a href="#main-content" class="skip-link">Skip to main content</a>`}</code></pre>
+		<CodeBlock code={`<a href="#main-content" class="skip-link">Skip to main content</a>`} language="html" />
 		
 		<h3>Visually Hidden</h3>
 		<p>Hide content completely:</p>
-		<pre><code>{`<span class="visually-hidden">Hidden content</span>`}</code></pre>
+		<CodeBlock code={`<span class="visually-hidden">Hidden content</span>`} language="html" />
 	</section>
 	
 	<section>
 		<h2>Focus Styles</h2>
 		<p>All interactive elements have visible focus indicators:</p>
-		<pre><code>{`:focus-visible {
+		<CodeBlock code={`:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
-}`}</code></pre>
+}`} language="css" />
 	</section>
 	
 	<section>
@@ -71,19 +72,19 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		
 		<h3>Labels</h3>
 		<p>Always use labels with form inputs:</p>
-		<pre><code>{`<label for="email">Email</label>
-<input type="email" id="email" name="email" />`}</code></pre>
+		<CodeBlock code={`<label for="email">Email</label>
+<input type="email" id="email" name="email" />`} language="html" />
 		
 		<h3>Required Fields</h3>
-		<pre><code>{`<label for="name" class="required">Name</label>
-<input type="text" id="name" name="name" required />`}</code></pre>
+		<CodeBlock code={`<label for="name" class="required">Name</label>
+<input type="text" id="name" name="name" required />`} language="html" />
 		
 		<h3>Error States</h3>
-		<pre><code>{`<input type="email" aria-invalid="true" aria-describedby="email-error" />
-<span id="email-error" class="error-message">Invalid email address</span>`}</code></pre>
+		<CodeBlock code={`<input type="email" aria-invalid="true" aria-describedby="email-error" />
+<span id="email-error" class="error-message">Invalid email address</span>`} language="html" />
 		
 		<h3>Success States</h3>
-		<pre><code>{`<span class="success-message">Form submitted successfully</span>`}</code></pre>
+		<CodeBlock code={`<span class="success-message">Form submitted successfully</span>`} language="html" />
 	</section>
 	
 	<section>
@@ -120,9 +121,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 	<section>
 		<h2>Reduced Motion</h2>
 		<p>Respects user preferences:</p>
-		<pre><code>{`@media (prefers-reduced-motion: reduce) {
+		<CodeBlock code={`@media (prefers-reduced-motion: reduce) {
   /* Animations disabled */
-}`}</code></pre>
+}`} language="css" />
 	</section>
 	
 	<section>
@@ -130,9 +131,9 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		<p>Supports high contrast mode through both media queries and user settings:</p>
 		
 		<h3>Media Query</h3>
-		<pre><code>{`@media (prefers-contrast: high) {
+		<CodeBlock code={`@media (prefers-contrast: high) {
   /* Enhanced borders and contrast */
-}`}</code></pre>
+}`} language="css" />
 		
 		<h3>User Setting</h3>
 		<p>The Settings component includes a "High contrast" toggle that applies the <code>.high-contrast</code> class to the document root, enabling enhanced contrast across all components.</p>

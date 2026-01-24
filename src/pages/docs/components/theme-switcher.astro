@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Theme Switcher Component" description="Accessible theme switcher with theme icons and keyboard navigation">
@@ -15,11 +16,11 @@ import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 ---
 
-<ThemeSwitcher />`}</code></pre>
+<ThemeSwitcher />`} language="astro" />
 		
 		<h3>Features</h3>
 		<p>The theme switcher automatically:</p>

@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Navbar Component" description="Responsive, accessible navigation bar with integrated settings button">
@@ -28,11 +29,11 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Code Example</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Navbar from '../components/Navbar.astro';
 ---
 
-<Navbar siteName="My Site" />`}</code></pre>
+<Navbar siteName="My Site" />`} language="astro" />
 		
 		<h3>Props</h3>
 		<ul>

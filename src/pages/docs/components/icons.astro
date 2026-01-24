@@ -13,6 +13,7 @@ import IceCream from '../../../components/icons/IceCream.astro';
 import Circle from '../../../components/icons/Circle.astro';
 import Rainbow from '../../../components/icons/Rainbow.astro';
 import Eye from '../../../components/icons/Eye.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Icon Components" description="Reusable SVG icon components using Tabler Icons">
@@ -57,13 +58,13 @@ import Eye from '../../../components/icons/Eye.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Gear from '../components/icons/Gear.astro';
 import Moon from '../components/icons/Moon.astro';
 ---
 
 <Gear width={20} height={20} />
-<Moon width={16} height={16} class="my-icon" />`}</code></pre>
+<Moon width={16} height={16} class="my-icon" />`} language="astro" />
 		
 		<h3>Icon Props</h3>
 		<ul>

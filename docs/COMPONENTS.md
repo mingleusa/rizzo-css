@@ -8,14 +8,16 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Settings](/docs/components/settings) - Comprehensive settings panel
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
 - [Button](/docs/components/button) - Semantic button component
+- [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Icons](/docs/components/icons) - Reusable SVG icon components
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
-- [Search](/docs/components/search) - Search component with Algolia integration
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
+- [Search](/docs/components/search) - Search component with Algolia integration
+- [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 
 ## Component Features
 
@@ -430,6 +432,51 @@ Component for copying text values to the clipboard with visual feedback.
 - Theme-aware styling
 
 See [CopyToClipboard Documentation](/docs/components/copy-to-clipboard) for complete details.
+
+## Tooltip Component
+
+Accessible tooltip component that provides additional context when users hover over or focus on elements.
+
+### Usage
+
+```astro
+---
+import Tooltip from '../components/Tooltip.astro';
+---
+
+<div class="tooltip-wrapper" aria-describedby="my-tooltip">
+  <button class="btn btn-primary">Hover me</button>
+  <Tooltip id="my-tooltip" text="This is a tooltip" position="top" />
+</div>
+```
+
+### Props
+
+- `text` (string, required) - The tooltip text content
+- `position` ('top' | 'bottom' | 'left' | 'right', optional) - Tooltip position (default: 'top')
+- `delay` (number, optional) - Delay in milliseconds before showing (default: 0)
+- `id` (string, optional) - Unique ID for the tooltip
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- Four position options (top, bottom, left, right)
+- Automatic arrow positioning
+- Accessible with ARIA attributes (`role="tooltip"`, `aria-describedby`)
+- Keyboard accessible (works with focus states)
+- Theme-aware styling using semantic variables
+- Smooth animations (respects `prefers-reduced-motion`)
+- Automatic text wrapping for long content
+- Maximum width constraint for readability
+
+### Accessibility
+
+- Uses `role="tooltip"` for semantic meaning
+- Requires `aria-describedby` on trigger element
+- Works with keyboard focus (`:focus-within`)
+- Screen reader compatible
+
+See [Tooltip Documentation](/docs/components/tooltip) for complete details and live examples.
 
 ## Utility Classes
 

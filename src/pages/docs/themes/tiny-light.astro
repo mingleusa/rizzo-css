@@ -1,4 +1,5 @@
 ---
+import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
@@ -43,7 +44,7 @@ import Card from '../../../components/Card.astro';
 	<section>
 		<h2>Usage</h2>
 		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
-		<pre><code>{`<html lang="en" data-theme="tiny-light">`}</code></pre>
+		<CodeBlock code={`<html lang="en" data-theme="tiny-light">`} language="html" />
 		
 		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
 	</section>

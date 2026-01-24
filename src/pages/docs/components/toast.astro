@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Toast Component" description="Fixed position toast notifications with auto-dismiss and programmatic control">
@@ -60,7 +61,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 		
 		<h3>Usage</h3>
 		<p>Import the toast utility and use it programmatically:</p>
-		<pre><code>{`// Import toast utility
+		<CodeBlock code={`// Import toast utility
 import { showToast, removeToast, removeAllToasts } from '../utils/toast';
 
 // Show a simple toast
@@ -81,13 +82,13 @@ const toastId = showToast('This will be removed', { variant: 'info' });
 setTimeout(() => removeToast(toastId), 2000);
 
 // Remove all toasts
-removeAllToasts();`}</code></pre>
+removeAllToasts();`} language="javascript" />
 		
 		<p>Or use the global functions (available after importing the utility):</p>
-		<pre><code>{`// Global functions (available on window)
+		<CodeBlock code={`// Global functions (available on window)
 window.showToast('Success!', { variant: 'success' });
 window.removeToast('toast-id');
-window.removeAllToasts();`}</code></pre>
+window.removeAllToasts();`} language="javascript" />
 		
 		<h3>Toast Options</h3>
 		<ul>
@@ -113,13 +114,13 @@ window.removeAllToasts();`}</code></pre>
 		
 		<h3>Toast Component (Static)</h3>
 		<p>For static toast components in Astro templates, you can use the <code>Toast</code> component:</p>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Toast from '../components/Toast.astro';
 ---
 
 <Toast variant="success" position="top-right" autoDismiss={5000}>
   Your changes have been saved!
-</Toast>`}</code></pre>
+</Toast>`} language="astro" />
 		
 		<p><strong>Note:</strong> For dynamic toast notifications, use the programmatic <code>showToast()</code> function instead. The toast functions are available globally on all pages via <code>window.showToast()</code>, <code>window.removeToast()</code>, and <code>window.removeAllToasts()</code>.</p>
 	</section>

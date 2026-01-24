@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Settings Component" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
@@ -41,11 +42,11 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import Settings from '../components/Settings.astro';
 ---
 
-<Settings open={false} />`}</code></pre>
+<Settings open={false} />`} language="astro" />
 		
 		<h3>Props</h3>
 		<ul>
@@ -55,10 +56,10 @@ import Settings from '../components/Settings.astro';
 		<h3>Opening Settings</h3>
 		<p>The Settings panel is opened via <code>window.openSettings()</code> function, which is exposed globally. The Navbar component includes a settings button that calls this function.</p>
 		
-		<pre><code>{`// Open settings programmatically
+		<CodeBlock code={`// Open settings programmatically
 window.openSettings();
 
 // Close settings programmatically
-window.closeSettings();`}</code></pre>
+window.closeSettings();`} language="javascript" />
 	</section>
 </DocsLayout>

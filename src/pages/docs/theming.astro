@@ -10,6 +10,7 @@ import IceCream from '../../components/icons/IceCream.astro';
 import Circle from '../../components/icons/Circle.astro';
 import Rainbow from '../../components/icons/Rainbow.astro';
 import Eye from '../../components/icons/Eye.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
@@ -134,7 +135,7 @@ import Eye from '../../components/icons/Eye.astro';
 		
 		<h3>Setting Theme</h3>
 		<p>Set the theme via the <code>data-theme</code> attribute on the HTML element:</p>
-		<pre><code>{`<html lang="en" data-theme="dracula-at-night">`}</code></pre>
+		<CodeBlock code={`<html lang="en" data-theme="dracula-at-night">`} language="html" />
 		
 		<h3>Programmatic Theme Switching</h3>
 		<p>The <code>ThemeSwitcher</code> component handles theme switching automatically. It:</p>
@@ -145,7 +146,7 @@ import Eye from '../../components/icons/Eye.astro';
 		</ul>
 		
 		<h3>Manual Theme Switching</h3>
-		<pre><code>{`// Set theme
+		<CodeBlock code={`// Set theme
 document.documentElement.setAttribute('data-theme', 'night-owl');
 
 // Save to localStorage
@@ -153,13 +154,13 @@ localStorage.setItem('theme', 'night-owl');
 
 // Load saved theme
 const savedTheme = localStorage.getItem('theme') || 'dracula-at-night';
-document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
+document.documentElement.setAttribute('data-theme', savedTheme);`} language="javascript" />
 	</section>
 	
 	<section>
 		<h2>Theme File Structure</h2>
 		<p>Themes are organized in <code>src/styles/themes/</code>:</p>
-		<pre><code>{`themes/
+		<CodeBlock code={`themes/
 ├── dark/
 │   ├── dracula-at-night.css
 │   ├── shades-of-purple.css
@@ -169,7 +170,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
     ├── nord-light.css
     ├── grey-light-pro.css
     ├── snazzy-light.css
-    └── tiny-light.css`}</code></pre>
+    └── tiny-light.css`} language="text" />
 	</section>
 	
 	<section>
@@ -182,7 +183,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
 		</ol>
 		
 		<h3>Example Theme</h3>
-		<pre><code>{`/* My Custom Theme */
+		<CodeBlock code={`/* My Custom Theme */
 /* Author: Your Name */
 
 [data-theme="my-theme"] {
@@ -212,7 +213,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
   --warning-text: oklch(20% 0 0deg); /* Dark text for light yellow */
   --error-text: oklch(100% 0 0deg);
   --info-text: oklch(100% 0 0deg);
-}`}</code></pre>
+}`} language="css" />
 		
 		<h3>Contrast Text Colors</h3>
 		<p>When creating themes, ensure proper contrast by setting text colors based on background lightness:</p>
@@ -227,7 +228,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`}</code></pre>
 	<section>
 		<h2>Color Format</h2>
 		<p>All themes use <strong>OKLCH</strong> format with percentages and degrees:</p>
-		<pre><code>{`--bg: oklch(15% 0.015 270.5deg);`}</code></pre>
+		<CodeBlock code={`--bg: oklch(15% 0.015 270.5deg);`} language="css" />
 		<p>Format: <code>oklch(lightness% chroma hue)</code></p>
 		
 		<h3>OKLCH Benefits</h3>

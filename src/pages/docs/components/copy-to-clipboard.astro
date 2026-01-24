@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CopyToClipboard from '../../../components/CopyToClipboard.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="CopyToClipboard Component" description="Reusable component for copying text values to the clipboard with visual feedback">
@@ -15,13 +16,13 @@ import CopyToClipboard from '../../../components/CopyToClipboard.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<pre><code>{`---
+		<CodeBlock code={`---
 import CopyToClipboard from '../components/CopyToClipboard.astro';
 ---
 
 <CopyToClipboard id="copy-example-email" value="example@email.com" format="Email" />
 <CopyToClipboard id="copy-css-var" value="var(--accent)" format="CSS Variable" />
-<CopyToClipboard id="copy-hex-color" value="#FF5733" format="Hex" />`}</code></pre>
+<CopyToClipboard id="copy-hex-color" value="#FF5733" format="Hex" />`} language="astro" />
 		
 		<h3>Props</h3>
 		<ul>

@@ -1,0 +1,91 @@
+---
+import CopyToClipboard from './CopyToClipboard.astro';
+
+interface Props {
+  code: string;
+  language?: string;
+  class?: string;
+}
+
+const {
+  code,
+  language = '',
+  class: className = '',
+} = Astro.props;
+
+const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`code-block ${className}`.trim()}>
+  <div class="code-block__header">
+    {language && <span class="code-block__language">{language}</span>}
+    <CopyToClipboard 
+      value={code} 
+      format="Code" 
+      class="code-block__copy"
+      label="Copy code to clipboard"
+    />
+  </div>
+  <pre><code id={codeId}>{code}</code></pre>
+</div>
+
+<style>
+  .code-block {
+    position: relative;
+    margin: var(--spacing-4) 0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+  }
+  
+  .code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--background);
+    border-bottom: 1px solid var(--border);
+  }
+  
+  .code-block__language {
+    font-size: var(--font-size-xs);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .code-block__copy {
+    margin-left: auto;
+  }
+  
+  .code-block pre {
+    margin: 0;
+    padding: var(--spacing-4);
+    overflow-x: auto;
+    background-color: var(--background-alt);
+  }
+  
+  .code-block code {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--text);
+    white-space: pre;
+    word-wrap: normal;
+  }
+  
+  @media (width <= 640px) {
+    .code-block__header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-2);
+    }
+    
+    .code-block__copy {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>

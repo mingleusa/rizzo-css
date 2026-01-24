@@ -21,12 +21,11 @@ pnpm install
 rizzo-css/
 ├── src/
 │   ├── components/      # Astro components
+│   │   ├── Alert.astro
+│   │   ├── Badge.astro
 │   │   ├── Button.astro
-│   │   ├── Navbar.astro
-│   │   ├── Settings.astro
-│   │   ├── ThemeSwitcher.astro
-│   │   ├── Modal.astro
 │   │   ├── Card.astro
+│   │   ├── CodeBlock.astro
 │   │   ├── CopyToClipboard.astro
 │   │   ├── FormGroup.astro
 │   │   ├── Input.astro
@@ -34,6 +33,13 @@ rizzo-css/
 │   │   ├── Select.astro
 │   │   ├── Checkbox.astro
 │   │   ├── Radio.astro
+│   │   ├── Modal.astro
+│   │   ├── Navbar.astro
+│   │   ├── Search.astro
+│   │   ├── Settings.astro
+│   │   ├── ThemeSwitcher.astro
+│   │   ├── Toast.astro
+│   │   ├── Tooltip.astro
 │   │   └── icons/      # Icon components
 │   │       ├── Copy.astro
 │   │       ├── Check.astro
@@ -130,6 +136,7 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
+- [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 
 See the [Components Documentation](/docs/components) for an overview and links to all component pages.
 
@@ -168,7 +175,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables
