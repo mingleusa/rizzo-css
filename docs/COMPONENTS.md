@@ -417,15 +417,29 @@ See [Design System Documentation](./DESIGN_SYSTEM.md) for complete utility refer
 
 ## Icon Components
 
-Reusable SVG icon components using Tabler Icons (MIT licensed).
+Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT licensed).
 
-### Available Icons
+### Regular Icons (Tabler Icons)
 
-Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check
+Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check, Search
 
-All icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and are accessible.
+All regular icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and automatically adapt to both light and dark themes.
 
-See [Icon Components Documentation](/docs/components/icons) for complete details.
+### Devicons (Colored Brand Icons)
+
+CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext
+
+Devicons use brand colors and are visible on both light and dark themes. They include colored gradients and paths optimized for visibility across all themes.
+
+### Icon Documentation
+
+The [Icon Components Documentation](/docs/components/icons) page features:
+- Interactive card-based grid layout (6 cards per row on desktop)
+- Click any card to copy the SVG code to clipboard
+- Visual preview of all icons
+- Complete usage examples
+
+All icons are organized in `/src/components/icons/` with devicons in the `devicons/` subfolder for maintainability.
 
 ## Form Components
 
@@ -465,9 +479,22 @@ A code block component with integrated copy-to-clipboard functionality. Used thr
 
 - **Icon-only copy button** - Clean copy button that doesn't duplicate code content
 - **Reads from code block** - Button copies the actual code from the `<code>` element
-- **Language labels** - Optional language indicator in header
-- **Theme-aware styling** - Matches current theme
-- **Accessible** - Proper ARIA labels and keyboard support
+- **Language icons** - Displays colored brand icons (Devicons) for supported languages in the header
+- **Responsive labels** - Language text appears next to icons on large screens (≥768px), hidden on mobile for screen readers only
+- **Theme-aware styling** - Matches current theme with proper contrast
+- **Accessible** - Proper ARIA labels, keyboard support, and screen reader text
+
+### Supported Languages
+
+The CodeBlock component displays icons for:
+- **CSS** - CSS3 brand icon
+- **HTML** - HTML5 brand icon
+- **JavaScript** - JavaScript brand icon
+- **Node.js** - Node.js brand icon
+- **Astro** - Astro brand icon (with theme-aware color adjustments)
+- **Plaintext** - Plaintext icon (theme-aware)
+
+For unsupported languages, the component falls back to text labels.
 
 ### Usage
 
@@ -477,15 +504,17 @@ import CodeBlock from '../components/CodeBlock.astro';
 ---
 
 <CodeBlock code={`const example = 'Hello World';`} language="javascript" />
+<CodeBlock code={`<div>HTML example</div>`} language="html" />
+<CodeBlock code={`body { color: red; }`} language="css" />
 ```
 
 ### Props
 
 - `code` (string, required) - The code content to display
-- `language` (string, optional) - Language label (e.g., "javascript", "astro", "css")
+- `language` (string, optional) - Language identifier (e.g., "javascript", "nodejs", "astro", "css", "html", "plaintext")
 - `class` (string, optional) - Additional CSS classes
 
-**Note**: All code examples throughout the documentation use this component, ensuring consistent styling and easy copying.
+**Note**: All code examples throughout the documentation use this component, ensuring consistent styling and easy copying. Language icons are automatically displayed for supported languages.
 
 ## Tooltip Component
 

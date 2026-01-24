@@ -142,12 +142,12 @@ Accessible, themeable components:
 - **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, and more)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
-- **CodeBlock** - Code block component with integrated copy-to-clipboard functionality. Used throughout documentation for code examples with icon-only copy buttons
+- **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages. Language text appears on large screens, icons only on mobile. Used throughout documentation for code examples
 - **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking

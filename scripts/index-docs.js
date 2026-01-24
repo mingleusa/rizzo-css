@@ -139,7 +139,7 @@ const componentPages = [
     title: 'Icons', 
     url: '/docs/components/icons', 
     category: 'Components',
-    description: 'Reusable SVG icon components using Tabler Icons (MIT licensed) with theme-aware styling using currentColor'
+    description: 'Reusable SVG icon components using Tabler Icons and Devicons (MIT licensed) with interactive card grid, copy functionality, and theme-aware styling'
   },
   { 
     title: 'Badge', 

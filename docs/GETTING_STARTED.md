@@ -53,7 +53,15 @@ rizzo-css/
 │   │       ├── Owl.astro
 │   │       ├── Palette.astro
 │   │       ├── Rainbow.astro
-│   │       └── Snowflake.astro
+│   │       ├── Search.astro
+│   │       ├── Snowflake.astro
+│   │       └── devicons/  # Devicon brand icons
+│   │           ├── Astro.astro
+│   │           ├── Css3.astro
+│   │           ├── Html5.astro
+│   │           ├── Javascript.astro
+│   │           ├── Nodejs.astro
+│   │           └── Plaintext.astro
 │   ├── layouts/         # Page layouts
 │   │   └── Layout.astro
 │   ├── pages/           # Route pages
@@ -128,7 +136,7 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
-- [Icons](/docs/components/icons) - Reusable SVG icon components
+- [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Cards](/docs/components/cards) - Flexible card component

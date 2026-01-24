@@ -123,7 +123,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<CodeBlock code={`.my-component {
   background-color: var(--background);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: var(--outline-width) solid var(--border);
 }
 
 .my-button {
@@ -194,28 +194,28 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<h3>Examples</h3>
 		<div class="example">
 			<div class="example-title">Live Examples</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="m-4" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="m-4" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Margin on all sides (m-4)
 				</div>
 			</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="mx-auto" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; max-width: 300px; text-align: center;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="mx-auto" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md); max-width: var(--spacing-75); text-align: center;">
 					Centered with auto margins (mx-auto)
 				</div>
 			</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="mt-6 mb-4" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="mt-6 mb-4" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Top and bottom margins (mt-6 mb-4)
 				</div>
 			</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="p-4" style="background-color: var(--background-alt); border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="p-4" style="background-color: var(--background-alt); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Padding on all sides (p-4)
 				</div>
 			</div>
 			<div>
-				<div class="px-6 py-4" style="background-color: var(--background-alt); border: 1px solid var(--border); border-radius: 0.375rem;">
+				<div class="px-6 py-4" style="background-color: var(--background-alt); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Horizontal and vertical padding (px-6 py-4)
 				</div>
 			</div>
@@ -251,13 +251,13 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<h3>Examples</h3>
 		<div class="example">
 			<div class="example-title">Live Examples</div>
-			<div class="container-sm" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+			<div class="container-sm" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md); margin-bottom: var(--spacing-4);">
 				Small container (container-sm) - 640px max-width
 			</div>
-			<div class="container-lg" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+			<div class="container-lg" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md); margin-bottom: var(--spacing-4);">
 				Large container (container-lg) - 1024px max-width
 			</div>
-			<div class="container-full" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div class="container-full" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 				Full width container (container-full) - 100% width with padding
 			</div>
 		</div>
@@ -312,10 +312,10 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<h3>Examples</h3>
 		<div class="example">
 			<div class="example-title">Live Examples</div>
-			<p class="max-w-2xl" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem; margin-bottom: 1rem;">
+			<p class="max-w-2xl" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md); margin-bottom: var(--spacing-4);">
 				This paragraph is constrained to 672px (max-w-2xl) for optimal readability.
 			</p>
-			<div class="max-w-screen-lg" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div class="max-w-screen-lg" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 				Content constrained to 1024px (max-w-screen-lg) - matches large screen breakpoint
 			</div>
 		</div>
@@ -367,23 +367,23 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<h3>Examples</h3>
 		<div class="example">
 			<div class="example-title">Live Examples</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="w-full" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="w-full" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Full width (w-full)
 				</div>
 			</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="w-64 h-32" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="w-64 h-32" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Fixed dimensions (w-64 h-32)
 				</div>
 			</div>
-			<div style="margin-bottom: 1rem;">
-				<div class="min-h-48" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+			<div style="margin-bottom: var(--spacing-4);">
+				<div class="min-h-48" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					Minimum height (min-h-48)
 				</div>
 			</div>
 			<div>
-				<div class="max-h-32 overflow-auto" style="background-color: var(--background-alt); padding: 1rem; border: 1px solid var(--border); border-radius: 0.375rem;">
+				<div class="max-h-32 overflow-auto" style="background-color: var(--background-alt); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-md);">
 					<div>Scrollable content with max height (max-h-32)</div>
 					<div>This box has a maximum height and will scroll if content exceeds it.</div>
 					<div>You can add more content here to see the scrolling behavior.</div>

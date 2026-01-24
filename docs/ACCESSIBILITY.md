@@ -61,6 +61,12 @@ Skip to main content link:
 <a href="#main-content" class="skip-link">Skip to main content</a>
 ```
 
+The skip link:
+- Is hidden by default using `clip-path: inset(100% 0 0 0)`
+- Becomes visible when focused (keyboard navigation)
+- Has a high z-index (`--z-skip-link: 10001`) to ensure it appears above all other elements, including the navbar
+- Maintains accessibility principles while ensuring visibility when needed
+
 ### Visually Hidden
 
 Hide content completely:
@@ -84,11 +90,31 @@ All interactive elements have visible focus indicators:
 
 ### Labels
 
-Always use labels with form inputs:
+Always use labels with form inputs. Labels must:
+- Be associated with a control using the `for` attribute (matching the input's `id`)
+- OR contain the form control as a nested element
+- Have visible text content (not empty)
+
+**Correct usage:**
 
 ```html
+<!-- Using for attribute -->
 <label for="email">Email</label>
 <input type="email" id="email" name="email" />
+
+<!-- Using nested control -->
+<label>
+  <input type="checkbox" name="newsletter" />
+  Subscribe to newsletter
+</label>
+```
+
+**Incorrect usage:**
+
+```html
+<!-- ❌ Label without associated control or text -->
+<label>Scrollbar style</label>
+<!-- Should be a <div> or <span> instead -->
 ```
 
 ### Required Fields

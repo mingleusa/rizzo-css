@@ -1,6 +1,12 @@
 ---
 import Copy from './icons/Copy.astro';
 import Check from './icons/Check.astro';
+import Css3 from './icons/devicons/Css3.astro';
+import Html5 from './icons/devicons/Html5.astro';
+import Javascript from './icons/devicons/Javascript.astro';
+import Nodejs from './icons/devicons/Nodejs.astro';
+import AstroIcon from './icons/devicons/Astro.astro';
+import Plaintext from './icons/devicons/Plaintext.astro';
 
 interface Props {
   code: string;
@@ -14,13 +20,59 @@ const {
   class: className = '',
 } = Astro.props;
 
+const languageLabel = language || '';
+const languageLower = language.toLowerCase();
+
 const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
 const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
 ---
 
 <div class={`code-block ${className}`.trim()}>
   <div class="code-block__header">
-    {language && <span class="code-block__language">{language}</span>}
+    {language && (
+      <span class="code-block__language" aria-label={languageLabel}>
+        {languageLower === 'css' && (
+          <>
+            <Css3 width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'html' && (
+          <>
+            <Html5 width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'javascript' && (
+          <>
+            <Javascript width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'nodejs' && (
+          <>
+            <Nodejs width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'astro' && (
+          <>
+            <AstroIcon width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'plaintext' && (
+          <>
+            <Plaintext width={16} height={16} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext'].includes(languageLower) && (
+          <span class="code-block__language-text">{language}</span>
+        )}
+        <span class="sr-only">{languageLabel}</span>
+      </span>
+    )}
     <button
       type="button"
       class="code-block__copy-btn"
@@ -166,11 +218,31 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
   }
   
   .code-block__language {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
     font-size: var(--font-size-xs);
     color: var(--text-dim);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wider);
     font-weight: var(--font-weight-medium);
+  }
+  
+  .code-block__language-icon {
+    display: block;
+    flex-shrink: 0;
+    color: var(--text-dim);
+  }
+  
+  .code-block__language-text {
+    display: none;
+  }
+  
+  /* Show text next to icon on large screens */
+  @media (width >= 768px) {
+    .code-block__language-text {
+      display: inline;
+    }
   }
   
   .code-block__copy-btn {

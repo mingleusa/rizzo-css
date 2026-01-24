@@ -12,7 +12,7 @@ git clone <repository-url>
 cd rizzo-css
 
 # Install dependencies
-pnpm install`} language="bash" />
+pnpm install`} language="nodejs" />
 	</section>
 	
 	<section>
@@ -74,20 +74,20 @@ pnpm install`} language="bash" />
 │   └── css/             # Generated CSS
 │       └── main.min.css
 └── scripts/             # Build scripts
-    └── build-css.js`} language="text" />
+    └── build-css.js`} language="plaintext" />
 	</section>
 	
 	<section>
 		<h2>Development</h2>
 		<p>Start the development server:</p>
-		<CodeBlock code={`pnpm dev`} language="bash" />
+		<CodeBlock code={`pnpm dev`} language="nodejs" />
 		<p>The site will be available at <code>http://localhost:4321</code></p>
 	</section>
 	
 	<section>
 		<h2>Building</h2>
 		<p>Build for production:</p>
-		<CodeBlock code={`pnpm build`} language="bash" />
+		<CodeBlock code={`pnpm build`} language="nodejs" />
 		<p>This will:</p>
 		<ol>
 			<li>Build and minify CSS to <code>public/css/main.min.css</code></li>

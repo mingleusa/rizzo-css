@@ -90,7 +90,7 @@ export ALGOLIA_API_KEY="your-admin-api-key"
 export ALGOLIA_INDEX_NAME="rizzo-css-docs"
 
 # Run indexing script
-node scripts/index-docs.js`} language="bash" />
+node scripts/index-docs.js`} language="nodejs" />
 			</li>
 			<li>Configure your Search component with the credentials</li>
 		</ol>
@@ -114,10 +114,10 @@ node scripts/index-docs.js`} language="bash" />
 <style>
 	kbd {
 		display: inline-block;
-		padding: 0.125rem 0.375rem;
+		padding: var(--spacing-0-125) var(--spacing-0-375);
 		background-color: var(--background-alt);
-		border: 1px solid var(--border);
-		border-radius: 0.25rem;
+		border: var(--outline-width) solid var(--border);
+		border-radius: var(--radius);
 		font-family: var(--font-family-mono);
 		font-size: var(--font-size-xs);
 		line-height: 1;
