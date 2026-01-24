@@ -137,6 +137,7 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
+- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
 
 See the [Components Documentation](/docs/components) for an overview and links to all component pages.
 
@@ -175,7 +176,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables

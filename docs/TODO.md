@@ -44,10 +44,10 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
   - [x] Positioning (top, bottom, left, right)
   - [x] Delay and hover states
 
-- [ ] **Dropdown Menu Component**
-  - [ ] Generic dropdown (not just theme switcher)
-  - [ ] Menu items and separators
-  - [ ] Nested menus
+- [x] **Dropdown Menu Component**
+  - [x] Generic dropdown (not just theme switcher)
+  - [x] Menu items and separators
+  - [x] Nested menus
 
 - [ ] **Tabs Component**
   - [ ] Tab navigation
@@ -283,10 +283,12 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
 - ✅ **Card** - Variants (elevated, outlined, filled), sections, images
 - ✅ **Modal** - Accessible modal with focus trapping and keyboard navigation
 - ✅ **CopyToClipboard** - Copy component with visual feedback and unique ID support
+- ✅ **CodeBlock** - Code block component with integrated copy-to-clipboard functionality for documentation
 - ✅ **ThemeSwitcher** - Accessible dropdown with theme icons and keyboard navigation
 - ✅ **Button** - Semantic button component with variants
 - ✅ **Badge** - Small labels and tags with variants, sizes, and pill option
 - ✅ **Icons** - Reusable SVG icon components using Tabler Icons
+- ✅ **Tooltip** - Accessible tooltip component with positioning options
 
 ### Utilities
 - ✅ Spacing System (comprehensive margin/padding utilities)
@@ -302,10 +304,12 @@ A comprehensive list of tasks to continue building and improving the Rizzo CSS d
 - ✅ Color Reference Page (interactive with format conversion)
 - ✅ Individual Component Documentation Pages
 - ✅ Theme Documentation Pages
+- ✅ CodeBlock Component (all code examples have copy-to-clipboard buttons)
 
 ### Features
 - ✅ Color Format Conversion (OKLCH to Hex, RGB, HSL)
 - ✅ Copy-to-Clipboard Functionality (with format selection)
+- ✅ CodeBlock Component (code examples with copy buttons throughout documentation)
 - ✅ Theme Flash Prevention
 - ✅ Settings Persistence (localStorage) - All settings (theme, font size, reduced motion, high contrast, scrollbar style) automatically persist
 - ✅ Keyboard Navigation (all components)

@@ -14,7 +14,7 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable). Persists in localStorage as <code>fontSizeScale</code></li>
 			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root. Persists in localStorage as <code>reducedMotion</code></li>
 			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root. Persists in localStorage as <code>highContrast</code></li>
-			<li><strong>Scrollbar Style</strong> - Radio button group with three options: Thin (default), Thick, and Hidden. Persists in localStorage as <code>scrollbarStyle</code> (values: <code>thin</code>, <code>thick</code>, <code>hidden</code>)</li>
+			<li><strong>Scrollbar Style</strong> - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to <code>html</code> element (<code>.scrollbar-thick</code> or <code>.scrollbar-hidden</code>). Persists in localStorage as <code>scrollbarStyle</code> (values: <code>thin</code>, <code>thick</code>, <code>hidden</code>)</li>
 			<li><strong>Opening and Closing Animations</strong> - Smooth slide-in from right with overlay fade (respects <code>prefers-reduced-motion</code>)</li>
 			<li><strong>Focus Trapping</strong> - Tab cycles within panel when open</li>
 			<li><strong>Focus Management</strong> - Returns focus to trigger element on close</li>

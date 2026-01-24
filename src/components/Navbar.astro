@@ -55,6 +55,7 @@ const navLinks: NavLink[] = [
       { href: '/docs/components/toast', label: 'Toast' },
       { href: '/docs/components/search', label: 'Search' },
       { href: '/docs/components/tooltip', label: 'Tooltip' },
+      { href: '/docs/components/dropdown', label: 'Dropdown' },
       { href: '/docs/components/copy-to-clipboard', label: 'CopyToClipboard' },
       { href: '/docs/components/icons', label: 'Icons' },
     ],
@@ -129,6 +130,7 @@ const navLinks: NavLink[] = [
               href={link.href} 
               class="navbar__link" 
               role="menuitem"
+              aria-label={link.label}
               aria-current={isActive && !hasSubLinks ? 'page' : undefined}
               aria-expanded={hasSubLinks ? 'false' : undefined}
               aria-haspopup={hasSubLinks ? 'true' : undefined}

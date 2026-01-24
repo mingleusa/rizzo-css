@@ -1,0 +1,777 @@
+---
+import ChevronDown from './icons/ChevronDown.astro';
+
+interface MenuItem {
+  label: string;
+  value?: string;
+  href?: string;
+  onClick?: string;
+  disabled?: boolean;
+  separator?: boolean;
+  submenu?: MenuItem[];
+}
+
+interface Props {
+  trigger: string;
+  items: MenuItem[];
+  id?: string;
+  class?: string;
+  position?: 'left' | 'right';
+  align?: 'start' | 'end';
+}
+
+const {
+  trigger,
+  items,
+  id,
+  class: className = '',
+  position = 'left',
+  align = 'start',
+} = Astro.props;
+
+const dropdownId = id || `dropdown-${Math.random().toString(36).substr(2, 9)}`;
+const triggerId = `${dropdownId}-trigger`;
+const menuId = `${dropdownId}-menu`;
+---
+
+<div class={`dropdown ${className}`.trim()} data-dropdown={dropdownId}>
+  <button
+    type="button"
+    class="dropdown__trigger"
+    id={triggerId}
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-controls={menuId}
+    aria-label={trigger}
+  >
+    <span class="dropdown__trigger-text">{trigger}</span>
+    <ChevronDown class="dropdown__icon" width={16} height={16} />
+  </button>
+  
+  <div
+    class={`dropdown__menu dropdown__menu--${position} dropdown__menu--${align}`}
+    id={menuId}
+    role="menu"
+    aria-labelledby={triggerId}
+    aria-label={`${trigger} menu`}
+    aria-orientation="vertical"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    {items.map((item, index) => {
+      if (item.separator) {
+        return <div class="dropdown__separator" role="separator" />;
+      }
+      
+      const itemId = `${dropdownId}-item-${index}`;
+      const hasSubmenu = item.submenu && item.submenu.length > 0;
+      const submenuId = hasSubmenu ? `${dropdownId}-submenu-${index}` : undefined;
+      
+      if (item.href) {
+        return (
+          <div class={`dropdown__item-wrapper ${hasSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+            <a
+              href={hasSubmenu ? '#' : item.href}
+              class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} ${hasSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+              role="menuitem"
+              id={itemId}
+              tabindex="-1"
+              aria-label={item.label}
+              aria-disabled={item.disabled ? 'true' : 'false'}
+              aria-expanded={hasSubmenu ? 'false' : undefined}
+              aria-haspopup={hasSubmenu ? 'true' : undefined}
+              aria-controls={submenuId}
+              data-dropdown-has-submenu={hasSubmenu ? 'true' : undefined}
+            >
+              <span>{item.label}</span>
+              {hasSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+            </a>
+            {hasSubmenu && item.submenu && (
+              <div
+                class="dropdown__submenu"
+                id={submenuId}
+                role="menu"
+                aria-label={`${item.label} submenu`}
+                aria-hidden="true"
+              >
+                {item.submenu.map((subItem, subIndex) => {
+                  if (subItem.separator) {
+                    return <div class="dropdown__separator" role="separator" />;
+                  }
+                  
+                  const subItemId = `${submenuId}-item-${subIndex}`;
+                  const hasNestedSubmenu = subItem.submenu && subItem.submenu.length > 0;
+                  const nestedSubmenuId = hasNestedSubmenu ? `${subItemId}-submenu` : undefined;
+                  
+                  if (subItem.href) {
+                    return (
+                      <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+                        <a
+                          href={hasNestedSubmenu ? '#' : subItem.href}
+                          class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+                          role="menuitem"
+                          id={subItemId}
+                          tabindex="-1"
+                          aria-label={subItem.label}
+                          aria-disabled={subItem.disabled ? 'true' : 'false'}
+                          aria-expanded={hasNestedSubmenu ? 'false' : undefined}
+                          aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
+                          aria-controls={nestedSubmenuId}
+                          data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
+                        >
+                          <span>{subItem.label}</span>
+                          {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+                        </a>
+                        {hasNestedSubmenu && subItem.submenu && (
+                          <div
+                            class="dropdown__submenu"
+                            id={nestedSubmenuId}
+                            role="menu"
+                            aria-label={`${subItem.label} submenu`}
+                            aria-hidden="true"
+                          >
+                            {subItem.submenu.map((nestedItem, nestedIndex) => {
+                              if (nestedItem.separator) {
+                                return <div class="dropdown__separator" role="separator" />;
+                              }
+                              
+                              const nestedItemId = `${nestedSubmenuId}-item-${nestedIndex}`;
+                              
+                              if (nestedItem.href) {
+                                return (
+                                  <a
+                                    href={nestedItem.href}
+                                    class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                    role="menuitem"
+                                    id={nestedItemId}
+                                    tabindex="-1"
+                                    aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                  >
+                                    <span>{nestedItem.label}</span>
+                                  </a>
+                                );
+                              }
+                              
+                              return (
+                                <button
+                                  type="button"
+                                  class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                  role="menuitem"
+                                  id={nestedItemId}
+                                  tabindex="-1"
+                                  aria-label={nestedItem.label}
+                                  aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                  data-dropdown-value={nestedItem.value || nestedItem.label}
+                                  data-dropdown-onclick={nestedItem.onClick || ''}
+                                >
+                                  <span>{nestedItem.label}</span>
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                  
+                  return (
+                    <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+                      <button
+                        type="button"
+                        class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+                        role="menuitem"
+                        id={subItemId}
+                        tabindex="-1"
+                        aria-label={subItem.label}
+                        aria-disabled={subItem.disabled ? 'true' : 'false'}
+                        aria-expanded={hasNestedSubmenu ? 'false' : undefined}
+                        aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
+                        aria-controls={nestedSubmenuId}
+                        data-dropdown-value={subItem.value || subItem.label}
+                        data-dropdown-onclick={subItem.onClick || ''}
+                        data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
+                      >
+                        <span>{subItem.label}</span>
+                        {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+                      </button>
+                      {hasNestedSubmenu && subItem.submenu && (
+                        <div
+                          class="dropdown__submenu"
+                          id={nestedSubmenuId}
+                          role="menu"
+                          aria-label={`${subItem.label} submenu`}
+                          aria-hidden="true"
+                        >
+                          {subItem.submenu.map((nestedItem, nestedIndex) => {
+                            if (nestedItem.separator) {
+                              return <div class="dropdown__separator" role="separator" />;
+                            }
+                            
+                            const nestedItemId = `${nestedSubmenuId}-item-${nestedIndex}`;
+                            
+                            if (nestedItem.href) {
+                              return (
+                                <a
+                                  href={nestedItem.href}
+                                  class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                  role="menuitem"
+                                  id={nestedItemId}
+                                  tabindex="-1"
+                                  aria-label={nestedItem.label}
+                                  aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                >
+                                  <span>{nestedItem.label}</span>
+                                </a>
+                              );
+                            }
+                            
+                            return (
+                              <button
+                                type="button"
+                                class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                role="menuitem"
+                                id={nestedItemId}
+                                tabindex="-1"
+                                aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                data-dropdown-value={nestedItem.value || nestedItem.label}
+                                data-dropdown-onclick={nestedItem.onClick || ''}
+                              >
+                                <span>{nestedItem.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        );
+      }
+      
+      return (
+        <div class={`dropdown__item-wrapper ${hasSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+          <button
+            type="button"
+            class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} ${hasSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+            role="menuitem"
+            id={itemId}
+            tabindex="-1"
+            aria-disabled={item.disabled ? 'true' : 'false'}
+            aria-expanded={hasSubmenu ? 'false' : undefined}
+            aria-haspopup={hasSubmenu ? 'true' : undefined}
+            aria-controls={submenuId}
+            data-dropdown-value={item.value || item.label}
+            data-dropdown-onclick={item.onClick || ''}
+            data-dropdown-has-submenu={hasSubmenu ? 'true' : undefined}
+          >
+            <span>{item.label}</span>
+            {hasSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+          </button>
+          {hasSubmenu && item.submenu && (
+            <div
+              class="dropdown__submenu"
+              id={submenuId}
+              role="menu"
+              aria-label={`${item.label} submenu`}
+              aria-hidden="true"
+            >
+              {item.submenu.map((subItem, subIndex) => {
+                if (subItem.separator) {
+                  return <div class="dropdown__separator" role="separator" />;
+                }
+                
+                const subItemId = `${submenuId}-item-${subIndex}`;
+                const hasNestedSubmenu = subItem.submenu && subItem.submenu.length > 0;
+                const nestedSubmenuId = hasNestedSubmenu ? `${subItemId}-submenu` : undefined;
+                
+                if (subItem.href) {
+                  return (
+                    <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+                      <a
+                        href={hasNestedSubmenu ? '#' : subItem.href}
+                        class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+                        role="menuitem"
+                        id={subItemId}
+                        tabindex="-1"
+                        aria-disabled={subItem.disabled ? 'true' : 'false'}
+                        aria-expanded={hasNestedSubmenu ? 'false' : undefined}
+                        aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
+                        aria-controls={nestedSubmenuId}
+                        data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
+                      >
+                        <span>{subItem.label}</span>
+                        {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+                      </a>
+                      {hasNestedSubmenu && subItem.submenu && (
+                        <div
+                          class="dropdown__submenu"
+                          id={nestedSubmenuId}
+                          role="menu"
+                          aria-label={`${subItem.label} submenu`}
+                          aria-hidden="true"
+                        >
+                          {subItem.submenu.map((nestedItem, nestedIndex) => {
+                            if (nestedItem.separator) {
+                              return <div class="dropdown__separator" role="separator" />;
+                            }
+                            
+                            const nestedItemId = `${nestedSubmenuId}-item-${nestedIndex}`;
+                            
+                            if (nestedItem.href) {
+                              return (
+                                <a
+                                  href={nestedItem.href}
+                                  class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                  role="menuitem"
+                                  id={nestedItemId}
+                                  tabindex="-1"
+                                  aria-label={nestedItem.label}
+                                  aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                >
+                                  <span>{nestedItem.label}</span>
+                                </a>
+                              );
+                            }
+                            
+                            return (
+                              <button
+                                type="button"
+                                class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                role="menuitem"
+                                id={nestedItemId}
+                                tabindex="-1"
+                                aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                data-dropdown-value={nestedItem.value || nestedItem.label}
+                                data-dropdown-onclick={nestedItem.onClick || ''}
+                              >
+                                <span>{nestedItem.label}</span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+                
+                return (
+                  <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
+                    <button
+                      type="button"
+                      class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
+                      role="menuitem"
+                      id={subItemId}
+                      tabindex="-1"
+                      aria-label={subItem.label}
+                      aria-disabled={subItem.disabled ? 'true' : 'false'}
+                      aria-expanded={hasNestedSubmenu ? 'false' : undefined}
+                      aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
+                      aria-controls={nestedSubmenuId}
+                      data-dropdown-value={subItem.value || subItem.label}
+                      data-dropdown-onclick={subItem.onClick || ''}
+                      data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
+                    >
+                      <span>{subItem.label}</span>
+                      {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
+                    </button>
+                    {hasNestedSubmenu && subItem.submenu && (
+                      <div
+                        class="dropdown__submenu"
+                        id={nestedSubmenuId}
+                        role="menu"
+                        aria-label={`${subItem.label} submenu`}
+                        aria-hidden="true"
+                      >
+                        {subItem.submenu.map((nestedItem, nestedIndex) => {
+                          if (nestedItem.separator) {
+                            return <div class="dropdown__separator" role="separator" />;
+                          }
+                          
+                          const nestedItemId = `${nestedSubmenuId}-item-${nestedIndex}`;
+                          
+                          if (nestedItem.href) {
+                            return (
+                              <a
+                                href={nestedItem.href}
+                                class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                                role="menuitem"
+                                id={nestedItemId}
+                                tabindex="-1"
+                                aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                              >
+                                <span>{nestedItem.label}</span>
+                              </a>
+                            );
+                          }
+                          
+                          return (
+                            <button
+                              type="button"
+                              class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                              role="menuitem"
+                              id={nestedItemId}
+                              tabindex="-1"
+                              aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                              data-dropdown-value={nestedItem.value || nestedItem.label}
+                              data-dropdown-onclick={nestedItem.onClick || ''}
+                            >
+                              <span>{nestedItem.label}</span>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      );
+    })}
+  </div>
+</div>
+
+<script is:inline>
+  (function initDropdown() {
+    const init = () => {
+      const dropdowns = document.querySelectorAll('[data-dropdown]');
+      
+      dropdowns.forEach((dropdown) => {
+        const dropdownId = dropdown.getAttribute('data-dropdown');
+        if (!dropdownId) return;
+        
+        if (dropdown.hasAttribute('data-dropdown-initialized')) return;
+        dropdown.setAttribute('data-dropdown-initialized', 'true');
+        
+        const trigger = dropdown.querySelector('.dropdown__trigger');
+        const menu = dropdown.querySelector('.dropdown__menu');
+        const items = dropdown.querySelectorAll('.dropdown__item');
+        const itemWrappers = dropdown.querySelectorAll('.dropdown__item-wrapper');
+        
+        if (!trigger || !menu) return;
+        
+        let currentIndex = -1;
+        
+        const getVisibleItems = () => {
+          return Array.from(items).filter(item => {
+            const isDisabled = item.getAttribute('aria-disabled') === 'true';
+            const wrapper = item.closest('.dropdown__item-wrapper');
+            const submenu = wrapper ? wrapper.querySelector('.dropdown__submenu') : null;
+            // Don't include submenu items in main navigation
+            if (submenu && item.closest('.dropdown__submenu')) {
+              return false;
+            }
+            return !isDisabled && (item.offsetParent !== null || menu.classList.contains('dropdown__menu--open'));
+          });
+        };
+        
+        // Close all submenus except the one being opened
+        const closeAllSubmenus = (exceptWrapper = null) => {
+          itemWrappers.forEach((wrapper) => {
+            if (wrapper === exceptWrapper) return; // Don't close the one we're opening
+            const submenu = wrapper.querySelector('.dropdown__submenu');
+            const item = wrapper.querySelector('.dropdown__item');
+            if (submenu && item) {
+              submenu.classList.remove('dropdown__submenu--open');
+              submenu.setAttribute('aria-hidden', 'true');
+              item.setAttribute('aria-expanded', 'false');
+            }
+          });
+        };
+        
+        // Toggle submenu
+        const toggleSubmenu = (wrapper, open) => {
+          const submenu = wrapper.querySelector('.dropdown__submenu');
+          const item = wrapper.querySelector('.dropdown__item');
+          if (!submenu || !item) return;
+          
+          const isOpen = open !== undefined ? open : submenu.classList.contains('dropdown__submenu--open');
+          const willBeOpen = !isOpen;
+          
+          // Close other submenus at the same level, but keep parent submenus open
+          if (willBeOpen) {
+            // Find all submenus at the same level (siblings of the current wrapper's parent)
+            const parentSubmenu = wrapper.closest('.dropdown__submenu');
+            if (parentSubmenu) {
+              // Close siblings within the same parent submenu
+              const siblingWrappers = parentSubmenu.querySelectorAll('.dropdown__item-wrapper');
+              siblingWrappers.forEach((siblingWrapper) => {
+                if (siblingWrapper === wrapper) return; // Don't close the one we're opening
+                const siblingSubmenu = siblingWrapper.querySelector('.dropdown__submenu');
+                const siblingItem = siblingWrapper.querySelector('.dropdown__item');
+                if (siblingSubmenu && siblingItem) {
+                  siblingSubmenu.classList.remove('dropdown__submenu--open');
+                  siblingSubmenu.setAttribute('aria-hidden', 'true');
+                  siblingItem.setAttribute('aria-expanded', 'false');
+                }
+              });
+            } else {
+              // Main menu level - close all other main menu submenus
+              closeAllSubmenus(wrapper);
+            }
+          }
+          
+          // Toggle the open class
+          if (willBeOpen) {
+            submenu.classList.add('dropdown__submenu--open');
+            submenu.setAttribute('aria-hidden', 'false');
+            item.setAttribute('aria-expanded', 'true');
+          } else {
+            submenu.classList.remove('dropdown__submenu--open');
+            submenu.setAttribute('aria-hidden', 'true');
+            item.setAttribute('aria-expanded', 'false');
+          }
+          
+          // Position submenu - now positioned directly under the item
+          if (willBeOpen) {
+            // Submenu is positioned directly under via CSS (top: 100%, left: 0, right: 0)
+            // No JavaScript positioning needed
+          } else {
+            // Reset any inline styles when closing
+            submenu.style.left = '';
+            submenu.style.right = '';
+            submenu.style.top = '';
+            submenu.style.marginLeft = '';
+            submenu.style.marginRight = '';
+            submenu.style.marginTop = '';
+            submenu.style.maxWidth = '';
+            submenu.style.width = '';
+          }
+        };
+        
+        const toggleMenu = (open) => {
+          const isOpen = open !== undefined ? open : menu.classList.contains('dropdown__menu--open');
+          const willBeOpen = !isOpen;
+          
+          menu.classList.toggle('dropdown__menu--open', willBeOpen);
+          trigger.setAttribute('aria-expanded', willBeOpen.toString());
+          menu.setAttribute('aria-hidden', (!willBeOpen).toString());
+          
+          items.forEach((item) => {
+            item.setAttribute('tabindex', willBeOpen ? '0' : '-1');
+          });
+          
+          if (!willBeOpen) {
+            trigger.focus();
+            currentIndex = -1;
+            closeAllSubmenus();
+          } else {
+            const visibleItems = getVisibleItems();
+            if (visibleItems.length > 0) {
+              currentIndex = 0;
+              setTimeout(() => visibleItems[0].focus(), 0);
+            }
+          }
+        };
+        
+        const closeMenu = () => {
+          menu.classList.remove('dropdown__menu--open');
+          trigger.setAttribute('aria-expanded', 'false');
+          menu.setAttribute('aria-hidden', 'true');
+          items.forEach((item) => {
+            item.setAttribute('tabindex', '-1');
+          });
+          closeAllSubmenus();
+          currentIndex = -1;
+        };
+        
+        // Handle outside click
+        const handleOutsideClick = (e) => {
+          if (e && e.target && !dropdown.contains(e.target)) {
+            closeMenu();
+            document.removeEventListener('click', handleOutsideClick);
+          }
+        };
+        
+        const wrappedToggleMenu = (open) => {
+          const wasOpen = menu.classList.contains('dropdown__menu--open');
+          toggleMenu(open);
+          const isNowOpen = menu.classList.contains('dropdown__menu--open');
+          
+          if (isNowOpen && !wasOpen) {
+            setTimeout(() => document.addEventListener('click', handleOutsideClick), 0);
+          } else if (!isNowOpen && wasOpen) {
+            document.removeEventListener('click', handleOutsideClick);
+          }
+        };
+        
+        // Trigger click
+        trigger.addEventListener('click', () => wrappedToggleMenu(undefined));
+        
+        // Menu item click handler - handles all clicks including nested submenus
+        menu.addEventListener('click', (e) => {
+          const target = e.target;
+          // Find the item - could be the button/a itself, or a child element (span, arrow icon, etc.)
+          const item = target.closest('.dropdown__item');
+          if (!item) return;
+          
+          // Stop propagation to prevent outside click handler from firing
+          e.stopPropagation();
+          
+          const isDisabled = item.getAttribute('aria-disabled') === 'true';
+          if (isDisabled) {
+            e.preventDefault();
+            return;
+          }
+          
+          // FIRST: Check if item has submenu by finding wrapper and checking for submenu
+          // This must be checked FIRST, regardless of whether item is in a submenu or not
+          const wrapper = item.closest('.dropdown__item-wrapper');
+          
+          if (wrapper) {
+            const submenu = wrapper.querySelector('.dropdown__submenu');
+            if (submenu) {
+              // Item has submenu - toggle it (works for main menu items AND nested submenu items)
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              toggleSubmenu(wrapper, undefined);
+              return;
+            }
+          }
+          
+          // Item does NOT have a submenu - handle as regular item
+          // If it's a link with href="#", prevent navigation
+          if (item.tagName === 'A' && item.getAttribute('href') === '#') {
+            e.preventDefault();
+          }
+          
+          const onClick = item.getAttribute('data-dropdown-onclick');
+          if (onClick && typeof window[onClick] === 'function') {
+            const value = item.getAttribute('data-dropdown-value') || item.textContent?.trim() || '';
+            window[onClick](value);
+          }
+          
+          // Close menu for final items (items without submenus)
+          closeMenu();
+        });
+        
+        // Keyboard navigation on trigger
+        trigger.addEventListener('keydown', (e) => {
+          if (e && 'key' in e) {
+            const keyEvent = e;
+            if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+              keyEvent.preventDefault();
+              wrappedToggleMenu(undefined);
+            } else if (keyEvent.key === 'ArrowDown') {
+              keyEvent.preventDefault();
+              const visibleItems = getVisibleItems();
+              if (visibleItems.length > 0) {
+                currentIndex = 0;
+                wrappedToggleMenu(true);
+                setTimeout(() => visibleItems[0].focus(), 0);
+              }
+            } else if (keyEvent.key === 'ArrowUp') {
+              keyEvent.preventDefault();
+              const visibleItems = getVisibleItems();
+              if (visibleItems.length > 0) {
+                currentIndex = visibleItems.length - 1;
+                wrappedToggleMenu(true);
+                setTimeout(() => visibleItems[currentIndex].focus(), 0);
+              }
+            } else if (keyEvent.key === 'Escape') {
+              keyEvent.preventDefault();
+              closeMenu();
+            }
+          }
+        });
+        
+        // Keyboard navigation in menu
+        menu.addEventListener('keydown', (e) => {
+          if (e && 'key' in e) {
+            const keyEvent = e;
+            const visibleItems = getVisibleItems();
+            
+            if (keyEvent.key === 'Escape') {
+              keyEvent.preventDefault();
+              closeMenu();
+              trigger.focus();
+            } else if (keyEvent.key === 'ArrowDown') {
+              keyEvent.preventDefault();
+              currentIndex = (currentIndex + 1) % visibleItems.length;
+              visibleItems[currentIndex].focus();
+            } else if (keyEvent.key === 'ArrowUp') {
+              keyEvent.preventDefault();
+              currentIndex = currentIndex <= 0 ? visibleItems.length - 1 : currentIndex - 1;
+              visibleItems[currentIndex].focus();
+            } else if (keyEvent.key === 'Home') {
+              keyEvent.preventDefault();
+              currentIndex = 0;
+              visibleItems[0].focus();
+            } else if (keyEvent.key === 'End') {
+              keyEvent.preventDefault();
+              currentIndex = visibleItems.length - 1;
+              visibleItems[currentIndex].focus();
+            } else if (keyEvent.key === 'ArrowRight') {
+              // Open submenu if available
+              const target = keyEvent.target;
+              if (target && target instanceof HTMLElement) {
+                const wrapper = target.closest('.dropdown__item-wrapper');
+                if (wrapper) {
+                  const submenu = wrapper.querySelector('.dropdown__submenu');
+                  if (submenu) {
+                    keyEvent.preventDefault();
+                    toggleSubmenu(wrapper, true);
+                    const firstSubItem = submenu.querySelector('.dropdown__item');
+                    if (firstSubItem) {
+                      setTimeout(() => firstSubItem.focus(), 0);
+                    }
+                  }
+                }
+              }
+            } else if (keyEvent.key === 'ArrowLeft') {
+              // Close submenu if in one
+              const target = keyEvent.target;
+              if (target && target instanceof HTMLElement) {
+                const submenu = target.closest('.dropdown__submenu');
+                if (submenu) {
+                  keyEvent.preventDefault();
+                  const wrapper = submenu.closest('.dropdown__item-wrapper');
+                  if (wrapper) {
+                    toggleSubmenu(wrapper, false);
+                    const parentItem = wrapper.querySelector('.dropdown__item');
+                    if (parentItem) {
+                      parentItem.focus();
+                    }
+                  }
+                }
+              }
+            } else if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+              keyEvent.preventDefault();
+              const target = keyEvent.target;
+              if (target && target instanceof HTMLElement) {
+                const isDisabled = target.getAttribute('aria-disabled') === 'true';
+                if (!isDisabled) {
+                  // Check if item has submenu
+                  const wrapper = target.closest('.dropdown__item-wrapper');
+                  const submenu = wrapper ? wrapper.querySelector('.dropdown__submenu') : null;
+                  if (submenu) {
+                    toggleSubmenu(wrapper, undefined);
+                  } else {
+                    if (target.tagName === 'A') {
+                      target.click();
+                    } else if (target.tagName === 'BUTTON') {
+                      target.click();
+                    }
+                    closeMenu();
+                  }
+                }
+              }
+            } else if (keyEvent.key === 'Tab') {
+              closeMenu();
+            }
+          }
+        });
+      });
+    };
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

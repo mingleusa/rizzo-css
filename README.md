@@ -85,7 +85,7 @@ CSS is organized into logical files:
 - `sizes.css` - Width, height, min/max dimensions, and container utilities
 - `utilities.css` - Utility classes (colors, borders, focus states)
 - `forms.css` - Form component styles
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip)
+- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown)
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
 - `themes/` - Theme definitions (dark/light folders)
@@ -121,10 +121,12 @@ Accessible, themeable components:
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
+- **CodeBlock** - Code block component with integrated copy-to-clipboard functionality. Used throughout documentation for code examples with icon-only copy buttons
 - **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
+- **Dropdown** - Accessible dropdown menu component with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
 
 All components:
 - Use semantic theme variables with contrast-aware text colors

@@ -18,6 +18,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
+- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation and menu items
 
 ## Component Features
 
@@ -91,7 +92,7 @@ window.openSettings();
 - **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable). Persists in localStorage as `fontSizeScale`
 - **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
-- **Scrollbar Style** - Radio button group with three options: Thin (default), Thick, and Hidden. Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
+- **Scrollbar Style** - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to `html` element (`scrollbar-thick` or `scrollbar-hidden`). Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
 - Slide-in panel with overlay
 - **Opening and closing animations** - Smooth slide-in from right with overlay fade (respects `prefers-reduced-motion`)
 - **All settings persist in localStorage** - All preferences are automatically saved and restored on page load
@@ -433,6 +434,36 @@ Component for copying text values to the clipboard with visual feedback.
 
 See [CopyToClipboard Documentation](/docs/components/copy-to-clipboard) for complete details.
 
+## CodeBlock Component
+
+A code block component with integrated copy-to-clipboard functionality. Used throughout documentation to display code examples with a copy button.
+
+### Features
+
+- **Icon-only copy button** - Clean copy button that doesn't duplicate code content
+- **Reads from code block** - Button copies the actual code from the `<code>` element
+- **Language labels** - Optional language indicator in header
+- **Theme-aware styling** - Matches current theme
+- **Accessible** - Proper ARIA labels and keyboard support
+
+### Usage
+
+```astro
+---
+import CodeBlock from '../components/CodeBlock.astro';
+---
+
+<CodeBlock code={`const example = 'Hello World';`} language="javascript" />
+```
+
+### Props
+
+- `code` (string, required) - The code content to display
+- `language` (string, optional) - Language label (e.g., "javascript", "astro", "css")
+- `class` (string, optional) - Additional CSS classes
+
+**Note**: All code examples throughout the documentation use this component, ensuring consistent styling and easy copying.
+
 ## Tooltip Component
 
 Accessible tooltip component that provides additional context when users hover over or focus on elements.
@@ -477,6 +508,71 @@ import Tooltip from '../components/Tooltip.astro';
 - Screen reader compatible
 
 See [Tooltip Documentation](/docs/components/tooltip) for complete details and live examples.
+
+## Dropdown Component
+
+Accessible dropdown menu component for displaying lists of actions or options. Supports nested submenus up to 3 levels deep.
+
+### Usage
+
+```astro
+---
+import Dropdown from '../components/Dropdown.astro';
+---
+
+<Dropdown 
+  trigger="Actions"
+  items={[
+    { label: 'Edit', value: 'edit', onClick: 'handleAction' },
+    { label: 'Delete', value: 'delete', onClick: 'handleAction' },
+    { separator: true },
+    { label: 'Settings', href: '/settings' },
+  ]}
+/>
+```
+
+### Props
+
+- `trigger` (string, required) - Text displayed on the trigger button
+- `items` (MenuItem[], required) - Array of menu items
+- `id` (string, optional) - Unique ID for the dropdown. Auto-generated if not provided
+- `class` (string, optional) - Additional CSS classes
+- `position` ('left' | 'right', optional) - Menu position relative to trigger (default: 'left')
+- `align` ('start' | 'end', optional) - Menu alignment within position (default: 'start')
+
+### MenuItem Interface
+
+- `label` (string, required) - Display text for the menu item
+- `value` (string, optional) - Value passed to onClick handler
+- `href` (string, optional) - If provided, renders as a link instead of button
+- `onClick` (string, optional) - Name of global function to call when clicked (must be available on window)
+- `disabled` (boolean, optional) - Whether the item is disabled
+- `separator` (boolean, optional) - If true, renders as a separator line
+- `submenu` (MenuItem[], optional) - Array of menu items for nested submenu (supports up to 3 levels)
+
+### Features
+
+- Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End, Tab)
+- Nested submenus with click-to-open and keyboard support (ArrowRight/ArrowLeft)
+- Supports up to 3 levels of nested menus with proper parent menu preservation
+- Submenu items properly handle clicks and close parent menu
+- Accessible ARIA attributes (role="menu", role="menuitem", aria-expanded, aria-haspopup, aria-label)
+- All menu items have accessible names via aria-label attributes
+- WCAG AA compliant touch targets (minimum 2.5rem/40px height)
+- No horizontal scrolling - submenus appear directly under parent items
+- Menus expand to show all items without vertical scrollbars
+- Smart submenu closing - only closes siblings at the same level, preserves parent menus
+- Outside click to close
+- Focus management (returns to trigger on close)
+- Menu items can be links or buttons
+- Separator support for grouping items
+- Disabled item support
+- Positioning options (left/right alignment)
+- Theme-aware styling using semantic variables
+- Smooth animations (respects prefers-reduced-motion)
+- Mobile responsive
+
+See [Dropdown Documentation](/docs/components/dropdown) for complete details and live examples.
 
 ## Utility Classes
 

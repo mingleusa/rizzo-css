@@ -17,11 +17,12 @@ All interactive components support full keyboard navigation:
 
 Components include proper ARIA attributes:
 
-- `aria-label` - Descriptive labels
+- `aria-label` - Descriptive labels for all interactive elements (buttons, links, menu items)
 - `aria-expanded` - Menu/accordion state
 - `aria-controls` - Element relationships
 - `aria-describedby` - Additional descriptions
-- `role` - Semantic roles
+- `aria-haspopup` - Indicates elements with popup menus
+- `role` - Semantic roles (menu, menuitem, dialog, etc.)
 
 ### Focus Management
 
