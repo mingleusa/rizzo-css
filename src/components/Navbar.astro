@@ -188,10 +188,10 @@ const navLinks: NavLink[] = [
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
 
-    const toggle = navbar.querySelector('.navbar__toggle');
+    const menuToggleBtn = document.getElementById('navbar-toggle');
     const menu = navbar.querySelector('.navbar__menu');
     
-    if (!toggle || !menu) return;
+    if (!menuToggleBtn || !menu) return;
 
     const toggleMenu = (open?: boolean) => {
       const isOpen = open !== undefined ? open : menu.classList.contains('navbar__menu--open');
@@ -225,13 +225,13 @@ const navLinks: NavLink[] = [
       }
       
       menu.classList.toggle('navbar__menu--open', !isOpen);
-      toggle.setAttribute('aria-expanded', (!isOpen).toString());
+      menuToggleBtn.setAttribute('aria-expanded', (!isOpen).toString());
     };
 
-    toggle.addEventListener('click', (e) => {
-      // Don't toggle if clicking on a dropdown toggle
+    menuToggleBtn.addEventListener('click', (e) => {
       const target = e.target as Element;
-      if (target && target.closest('[data-dropdown-toggle]')) {
+      // Only skip if click was inside the menu (e.g. dropdown toggle) - not when clicking the hamburger
+      if (target.closest('#navbar-menu') && target.closest('[data-dropdown-toggle]')) {
         return;
       }
       toggleMenu();
@@ -239,8 +239,8 @@ const navLinks: NavLink[] = [
 
     // Dropdown menu handling
     const dropdownToggles = navbar.querySelectorAll('[data-dropdown-toggle]');
-    dropdownToggles.forEach((toggle) => {
-      const item = toggle.closest('.navbar__item--has-dropdown');
+    dropdownToggles.forEach((dropdownToggleBtn) => {
+      const item = dropdownToggleBtn.closest('.navbar__item--has-dropdown');
       if (!item) return;
 
       const submenu = item.querySelector('.navbar__submenu');
@@ -319,10 +319,10 @@ const navLinks: NavLink[] = [
       };
 
       // Always use capture phase to ensure we handle it before any other listeners
-      toggle.addEventListener('click', handleToggle, true);
+      dropdownToggleBtn.addEventListener('click', handleToggle, true);
 
       // Keyboard navigation on dropdown toggle
-      toggle.addEventListener('keydown', (e: Event) => {
+      dropdownToggleBtn.addEventListener('keydown', (e: Event) => {
         const keyEvent = e as KeyboardEvent;
         if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
           keyEvent.preventDefault();
@@ -359,7 +359,7 @@ const navLinks: NavLink[] = [
           if (keyEvent.key === 'Escape') {
             keyEvent.preventDefault();
             item.setAttribute('aria-expanded', 'false');
-            (toggle as HTMLElement).focus();
+            (dropdownToggleBtn as HTMLElement).focus();
           } else if (keyEvent.key === 'ArrowDown') {
             keyEvent.preventDefault();
             const nextIndex = (currentIndex + 1) % sublinks.length;
@@ -404,8 +404,8 @@ const navLinks: NavLink[] = [
         const target = e.target;
         // Don't close if clicking on the dropdown toggle or its children
         const clickedToggle = target && target instanceof Element && (
-          target === toggle || 
-          target.closest('[data-dropdown-toggle]') === toggle
+          target === dropdownToggleBtn ||
+          target.closest('[data-dropdown-toggle]') === dropdownToggleBtn
         );
         if (target && target instanceof Node && !item.contains(target) && !clickedToggle) {
           item.setAttribute('aria-expanded', 'false');
@@ -432,7 +432,7 @@ const navLinks: NavLink[] = [
       // Only close if clicking completely outside the navbar
       if (target && !navbar.contains(target as Node)) {
         menu.classList.remove('navbar__menu--open');
-        toggle.setAttribute('aria-expanded', 'false');
+        menuToggleBtn.setAttribute('aria-expanded', 'false');
         // Close all dropdowns
         dropdownToggles.forEach((dt) => {
           const item = dt.closest('.navbar__item--has-dropdown');
@@ -447,7 +447,7 @@ const navLinks: NavLink[] = [
       if (keyEvent.key === 'Escape') {
         if (menu.classList.contains('navbar__menu--open')) {
           toggleMenu(false);
-          (toggle as HTMLElement).focus();
+          menuToggleBtn.focus();
         }
         // Close all dropdowns
         dropdownToggles.forEach((dt) => {
@@ -486,7 +486,7 @@ const navLinks: NavLink[] = [
       resizeTimer = setTimeout(() => {
         if (window.innerWidth >= 1024) {
           menu.classList.remove('navbar__menu--open');
-          toggle.setAttribute('aria-expanded', 'false');
+          menuToggleBtn.setAttribute('aria-expanded', 'false');
           // Close all dropdowns
           dropdownToggles.forEach((dt) => {
             const item = dt.closest('.navbar__item--has-dropdown');

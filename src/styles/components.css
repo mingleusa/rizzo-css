@@ -445,11 +445,28 @@ button.navbar__link {
 /* Navbar Mobile styles */
 @media (width <= 1023px) {
   .navbar {
-    overflow-x: hidden; /* Prevent horizontal overflow from menu or content */
+    overflow-x: clip; /* Clip overflow without creating scrollbar; menu still visible below */
+  }
+
+  .navbar__container {
+    padding-left: var(--spacing-3);
+    padding-right: var(--spacing-3);
+    min-width: 0; /* Allow flex item to shrink below content size */
+    gap: var(--spacing-2); /* Tighter gap on mobile so bar doesn't overflow */
   }
 
   .navbar__brand {
     order: 0;
+    min-width: 0; /* Allow brand to shrink so text can truncate */
+    flex-shrink: 1;
+    overflow: hidden;
+  }
+
+  .navbar__brand-link {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
   }
   
   .navbar__toggle {
@@ -499,6 +516,7 @@ button.navbar__link {
     gap: var(--spacing-0);
     max-height: 0;
     overflow: hidden;
+    pointer-events: none; /* Don't block hamburger when closed */
     transition: max-height var(--transition-slowest) var(--ease-in-out-cubic), opacity var(--transition-ease-out), padding var(--transition-slowest) var(--ease-in-out-cubic);
     opacity: 0;
     box-shadow: var(--shadow-md);
@@ -524,6 +542,7 @@ button.navbar__link {
     padding: var(--spacing-4) 0; /* Top and bottom padding only */
     border-bottom: none !important; /* No bottom border */
     opacity: 1;
+    pointer-events: auto; /* Allow clicks when open */
     transition: max-height var(--transition-slowest) var(--ease-in-out-cubic), opacity var(--transition-ease-in), padding var(--transition-slowest) var(--ease-in-out-cubic);
 
     /* Prevent scroll position from jumping when dropdowns open */
@@ -668,9 +687,49 @@ button.navbar__link {
     border-bottom: 1px solid var(--border);
   }
 
-  /* On mobile: Show settings in navbar__actions-desktop (on far right like desktop) */
+  /* On mobile: Search and settings same size as menu toggle, icons only */
   .navbar__actions-desktop .navbar__settings-btn {
-    display: flex; /* Show settings button on mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2) var(--spacing-3);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    width: auto;
+  }
+
+  .navbar__actions-desktop .navbar__settings-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Search trigger: same size as menu toggle, icon only on mobile */
+  .navbar__actions-desktop .search__trigger {
+    padding: var(--spacing-2) var(--spacing-3);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    width: auto;
+    justify-content: center;
+  }
+
+  .navbar__actions-desktop .search__trigger-text,
+  .navbar__actions-desktop .search__kbd {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
   }
   
   /* Keep search and settings visible on mobile in navbar__actions-desktop */
@@ -679,6 +738,9 @@ button.navbar__link {
     order: 2;
     margin-left: auto;
     margin-right: 0;
+    flex-shrink: 0;
+    min-width: 0;
+    gap: var(--spacing-2);
   }
   
   /* Ensure search panel is above menu */
@@ -2220,24 +2282,16 @@ button.navbar__link {
 
 /* Search trigger button matches settings button exactly - styles inherited from base .search__trigger */
 
-/* Mobile: match settings button design exactly */
+/* Mobile: search trigger in navbar matches menu toggle size (icon only) - see navbar block above */
 @media (width <= 1023px) {
   .search__trigger {
-    gap: var(--spacing-2); /* Match settings button gap exactly */
-    padding: var(--spacing-2) var(--spacing-6); /* Match settings button padding exactly */
-    width: 100%;
-    justify-content: flex-start; /* Match settings button alignment */
+    gap: 0;
   }
   
-  /* Icon and text match settings button exactly */
   .search__icon {
     flex-shrink: 0;
     width: var(--spacing-5);
     height: var(--spacing-5);
-  }
-  
-  .search__trigger-text {
-    font-size: var(--font-size-sm);
   }
 }
 
