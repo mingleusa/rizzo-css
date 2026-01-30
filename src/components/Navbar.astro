@@ -127,26 +127,35 @@ const navLinks: NavLink[] = [
         
         return (
           <div class={`navbar__item ${hasSubLinks ? 'navbar__item--has-dropdown' : ''}`}>
-            <a 
-              href={hasSubLinks ? '#' : link.href}
-              class="navbar__link" 
-              role="menuitem"
-              aria-label={link.label}
-              aria-current={isActive && !hasSubLinks ? 'page' : undefined}
-              aria-expanded={hasSubLinks ? 'false' : undefined}
-              aria-haspopup={hasSubLinks ? 'true' : undefined}
-              aria-controls={subLinkId}
-              data-dropdown-toggle={hasSubLinks ? subLinkId : undefined}
-              data-dropdown-href={hasSubLinks ? link.href : undefined}
-            >
-              {link.label}
-              {hasSubLinks && (
+            {hasSubLinks ? (
+              <button
+                type="button"
+                class="navbar__link"
+                role="menuitem"
+                aria-label={link.label}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls={subLinkId}
+                data-dropdown-toggle={subLinkId}
+                data-dropdown-href={link.href}
+              >
+                {link.label}
                 <svg class="navbar__dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
                   <title>Dropdown menu</title>
                   <path d="M2 4l4 4 4-4"/>
                 </svg>
-              )}
-            </a>
+              </button>
+            ) : (
+              <a
+                href={link.href}
+                class="navbar__link"
+                role="menuitem"
+                aria-label={link.label}
+                aria-current={isActive ? 'page' : undefined}
+              >
+                {link.label}
+              </a>
+            )}
             {hasSubLinks && link.subLinks && (
               <ul class="navbar__submenu" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
                 {link.subLinks.map((subLink) => {
@@ -195,13 +204,13 @@ const navLinks: NavLink[] = [
         const searchPanel = document.querySelector('.search__panel');
         if (searchPanel && searchPanel.getAttribute('aria-hidden') === 'false') {
           // Find and trigger search close
-          const search = document.querySelector('[data-search]');
-          if (search && search.__searchInstance && search.__searchInstance.closeSearch) {
+          const search = document.querySelector('[data-search]') as (Element & { __searchInstance?: { closeSearch?: () => void } }) | null;
+          if (search?.__searchInstance?.closeSearch) {
             search.__searchInstance.closeSearch();
           } else {
             // Fallback: trigger overlay click to close
             const searchOverlay = document.querySelector('[data-search-overlay]');
-            if (searchOverlay) {
+            if (searchOverlay instanceof HTMLElement) {
               searchOverlay.click();
             }
           }

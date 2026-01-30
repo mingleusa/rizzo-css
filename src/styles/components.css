@@ -7,7 +7,7 @@
   left: 0;
   right: 0;
   width: 100%;
-  max-width: 100vw;
+  max-width: 100%;
   margin: 0;
   padding: 0;
   z-index: var(--z-navbar);
@@ -69,6 +69,7 @@
   justify-content: space-between;
   min-height: var(--spacing-16);
   width: 100%;
+  min-width: 0; /* Allow flex shrink on small screens to prevent overflow */
   gap: var(--spacing-4);
   box-sizing: border-box;
 }
@@ -78,9 +79,9 @@
   content: '';
   position: absolute;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
+  left: 0;
+  right: 0;
+  width: 100%;
   height: var(--spacing-0-125);
   background-color: var(--border);
   z-index: var(--z-base);
@@ -224,13 +225,22 @@
   .navbar__link {
     color: var(--text);
     text-decoration: none;
-    font-weight: var(--font-weight-medium);
+  font-weight: var(--font-weight-medium);
   padding: var(--spacing-2) 0;
   transition: color var(--transition-base);
   position: relative;
   display: flex;
   align-items: center;
   gap: var(--spacing-0-375);
+}
+
+/* Reset button styles when navbar link is a button (dropdown toggles) */
+button.navbar__link {
+  font: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
 }
 
 .navbar__dropdown-icon {
@@ -434,6 +444,10 @@
 
 /* Navbar Mobile styles */
 @media (width <= 1023px) {
+  .navbar {
+    overflow-x: hidden; /* Prevent horizontal overflow from menu or content */
+  }
+
   .navbar__brand {
     order: 0;
   }
@@ -474,8 +488,8 @@
     top: 100%; /* Start right after navbar, no gap */
     left: 0;
     right: 0;
-    width: 100vw; /* Full viewport width */
-    max-width: 100vw;
+    width: 100%;
+    max-width: 100%;
     flex-direction: column;
     align-items: stretch;
     background-color: var(--background-alt);
@@ -540,12 +554,15 @@
     border-bottom: 1px solid var(--border);
     width: 100%;
     max-width: 100%;
+    min-width: 0; /* Allow flex child to shrink so long labels don't overflow */
     justify-content: space-between;
     min-height: var(--touch-target-min);
     display: flex;
     align-items: center;
     box-sizing: border-box;
     margin: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
     transition: background-color var(--transition-base) ease, color var(--transition-base) ease;
   }
   
@@ -631,12 +648,15 @@
   .navbar__sublink {
     width: 100% !important;
     max-width: 100% !important;
+    min-width: 0 !important;
     padding: var(--spacing-3) var(--spacing-5) var(--spacing-3) var(--spacing-10) !important; /* Increased vertical padding, more left padding for indentation */
     min-height: var(--touch-target-min) !important;
     display: block !important;
     box-sizing: border-box !important;
     border-bottom: 1px solid var(--border);
     margin: 0 !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
   }
 
   .navbar__sublink:last-child {

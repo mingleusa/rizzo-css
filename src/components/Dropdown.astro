@@ -70,22 +70,36 @@ const menuId = `${dropdownId}-menu`;
       if (item.href) {
         return (
           <div class={`dropdown__item-wrapper ${hasSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-            <a
-              href={hasSubmenu ? '#' : item.href}
-              class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} ${hasSubmenu ? 'dropdown__item--has-submenu' : ''}`}
-              role="menuitem"
-              id={itemId}
-              tabindex="-1"
-              aria-label={item.label}
-              aria-disabled={item.disabled ? 'true' : 'false'}
-              aria-expanded={hasSubmenu ? 'false' : undefined}
-              aria-haspopup={hasSubmenu ? 'true' : undefined}
-              aria-controls={submenuId}
-              data-dropdown-has-submenu={hasSubmenu ? 'true' : undefined}
-            >
-              <span>{item.label}</span>
-              {hasSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-            </a>
+            {hasSubmenu ? (
+              <button
+                type="button"
+                class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
+                role="menuitem"
+                id={itemId}
+                tabindex="-1"
+                aria-label={item.label}
+                aria-disabled={item.disabled ? 'true' : 'false'}
+                aria-expanded="false"
+                aria-haspopup="true"
+                aria-controls={submenuId}
+                data-dropdown-has-submenu="true"
+              >
+                <span>{item.label}</span>
+                <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
+              </button>
+            ) : (
+              <a
+                href={item.href}
+                class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''}`}
+                role="menuitem"
+                id={itemId}
+                tabindex="-1"
+                aria-label={item.label}
+                aria-disabled={item.disabled ? 'true' : 'false'}
+              >
+                <span>{item.label}</span>
+              </a>
+            )}
             {hasSubmenu && item.submenu && (
               <div
                 class="dropdown__submenu"
@@ -106,22 +120,36 @@ const menuId = `${dropdownId}-menu`;
                   if (subItem.href) {
                     return (
                       <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-                        <a
-                          href={hasNestedSubmenu ? '#' : subItem.href}
-                          class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
-                          role="menuitem"
-                          id={subItemId}
-                          tabindex="-1"
-                          aria-label={subItem.label}
-                          aria-disabled={subItem.disabled ? 'true' : 'false'}
-                          aria-expanded={hasNestedSubmenu ? 'false' : undefined}
-                          aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
-                          aria-controls={nestedSubmenuId}
-                          data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
-                        >
-                          <span>{subItem.label}</span>
-                          {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-                        </a>
+                        {hasNestedSubmenu ? (
+                          <button
+                            type="button"
+                            class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
+                            role="menuitem"
+                            id={subItemId}
+                            tabindex="-1"
+                            aria-label={subItem.label}
+                            aria-disabled={subItem.disabled ? 'true' : 'false'}
+                            aria-expanded="false"
+                            aria-haspopup="true"
+                            aria-controls={nestedSubmenuId}
+                            data-dropdown-has-submenu="true"
+                          >
+                            <span>{subItem.label}</span>
+                            <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
+                          </button>
+                        ) : (
+                          <a
+                            href={subItem.href}
+                            class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                            role="menuitem"
+                            id={subItemId}
+                            tabindex="-1"
+                            aria-label={subItem.label}
+                            aria-disabled={subItem.disabled ? 'true' : 'false'}
+                          >
+                            <span>{subItem.label}</span>
+                          </a>
+                        )}
                         {hasNestedSubmenu && subItem.submenu && (
                           <div
                             class="dropdown__submenu"
@@ -290,21 +318,34 @@ const menuId = `${dropdownId}-menu`;
                 if (subItem.href) {
                   return (
                     <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-                      <a
-                        href={hasNestedSubmenu ? '#' : subItem.href}
-                        class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
-                        role="menuitem"
-                        id={subItemId}
-                        tabindex="-1"
-                        aria-disabled={subItem.disabled ? 'true' : 'false'}
-                        aria-expanded={hasNestedSubmenu ? 'false' : undefined}
-                        aria-haspopup={hasNestedSubmenu ? 'true' : undefined}
-                        aria-controls={nestedSubmenuId}
-                        data-dropdown-has-submenu={hasNestedSubmenu ? 'true' : undefined}
-                      >
-                        <span>{subItem.label}</span>
-                        {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-                      </a>
+                      {hasNestedSubmenu ? (
+                        <button
+                          type="button"
+                          class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
+                          role="menuitem"
+                          id={subItemId}
+                          tabindex="-1"
+                          aria-disabled={subItem.disabled ? 'true' : 'false'}
+                          aria-expanded="false"
+                          aria-haspopup="true"
+                          aria-controls={nestedSubmenuId}
+                          data-dropdown-has-submenu="true"
+                        >
+                          <span>{subItem.label}</span>
+                          <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
+                        </button>
+                      ) : (
+                        <a
+                          href={subItem.href}
+                          class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''}`}
+                          role="menuitem"
+                          id={subItemId}
+                          tabindex="-1"
+                          aria-disabled={subItem.disabled ? 'true' : 'false'}
+                        >
+                          <span>{subItem.label}</span>
+                        </a>
+                      )}
                       {hasNestedSubmenu && subItem.submenu && (
                         <div
                           class="dropdown__submenu"
@@ -634,11 +675,6 @@ const menuId = `${dropdownId}-menu`;
           }
           
           // Item does NOT have a submenu - handle as regular item
-          // If it's a link with href="#", prevent navigation
-          if (item.tagName === 'A' && item.getAttribute('href') === '#') {
-            e.preventDefault();
-          }
-          
           const onClick = item.getAttribute('data-dropdown-onclick');
           if (onClick && typeof window[onClick] === 'function') {
             const value = item.getAttribute('data-dropdown-value') || item.textContent?.trim() || '';
