@@ -118,6 +118,7 @@
   --z-toast: 4000;
   --z-settings: 10000;
   --z-navbar: 5000;
+  --z-navbar-mobile-menu-open: 5100; /* Above navbar so open menu stacks above site content */
   --z-skip-link: 10001;
   --z-navbar-mobile-menu: 101;
   --z-navbar-search-overlay: 98;

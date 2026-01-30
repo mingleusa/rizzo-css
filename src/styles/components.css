@@ -49,10 +49,10 @@
   z-index: var(--z-navbar);
 }
 
-/* On mobile, adjust z-index values when menu or search are open */
+/* On mobile, adjust z-index so open menu sits above site content */
 @media (width <= 1023px) {
   .navbar--menu-open {
-    z-index: var(--z-navbar); /* Behind mobile menu */
+    z-index: var(--z-navbar-mobile-menu-open); /* Above navbar default so menu overlays content */
   }
   
   .navbar--search-open {
@@ -522,6 +522,16 @@ button.navbar__link {
     box-shadow: var(--shadow-md);
     box-sizing: border-box;
     z-index: var(--z-navbar-mobile-menu);
+  }
+
+  /* When open: fixed to viewport so menu stacks above all site content */
+  .navbar__menu--open {
+    position: fixed;
+    top: var(--spacing-16); /* Below navbar (4rem) */
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: var(--z-navbar-mobile-menu-open);
   }
   
   /* Ensure menu items take full width and start from left */
