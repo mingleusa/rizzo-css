@@ -4,16 +4,19 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 
 ## Component Pages
 
+- [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
 - [Settings](/docs/components/settings) - Comprehensive settings panel
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
+- [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
 - [Icons](/docs/components/icons) - Reusable SVG icon components
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
+- [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, ellipsis
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
@@ -31,6 +34,119 @@ All components in Rizzo CSS share these core features:
 - **Responsive** - Mobile-first design with responsive breakpoints
 - **Theme-Aware** - Automatically adapt to all 8 available themes
 - **WCAG AA Compliant** - Proper contrast ratios and accessible color combinations
+
+## Accordion
+
+An accessible accordion for collapsible sections. Supports single or multiple open panels and full keyboard navigation.
+
+### Usage
+
+```astro
+---
+import Accordion from '../components/Accordion.astro';
+---
+
+<Accordion
+  items={[
+    { id: 'one', title: 'Section one' },
+    { id: 'two', title: 'Section two' },
+  ]}
+>
+  <div><p>Content for section one</p></div>
+  <div><p>Content for section two</p></div>
+</Accordion>
+```
+
+### Props
+
+- `items` (array, required) - Array of objects with `id`, `title`, and optional `content` (HTML string)
+- `id` (string, optional) - Unique identifier for the accordion
+- `allowMultiple` (boolean, optional) - Allow multiple panels open at once (default: false)
+- `defaultExpanded` (string | string[], optional) - ID or array of IDs to expand by default (defaults to first item)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Collapsible sections** - Expand/collapse with smooth transitions
+- **Single or multiple open** - `allowMultiple` controls whether one or several panels can be open
+- **Keyboard navigation** - Arrow Up/Down, Home, End, Enter, Space
+- **ARIA** - `aria-expanded`, `aria-controls`, `region`, `aria-labelledby`
+- **Content from props or slots** - Use `content` (HTML string) or pass children for panel content
+
+See [Accordion Documentation](/docs/components/accordion) for complete details.
+
+## Breadcrumb
+
+An accessible breadcrumb navigation component with separator customization and responsive behavior.
+
+### Usage
+
+```astro
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+
+<Breadcrumb
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Docs', href: '/docs' },
+    { label: 'Current Page' },
+  ]}
+/>
+```
+
+### Props
+
+- `items` (array, required) - Array of objects with `label` and optional `href` (omit for current page)
+- `separator` (string, optional) - `'chevron'` (default), `'slash'`, `'arrow'`, or a custom character (e.g. `'>'`)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Navigation breadcrumbs** - Semantic `<nav aria-label="Breadcrumb">` with ordered list
+- **Separator customization** - Chevron icon, slash, arrow (›), or custom character
+- **Responsive** - Long labels truncate with ellipsis on small screens; current page is not truncated
+- **Current page** - Last item or item without `href` gets `aria-current="page"`
+
+See [Breadcrumb Documentation](/docs/components/breadcrumb) for complete details.
+
+## Pagination
+
+An accessible pagination component for navigating between pages. Supports previous/next, first/last, page numbers with ellipsis, and a configurable URL pattern.
+
+### Usage
+
+```astro
+---
+import Pagination from '../components/Pagination.astro';
+---
+
+<Pagination
+  currentPage={2}
+  totalPages={10}
+  hrefTemplate="?page={page}"
+/>
+```
+
+### Props
+
+- `currentPage` (number, required) - Current page number (1-based)
+- `totalPages` (number, required) - Total number of pages
+- `hrefTemplate` (string, optional) - URL pattern with `{page}` placeholder (default: `?page={page}`)
+- `showFirstLast` (boolean, optional) - Show First and Last links (default: true)
+- `maxVisible` (number, optional) - Max page numbers before ellipsis (default: 5)
+- `syncHash` (boolean, optional) - When true with hash-based `hrefTemplate` (e.g. `#page-{page}`), keeps URL hash and current page in sync for demos (default: false)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Previous / Next** - Disabled on first/last page
+- **First / Last** - Optional; controlled by `showFirstLast`
+- **Page numbers with ellipsis** - Current page has `aria-current="page"`; long ranges show 1 … 4 5 6 … 10
+- **Configurable URLs** - `hrefTemplate` with `{page}` placeholder
+- **Hash sync (demos)** - Use `syncHash` with `hrefTemplate="#page-{page}"` so the current page and URL hash stay in sync without a full reload
+
+See [Pagination Documentation](/docs/components/pagination) for complete details.
 
 ## Navbar
 
@@ -58,13 +174,14 @@ import Navbar from '../components/Navbar.astro';
   - Smart dropdown positioning - Automatically adjusts to prevent overflow
 - **Mobile**: 
   - Mobile menu toggle positioned on the left (after logo/brand)
-  - Search and settings remain on the right
-  - Responsive mobile menu (activates at 1024px and below) with full-width layout
+  - Search and settings on the right: **icon-only** (no labels), same size as menu toggle for a compact, responsive bar
+  - Responsive mobile menu (activates at 1024px and below) with full-width layout; when open, uses **fixed positioning** and stacks **above site content** (z-index)
   - Increased vertical spacing for better readability, especially in dropdown menus
   - Smooth hamburger-to-X animation and menu open/close transitions
+  - Dropdown toggles use **buttons** (not links) for accessibility and valid markup
 - Active link indicator with underline
 - Dropdown menus with sub-links and keyboard navigation
-- Full-width border that spans 100vw
+- Full-width border (100% width; avoids horizontal overflow on mobile)
 - Settings button opens Settings panel
 - Sticky positioning at top
 

@@ -21,12 +21,15 @@ pnpm install
 rizzo-css/
 ├── src/
 │   ├── components/      # Astro components
+│   │   ├── Accordion.astro
 │   │   ├── Alert.astro
 │   │   ├── Badge.astro
+│   │   ├── Breadcrumb.astro
 │   │   ├── Button.astro
 │   │   ├── Card.astro
 │   │   ├── CodeBlock.astro
 │   │   ├── CopyToClipboard.astro
+│   │   ├── Dropdown.astro
 │   │   ├── FormGroup.astro
 │   │   ├── Input.astro
 │   │   ├── Textarea.astro
@@ -35,13 +38,13 @@ rizzo-css/
 │   │   ├── Radio.astro
 │   │   ├── Modal.astro
 │   │   ├── Navbar.astro
+│   │   ├── Pagination.astro
 │   │   ├── Search.astro
 │   │   ├── Settings.astro
+│   │   ├── Tabs.astro
 │   │   ├── ThemeSwitcher.astro
 │   │   ├── Toast.astro
 │   │   ├── Tooltip.astro
-│   │   ├── Dropdown.astro
-│   │   ├── Tabs.astro
 │   │   └── icons/      # Icon components
 │   │       ├── Copy.astro
 │   │       ├── Check.astro
@@ -140,6 +143,9 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
+- [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
+- [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
+- [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, and ellipsis
 - [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
@@ -189,7 +195,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown, Tabs, Search)
+- `components.css` - Component styles (Accordion, Alert, Badge, Breadcrumb, Card, CodeBlock, Dropdown, Modal, Navbar, Pagination, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables
@@ -212,7 +218,7 @@ All styles use semantic theme variables. **The design system is the source of tr
 Available variable categories:
 - **Spacing**: `--spacing-*` (0 through 2500, including fractional values)
 - **Border Radius**: `--radius-*` (none, sm, md, lg, xl, 2xl, 3xl, full)
-- **Z-Index**: `--z-*` (base, dropdown, modal, tooltip, toast, navbar, settings, etc.)
+- **Z-Index**: `--z-*` (base, dropdown, modal, tooltip, toast, navbar, navbar-mobile-menu-open, settings, etc.)
 - **Transitions**: `--transition-*` (fast, base, slow, slower, slowest, ease-out, ease-in)
 - **Opacity**: `--opacity-*` (0, 50, 60, 70, 80, 90, 100)
 - **Transform Scale**: `--scale-*` (80, 95, 100, 110)

@@ -311,6 +311,7 @@ Position utilities control element positioning:
   - `.z-tooltip` (3000)
   - `.z-toast` (4000)
   - `.z-navbar` (5000)
+  - `--z-navbar-mobile-menu-open` (5100) - Navbar when mobile menu is open; ensures menu overlays site content
   - `.z-skip-link` (10001) - Highest z-index for skip links to ensure visibility above all elements
 
 **Examples:**

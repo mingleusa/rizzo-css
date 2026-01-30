@@ -1,0 +1,122 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import PaginationComponent from '../../../components/Pagination.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Pagination Component" description="Accessible pagination navigation with previous/next, page numbers, and ellipsis">
+	<section>
+		<h2>Pagination Component</h2>
+		<p>An accessible pagination component for navigating between pages. Supports previous/next, first/last, page numbers with ellipsis for long ranges, and a configurable URL pattern.</p>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>currentPage</code> (number, required) - The current page number (1-based)</li>
+			<li><code>totalPages</code> (number, required) - Total number of pages</li>
+			<li><code>hrefTemplate</code> (string, optional) - URL pattern with <code>{'{page}'}</code> placeholder (default: <code>?page={'{page}'}</code>)</li>
+			<li><code>showFirstLast</code> (boolean, optional) - Show First and Last links (default: <code>true</code>)</li>
+			<li><code>maxVisible</code> (number, optional) - Max page numbers to show before using ellipsis (default: <code>5</code>)</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Basic Usage</h3>
+		<p>Click any page to see the current page update. The example uses <code>syncHash</code> so the URL hash and current page stay in sync.</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<PaginationComponent
+				currentPage={3}
+				totalPages={10}
+				maxVisible={10}
+				hrefTemplate={"#page-{page}"}
+				syncHash
+			/>
+		</div>
+
+		<CodeBlock code={`---
+import Pagination from '../components/Pagination.astro';
+---
+
+<Pagination
+  currentPage={3}
+  totalPages={10}
+  hrefTemplate="?page={page}"
+/>`} language="astro" />
+
+		<h3>With Query String</h3>
+		<p>Use <code>hrefTemplate</code> to build URLs. The <code>{'{page}'}</code> placeholder is replaced with the page number. For in-page demos we use hash links with <code>syncHash</code> so the current page updates without a full reload:</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<PaginationComponent
+				currentPage={2}
+				totalPages={5}
+				hrefTemplate={"#page-{page}"}
+				syncHash
+			/>
+		</div>
+
+		<CodeBlock code={`<Pagination
+  currentPage={2}
+  totalPages={5}
+  hrefTemplate="/blog?page={page}"
+/>`} language="astro" />
+
+		<h3>Without First/Last</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<PaginationComponent
+				currentPage={5}
+				totalPages={10}
+				maxVisible={10}
+				showFirstLast={false}
+				hrefTemplate={"#page-{page}"}
+				syncHash
+			/>
+		</div>
+
+		<CodeBlock code={`<Pagination
+  currentPage={5}
+  totalPages={10}
+  showFirstLast={false}
+  hrefTemplate="?page={page}"
+/>`} language="astro" />
+
+		<h3>Many Pages (Ellipsis)</h3>
+		<p>When <code>totalPages</code> exceeds <code>maxVisible</code>, ellipsis (…) is shown between the first/last and the range around the current page:</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<PaginationComponent
+				currentPage={7}
+				totalPages={20}
+				maxVisible={5}
+				hrefTemplate={"#page-{page}"}
+				syncHash
+			/>
+		</div>
+
+		<h3>First and Last Page</h3>
+		<p>Previous/Next and First/Last are disabled when on the first or last page:</p>
+		<div class="example">
+			<div class="example-title">Live Example (Page 1 of 5)</div>
+			<PaginationComponent
+				currentPage={1}
+				totalPages={5}
+				hrefTemplate={"#page-{page}"}
+				syncHash
+			/>
+		</div>
+
+		<h3>Verifying the examples</h3>
+		<p>All live examples above use <code>hrefTemplate="#page-{'{page}'}"</code> and <code>syncHash</code>. To confirm they work: open this page, click different page numbers (and First/Previous/Next/Last where shown). The URL hash should update (e.g. <code>#page-5</code>) and the current page highlight should move. Changing the hash in the address bar (e.g. to <code>#page-1</code>) should update the highlighted page.</p>
+
+		<h3>Features</h3>
+		<ul>
+			<li><strong>Semantic markup</strong> - <code>&lt;nav aria-label="Pagination"&gt;</code> with list of links</li>
+			<li><strong>Previous / Next</strong> - Always shown; disabled (non-clickable) on first/last page</li>
+			<li><strong>First / Last</strong> - Optional; controlled by <code>showFirstLast</code></li>
+			<li><strong>Page numbers</strong> - Current page has <code>aria-current="page"</code> and is not a link</li>
+			<li><strong>Ellipsis</strong> - When many pages, shows 1 … 4 5 6 … 10 style range</li>
+			<li><strong>Configurable URLs</strong> - <code>hrefTemplate</code> with <code>{'{page}'}</code> placeholder</li>
+			<li><strong>Theme-aware</strong> - Uses design system variables</li>
+		</ul>
+	</section>
+</DocsLayout>

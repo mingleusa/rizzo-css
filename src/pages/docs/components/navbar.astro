@@ -14,7 +14,7 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 			<p>The navbar is already included in the Layout component at the top of this page. It includes:</p>
 			<ul>
 				<li><strong>Desktop:</strong> 2-column dropdown layout for Components and Themes with vertical divider</li>
-				<li><strong>Mobile:</strong> Menu toggle on left, search/settings on right, improved spacing</li>
+				<li><strong>Mobile:</strong> Menu toggle on left; search and settings icon-only (same size as menu toggle) on right</li>
 				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
 				<li>Smooth hamburger-to-X animation</li>
 				<li>Active link indicator with underline matching hover effect</li>
@@ -57,14 +57,15 @@ import Navbar from '../components/Navbar.astro';
 			<li><strong>Mobile Layout:</strong>
 				<ul>
 					<li>Mobile menu toggle positioned on the left (after logo/brand)</li>
-					<li>Search and settings remain on the right</li>
-					<li>Responsive mobile menu (activates at 1024px and below) with full-width layout</li>
+					<li>Search and settings on the right: icon-only, same size as menu toggle (compact bar, no overflow)</li>
+					<li>Responsive mobile menu (activates at 1024px and below) with full-width layout; when open, fixed positioning so it stacks above site content</li>
 					<li>Increased vertical spacing for better readability, especially in dropdown menus</li>
 					<li>Mobile menu links start from left edge with minimal padding</li>
 					<li>Mutually exclusive with search (only one open at a time on mobile)</li>
+					<li>Dropdown toggles use buttons (not links) for accessibility</li>
 				</ul>
 			</li>
-			<li>Full-width border (100vw) that spans entire viewport</li>
+			<li>Full-width border (100% width; avoids horizontal overflow on mobile)</li>
 			<li>Responsive mobile menu with smooth open/close transitions</li>
 			<li>Dropdown menus with full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)</li>
 			<li>Active link indicator with underline</li>
