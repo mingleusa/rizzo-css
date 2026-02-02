@@ -17,6 +17,10 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Cards](/docs/components/cards) - Flexible card component
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
 - [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, ellipsis
+- [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, label, and indeterminate state
+- [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
+- [Avatar](/docs/components/avatar) - User avatar with image or initials fallback, sizes and shapes
+- [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
@@ -147,6 +151,142 @@ import Pagination from '../components/Pagination.astro';
 - **Hash sync (demos)** - Use `syncHash` with `hrefTemplate="#page-{page}"` so the current page and URL hash stay in sync without a full reload
 
 See [Pagination Documentation](/docs/components/pagination) for complete details.
+
+## Progress Bar
+
+An accessible progress bar for showing completion or loading state. Supports determinate (value-based) and indeterminate (animated) modes.
+
+### Usage
+
+```astro
+---
+import ProgressBar from '../components/ProgressBar.astro';
+---
+
+<ProgressBar value={60} max={100} />
+<ProgressBar value={75} max={100} showLabel />
+<ProgressBar indeterminate label="Loading" />
+```
+
+### Props
+
+- `value` (number, optional) - Current value, 0 to max (default: 0)
+- `max` (number, optional) - Maximum value (default: 100)
+- `variant` (string, optional) - `primary`, `success`, `warning`, `error`, `info` (default: primary)
+- `size` (string, optional) - `sm`, `md`, `lg` (default: md)
+- `showLabel` (boolean, optional) - Show percentage label (default: false)
+- `indeterminate` (boolean, optional) - Animated loading state (default: false)
+- `label` (string, optional) - Accessible label (aria-label)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Semantic** - `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`; indeterminate uses `aria-valuetext="Loading"`
+- **Variants** - Primary, success, warning, error, info using theme variables
+- **Sizes** - sm, md, lg bar heights
+- **Reduced motion** - Indeterminate animation disabled when user prefers reduced motion
+
+See [Progress Bar Documentation](/docs/components/progress-bar) for complete details.
+
+## Spinner
+
+An accessible loading spinner for indicating progress when content is loading.
+
+### Usage
+
+```astro
+---
+import Spinner from '../components/Spinner.astro';
+---
+
+<Spinner />
+<Spinner size="lg" variant="success" />
+<Spinner label="Loading results…" />
+```
+
+### Props
+
+- `size` (string, optional) - `sm`, `md`, `lg` (default: md)
+- `variant` (string, optional) - `primary`, `success`, `warning`, `error`, `info` (default: primary)
+- `label` (string, optional) - Accessible label for screen readers (default: "Loading")
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Accessible** - `role="status"` and `aria-label` so screen readers announce loading
+- **Variants** - Primary, success, warning, error, info using theme variables
+- **Sizes** - sm, md, lg
+- **Reduced motion** - Animation disabled when user prefers reduced motion; static segment shown instead
+
+See [Spinner Documentation](/docs/components/spinner) for complete details.
+
+## Avatar
+
+A user avatar that shows a profile image when available, or initials derived from a name (or custom initials) when no image is provided.
+
+### Usage
+
+```astro
+---
+import Avatar from '../components/Avatar.astro';
+---
+
+<Avatar name="Jane Doe" />
+<Avatar name="Alice" />
+<Avatar initials="AB" />
+<Avatar src="/photo.jpg" alt="Jane Doe" size="md" />
+```
+
+### Props
+
+- `src` (string, optional) - Image URL; when provided, the image is shown
+- `alt` (string, optional) - Alt text for the image
+- `name` (string, optional) - Full name used to derive initials when no image (e.g. "Jane Doe" → "JD")
+- `initials` (string, optional) - Override initials when no image; ignored if `name` is provided
+- `size` (string, optional) - `sm`, `md`, `lg` (default: md)
+- `shape` (string, optional) - `circle`, `square` (default: circle)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Accessible** - `role="img"` and `aria-label` from alt, name, or initials
+- **Initials** - Derived from `name` (first letter of first and last word, or first two letters of a single word) or set via `initials`
+- **Image** - Optional `src` with `loading="lazy"` and `object-fit: cover`
+- **Sizes** - sm, md, lg
+- **Shape** - circle (default) or square with rounded corners
+
+See [Avatar Documentation](/docs/components/avatar) for complete details.
+
+## Divider
+
+A horizontal or vertical divider line for visually separating content. Optional label (e.g. "OR") for horizontal dividers.
+
+### Usage
+
+```astro
+---
+import Divider from '../components/Divider.astro';
+---
+
+<Divider />
+<Divider label="OR" />
+<Divider orientation="vertical" />
+```
+
+### Props
+
+- `orientation` (string, optional) - `horizontal`, `vertical` (default: horizontal)
+- `label` (string, optional) - Optional text shown in the middle (horizontal only)
+- `class` (string, optional) - Additional CSS classes
+
+### Features
+
+- **Accessible** - `role="separator"` and `aria-orientation`; optional `aria-label` when label is set
+- **Horizontal** - Full-width line; optional label in the center
+- **Vertical** - Full-height line for use in flex layouts (parent needs height)
+- **Theme-aware** - Uses `--border` and `--text-dim`
+
+See [Divider Documentation](/docs/components/divider) for complete details.
 
 ## Navbar
 

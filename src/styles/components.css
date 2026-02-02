@@ -3257,3 +3257,302 @@ button.navbar__link {
     animation: none;
   }
 }
+
+/* ==========================================================================
+   Progress Bar
+   ========================================================================== */
+
+.progress {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.progress__track {
+  width: 100%;
+  background-color: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress__bar {
+  height: 100%;
+  min-height: var(--spacing-2);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow) var(--ease-in-out-cubic);
+  flex-shrink: 0;
+}
+
+/* Sizes */
+.progress--sm .progress__track {
+  height: var(--spacing-1);
+}
+
+.progress--sm .progress__bar {
+  min-height: var(--spacing-1);
+}
+
+.progress--md .progress__track {
+  height: var(--spacing-2);
+}
+
+.progress--md .progress__bar {
+  min-height: var(--spacing-2);
+}
+
+.progress--lg .progress__track {
+  height: var(--spacing-3);
+}
+
+.progress--lg .progress__bar {
+  min-height: var(--spacing-3);
+}
+
+/* Variants */
+.progress--primary .progress__bar {
+  background-color: var(--accent);
+}
+
+.progress--success .progress__bar {
+  background-color: var(--success);
+}
+
+.progress--warning .progress__bar {
+  background-color: var(--warning);
+}
+
+.progress--error .progress__bar {
+  background-color: var(--error);
+}
+
+.progress--info .progress__bar {
+  background-color: var(--info);
+}
+
+/* Label */
+.progress__label {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  text-align: right;
+}
+
+/* Indeterminate */
+.progress--indeterminate .progress__bar {
+  width: 30% !important;
+  min-width: 30%;
+  animation: progress-indeterminate 1.5s ease-in-out infinite;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(233.333%); /* bar 30% wide: move left edge from -30% to 70% of track */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress__bar {
+    transition: none;
+  }
+
+  .progress--indeterminate .progress__bar {
+    animation: none;
+    width: 50% !important;
+    opacity: 0.7;
+  }
+}
+
+/* ==========================================================================
+   Spinner / Loading
+   ========================================================================== */
+
+.spinner {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+}
+
+.spinner__ring {
+  display: block;
+  border-radius: var(--radius-full);
+  border-style: solid;
+  border-color: var(--border);
+  border-top-color: currentColor;
+  animation: spinner-rotate 0.8s linear infinite;
+}
+
+/* Sizes */
+.spinner--sm .spinner__ring {
+  width: var(--spacing-4);
+  height: var(--spacing-4);
+  border-width: 2px;
+}
+
+.spinner--md .spinner__ring {
+  width: var(--spacing-6);
+  height: var(--spacing-6);
+  border-width: 3px;
+}
+
+.spinner--lg .spinner__ring {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  border-width: 4px;
+}
+
+/* Variants - set color via border-top-color */
+.spinner--primary {
+  color: var(--accent);
+}
+
+.spinner--success {
+  color: var(--success);
+}
+
+.spinner--warning {
+  color: var(--warning);
+}
+
+.spinner--error {
+  color: var(--error);
+}
+
+.spinner--info {
+  color: var(--info);
+}
+
+@keyframes spinner-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner__ring {
+    animation: none;
+    /* Static segment so loading state is still visible */
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    border-left-color: transparent;
+  }
+}
+
+/* ==========================================================================
+   Avatar
+   ========================================================================== */
+
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--background-alt);
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  font-weight: var(--font-weight-semibold);
+  font-size: inherit;
+  line-height: 1;
+}
+
+.avatar__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar__initials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Sizes */
+.avatar--sm {
+  width: var(--spacing-8);
+  height: var(--spacing-8);
+  font-size: var(--font-size-xs);
+}
+
+.avatar--md {
+  width: var(--spacing-10);
+  height: var(--spacing-10);
+  font-size: var(--font-size-sm);
+}
+
+.avatar--lg {
+  width: var(--spacing-12);
+  height: var(--spacing-12);
+  font-size: var(--font-size-base);
+}
+
+/* Shape */
+.avatar--circle {
+  border-radius: var(--radius-full);
+}
+
+.avatar--square {
+  border-radius: var(--radius-md);
+}
+
+/* ==========================================================================
+   Divider
+   ========================================================================== */
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+}
+
+.divider__line {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  border-left: none;
+}
+
+.divider__label {
+  flex-shrink: 0;
+  padding: 0 var(--spacing-2);
+  white-space: nowrap;
+}
+
+/* Horizontal (default) */
+.divider--horizontal {
+  width: 100%;
+}
+
+.divider--horizontal .divider__line {
+  border-left: none;
+  border-top: 1px solid var(--border);
+}
+
+/* Vertical */
+.divider--vertical {
+  flex-direction: column;
+  width: auto;
+  height: 100%;
+  min-height: var(--spacing-8);
+}
+
+.divider--vertical .divider__line {
+  flex: 1;
+  width: 0;
+  min-height: var(--spacing-4);
+  border-top: none;
+  border-left: 1px solid var(--border);
+}

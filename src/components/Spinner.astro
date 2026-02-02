@@ -1,0 +1,30 @@
+---
+interface Props {
+  /** Visual size */
+  size?: 'sm' | 'md' | 'lg';
+  /** Color variant */
+  variant?: 'primary' | 'success' | 'warning' | 'error' | 'info';
+  /** Accessible label (e.g. "Loading") */
+  label?: string;
+  class?: string;
+}
+
+const {
+  size = 'md',
+  variant = 'primary',
+  label = 'Loading',
+  class: className = '',
+} = Astro.props;
+
+const sizeClass = `spinner--${size}`;
+const variantClass = `spinner--${variant}`;
+const classes = `spinner ${sizeClass} ${variantClass} ${className}`.trim();
+---
+
+<span
+  class={classes}
+  role="status"
+  aria-label={label}
+>
+  <span class="spinner__ring" aria-hidden="true" />
+</span>

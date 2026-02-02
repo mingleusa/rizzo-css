@@ -39,7 +39,11 @@ rizzo-css/
 │   │   ├── Modal.astro
 │   │   ├── Navbar.astro
 │   │   ├── Pagination.astro
+│   │   ├── ProgressBar.astro
 │   │   ├── Search.astro
+│   │   ├── Spinner.astro
+│   │   ├── Avatar.astro
+│   │   ├── Divider.astro
 │   │   ├── Settings.astro
 │   │   ├── Tabs.astro
 │   │   ├── ThemeSwitcher.astro
@@ -146,6 +150,10 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
 - [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, and ellipsis
+- [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, and indeterminate state
+- [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
+- [Avatar](/docs/components/avatar) - User avatar with image or initials fallback
+- [Divider](/docs/components/divider) - Horizontal or vertical divider with optional label
 - [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
@@ -195,7 +203,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Accordion, Alert, Badge, Breadcrumb, Card, CodeBlock, Dropdown, Modal, Navbar, Pagination, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
+- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Spinner, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables
