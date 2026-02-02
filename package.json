@@ -15,7 +15,8 @@
   },
   "dependencies": {
     "algoliasearch": "^5.47.0",
-    "astro": "^5.16.13"
+    "astro": "^5.16.13",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.23",
