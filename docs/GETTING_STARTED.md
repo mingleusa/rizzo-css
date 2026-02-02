@@ -174,13 +174,13 @@ See the [Components Documentation](/docs/components) for an overview and links t
 
 ## Using Themes
 
-Themes are applied via the `data-theme` attribute on the HTML element:
+Themes are applied via the `data-theme` attribute on the HTML element. The theme switcher (in Settings) supports a **System** option that follows your OS light/dark preference; the choice is persisted in `localStorage` as `theme` (a theme id or `system`).
 
 ```html
 <html lang="en" data-theme="dracula-at-night">
 ```
 
-See [Theming Documentation](./THEMING.md) for more details.
+See [Theming Documentation](./THEMING.md) for system preference, persistence, and custom themes.
 
 ## Using Colors
 

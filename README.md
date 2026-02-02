@@ -20,7 +20,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **8 Built-in Themes** - 4 dark and 4 light themes with semantic variable support
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 17+ accessible, themeable components
+- 📦 **Comprehensive Components** - 25+ accessible, themeable components
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -128,8 +128,9 @@ Rizzo CSS includes **8 built-in themes** (4 dark, 4 light) with semantic variabl
 - All components automatically adapt to the selected theme
 - Themes use OKLCH color format for better color manipulation
 - **Contrast-aware text colors** - Automatic text color selection based on background lightness for WCAG AA compliance
+- **System preference** - First visit uses OS light/dark (`prefers-color-scheme`); “System” option in the theme switcher follows OS and updates when the OS preference changes
 - Settings panel for theme switching, font size adjustment, and accessibility options
-- **All settings persist in localStorage** - Theme, font size, reduced motion, high contrast, and scrollbar style preferences are automatically saved and restored
+- **All settings persist in localStorage** - Theme (including `system`), font size, reduced motion, high contrast, and scrollbar style preferences are automatically saved and restored
 - Shadow and overlay variables for theme-aware effects
 
 See [Theming Documentation](./docs/THEMING.md) for details.
@@ -139,7 +140,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 Accessible, themeable components:
 - **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Desktop dropdowns use 2-column layout for Components and Themes with vertical divider. Mobile menu toggle on left, search/settings on right, with improved spacing and smooth transitions
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Opening/closing animations, mobile responsive
-- **ThemeSwitcher** - Accessible dropdown for theme selection with theme-specific icons (integrated in Settings)
+- **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling (theme background + accent bar) for the selected option and, when System is chosen, the resolved theme
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
 - **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, and more)
@@ -148,7 +149,7 @@ Accessible, themeable components:
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages at 20px size for better visibility. Language text appears on large screens, icons only on mobile. Icons and copy button are vertically centered on all screen sizes. Used throughout documentation for code examples
-- **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), close button on desktop, and mobile responsive
+- **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), closes only on backdrop click or X button (not when clicking inside the modal), and mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
@@ -178,6 +179,7 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Components](./docs/COMPONENTS.md) - Component library and usage examples
 - [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
+- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Plan for system preference, transitions, preview, and additional themes
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
 
 ## 📚 External Resources

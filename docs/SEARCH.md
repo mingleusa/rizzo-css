@@ -4,7 +4,7 @@ Rizzo CSS includes a powerful search component with Algolia integration for fast
 
 ## Features
 
-- **Full-Screen Overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
+- **Full-Screen Overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically. The search **closes only when you click the backdrop** (outside the modal) **or the X button**—clicking inside the modal (input, results, etc.) does not close it.
 - **Live Search** - Results filter as you type
 - **Algolia Integration** - Fast, typo-tolerant search powered by Algolia
 - **Client-Side Fallback** - Works without Algolia for development

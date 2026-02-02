@@ -25,10 +25,14 @@ import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 		<h3>Features</h3>
 		<p>The theme switcher automatically:</p>
 		<ul>
-			<li>Groups themes by Dark/Light</li>
-			<li>Shows active theme name and icon in trigger button</li>
+			<li><strong>System option</strong> – Under “Preference”, choose <strong>System</strong> to follow your OS light/dark setting; the theme updates when you change the OS preference.</li>
+			<li>Groups themes by Preference (System), Dark, and Light</li>
+			<li>Shows active theme name and icon in the trigger button</li>
+			<li>When System is selected, both System and the currently applied theme (e.g. Dracula At Night) show the active background</li>
+			<li>Active option has a theme-colored background and a left accent bar so the selection is always visible</li>
 			<li>Each theme has its own icon</li>
-			<li>Persists selection in localStorage</li>
+			<li>Persists selection in localStorage (<code>theme</code>: theme id or <code>system</code>)</li>
+			<li>First visit uses OS preference (no saved theme) to pick a default dark or light theme</li>
 			<li>Supports full keyboard navigation</li>
 		</ul>
 		

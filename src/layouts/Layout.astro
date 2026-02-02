@@ -19,10 +19,19 @@ const cssPath = import.meta.env.PROD
 			// Prevent theme flash on page load
 			(function() {
 				try {
-					const savedTheme = localStorage.getItem('theme');
-					if (savedTheme) {
-						document.documentElement.setAttribute('data-theme', savedTheme);
+					var savedTheme = localStorage.getItem('theme');
+					var defaultDark = 'dracula-at-night';
+					var defaultLight = 'grey-light-pro';
+					var resolvedTheme;
+					if (!savedTheme) {
+						// First visit: use OS preference
+						resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
+					} else if (savedTheme === 'system') {
+						resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
+					} else {
+						resolvedTheme = savedTheme;
 					}
+					document.documentElement.setAttribute('data-theme', resolvedTheme);
 					
 					// Load font size scale
 					const savedFontScale = localStorage.getItem('fontSizeScale');

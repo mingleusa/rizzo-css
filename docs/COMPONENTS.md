@@ -7,7 +7,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
 - [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
+- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher with System option (follows OS light/dark), Preference + Dark/Light groups, and active state styling
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
@@ -399,7 +399,7 @@ window.openSettings();
 
 ### Features
 
-- **Theme Switcher** - Integrated ThemeSwitcher component with theme icons (persists in localStorage as `theme`)
+- **Theme Switcher** - Integrated ThemeSwitcher with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme icons, and active state (theme background + accent bar). Persists in localStorage as `theme` (theme id or `system`).
 - **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable). Persists in localStorage as `fontSizeScale`
 - **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
@@ -531,7 +531,7 @@ See [Modal Documentation](/docs/components/modal) for complete details and live 
 
 ## Search Component
 
-A powerful search component with Algolia integration and live filtering.
+A powerful search component with Algolia integration and live filtering. Closes only when clicking the backdrop or the X button (not when clicking inside the modal).
 
 ### Features
 

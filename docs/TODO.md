@@ -45,7 +45,7 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
   - [ ] Custom theme builder/generator
 
 - [ ] **Theme Features**
-  - [ ] System preference detection (prefers-color-scheme)
+  - [x] System preference detection (prefers-color-scheme)
   - [ ] Theme transition animations
   - [ ] Theme preview in switcher
 
@@ -191,7 +191,7 @@ All completed features are fully documented in the main documentation files. Her
 ✅ Component examples, design tokens, color reference page, individual component pages, theme pages
 
 ### Features
-✅ Color format conversion, copy-to-clipboard, theme flash prevention, settings persistence, keyboard navigation, accessibility (WCAG AA), scrollbar styling
+✅ Color format conversion, copy-to-clipboard, theme flash prevention, settings persistence, keyboard navigation, accessibility (WCAG AA), scrollbar styling, **system theme preference** (prefers-color-scheme, System option, live OS preference updates)
 
 For complete details, see the documentation files listed at the top of this file.
 

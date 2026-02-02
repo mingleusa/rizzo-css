@@ -76,18 +76,34 @@ The `ThemeSwitcher` component handles theme switching automatically. It:
 - Persists choice in `localStorage`
 - Updates all components instantly
 
+### System Preference
+
+You can follow the operating system light/dark preference:
+
+- **First visit** (no saved theme): The site uses `prefers-color-scheme` to pick a default dark theme (Dracula At Night) or default light theme (Grey Light Pro) before the first paint, so there is no flash.
+- **"System" option**: In the theme switcher, choose **System** under **Preference** to follow OS preference. The resolved theme (dark or light default) is applied, and your choice is stored as `theme=system` in `localStorage`.
+- **Live updates**: When System is selected and the user changes their OS light/dark setting, the theme updates automatically.
+
+Manual theme choices (e.g. Night Owl, Nord Light) override system preference until the user selects System again.
+
 ### Manual Theme Switching
 
 ```javascript
-// Set theme
+// Set a specific theme
 document.documentElement.setAttribute('data-theme', 'night-owl');
-
-// Save to localStorage
 localStorage.setItem('theme', 'night-owl');
 
-// Load saved theme
+// Or set System (follow OS preference)
+localStorage.setItem('theme', 'system');
+const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dracula-at-night' : 'grey-light-pro';
+document.documentElement.setAttribute('data-theme', resolved);
+
+// Load saved theme (resolve 'system' to dark/light default)
 const savedTheme = localStorage.getItem('theme') || 'dracula-at-night';
-document.documentElement.setAttribute('data-theme', savedTheme);
+const themeToApply = savedTheme === 'system'
+  ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dracula-at-night' : 'grey-light-pro')
+  : savedTheme;
+document.documentElement.setAttribute('data-theme', themeToApply);
 ```
 
 ## Theme File Structure
@@ -180,7 +196,12 @@ To convert from hex:
 
 ## Theme Persistence
 
-The theme switcher automatically saves the selected theme to `localStorage` and restores it on page load. An inline script in `Layout.astro` prevents theme flash by setting the theme immediately before the page renders.
+The theme switcher automatically saves the selected theme to `localStorage` and restores it on page load. Stored values can be:
+
+- A theme id (e.g. `dracula-at-night`, `nord-light`) — that theme is applied.
+- `system` — the theme is resolved from `prefers-color-scheme` (dark → Dracula At Night, light → Grey Light Pro) and updates when the OS preference changes.
+
+An inline script in `Layout.astro` prevents theme flash by resolving the theme (including system preference on first visit) and setting `data-theme` immediately before the page renders.
 
 ## Theme-Specific Overrides
 

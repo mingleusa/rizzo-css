@@ -1,5 +1,6 @@
 ---
 import ChevronDown from './icons/ChevronDown.astro';
+import Gear from './icons/Gear.astro';
 import Moon from './icons/Moon.astro';
 import Palette from './icons/Palette.astro';
 import Owl from './icons/Owl.astro';
@@ -34,8 +35,14 @@ const getCurrentTheme = () => {
   return 'dracula-at-night';
 };
 
+// System preference theme id (stored in localStorage; data-theme gets resolved to dark/light default)
+const THEME_SYSTEM = 'system';
+const DEFAULT_THEME_DARK = 'dracula-at-night';
+const DEFAULT_THEME_LIGHT = 'grey-light-pro';
+
 // Get theme info helper
 const getThemeInfo = (themeValue: string) => {
+  if (themeValue === THEME_SYSTEM) return { value: THEME_SYSTEM, label: 'System', icon: Gear };
   const allThemes = [...themes.dark, ...themes.light];
   return allThemes.find(t => t.value === themeValue) || null;
 };
@@ -74,6 +81,22 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     aria-hidden="true"
     tabindex="-1"
   >
+    <div class="theme-switcher__group" role="group" aria-label="Preference">
+      <div class="theme-switcher__group-label" role="presentation">Preference</div>
+      <div
+        class="theme-switcher__option"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex={-1}
+        data-theme-value="system"
+        data-theme-type="system"
+        data-theme-bg="oklch(55% 0.02 270deg)"
+      >
+        <Gear width={16} height={16} class="theme-switcher__option-icon" />
+        <span class="sr-only">Preference: </span>
+        System
+      </div>
+    </div>
     <div class="theme-switcher__group" role="group" aria-label="Dark themes">
       <div class="theme-switcher__group-label" role="presentation">Dark</div>
       {themes.dark.map((theme) => {
@@ -122,12 +145,24 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
 
 <script>
   (function initThemeSwitcher() {
-    // Shared helper functions
+    const THEME_SYSTEM = 'system';
+    const DEFAULT_THEME_DARK = 'dracula-at-night';
+    const DEFAULT_THEME_LIGHT = 'grey-light-pro';
+
     const getCurrentTheme = () => {
-      return document.documentElement.getAttribute('data-theme') || 'dracula-at-night';
+      return document.documentElement.getAttribute('data-theme') || DEFAULT_THEME_DARK;
+    };
+
+    const getStoredTheme = () => {
+      return localStorage.getItem('theme') || getCurrentTheme();
+    };
+
+    const resolveSystemTheme = () => {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? DEFAULT_THEME_DARK : DEFAULT_THEME_LIGHT;
     };
 
     const getThemeInfo = (themeValue) => {
+      if (themeValue === THEME_SYSTEM) return { value: THEME_SYSTEM, label: 'System' };
       const allThemes = [
         { value: 'dracula-at-night', label: 'Dracula At Night' },
         { value: 'shades-of-purple', label: 'Shades of Purple' },
@@ -148,6 +183,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
 
     const getIconSVG = (themeValue) => {
       const svgMap = {
+        'system': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Settings</title><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /><circle cx="12" cy="12" r="3" /></svg>',
         'dracula-at-night': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Moon</title><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></svg>',
         'shades-of-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Palette</title><circle cx="13.5" cy="6.5" r=".5" fill="currentColor" /><circle cx="17.5" cy="10.5" r=".5" fill="currentColor" /><circle cx="8.5" cy="7.5" r=".5" fill="currentColor" /><circle cx="6.5" cy="12.5" r=".5" fill="currentColor" /><path d="M12 2C6.5 2 2 6.5 2 12a10 10 0 1 0 10-10Z" /><path d="M12 2v20" /><path d="M17 7a2.5 2.5 0 1 0 5 0 2.5 2.5 0 1 0-5 0" /></svg>',
         'night-owl': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><title>Owl</title><path d="M16 7h.01" /><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" /><path d="m20 7 2 .5-2 .5" /><path d="M10 18v3" /><path d="M14 17.75V21" /><path d="M7 18a6 6 0 0 0 3.84-10.61" /></svg>',
@@ -161,15 +197,17 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     };
 
     // Update all switchers on the page
-    const updateAllSwitchers = () => {
-      const currentTheme = getCurrentTheme();
+    // When called from applyTheme, pass stored + currentTheme so we don't rely on DOM/localStorage being updated yet
+    const updateAllSwitchers = (overrideStored, overrideCurrentTheme) => {
+      const stored = (overrideStored != null ? String(overrideStored) : getStoredTheme() || '').trim();
+      const currentTheme = (overrideCurrentTheme != null ? String(overrideCurrentTheme) : getCurrentTheme() || '').trim();
       document.querySelectorAll('[data-theme-switcher]').forEach((switcher) => {
         const label = switcher.querySelector('[data-theme-label]');
         const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]');
         const options = switcher.querySelectorAll('.theme-switcher__option');
         
         if (label && labelWrapper) {
-          const themeLabel = getThemeLabel(currentTheme);
+          const themeLabel = stored === THEME_SYSTEM ? 'System' : getThemeLabel(currentTheme);
           label.textContent = themeLabel;
           
           // Update icon
@@ -177,7 +215,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
           if (existingIcon) {
             existingIcon.remove();
           }
-          const iconSvg = getIconSVG(currentTheme);
+          const iconTheme = stored === THEME_SYSTEM ? THEME_SYSTEM : currentTheme;
+          const iconSvg = getIconSVG(iconTheme);
           if (iconSvg) {
             const iconElement = document.createElement('span');
             iconElement.setAttribute('data-theme-label-icon', '');
@@ -187,18 +226,26 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
           }
         }
         
-        // Update options
+        // Update options: when System is selected, both System and the resolved theme show active styles
+        const resolvedThemeBg = stored === THEME_SYSTEM
+          ? (Array.from(options).find((opt) => (opt.getAttribute('data-theme-value') || '').trim() === currentTheme)?.getAttribute('data-theme-bg') || null)
+          : null;
         options.forEach((option) => {
-          const isActive = option.getAttribute('data-theme-value') === currentTheme;
-          option.setAttribute('aria-checked', isActive.toString());
-          option.classList.toggle('theme-switcher__option--active', isActive);
-          
+          const optionValue = (option.getAttribute('data-theme-value') || '').trim();
+          const isStoredChoice = optionValue === stored;
+          const isResolvedTheme = stored === THEME_SYSTEM && optionValue === currentTheme;
+          const isActive = isStoredChoice || isResolvedTheme;
+          option.setAttribute('aria-checked', isStoredChoice.toString());
           if (isActive) {
-            const themeBg = option.getAttribute('data-theme-bg');
+            option.classList.add('theme-switcher__option--active');
+            const themeBg = optionValue === THEME_SYSTEM && resolvedThemeBg
+              ? resolvedThemeBg
+              : option.getAttribute('data-theme-bg');
             if (themeBg) {
               option.style.setProperty('--theme-bg', themeBg);
             }
           } else {
+            option.classList.remove('theme-switcher__option--active');
             option.style.removeProperty('--theme-bg');
           }
         });
@@ -206,10 +253,22 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     };
 
     // Apply theme (updates all switchers)
-    const applyTheme = (themeValue: string) => {
-      document.documentElement.setAttribute('data-theme', themeValue);
-      localStorage.setItem('theme', themeValue);
-      updateAllSwitchers();
+    const applyTheme = (themeValue) => {
+      let stored;
+      let currentTheme;
+      if (themeValue === THEME_SYSTEM) {
+        currentTheme = resolveSystemTheme();
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        localStorage.setItem('theme', THEME_SYSTEM);
+        stored = THEME_SYSTEM;
+      } else {
+        document.documentElement.setAttribute('data-theme', themeValue);
+        localStorage.setItem('theme', themeValue);
+        stored = themeValue;
+        currentTheme = themeValue;
+      }
+      updateAllSwitchers(stored, currentTheme);
+      setTimeout(() => updateAllSwitchers(), 0);
     };
 
     // Initialize all theme switcher instances on the page
@@ -239,6 +298,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         if (!willBeOpen) {
           trigger.focus();
         } else {
+          updateAllSwitchers();
           const firstOption = options[0];
           if (firstOption) {
             setTimeout(() => firstOption.focus(), 0);
@@ -372,18 +432,22 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
 
     // Initialize all switchers
     setTimeout(() => {
-      const currentThemeOnPage = getCurrentTheme();
       const savedTheme = localStorage.getItem('theme');
-      
       if (savedTheme) {
-        if (currentThemeOnPage !== savedTheme) {
-          applyTheme(savedTheme);
-        } else {
-          updateAllSwitchers();
-        }
+        applyTheme(savedTheme);
       } else {
         updateAllSwitchers();
       }
     }, 0);
+
+    // When "System" is selected, update theme when OS preference changes
+    const systemMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    systemMedia.addEventListener('change', () => {
+      if (localStorage.getItem('theme') === THEME_SYSTEM) {
+        const resolved = resolveSystemTheme();
+        document.documentElement.setAttribute('data-theme', resolved);
+        updateAllSwitchers();
+      }
+    });
   })();
 </script>
