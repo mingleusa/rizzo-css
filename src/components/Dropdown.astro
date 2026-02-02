@@ -71,8 +71,7 @@ const menuId = `${dropdownId}-menu`;
         return (
           <div class={`dropdown__item-wrapper ${hasSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
             {hasSubmenu ? (
-              <button
-                type="button"
+              <div
                 class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
                 role="menuitem"
                 id={itemId}
@@ -86,19 +85,19 @@ const menuId = `${dropdownId}-menu`;
               >
                 <span>{item.label}</span>
                 <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
-              </button>
+              </div>
             ) : (
-              <a
-                href={item.href}
+              <div
                 class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''}`}
                 role="menuitem"
                 id={itemId}
                 tabindex="-1"
                 aria-label={item.label}
                 aria-disabled={item.disabled ? 'true' : 'false'}
+                data-dropdown-href={item.href}
               >
                 <span>{item.label}</span>
-              </a>
+              </div>
             )}
             {hasSubmenu && item.submenu && (
               <div
@@ -121,8 +120,7 @@ const menuId = `${dropdownId}-menu`;
                     return (
                       <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
                         {hasNestedSubmenu ? (
-                          <button
-                            type="button"
+                          <div
                             class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
                             role="menuitem"
                             id={subItemId}
@@ -136,19 +134,19 @@ const menuId = `${dropdownId}-menu`;
                           >
                             <span>{subItem.label}</span>
                             <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
-                          </button>
+                          </div>
                         ) : (
-                          <a
-                            href={subItem.href}
+                          <div
                             class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''}`}
                             role="menuitem"
                             id={subItemId}
                             tabindex="-1"
                             aria-label={subItem.label}
                             aria-disabled={subItem.disabled ? 'true' : 'false'}
+                            data-dropdown-href={subItem.href}
                           >
                             <span>{subItem.label}</span>
-                          </a>
+                          </div>
                         )}
                         {hasNestedSubmenu && subItem.submenu && (
                           <div
@@ -167,22 +165,21 @@ const menuId = `${dropdownId}-menu`;
                               
                               if (nestedItem.href) {
                                 return (
-                                  <a
-                                    href={nestedItem.href}
+                                  <div
                                     class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                     role="menuitem"
                                     id={nestedItemId}
                                     tabindex="-1"
                                     aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                    data-dropdown-href={nestedItem.href}
                                   >
                                     <span>{nestedItem.label}</span>
-                                  </a>
+                                  </div>
                                 );
                               }
                               
                               return (
-                                <button
-                                  type="button"
+                                <div
                                   class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                   role="menuitem"
                                   id={nestedItemId}
@@ -193,7 +190,7 @@ const menuId = `${dropdownId}-menu`;
                                   data-dropdown-onclick={nestedItem.onClick || ''}
                                 >
                                   <span>{nestedItem.label}</span>
-                                </button>
+                                </div>
                               );
                             })}
                           </div>
@@ -204,8 +201,7 @@ const menuId = `${dropdownId}-menu`;
                   
                   return (
                     <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-                      <button
-                        type="button"
+                      <div
                         class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
                         role="menuitem"
                         id={subItemId}
@@ -221,7 +217,7 @@ const menuId = `${dropdownId}-menu`;
                       >
                         <span>{subItem.label}</span>
                         {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-                      </button>
+                      </div>
                       {hasNestedSubmenu && subItem.submenu && (
                         <div
                           class="dropdown__submenu"
@@ -239,23 +235,22 @@ const menuId = `${dropdownId}-menu`;
                             
                             if (nestedItem.href) {
                               return (
-                                <a
-                                  href={nestedItem.href}
+                                <div
                                   class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                   role="menuitem"
                                   id={nestedItemId}
                                   tabindex="-1"
                                   aria-label={nestedItem.label}
                                   aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                  data-dropdown-href={nestedItem.href}
                                 >
                                   <span>{nestedItem.label}</span>
-                                </a>
+                                </div>
                               );
                             }
                             
                             return (
-                              <button
-                                type="button"
+                              <div
                                 class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                 role="menuitem"
                                 id={nestedItemId}
@@ -265,7 +260,7 @@ const menuId = `${dropdownId}-menu`;
                                 data-dropdown-onclick={nestedItem.onClick || ''}
                               >
                                 <span>{nestedItem.label}</span>
-                              </button>
+                              </div>
                             );
                           })}
                         </div>
@@ -281,8 +276,7 @@ const menuId = `${dropdownId}-menu`;
       
       return (
         <div class={`dropdown__item-wrapper ${hasSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-          <button
-            type="button"
+          <div
             class={`dropdown__item ${item.disabled ? 'dropdown__item--disabled' : ''} ${hasSubmenu ? 'dropdown__item--has-submenu' : ''}`}
             role="menuitem"
             id={itemId}
@@ -297,7 +291,7 @@ const menuId = `${dropdownId}-menu`;
           >
             <span>{item.label}</span>
             {hasSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-          </button>
+          </div>
           {hasSubmenu && item.submenu && (
             <div
               class="dropdown__submenu"
@@ -319,8 +313,7 @@ const menuId = `${dropdownId}-menu`;
                   return (
                     <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
                       {hasNestedSubmenu ? (
-                        <button
-                          type="button"
+                        <div
                           class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} dropdown__item--has-submenu`}
                           role="menuitem"
                           id={subItemId}
@@ -333,18 +326,18 @@ const menuId = `${dropdownId}-menu`;
                         >
                           <span>{subItem.label}</span>
                           <ChevronDown class="dropdown__item-arrow" width={12} height={12} />
-                        </button>
+                        </div>
                       ) : (
-                        <a
-                          href={subItem.href}
+                        <div
                           class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''}`}
                           role="menuitem"
                           id={subItemId}
                           tabindex="-1"
                           aria-disabled={subItem.disabled ? 'true' : 'false'}
+                          data-dropdown-href={subItem.href}
                         >
                           <span>{subItem.label}</span>
-                        </a>
+                        </div>
                       )}
                       {hasNestedSubmenu && subItem.submenu && (
                         <div
@@ -363,23 +356,22 @@ const menuId = `${dropdownId}-menu`;
                             
                             if (nestedItem.href) {
                               return (
-                                <a
-                                  href={nestedItem.href}
+                                <div
                                   class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                   role="menuitem"
                                   id={nestedItemId}
                                   tabindex="-1"
                                   aria-label={nestedItem.label}
                                   aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                  data-dropdown-href={nestedItem.href}
                                 >
                                   <span>{nestedItem.label}</span>
-                                </a>
+                                </div>
                               );
                             }
                             
                             return (
-                              <button
-                                type="button"
+                              <div
                                 class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                 role="menuitem"
                                 id={nestedItemId}
@@ -389,7 +381,7 @@ const menuId = `${dropdownId}-menu`;
                                 data-dropdown-onclick={nestedItem.onClick || ''}
                               >
                                 <span>{nestedItem.label}</span>
-                              </button>
+                              </div>
                             );
                           })}
                         </div>
@@ -400,8 +392,7 @@ const menuId = `${dropdownId}-menu`;
                 
                 return (
                   <div class={`dropdown__item-wrapper ${hasNestedSubmenu ? 'dropdown__item-wrapper--has-submenu' : ''}`}>
-                    <button
-                      type="button"
+                    <div
                       class={`dropdown__item dropdown__submenu-item ${subItem.disabled ? 'dropdown__item--disabled' : ''} ${hasNestedSubmenu ? 'dropdown__item--has-submenu' : ''}`}
                       role="menuitem"
                       id={subItemId}
@@ -417,7 +408,7 @@ const menuId = `${dropdownId}-menu`;
                     >
                       <span>{subItem.label}</span>
                       {hasNestedSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
-                    </button>
+                    </div>
                     {hasNestedSubmenu && subItem.submenu && (
                       <div
                         class="dropdown__submenu"
@@ -435,22 +426,21 @@ const menuId = `${dropdownId}-menu`;
                           
                           if (nestedItem.href) {
                             return (
-                              <a
-                                href={nestedItem.href}
+                              <div
                                 class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                                 role="menuitem"
                                 id={nestedItemId}
                                 tabindex="-1"
                                 aria-disabled={nestedItem.disabled ? 'true' : 'false'}
+                                data-dropdown-href={nestedItem.href}
                               >
                                 <span>{nestedItem.label}</span>
-                              </a>
+                              </div>
                             );
                           }
                           
                           return (
-                            <button
-                              type="button"
+                            <div
                               class={`dropdown__item dropdown__submenu-item ${nestedItem.disabled ? 'dropdown__item--disabled' : ''}`}
                               role="menuitem"
                               id={nestedItemId}
@@ -460,7 +450,7 @@ const menuId = `${dropdownId}-menu`;
                               data-dropdown-onclick={nestedItem.onClick || ''}
                             >
                               <span>{nestedItem.label}</span>
-                            </button>
+                            </div>
                           );
                         })}
                       </div>
@@ -675,6 +665,10 @@ const menuId = `${dropdownId}-menu`;
           }
           
           // Item does NOT have a submenu - handle as regular item
+          const href = item.getAttribute('data-dropdown-href');
+          if (href) {
+            window.location.href = href;
+          }
           const onClick = item.getAttribute('data-dropdown-onclick');
           if (onClick && typeof window[onClick] === 'function') {
             const value = item.getAttribute('data-dropdown-value') || item.textContent?.trim() || '';

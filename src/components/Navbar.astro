@@ -58,6 +58,7 @@ const navLinks: NavLink[] = [
       { href: '/docs/components/spinner', label: 'Spinner' },
       { href: '/docs/components/avatar', label: 'Avatar' },
       { href: '/docs/components/divider', label: 'Divider' },
+      { href: '/docs/components/table', label: 'Table' },
       { href: '/docs/components/alert', label: 'Alert' },
       { href: '/docs/components/toast', label: 'Toast' },
       { href: '/docs/components/search', label: 'Search' },
@@ -135,10 +136,10 @@ const navLinks: NavLink[] = [
         return (
           <div class={`navbar__item ${hasSubLinks ? 'navbar__item--has-dropdown' : ''}`}>
             {hasSubLinks ? (
-              <button
-                type="button"
+              <div
                 class="navbar__link"
                 role="menuitem"
+                tabindex={0}
                 aria-label={link.label}
                 aria-expanded="false"
                 aria-haspopup="true"
@@ -151,17 +152,18 @@ const navLinks: NavLink[] = [
                   <title>Dropdown menu</title>
                   <path d="M2 4l4 4 4-4"/>
                 </svg>
-              </button>
+              </div>
             ) : (
-              <a
-                href={link.href}
+              <div
                 class="navbar__link"
                 role="menuitem"
+                tabindex={0}
                 aria-label={link.label}
                 aria-current={isActive ? 'page' : undefined}
+                data-nav-href={link.href}
               >
                 {link.label}
-              </a>
+              </div>
             )}
             {hasSubLinks && link.subLinks && (
               <ul class="navbar__submenu" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
@@ -169,15 +171,16 @@ const navLinks: NavLink[] = [
                   const isSubActive = currentPath === subLink.href;
                   return (
                     <li role="none">
-                      <a
-                        href={subLink.href}
+                      <div
                         class="navbar__sublink"
                         role="menuitem"
+                        tabindex={-1}
                         aria-label={subLink.label}
                         aria-current={isSubActive ? 'page' : undefined}
+                        data-nav-href={subLink.href}
                       >
                         {subLink.label}
-                      </a>
+                      </div>
                     </li>
                   );
                 })}
@@ -242,6 +245,32 @@ const navLinks: NavLink[] = [
         return;
       }
       toggleMenu();
+    });
+
+    // Navigate when activating menu items that use data-nav-href (non-interactive element with role=menuitem)
+    const navHrefHandler = (e: Event) => {
+      const target = (e.target as Element).closest('[data-nav-href]');
+      if (target && target instanceof HTMLElement) {
+        const href = target.getAttribute('data-nav-href');
+        if (href) {
+          e.preventDefault();
+          window.location.href = href;
+        }
+      }
+    };
+    navbar.addEventListener('click', navHrefHandler);
+    navbar.addEventListener('keydown', (e: Event) => {
+      const keyEvent = e as KeyboardEvent;
+      if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+        const target = (keyEvent.target as Element).closest('[data-nav-href]');
+        if (target && target instanceof HTMLElement) {
+          const href = target.getAttribute('data-nav-href');
+          if (href) {
+            keyEvent.preventDefault();
+            window.location.href = href;
+          }
+        }
+      }
     });
 
     // Dropdown menu handling

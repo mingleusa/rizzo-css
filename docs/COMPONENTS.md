@@ -21,6 +21,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
 - [Avatar](/docs/components/avatar) - User avatar with image or initials fallback, sizes and shapes
 - [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
+- [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration
@@ -288,6 +289,53 @@ import Divider from '../components/Divider.astro';
 
 See [Divider Documentation](/docs/components/divider) for complete details.
 
+## Table
+
+A data table with column header sorting and optional filter input. Supports string and number column types for correct sort order.
+
+### Usage
+
+```astro
+---
+import Table from '../components/Table.astro';
+---
+
+<Table
+  caption="Sample data"
+  columns={[
+    { key: 'name', label: 'Name' },
+    { key: 'score', label: 'Score', type: 'number' },
+  ]}
+  data={[
+    { name: 'Alice', score: 92 },
+    { name: 'Bob', score: 87 },
+  ]}
+  filterable
+  filterPlaceholder="Search…"
+/>
+```
+
+### Props
+
+- `columns` (array, required) - Column definitions: `{ key, label, sortable?, type? }`. `type` is `'string'` or `'number'` for sort order.
+- `data` (array, required) - Row data: array of objects with keys matching column `key`.
+- `caption` (string, optional) - Table caption for accessibility.
+- `sortable` (boolean, optional) - Enable column header sorting (default: true).
+- `filterable` (boolean, optional) - Show filter input above table (default: false).
+- `filterPlaceholder` (string, optional) - Placeholder for filter input.
+- `striped` (boolean, optional) - Striped rows (default: true).
+- `class` (string, optional) - Additional CSS classes.
+
+### Features
+
+- **Accessible** - Semantic `<table>`, `<caption>`, `scope="col"`, `aria-sort` on sortable headers, keyboard (Enter/Space) to sort.
+- **Sorting** - Sortable column headers use the Sort icon; click to sort ascending/descending; `type: 'number'` for numeric sort.
+- **Filtering** - Optional filter input with Filter icon; rows shown/hidden by matching text in any cell.
+- **Striped rows** - Optional alternating row background; row hover uses theme variables for contrast.
+- **Responsive** - Table wrapper scrolls horizontally on small screens.
+
+See [Table Documentation](/docs/components/table) for complete details.
+
 ## Navbar
 
 A responsive, accessible navigation bar with search, settings button, and mobile menu.
@@ -487,6 +535,7 @@ A powerful search component with Algolia integration and live filtering.
 
 ### Features
 
+- **Full-screen overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
 - Algolia integration with client-side fallback
 - Keyboard shortcut (Cmd+K / Ctrl+K)
 - Close button on desktop (X icon with screen reader label)
@@ -684,7 +733,7 @@ Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT
 
 ### Regular Icons (Tabler Icons)
 
-Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check, Search
+Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check, Search, Sort, Filter
 
 All regular icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and automatically adapt to both light and dark themes.
 

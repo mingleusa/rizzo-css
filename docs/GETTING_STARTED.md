@@ -44,6 +44,7 @@ rizzo-css/
 │   │   ├── Spinner.astro
 │   │   ├── Avatar.astro
 │   │   ├── Divider.astro
+│   │   ├── Table.astro
 │   │   ├── Settings.astro
 │   │   ├── Tabs.astro
 │   │   ├── ThemeSwitcher.astro
@@ -63,6 +64,8 @@ rizzo-css/
 │   │       ├── Palette.astro
 │   │       ├── Rainbow.astro
 │   │       ├── Search.astro
+│   │       ├── Sort.astro
+│   │       ├── Filter.astro
 │   │       ├── Snowflake.astro
 │   │       └── devicons/  # Devicon brand icons
 │   │           ├── Astro.astro
@@ -154,6 +157,7 @@ Rizzo CSS includes a comprehensive set of accessible components. Each component 
 - [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
 - [Avatar](/docs/components/avatar) - User avatar with image or initials fallback
 - [Divider](/docs/components/divider) - Horizontal or vertical divider with optional label
+- [Table](/docs/components/table) - Data table with sorting and filtering
 - [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality
 - [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
@@ -203,7 +207,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Spinner, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
+- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Spinner, Table, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables

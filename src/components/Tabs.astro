@@ -39,19 +39,18 @@ const classes = `tabs ${variantClass} ${className}`.trim();
       const isActive = tab.id === activeTabId;
       
       return (
-        <button
-          type="button"
+        <span
           class={`tabs__tab ${isActive ? 'tabs__tab--active' : ''}`}
           id={tabId}
           role="tab"
+          tabindex={isActive ? 0 : -1}
           aria-selected={isActive ? 'true' : 'false'}
           aria-controls={panelId}
-          tabindex={isActive ? 0 : -1}
           data-tab-id={tab.id}
           data-tab-index={index}
         >
           {tab.label}
-        </button>
+        </span>
       );
     })}
   </div>

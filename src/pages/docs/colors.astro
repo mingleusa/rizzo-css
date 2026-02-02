@@ -19,11 +19,11 @@ import Card from '../../components/Card.astro';
 	
 	<section>
 		<div class="color-format-tabs" role="tablist" aria-label="Color format selection">
-			<button class="color-format-tab" role="tab" aria-selected="true" aria-controls="oklch-panel" id="oklch-tab" data-format="oklch">OKLCH</button>
-			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="hex-panel" id="hex-tab" data-format="hex">Hex</button>
-			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="rgb-panel" id="rgb-tab" data-format="rgb">RGB</button>
-			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="hsl-panel" id="hsl-tab" data-format="hsl">HSL</button>
-			<button class="color-format-tab" role="tab" aria-selected="false" aria-controls="cssvar-panel" id="cssvar-tab" data-format="cssvar">CSS Variable</button>
+			<span class="color-format-tab" role="tab" tabindex="0" aria-selected="true" aria-controls="oklch-panel" id="oklch-tab" data-format="oklch">OKLCH</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="hex-panel" id="hex-tab" data-format="hex">Hex</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="rgb-panel" id="rgb-tab" data-format="rgb">RGB</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="hsl-panel" id="hsl-tab" data-format="hsl">HSL</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="cssvar-panel" id="cssvar-tab" data-format="cssvar">CSS Variable</span>
 		</div>
 		
 		<h2>Core Colors</h2>
@@ -184,12 +184,16 @@ import Card from '../../components/Card.astro';
 	}
 	
 	.color-format-tab {
+		display: inline-flex;
+		align-items: center;
 		padding: 0.5rem 1rem;
 		background: none;
 		border: none;
 		border-bottom: 2px solid transparent;
 		color: var(--text-dim);
 		font-weight: var(--font-weight-medium);
+		font-family: inherit;
+		font-size: inherit;
 		cursor: pointer;
 		transition: color 0.2s, border-color 0.2s;
 		margin-bottom: -0.5rem;
@@ -657,11 +661,13 @@ import Card from '../../components/Card.astro';
 					
 					currentFormat = format;
 					
-					// Update tab states
+					// Update tab states and tabindex for accessibility
 					tabs.forEach((t) => {
 						t.setAttribute('aria-selected', 'false');
+						t.setAttribute('tabindex', '-1');
 					});
 					tab.setAttribute('aria-selected', 'true');
+					tab.setAttribute('tabindex', '0');
 					
 					// Update color values
 					updateColorValues();

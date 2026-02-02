@@ -234,13 +234,18 @@
   gap: var(--spacing-0-375);
 }
 
-/* Reset button styles when navbar link is a button (dropdown toggles) */
-button.navbar__link {
+/* Reset button/div styles when navbar link is interactive (dropdown toggles, menuitem divs) */
+button.navbar__link,
+div.navbar__link {
   font: inherit;
   background: none;
   border: none;
   cursor: pointer;
   text-align: left;
+}
+
+div.navbar__sublink {
+  cursor: pointer;
 }
 
 .navbar__dropdown-icon {
@@ -883,9 +888,13 @@ button.navbar__link {
     gap: var(--spacing-2);
     width: 100%;
     padding: var(--spacing-0-625) var(--spacing-4);
+    font: inherit;
     text-align: left;
     background-color: transparent;
+    border: none;
     color: var(--text);
+    cursor: pointer;
+    appearance: none;
     border: none;
     cursor: pointer;
     font-family: var(--font-family);
@@ -2338,21 +2347,29 @@ button.navbar__link {
 
 .search__overlay {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  min-width: 100vw;
+  min-height: 100vh;
+  min-height: 100dvh;
   background-color: var(--overlay);
   backdrop-filter: blur(var(--blur-sm));
   z-index: var(--z-search-overlay);
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-ease-out);
+  box-sizing: border-box;
 }
 
-/* Overlay should cover everything but allow navbar clicks on desktop */
+/* Overlay full screen; when visible, panel is centered inside via absolute positioning */
 .search__overlay[aria-hidden="false"] {
   z-index: var(--z-search-overlay);
   opacity: 1;
   pointer-events: all;
-  display: block;
 }
 
 .search__overlay[aria-hidden="true"] {
@@ -2382,14 +2399,16 @@ button.navbar__link {
   }
 }
 
+/* Panel centered in overlay: absolute 50% / 50% + translate(-50%, -50%) */
 .search__panel {
-  position: fixed;
-  top: var(--spacing-2); /* Position over navbar, starting from top with small padding */
+  position: absolute;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(calc(-1 * var(--spacing-5)));
-  width: 90%;
+  transform: translate(-50%, -50%);
+  width: calc(100vw - var(--spacing-8));
   max-width: var(--spacing-150);
-  max-height: calc(100vh - var(--spacing-4));
+  max-height: calc(100vh - var(--spacing-8));
+  max-height: calc(100dvh - var(--spacing-8));
   background-color: var(--background);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
@@ -2399,8 +2418,9 @@ button.navbar__link {
   flex-direction: column;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-ease-out), transform var(--transition-ease-out);
+  transition: opacity var(--transition-ease-out);
   outline: none;
+  box-sizing: border-box;
 }
 
 .search__panel[aria-hidden="true"] {
@@ -2410,36 +2430,22 @@ button.navbar__link {
 .search__panel[aria-hidden="false"][data-open="true"] {
   opacity: 1;
   pointer-events: all;
-  transform: translateX(-50%) translateY(0);
   display: flex;
+  transform: translate(-50%, -50%);
 
-  /* Ensure panel background is opaque to cover navbar border */
+  /* Ensure panel background is opaque */
   background-color: var(--background);
 }
 
-/* Search panel mobile adjustments */
 @media (width <= 640px) {
   .search__panel {
-    top: 0.25rem; /* Start very close to top to cover navbar border */
-    left: 1rem;
-    right: var(--spacing-4);
-    width: auto;
+    width: calc(100vw - var(--spacing-8));
     max-width: none;
-    transform: translateY(-20px);
-    max-height: calc(100vh - var(--spacing-2));
-  }
-
-  .search__panel[aria-hidden="false"][data-open="true"] {
-    transform: translateY(0);
+    max-height: calc(100dvh - var(--spacing-8));
   }
 }
 
-/* On mobile, ensure search panel starts at navbar border level to cover it */
 @media (width <= 1023px) {
-  .search__panel {
-    top: calc(4rem + 0.25rem); /* Start just below navbar (4rem height) to cover border */
-  }
-  
   .search__panel[aria-hidden="false"][data-open="true"] .search__header {
     /* Ensure header background is solid to cover any border */
     background-color: var(--background) !important;
@@ -3553,4 +3559,197 @@ button.navbar__link {
   min-height: var(--spacing-4);
   border-top: none;
   border-left: 1px solid var(--border);
+}
+
+/* ==========================================================================
+   Table
+   ========================================================================== */
+
+.table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+}
+
+.table__filter-wrap {
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.table__filter-icon {
+  position: absolute;
+  left: var(--spacing-3);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-dim);
+  pointer-events: none;
+}
+
+.table__filter-icon-svg {
+  width: var(--table-filter-icon-size, 1.25rem);
+  height: var(--table-filter-icon-size, 1.25rem);
+  color: currentcolor;
+}
+
+.table__filter-wrap:focus-within .table__filter-icon {
+  color: var(--accent);
+}
+
+/* Left padding = icon left offset + icon width + clear gap so placeholder starts after icon (overrides forms.css input[type="search"]) */
+.table__filter-wrap .table__filter {
+  width: 100%;
+  max-width: var(--spacing-80);
+  padding-left: 3.5rem; /* ~56px: space for icon (12px + 20px) + 24px gap so placeholder starts after icon */
+  padding-right: var(--spacing-3);
+  padding-top: var(--spacing-2);
+  padding-bottom: var(--spacing-2);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  color: var(--text);
+  background-color: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.table__filter-wrap .table__filter::placeholder {
+  color: var(--text-dim);
+}
+
+.table__filter-wrap .table__filter:focus {
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+.table__wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table__table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  font-size: var(--font-size-sm);
+}
+
+.table__caption {
+  padding: var(--spacing-2) 0;
+  font-weight: var(--font-weight-semibold);
+  text-align: left;
+  color: var(--text);
+}
+
+.table__head .table__row {
+  border-bottom: 2px solid var(--border);
+}
+
+.table__cell {
+  padding: var(--spacing-3) var(--spacing-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  color: var(--text);
+}
+
+.table__cell--head {
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.table__sort-trigger {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  padding: 0;
+  font: inherit;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  text-align: left;
+  background: none;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  appearance: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.table__sort-trigger:hover {
+  background-color: var(--background-alt);
+  color: var(--text);
+}
+
+.table__sort-trigger:hover .table__sort-icon-svg {
+  color: var(--accent);
+}
+
+.table__sort-trigger:focus-visible {
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+.table--sortable .table__cell--head {
+  padding: 0;
+}
+
+.table--sortable .table__cell--head .table__sort-trigger {
+  padding: var(--spacing-3) var(--spacing-4);
+}
+
+.table__cell-content {
+  display: inline-block;
+}
+
+.table__sort-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: var(--spacing-2);
+  flex-shrink: 0;
+}
+
+.table__sort-icon-svg {
+  width: var(--table-sort-icon-size, 1.25rem);
+  height: var(--table-sort-icon-size, 1.25rem);
+  color: var(--text-dim);
+  transition: color var(--transition-fast);
+}
+
+.table__body .table__row:hover {
+  background-color: var(--background-alt);
+}
+
+.table__body .table__row:hover .table__cell {
+  color: var(--text);
+}
+
+.table--striped .table__body .table__row:nth-child(even) {
+  background-color: var(--background-alt);
+}
+
+.table--striped .table__body .table__row:nth-child(even):hover {
+  background-color: var(--background);
+}
+
+.table--striped .table__body .table__row:nth-child(even):hover .table__cell {
+  color: var(--text);
+}
+
+.table__body .table__row[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .table__sort-trigger {
+    transition: none;
+  }
+
+  .table__sort-icon-svg {
+    transition: none;
+  }
 }

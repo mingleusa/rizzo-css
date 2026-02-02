@@ -4,6 +4,7 @@ Rizzo CSS includes a powerful search component with Algolia integration for fast
 
 ## Features
 
+- **Full-Screen Overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
 - **Live Search** - Results filter as you type
 - **Algolia Integration** - Fast, typo-tolerant search powered by Algolia
 - **Client-Side Fallback** - Works without Algolia for development
@@ -109,7 +110,9 @@ The Search component includes:
 
 ### Styling
 
-The Search component uses semantic theme variables and can be customized via CSS. **Always use design system variables** for consistency and framework portability:
+The Search component uses semantic theme variables and can be customized via CSS. **Always use design system variables** for consistency and framework portability.
+
+The search modal is rendered inside the overlay and centered with `position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)`. The overlay is full-screen (`position: fixed; inset: 0`).
 
 ```css
 /* Customize search panel using design system variables */
