@@ -345,8 +345,8 @@ async function uploadToAlgolia(records) {
     // Initialize Algolia client
     const client = algoliasearch(ALGOLIA_APP_ID, ALGOLIA_API_KEY);
 
-    console.log(`Uploading ${records.length} records to Algolia index: ${ALGOLIA_INDEX_NAME}...`);
-    console.log('Processing records...\n');
+    // console.log(`Uploading ${records.length} records to Algolia index: ${ALGOLIA_INDEX_NAME}...`);
+    // console.log('Processing records...\n');
     
     // Save objects using v5 API
     const response = await client.saveObjects({
@@ -354,14 +354,14 @@ async function uploadToAlgolia(records) {
       objects: records,
     });
 
-    console.log('✓ Successfully indexed documentation to Algolia!');
-    console.log(`\nIndex name: ${ALGOLIA_INDEX_NAME}`);
-    console.log(`Records uploaded: ${records.length}`);
-    console.log(`Task ID: ${response.taskID}`);
-    console.log('\nNext steps:');
-    console.log('1. Configure your Algolia index settings in the Algolia dashboard');
-    console.log('2. The Search component will automatically use Algolia if env vars are set');
-    console.log('3. Verify your index in the Algolia dashboard');
+    // console.log('✓ Successfully indexed documentation to Algolia!');
+    // console.log(`\nIndex name: ${ALGOLIA_INDEX_NAME}`);
+    // console.log(`Records uploaded: ${records.length}`);
+    // console.log(`Task ID: ${response.taskID}`);
+    // console.log('\nNext steps:');
+    // console.log('1. Configure your Algolia index settings in the Algolia dashboard');
+    // console.log('2. The Search component will automatically use Algolia if env vars are set');
+    // console.log('3. Verify your index in the Algolia dashboard');
   } catch (error) {
     console.error('Error uploading to Algolia:', error.message);
     if (error.response) {
@@ -378,11 +378,11 @@ async function uploadToAlgolia(records) {
 
 // Main function
 async function main() {
-  console.log('Building search index...\n');
+  // console.log('Building search index...\n');
   
   const records = buildRecords();
   
-  console.log(`Found ${records.length} pages to index\n`);
+  // console.log(`Found ${records.length} pages to index\n`);
   
   if (records.length === 0) {
     console.error('No records to index. Check your documentation structure.');

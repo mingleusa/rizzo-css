@@ -33,5 +33,5 @@ const conversions = {
   '#333333': 'oklch(0.25 0 0)',            // secondary-color
 };
 
-console.log('Conversion reference created');
-console.log('Note: These are approximate conversions. For production, verify with a color conversion tool.');
+// console.log('Conversion reference created');
+// console.log('Note: These are approximate conversions. For production, verify with a color conversion tool.');

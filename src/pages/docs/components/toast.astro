@@ -133,11 +133,11 @@ import Toast from '../components/Toast.astro';
 	(function() {
 		function checkFunctions() {
 			if (typeof window !== 'undefined' && window.showToast) {
-				console.log('Toast functions verified:', {
-					showToast: typeof window.showToast,
-					removeAllToasts: typeof window.removeAllToasts,
-					removeToast: typeof window.removeToast
-				});
+				// console.log('Toast functions verified:', {
+				// 	showToast: typeof window.showToast,
+				// 	removeAllToasts: typeof window.removeAllToasts,
+				// 	removeToast: typeof window.removeToast
+				// });
 			} else {
 				console.warn('Toast functions not yet available, retrying...');
 				setTimeout(checkFunctions, 50);

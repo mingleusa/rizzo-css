@@ -141,14 +141,14 @@ const resultsId = `${searchId}-results`;
       const inputId = input.id || '';
       const searchId = inputId.replace('-input', '') || `search-${Math.random().toString(36).substr(2, 9)}`;
       
-      // Log search configuration
-      console.log('🔍 Search initialized with searchId:', searchId);
+      // Log search configuration (commented for production)
+      // console.log('🔍 Search initialized with searchId:', searchId);
       if (useAlgolia && algoliaAppId && algoliaApiKey) {
-        console.log('✅ Algolia search enabled');
-        console.log('   App ID:', algoliaAppId.substring(0, 8) + '...');
-        console.log('   Index:', algoliaIndexName);
+        // console.log('✅ Algolia search enabled');
+        // console.log('   App ID:', algoliaAppId.substring(0, 8) + '...');
+        // console.log('   Index:', algoliaIndexName);
       } else {
-        console.log('ℹ️  Using client-side search (Algolia not configured)');
+        // console.log('ℹ️  Using client-side search (Algolia not configured)');
         if (useAlgolia) {
           console.warn('   ⚠️  Algolia enabled but credentials missing');
         }
@@ -269,7 +269,7 @@ const resultsId = `${searchId}-results`;
       // Algolia search function (if enabled)
       const performAlgoliaSearch = async (query) => {
         if (!useAlgolia || !algoliaAppId || !algoliaApiKey) {
-          console.log('Algolia not configured, using client-side search');
+          // console.log('Algolia not configured, using client-side search');
           return performClientSearch(query);
         }
 
@@ -284,7 +284,7 @@ const resultsId = `${searchId}-results`;
             
             if (algoliasearch && typeof algoliasearch === 'function') {
               useV5 = true;
-              console.log('Using Algolia v5 client');
+              // console.log('Using Algolia v5 client');
             } else {
               throw new Error('Algolia v5 not available');
             }
@@ -298,7 +298,7 @@ const resultsId = `${searchId}-results`;
               if (!algoliasearch || typeof algoliasearch !== 'function') {
                 throw new Error('Algolia client not available');
               }
-              console.log('Using Algolia v4 client (CDN)');
+              // console.log('Using Algolia v4 client (CDN)');
             } catch (cdnError) {
               console.error('Failed to load Algolia client from CDN:', cdnError.message);
               throw new Error('Algolia client not available');
@@ -311,7 +311,7 @@ const resultsId = `${searchId}-results`;
           
           if (useV5) {
             // Use v5 API
-            console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
+            // console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
             const response = await client.search({
               requests: [{
                 indexName: algoliaIndexName,
@@ -325,10 +325,10 @@ const resultsId = `${searchId}-results`;
             });
             
             results = response.results[0]?.hits || [];
-            console.log(`Algolia returned ${results.length} results`);
+            // console.log(`Algolia returned ${results.length} results`);
           } else {
             // Use v4 API (fallback)
-            console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
+            // console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
             const index = client.initIndex(algoliaIndexName);
             const searchResponse = await index.search(query, {
               hitsPerPage: 10,
@@ -337,7 +337,7 @@ const resultsId = `${searchId}-results`;
             });
             
             results = searchResponse.hits || [];
-            console.log(`Algolia returned ${results.length} results`);
+            // console.log(`Algolia returned ${results.length} results`);
           }
 
           return results.map((hit) => ({
@@ -504,7 +504,7 @@ const resultsId = `${searchId}-results`;
         
         // Force each result item to be visible and add event handlers
         const resultItems = resultsList.querySelectorAll('[data-search-result]');
-        console.log('Found result items:', resultItems.length);
+        // console.log('Found result items:', resultItems.length);
         
         resultItems.forEach((item, index) => {
           if (index >= results.length) return;
@@ -545,15 +545,15 @@ const resultsId = `${searchId}-results`;
           // Verify first item is visible
           if (index === 0) {
             const itemStyle = window.getComputedStyle(item);
-            console.log('First item computed styles:', {
-              display: itemStyle.display,
-              visibility: itemStyle.visibility,
-              opacity: itemStyle.opacity,
-              height: itemStyle.height,
-              width: itemStyle.width,
-              backgroundColor: itemStyle.backgroundColor,
-              color: itemStyle.color
-            });
+            // console.log('First item computed styles:', {
+            //   display: itemStyle.display,
+            //   visibility: itemStyle.visibility,
+            //   opacity: itemStyle.opacity,
+            //   height: itemStyle.height,
+            //   width: itemStyle.width,
+            //   backgroundColor: itemStyle.backgroundColor,
+            //   color: itemStyle.color
+            // });
           }
           
           // Add event handlers
@@ -570,14 +570,14 @@ const resultsId = `${searchId}-results`;
           });
         });
         
-        console.log('Rendered', resultItems.length, 'result items');
+        // console.log('Rendered', resultItems.length, 'result items');
         if (resultItems.length > 0) {
           const firstItemStyle = window.getComputedStyle(resultItems[0]);
-          console.log('First item display:', firstItemStyle.display);
-          console.log('First item visibility:', firstItemStyle.visibility);
-          console.log('First item opacity:', firstItemStyle.opacity);
-          console.log('First item color:', firstItemStyle.color);
-          console.log('First item background:', firstItemStyle.backgroundColor);
+          // console.log('First item display:', firstItemStyle.display);
+          // console.log('First item visibility:', firstItemStyle.visibility);
+          // console.log('First item opacity:', firstItemStyle.opacity);
+          // console.log('First item color:', firstItemStyle.color);
+          // console.log('First item background:', firstItemStyle.backgroundColor);
         }
 
         // Update focusable elements - ensure all are tabbable
@@ -617,7 +617,7 @@ const resultsId = `${searchId}-results`;
 
         // If query is empty, show ALL results by default
         if (!trimmedQuery || trimmedQuery.length < 1) {
-          console.log('Empty query - showing all results');
+          // console.log('Empty query - showing all results');
           const allResults = searchIndex.map((item, index) => ({
             ...item,
             relevance: 100 - index, // Give all items a relevance score
@@ -638,16 +638,16 @@ const resultsId = `${searchId}-results`;
             
             // Use Algolia if configured, otherwise fall back to client-side search
             if (useAlgolia && algoliaAppId && algoliaApiKey) {
-              console.log('Using Algolia search for query:', trimmedQuery);
+              // console.log('Using Algolia search for query:', trimmedQuery);
               results = await performAlgoliaSearch(trimmedQuery);
             } else {
-              console.log('Using client-side search for query:', trimmedQuery);
+              // console.log('Using client-side search for query:', trimmedQuery);
               results = performClientSearch(trimmedQuery);
             }
             
-            // Debug logging
-            console.log('Search results:', results);
-            console.log('Results count:', results ? results.length : 0);
+            // Debug logging (commented for production)
+            // console.log('Search results:', results);
+            // console.log('Results count:', results ? results.length : 0);
             
             // Render results
             if (Array.isArray(results) && results.length > 0) {
@@ -768,21 +768,21 @@ const resultsId = `${searchId}-results`;
               ...item,
               relevance: 100 - index,
             }));
-            console.log('Opening search, showing all results:', allResults.length);
+            // console.log('Opening search, showing all results:', allResults.length);
             renderResults(allResults);
             
-            // Double-check visibility after rendering
+            // Double-check visibility after rendering (commented for production)
             setTimeout(() => {
               const computed = window.getComputedStyle(resultsList);
               const containerComputed = window.getComputedStyle(resultsList.parentElement);
-              console.log('After render - Results list display:', computed.display);
-              console.log('After render - Results list visibility:', computed.visibility);
-              console.log('After render - Results list height:', computed.height);
-              console.log('After render - Results container display:', containerComputed.display);
-              console.log('After render - Results container height:', containerComputed.height);
-              console.log('After render - Results list innerHTML:', resultsList.innerHTML.length);
-              console.log('After render - Panel display:', window.getComputedStyle(panel).display);
-              console.log('After render - Panel opacity:', window.getComputedStyle(panel).opacity);
+              // console.log('After render - Results list display:', computed.display);
+              // console.log('After render - Results list visibility:', computed.visibility);
+              // console.log('After render - Results list height:', computed.height);
+              // console.log('After render - Results container display:', containerComputed.display);
+              // console.log('After render - Results container height:', containerComputed.height);
+              // console.log('After render - Results list innerHTML:', resultsList.innerHTML.length);
+              // console.log('After render - Panel display:', window.getComputedStyle(panel).display);
+              // console.log('After render - Panel opacity:', window.getComputedStyle(panel).opacity);
             }, 100);
           }, 100);
           
@@ -989,8 +989,10 @@ const resultsId = `${searchId}-results`;
       });
       
       overlay?.addEventListener('click', (e) => {
-        // Close search when clicking overlay (works on both desktop and mobile)
-        closeSearch(); // Will be wrapped version after reassignment
+        // Close only when clicking the backdrop (overlay itself), not when clicking inside the panel
+        if (e.target === overlay) {
+          closeSearch(); // Will be wrapped version after reassignment
+        }
       });
       
       // On desktop, also close search when clicking navbar links
@@ -1279,7 +1281,7 @@ const resultsId = `${searchId}-results`;
             return false; // Additional safeguard
           }
         }, true); // Use capture phase to intercept before browser handlers
-        console.log('✅ Global keyboard shortcut handler registered (Cmd+K / Ctrl+K)');
+        // console.log('✅ Global keyboard shortcut handler registered (Cmd+K / Ctrl+K)');
       }
     };
 

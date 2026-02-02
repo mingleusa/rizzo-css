@@ -74,7 +74,7 @@ const cssPath = import.meta.env.PROD
 				}
 				
 				function showToast(message, options) {
-					console.log('showToast called with:', message, options);
+					// console.log('showToast called with:', message, options);
 					if (!message) {
 						console.error('showToast: No message provided');
 						return null;
@@ -85,7 +85,7 @@ const cssPath = import.meta.env.PROD
 					var autoDismiss = options.autoDismiss !== undefined ? options.autoDismiss : 5000;
 					var dismissible = options.dismissible !== undefined ? options.dismissible : true;
 					var toastId = 'toast-' + Math.random().toString(36).substr(2, 9);
-					console.log('Creating toast:', { variant, position, autoDismiss, dismissible, toastId });
+					// console.log('Creating toast:', { variant, position, autoDismiss, dismissible, toastId });
 					
 					function createToast() {
 						if (!document.body) {
@@ -166,11 +166,11 @@ const cssPath = import.meta.env.PROD
 						}
 						
 						container.appendChild(toast);
-						console.log('Toast appended to container');
+						// console.log('Toast appended to container');
 						
 						// Force CSS to apply and ensure visibility
 						requestAnimationFrame(function() {
-							console.log('requestAnimationFrame callback executing');
+							// console.log('requestAnimationFrame callback executing');
 							// Force reflow
 							toast.offsetHeight;
 							

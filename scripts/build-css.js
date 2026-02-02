@@ -29,7 +29,7 @@ postcss([
   .process(css, { from: inputFile, to: outputFile })
   .then((result) => {
     writeFileSync(outputFile, result.css);
-    console.log(`✓ Built minified CSS: ${outputFile}`);
+    // console.log(`✓ Built minified CSS: ${outputFile}`);
   })
   .catch((error) => {
     console.error('Error building CSS:', error);
