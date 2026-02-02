@@ -1,6 +1,10 @@
 {
   "extends": ["stylelint-config-standard"],
   "rules": {
+    "selector-pseudo-class-no-unknown": [
+      true,
+      { "ignorePseudoClasses": ["global"] }
+    ],
     "selector-class-pattern": [
       "^(?:[a-z]([a-z0-9-]+)?(__([a-z0-9-]+))?(--([a-z0-9-]+))?|[a-z]+-[0-9]+|[a-z]+-[a-z0-9-]+|sr-only|visually-hidden|skip-link|container|card|btn|text-|bg-|border-|rounded-|flex-|grid-|gap-|col-|row-|items-|justify-|self-|w-|h-|min-w-|min-h-|max-w-|max-h-|m-|p-|mx-|my-|px-|py-|mt-|mr-|mb-|ml-|pt-|pr-|pb-|pl-|z-|transition-|duration-|delay-|ease-|static|relative|absolute|fixed|sticky|block|inline-block|inline|flex|inline-flex|grid|inline-grid|table|table-row|table-cell|contents|list-item|hidden|grow|shrink|auto|full|screen|fit|max|min|none|[a-z]+:[a-z-]+)$",
       {

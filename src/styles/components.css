@@ -2927,7 +2927,7 @@ button.navbar__link {
   transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 }
 
-.pagination__link:hover:not(.pagination__link--disabled):not(.pagination__link--current) {
+.pagination__link:hover:not(.pagination__link--disabled, .pagination__link--current) {
   background-color: var(--background);
   border-color: var(--accent);
   color: var(--accent);
@@ -3021,10 +3021,6 @@ button.navbar__link {
   color: var(--accent);
 }
 
-.accordion__trigger--expanded .accordion__icon {
-  transform: rotate(180deg);
-}
-
 .accordion__title {
   flex: 1;
   margin: 0;
@@ -3037,6 +3033,7 @@ button.navbar__link {
 }
 
 .accordion__trigger--expanded .accordion__icon {
+  transform: rotate(180deg);
   color: var(--accent);
 }
 
@@ -3383,7 +3380,7 @@ button.navbar__link {
   border-radius: var(--radius-full);
   border-style: solid;
   border-color: var(--border);
-  border-top-color: currentColor;
+  border-top-color: currentcolor;
   animation: spinner-rotate 0.8s linear infinite;
 }
 
@@ -3436,6 +3433,7 @@ button.navbar__link {
 @media (prefers-reduced-motion: reduce) {
   .spinner__ring {
     animation: none;
+
     /* Static segment so loading state is still visible */
     border-right-color: transparent;
     border-bottom-color: transparent;
