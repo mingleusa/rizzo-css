@@ -1,0 +1,60 @@
+---
+import CodeBlock from '../../../components/CodeBlock.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Cute Pink Theme" description="A cute pink light theme for VSCode by WebFreak">
+	<section>
+		<h2>Cute Pink</h2>
+		<p class="theme-by">By <a href="https://gitlab.com/WebFreak001/cute-vscode" target="_blank" rel="noopener noreferrer">WebFreak</a></p>
+		<p>A cute pink light theme for VSCode. White and soft pink UI with a vibrant pink accent.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://gitlab.com/WebFreak001/cute-vscode" target="_blank" rel="noopener noreferrer">WebFreak</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> A cute pink light theme for VSCode</p>
+				<p><strong>Theme ID:</strong> <code>cute-pink</code></p>
+				<p><strong>Source:</strong> <a href="https://gitlab.com/WebFreak001/cute-vscode" target="_blank" rel="noopener noreferrer">GitLab Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Cute Pink uses a white editor background with soft pink sidebars and title bar (#fcdee9, #fceaf1) and a bold pink accent (#ff4574) for buttons, links, and status.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> White (#ffffff) with soft pink UI areas</li>
+			<li><strong>Text:</strong> Dark grey (#333333)</li>
+			<li><strong>Accent:</strong> Pink (#ff4574)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="cute-pink">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Bright, friendly coding environments</li>
+			<li>Anyone who loves a pink light theme</li>
+		</ul>
+	</section>
+</DocsLayout>

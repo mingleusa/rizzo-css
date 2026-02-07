@@ -29,6 +29,22 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 
+## Features
+
+### Implemented Components
+
+All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
+
+**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Table  
+**Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
+**Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
+**Display:** Button, Badge, Cards, Avatar, Icons  
+**Theme & settings:** Theme Switcher, Settings  
+**Search:** Search (with Algolia integration)  
+**Menus:** Dropdown (keyboard navigation, nested submenus)
+
+(24 component doc pages in total.)
+
 ## Component Features
 
 All components in Rizzo CSS share these core features:
@@ -37,7 +53,7 @@ All components in Rizzo CSS share these core features:
 - **Accessibility** - Full keyboard navigation, ARIA attributes, and screen reader support
 - **BEM Naming** - Consistent class naming convention (block__element--modifier)
 - **Responsive** - Mobile-first design with responsive breakpoints
-- **Theme-Aware** - Automatically adapt to all 8 available themes
+- **Theme-Aware** - Automatically adapt to all 14 available themes
 - **WCAG AA Compliant** - Proper contrast ratios and accessible color combinations
 
 ## Accordion
@@ -987,7 +1003,7 @@ import Tabs from '../components/Tabs.astro';
 - **ARIA Tab Pattern** - Full ARIA support with `role="tablist"`, `role="tab"`, `role="tabpanel"`, `aria-selected`, `aria-controls`, and `aria-labelledby`
 - **Keyboard Navigation** - Arrow keys (Left/Right or Up/Down), Home, End, Enter, and Space for activation
 - **Three Variants** - Default (border indicator), Pills (filled background), and Underline (thicker border)
-- **Theme-Aware** - Automatically adapts to all 8 available themes
+- **Theme-Aware** - Automatically adapts to all 14 available themes
 - **Responsive** - Horizontal scrolling on mobile for many tabs
 - **Accessible** - WCAG AA compliant with proper focus indicators
 

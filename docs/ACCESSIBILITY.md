@@ -4,6 +4,14 @@ Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 gu
 
 ## Accessibility Features
 
+### Implemented Features
+
+- **Keyboard navigation** — Full keyboard support across all interactive components (Tab, arrows, Enter/Space, Escape).
+- **ARIA attributes** — Components use appropriate ARIA (aria-label, aria-expanded, aria-controls, roles, etc.).
+- **Focus management** — Visible focus indicators (`--accent`), focus trapping in modals.
+- **High contrast mode** — Implemented via Settings “High contrast” toggle; applies `.high-contrast` to the document root (see [High Contrast Mode](#high-contrast-mode)). Works with any theme; persists in localStorage.
+- **Reduce motion** — Settings “Reduce motion” toggle and `prefers-reduced-motion` media query support.
+
 ### Keyboard Navigation
 
 All interactive components support full keyboard navigation:

@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="GitHub Light Theme" description="Official GitHub light theme for VS Code">
+	<section>
+		<h2>GitHub Light</h2>
+		<p class="theme-by">By <a href="https://github.com/primer/github-vscode-theme" target="_blank" rel="noopener noreferrer">Primer (GitHub) / Hyzeta</a></p>
+		<p>The official GitHub light theme with a clean white background and GitHub blue accent, matching the look of GitHub.com in light mode.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/primer/github-vscode-theme" target="_blank" rel="noopener noreferrer">Primer (GitHub) / Hyzeta</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> Official GitHub light theme for VS Code</p>
+				<p><strong>Theme ID:</strong> <code>github-light</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/primer/github-vscode-theme" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>GitHub Light uses a white and light grey base with dark text and GitHub blue (#0969da) for links and interactive elements.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> White and light grey (#f6f8fa)</li>
+			<li><strong>Text:</strong> Dark grey (#1f2328)</li>
+			<li><strong>Accent:</strong> GitHub blue</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="github-light">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Developers who prefer GitHub's native light look</li>
+			<li>Bright environments and high-contrast readability</li>
+			<li>Consistency with GitHub.com light appearance</li>
+		</ul>
+	</section>
+</DocsLayout>

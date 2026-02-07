@@ -91,17 +91,23 @@ pnpm install`} language="nodejs" />
 │       ├── utilities.css
 │       ├── variables.css
 │       ├── media-queries.css
-│       └── themes/      # Theme files
+│       └── themes/      # Theme files (14 themes: 7 dark, 7 light)
 │           ├── dark/
 │           │   ├── dracula-at-night.css
-│           │   ├── night-owl.css
+│           │   ├── github-dark-classic.css
 │           │   ├── shades-of-purple.css
-│           │   └── winter-is-coming-dark-black.css
+│           │   ├── night-owl.css
+│           │   ├── winter-is-coming-dark-black.css
+│           │   ├── hack-the-box.css
+│           │   └── pink-cat-boo.css
 │           └── light/
-│               ├── grey-light-pro.css
+│               ├── github-light.css
 │               ├── nord-light.css
+│               ├── grey-light-pro.css
 │               ├── snazzy-light.css
-│               └── tiny-light.css
+│               ├── tiny-light.css
+│               ├── green-breeze-light.css
+│               └── cute-pink.css
 ├── docs/                # Documentation
 ├── public/              # Static assets
 │   └── css/             # Generated CSS
@@ -139,6 +145,14 @@ pnpm install`} language="nodejs" />
 			<li><a href="/docs/components/theme-switcher">Theme Switcher</a> - Accessible theme switcher</li>
 			<li><a href="/docs/components/button">Button</a> - Semantic button component</li>
 			<li><a href="/docs/components/badge">Badge</a> - Small labels and tags with variants and sizes</li>
+			<li><a href="/docs/components/accordion">Accordion</a> - Collapsible sections with single/multiple open and keyboard navigation</li>
+			<li><a href="/docs/components/breadcrumb">Breadcrumb</a> - Navigation breadcrumbs with separator customization</li>
+			<li><a href="/docs/components/pagination">Pagination</a> - Pagination navigation with prev/next, page numbers, and ellipsis</li>
+			<li><a href="/docs/components/progress-bar">Progress Bar</a> - Progress bar with variants, sizes, and indeterminate state</li>
+			<li><a href="/docs/components/spinner">Spinner</a> - Accessible loading spinner with variants and sizes</li>
+			<li><a href="/docs/components/avatar">Avatar</a> - User avatar with image or initials fallback</li>
+			<li><a href="/docs/components/divider">Divider</a> - Horizontal or vertical divider with optional label</li>
+			<li><a href="/docs/components/table">Table</a> - Data table with sorting and filtering</li>
 			<li><a href="/docs/components/icons">Icons</a> - Reusable SVG icon components</li>
 			<li><a href="/docs/components/copy-to-clipboard">CopyToClipboard</a> - Copy to clipboard component</li>
 			<li><a href="/docs/components/forms">Forms</a> - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)</li>
@@ -157,7 +171,7 @@ pnpm install`} language="nodejs" />
 	
 	<section>
 		<h2>Using Themes</h2>
-		<p>Themes are applied via the <code>data-theme</code> attribute on the HTML element:</p>
+		<p>Rizzo CSS includes 14 built-in themes (7 dark, 7 light). Themes are applied via the <code>data-theme</code> attribute on the HTML element:</p>
 		<CodeBlock code={`<html lang="en" data-theme="dracula-at-night">`} language="html" />
 		<p>See <a href="/docs/theming">Theming Documentation</a> for more details.</p>
 	</section>
@@ -181,7 +195,7 @@ pnpm install`} language="nodejs" />
 			<li><code>forms.css</code> - Form component styles</li>
 			<li><code>pages.css</code> - Page-specific styles</li>
 			<li><code>media-queries.css</code> - Responsive breakpoints and media query definitions</li>
-			<li><code>components.css</code> - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown, Tabs, Search)</li>
+			<li><code>components.css</code> - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, CopyToClipboard, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Search, Settings, Spinner, Table, Tabs, ThemeSwitcher, Toast, Tooltip)</li>
 			<li><code>themes/</code> - Theme definitions (dark/light)</li>
 		</ul>
 		

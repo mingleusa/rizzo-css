@@ -1,0 +1,45 @@
+/* Hack The Box Theme */
+
+/* Author: silofy */
+
+/* A VS Code theme built for hackers BY hackers - dark blue with lime green accent */
+
+/* https://github.com/silofy/hackthebox */
+
+[data-theme="hack-the-box"] {
+  /* Core colors from Hack The Box (editor.background #141d2b, sidebar #1a2332, foreground #a4b1cd) */
+  --bg: oklch(16% 0.03 255deg);
+  --bg-alt: oklch(13% 0.025 255deg);
+  --current-line: oklch(20% 0.03 255deg);
+  --selection: oklch(55% 0.08 255deg);
+  --fg: oklch(72% 0.03 255deg);
+  --fg-dim: oklch(48% 0.04 255deg);
+  --comment: oklch(55% 0.03 255deg);
+
+  /* Accent - Hack The Box lime green #9fef00, cyan #2ee7b6, blue #5cb2ff, red #ff3e3e */
+  --cyan: oklch(78% 0.12 175deg);
+  --green: oklch(88% 0.22 130deg);
+  --orange: oklch(78% 0.14 75deg);
+  --pink: oklch(65% 0.18 340deg);
+  --purple: oklch(65% 0.22 300deg);
+  --red: oklch(65% 0.22 25deg);
+  --yellow: oklch(82% 0.16 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: oklch(14% 0.028 255deg);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(20% 0.03 255deg);
+  --accent: var(--green);
+  --accent-hover: oklch(85% 0.2 125deg);
+  --accent-text: oklch(12% 0.02 255deg);
+  --success: var(--green);
+  --success-text: oklch(12% 0.02 255deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(12% 0.02 255deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: oklch(68% 0.14 240deg);
+  --info-text: oklch(100% 0 0deg);
+}

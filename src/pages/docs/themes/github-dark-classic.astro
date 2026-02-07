@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="GitHub Dark Classic Theme" description="Official GitHub dark theme for VS Code by Primer">
+	<section>
+		<h2>GitHub Dark Classic</h2>
+		<p class="theme-by">By <a href="https://github.com/primer/github-vscode-theme-dark-classic" target="_blank" rel="noopener noreferrer">Primer (GitHub)</a></p>
+		<p>The classic dark theme from GitHub's official VS Code theme, with a neutral blue-grey background and GitHub's signature blue accent.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/primer/github-vscode-theme-dark-classic" target="_blank" rel="noopener noreferrer">Primer (GitHub)</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> Official GitHub dark theme for VS Code – classic variant</p>
+				<p><strong>Theme ID:</strong> <code>github-dark-classic</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/primer/github-vscode-theme-dark-classic" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>GitHub Dark Classic uses a cool blue-grey base with high-contrast light text and GitHub blue (#79b8ff) for links and accents.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark blue-grey (#24292e)</li>
+			<li><strong>Text:</strong> Light grey (#e1e4e8)</li>
+			<li><strong>Accent:</strong> GitHub blue</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="github-dark-classic">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Developers who prefer GitHub's native dark look</li>
+			<li>Low-light environments with a neutral, professional palette</li>
+			<li>Consistency with GitHub.com dark appearance</li>
+		</ul>
+	</section>
+</DocsLayout>

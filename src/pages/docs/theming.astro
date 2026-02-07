@@ -16,7 +16,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 <DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
 	<section>
 		<h2>Available Themes</h2>
-		<p>Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
+		<p>Rizzo CSS includes 14 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
 		
 		<div class="example">
 			<div class="example-title">Try Themes</div>
@@ -36,6 +36,18 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">A darker fork of Dracula theme</p>
 					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> bceskavich</p>
 					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>dracula-at-night</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Owl width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/github-dark-classic">GitHub Dark Classic</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Official GitHub dark theme for VS Code</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Primer (GitHub)</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>github-dark-classic</code></p>
 				</div>
 			</Card>
 			
@@ -74,12 +86,48 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>winter-is-coming-dark-black</code></p>
 				</div>
 			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Circle width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/hack-the-box">Hack The Box</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark blue with lime green accent, built for hackers</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> silofy</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>hack-the-box</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Palette width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/pink-cat-boo">Pink Cat Boo</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Sweet and cute dark theme with rose pink accents</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Fiona Fan</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>pink-cat-boo</code></p>
+				</div>
+			</Card>
 		</div>
 	</section>
 	
 	<section>
 		<h2>Light Themes</h2>
 		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/github-light">GitHub Light</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Official GitHub light theme for VS Code</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Primer (GitHub)</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>github-light</code></p>
+				</div>
+			</Card>
+			
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
@@ -127,6 +175,30 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>tiny-light</code></p>
 				</div>
 			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/green-breeze-light">Green Breeze Light</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Green and blue focused light theme with good contrast</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> icy9ptcl</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>green-breeze-light</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/cute-pink">Cute Pink</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Cute pink light theme for VSCode</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> WebFreak</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>cute-pink</code></p>
+				</div>
+			</Card>
 		</div>
 	</section>
 	
@@ -163,14 +235,20 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 		<CodeBlock code={`themes/
 ├── dark/
 │   ├── dracula-at-night.css
+│   ├── github-dark-classic.css
 │   ├── shades-of-purple.css
 │   ├── night-owl.css
-│   └── winter-is-coming-dark-black.css
+│   ├── winter-is-coming-dark-black.css
+│   ├── hack-the-box.css
+│   └── pink-cat-boo.css
 └── light/
+    ├── github-light.css
     ├── nord-light.css
     ├── grey-light-pro.css
     ├── snazzy-light.css
-    └── tiny-light.css`} language="plaintext" />
+    ├── tiny-light.css
+    ├── green-breeze-light.css
+    └── cute-pink.css`} language="plaintext" />
 	</section>
 	
 	<section>

@@ -1,0 +1,45 @@
+/* Pink Cat Boo Theme */
+
+/* Author: Fiona Fan (ftsamoyed) */
+
+/* A sweet and cute theme especially for coder girls - rose pink, light purple, warm accents */
+
+/* https://github.com/ftsamoyed/PinkCatBoo */
+
+[data-theme="pink-cat-boo"] {
+  /* Core colors - editor #202330, sidebar #2d2f42, foreground #FFF0F5 */
+  --bg: oklch(18% 0.03 280deg);
+  --bg-alt: oklch(22% 0.04 280deg);
+  --current-line: oklch(28% 0.06 320deg);
+  --selection: oklch(28% 0.06 320deg);
+  --fg: oklch(98% 0.01 350deg);
+  --fg-dim: oklch(65% 0.04 280deg);
+  --comment: oklch(55% 0.03 160deg);
+
+  /* Accent - pink #fe7c8e, status #f3b4bf, gold #d0963a, green #3bc089 */
+  --cyan: oklch(72% 0.1 220deg);
+  --green: oklch(72% 0.14 165deg);
+  --orange: oklch(72% 0.14 75deg);
+  --pink: oklch(78% 0.12 350deg);
+  --purple: oklch(72% 0.14 300deg);
+  --red: oklch(72% 0.18 350deg);
+  --yellow: oklch(78% 0.14 85deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: oklch(20% 0.035 280deg);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(35% 0.04 280deg);
+  --accent: var(--pink);
+  --accent-hover: oklch(82% 0.1 350deg);
+  --accent-text: oklch(18% 0.02 280deg);
+  --success: var(--green);
+  --success-text: oklch(18% 0.02 280deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(18% 0.02 280deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(18% 0.02 280deg);
+}

@@ -1,18 +1,24 @@
 # Theming System
 
-Rizzo CSS includes 8 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated documentation page with detailed information, color palettes, and usage examples.
+Rizzo CSS includes 14 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated documentation page with detailed information, color palettes, usage examples, and links to the author and theme source (opening in a new tab).
 
 ## Available Themes
 
 Visit individual theme pages for detailed information:
 - [Dracula At Night](/docs/themes/dracula-at-night)
+- [GitHub Dark Classic](/docs/themes/github-dark-classic)
 - [Shades of Purple](/docs/themes/shades-of-purple)
 - [Night Owl](/docs/themes/night-owl)
 - [Winter is Coming](/docs/themes/winter-is-coming-dark-black)
+- [Hack The Box](/docs/themes/hack-the-box)
+- [Pink Cat Boo](/docs/themes/pink-cat-boo)
+- [GitHub Light](/docs/themes/github-light)
 - [Nord Light](/docs/themes/nord-light)
 - [Grey Light Pro](/docs/themes/grey-light-pro)
 - [Snazzy Light](/docs/themes/snazzy-light)
 - [Tiny Light](/docs/themes/tiny-light)
+- [Green Breeze Light](/docs/themes/green-breeze-light)
+- [Cute Pink](/docs/themes/cute-pink)
 
 ### Dark Themes
 
@@ -21,42 +27,82 @@ Visit individual theme pages for detailed information:
    - A darker fork of Dracula theme
    - [GitHub](https://github.com/bceskavich/dracula-at-night)
 
-2. **Shades of Purple** (`shades-of-purple`)
+2. **GitHub Dark Classic** (`github-dark-classic`)
+   - Author: Primer (GitHub)
+   - Official GitHub dark theme for VS Code
+   - [GitHub](https://github.com/primer/github-vscode-theme-dark-classic)
+
+3. **Shades of Purple** (`shades-of-purple`)
    - Author: Ahmad Awais
    - Professional theme with bold purple shades
    - [GitHub](https://github.com/ahmadawais/shades-of-purple-vscode)
 
-3. **Night Owl** (`night-owl`)
+4. **Night Owl** (`night-owl`)
    - Author: Sarah Drasner
    - Optimized for nighttime coding
    - [GitHub](https://github.com/sdras/night-owl-vscode-theme)
 
-4. **Winter is Coming Dark Black** (`winter-is-coming-dark-black`)
+5. **Winter is Coming Dark Black** (`winter-is-coming-dark-black`)
    - Author: John Papa
    - Very dark black with vibrant accents
    - [GitHub](https://github.com/johnpapa/vscode-winteriscoming)
 
+6. **Hack The Box** (`hack-the-box`)
+   - Author: silofy
+   - Dark blue with lime green accent, built for hackers
+   - [GitHub](https://github.com/silofy/hackthebox)
+
+7. **Pink Cat Boo** (`pink-cat-boo`)
+   - Author: Fiona Fan (ftsamoyed)
+   - Sweet and cute dark theme with rose pink accents
+   - [GitHub](https://github.com/ftsamoyed/PinkCatBoo)
+
 ### Light Themes
 
-1. **Nord Light** (`nord-light`)
+1. **GitHub Light** (`github-light`)
+   - Author: Primer (GitHub) / Hyzeta
+   - Official GitHub light theme for VS Code
+   - [GitHub](https://github.com/primer/github-vscode-theme)
+
+2. **Nord Light** (`nord-light`)
    - Author: arcticicestudio
    - Arctic, north-bluish color palette
    - [Website](https://www.nordtheme.com/)
 
-2. **Grey Light Pro** (`grey-light-pro`)
+3. **Grey Light Pro** (`grey-light-pro`)
    - Author: Emilio Lanzalaco
    - Soft grey theme, easier on the eyes
    - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=elanzalaco.grey-light-plus-pro)
 
-3. **Snazzy Light** (`snazzy-light`)
+4. **Snazzy Light** (`snazzy-light`)
    - Author: Florian Reuschel (loilo)
    - Vivid colors for bright environments
    - [GitHub](https://github.com/loilo/vscode-snazzy-light)
 
-4. **Tiny Light** (`tiny-light`)
+5. **Tiny Light** (`tiny-light`)
    - Author: luqimin
    - Minimal, eye-friendly theme
    - [GitHub](https://github.com/luqimin/tinylight-vscode)
+
+6. **Green Breeze Light** (`green-breeze-light`)
+   - Author: icy9ptcl
+   - Green and blue focused light theme with good contrast
+   - [GitHub](https://github.com/Icy9ptcl/GreenBreeze-Light-Theme)
+
+7. **Cute Pink** (`cute-pink`)
+   - Author: WebFreak
+   - Cute pink light theme for VSCode
+   - [GitLab](https://gitlab.com/WebFreak001/cute-vscode)
+
+## Features
+
+### Implemented Theming Features
+
+- **14 built-in themes** (7 dark, 7 light) — Dracula At Night, GitHub Dark Classic, Shades of Purple, Night Owl, Winter is Coming, Hack The Box, Pink Cat Boo, GitHub Light, Nord Light, Grey Light Pro, Snazzy Light, Tiny Light, Green Breeze Light, Cute Pink. Theme IDs listed in [Available Themes](#available-themes) above.
+- **Individual theme doc pages** — Each theme has a dedicated page with author link (under heading and in Theme Information card), source link (opens in new tab), color palette, usage snippet, and “Best for” notes.
+- **Theme persistence** — Selected theme (or `system`) stored in `localStorage`; restored on load. Theme flash prevented via inline script in Layout.
+- **System preference** — “System” option in ThemeSwitcher follows OS light/dark (`prefers-color-scheme`). Default dark: `dracula-at-night`; default light: `grey-light-pro`. Theme updates when OS preference changes while System is selected.
+- **High contrast** — Provided by the Settings “High contrast” toggle (`.high-contrast` in `accessibility.css`), not by separate theme variants. Works with any of the 14 themes.
 
 ## Using Themes
 
@@ -114,14 +160,20 @@ Themes are organized in `src/styles/themes/`:
 themes/
 ├── dark/
 │   ├── dracula-at-night.css
+│   ├── github-dark-classic.css
 │   ├── shades-of-purple.css
 │   ├── night-owl.css
-│   └── winter-is-coming-dark-black.css
+│   ├── winter-is-coming-dark-black.css
+│   ├── hack-the-box.css
+│   └── pink-cat-boo.css
 └── light/
+    ├── github-light.css
     ├── nord-light.css
     ├── grey-light-pro.css
     ├── snazzy-light.css
-    └── tiny-light.css
+    ├── tiny-light.css
+    ├── green-breeze-light.css
+    └── cute-pink.css
 ```
 
 ## Creating Custom Themes

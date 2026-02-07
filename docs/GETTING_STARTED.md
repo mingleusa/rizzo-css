@@ -77,7 +77,8 @@ rizzo-css/
 │   │           ├── Nodejs.astro
 │   │           └── Plaintext.astro
 │   ├── layouts/         # Page layouts
-│   │   └── Layout.astro
+│   │   ├── Layout.astro
+│   │   └── DocsLayout.astro
 │   ├── pages/           # Route pages
 │   └── styles/          # CSS files
 │       ├── accessibility.css
@@ -93,23 +94,34 @@ rizzo-css/
 │       ├── utilities.css
 │       ├── variables.css
 │       ├── media-queries.css
-│       └── themes/      # Theme files
+│       └── themes/      # Theme files (14 themes: 7 dark, 7 light)
 │           ├── dark/
 │           │   ├── dracula-at-night.css
-│           │   ├── night-owl.css
+│           │   ├── github-dark-classic.css
 │           │   ├── shades-of-purple.css
-│           │   └── winter-is-coming-dark-black.css
+│           │   ├── night-owl.css
+│           │   ├── winter-is-coming-dark-black.css
+│           │   ├── hack-the-box.css
+│           │   └── pink-cat-boo.css
 │           └── light/
-│               ├── grey-light-pro.css
+│               ├── github-light.css
 │               ├── nord-light.css
+│               ├── grey-light-pro.css
 │               ├── snazzy-light.css
-│               └── tiny-light.css
+│               ├── tiny-light.css
+│               ├── green-breeze-light.css
+│               └── cute-pink.css
 ├── docs/                # Documentation
 │   ├── GETTING_STARTED.md
 │   ├── DESIGN_SYSTEM.md
 │   ├── THEMING.md
 │   ├── COMPONENTS.md
-│   └── ACCESSIBILITY.md
+│   ├── ACCESSIBILITY.md
+│   ├── COLORS.md
+│   ├── SEARCH.md
+│   ├── MULTI_FRAMEWORK.md
+│   ├── THEME_FEATURES_PLAN.md
+│   └── TODO.md
 ├── public/              # Static assets
 │   └── css/             # Generated CSS
 │       └── main.min.css
@@ -174,7 +186,7 @@ See the [Components Documentation](/docs/components) for an overview and links t
 
 ## Using Themes
 
-Themes are applied via the `data-theme` attribute on the HTML element. The theme switcher (in Settings) supports a **System** option that follows your OS light/dark preference; the choice is persisted in `localStorage` as `theme` (a theme id or `system`).
+Rizzo CSS includes 14 built-in themes (7 dark, 7 light). Themes are applied via the `data-theme` attribute on the HTML element. The theme switcher (in Settings) supports a **System** option that follows your OS light/dark preference; the choice is persisted in `localStorage` as `theme` (a theme id or `system`).
 
 ```html
 <html lang="en" data-theme="dracula-at-night">
@@ -207,7 +219,7 @@ CSS is organized into logical files:
 - `forms.css` - Form component styles
 - `pages.css` - Page-specific styles
 - `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Spinner, Table, Search, Settings, Tabs, ThemeSwitcher, Toast, Tooltip, CopyToClipboard)
+- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, CopyToClipboard, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Search, Settings, Spinner, Table, Tabs, ThemeSwitcher, Toast, Tooltip)
 - `themes/` - Theme definitions (dark/light folders)
 
 ### Semantic Variables

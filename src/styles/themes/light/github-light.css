@@ -1,0 +1,45 @@
+/* GitHub Light Theme */
+
+/* Author: Primer (GitHub) / Hyzeta */
+
+/* Official GitHub light theme for VS Code */
+
+/* https://github.com/primer/github-vscode-theme */
+
+[data-theme="github-light"] {
+  /* Core colors from GitHub Light (white, grey backgrounds, dark text) */
+  --bg: oklch(100% 0 0deg);
+  --bg-alt: oklch(97% 0.005 264deg);
+  --current-line: oklch(95% 0.008 264deg);
+  --selection: oklch(88% 0.06 255deg);
+  --fg: oklch(18% 0.02 264deg);
+  --fg-dim: oklch(52% 0.02 264deg);
+  --comment: oklch(58% 0.02 264deg);
+
+  /* Accent colors - GitHub blue, green, red, amber */
+  --cyan: oklch(55% 0.18 255deg);
+  --green: oklch(48% 0.16 145deg);
+  --orange: oklch(65% 0.14 75deg);
+  --pink: oklch(55% 0.18 340deg);
+  --purple: oklch(50% 0.18 290deg);
+  --red: oklch(50% 0.2 25deg);
+  --yellow: oklch(75% 0.14 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(86% 0.01 264deg);
+  --accent: var(--cyan);
+  --accent-hover: oklch(38% 0.18 255deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

@@ -193,3 +193,21 @@
 .reduced-motion .theming-page .card:hover {
   transform: none;
 }
+
+/* Theme page author line under heading */
+.theme-by {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  margin: 0 0 var(--spacing-4) 0;
+}
+
+.theme-by a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.theme-by a:hover {
+  color: var(--accent-hover);
+  text-decoration: underline;
+}

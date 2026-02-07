@@ -1,0 +1,61 @@
+---
+import CodeBlock from '../../../components/CodeBlock.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Green Breeze Light Theme" description="A VSCode theme focused on green and blue with a bit more contrast by icy9ptcl">
+	<section>
+		<h2>Green Breeze Light</h2>
+		<p class="theme-by">By <a href="https://github.com/Icy9ptcl/GreenBreeze-Light-Theme" target="_blank" rel="noopener noreferrer">icy9ptcl</a></p>
+		<p>A VSCode theme focused on green and blue with a bit more contrast. Light background with dark text and green/teal/blue accents.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/Icy9ptcl/GreenBreeze-Light-Theme" target="_blank" rel="noopener noreferrer">icy9ptcl</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> A VSCode theme focused on green and blue with a bit more contrast</p>
+				<p><strong>Theme ID:</strong> <code>green-breeze-light</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/Icy9ptcl/GreenBreeze-Light-Theme" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Green Breeze Light uses a soft light background with dark text and green, teal, and blue accent colors for syntax and UI.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Light off-white with subtle green tint</li>
+			<li><strong>Text:</strong> Dark grey (#282828)</li>
+			<li><strong>Accent:</strong> Greens (#237300, #28ad23), teal (#06a58f), blue (#61afef)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="green-breeze-light">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Daytime coding in well-lit environments</li>
+			<li>Developers who prefer green/blue accents on light backgrounds</li>
+			<li>Readable, slightly warmer light themes</li>
+		</ul>
+	</section>
+</DocsLayout>

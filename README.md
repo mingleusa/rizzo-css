@@ -17,10 +17,10 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## ✨ Features
 
-- 🎨 **8 Built-in Themes** - 4 dark and 4 light themes with semantic variable support
+- 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 25+ accessible, themeable components
+- 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -90,7 +90,7 @@ Use PostCSS imports (similar to SCSS/SASS) in `src/styles/main.css`:
 **Development:**
 - PostCSS processes imports and adds vendor prefixes
 - Source CSS is used directly
-- All 8 themes are available
+- All 14 themes are available
 
 **Production:**
 - CSS is minified and optimized via `build:css` script
@@ -123,7 +123,7 @@ CSS is organized into logical files:
 
 ### Theming System
 
-Rizzo CSS includes **8 built-in themes** (4 dark, 4 light) with semantic variable support:
+Rizzo CSS includes **14 built-in themes** (7 dark, 7 light) with semantic variable support:
 
 - All components automatically adapt to the selected theme
 - Themes use OKLCH color format for better color manipulation
@@ -179,7 +179,7 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Components](./docs/COMPONENTS.md) - Component library and usage examples
 - [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
-- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Plan for system preference, transitions, preview, and additional themes
+- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Current theme behavior and optional enhancements (transitions, preview)
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
 
 ## 📚 External Resources

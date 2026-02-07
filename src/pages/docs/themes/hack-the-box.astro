@@ -1,0 +1,62 @@
+---
+import CodeBlock from '../../../components/CodeBlock.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Hack The Box Theme" description="A VS Code theme built for hackers BY hackers - dark blue with lime green accent by silofy">
+	<section>
+		<h2>Hack The Box</h2>
+		<p class="theme-by">By <a href="https://github.com/silofy/hackthebox" target="_blank" rel="noopener noreferrer">silofy</a></p>
+		<p>A VS Code theme built for hackers BY hackers. Dark blue backgrounds with a signature lime green accent and cyan highlights.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/silofy/hackthebox" target="_blank" rel="noopener noreferrer">silofy</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> A VS Code theme built for hackers BY hackers - dark blue with lime green accent</p>
+				<p><strong>Theme ID:</strong> <code>hack-the-box</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/silofy/hackthebox" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Hack The Box uses a dark blue base with a distinctive lime green accent (#9fef00), cyan highlights, and high-contrast text.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark blue (#141d2b)</li>
+			<li><strong>Text:</strong> Light grey-blue (#a4b1cd)</li>
+			<li><strong>Accent:</strong> Lime green (#9fef00)</li>
+			<li><strong>Highlights:</strong> Cyan (#2ee7b6), blue (#5cb2ff)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="hack-the-box">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Security researchers and CTF enthusiasts</li>
+			<li>Long coding sessions in low light</li>
+			<li>Developers who prefer a bold green accent on dark blue</li>
+		</ul>
+	</section>
+</DocsLayout>

@@ -1,0 +1,61 @@
+---
+import CodeBlock from '../../../components/CodeBlock.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Pink Cat Boo Theme" description="A sweet and cute theme especially for coder girls by Fiona Fan">
+	<section>
+		<h2>Pink Cat Boo</h2>
+		<p class="theme-by">By <a href="https://github.com/ftsamoyed/PinkCatBoo" target="_blank" rel="noopener noreferrer">Fiona Fan (ftsamoyed)</a></p>
+		<p>A sweet and cute theme especially for coder girls. Dark blue-grey base with rose pink, light purple, and warm accents.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/ftsamoyed/PinkCatBoo" target="_blank" rel="noopener noreferrer">Fiona Fan (ftsamoyed)</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> A sweet and cute theme especially for coder girls</p>
+				<p><strong>Theme ID:</strong> <code>pink-cat-boo</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/ftsamoyed/PinkCatBoo" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Pink Cat Boo uses a dark blue-grey background (#202330) with floral white text (#FFF0F5), pink accent (#fe7c8e), and status bar pink (#f3b4bf). Selection and highlights use a warm purple (#472541).</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark blue-grey (#202330)</li>
+			<li><strong>Text:</strong> Floral white (#FFF0F5)</li>
+			<li><strong>Accent:</strong> Rose pink (#fe7c8e)</li>
+			<li><strong>Status / secondary:</strong> Light pink (#f3b4bf), gold (#d0963a)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="pink-cat-boo">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Late-night coding with a cozy, cute feel</li>
+			<li>Developers who love pink and warm dark themes</li>
+		</ul>
+	</section>
+</DocsLayout>

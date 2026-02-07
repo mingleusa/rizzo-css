@@ -1,0 +1,45 @@
+/* GitHub Dark Classic Theme */
+
+/* Author: Primer (GitHub) */
+
+/* Official GitHub dark theme for VS Code - classic variant */
+
+/* https://github.com/primer/github-vscode-theme-dark-classic */
+
+[data-theme="github-dark-classic"] {
+  /* Core colors from GitHub Dark Classic (editor.background, sidebar, foreground, etc.) */
+  --bg: oklch(18% 0.012 264deg);
+  --bg-alt: oklch(15% 0.01 264deg);
+  --current-line: oklch(20% 0.012 264deg);
+  --selection: oklch(28% 0.08 255deg);
+  --fg: oklch(91% 0.004 264deg);
+  --fg-dim: oklch(66% 0.01 264deg);
+  --comment: oklch(52% 0.015 264deg);
+
+  /* Accent colors - GitHub blue, green, red, orange */
+  --cyan: oklch(72% 0.12 250deg);
+  --green: oklch(72% 0.19 145deg);
+  --orange: oklch(78% 0.12 55deg);
+  --pink: oklch(68% 0.14 15deg);
+  --purple: oklch(68% 0.14 300deg);
+  --red: oklch(68% 0.16 15deg);
+  --yellow: oklch(88% 0.12 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(13% 0.01 264deg);
+  --accent: var(--cyan);
+  --accent-hover: oklch(78% 0.12 250deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(100% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

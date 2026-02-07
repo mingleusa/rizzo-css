@@ -1,0 +1,45 @@
+/* Cute Pink Light Theme */
+
+/* Author: WebFreak */
+
+/* A cute pink light theme for VSCode */
+
+/* https://gitlab.com/WebFreak001/cute-vscode */
+
+[data-theme="cute-pink"] {
+  /* Core colors - white/pink UI (#ffffff, #fcdee9, #fceaf1), text #333333, accent #ff4574 */
+  --bg: oklch(100% 0 0deg);
+  --bg-alt: oklch(98% 0.02 350deg);
+  --current-line: oklch(96% 0.03 350deg);
+  --selection: oklch(78% 0.12 350deg);
+  --fg: oklch(25% 0.01 0deg);
+  --fg-dim: oklch(50% 0.02 0deg);
+  --comment: oklch(55% 0.02 0deg);
+
+  /* Accent - pink #ff4574, softer pinks #ff7ba2, #974283 */
+  --cyan: oklch(55% 0.1 220deg);
+  --green: oklch(48% 0.12 145deg);
+  --orange: oklch(65% 0.12 65deg);
+  --pink: oklch(62% 0.2 350deg);
+  --purple: oklch(42% 0.18 300deg);
+  --red: oklch(55% 0.2 25deg);
+  --yellow: oklch(75% 0.14 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: oklch(98% 0.025 350deg);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(88% 0.06 350deg);
+  --accent: oklch(62% 0.22 350deg);
+  --accent-hover: oklch(55% 0.22 350deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(20% 0 0deg);
+}

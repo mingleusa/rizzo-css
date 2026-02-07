@@ -1,0 +1,45 @@
+/* Green Breeze Light Theme */
+
+/* Author: icy9ptcl */
+
+/* A VSCode theme focused on green and blue with a bit more contrast */
+
+/* https://github.com/Icy9ptcl/GreenBreeze-Light-Theme */
+
+[data-theme="green-breeze-light"] {
+  /* Core colors - light background, dark text; green/blue accents (#237300, #28ad23, #61afef, #06a58f) */
+  --bg: oklch(98% 0.008 140deg);
+  --bg-alt: oklch(96% 0.01 140deg);
+  --current-line: oklch(94% 0.012 140deg);
+  --selection: oklch(88% 0.06 200deg);
+  --fg: oklch(20% 0.02 80deg);
+  --fg-dim: oklch(45% 0.02 80deg);
+  --comment: oklch(55% 0.02 80deg);
+
+  /* Accent - greens, teal, blue */
+  --cyan: oklch(58% 0.14 205deg);
+  --green: oklch(42% 0.14 145deg);
+  --orange: oklch(62% 0.12 65deg);
+  --pink: oklch(55% 0.12 340deg);
+  --purple: oklch(55% 0.12 290deg);
+  --red: oklch(45% 0.18 25deg);
+  --yellow: oklch(75% 0.14 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(88% 0.02 140deg);
+  --accent: oklch(48% 0.16 155deg);
+  --accent-hover: oklch(38% 0.16 155deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(20% 0 0deg);
+}
