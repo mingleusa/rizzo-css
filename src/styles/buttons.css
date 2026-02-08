@@ -1,4 +1,6 @@
-/* Button Styles - Using semantic theme variables */
+/* Button Styles - Using semantic theme variables
+   Each variant uses *-text-on-solid for default (contrast on solid bg) and
+   *-hover background + text-on-solid-hover for hover. Alerts keep using *-text. */
 
 button,
 .btn {
@@ -17,6 +19,7 @@ button:hover,
 .btn:hover {
   background-color: var(--accent-hover);
   border-color: var(--accent-hover);
+  color: var(--accent-text-on-hover);
 }
 
 button:active,
@@ -30,30 +33,81 @@ button:disabled,
   cursor: not-allowed;
 }
 
-/* Button Variants */
+/* Disabled buttons keep default appearance on hover/focus */
+.btn-primary:disabled:hover {
+  background-color: var(--accent);
+  color: var(--accent-text);
+}
+
+.btn-success:disabled:hover {
+  background-color: var(--success);
+  color: var(--success-text-on-solid);
+}
+
+.btn-warning:disabled:hover {
+  background-color: var(--warning);
+  color: var(--warning-text-on-solid);
+}
+
+.btn-error:disabled:hover {
+  background-color: var(--error);
+  color: var(--error-text-on-solid);
+}
+
+.btn-info:disabled:hover {
+  background-color: var(--info);
+  color: var(--info-text-on-solid);
+}
+
+/* Button Variants - default and hover use theme-friendly contrast */
 .btn-primary {
   background-color: var(--accent);
   color: var(--accent-text);
 }
 
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  color: var(--accent-text-on-hover);
+}
+
 .btn-success {
   background-color: var(--success);
-  color: var(--success-text);
+  color: var(--success-text-on-solid);
+}
+
+.btn-success:hover {
+  background-color: var(--success-hover);
+  color: var(--text-on-solid-hover);
 }
 
 .btn-warning {
   background-color: var(--warning);
-  color: var(--warning-text);
+  color: var(--warning-text-on-solid);
+}
+
+.btn-warning:hover {
+  background-color: var(--warning-hover);
+  color: var(--text-on-solid-hover);
 }
 
 .btn-error {
   background-color: var(--error);
-  color: var(--error-text);
+  color: var(--error-text-on-solid);
+}
+
+.btn-error:hover {
+  background-color: var(--error-hover);
+  color: var(--text-on-solid-hover);
 }
 
 .btn-info {
   background-color: var(--info);
-  color: var(--info-text);
+  color: var(--info-text-on-solid);
+}
+
+.btn-info:hover {
+  background-color: var(--info-hover);
+  color: var(--text-on-solid-hover);
 }
 
 /* Outline Button */

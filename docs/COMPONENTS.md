@@ -1,6 +1,6 @@
 # Components
 
-Rizzo CSS includes accessible, themeable components built with Astro. Each component has its own dedicated documentation page with live examples, usage instructions, and API details.
+Rizzo CSS includes accessible, themeable components built with Astro (reference implementation). Each component has its own dedicated documentation page with live examples, usage instructions, and API details. **Svelte** versions and docs are available at [/docs/svelte](/docs/svelte) — use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch.
 
 ## Component Pages
 
@@ -55,6 +55,7 @@ All components in Rizzo CSS share these core features:
 - **Responsive** - Mobile-first design with responsive breakpoints
 - **Theme-Aware** - Automatically adapt to all 14 available themes
 - **WCAG AA Compliant** - Proper contrast ratios and accessible color combinations
+- **Multi-framework** - Same BEM classes and CSS; Svelte component examples at /docs/svelte (see [Framework Structure](./FRAMEWORK_STRUCTURE.md))
 
 ## Accordion
 
@@ -374,7 +375,8 @@ import Navbar from '../components/Navbar.astro';
 ### Features
 
 - **Desktop**: Search and settings on far right, dropdown menus with smart alignment
-  - **2-column dropdown layout** - Components and Themes dropdowns display in a 2-column grid layout with a vertical divider for better navigation and space efficiency
+  - **Overview + 2-column layout** - Components and Themes dropdowns show a full-width Overview link at the top, then two columns of links (Components: 2 columns; Themes: Dark themes | Light themes with per-theme icons)
+  - Theme icons in Themes dropdown match Theme Switcher (Owl, Palette, Rainbow, etc.)
   - Smart dropdown positioning - Automatically adjusts to prevent overflow
 - **Mobile**: 
   - Mobile menu toggle positioned on the left (after logo/brand)
@@ -454,7 +456,7 @@ An accessible dropdown menu for switching between themes, integrated into the Se
 
 ### Features
 
-- Groups themes by Dark/Light; each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Flower, Leaf, Cherry, Brush)
+- Groups themes by **Dark themes** and **Light themes** (section labels; on mobile, bold labels with underlines); each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush)
 - Active theme displays name and icon in trigger button
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)
 - Accessible ARIA menu pattern
@@ -547,13 +549,13 @@ See [Modal Documentation](/docs/components/modal) for complete details and live 
 
 ## Search Component
 
-A powerful search component with Algolia integration and live filtering. Closes only when clicking the backdrop or the X button (not when clicking inside the modal).
+A powerful search component with Algolia integration and live filtering. **Cmd+K** / **Ctrl+K** toggles search (opens when closed, closes when open—including when focus is in the search box). **Escape** also closes. Closes when clicking the backdrop or the X button (not when clicking inside the modal).
 
 ### Features
 
 - **Full-screen overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
 - Algolia integration with client-side fallback
-- Keyboard shortcut (Cmd+K / Ctrl+K)
+- Keyboard shortcut: Cmd+K / Ctrl+K toggles open or close; Escape closes
 - Close button on desktop (X icon with screen reader label)
 - Mobile responsive with full-width panel
 - Live search results as you type

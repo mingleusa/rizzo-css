@@ -13,16 +13,17 @@ Rizzo CSS is built with a **CSS-first architecture**, which makes it inherently 
 
 This architecture allows the CSS to work with any framework, and framework-specific components are thin wrappers around the CSS classes.
 
-### In-repo framework routes (docs site)
+### In-repo framework routes (docs site) — Svelte implemented
 
-We can add Svelte (and later React, Vue) to **this same Astro project** and keep full parity in the docs:
+Svelte is integrated into **this same Astro project**; React/Vue can follow the same pattern.
 
-1. **Add the framework** (e.g. `@astrojs/svelte`) so Astro can render Svelte components.
-2. **Create Svelte components** that mirror each Astro component: same BEM classes, same HTML structure and behavior; only the component file (e.g. `Button.svelte`) and framework-specific props/events differ.
-3. **Add a framework-specific route** (e.g. `/svelte` or `/docs/svelte`) that mirrors the Astro docs: same 24 component pages, same 14 theme pages, same layout and examples.
-4. **Match everything** for each framework we cover: every example and doc page available in Astro must have an equivalent in the Svelte (and later React/Vue) section so users of that framework get the same experience.
+**Done:**
+1. **Framework** — `@astrojs/svelte` added; Astro renders Svelte components.
+2. **Svelte components** — `src/components/svelte/` with 24 components (Button, Badge, Card, Divider, Spinner, ProgressBar, Avatar, Alert, Breadcrumb, Forms, CopyToClipboard, Tooltip, Pagination, Tabs, Accordion, Dropdown, Modal, Toast, Table, etc.) using the same BEM classes as Astro.
+3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference and same CSS).
+4. **Framework switcher** — “View as: Astro | Svelte” (segmented control) on component/theme doc pages; links to the same path under each framework. Config in `src/config/frameworks.ts`.
 
-Result: one docs site, multiple framework “tabs” or sections, each with the same set of examples and components.
+**Remaining:** Svelte theme pages for full parity (optional). When adding React or Vue, repeat: same folder pattern and register in `frameworks.ts`.
 
 ## Architecture Benefits
 
@@ -151,7 +152,7 @@ import '@rizzo-css/core/themes/github-dark-classic.css';
 **Components with JavaScript**:
 - Settings (localStorage, focus trap)
 - Modal (focus trap, backdrop)
-- Search (Algolia integration, keyboard shortcuts)
+- Search (Algolia integration; Cmd+K/Ctrl+K toggles, Escape closes)
 - ThemeSwitcher (theme management)
 - Alert (dismiss functionality)
 - CopyToClipboard (clipboard API)

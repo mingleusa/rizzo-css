@@ -193,18 +193,32 @@
   --background-alt: oklch(96.9% 0 0deg);
   --text: oklch(25.1% 0 0deg);
   --text-dim: oklch(50.2% 0 0deg);
+
+  /* Icon colors (SVG currentColor); themes can set --icon-dim lighter on dark backgrounds for visibility */
+  --icon: var(--text);
+  --icon-dim: var(--text-dim);
   --border: oklch(90.2% 0 0deg);
   --accent: oklch(45.2% 0.198 250.1deg);
   --accent-hover: oklch(40.2% 0.198 250.1deg);
   --accent-text: oklch(100% 0 0deg); /* White text on accent (45% lightness) for WCAG AA contrast */
+  --accent-text-on-hover: var(--accent-text); /* Button primary hover text; themes with light accent-hover set to dark */
   --success: oklch(60.2% 0.182 145.1deg);
+  --success-hover: oklch(70% 0.16 145deg); /* Lighter for dark text on hover */
   --success-text: oklch(20% 0 0deg); /* Dark text on light success (60% lightness) for WCAG AA contrast */
+  --success-text-on-solid: var(--success-text); /* Text on solid success (e.g. buttons) */
   --warning: oklch(80.2% 0.152 90.1deg);
+  --warning-hover: oklch(88% 0.12 90deg); /* Lighter for dark text on hover */
   --warning-text: oklch(100% 0 0deg); /* White text on warning (80% lightness) for WCAG AA contrast */
+  --warning-text-on-solid: oklch(22% 0.02 90deg); /* Dark text on solid warning (e.g. buttons) */
+  --text-on-solid-hover: oklch(22% 0.02 0deg); /* Dark text on semantic button hover */
   --error: oklch(55.2% 0.218 25.1deg);
+  --error-hover: oklch(65% 0.18 25deg); /* Lighter for dark text on hover */
   --error-text: oklch(100% 0 0deg); /* White text on error (55% lightness) for WCAG AA contrast */
+  --error-text-on-solid: var(--error-text); /* Text on solid error (e.g. buttons) */
   --info: oklch(60.2% 0.118 210.1deg);
+  --info-hover: oklch(70% 0.1 210deg); /* Lighter for dark text on hover */
   --info-text: oklch(20% 0 0deg); /* Dark text on light info (60% lightness) for WCAG AA contrast */
+  --info-text-on-solid: var(--info-text); /* Text on solid info (e.g. buttons) */
   --selection: oklch(70% 0.15 250deg); /* Default selection color */
 
   /* Shadow and Overlay Variables */

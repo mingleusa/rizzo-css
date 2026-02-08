@@ -30,16 +30,27 @@
   --background-alt: var(--bg-alt);
   --text: var(--fg);
   --text-dim: var(--fg-dim);
+  --icon: var(--fg);
+  --icon-dim: oklch(80% 0.05 300deg);
   --border: var(--current-line);
   --accent: var(--purple);
   --accent-hover: var(--pink);
   --accent-text: oklch(100% 0 0deg); /* White text on accent for contrast */
+  --accent-text-on-hover: oklch(22% 0.03 300deg);
   --success: var(--green);
+  --success-hover: oklch(78% 0.16 145deg);
   --success-text: oklch(100% 0 0deg); /* White text on success for contrast */
+  --success-text-on-solid: oklch(22% 0.03 145deg);
   --warning: var(--yellow);
+  --warning-hover: oklch(92% 0.1 95deg);
   --warning-text: oklch(100% 0 0deg); /* White text on warning for contrast */
+  --warning-text-on-solid: oklch(22% 0.02 95deg);
   --error: var(--red);
+  --error-hover: oklch(75% 0.14 15deg);
   --error-text: oklch(100% 0 0deg); /* White text on error for contrast */
+  --error-text-on-solid: oklch(22% 0.03 15deg);
   --info: var(--cyan);
+  --info-hover: oklch(78% 0.1 250deg);
   --info-text: oklch(100% 0 0deg); /* White text on info for contrast */
+  --info-text-on-solid: oklch(22% 0.03 250deg);
 }

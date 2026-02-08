@@ -1,0 +1,237 @@
+<script lang="ts">
+  import { onMount } from 'svelte';
+
+  export interface MenuItem {
+    label: string;
+    value?: string;
+    href?: string;
+    onClick?: (value: string) => void;
+    disabled?: boolean;
+    separator?: boolean;
+    submenu?: MenuItem[];
+  }
+
+  interface Props {
+    trigger: string;
+    items: MenuItem[];
+    id?: string;
+    class?: string;
+    position?: 'left' | 'right';
+    align?: 'start' | 'end';
+  }
+
+  let {
+    trigger,
+    items,
+    id,
+    class: className = '',
+    position = 'left',
+    align = 'start',
+  }: Props = $props();
+
+  const dropdownId = $derived(id ?? `dropdown-${Math.random().toString(36).slice(2, 11)}`);
+  const menuId = `${dropdownId}-menu`;
+  const triggerId = `${dropdownId}-trigger`;
+
+  let open = $state(false);
+  let openSubmenuIndex = $state<number | null>(null);
+  let menuEl: HTMLDivElement;
+  let triggerEl: HTMLButtonElement;
+
+  const classes = ['dropdown', className].filter(Boolean).join(' ').trim();
+  const menuClasses = `dropdown__menu dropdown__menu--${position} dropdown__menu--${align}`;
+
+  function closeMenu() {
+    open = false;
+    openSubmenuIndex = null;
+  }
+
+  function toggleMenu() {
+    open = !open;
+    if (!open) openSubmenuIndex = null;
+  }
+
+  function toggleSubmenu(index: number) {
+    openSubmenuIndex = openSubmenuIndex === index ? null : index;
+  }
+
+  function handleItemClick(item: MenuItem, e: MouseEvent) {
+    if (item.separator || item.disabled) return;
+    if (item.submenu?.length) {
+      e.preventDefault();
+      return;
+    }
+    if (item.href) {
+      window.location.href = item.href;
+    }
+    if (item.onClick) {
+      item.onClick(item.value ?? item.label);
+    }
+    closeMenu();
+  }
+
+  function handleKeydown(e: KeyboardEvent) {
+    if (!open) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      closeMenu();
+      triggerEl?.focus();
+    }
+  }
+
+  function handleClickOutside(e: MouseEvent) {
+    if (menuEl && triggerEl && !menuEl.contains(e.target as Node) && !triggerEl.contains(e.target as Node)) {
+      closeMenu();
+    }
+  }
+
+  onMount(() => {
+    document.addEventListener('keydown', handleKeydown);
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('keydown', handleKeydown);
+      document.removeEventListener('click', handleClickOutside);
+    };
+  });
+</script>
+
+<div class={classes} data-dropdown={dropdownId}>
+  <button
+    bind:this={triggerEl}
+    type="button"
+    class="dropdown__trigger"
+    id={triggerId}
+    aria-expanded={open}
+    aria-haspopup="true"
+    aria-controls={menuId}
+    aria-label={trigger}
+    onclick={toggleMenu}
+    onkeydown={(e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleMenu();
+      }
+      if (e.key === 'ArrowDown' && !open) {
+        e.preventDefault();
+        open = true;
+      }
+    }}
+  >
+    <span class="dropdown__trigger-text">{trigger}</span>
+    <span class="dropdown__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="m6 9 6 6 6-6" />
+      </svg>
+    </span>
+  </button>
+
+  <div
+    bind:this={menuEl}
+    class="{menuClasses} {open ? 'dropdown__menu--open' : ''}"
+    id={menuId}
+    role="menu"
+    aria-labelledby={triggerId}
+    aria-label="{trigger} menu"
+    aria-orientation="vertical"
+    aria-hidden={!open}
+    tabindex="-1"
+  >
+    {#each items as item, index}
+      {#if item.separator}
+        <div class="dropdown__separator" role="separator"></div>
+      {:else}
+        {@const hasSubmenu = item.submenu && item.submenu.length > 0}
+        {@const isSubmenuOpen = openSubmenuIndex === index}
+        <div class="dropdown__item-wrapper dropdown__item-wrapper--has-submenu={hasSubmenu}">
+          {#if item.href && !hasSubmenu}
+            <a
+              class="dropdown__item dropdown__item--disabled={item.disabled}"
+              role="menuitem"
+              href={item.disabled ? undefined : item.href}
+              aria-disabled={item.disabled ? 'true' : undefined}
+              tabindex={open ? 0 : -1}
+              onclick={(e) => {
+                if (item.disabled) e.preventDefault();
+                else closeMenu();
+              }}
+            >
+              <span>{item.label}</span>
+            </a>
+          {:else}
+            <div
+              class="dropdown__item dropdown__item--disabled={item.disabled} dropdown__item--has-submenu={hasSubmenu}"
+              role="menuitem"
+              aria-disabled={item.disabled ? 'true' : undefined}
+              aria-expanded={hasSubmenu ? isSubmenuOpen : undefined}
+              aria-haspopup={hasSubmenu ? 'true' : undefined}
+              tabindex={open ? 0 : -1}
+              onclick={(e) => {
+                if (item.disabled) return;
+                if (hasSubmenu) {
+                  e.preventDefault();
+                  toggleSubmenu(index);
+                } else {
+                  handleItemClick(item, e);
+                }
+              }}
+              onkeydown={(e) => {
+                if (hasSubmenu && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight')) {
+                  e.preventDefault();
+                  toggleSubmenu(index);
+                }
+              }}
+            >
+              <span>{item.label}</span>
+              {#if hasSubmenu}
+                <span class="dropdown__item-arrow" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </span>
+              {/if}
+            </div>
+          {/if}
+          {#if hasSubmenu && item.submenu}
+            <div
+              class="dropdown__submenu dropdown__submenu--open={isSubmenuOpen}"
+              role="menu"
+              aria-label="{item.label} submenu"
+              aria-hidden={!isSubmenuOpen}
+            >
+              {#each item.submenu as subItem}
+                {#if subItem.separator}
+                  <div class="dropdown__separator" role="separator"></div>
+                {:else if subItem.href}
+                  <a
+                    class="dropdown__item dropdown__submenu-item dropdown__item--disabled={subItem.disabled}"
+                    role="menuitem"
+                    href={subItem.disabled ? undefined : subItem.href}
+                    aria-disabled={subItem.disabled ? 'true' : undefined}
+                    onclick={() => closeMenu()}
+                  >
+                    <span>{subItem.label}</span>
+                  </a>
+                {:else}
+                  <div
+                    class="dropdown__item dropdown__submenu-item dropdown__item--disabled={subItem.disabled}"
+                    role="menuitem"
+                    aria-disabled={subItem.disabled ? 'true' : undefined}
+                    tabindex={open ? 0 : -1}
+                    onclick={(e) => {
+                      if (!subItem.disabled) {
+                        subItem.onClick?.(subItem.value ?? subItem.label);
+                        closeMenu();
+                      }
+                    }}
+                  >
+                    <span>{subItem.label}</span>
+                  </div>
+                {/if}
+              {/each}
+            </div>
+          {/if}
+        </div>
+      {/if}
+    {/each}
+  </div>
+</div>

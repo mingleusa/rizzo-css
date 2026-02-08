@@ -172,6 +172,24 @@ Rizzo CSS automatically provides proper contrast through semantic text color var
 
 All buttons and components using colored backgrounds automatically use these contrast-aware variables to ensure accessibility.
 
+### Theming variables used by components
+
+Components (Astro and Svelte) use semantic theme variables so every theme can guarantee WCAG AA contrast:
+
+| Use | Variables | Where used |
+|-----|-----------|------------|
+| Page and UI surface | `--background`, `--background-alt` | Body, cards, modals, dropdowns, inputs |
+| Primary text | `--text` | Body, headings, list text |
+| Secondary text | `--text-dim` | Descriptions, placeholders, labels |
+| Icons | `--icon`, `--icon-dim` | Navbar, dropdown, accordion, table, breadcrumb (SVG `currentColor`) |
+| Links and primary actions | `--accent`, `--accent-hover` | Links, buttons (with `--accent-text` on fill) |
+| Text on accent | `--accent-text` | Buttons, badges, active segment, skip link |
+| Semantic states | `--success` / `--success-text`, `--error` / `--error-text`, `--warning` / `--warning-text`, `--info` / `--info-text` | Alerts, badges, button variants |
+| Borders and dividers | `--border` | Inputs, cards, dropdowns |
+| Focus and overlays | `--accent` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
+
+Themes must set each `-text` variable to a color that meets at least 4.5:1 contrast on its paired background (e.g. `--accent-text` on `--accent`). The design system does not use hardcoded hex/rgb for UI colors; all interactive and text colors come from these variables.
+
 ## Reduced Motion
 
 Respects user preferences:

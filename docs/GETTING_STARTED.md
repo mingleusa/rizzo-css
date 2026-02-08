@@ -9,7 +9,7 @@ Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactiv
 - **Download and import** — Use the built CSS (`public/css/main.min.css` or your own build) and import it into your project; add the same class names and HTML structure as in the Astro components.
 - **CLI** (planned) — Pull or scaffold Rizzo CSS into a project via a CLI.
 
-Framework-specific docs and example implementations (e.g. React or Vue components that use the same CSS) will be added as those builds exist. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md) for the roadmap.
+**Svelte** docs and examples are available at **/docs/svelte**: 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, and Theme Switcher link to the Astro reference and same CSS/BEM). On component and theme doc pages, use the **framework switcher** ("View as: Astro | Svelte") to switch. See [Framework Structure](./FRAMEWORK_STRUCTURE.md) and [TODO](./TODO.md).
 
 ## Installation (this repo / docs site)
 
@@ -29,7 +29,12 @@ pnpm install
 ```
 rizzo-css/
 ├── src/
-│   ├── components/      # Astro components
+│   ├── config/          # Shared config (frameworks, themes, docs, search)
+│   │   ├── frameworks.ts
+│   │   ├── themes.ts
+│   │   ├── docs.ts
+│   │   └── search.ts
+│   ├── components/      # Astro components (reference implementation)
 │   │   ├── Accordion.astro
 │   │   ├── Alert.astro
 │   │   ├── Badge.astro
@@ -69,7 +74,11 @@ rizzo-css/
 │   │       ├── Search.astro
 │   │       ├── Sort.astro
 │   │       ├── Filter.astro
-│   │       ├── (theme icons: Owl, Palette, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon)
+│   │       ├── (theme icons: Owl, Palette, Sun, Flame, Heart, Leaf, Shield, Zap, Rainbow, Cake, Sunset, Cherry, Brush, Lemon)
+│   │       ├── FrameworkSwitcher.astro
+│   │       ├── svelte/    # Svelte components (same BEM classes)
+│   │       │   ├── Button.svelte
+│   │       │   └── Badge.svelte
 │   │       └── devicons/  # Devicon brand icons
 │   │           ├── Astro.astro
 │   │           ├── Bash.astro
@@ -125,6 +134,7 @@ rizzo-css/
 │   ├── MULTI_FRAMEWORK.md
 │   ├── THEME_COLORS.md
 │   ├── THEME_FEATURES_PLAN.md
+│   ├── FRAMEWORK_STRUCTURE.md
 │   └── TODO.md
 ├── public/              # Static assets
 │   └── css/             # Generated CSS

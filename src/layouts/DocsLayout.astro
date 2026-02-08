@@ -1,5 +1,7 @@
 ---
 import Layout from './Layout.astro';
+import FrameworkSwitcher from '../components/FrameworkSwitcher.astro';
+import { FRAMEWORK_STORAGE_KEY } from '../config/frameworks.js';
 
 interface Props {
 	title: string;
@@ -9,12 +11,15 @@ interface Props {
 
 const { title, description, class: className = '' } = Astro.props;
 const docsClass = className ? `docs ${className}` : 'docs';
+const currentPath = Astro.url.pathname;
+const isDocsIndex = currentPath === '/docs' || currentPath === '/docs/';
 ---
 
 <Layout>
 	<div class={docsClass}>
 		<div class="docs__container">
 			<header class="docs__header">
+				<FrameworkSwitcher currentPath={currentPath} />
 				<h1 class="docs__title">{title}</h1>
 				{description && <p class="docs__description">{description}</p>}
 			</header>
@@ -25,7 +30,14 @@ const docsClass = className ? `docs ${className}` : 'docs';
 		</div>
 	</div>
 </Layout>
-
+<script define:vars={{ FRAMEWORK_STORAGE_KEY, isDocsIndex }}>
+	if (isDocsIndex && typeof localStorage !== 'undefined') {
+		try {
+			const preferred = localStorage.getItem(FRAMEWORK_STORAGE_KEY);
+			if (preferred === 'svelte') window.location.replace('/docs/svelte');
+		} catch (_) {}
+	}
+</script>
 <style>
 	.docs {
 		padding: 2rem 1rem;

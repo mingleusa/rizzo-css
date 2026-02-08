@@ -7,20 +7,22 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 > - [Theming](./THEMING.md#features) - 14 themes, theme pages, system preference, high contrast
 > - [Accessibility](./ACCESSIBILITY.md#accessibility-features) - Keyboard, ARIA, focus, high contrast mode, reduce motion
 > - [README](../README.md), [Design System](./DESIGN_SYSTEM.md), [Getting Started](./GETTING_STARTED.md) - Overview, variables, setup
+> - [Framework Structure](./FRAMEWORK_STRUCTURE.md) - Astro vs Svelte (and future frameworks) folder layout; framework switcher on docs
 
 ## 🎨 Theming
 
-- [ ] **Theme Features**
+- [x] **Theme Features**
   - [x] Theme transition animations (0.2s on html/body; `--theme-transition-duration`; respects reduced motion)
-  - [x] Theme preview in switcher (panel in menu updates on hover/focus with theme background + accent)
+  - [x] Theme preview in switcher (panel in menu updates on hover/focus with theme background + accent; hidden on viewports ≤480px)
+  - [x] Unique icon per theme in theme switcher (14 icons; Sunflower uses Rainbow); Dark themes / Light themes section labels (with underlines on mobile)
 
 ## 🎨 Documentation
 
 - [ ] **Consumption & distribution** (docs + tooling)
   - [ ] Docs: how to use Rizzo CSS via **download + import** (link to built CSS, import in any project)
-  - [ ] **CLI** (e.g. init/scaffold or pull CSS into a project) — implementation under [Package Distribution](#-package-distribution) below
+  - [ ] **CLI** (e.g. init/scaffold or pull CSS into a project) — build *after* frameworks/components; see [Package Distribution → CLI tool](#-cli-tool-after-frameworks-and-components-are-added) below
   - [ ] Framework-agnostic: same CSS works in React, Vue, Svelte, Astro, vanilla, etc.; document usage in “any project”
-  - [ ] Build out framework-specific examples/docs as we add React/Vue/Svelte (or other) implementations (see [Multi-Framework Support](#-package-distribution) below)
+  - [x] Svelte docs at /docs/svelte with 24 component pages (19 full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added (see [In-repo framework routes](#-package-distribution) below).
 
 - [ ] **Best Practices**
   - [ ] Component composition patterns
@@ -127,12 +129,19 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
   
   See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) for detailed implementation plan.
 
-- [ ] **In-repo framework routes (docs site parity)**
-  - [ ] Add Svelte to this Astro project (`@astrojs/svelte`); later add React/Vue as needed.
-  - [ ] Create Svelte components that mirror Astro components: same BEM classes, same HTML structure, same behavior — only the component layer (`.svelte`) differs.
-  - [ ] Add a **/svelte** (or **/docs/svelte**) route that lists the **same examples** as Astro: same 24 component pages, same 14 theme pages, same structure (getting started, theming, etc.).
-  - [ ] **Match everything** for each framework we cover: every Astro doc page and example must have an equivalent in the Svelte (and later React/Vue) section so framework users get full parity.
-  - [ ] When adding another framework (e.g. React), repeat: same components, same routes, same examples.
+- [ ] **In-repo framework routes (docs site parity)** *(Svelte complete; React/Vue when added)*
+  - [x] Add Svelte to this Astro project (`@astrojs/svelte`); later add React/Vue as needed.
+  - [x] Shared docs config (`src/config/docs.ts`) and theme config (`src/config/themes.ts`) — single source of truth for component list and theme icons.
+  - [x] Framework switcher UI ("View as: Astro | Svelte") — segmented control on component/theme docs; links to same path per framework.
+  - [x] Svelte components in `src/components/svelte/` (same BEM classes as Astro); 24 component doc pages at **/docs/svelte** (19 full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference). Component order and doc copy (Search toggle, Theme Switcher Dark/Light labels) match Astro.
+  - [ ] When adding another framework (e.g. React), repeat: same components, same routes, same examples. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
+
+- [ ] **CLI tool** *(after frameworks and components are added)*
+  - [ ] Design and build the CLI (e.g. `create-rizzo-app`, `rizzo init`, or `npx rizzo-css`).
+  - [ ] Commands: init/scaffold a project, pull CSS (and optional JS) into an existing project, maybe theme or variant selection.
+  - [ ] Publish as a separate package (e.g. `rizzo-css-cli` or scoped `@rizzo-css/cli`) so users can run `npx rizzo-css-cli init` or similar.
+  - [ ] Docs: how to install and use the CLI (link from Consumption & distribution).
+  - [ ] **Planning**: See [CLI Planning](./CLI_PLANNING.md) for proposed commands, package shape, and phases.
 
 ## 🎨 Community
 

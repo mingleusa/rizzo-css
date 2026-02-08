@@ -1,6 +1,23 @@
 ---
 import Gear from './icons/Gear.astro';
 import Search from './Search.astro';
+import { getFrameworkFromPath } from '../config/frameworks.js';
+import type { ThemeIconKey } from '../config/themes';
+import { THEMES_DARK, THEMES_LIGHT } from '../config/themes';
+import Owl from './icons/Owl.astro';
+import Palette from './icons/Palette.astro';
+import Flame from './icons/Flame.astro';
+import Sunset from './icons/Sunset.astro';
+import Zap from './icons/Zap.astro';
+import Shield from './icons/Shield.astro';
+import Heart from './icons/Heart.astro';
+import Sun from './icons/Sun.astro';
+import Cake from './icons/Cake.astro';
+import Lemon from './icons/Lemon.astro';
+import Rainbow from './icons/Rainbow.astro';
+import Leaf from './icons/Leaf.astro';
+import Cherry from './icons/Cherry.astro';
+import Brush from './icons/Brush.astro';
 
 // Extend Window interface for openSettings
 declare global {
@@ -16,79 +33,113 @@ interface Props {
 
 const { siteName = 'Rizzo CSS', logo } = Astro.props;
 
-// Get current URL pathname
+// Get current URL pathname and framework so doc links stay in the same framework
 const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+const docsPrefix = framework.pathPrefix;
 
-// Navigation links with optional sub-links
+function docHref(path: string): string {
+  if (!path.startsWith('/docs')) return path;
+  return docsPrefix + path.slice('/docs'.length) || docsPrefix || '/';
+}
+
+// Navigation links with optional sub-links (doc paths are rewritten by docHref)
 interface NavLink {
   href: string;
   label: string;
   subLinks?: Array<{ href: string; label: string }>;
+  /** Components dropdown: overview full width, then two columns of links */
+  componentsMenu?: {
+    overview: { href: string; label: string };
+    links: Array<{ href: string; label: string }>;
+  };
+  /** Themes dropdown: overview full width, then Dark | Light columns with icons */
+  themesMenu?: {
+    overview: { href: string; label: string };
+    dark: Array<{ href: string; label: string; icon: typeof Owl }>;
+    light: Array<{ href: string; label: string; icon: typeof Owl }>;
+  };
 }
+
+const themeIconMap: Record<ThemeIconKey, typeof Owl> = {
+  gear: Gear,
+  owl: Owl,
+  palette: Palette,
+  flame: Flame,
+  sunset: Sunset,
+  zap: Zap,
+  shield: Shield,
+  heart: Heart,
+  sun: Sun,
+  cake: Cake,
+  lemon: Lemon,
+  rainbow: Rainbow,
+  leaf: Leaf,
+  cherry: Cherry,
+  brush: Brush,
+};
 
 const navLinks: NavLink[] = [
   { href: '/', label: 'Home' },
   {
-    href: '/docs/getting-started',
+    href: docHref('/docs/getting-started'),
     label: 'Docs',
     subLinks: [
-      { href: '/docs/getting-started', label: 'Getting Started' },
-      { href: '/docs/design-system', label: 'Design System' },
-      { href: '/docs/accessibility', label: 'Accessibility' },
-      { href: '/docs/colors', label: 'Colors' },
+      { href: docHref('/docs/getting-started'), label: 'Getting Started' },
+      { href: docHref('/docs/design-system'), label: 'Design System' },
+      { href: docHref('/docs/accessibility'), label: 'Accessibility' },
+      { href: docHref('/docs/colors'), label: 'Colors' },
     ],
   },
   {
-    href: '/docs/components',
+    href: docHref('/docs/components'),
     label: 'Components',
-    subLinks: [
-      { href: '/docs/components', label: 'Overview' },
-      { href: '/docs/components/navbar', label: 'Navbar' },
-      { href: '/docs/components/settings', label: 'Settings' },
-      { href: '/docs/components/theme-switcher', label: 'Theme Switcher' },
-      { href: '/docs/components/accordion', label: 'Accordion' },
-      { href: '/docs/components/button', label: 'Button' },
-      { href: '/docs/components/badge', label: 'Badge' },
-      { href: '/docs/components/breadcrumb', label: 'Breadcrumb' },
-      { href: '/docs/components/forms', label: 'Forms' },
-      { href: '/docs/components/cards', label: 'Cards' },
-      { href: '/docs/components/modal', label: 'Modal' },
-      { href: '/docs/components/pagination', label: 'Pagination' },
-      { href: '/docs/components/progress-bar', label: 'Progress Bar' },
-      { href: '/docs/components/spinner', label: 'Spinner' },
-      { href: '/docs/components/avatar', label: 'Avatar' },
-      { href: '/docs/components/divider', label: 'Divider' },
-      { href: '/docs/components/table', label: 'Table' },
-      { href: '/docs/components/alert', label: 'Alert' },
-      { href: '/docs/components/toast', label: 'Toast' },
-      { href: '/docs/components/search', label: 'Search' },
-      { href: '/docs/components/tooltip', label: 'Tooltip' },
-      { href: '/docs/components/dropdown', label: 'Dropdown' },
-      { href: '/docs/components/tabs', label: 'Tabs' },
-      { href: '/docs/components/copy-to-clipboard', label: 'CopyToClipboard' },
-      { href: '/docs/components/icons', label: 'Icons' },
-    ],
+    componentsMenu: {
+      overview: { href: docHref('/docs/components'), label: 'Overview' },
+      links: [
+        { href: docHref('/docs/components/accordion'), label: 'Accordion' },
+        { href: docHref('/docs/components/alert'), label: 'Alert' },
+        { href: docHref('/docs/components/avatar'), label: 'Avatar' },
+        { href: docHref('/docs/components/badge'), label: 'Badge' },
+        { href: docHref('/docs/components/breadcrumb'), label: 'Breadcrumb' },
+        { href: docHref('/docs/components/button'), label: 'Button' },
+        { href: docHref('/docs/components/cards'), label: 'Cards' },
+        { href: docHref('/docs/components/copy-to-clipboard'), label: 'CopyToClipboard' },
+        { href: docHref('/docs/components/divider'), label: 'Divider' },
+        { href: docHref('/docs/components/dropdown'), label: 'Dropdown' },
+        { href: docHref('/docs/components/forms'), label: 'Forms' },
+        { href: docHref('/docs/components/icons'), label: 'Icons' },
+        { href: docHref('/docs/components/modal'), label: 'Modal' },
+        { href: docHref('/docs/components/navbar'), label: 'Navbar' },
+        { href: docHref('/docs/components/pagination'), label: 'Pagination' },
+        { href: docHref('/docs/components/progress-bar'), label: 'Progress Bar' },
+        { href: docHref('/docs/components/search'), label: 'Search' },
+        { href: docHref('/docs/components/settings'), label: 'Settings' },
+        { href: docHref('/docs/components/spinner'), label: 'Spinner' },
+        { href: docHref('/docs/components/table'), label: 'Table' },
+        { href: docHref('/docs/components/tabs'), label: 'Tabs' },
+        { href: docHref('/docs/components/theme-switcher'), label: 'Theme Switcher' },
+        { href: docHref('/docs/components/toast'), label: 'Toast' },
+        { href: docHref('/docs/components/tooltip'), label: 'Tooltip' },
+      ],
+    },
   },
   {
-    href: '/docs/theming',
+    href: docHref('/docs/theming'),
     label: 'Themes',
-    subLinks: [
-      { href: '/docs/theming', label: 'Overview' },
-      { href: '/docs/themes/github-dark-classic', label: 'GitHub Dark Classic' },
-      { href: '/docs/themes/shades-of-purple', label: 'Shades of Purple' },
-      { href: '/docs/themes/sandstorm-classic', label: 'Sandstorm Classic' },
-      { href: '/docs/themes/rocky-blood-orange', label: 'Rocky Blood Orange' },
-      { href: '/docs/themes/minimal-dark-neon-yellow', label: 'Minimal Dark Neon Yellow' },
-      { href: '/docs/themes/hack-the-box', label: 'Hack The Box' },
-      { href: '/docs/themes/pink-cat-boo', label: 'Pink Cat Boo' },
-      { href: '/docs/themes/github-light', label: 'GitHub Light' },
-      { href: '/docs/themes/red-velvet-cupcake', label: 'Red Velvet Cupcake' },
-      { href: '/docs/themes/orangy-one-light', label: 'Orangy One Light' },
-      { href: '/docs/themes/sunflower', label: 'Sunflower' },
-      { href: '/docs/themes/green-breeze-light', label: 'Green Breeze Light' },
-      { href: '/docs/themes/cute-pink', label: 'Cute Pink' },
-      { href: '/docs/themes/semi-light-purple', label: 'Semi Light Purple' },
-    ],
+    themesMenu: {
+      overview: { href: docHref('/docs/theming'), label: 'Overview' },
+      dark: THEMES_DARK.map((t) => ({
+        href: docHref(`/docs/themes/${t.value}`),
+        label: t.label,
+        icon: themeIconMap[t.iconKey],
+      })),
+      light: THEMES_LIGHT.map((t) => ({
+        href: docHref(`/docs/themes/${t.value}`),
+        label: t.label,
+        icon: themeIconMap[t.iconKey],
+      })),
+    },
   },
 ];
 ---
@@ -136,7 +187,7 @@ const navLinks: NavLink[] = [
     <div class="navbar__menu" id="navbar-menu" role="menu">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
-        const hasSubLinks = link.subLinks && link.subLinks.length > 0;
+        const hasSubLinks = (link.subLinks && link.subLinks.length > 0) || !!link.componentsMenu || !!link.themesMenu;
         const subLinkId = hasSubLinks ? `navbar-submenu-${link.label.toLowerCase().replace(/\s+/g, '-')}` : undefined;
         
         return (
@@ -171,7 +222,115 @@ const navLinks: NavLink[] = [
                 {link.label}
               </div>
             )}
-            {hasSubLinks && link.subLinks && (
+            {link.componentsMenu ? (
+              <ul class="navbar__submenu navbar__submenu--components" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
+                <li class="navbar__submenu-overview" role="none">
+                  <div
+                    class="navbar__sublink navbar__sublink--overview"
+                    role="menuitem"
+                    tabindex={-1}
+                    aria-label={link.componentsMenu.overview.label}
+                    aria-current={currentPath === link.componentsMenu.overview.href ? 'page' : undefined}
+                    data-nav-href={link.componentsMenu.overview.href}
+                  >
+                    {link.componentsMenu.overview.label}
+                  </div>
+                </li>
+                <li class="navbar__submenu-components-grid" role="none">
+                  <div class="navbar__submenu-column">
+                    {link.componentsMenu.links.slice(0, Math.ceil(link.componentsMenu.links.length / 2)).map((subLink) => {
+                      const isSubActive = currentPath === subLink.href;
+                      return (
+                        <div
+                          class="navbar__sublink"
+                          role="menuitem"
+                          tabindex={-1}
+                          aria-label={subLink.label}
+                          aria-current={isSubActive ? 'page' : undefined}
+                          data-nav-href={subLink.href}
+                        >
+                          {subLink.label}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div class="navbar__submenu-column">
+                    {link.componentsMenu.links.slice(Math.ceil(link.componentsMenu.links.length / 2)).map((subLink) => {
+                      const isSubActive = currentPath === subLink.href;
+                      return (
+                        <div
+                          class="navbar__sublink"
+                          role="menuitem"
+                          tabindex={-1}
+                          aria-label={subLink.label}
+                          aria-current={isSubActive ? 'page' : undefined}
+                          data-nav-href={subLink.href}
+                        >
+                          {subLink.label}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </li>
+              </ul>
+            ) : link.themesMenu ? (
+              <ul class="navbar__submenu navbar__submenu--themes" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
+                <li class="navbar__submenu-overview" role="none">
+                  <div
+                    class="navbar__sublink navbar__sublink--overview"
+                    role="menuitem"
+                    tabindex={-1}
+                    aria-label={link.themesMenu.overview.label}
+                    aria-current={currentPath === link.themesMenu.overview.href ? 'page' : undefined}
+                    data-nav-href={link.themesMenu.overview.href}
+                  >
+                    {link.themesMenu.overview.label}
+                  </div>
+                </li>
+                <li class="navbar__submenu-themes-grid" role="none">
+                  <div class="navbar__submenu-column">
+                    <span class="navbar__submenu-column-label" aria-hidden="true">Dark themes</span>
+                    {link.themesMenu.dark.map((theme) => {
+                      const isSubActive = currentPath === theme.href;
+                      const ThemeIcon = theme.icon;
+                      return (
+                        <div
+                          class="navbar__sublink navbar__sublink--with-icon"
+                          role="menuitem"
+                          tabindex={-1}
+                          aria-label={theme.label}
+                          aria-current={isSubActive ? 'page' : undefined}
+                          data-nav-href={theme.href}
+                        >
+                          <ThemeIcon width={16} height={16} class="navbar__sublink-icon" />
+                          <span class="navbar__sublink-text">{theme.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div class="navbar__submenu-column">
+                    <span class="navbar__submenu-column-label" aria-hidden="true">Light themes</span>
+                    {link.themesMenu.light.map((theme) => {
+                      const isSubActive = currentPath === theme.href;
+                      const ThemeIcon = theme.icon;
+                      return (
+                        <div
+                          class="navbar__sublink navbar__sublink--with-icon"
+                          role="menuitem"
+                          tabindex={-1}
+                          aria-label={theme.label}
+                          aria-current={isSubActive ? 'page' : undefined}
+                          data-nav-href={theme.href}
+                        >
+                          <ThemeIcon width={16} height={16} class="navbar__sublink-icon" />
+                          <span class="navbar__sublink-text">{theme.label}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </li>
+              </ul>
+            ) : hasSubLinks && link.subLinks ? (
               <ul class="navbar__submenu" id={subLinkId} role="menu" aria-label={`${link.label} submenu`}>
                 {link.subLinks.map((subLink) => {
                   const isSubActive = currentPath === subLink.href;
@@ -191,7 +350,7 @@ const navLinks: NavLink[] = [
                   );
                 })}
               </ul>
-            )}
+            ) : null}
           </div>
         );
       })}

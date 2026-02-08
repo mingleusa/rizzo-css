@@ -747,54 +747,26 @@ const resultsId = `${searchId}-results`;
         // Prevent body scroll
         document.body.style.overflow = 'hidden';
         
-        // Show overlay and panel
+        // Show overlay and panel in one step to avoid stagger
         search.setAttribute('aria-hidden', 'false');
         overlay?.setAttribute('aria-hidden', 'false');
         panel.setAttribute('aria-hidden', 'false');
+        panel.setAttribute('data-open', 'true');
 
-        requestAnimationFrame(() => {
-          panel.setAttribute('data-open', 'true');
-          
-          // CRITICAL: Ensure panel is NOT tabbable - only content inside should be
-          panel.setAttribute('tabindex', '-1');
-          panel.style.outline = 'none';
-          panel.style.pointerEvents = 'auto';
-          
-          // Force visibility with inline styles
-          if (panel) {
-            panel.style.display = 'flex';
-          }
-          if (overlay) {
-            overlay.style.display = 'block';
-          }
-          
-          // Show all results by default when opening - use setTimeout to ensure panel is visible first
-          setTimeout(() => {
-            const allResults = searchIndex.map((item, index) => ({
-              ...item,
-              relevance: 100 - index,
-            }));
-            // console.log('Opening search, showing all results:', allResults.length);
-            renderResults(allResults);
-            
-            // Double-check visibility after rendering (commented for production)
-            setTimeout(() => {
-              const computed = window.getComputedStyle(resultsList);
-              const containerComputed = window.getComputedStyle(resultsList.parentElement);
-              // console.log('After render - Results list display:', computed.display);
-              // console.log('After render - Results list visibility:', computed.visibility);
-              // console.log('After render - Results list height:', computed.height);
-              // console.log('After render - Results container display:', containerComputed.display);
-              // console.log('After render - Results container height:', containerComputed.height);
-              // console.log('After render - Results list innerHTML:', resultsList.innerHTML.length);
-              // console.log('After render - Panel display:', window.getComputedStyle(panel).display);
-              // console.log('After render - Panel opacity:', window.getComputedStyle(panel).opacity);
-            }, 100);
-          }, 100);
-          
-          // Update focusable elements - include all tabbable elements
+        panel.setAttribute('tabindex', '-1');
+        panel.style.outline = 'none';
+        panel.style.pointerEvents = '';
+
+        // Show all results and update focusable elements
+        setTimeout(() => {
+          const allResults = searchIndex.map((item, index) => ({
+            ...item,
+            relevance: 100 - index,
+          }));
+          renderResults(allResults);
+
           const allResultItems = Array.from(resultsList?.querySelectorAll('[data-search-result]') || []);
-          const tabbableCloseBtn = closeBtn && window.innerWidth <= 1023 ? closeBtn : null; // Close button on mobile
+          const tabbableCloseBtn = closeBtn && window.innerWidth <= 1023 ? closeBtn : null;
           focusableElements = [
             input,
             ...(clearBtn && clearBtn.getAttribute('aria-hidden') !== 'true' ? [clearBtn] : []),
@@ -803,17 +775,13 @@ const resultsId = `${searchId}-results`;
           ].filter(Boolean);
           firstFocusableElement = focusableElements[0];
           lastFocusableElement = focusableElements[focusableElements.length - 1];
-          
-          // Ensure all result items are tabbable
+
           allResultItems.forEach((item) => {
             item.setAttribute('tabindex', '0');
           });
-          
-          // Focus input after a brief delay to ensure panel is visible
-          setTimeout(() => {
-            input?.focus();
-          }, 100);
-        });
+
+          input?.focus();
+        }, 0);
       };
 
       // Close search
@@ -1240,51 +1208,47 @@ const resultsId = `${searchId}-results`;
         document.addEventListener('keydown', (e) => {
           const isModifierKey = e.ctrlKey || e.metaKey;
           const isKKey = e.key === 'k' || e.key === 'K';
+          if (!isModifierKey || !isKKey) return;
+
+          const search = document.querySelector('[data-search]');
+          if (!search) return;
+          const panel = search.querySelector('.search__panel');
+          if (!panel) return;
+
+          const isSearchOpen = panel.getAttribute('aria-hidden') === 'false';
           const target = e.target;
-          const isInput = target && (
+          const isOtherInput = target && !search.contains(target) && (
             target.tagName === 'INPUT' ||
             target.tagName === 'TEXTAREA' ||
             (target.isContentEditable === true) ||
             target.closest('input, textarea, [contenteditable="true"]')
           );
 
-          // Only handle if not in an input field
-          if (isModifierKey && isKKey && !isInput) {
-            // Find the search component on the page
-            const search = document.querySelector('[data-search]');
-            if (!search) return;
-            
-            const panel = search.querySelector('.search__panel');
-            if (!panel) return;
-            
-            // CRITICAL: Prevent default browser behavior FIRST
+          // Handle Cmd+K / Ctrl+K: toggle search (open or close). When search is open, always handle even if focus is in search input.
+          if (isSearchOpen || !isOtherInput) {
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
-            
-            // Get the search instance's functions
+
             const searchInstance = search.__searchInstance;
             if (searchInstance && searchInstance.openSearch && searchInstance.closeSearch) {
-              if (panel.getAttribute('aria-hidden') === 'true') {
-                searchInstance.openSearch();
-              } else {
+              if (isSearchOpen) {
                 searchInstance.closeSearch();
+              } else {
+                searchInstance.openSearch();
               }
             } else {
-              // Fallback: trigger the button click
               const trigger = search.querySelector('[data-search-trigger]');
               if (trigger) {
-                if (panel.getAttribute('aria-hidden') === 'true') {
-                  trigger.click();
-                } else {
-                  // If open, try to find close function or click overlay
+                if (isSearchOpen) {
                   const overlay = search.querySelector('[data-search-overlay]');
                   if (overlay) overlay.click();
+                } else {
+                  trigger.click();
                 }
               }
             }
-            
-            return false; // Additional safeguard
+            return false;
           }
         }, true); // Use capture phase to intercept before browser handlers
         // console.log('✅ Global keyboard shortcut handler registered (Cmd+K / Ctrl+K)');

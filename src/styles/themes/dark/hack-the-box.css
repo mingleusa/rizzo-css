@@ -12,9 +12,11 @@
   --bg-alt: oklch(13% 0.025 255deg);
   --current-line: oklch(20% 0.03 255deg);
   --selection: oklch(55% 0.08 255deg);
-  --fg: oklch(72% 0.03 255deg);
-  --fg-dim: oklch(48% 0.04 255deg);
+  --fg: oklch(82% 0.03 255deg);
+  --fg-dim: oklch(62% 0.04 255deg);
   --comment: oklch(55% 0.03 255deg);
+  --icon: var(--fg);
+  --icon-dim: oklch(70% 0.04 255deg);
 
   /* Accent - Hack The Box lime green #9fef00, cyan #2ee7b6, blue #5cb2ff, red #ff3e3e */
   --cyan: oklch(78% 0.12 175deg);
@@ -34,12 +36,21 @@
   --accent: var(--green);
   --accent-hover: oklch(85% 0.2 125deg);
   --accent-text: oklch(12% 0.02 255deg);
+  --accent-text-on-hover: oklch(22% 0.03 130deg);
   --success: var(--green);
-  --success-text: oklch(12% 0.02 255deg);
+  --success-hover: oklch(90% 0.18 130deg);
+  --success-text: oklch(98% 0 0deg);
+  --success-text-on-solid: oklch(22% 0.03 130deg);
   --warning: var(--yellow);
-  --warning-text: oklch(12% 0.02 255deg);
+  --warning-hover: oklch(92% 0.14 95deg);
+  --warning-text: oklch(98% 0 0deg);
+  --warning-text-on-solid: oklch(22% 0.02 95deg);
   --error: var(--red);
+  --error-hover: oklch(72% 0.18 25deg);
   --error-text: oklch(100% 0 0deg);
+  --error-text-on-solid: oklch(22% 0.03 25deg);
   --info: oklch(68% 0.14 240deg);
+  --info-hover: oklch(75% 0.12 240deg);
   --info-text: oklch(100% 0 0deg);
+  --info-text-on-solid: oklch(22% 0.03 240deg);
 }

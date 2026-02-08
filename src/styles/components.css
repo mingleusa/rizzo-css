@@ -251,8 +251,9 @@ div.navbar__sublink {
 .navbar__dropdown-icon {
   width: var(--spacing-3);
   height: var(--spacing-3);
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), color var(--transition-base);
   flex-shrink: 0;
+  color: inherit;
 }
 
 .navbar__item--has-dropdown:hover .navbar__dropdown-icon {
@@ -286,52 +287,139 @@ div.navbar__sublink {
   white-space: nowrap;
 }
 
-/* 2-column layout for Components and Themes dropdowns - Desktop only */
+/* 2-column layout for Components dropdown - Desktop only */
 @media (width > 1023px) {
-  .navbar__submenu#navbar-submenu-components,
-  .navbar__submenu#navbar-submenu-themes {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 0;
-    min-width: var(--spacing-96); /* 24rem / 384px - wider for 2 columns */
+  .navbar__submenu--components {
+    min-width: var(--spacing-96);
     max-width: var(--spacing-96);
     width: var(--spacing-96);
-    padding: var(--spacing-2);
+    padding: var(--spacing-3);
+    display: block;
     white-space: normal;
-
-    /* Keep absolute positioning from base class */
   }
 
-  /* Vertical divider between columns */
-  .navbar__submenu#navbar-submenu-components::before,
-  .navbar__submenu#navbar-submenu-themes::before {
-    content: '';
-    position: absolute;
-    top: var(--spacing-2);
-    bottom: var(--spacing-2);
-    left: 50%;
-    width: 1px;
-    background-color: var(--border);
-    transform: translateX(-50%);
-    z-index: 1;
-    pointer-events: none;
-  }
-
-  /* Ensure list items work as grid items */
-  .navbar__submenu#navbar-submenu-components > li,
-  .navbar__submenu#navbar-submenu-themes > li {
+  .navbar__submenu--components > li {
     display: block;
     margin: 0;
     padding: 0;
   }
 
-  .navbar__submenu#navbar-submenu-components .navbar__sublink,
-  .navbar__submenu#navbar-submenu-themes .navbar__sublink {
+  .navbar__submenu--components .navbar__submenu-overview {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--spacing-2);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .navbar__submenu--components .navbar__sublink--overview {
+    display: block;
+    width: 100%;
+    padding: var(--spacing-0-625) var(--spacing-4);
+    box-sizing: border-box;
+  }
+
+  .navbar__submenu--components .navbar__submenu-components-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--spacing-2);
+    min-width: 0;
+  }
+
+  .navbar__submenu--components .navbar__submenu-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0;
+  }
+
+  .navbar__submenu--components .navbar__submenu-column .navbar__sublink {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    padding: var(--spacing-0-625) var(--spacing-4);
+    min-width: 0;
+    box-sizing: border-box;
+  }
+}
+
+/* Themes dropdown: Overview full width + Dark | Light columns - Desktop only */
+@media (width > 1023px) {
+  .navbar__submenu--themes {
+    min-width: var(--spacing-105);
+    max-width: var(--spacing-105);
+    width: var(--spacing-105);
+    padding: var(--spacing-3);
+    display: block;
+    white-space: normal;
+  }
+
+  .navbar__submenu--themes > li {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-overview {
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--spacing-2);
+    padding-bottom: var(--spacing-2);
+  }
+
+  .navbar__submenu--themes .navbar__sublink--overview {
     display: block;
     width: 100%;
+    padding: var(--spacing-0-625) var(--spacing-4);
+    box-sizing: border-box;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-themes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 var(--spacing-2);
+    min-width: 0;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    gap: 0;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column-label {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-dim);
+    padding: var(--spacing-0-625) var(--spacing-4);
+    margin-bottom: var(--spacing-0-625);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column .navbar__sublink {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: var(--spacing-0-625) var(--spacing-4);
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  .navbar__submenu--themes .navbar__sublink--with-icon {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .navbar__submenu--themes .navbar__sublink-icon {
+    flex-shrink: 0;
+    color: var(--text-dim);
+  }
+
+  .navbar__submenu--themes .navbar__sublink-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -430,6 +518,7 @@ div.navbar__sublink {
   .navbar__settings-btn:hover {
     background-color: var(--background);
     border-color: var(--accent);
+    color: var(--text);
   }
 
   .navbar__settings-btn:focus-visible {
@@ -635,15 +724,21 @@ div.navbar__sublink {
     grid-template-columns: none !important;
   }
   
-  /* Reset 2-column layout on mobile */
-  .navbar__submenu#navbar-submenu-components,
-  .navbar__submenu#navbar-submenu-themes {
+  /* Components dropdown on mobile: stack Overview, then two columns */
+  .navbar__submenu--components .navbar__submenu-components-grid {
     display: block !important;
-    grid-template-columns: none !important;
-    min-width: 100% !important;
-    max-width: 100% !important;
+  }
+
+  .navbar__submenu--components .navbar__submenu-column {
+    display: block !important;
     width: 100% !important;
-    padding: 0 !important;
+    margin-top: var(--spacing-2);
+  }
+
+  .navbar__submenu--components .navbar__submenu-column .navbar__sublink {
+    padding: var(--spacing-3) var(--spacing-5) var(--spacing-3) var(--spacing-10) !important;
+    min-height: var(--touch-target-min) !important;
+    border-bottom: 1px solid var(--border);
   }
 
   .navbar__item--has-dropdown[aria-expanded="true"] .navbar__submenu {
@@ -690,6 +785,57 @@ div.navbar__sublink {
 
   .navbar__sublink:last-child {
     border-bottom: none;
+  }
+
+  /* Themes dropdown on mobile: stack Overview, then Dark column, then Light column */
+  .navbar__submenu--themes .navbar__submenu-themes-grid {
+    display: block !important;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column {
+    display: block !important;
+    width: 100% !important;
+    margin-top: var(--spacing-2);
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column-label {
+    display: block;
+    width: 100%;
+    margin-top: var(--spacing-2);
+    margin-bottom: var(--spacing-0-625);
+    padding-left: var(--spacing-10);
+    padding-right: var(--spacing-5);
+    padding-bottom: var(--spacing-0-625);
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--border);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column:first-of-type .navbar__submenu-column-label {
+    margin-top: 0;
+  }
+
+  .navbar__submenu--themes .navbar__submenu-column .navbar__sublink {
+    padding: var(--spacing-3) var(--spacing-5) var(--spacing-3) var(--spacing-10) !important;
+    min-height: var(--touch-target-min) !important;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .navbar__submenu--themes .navbar__sublink--with-icon {
+    display: flex !important;
+    align-items: center;
+    gap: var(--spacing-2);
+  }
+
+  .navbar__submenu--themes .navbar__sublink-icon {
+    flex-shrink: 0;
+    color: var(--text-dim);
+  }
+
+  .navbar__submenu--themes .navbar__sublink-text {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   /* Keep border on last main link */
@@ -827,6 +973,7 @@ div.navbar__sublink {
 .theme-switcher__trigger:hover {
   background-color: var(--background);
   border-color: var(--accent);
+  color: var(--text);
 }
 
 .theme-switcher__trigger:focus-visible {
@@ -940,6 +1087,76 @@ div.navbar__sublink {
   .theme-switcher__preview {
     display: none;
   }
+}
+
+/* Framework switcher — segmented control (View as: [ Astro | Svelte ]) */
+.framework-switcher {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-6);
+  padding: var(--spacing-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.framework-switcher__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.framework-switcher__segmented {
+  display: inline-flex;
+  background-color: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-0-5);
+  box-shadow: inset 0 1px 2px oklch(from var(--shadow-color) l c h / 8%);
+}
+
+.framework-switcher__segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 5rem;
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-dim);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.framework-switcher__segment--first {
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.framework-switcher__segment--last {
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.framework-switcher__segment:only-child {
+  border-radius: var(--radius-md);
+}
+
+.framework-switcher__segment:hover:not(.framework-switcher__segment--current) {
+  color: var(--text);
+  background-color: oklch(from var(--text) l c h / 10%);
+}
+
+.framework-switcher__segment--current {
+  color: var(--accent-text);
+  background-color: var(--accent);
+  box-shadow: var(--shadow-sm);
+}
+
+.framework-switcher__segment--current:hover {
+  color: var(--accent-text);
+  background-color: var(--accent-hover);
 }
 
 .theme-switcher__group {
@@ -2098,6 +2315,7 @@ div.navbar__sublink {
 .dropdown__icon {
   transition: transform var(--transition-base);
   flex-shrink: 0;
+  color: var(--icon);
 }
 
 .dropdown__menu {
@@ -2354,6 +2572,7 @@ div.navbar__sublink {
 .search__trigger:hover {
   background-color: var(--background);
   border-color: var(--accent);
+  color: var(--text);
 }
 
 .search__trigger:focus-visible {
@@ -2403,7 +2622,7 @@ div.navbar__sublink {
   z-index: var(--z-search-overlay);
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-ease-out);
+  transition: opacity 0.2s ease-out;
   box-sizing: border-box;
 }
 
@@ -2418,16 +2637,8 @@ div.navbar__sublink {
   display: none;
 }
 
-/* On desktop, ensure overlay doesn't prevent navbar from being clickable */
-
-/* Overlay is below navbar (z-index 100) so navbar links should be clickable */
-
-/* But we need to ensure clicks to navbar close search */
-
-/* On mobile, ensure overlay doesn't block navbar toggle */
 @media (width <= 1023px) {
   .search__overlay[aria-hidden="true"] {
-    /* Completely hide overlay when closed on mobile */
     display: none !important;
     pointer-events: none !important;
   }
@@ -2460,7 +2671,7 @@ div.navbar__sublink {
   flex-direction: column;
   opacity: 0;
   pointer-events: none;
-  transition: opacity var(--transition-ease-out);
+  transition: opacity 0.2s ease-out;
   outline: none;
   box-sizing: border-box;
 }
@@ -2473,7 +2684,6 @@ div.navbar__sublink {
   opacity: 1;
   pointer-events: all;
   display: flex;
-  transform: translate(-50%, -50%);
 
   /* Ensure panel background is opaque */
   background-color: var(--background);
@@ -2594,7 +2804,7 @@ div.navbar__sublink {
   left: var(--spacing-4);
   top: 50%;
   transform: translateY(-50%);
-  color: var(--text-dim);
+  color: var(--icon-dim);
   pointer-events: none;
   z-index: calc(var(--z-base) + 2);
   width: var(--spacing-5);
@@ -2897,7 +3107,7 @@ div.navbar__sublink {
 .breadcrumb__separator {
   display: inline-flex;
   align-items: center;
-  color: var(--text-dim);
+  color: var(--icon-dim);
   opacity: var(--opacity-70);
   user-select: none;
   flex-shrink: 0;
@@ -3077,7 +3287,7 @@ div.navbar__sublink {
 .accordion__icon {
   flex-shrink: 0;
   transition: transform var(--transition-base);
-  color: var(--text-dim);
+  color: var(--icon-dim);
 }
 
 .accordion__trigger--expanded .accordion__icon {
@@ -3629,7 +3839,7 @@ div.navbar__sublink {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-dim);
+  color: var(--icon-dim);
   pointer-events: none;
 }
 
@@ -3758,7 +3968,7 @@ div.navbar__sublink {
 .table__sort-icon-svg {
   width: var(--table-sort-icon-size, 1.25rem);
   height: var(--table-sort-icon-size, 1.25rem);
-  color: var(--text-dim);
+  color: var(--icon-dim);
   transition: color var(--transition-fast);
 }
 

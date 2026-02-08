@@ -1,0 +1,79 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import SvelteDocPage from '../../../components/svelte/docs/SvelteDocPage.svelte';
+
+export function getStaticPaths() {
+  const paths: { params: { slug: string } }[] = [
+    { params: { slug: 'theming' } },
+    { params: { slug: 'components' } },
+    { params: { slug: 'components/button' } },
+    { params: { slug: 'components/badge' } },
+    { params: { slug: 'components/cards' } },
+    { params: { slug: 'components/divider' } },
+    { params: { slug: 'components/spinner' } },
+    { params: { slug: 'components/progress-bar' } },
+    { params: { slug: 'components/avatar' } },
+    { params: { slug: 'components/alert' } },
+    { params: { slug: 'components/breadcrumb' } },
+    { params: { slug: 'components/forms' } },
+    { params: { slug: 'components/copy-to-clipboard' } },
+    { params: { slug: 'components/tooltip' } },
+    { params: { slug: 'components/pagination' } },
+    { params: { slug: 'components/tabs' } },
+    { params: { slug: 'components/accordion' } },
+    { params: { slug: 'components/dropdown' } },
+    { params: { slug: 'components/modal' } },
+    { params: { slug: 'components/toast' } },
+    { params: { slug: 'components/table' } },
+    { params: { slug: 'components/icons' } },
+    { params: { slug: 'components/navbar' } },
+    { params: { slug: 'components/search' } },
+    { params: { slug: 'components/settings' } },
+    { params: { slug: 'components/theme-switcher' } },
+  ];
+  return paths;
+}
+
+const slugParam = Astro.params.slug as string;
+const path = slugParam ? slugParam.split('/').filter(Boolean) : [];
+const slug = path;
+
+function getMeta() {
+  if (path[0] === 'theming') return { title: 'Theming', description: 'Theme system for Rizzo CSS in Svelte.' };
+  if (path[0] === 'components' && !path[1]) return { title: 'Components', description: 'Svelte component library.' };
+  const titles: Record<string, string> = {
+    button: 'Button',
+    badge: 'Badge',
+    cards: 'Cards',
+    divider: 'Divider',
+    spinner: 'Spinner',
+    'progress-bar': 'Progress Bar',
+    avatar: 'Avatar',
+    alert: 'Alert',
+    breadcrumb: 'Breadcrumb',
+    forms: 'Forms',
+    'copy-to-clipboard': 'Copy to Clipboard',
+    tooltip: 'Tooltip',
+    pagination: 'Pagination',
+    tabs: 'Tabs',
+    accordion: 'Accordion',
+    dropdown: 'Dropdown',
+    modal: 'Modal',
+    toast: 'Toast',
+    table: 'Table',
+    icons: 'Icons',
+    navbar: 'Navbar',
+    search: 'Search',
+    settings: 'Settings',
+    'theme-switcher': 'Theme Switcher',
+  };
+  const name = path[1] ? titles[path[1]] ?? path[1].replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'Components';
+  return { title: name, description: `${name} component — Svelte.` };
+}
+
+const { title, description } = getMeta();
+---
+
+<DocsLayout title={title} description={description}>
+  <SvelteDocPage slug={slug} client:load />
+</DocsLayout>

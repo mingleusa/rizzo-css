@@ -35,11 +35,15 @@
   --accent-hover: oklch(48% 0.18 25deg);
   --accent-text: oklch(100% 0 0deg);
   --success: var(--green);
-  --success-text: oklch(100% 0 0deg);
+  --success-hover: oklch(54% 0.14 145deg);
+  --success-text: oklch(20% 0 0deg);
   --warning: var(--orange);
+  --warning-hover: oklch(70% 0.12 55deg);
   --warning-text: oklch(20% 0 0deg);
   --error: var(--red);
+  --error-hover: oklch(60% 0.16 25deg);
   --error-text: oklch(100% 0 0deg);
   --info: var(--cyan);
-  --info-text: oklch(100% 0 0deg);
+  --info-hover: oklch(58% 0.1 220deg);
+  --info-text: oklch(20% 0 0deg);
 }

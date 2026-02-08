@@ -1,0 +1,57 @@
+---
+import { FRAMEWORKS, FRAMEWORK_STORAGE_KEY, getFrameworkFromPath, shouldShowFrameworkSwitcher } from '../config/frameworks.js';
+
+interface Props {
+  currentPath: string;
+}
+
+const { currentPath } = Astro.props;
+
+if (!shouldShowFrameworkSwitcher(currentPath)) {
+  return null;
+}
+
+const { framework: currentFramework, canonicalPath } = getFrameworkFromPath(currentPath);
+---
+
+<nav class="framework-switcher" aria-label="Switch documentation framework">
+  <span class="framework-switcher__label">View as</span>
+  <div class="framework-switcher__segmented" role="group">
+    {FRAMEWORKS.map((fw, i) => {
+      const href = fw.pathPrefix + (canonicalPath || '') || '/';
+      const isCurrent = fw.id === currentFramework.id;
+      const isFirst = i === 0;
+      const isLast = i === FRAMEWORKS.length - 1;
+      return (
+        <a
+          class={`framework-switcher__segment ${isCurrent ? 'framework-switcher__segment--current' : ''} ${isFirst ? 'framework-switcher__segment--first' : ''} ${isLast ? 'framework-switcher__segment--last' : ''}`}
+          href={href}
+          data-framework={fw.id}
+          aria-current={isCurrent ? 'page' : undefined}
+        >
+          {fw.label}
+        </a>
+      );
+    })}
+  </div>
+</nav>
+<script define:vars={{ FRAMEWORK_STORAGE_KEY }}>
+  function initFrameworkSwitcher() {
+    document.querySelectorAll('.framework-switcher__segment').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const id = link.getAttribute('data-framework');
+        const href = link.getAttribute('href');
+        if (id && href) {
+          e.preventDefault();
+          try { localStorage.setItem(FRAMEWORK_STORAGE_KEY, id); } catch (_) {}
+          window.location.href = href;
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFrameworkSwitcher);
+  } else {
+    initFrameworkSwitcher();
+  }
+</script>

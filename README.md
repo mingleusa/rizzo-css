@@ -20,7 +20,8 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages
+- 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages (Astro reference + Svelte examples)
+- 🔀 **Multi-framework docs** - Framework switcher on component/theme pages (View as: Astro | Svelte); Svelte docs at /docs/svelte with same structure
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -29,7 +30,8 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🛠️ Tech Stack
 
-- **[Astro](https://astro.build)** `^5.16.13` - Web framework
+- **[Astro](https://astro.build)** - Web framework (docs site + reference components)
+- **[Svelte](https://svelte.dev)** - Additional framework docs and components at /docs/svelte
 - **[PostCSS](https://postcss.org/)** `^8.5.6` - CSS transformation with import support
 - **[postcss-import](https://github.com/postcss/postcss-import)** `^16.1.1` - CSS import support (SCSS/SASS-like)
 - **[Autoprefixer](https://github.com/postcss/autoprefixer)** `^10.4.23` - Automatic vendor prefixes
@@ -129,7 +131,7 @@ Rizzo CSS includes **14 built-in themes** (7 dark, 7 light) with semantic variab
 - Themes use OKLCH color format for better color manipulation
 - **Contrast-aware text colors** - Automatic text color selection based on background lightness for WCAG AA compliance
 - **System preference** - First visit uses OS light/dark (`prefers-color-scheme`); “System” option in the theme switcher follows OS and updates when the OS preference changes
-- **Unique theme icons** - Each theme has a distinct icon in the theme switcher (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Flower, Leaf, Cherry, Brush)
+- **Unique theme icons** - Each theme has a distinct icon in the theme switcher (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush)
 - Settings panel for theme switching, font size adjustment, and accessibility options
 - **All settings persist in localStorage** - Theme (including `system`), font size, reduced motion, high contrast, and scrollbar style preferences are automatically saved and restored
 - Shadow and overlay variables for theme-aware effects
@@ -150,7 +152,7 @@ Accessible, themeable components:
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages at 20px size for better visibility. Language text appears on large screens, icons only on mobile. Icons and copy button are vertically centered on all screen sizes. Used throughout documentation for code examples
-- **Search** - Search component with Algolia integration, keyboard shortcuts (Cmd+K/Ctrl+K), closes only on backdrop click or X button (not when clicking inside the modal), and mobile responsive
+- **Search** - Search component with Algolia integration; Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
@@ -182,6 +184,7 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
 - [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Current theme behavior and optional enhancements
 - [Theme Colors Audit](./docs/THEME_COLORS.md) - Which themes use which accent colors (rainbow coverage)
+- [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - How Astro, Svelte (and future frameworks) are organized in the repo
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
 
 ## 📚 External Resources
