@@ -899,7 +899,7 @@ div.navbar__sublink {
 .theme-switcher__preview-header {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-dim);
+  color: var(--preview-accent, var(--text-dim));
   text-transform: uppercase;
   letter-spacing: 0.04em;
   line-height: 1.2;
@@ -930,12 +930,13 @@ div.navbar__sublink {
   width: 100%;
   height: var(--spacing-2);
   border-radius: var(--radius-full);
-  background-color: var(--accent);
+  background-color: var(--preview-accent, var(--accent));
   transition: background-color var(--transition-fast);
   flex-shrink: 0;
 }
 
-@media (width <= 360px) {
+/* Hide preview on mobile so theme list gets full width; show on larger viewports */
+@media (width <= 480px) {
   .theme-switcher__preview {
     display: none;
   }

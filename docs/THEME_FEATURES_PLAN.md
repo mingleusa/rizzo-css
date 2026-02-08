@@ -12,4 +12,4 @@ Reference for how theming works in Rizzo CSS. All planned theme features are imp
 - **System preference**: "System" option uses `prefers-color-scheme`; live updates when OS preference changes.
 - **High contrast**: Settings toggle (`.high-contrast` in `accessibility.css`). Works with any theme.
 - **Theme transitions**: 0.2s on `html`/`body` for color/background; set to 0s when reduced motion is on.
-- **Theme preview**: Hover/focus on a theme option shows name, background swatch, and accent bar; hidden on viewports ≤360px.
+- **Theme preview**: Hover/focus on a theme option shows name, background swatch, and accent bar; hidden on viewports ≤480px (mobile).

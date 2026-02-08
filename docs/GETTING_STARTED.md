@@ -2,9 +2,18 @@
 
 This guide will help you get started with Rizzo CSS.
 
-## Installation
+## Using Rizzo in your project
 
-Rizzo CSS is built on Astro. To use it in your project:
+Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactive components) works in any stack—React, Vue, Svelte, Astro, or plain HTML/JS. Planned consumption options:
+
+- **Download and import** — Use the built CSS (`public/css/main.min.css` or your own build) and import it into your project; add the same class names and HTML structure as in the Astro components.
+- **CLI** (planned) — Pull or scaffold Rizzo CSS into a project via a CLI.
+
+Framework-specific docs and example implementations (e.g. React or Vue components that use the same CSS) will be added as those builds exist. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md) for the roadmap.
+
+## Installation (this repo / docs site)
+
+Rizzo CSS is built on Astro. To run and develop this repo (documentation site and design system source):
 
 ```bash
 # Clone or copy the project

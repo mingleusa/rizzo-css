@@ -390,10 +390,11 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         const label = option?.getAttribute('data-theme-label');
         if (bg && accent) {
           previewSwatch.style.backgroundColor = bg;
-          previewAccent.style.backgroundColor = accent;
+          preview.style.setProperty('--preview-accent', accent);
           if (previewLabel) previewLabel.textContent = label || 'Preview';
           preview.setAttribute('aria-hidden', 'false');
         } else {
+          preview.style.removeProperty('--preview-accent');
           if (previewLabel) previewLabel.textContent = 'Preview';
           preview.setAttribute('aria-hidden', 'true');
         }

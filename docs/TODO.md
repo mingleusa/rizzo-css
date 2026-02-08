@@ -16,9 +16,11 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 
 ## 🎨 Documentation
 
-- [ ] **Migration Guide**
-  - [ ] Guide for migrating from other CSS frameworks
-  - [ ] Breaking changes documentation
+- [ ] **Consumption & distribution** (docs + tooling)
+  - [ ] Docs: how to use Rizzo CSS via **download + import** (link to built CSS, import in any project)
+  - [ ] **CLI** (e.g. init/scaffold or pull CSS into a project) — implementation under [Package Distribution](#-package-distribution) below
+  - [ ] Framework-agnostic: same CSS works in React, Vue, Svelte, Astro, vanilla, etc.; document usage in “any project”
+  - [ ] Build out framework-specific examples/docs as we add React/Vue/Svelte (or other) implementations (see [Multi-Framework Support](#-package-distribution) below)
 
 - [ ] **Best Practices**
   - [ ] Component composition patterns
@@ -124,6 +126,13 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
   - [ ] Svelte components (`@rizzo-css/svelte`)
   
   See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) for detailed implementation plan.
+
+- [ ] **In-repo framework routes (docs site parity)**
+  - [ ] Add Svelte to this Astro project (`@astrojs/svelte`); later add React/Vue as needed.
+  - [ ] Create Svelte components that mirror Astro components: same BEM classes, same HTML structure, same behavior — only the component layer (`.svelte`) differs.
+  - [ ] Add a **/svelte** (or **/docs/svelte**) route that lists the **same examples** as Astro: same 24 component pages, same 14 theme pages, same structure (getting started, theming, etc.).
+  - [ ] **Match everything** for each framework we cover: every Astro doc page and example must have an equivalent in the Svelte (and later React/Vue) section so framework users get full parity.
+  - [ ] When adding another framework (e.g. React), repeat: same components, same routes, same examples.
 
 ## 🎨 Community
 
