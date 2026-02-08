@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Sunflower Theme" description="Yellow light theme by Hashirama Naiff">
+	<section>
+		<h2>Sunflower</h2>
+		<p class="theme-by">By <a href="https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower" target="_blank" rel="noopener noreferrer">Hashirama Naiff</a></p>
+		<p>A yellow light theme with warm sunflower tones for a bright, cheerful look.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower" target="_blank" rel="noopener noreferrer">Hashirama Naiff</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> Yellow light theme</p>
+				<p><strong>Theme ID:</strong> <code>sunflower</code></p>
+				<p><strong>Source:</strong> <a href="https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower" target="_blank" rel="noopener noreferrer">VS Code Themes</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Sunflower uses a light background with warm yellow/sunflower accents for links and UI.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Light warm</li>
+			<li><strong>Text:</strong> Dark grey</li>
+			<li><strong>Accent:</strong> Yellow / sunflower</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="sunflower">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Light theme users who want a yellow/sunflower accent</li>
+			<li>Warm, bright, cheerful palette</li>
+			<li>Distinctive yellow highlights</li>
+		</ul>
+	</section>
+</DocsLayout>

@@ -14,19 +14,19 @@
 @import url('./pages.css');
 
 /* Dark Themes */
-@import url('./themes/dark/dracula-at-night.css');
 @import url('./themes/dark/github-dark-classic.css');
 @import url('./themes/dark/shades-of-purple.css');
-@import url('./themes/dark/night-owl.css');
-@import url('./themes/dark/winter-is-coming-dark-black.css');
+@import url('./themes/dark/sandstorm-classic.css');
+@import url('./themes/dark/rocky-blood-orange.css');
+@import url('./themes/dark/minimal-dark-neon-yellow.css');
 @import url('./themes/dark/hack-the-box.css');
 @import url('./themes/dark/pink-cat-boo.css');
 
 /* Light Themes */
 @import url('./themes/light/github-light.css');
-@import url('./themes/light/nord-light.css');
-@import url('./themes/light/grey-light-pro.css');
-@import url('./themes/light/snazzy-light.css');
-@import url('./themes/light/tiny-light.css');
+@import url('./themes/light/red-velvet-cupcake.css');
+@import url('./themes/light/orangy-one-light.css');
+@import url('./themes/light/sunflower.css');
 @import url('./themes/light/green-breeze-light.css');
 @import url('./themes/light/cute-pink.css');
+@import url('./themes/light/semi-light-purple.css');

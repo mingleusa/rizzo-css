@@ -1,0 +1,45 @@
+/* Semi Light Purple Theme */
+
+/* Author: Kapil Yadav */
+
+/* A light aesthetic theme with soft purple tones */
+
+/* https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme */
+
+[data-theme="semi-light-purple"] {
+  /* Core Colors - Soft lavender/purple backgrounds */
+  --bg: oklch(96% 0.02 290deg);
+  --bg-alt: oklch(94% 0.03 290deg);
+  --current-line: oklch(91% 0.04 290deg);
+  --selection: oklch(88% 0.06 290deg);
+  --fg: oklch(25% 0.02 290deg);
+  --fg-dim: oklch(48% 0.03 290deg);
+  --comment: oklch(55% 0.04 280deg);
+
+  /* Accent Colors - Purple family and complements */
+  --cyan: oklch(58% 0.12 220deg);
+  --green: oklch(50% 0.14 150deg);
+  --orange: oklch(65% 0.12 60deg);
+  --pink: oklch(62% 0.16 340deg);
+  --purple: oklch(52% 0.2 290deg);
+  --red: oklch(52% 0.18 25deg);
+  --yellow: oklch(75% 0.14 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(86% 0.05 290deg);
+  --accent: var(--purple);
+  --accent-hover: oklch(45% 0.2 290deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--yellow);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(20% 0 0deg);
+}

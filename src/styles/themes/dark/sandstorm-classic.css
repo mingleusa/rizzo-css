@@ -1,0 +1,45 @@
+/* Sandstorm Classic Theme */
+
+/* Author: Devan Sisson (Bardleware) */
+
+/* Dark, red-based color theme for working late – avoids blue tint and excessive red */
+
+/* https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm */
+
+[data-theme="sandstorm-classic"] {
+  /* Core colors – warm dark base with red undertone */
+  --bg: oklch(16% 0.025 25deg);
+  --bg-alt: oklch(13% 0.02 25deg);
+  --current-line: oklch(20% 0.025 25deg);
+  --selection: oklch(28% 0.06 25deg);
+  --fg: oklch(90% 0.01 25deg);
+  --fg-dim: oklch(62% 0.02 25deg);
+  --comment: oklch(52% 0.03 25deg);
+
+  /* Accent colors – red-focused palette */
+  --cyan: oklch(68% 0.12 220deg);
+  --green: oklch(68% 0.18 145deg);
+  --orange: oklch(72% 0.14 55deg);
+  --pink: oklch(65% 0.16 350deg);
+  --purple: oklch(62% 0.14 300deg);
+  --red: oklch(58% 0.18 25deg);
+  --yellow: oklch(82% 0.12 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(22% 0.02 25deg);
+  --accent: var(--red);
+  --accent-hover: oklch(62% 0.16 25deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(12% 0.02 25deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

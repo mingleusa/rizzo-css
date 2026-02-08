@@ -130,7 +130,7 @@ Each framework package:
 // Any framework
 import '@rizzo-css/core';
 // or
-import '@rizzo-css/core/themes/dracula-at-night.css';
+import '@rizzo-css/core/themes/github-dark-classic.css';
 ```
 
 ### Phase 2: JavaScript Utilities Extraction
@@ -155,7 +155,7 @@ export function applyTheme(theme: string) {
 }
 
 export function getTheme(): string {
-  return localStorage.getItem('theme') || 'dracula-at-night';
+  return localStorage.getItem('theme') || 'github-dark-classic';
 }
 
 // packages/core/src/utils/focus-trap.ts
@@ -311,7 +311,7 @@ export interface SettingsState {
 
 export function loadSettings(): SettingsState {
   return {
-    theme: localStorage.getItem('theme') || 'dracula-at-night',
+    theme: localStorage.getItem('theme') || 'github-dark-classic',
     fontSizeScale: parseFloat(localStorage.getItem('fontSizeScale') || '1'),
     reducedMotion: localStorage.getItem('reducedMotion') === 'true',
     highContrast: localStorage.getItem('highContrast') === 'true',
@@ -526,7 +526,7 @@ npm install rizzo-css
 // In any framework
 import 'rizzo-css';
 // or
-import 'rizzo-css/themes/dracula-at-night.css';
+import 'rizzo-css/themes/github-dark-classic.css';
 ```
 
 Then use CSS classes directly:

@@ -1,56 +1,15 @@
-# Theme Features – Current State and Next Steps
+# Theme Features – Current State
 
-Reference for how theming works today and possible enhancements (transitions, preview). System preference is implemented; transitions and preview are optional next steps.
+Reference for how theming works in Rizzo CSS. All planned theme features are implemented.
 
 ---
 
 ## Current State
 
-- **Themes**: 14 themes (7 dark, 7 light). Applied via `data-theme` on `<html>`. Includes GitHub Dark Classic and GitHub Light.
-- **Persistence**: `localStorage.getItem('theme')` / `localStorage.setItem('theme')`. Layout has an inline script that runs before paint to apply saved theme and prevent flash.
-- **Default**: If no saved theme, HTML defaults to `data-theme="dracula-at-night"`.
-- **ThemeSwitcher**: Reads current theme from DOM, applies theme on option click, syncs all switcher instances on the page.
-- **System preference**: Implemented. "System" option in ThemeSwitcher; first visit and `theme=system` use `prefers-color-scheme` (default dark: dracula-at-night, default light: grey-light-pro). Live updates when OS preference changes.
-- **High contrast**: Implemented via Settings toggle (`.high-contrast` class in `accessibility.css`). Works with any theme; no separate high-contrast theme variants.
-- **Theme set**: We are not adding more dark/light themes or dedicated high-contrast theme variants. The 14 themes and the High contrast toggle are the intended set.
-
----
-
-## 1. System Preference Detection ✅ Implemented
-
-- **System** lives in a "Preference" group at the top of the theme menu (Gear icon).
-- Live updates when OS preference changes while "System" is selected.
-- First visit and `theme=system` resolve to default dark (`dracula-at-night`) or default light (`grey-light-pro`) via `prefers-color-scheme`.
-
----
-
-## 2. Theme Transition Animations ✅ Implemented
-
-When switching theme, color/background on the root animates over 0.2s. Respects `prefers-reduced-motion: reduce` and the Settings “Reduce motion” toggle.
-
-**Implemented:**
-- `--theme-transition-duration: 0.2s` in `variables.css`. Used on `html` and `body` for `color`, `background-color`, `border-color` with `ease-out` in `base.css`.
-- In `accessibility.css`, `:root { --theme-transition-duration: 0s; }` inside `@media (prefers-reduced-motion: reduce)` and `.reduced-motion { --theme-transition-duration: 0s; }` so theme changes stay instant when reduced motion is on.
-
----
-
-## 3. Theme Preview in Switcher (Optional Next Step)
-
-Let users see a theme’s look before applying it (e.g. a small preview panel in the menu that updates on hover/focus of a theme option). Current behavior is swatch-only; a preview panel would require scoped theme variables or a similar approach so the preview container can show that theme’s colors without changing the full page.
-
----
-
-## 4. Implementation Order (If Pursued)
-
-| Phase | Task | Status |
-|-------|------|--------|
-| **1** | System preference detection | ✅ Done |
-| **2** | Theme transition animations | ✅ Done |
-| **3** | Theme preview in switcher | Optional |
-
----
-
-## 5. Files to Touch (If Implementing 2 or 3)
-
-- **Transitions**: `base.css` or `variables.css` (tokens), `accessibility.css` (reduced motion).
-- **Preview**: `ThemeSwitcher.astro` (markup + script), `components.css` (preview styles). Would need scoped theme variables or equivalent for the preview container.
+- **Themes**: 14 themes (7 dark, 7 light). Applied via `data-theme` on `<html>`. Default dark: `github-dark-classic`; default light: `github-light`.
+- **Persistence**: `localStorage.getItem('theme')` / `localStorage.setItem('theme')`. Layout inline script runs before paint to apply saved theme and prevent flash.
+- **ThemeSwitcher**: Preference (System) + Dark/Light groups, unique icon per theme, active state and preview panel. Syncs all instances on the page.
+- **System preference**: "System" option uses `prefers-color-scheme`; live updates when OS preference changes.
+- **High contrast**: Settings toggle (`.high-contrast` in `accessibility.css`). Works with any theme.
+- **Theme transitions**: 0.2s on `html`/`body` for color/background; set to 0s when reduced motion is on.
+- **Theme preview**: Hover/focus on a theme option shows name, background swatch, and accent bar; hidden on viewports ≤360px.

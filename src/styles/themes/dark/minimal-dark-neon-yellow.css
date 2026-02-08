@@ -1,0 +1,45 @@
+/* Minimal Dark Neon Yellow Theme */
+
+/* Author: Gabriel D Sanchez */
+
+/* Minimal dark theme with neon yellow accent */
+
+/* https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme */
+
+[data-theme="minimal-dark-neon-yellow"] {
+  /* Core colors – dark minimal base, neon yellow accent */
+  --bg: oklch(14% 0.01 95deg);
+  --bg-alt: oklch(11% 0.008 95deg);
+  --current-line: oklch(18% 0.015 95deg);
+  --selection: oklch(25% 0.08 95deg);
+  --fg: oklch(92% 0.02 95deg);
+  --fg-dim: oklch(58% 0.02 95deg);
+  --comment: oklch(50% 0.02 95deg);
+
+  /* Accent colors – neon yellow primary */
+  --cyan: oklch(72% 0.12 220deg);
+  --green: oklch(72% 0.18 145deg);
+  --orange: oklch(78% 0.14 55deg);
+  --pink: oklch(68% 0.16 350deg);
+  --purple: oklch(65% 0.14 300deg);
+  --red: oklch(62% 0.18 25deg);
+  --yellow: oklch(88% 0.18 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(20% 0.02 95deg);
+  --accent: var(--yellow);
+  --accent-hover: oklch(90% 0.16 95deg);
+  --accent-text: oklch(12% 0.02 95deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(12% 0.02 95deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

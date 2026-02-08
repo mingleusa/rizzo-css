@@ -2,14 +2,10 @@
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import Card from '../../components/Card.astro';
-import Moon from '../../components/icons/Moon.astro';
 import Palette from '../../components/icons/Palette.astro';
 import Owl from '../../components/icons/Owl.astro';
-import Snowflake from '../../components/icons/Snowflake.astro';
-import IceCream from '../../components/icons/IceCream.astro';
 import Circle from '../../components/icons/Circle.astro';
 import Rainbow from '../../components/icons/Rainbow.astro';
-import Eye from '../../components/icons/Eye.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 ---
 
@@ -27,18 +23,6 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	<section>
 		<h2>Dark Themes</h2>
 		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Moon width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/dracula-at-night">Dracula At Night</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">A darker fork of Dracula theme</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> bceskavich</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>dracula-at-night</code></p>
-				</div>
-			</Card>
-			
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
@@ -66,24 +50,36 @@ import CodeBlock from '../../components/CodeBlock.astro';
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Owl width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/night-owl">Night Owl</a></h3>
+						<Circle width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/sandstorm-classic">Sandstorm Classic</a></h3>
 					</div>
-					<p style="margin: 0 0 0.5rem 0; color: var(--text-dim); font-size: var(--font-size-sm);">Optimized for nighttime coding</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Sarah Drasner</p>
-					<p style="margin: 0.25rem 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>night-owl</code></p>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark, red-based theme for late-night coding</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Devan Sisson</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>sandstorm-classic</code></p>
 				</div>
 			</Card>
 			
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Snowflake width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/winter-is-coming-dark-black">Winter is Coming</a></h3>
+						<Circle width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/rocky-blood-orange">Rocky Blood Orange</a></h3>
 					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Very dark black with vibrant accents</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> John Papa</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>winter-is-coming-dark-black</code></p>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark theme with blood-orange accent</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Luca Heyworth</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>rocky-blood-orange</code></p>
+				</div>
+			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Circle width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/minimal-dark-neon-yellow">Minimal Dark Neon Yellow</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Minimal dark theme with neon yellow accent</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Gabriel D Sanchez</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>minimal-dark-neon-yellow</code></p>
 				</div>
 			</Card>
 			
@@ -131,24 +127,12 @@ import CodeBlock from '../../components/CodeBlock.astro';
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<IceCream width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/nord-light">Nord Light</a></h3>
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/red-velvet-cupcake">Red Velvet Cupcake</a></h3>
 					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Arctic, north-bluish color palette</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> arcticicestudio</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>nord-light</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Circle width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/grey-light-pro">Grey Light Pro</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Soft grey theme, easier on the eyes</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Emilio Lanzalaco</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>grey-light-pro</code></p>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Velvet-cupcake light theme with red accent</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Fahad Ashraf Chaudhry</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>red-velvet-cupcake</code></p>
 				</div>
 			</Card>
 			
@@ -156,23 +140,23 @@ import CodeBlock from '../../components/CodeBlock.astro';
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
 						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/snazzy-light">Snazzy Light</a></h3>
+						<h3 style="margin: 0;"><a href="/docs/themes/orangy-one-light">Orangy One Light</a></h3>
 					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Vivid colors for bright environments</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Florian Reuschel</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>snazzy-light</code></p>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Light theme with orange accent</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> maher-cshub</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>orangy-one-light</code></p>
 				</div>
 			</Card>
 			
 			<Card variant="elevated">
 				<div class="card__body">
 					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Eye width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/tiny-light">Tiny Light</a></h3>
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/sunflower">Sunflower</a></h3>
 					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Minimal, eye-friendly theme</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> luqimin</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>tiny-light</code></p>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Yellow light theme</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Hashirama Naiff</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>sunflower</code></p>
 				</div>
 			</Card>
 			
@@ -199,6 +183,18 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>cute-pink</code></p>
 				</div>
 			</Card>
+			
+			<Card variant="elevated">
+				<div class="card__body">
+					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
+						<Rainbow width={24} height={24} />
+						<h3 style="margin: 0;"><a href="/docs/themes/semi-light-purple">Semi Light Purple</a></h3>
+					</div>
+					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Light aesthetic theme with soft purple tones</p>
+					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Kapil Yadav</p>
+					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>semi-light-purple</code></p>
+				</div>
+			</Card>
 		</div>
 	</section>
 	
@@ -207,7 +203,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		
 		<h3>Setting Theme</h3>
 		<p>Set the theme via the <code>data-theme</code> attribute on the HTML element:</p>
-		<CodeBlock code={`<html lang="en" data-theme="dracula-at-night">`} language="html" />
+		<CodeBlock code={`<html lang="en" data-theme="github-dark-classic">`} language="html" />
 		
 		<h3>Programmatic Theme Switching</h3>
 		<p>The <code>ThemeSwitcher</code> component handles theme switching automatically. It:</p>
@@ -219,13 +215,13 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		
 		<h3>Manual Theme Switching</h3>
 		<CodeBlock code={`// Set theme
-document.documentElement.setAttribute('data-theme', 'night-owl');
+document.documentElement.setAttribute('data-theme', 'shades-of-purple');
 
 // Save to localStorage
-localStorage.setItem('theme', 'night-owl');
+localStorage.setItem('theme', 'shades-of-purple');
 
 // Load saved theme
-const savedTheme = localStorage.getItem('theme') || 'dracula-at-night';
+const savedTheme = localStorage.getItem('theme') || 'github-dark-classic';
 document.documentElement.setAttribute('data-theme', savedTheme);`} language="javascript" />
 	</section>
 	
@@ -234,21 +230,21 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 		<p>Themes are organized in <code>src/styles/themes/</code>:</p>
 		<CodeBlock code={`themes/
 ├── dark/
-│   ├── dracula-at-night.css
 │   ├── github-dark-classic.css
 │   ├── shades-of-purple.css
-│   ├── night-owl.css
-│   ├── winter-is-coming-dark-black.css
+│   ├── sandstorm-classic.css
+│   ├── rocky-blood-orange.css
+│   ├── minimal-dark-neon-yellow.css
 │   ├── hack-the-box.css
 │   └── pink-cat-boo.css
 └── light/
     ├── github-light.css
-    ├── nord-light.css
-    ├── grey-light-pro.css
-    ├── snazzy-light.css
-    ├── tiny-light.css
+    ├── red-velvet-cupcake.css
+    ├── orangy-one-light.css
+    ├── sunflower.css
     ├── green-breeze-light.css
-    └── cute-pink.css`} language="plaintext" />
+    ├── cute-pink.css
+    └── semi-light-purple.css`} language="plaintext" />
 	</section>
 	
 	<section>
@@ -329,12 +325,5 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 		<p>The theme switcher automatically saves the selected theme to <code>localStorage</code> and restores it on page load. An inline script in <code>Layout.astro</code> prevents theme flash by setting the theme immediately before the page renders.</p>
 	</section>
 	
-	<section>
-		<h2>Theme-Specific Overrides</h2>
-		<p>Some themes include specific overrides for better visibility:</p>
-		<ul>
-			<li><strong>Tiny Light Theme</strong>: Navbar link hover effects use dark color (<code>var(--text)</code>) instead of accent color for better visibility on the very light background</li>
-			<li><strong>Tiny Light Theme</strong>: Font size slider uses dark colors for track and thumb for visibility</li>
-		</ul>
 	</section>
 </DocsLayout>

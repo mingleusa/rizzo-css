@@ -174,14 +174,13 @@ const componentPages = [
 ];
 
 const themePages = [
-  { title: 'Dracula At Night', url: '/docs/themes/dracula-at-night', category: 'Themes' },
   { title: 'Shades of Purple', url: '/docs/themes/shades-of-purple', category: 'Themes' },
-  { title: 'Night Owl', url: '/docs/themes/night-owl', category: 'Themes' },
-  { title: 'Winter is Coming', url: '/docs/themes/winter-is-coming-dark-black', category: 'Themes' },
-  { title: 'Nord Light', url: '/docs/themes/nord-light', category: 'Themes' },
-  { title: 'Grey Light Pro', url: '/docs/themes/grey-light-pro', category: 'Themes' },
-  { title: 'Snazzy Light', url: '/docs/themes/snazzy-light', category: 'Themes' },
-  { title: 'Tiny Light', url: '/docs/themes/tiny-light', category: 'Themes' },
+  { title: 'Sandstorm Classic', url: '/docs/themes/sandstorm-classic', category: 'Themes' },
+  { title: 'Red Velvet Cupcake', url: '/docs/themes/red-velvet-cupcake', category: 'Themes' },
+  { title: 'Rocky Blood Orange', url: '/docs/themes/rocky-blood-orange', category: 'Themes' },
+  { title: 'Orangy One Light', url: '/docs/themes/orangy-one-light', category: 'Themes' },
+  { title: 'Minimal Dark Neon Yellow', url: '/docs/themes/minimal-dark-neon-yellow', category: 'Themes' },
+  { title: 'Sunflower', url: '/docs/themes/sunflower', category: 'Themes' },
 ];
 
 // Extract text content from markdown

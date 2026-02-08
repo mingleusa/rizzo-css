@@ -1,0 +1,60 @@
+---
+import CodeBlock from '../../../components/CodeBlock.astro';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+---
+
+<DocsLayout title="Semi Light Purple Theme" description="A light aesthetic purple theme for VS Code by Kapil Yadav">
+	<section>
+		<h2>Semi Light Purple</h2>
+		<p class="theme-by">By <a href="https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme" target="_blank" rel="noopener noreferrer">Kapil Yadav</a></p>
+		<p>A light aesthetic theme with soft purple tones. Soft lavender backgrounds and a purple accent that pleases the eyes.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme" target="_blank" rel="noopener noreferrer">Kapil Yadav</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> A light aesthetic theme with soft purple tones</p>
+				<p><strong>Theme ID:</strong> <code>semi-light-purple</code></p>
+				<p><strong>Source:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme" target="_blank" rel="noopener noreferrer">VS Code Marketplace</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Semi Light Purple uses soft lavender/purple backgrounds (high lightness, low chroma around 290° hue) and a clear purple accent for links, buttons, and highlights.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Soft lavender (~96% lightness, 290° hue)</li>
+			<li><strong>Text:</strong> Dark purple-grey</li>
+			<li><strong>Accent:</strong> Purple (52% lightness, 290° hue)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="semi-light-purple">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Light purple aesthetic without harsh contrast</li>
+			<li>Pairing with dark purple themes (e.g. Shades of Purple, Dracula At Night) for a full purple palette</li>
+		</ul>
+	</section>
+</DocsLayout>

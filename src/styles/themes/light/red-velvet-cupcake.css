@@ -1,0 +1,45 @@
+/* Red Velvet Cupcake Theme */
+
+/* Author: Fahad Ashraf Chaudhry */
+
+/* A velvet-cupcake theme for VSCode – red accent on light background */
+
+/* https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme */
+
+[data-theme="red-velvet-cupcake"] {
+  /* Core colors – light background, red accent (#CF5050) */
+  --bg: oklch(99% 0.005 25deg);
+  --bg-alt: oklch(96% 0.01 25deg);
+  --current-line: oklch(94% 0.015 25deg);
+  --selection: oklch(92% 0.04 25deg);
+  --fg: oklch(28% 0.02 250deg);
+  --fg-dim: oklch(48% 0.02 250deg);
+  --comment: oklch(55% 0.02 250deg);
+
+  /* Accent colors – red primary */
+  --cyan: oklch(55% 0.12 220deg);
+  --green: oklch(50% 0.16 145deg);
+  --orange: oklch(62% 0.14 55deg);
+  --pink: oklch(58% 0.16 350deg);
+  --purple: oklch(52% 0.16 290deg);
+  --red: oklch(55% 0.17 25deg);
+  --yellow: oklch(75% 0.12 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(88% 0.015 25deg);
+  --accent: var(--red);
+  --accent-hover: oklch(48% 0.18 25deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

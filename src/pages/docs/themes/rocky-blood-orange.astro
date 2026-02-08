@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Rocky Blood Orange Theme" description="Dark theme with blood-orange accent by Luca Heyworth">
+	<section>
+		<h2>Rocky Blood Orange</h2>
+		<p class="theme-by">By <a href="https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange" target="_blank" rel="noopener noreferrer">Luca Heyworth</a></p>
+		<p>A dark theme with a blood-orange accent for a warm, distinctive look.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange" target="_blank" rel="noopener noreferrer">Luca Heyworth</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> Dark theme with blood-orange accent</p>
+				<p><strong>Theme ID:</strong> <code>rocky-blood-orange</code></p>
+				<p><strong>Source:</strong> <a href="https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange" target="_blank" rel="noopener noreferrer">VS Code Themes</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Rocky Blood Orange uses a dark warm base with a blood-orange accent for links and highlights.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark warm grey</li>
+			<li><strong>Text:</strong> Light warm grey</li>
+			<li><strong>Accent:</strong> Blood orange</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="rocky-blood-orange">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Dark theme users who want a warm orange accent</li>
+			<li>Distinctive blood-orange highlight color</li>
+			<li>Comfortable contrast with a warm palette</li>
+		</ul>
+	</section>
+</DocsLayout>

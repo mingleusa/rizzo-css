@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Red Velvet Cupcake Theme" description="A velvet-cupcake light theme for VS Code by Fahad Ashraf Chaudhry">
+	<section>
+		<h2>Red Velvet Cupcake</h2>
+		<p class="theme-by">By <a href="https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme" target="_blank" rel="noopener noreferrer">Fahad Ashraf Chaudhry</a></p>
+		<p>A velvet-cupcake theme for VSCode with a light background and red accent (#CF5050) for a soft, distinctive look.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme" target="_blank" rel="noopener noreferrer">Fahad Ashraf Chaudhry</a></p>
+				<p><strong>Type:</strong> Light Theme</p>
+				<p><strong>Description:</strong> A velvet-cupcake theme for VSCode</p>
+				<p><strong>Theme ID:</strong> <code>red-velvet-cupcake</code></p>
+				<p><strong>Source:</strong> <a href="https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme" target="_blank" rel="noopener noreferrer">GitHub Repository</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Red Velvet Cupcake uses a light background with muted grey text and a red accent for links and UI elements.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Near white / light grey</li>
+			<li><strong>Text:</strong> Dark grey</li>
+			<li><strong>Accent:</strong> Red (#CF5050)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="red-velvet-cupcake">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Light theme users who want a red accent instead of blue</li>
+			<li>Velvet-cupcake / candy-style aesthetic</li>
+			<li>Comfortable contrast with a distinctive accent color</li>
+		</ul>
+	</section>
+</DocsLayout>

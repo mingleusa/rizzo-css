@@ -7,7 +7,7 @@ Rizzo CSS includes accessible, themeable components built with Astro. Each compo
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
 - [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher with System option (follows OS light/dark), Preference + Dark/Light groups, and active state styling
+- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher with System option (follows OS light/dark), Preference + Dark/Light groups, unique icon per theme, and active state styling
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
@@ -427,7 +427,7 @@ window.openSettings();
 - Focus trapping - Tab cycles within panel when open
 - Accessible ARIA attributes
 - Returns focus to trigger element on close
-- Slider track visibility optimized for all themes (dark color for tiny-light theme)
+- Slider track visibility optimized for all themes
 - **Mobile responsive** - Full width on mobile devices, optimized layout
 
 ### Sections
@@ -440,7 +440,7 @@ window.openSettings();
 
 All settings options automatically persist to localStorage and are restored when the page loads:
 
-- `theme` - Selected theme name (e.g., `dracula-at-night`, `nord-light`)
+- `theme` - Selected theme name (e.g., `github-dark-classic`, `github-light`)
 - `fontSizeScale` - Font size multiplier (e.g., `1.0` for 100%, `1.25` for 125%)
 - `reducedMotion` - Boolean string (`true` or `false`)
 - `highContrast` - Boolean string (`true` or `false`)
@@ -454,7 +454,7 @@ An accessible dropdown menu for switching between themes, integrated into the Se
 
 ### Features
 
-- Groups themes by Dark/Light with theme-specific icons
+- Groups themes by Dark/Light; each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Flower, Leaf, Cherry, Brush)
 - Active theme displays name and icon in trigger button
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)
 - Accessible ARIA menu pattern
@@ -749,7 +749,7 @@ Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT
 
 ### Regular Icons (Tabler Icons)
 
-Gear, Close, ChevronDown, Moon, Palette, Owl, Snowflake, IceCream, Circle, Rainbow, Eye, Copy, Check, Search, Sort, Filter
+Gear, Close, ChevronDown, Moon, Palette, Owl, Copy, Check, Search, Sort, Filter, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon, Circle, Rainbow, Snowflake
 
 All regular icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and automatically adapt to both light and dark themes.
 

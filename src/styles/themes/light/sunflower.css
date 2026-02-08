@@ -1,0 +1,45 @@
+/* Sunflower Theme */
+
+/* Author: Hashirama Naiff */
+
+/* Yellow light theme */
+
+/* https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower */
+
+[data-theme="sunflower"] {
+  /* Core colors – light background, yellow/sunflower accent */
+  --bg: oklch(98% 0.03 95deg);
+  --bg-alt: oklch(95% 0.04 95deg);
+  --current-line: oklch(92% 0.05 95deg);
+  --selection: oklch(88% 0.08 95deg);
+  --fg: oklch(22% 0.03 95deg);
+  --fg-dim: oklch(45% 0.03 95deg);
+  --comment: oklch(52% 0.03 95deg);
+
+  /* Accent colors – yellow / sunflower primary */
+  --cyan: oklch(55% 0.12 220deg);
+  --green: oklch(50% 0.16 145deg);
+  --orange: oklch(62% 0.14 55deg);
+  --pink: oklch(58% 0.16 350deg);
+  --purple: oklch(52% 0.16 290deg);
+  --red: oklch(52% 0.18 25deg);
+  --yellow: oklch(75% 0.16 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(85% 0.04 95deg);
+  --accent: var(--yellow);
+  --accent-hover: oklch(65% 0.18 95deg);
+  --accent-text: oklch(15% 0.02 95deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

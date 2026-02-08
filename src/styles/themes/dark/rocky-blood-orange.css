@@ -1,0 +1,45 @@
+/* Rocky Blood Orange Theme */
+
+/* Author: Luca Heyworth */
+
+/* Dark theme with blood-orange accent */
+
+/* https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange */
+
+[data-theme="rocky-blood-orange"] {
+  /* Core colors – dark base with warm undertone, blood-orange accent */
+  --bg: oklch(16% 0.03 45deg);
+  --bg-alt: oklch(13% 0.025 45deg);
+  --current-line: oklch(20% 0.03 45deg);
+  --selection: oklch(28% 0.06 45deg);
+  --fg: oklch(90% 0.01 45deg);
+  --fg-dim: oklch(60% 0.02 45deg);
+  --comment: oklch(52% 0.03 45deg);
+
+  /* Accent colors – blood orange / deep orange */
+  --cyan: oklch(68% 0.12 220deg);
+  --green: oklch(68% 0.18 145deg);
+  --orange: oklch(62% 0.16 55deg);
+  --pink: oklch(65% 0.16 350deg);
+  --purple: oklch(62% 0.14 300deg);
+  --red: oklch(58% 0.18 25deg);
+  --yellow: oklch(82% 0.12 95deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(22% 0.02 45deg);
+  --accent: var(--orange);
+  --accent-hover: oklch(68% 0.14 55deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(12% 0.02 45deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

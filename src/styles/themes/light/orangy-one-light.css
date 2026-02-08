@@ -1,0 +1,45 @@
+/* Orangy One Light Theme */
+
+/* Author: maher-cshub */
+
+/* Light theme with orange accent */
+
+/* https://vscodethemes.com/e/maher-cshub.orangy-one-light-theme/orangy-one-light-theme */
+
+[data-theme="orangy-one-light"] {
+  /* Core colors – light background, orange accent */
+  --bg: oklch(99% 0.008 70deg);
+  --bg-alt: oklch(96% 0.012 70deg);
+  --current-line: oklch(94% 0.015 70deg);
+  --selection: oklch(92% 0.05 70deg);
+  --fg: oklch(22% 0.02 70deg);
+  --fg-dim: oklch(48% 0.02 70deg);
+  --comment: oklch(55% 0.02 70deg);
+
+  /* Accent colors – orange primary */
+  --cyan: oklch(55% 0.12 220deg);
+  --green: oklch(50% 0.16 145deg);
+  --orange: oklch(58% 0.16 55deg);
+  --pink: oklch(58% 0.16 350deg);
+  --purple: oklch(52% 0.16 290deg);
+  --red: oklch(52% 0.18 25deg);
+  --yellow: oklch(75% 0.14 90deg);
+
+  /* Semantic Color Mappings */
+  --background: var(--bg);
+  --background-alt: var(--bg-alt);
+  --text: var(--fg);
+  --text-dim: var(--fg-dim);
+  --border: oklch(88% 0.02 70deg);
+  --accent: var(--orange);
+  --accent-hover: oklch(50% 0.18 55deg);
+  --accent-text: oklch(100% 0 0deg);
+  --success: var(--green);
+  --success-text: oklch(100% 0 0deg);
+  --warning: var(--orange);
+  --warning-text: oklch(20% 0 0deg);
+  --error: var(--red);
+  --error-text: oklch(100% 0 0deg);
+  --info: var(--cyan);
+  --info-text: oklch(100% 0 0deg);
+}

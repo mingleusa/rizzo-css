@@ -12,7 +12,7 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 
 - [ ] **Theme Features**
   - [x] Theme transition animations (0.2s on html/body; `--theme-transition-duration`; respects reduced motion)
-  - [ ] Theme preview in switcher
+  - [x] Theme preview in switcher (panel in menu updates on hover/focus with theme background + accent)
 
 ## 🎨 Documentation
 

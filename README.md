@@ -129,6 +129,7 @@ Rizzo CSS includes **14 built-in themes** (7 dark, 7 light) with semantic variab
 - Themes use OKLCH color format for better color manipulation
 - **Contrast-aware text colors** - Automatic text color selection based on background lightness for WCAG AA compliance
 - **System preference** - First visit uses OS light/dark (`prefers-color-scheme`); “System” option in the theme switcher follows OS and updates when the OS preference changes
+- **Unique theme icons** - Each theme has a distinct icon in the theme switcher (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Flower, Leaf, Cherry, Brush)
 - Settings panel for theme switching, font size adjustment, and accessibility options
 - **All settings persist in localStorage** - Theme (including `system`), font size, reduced motion, high contrast, and scrollbar style preferences are automatically saved and restored
 - Shadow and overlay variables for theme-aware effects
@@ -179,7 +180,8 @@ Comprehensive documentation is available in the `docs/` directory:
 - [Components](./docs/COMPONENTS.md) - Component library and usage examples
 - [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
-- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Current theme behavior and optional enhancements (transitions, preview)
+- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Current theme behavior and optional enhancements
+- [Theme Colors Audit](./docs/THEME_COLORS.md) - Which themes use which accent colors (rainbow coverage)
 - [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
 
 ## 📚 External Resources

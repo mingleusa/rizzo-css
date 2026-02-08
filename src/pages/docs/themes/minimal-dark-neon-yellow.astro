@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Minimal Dark Neon Yellow Theme" description="Minimal dark theme with neon yellow accent by Gabriel D Sanchez">
+	<section>
+		<h2>Minimal Dark Neon Yellow</h2>
+		<p class="theme-by">By <a href="https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme" target="_blank" rel="noopener noreferrer">Gabriel D Sanchez</a></p>
+		<p>A minimal dark theme with a neon yellow accent for high visibility and a clean look.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme" target="_blank" rel="noopener noreferrer">Gabriel D Sanchez</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> Minimal dark theme with neon yellow accent</p>
+				<p><strong>Theme ID:</strong> <code>minimal-dark-neon-yellow</code></p>
+				<p><strong>Source:</strong> <a href="https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme" target="_blank" rel="noopener noreferrer">VS Code Themes</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Minimal Dark Neon Yellow uses a dark minimal base with a bright neon yellow accent for links and highlights.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Dark minimal</li>
+			<li><strong>Text:</strong> Light grey</li>
+			<li><strong>Accent:</strong> Neon yellow</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="minimal-dark-neon-yellow">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Minimal dark theme fans who want a high-visibility yellow accent</li>
+			<li>Neon yellow highlights for links and UI</li>
+			<li>Clean, distraction-free dark coding</li>
+		</ul>
+	</section>
+</DocsLayout>

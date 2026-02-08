@@ -5,47 +5,47 @@ Rizzo CSS includes 14 carefully crafted themes organized into light and dark cat
 ## Available Themes
 
 Visit individual theme pages for detailed information:
-- [Dracula At Night](/docs/themes/dracula-at-night)
 - [GitHub Dark Classic](/docs/themes/github-dark-classic)
 - [Shades of Purple](/docs/themes/shades-of-purple)
-- [Night Owl](/docs/themes/night-owl)
-- [Winter is Coming](/docs/themes/winter-is-coming-dark-black)
+- [Sandstorm Classic](/docs/themes/sandstorm-classic)
+- [Rocky Blood Orange](/docs/themes/rocky-blood-orange)
+- [Minimal Dark Neon Yellow](/docs/themes/minimal-dark-neon-yellow)
 - [Hack The Box](/docs/themes/hack-the-box)
 - [Pink Cat Boo](/docs/themes/pink-cat-boo)
 - [GitHub Light](/docs/themes/github-light)
-- [Nord Light](/docs/themes/nord-light)
-- [Grey Light Pro](/docs/themes/grey-light-pro)
-- [Snazzy Light](/docs/themes/snazzy-light)
-- [Tiny Light](/docs/themes/tiny-light)
+- [Red Velvet Cupcake](/docs/themes/red-velvet-cupcake)
+- [Orangy One Light](/docs/themes/orangy-one-light)
+- [Sunflower](/docs/themes/sunflower)
 - [Green Breeze Light](/docs/themes/green-breeze-light)
 - [Cute Pink](/docs/themes/cute-pink)
+- [Semi Light Purple](/docs/themes/semi-light-purple)
 
 ### Dark Themes
 
-1. **Dracula At Night** (`dracula-at-night`)
-   - Author: bceskavich
-   - A darker fork of Dracula theme
-   - [GitHub](https://github.com/bceskavich/dracula-at-night)
-
-2. **GitHub Dark Classic** (`github-dark-classic`)
+1. **GitHub Dark Classic** (`github-dark-classic`)
    - Author: Primer (GitHub)
    - Official GitHub dark theme for VS Code
    - [GitHub](https://github.com/primer/github-vscode-theme-dark-classic)
 
-3. **Shades of Purple** (`shades-of-purple`)
+2. **Shades of Purple** (`shades-of-purple`)
    - Author: Ahmad Awais
    - Professional theme with bold purple shades
    - [GitHub](https://github.com/ahmadawais/shades-of-purple-vscode)
 
-4. **Night Owl** (`night-owl`)
-   - Author: Sarah Drasner
-   - Optimized for nighttime coding
-   - [GitHub](https://github.com/sdras/night-owl-vscode-theme)
+3. **Sandstorm Classic** (`sandstorm-classic`)
+   - Author: Devan Sisson (Bardleware)
+   - Dark, red-based theme for late-night coding
+   - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm)
 
-5. **Winter is Coming Dark Black** (`winter-is-coming-dark-black`)
-   - Author: John Papa
-   - Very dark black with vibrant accents
-   - [GitHub](https://github.com/johnpapa/vscode-winteriscoming)
+4. **Rocky Blood Orange** (`rocky-blood-orange`)
+   - Author: Luca Heyworth
+   - Dark theme with blood-orange accent
+   - [VS Code Themes](https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange)
+
+5. **Minimal Dark Neon Yellow** (`minimal-dark-neon-yellow`)
+   - Author: Gabriel D Sanchez
+   - Minimal dark theme with neon yellow accent
+   - [VS Code Themes](https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme)
 
 6. **Hack The Box** (`hack-the-box`)
    - Author: silofy
@@ -64,46 +64,47 @@ Visit individual theme pages for detailed information:
    - Official GitHub light theme for VS Code
    - [GitHub](https://github.com/primer/github-vscode-theme)
 
-2. **Nord Light** (`nord-light`)
-   - Author: arcticicestudio
-   - Arctic, north-bluish color palette
-   - [Website](https://www.nordtheme.com/)
+2. **Red Velvet Cupcake** (`red-velvet-cupcake`)
+   - Author: Fahad Ashraf Chaudhry
+   - Velvet-cupcake light theme with red accent
+   - [GitHub](https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme)
 
-3. **Grey Light Pro** (`grey-light-pro`)
-   - Author: Emilio Lanzalaco
-   - Soft grey theme, easier on the eyes
-   - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=elanzalaco.grey-light-plus-pro)
+3. **Orangy One Light** (`orangy-one-light`)
+   - Author: maher-cshub
+   - Light theme with orange accent
+   - [VS Code Themes](https://vscodethemes.com/e/maher-cshub.orangy-one-light-theme/orangy-one-light-theme)
 
-4. **Snazzy Light** (`snazzy-light`)
-   - Author: Florian Reuschel (loilo)
-   - Vivid colors for bright environments
-   - [GitHub](https://github.com/loilo/vscode-snazzy-light)
+4. **Sunflower** (`sunflower`)
+   - Author: Hashirama Naiff
+   - Yellow light theme
+   - [VS Code Themes](https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower)
 
-5. **Tiny Light** (`tiny-light`)
-   - Author: luqimin
-   - Minimal, eye-friendly theme
-   - [GitHub](https://github.com/luqimin/tinylight-vscode)
-
-6. **Green Breeze Light** (`green-breeze-light`)
+5. **Green Breeze Light** (`green-breeze-light`)
    - Author: icy9ptcl
    - Green and blue focused light theme with good contrast
    - [GitHub](https://github.com/Icy9ptcl/GreenBreeze-Light-Theme)
 
-7. **Cute Pink** (`cute-pink`)
+6. **Cute Pink** (`cute-pink`)
    - Author: WebFreak
    - Cute pink light theme for VSCode
    - [GitLab](https://gitlab.com/WebFreak001/cute-vscode)
+
+7. **Semi Light Purple** (`semi-light-purple`)
+   - Author: Kapil Yadav
+   - Light aesthetic theme with soft purple tones
+   - [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme)
 
 ## Features
 
 ### Implemented Theming Features
 
-- **14 built-in themes** (7 dark, 7 light) — Dracula At Night, GitHub Dark Classic, Shades of Purple, Night Owl, Winter is Coming, Hack The Box, Pink Cat Boo, GitHub Light, Nord Light, Grey Light Pro, Snazzy Light, Tiny Light, Green Breeze Light, Cute Pink. Theme IDs listed in [Available Themes](#available-themes) above.
+- **14 built-in themes** (7 dark, 7 light) — GitHub Dark Classic, Shades of Purple, Sandstorm Classic, Rocky Blood Orange, Minimal Dark Neon Yellow, Hack The Box, Pink Cat Boo, GitHub Light, Red Velvet Cupcake, Orangy One Light, Sunflower, Green Breeze Light, Cute Pink, Semi Light Purple. Theme IDs listed in [Available Themes](#available-themes) above.
 - **Individual theme doc pages** — Each theme has a dedicated page with author link (under heading and in Theme Information card), source link (opens in new tab), color palette, usage snippet, and “Best for” notes.
 - **Theme persistence** — Selected theme (or `system`) stored in `localStorage`; restored on load. Theme flash prevented via inline script in Layout.
-- **System preference** — “System” option in ThemeSwitcher follows OS light/dark (`prefers-color-scheme`). Default dark: `dracula-at-night`; default light: `grey-light-pro`. Theme updates when OS preference changes while System is selected.
+- **System preference** — “System” option in ThemeSwitcher follows OS light/dark (`prefers-color-scheme`). Default dark: `github-dark-classic`; default light: `github-light`. Theme updates when OS preference changes while System is selected.
 - **High contrast** — Provided by the Settings “High contrast” toggle (`.high-contrast` in `accessibility.css`), not by separate theme variants. Works with any of the 14 themes.
 - **Theme transition animations** — When switching themes, `html` and `body` animate `color`, `background-color`, and `border-color` over `--theme-transition-duration` (default 0.2s, ease-out). Set to 0s when `prefers-reduced-motion: reduce` or when the Settings “Reduce motion” toggle is on.
+- **Theme preview in switcher** — Hover or focus a theme option in the ThemeSwitcher menu to see a preview panel with the theme name, background swatch, and accent bar. The swatch has a bordered frame so light and dark themes are both visible. System option has no preview. Preview is hidden on viewports ≤360px.
 
 ## Using Themes
 
@@ -112,7 +113,7 @@ Visit individual theme pages for detailed information:
 Set the theme via the `data-theme` attribute on the HTML element:
 
 ```html
-<html lang="en" data-theme="dracula-at-night">
+<html lang="en" data-theme="github-dark-classic">
 ```
 
 ### Programmatic Theme Switching
@@ -127,28 +128,28 @@ The `ThemeSwitcher` component handles theme switching automatically. It:
 
 You can follow the operating system light/dark preference:
 
-- **First visit** (no saved theme): The site uses `prefers-color-scheme` to pick a default dark theme (Dracula At Night) or default light theme (Grey Light Pro) before the first paint, so there is no flash.
+- **First visit** (no saved theme): The site uses `prefers-color-scheme` to pick a default dark theme (GitHub Dark Classic) or default light theme (GitHub Light) before the first paint, so there is no flash.
 - **"System" option**: In the theme switcher, choose **System** under **Preference** to follow OS preference. The resolved theme (dark or light default) is applied, and your choice is stored as `theme=system` in `localStorage`.
 - **Live updates**: When System is selected and the user changes their OS light/dark setting, the theme updates automatically.
 
-Manual theme choices (e.g. Night Owl, Nord Light) override system preference until the user selects System again.
+Manual theme choices (e.g. Shades of Purple, Sunflower) override system preference until the user selects System again.
 
 ### Manual Theme Switching
 
 ```javascript
 // Set a specific theme
-document.documentElement.setAttribute('data-theme', 'night-owl');
-localStorage.setItem('theme', 'night-owl');
+document.documentElement.setAttribute('data-theme', 'shades-of-purple');
+localStorage.setItem('theme', 'shades-of-purple');
 
 // Or set System (follow OS preference)
 localStorage.setItem('theme', 'system');
-const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dracula-at-night' : 'grey-light-pro';
+const resolved = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'github-dark-classic' : 'github-light';
 document.documentElement.setAttribute('data-theme', resolved);
 
 // Load saved theme (resolve 'system' to dark/light default)
-const savedTheme = localStorage.getItem('theme') || 'dracula-at-night';
+const savedTheme = localStorage.getItem('theme') || 'github-dark-classic';
 const themeToApply = savedTheme === 'system'
-  ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dracula-at-night' : 'grey-light-pro')
+  ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'github-dark-classic' : 'github-light')
   : savedTheme;
 document.documentElement.setAttribute('data-theme', themeToApply);
 ```
@@ -160,21 +161,21 @@ Themes are organized in `src/styles/themes/`:
 ```
 themes/
 ├── dark/
-│   ├── dracula-at-night.css
 │   ├── github-dark-classic.css
 │   ├── shades-of-purple.css
-│   ├── night-owl.css
-│   ├── winter-is-coming-dark-black.css
+│   ├── sandstorm-classic.css
+│   ├── rocky-blood-orange.css
+│   ├── minimal-dark-neon-yellow.css
 │   ├── hack-the-box.css
 │   └── pink-cat-boo.css
 └── light/
     ├── github-light.css
-    ├── nord-light.css
-    ├── grey-light-pro.css
-    ├── snazzy-light.css
-    ├── tiny-light.css
+    ├── red-velvet-cupcake.css
+    ├── orangy-one-light.css
+    ├── sunflower.css
     ├── green-breeze-light.css
-    └── cute-pink.css
+    ├── cute-pink.css
+    └── semi-light-purple.css
 ```
 
 ## Creating Custom Themes
@@ -251,17 +252,10 @@ To convert from hex:
 
 The theme switcher automatically saves the selected theme to `localStorage` and restores it on page load. Stored values can be:
 
-- A theme id (e.g. `dracula-at-night`, `nord-light`) — that theme is applied.
-- `system` — the theme is resolved from `prefers-color-scheme` (dark → Dracula At Night, light → Grey Light Pro) and updates when the OS preference changes.
+- A theme id (e.g. `github-dark-classic`, `github-light`) — that theme is applied.
+- `system` — the theme is resolved from `prefers-color-scheme` (dark → GitHub Dark Classic, light → GitHub Light) and updates when the OS preference changes.
 
 An inline script in `Layout.astro` prevents theme flash by resolving the theme (including system preference on first visit) and setting `data-theme` immediately before the page renders.
-
-## Theme-Specific Overrides
-
-Some themes include specific overrides for better visibility:
-
-- **Tiny Light Theme**: Navbar link hover effects use dark color (`var(--text)`) instead of accent color for better visibility on the very light background
-- **Tiny Light Theme**: Font size slider uses dark colors for track and thumb for visibility
 
 ## CSS Build Process
 

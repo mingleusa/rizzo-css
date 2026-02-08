@@ -56,17 +56,11 @@ rizzo-css/
 │   │       ├── ChevronDown.astro
 │   │       ├── Circle.astro
 │   │       ├── Close.astro
-│   │       ├── Eye.astro
 │   │       ├── Gear.astro
-│   │       ├── IceCream.astro
-│   │       ├── Moon.astro
-│   │       ├── Owl.astro
-│   │       ├── Palette.astro
-│   │       ├── Rainbow.astro
 │   │       ├── Search.astro
 │   │       ├── Sort.astro
 │   │       ├── Filter.astro
-│   │       ├── Snowflake.astro
+│   │       ├── (theme icons: Owl, Palette, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon)
 │   │       └── devicons/  # Devicon brand icons
 │   │           ├── Astro.astro
 │   │           ├── Bash.astro
@@ -96,21 +90,21 @@ rizzo-css/
 │       ├── media-queries.css
 │       └── themes/      # Theme files (14 themes: 7 dark, 7 light)
 │           ├── dark/
-│           │   ├── dracula-at-night.css
 │           │   ├── github-dark-classic.css
 │           │   ├── shades-of-purple.css
-│           │   ├── night-owl.css
-│           │   ├── winter-is-coming-dark-black.css
+│           │   ├── sandstorm-classic.css
+│           │   ├── rocky-blood-orange.css
+│           │   ├── minimal-dark-neon-yellow.css
 │           │   ├── hack-the-box.css
 │           │   └── pink-cat-boo.css
 │           └── light/
 │               ├── github-light.css
-│               ├── nord-light.css
-│               ├── grey-light-pro.css
-│               ├── snazzy-light.css
-│               ├── tiny-light.css
+│               ├── red-velvet-cupcake.css
+│               ├── orangy-one-light.css
+│               ├── sunflower.css
 │               ├── green-breeze-light.css
-│               └── cute-pink.css
+│               ├── cute-pink.css
+│               └── semi-light-purple.css
 ├── docs/                # Documentation
 │   ├── GETTING_STARTED.md
 │   ├── DESIGN_SYSTEM.md
@@ -120,6 +114,7 @@ rizzo-css/
 │   ├── COLORS.md
 │   ├── SEARCH.md
 │   ├── MULTI_FRAMEWORK.md
+│   ├── THEME_COLORS.md
 │   ├── THEME_FEATURES_PLAN.md
 │   └── TODO.md
 ├── public/              # Static assets
@@ -189,7 +184,7 @@ See the [Components Documentation](/docs/components) for an overview and links t
 Rizzo CSS includes 14 built-in themes (7 dark, 7 light). Themes are applied via the `data-theme` attribute on the HTML element. The theme switcher (in Settings) supports a **System** option that follows your OS light/dark preference; the choice is persisted in `localStorage` as `theme` (a theme id or `system`).
 
 ```html
-<html lang="en" data-theme="dracula-at-night">
+<html lang="en" data-theme="github-dark-classic">
 ```
 
 See [Theming Documentation](./THEMING.md) for system preference, persistence, and custom themes.

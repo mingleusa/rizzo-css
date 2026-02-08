@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Sandstorm Classic Theme" description="Dark, red-based VS Code theme by Devan Sisson (Bardleware)">
+	<section>
+		<h2>Sandstorm Classic</h2>
+		<p class="theme-by">By <a href="https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm" target="_blank" rel="noopener noreferrer">Devan Sisson (Bardleware)</a></p>
+		<p>A dark, red-based color theme designed for working late into the night – it avoids both a bluish tint and excessive red that could strain the eyes.</p>
+		
+		<div class="example">
+			<div class="example-title">Try This Theme</div>
+			<ThemeSwitcher />
+		</div>
+	</section>
+	
+	<section>
+		<h2>Theme Information</h2>
+		<Card>
+			<div class="card__body">
+				<p><strong>Author:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm" target="_blank" rel="noopener noreferrer">Devan Sisson (Bardleware)</a></p>
+				<p><strong>Type:</strong> Dark Theme</p>
+				<p><strong>Description:</strong> Dark, red-based color theme for VS Code</p>
+				<p><strong>Theme ID:</strong> <code>sandstorm-classic</code></p>
+				<p><strong>Source:</strong> <a href="https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm" target="_blank" rel="noopener noreferrer">VS Code Marketplace</a></p>
+			</div>
+		</Card>
+	</section>
+	
+	<section>
+		<h2>Color Palette</h2>
+		<p>Sandstorm Classic uses a warm dark base with red undertones and a red accent for links and highlights.</p>
+		
+		<h3>Key Colors</h3>
+		<ul>
+			<li><strong>Background:</strong> Warm dark grey with red tint</li>
+			<li><strong>Text:</strong> Light warm grey</li>
+			<li><strong>Accent:</strong> Red</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<p>To use this theme, set the <code>data-theme</code> attribute:</p>
+		<CodeBlock code={`<html lang="en" data-theme="sandstorm-classic">`} language="html" />
+		
+		<p>Or use the ThemeSwitcher component to switch themes dynamically.</p>
+	</section>
+	
+	<section>
+		<h2>Best For</h2>
+		<ul>
+			<li>Late-night coding without blue light dominance</li>
+			<li>Developers who prefer a warm, red-tinted dark theme</li>
+			<li>Consistent red accent for links and UI highlights</li>
+		</ul>
+	</section>
+</DocsLayout>
