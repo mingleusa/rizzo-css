@@ -42,12 +42,14 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
+**Using Rizzo in an Astro or Svelte project?** See **[Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project)** in the docs: get the built CSS, import it, and use the Astro components or Svelte components (same BEM classes). React and Vue: same CSS works; component wrappers and docs planned later.
+
 ### Prerequisites
 
 - Node.js 18+
 - pnpm (recommended) or npm
 
-### Installation
+### Installation (this repo)
 
 ```bash
 pnpm install
@@ -67,7 +69,8 @@ Site available at `http://localhost:4321`
 |---------|-------------|
 | `pnpm dev` | Start development server |
 | `pnpm build` | Build production site (includes CSS minification) |
-| `pnpm build:css` | Build minified CSS to `public/css/main.min.css` |
+| `pnpm build:css` | Build minified CSS to `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css` |
+| `pnpm publish:package` | Build CSS and publish the `rizzo-css` npm package |
 | `pnpm preview` | Preview production build |
 | `pnpm lint:css` | Lint CSS files |
 | `pnpm lint:css:fix` | Auto-fix CSS linting issues |
@@ -142,8 +145,8 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 
 Accessible, themeable components:
 - **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Desktop dropdowns use 2-column layout for Components and Themes with vertical divider. Mobile menu toggle on left, search/settings on right, with improved spacing and smooth transitions
-- **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Opening/closing animations, mobile responsive
-- **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling (theme background + accent bar) for the selected option and, when System is chosen, the resolved theme
+- **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Close button (X) bordered and visible on hover. Opening/closing animations, mobile responsive
+- **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling (theme background + accent bar). Larger dropdown (trigger, menu, options) for better readability
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
 - **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, and more)
@@ -152,7 +155,7 @@ Accessible, themeable components:
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages at 20px size for better visibility. Language text appears on large screens, icons only on mobile. Icons and copy button are vertically centered on all screen sizes. Used throughout documentation for code examples
-- **Search** - Search component with Algolia integration; Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; mobile responsive
+- **Search** - Search component with Algolia integration; Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; close button bordered and visible on hover; modal bottom spacing so last result is fully visible; compact empty state; mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling

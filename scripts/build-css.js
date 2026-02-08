@@ -2,7 +2,7 @@ import postcss from 'postcss';
 import postcssImport from 'postcss-import';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -11,7 +11,8 @@ const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
 const inputFile = join(rootDir, 'src/styles/main.css');
-const outputFile = join(rootDir, 'public/css/main.min.css');
+const outputPublic = join(rootDir, 'public/css/main.min.css');
+const outputPackage = join(rootDir, 'packages/rizzo-css/dist/rizzo.min.css');
 
 const css = readFileSync(inputFile, 'utf8');
 
@@ -26,10 +27,11 @@ postcss([
     }],
   }),
 ])
-  .process(css, { from: inputFile, to: outputFile })
+  .process(css, { from: inputFile, to: outputPublic })
   .then((result) => {
-    writeFileSync(outputFile, result.css);
-    // console.log(`✓ Built minified CSS: ${outputFile}`);
+    writeFileSync(outputPublic, result.css);
+    mkdirSync(join(rootDir, 'packages/rizzo-css/dist'), { recursive: true });
+    writeFileSync(outputPackage, result.css);
   })
   .catch((error) => {
     console.error('Error building CSS:', error);

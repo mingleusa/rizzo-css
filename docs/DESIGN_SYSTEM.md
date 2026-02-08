@@ -95,9 +95,13 @@ Rizzo CSS includes a comprehensive typography system:
 - `--scale-110` (1.1) - 110% scale (hover effects)
 
 **Border Width Values:**
+- `--border-width` (1px) - Standard border width (used throughout components, forms, layout)
+- `--border-width-2` (2px), `--border-width-3` (3px), `--border-width-4` (4px) - Additional border widths
+- `--border-width-accent` (3px) - Accent bar (e.g. theme switcher active option)
 - `--border-width-arrow` (6px) - Border width for tooltip arrows and similar UI elements
 
 **Viewport Heights:**
+- `--vh-70` (70vh) - 70% of viewport height (e.g. search results max-height)
 - `--vh-80` (80vh) - 80% of viewport height
 - `--vh-90` (90vh) - 90% of viewport height
 
@@ -107,6 +111,10 @@ Rizzo CSS includes a comprehensive typography system:
 **Max Heights:**
 - `--max-height-dropdown` (600px) - Maximum height for dropdown menus
 - `--max-height-modal` (32rem) - Maximum height for modal dialogs
+- `--max-height-navbar-submenu` (2000px) - Navbar dropdown scroll area
+
+**Border Radius:**
+- `--radius-circle` (50%) - Perfect circle (e.g. avatar, radio, range thumb)
 
 **Cubic Bezier Easing:**
 - `--ease-in-out-cubic` - `cubic-bezier(0.4, 0, 0.2, 1)` - Smooth easing function for animations

@@ -4,12 +4,14 @@ Rizzo CSS includes a powerful search component with Algolia integration for fast
 
 ## Features
 
-- **Full-Screen Overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically. The search **closes only when you click the backdrop** (outside the modal) **or the X button**—clicking inside the modal (input, results, etc.) does not close it.
+- **Full-Screen Overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically. The search closes when you click the backdrop, the **X button**, or press **Escape**; **Cmd+K** / **Ctrl+K** toggles open or close (including when focus is in the search box). Clicking inside the modal (input, results) does not close it.
+- **Close Button (X)** - Bordered style (matches design system); stays visible on hover (accent border and icon).
+- **Modal UX** - Bottom padding and list spacer so the last result is fully visible when scrolled to the end; compact padding for the "Start typing…" / loading / no-results state.
 - **Live Search** - Results filter as you type
 - **Algolia Integration** - Fast, typo-tolerant search powered by Algolia
 - **Client-Side Fallback** - Works without Algolia for development
 - **Keyboard Navigation** - Full keyboard support (Arrow keys, Enter, Escape)
-- **Keyboard Shortcut** - Press `Ctrl+K` (or `Cmd+K` on Mac) to open search
+- **Keyboard Shortcut** - **Cmd+K** / **Ctrl+K** toggles search open or close; **Escape** closes
 - **Accessible** - ARIA attributes and screen reader support
 - **Theme-Aware** - Adapts to all themes
 
@@ -89,8 +91,8 @@ For production use with Algolia:
 
 ## Keyboard Shortcuts
 
-- `Ctrl+K` / `Cmd+K` - Open/close search
-- `Escape` - Close search
+- **Ctrl+K** / **Cmd+K** - Toggle search (open when closed, close when open—including when focus is in the search box)
+- **Escape** - Close search
 - `Arrow Down` - Navigate to next result
 - `Arrow Up` - Navigate to previous result
 - `Enter` - Navigate to selected result

@@ -2678,6 +2678,8 @@ div.navbar__sublink {
   transition: opacity 0.2s ease-out;
   outline: none;
   box-sizing: border-box;
+  overflow: hidden;
+  padding-bottom: var(--spacing-6);
 }
 
 .search__panel[aria-hidden="true"] {
@@ -2896,7 +2898,7 @@ div.navbar__sublink {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: var(--spacing-4) var(--spacing-6) var(--spacing-6) var(--spacing-6);
+  padding: var(--spacing-4) var(--spacing-6) var(--spacing-8) var(--spacing-6);
   min-height: var(--spacing-75) !important;
   max-height: calc(var(--vh-70) - var(--spacing-20));
   display: flex !important;
@@ -2918,7 +2920,7 @@ div.navbar__sublink {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-12) var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-4);
   text-align: center;
 }
 
@@ -2935,6 +2937,15 @@ div.navbar__sublink {
   flex-direction: column;
   gap: var(--spacing-1);
   min-height: 0;
+  padding-bottom: var(--spacing-4);
+}
+
+/* Spacer so the last result is never clipped when scrolled to bottom */
+.search__results-list::after {
+  content: '';
+  display: block;
+  height: var(--spacing-8);
+  flex-shrink: 0;
 }
 
 .search__results-list[hidden],

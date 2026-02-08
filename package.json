@@ -6,6 +6,7 @@
     "dev": "astro dev --open",
     "build": "pnpm build:css && astro build",
     "build:css": "node scripts/build-css.js",
+    "publish:package": "pnpm build:css && pnpm --filter rizzo-css publish",
     "preview": "astro preview",
     "astro": "astro",
     "lint:css": "stylelint \"src/**/*.css\"",

@@ -9,6 +9,11 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 > - [README](../README.md), [Design System](./DESIGN_SYSTEM.md), [Getting Started](./GETTING_STARTED.md) - Overview, variables, setup
 > - [Framework Structure](./FRAMEWORK_STRUCTURE.md) - Astro vs Svelte (and future frameworks) folder layout; framework switcher on docs
 
+## 🎨 Completed (recent)
+
+- [x] **Search modal UX** — Bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).
+- [x] **CSS variables** — Standardized border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`), `--radius-circle`, `--max-height-navbar-submenu`; components, forms, layout, accessibility, and utilities use variables instead of hardcoded values.
+
 ## 🎨 Theming
 
 - [x] **Theme Features**
@@ -19,9 +24,9 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 ## 🎨 Documentation
 
 - [ ] **Consumption & distribution** (docs + tooling)
-  - [ ] Docs: how to use Rizzo CSS via **download + import** (link to built CSS, import in any project)
+  - [x] **Docs: Using Rizzo in your project** — [GETTING_STARTED.md](./GETTING_STARTED.md#using-rizzo-in-your-project): get CSS (clone + build → `main.min.css`), import in app, use Astro or Svelte components (copy `src/components/svelte/` or same BEM from docs). React/Vue: same CSS; build your own wrappers; planned for later.
   - [ ] **CLI** (e.g. init/scaffold or pull CSS into a project) — build *after* frameworks/components; see [Package Distribution → CLI tool](#-cli-tool-after-frameworks-and-components-are-added) below
-  - [ ] Framework-agnostic: same CSS works in React, Vue, Svelte, Astro, vanilla, etc.; document usage in “any project”
+  - [ ] NPM package / CDN — when added, link from consumption docs
   - [x] Svelte docs at /docs/svelte with 24 component pages (19 full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added (see [In-repo framework routes](#-package-distribution) below).
 
 - [ ] **Best Practices**

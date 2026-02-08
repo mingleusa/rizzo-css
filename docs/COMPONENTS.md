@@ -422,6 +422,7 @@ window.openSettings();
 - **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
 - **Scrollbar Style** - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to `html` element (`scrollbar-thick` or `scrollbar-hidden`). Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
+- **Close button (X)** - Bordered style (matches search modal close), visible on hover (accent border and icon)
 - Slide-in panel with overlay
 - **Opening and closing animations** - Smooth slide-in from right with overlay fade (respects `prefers-reduced-motion`)
 - **All settings persist in localStorage** - All preferences are automatically saved and restored on page load
@@ -457,6 +458,7 @@ An accessible dropdown menu for switching between themes, integrated into the Se
 ### Features
 
 - Groups themes by **Dark themes** and **Light themes** (section labels; on mobile, bold labels with underlines); each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush)
+- **Larger dropdown** - Trigger, menu, and options use increased padding and font size for better readability
 - Active theme displays name and icon in trigger button
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)
 - Accessible ARIA menu pattern
@@ -556,7 +558,8 @@ A powerful search component with Algolia integration and live filtering. **Cmd+K
 - **Full-screen overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
 - Algolia integration with client-side fallback
 - Keyboard shortcut: Cmd+K / Ctrl+K toggles open or close; Escape closes
-- Close button on desktop (X icon with screen reader label)
+- Close button (X) with bordered style, visible on hover (accent border and icon)
+- Modal bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state
 - Mobile responsive with full-width panel
 - Live search results as you type
 - Full keyboard navigation

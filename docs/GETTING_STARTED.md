@@ -4,12 +4,82 @@ This guide will help you get started with Rizzo CSS.
 
 ## Using Rizzo in your project
 
-Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactive components) works in any stack—React, Vue, Svelte, Astro, or plain HTML/JS. Planned consumption options:
+Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactive components) works in any stack. **Right now we provide reference implementations and docs for Astro and Svelte.** You can use the built CSS in any project; for React and Vue, see [React and Vue (planned)](#react-and-vue-planned) below.
 
-- **Download and import** — Use the built CSS (`public/css/main.min.css` or your own build) and import it into your project; add the same class names and HTML structure as in the Astro components.
-- **CLI** (planned) — Pull or scaffold Rizzo CSS into a project via a CLI.
+### Step 1: Get the CSS
 
-**Svelte** docs and examples are available at **/docs/svelte**: 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, and Theme Switcher link to the Astro reference and same CSS/BEM). On component and theme doc pages, use the **framework switcher** ("View as: Astro | Svelte") to switch. See [Framework Structure](./FRAMEWORK_STRUCTURE.md) and [TODO](./TODO.md).
+**Option A — Clone and build (recommended):**
+
+1. Clone this repo and install dependencies:
+   ```bash
+   git clone <repository-url>
+   cd rizzo-css
+   pnpm install
+   ```
+2. Build the minified CSS:
+   ```bash
+   pnpm build:css
+   ```
+3. Use the output file: **`public/css/main.min.css`**. Copy it into your project (e.g. `public/` or `src/assets/`) or reference it from the Rizzo repo path.
+
+**Option B — Install from npm (after publishing):**
+   ```bash
+   pnpm add rizzo-css
+   # or: npm install rizzo-css   or   yarn add rizzo-css
+   ```
+   Then import once in your app: `import 'rizzo-css'` (or link to `node_modules/rizzo-css/dist/rizzo.min.css` in HTML). See the [package README](../packages/rizzo-css/README.md) in the repo.
+
+**Option C — Use the built file from a release:**  
+When we publish releases, you can download `main.min.css` from the release assets. (CLI is planned; see [TODO](./TODO.md).)
+
+### Step 2: Import the CSS
+
+In your app, import the Rizzo CSS **once** (e.g. in your root layout or main entry):
+
+- **Astro:** In your root layout or a global stylesheet, add:
+  ```html
+  <link rel="stylesheet" href="/css/main.min.css" />
+  ```
+  (If you copied the file to `public/css/`, the path is as above.)
+- **Svelte (Vite):** Copy `main.min.css` into your project (e.g. `src/lib/rizzo.css` or `public/css/`) and import it in your root layout or `main.js`:
+  ```js
+  import '/src/lib/rizzo.css';  // or path to where you put the file
+  ```
+  Or in `index.html`: `<link rel="stylesheet" href="/css/main.min.css" />` if the file is in `public/css/`.
+
+### Step 3: Use components (Astro)
+
+- **Reference implementation:** This repo is an Astro app. Use the Astro components from `src/components/` directly if your project is Astro, or copy the markup and class names from the component source or the [component docs](/docs/components).
+- **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn-primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components) (and individual component pages). Interactive components (Modal, Dropdown, Tabs, Search, etc.) require a small amount of JS; copy the patterns from the Astro components or the docs.
+
+### Step 4: Use components (Svelte)
+
+- **Svelte components:** This repo includes Svelte versions of most components in `src/components/svelte/`, using the **same BEM classes** as the Astro reference. You can copy that folder (and `index.ts`) into your Svelte app and import from it:
+  ```js
+  import { Button, Badge, Card, Modal, Tabs, /* ... */ } from './components/svelte';
+  ```
+- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, and Theme Switcher link to the Astro reference and use the same CSS/BEM). Use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch views.
+- **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
+
+### React and Vue (planned)
+
+The **same CSS and BEM class names** work in React and Vue. We do not yet ship React or Vue component implementations or framework-specific docs. To use Rizzo today in a React or Vue project:
+
+1. Get and import the CSS as in [Step 1](#step-1-get-the-css) and [Step 2](#step-2-import-the-css).
+2. Use the [Components documentation](/docs/components) and Astro/Svelte source as a reference for markup and class names; build your own React/Vue wrappers that output the same structure and classes.
+3. For interactive behavior (modals, dropdowns, tabs, search), replicate the patterns from the Astro or Svelte components (focus trap, keyboard handling, ARIA).
+
+We plan to add React and Vue component packages and docs later; see [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
+
+### Summary
+
+| You're using | Get CSS | Use components |
+|--------------|---------|-----------------|
+| **Astro**    | `pnpm add rizzo-css` and `import 'rizzo-css'`, or clone + build → `public/css/main.min.css` | Use `src/components/` from this repo or copy markup + classes from [docs](/docs/components). |
+| **Svelte**   | Same (npm or clone + build); copy `main.min.css` into your app if not using npm | Copy `src/components/svelte/` (and `index.ts`) into your app, or copy markup + classes from [docs](/docs/svelte). |
+| **React / Vue** | Same: `pnpm add rizzo-css` and import CSS, or use built file | Same BEM and markup as docs; build your own wrappers. React/Vue components and docs planned later. |
+
+---
 
 ## Installation (this repo / docs site)
 

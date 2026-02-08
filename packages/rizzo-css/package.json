@@ -1,0 +1,35 @@
+{
+  "name": "rizzo-css",
+  "version": "0.0.1",
+  "scripts": {
+    "prepublishOnly": "cd ../.. && pnpm build:css"
+  },
+  "description": "A modern CSS design system with semantic theming, 14 themes, and accessible components (BEM). Use with Astro, Svelte, or any framework.",
+  "style": "dist/rizzo.min.css",
+  "main": "dist/rizzo.min.css",
+  "exports": {
+    ".": {
+      "style": "./dist/rizzo.min.css",
+      "import": "./dist/rizzo.min.css",
+      "require": "./dist/rizzo.min.css"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "keywords": [
+    "css",
+    "design-system",
+    "theming",
+    "bem",
+    "accessibility",
+    "astro",
+    "svelte"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mingleusa/rizzo-css.git"
+  },
+  "license": "MIT"
+}
