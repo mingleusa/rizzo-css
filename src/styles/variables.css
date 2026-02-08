@@ -135,6 +135,9 @@
   --transition-ease-out: 300ms ease-out;
   --transition-ease-in: 300ms ease-in;
 
+  /* Theme switch animation; set to 0s in accessibility.css when reduced motion */
+  --theme-transition-duration: 0.2s;
+
   /* Blur Values */
   --blur-sm: 4px;
   --blur: 8px;

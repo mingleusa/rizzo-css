@@ -24,13 +24,13 @@ Reference for how theming works today and possible enhancements (transitions, pr
 
 ---
 
-## 2. Theme Transition Animations (Optional Next Step)
+## 2. Theme Transition Animations ✅ Implemented
 
-When switching theme, animate color/background changes over a short duration (e.g. 150–200 ms). Respect `prefers-reduced-motion: reduce` (disable or shorten the transition).
+When switching theme, color/background on the root animates over 0.2s. Respects `prefers-reduced-motion: reduce` and the Settings “Reduce motion” toggle.
 
-**Implementation outline:**
-- On `html` (or a wrapper with `data-theme`), add `transition` for `color`, `background-color`, `border-color`. Use a token e.g. `--theme-transition-duration: 0.2s`.
-- In `accessibility.css`, when `.reduced-motion` is set, set `--theme-transition-duration: 0s` so theme changes stay instant.
+**Implemented:**
+- `--theme-transition-duration: 0.2s` in `variables.css`. Used on `html` and `body` for `color`, `background-color`, `border-color` with `ease-out` in `base.css`.
+- In `accessibility.css`, `:root { --theme-transition-duration: 0s; }` inside `@media (prefers-reduced-motion: reduce)` and `.reduced-motion { --theme-transition-duration: 0s; }` so theme changes stay instant when reduced motion is on.
 
 ---
 
@@ -45,7 +45,7 @@ Let users see a theme’s look before applying it (e.g. a small preview panel in
 | Phase | Task | Status |
 |-------|------|--------|
 | **1** | System preference detection | ✅ Done |
-| **2** | Theme transition animations | Optional |
+| **2** | Theme transition animations | ✅ Done |
 | **3** | Theme preview in switcher | Optional |
 
 ---

@@ -11,7 +11,7 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
 ## 🎨 Theming
 
 - [ ] **Theme Features**
-  - [ ] Theme transition animations
+  - [x] Theme transition animations (0.2s on html/body; `--theme-transition-duration`; respects reduced motion)
   - [ ] Theme preview in switcher
 
 ## 🎨 Documentation

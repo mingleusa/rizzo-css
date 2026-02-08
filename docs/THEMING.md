@@ -103,6 +103,7 @@ Visit individual theme pages for detailed information:
 - **Theme persistence** — Selected theme (or `system`) stored in `localStorage`; restored on load. Theme flash prevented via inline script in Layout.
 - **System preference** — “System” option in ThemeSwitcher follows OS light/dark (`prefers-color-scheme`). Default dark: `dracula-at-night`; default light: `grey-light-pro`. Theme updates when OS preference changes while System is selected.
 - **High contrast** — Provided by the Settings “High contrast” toggle (`.high-contrast` in `accessibility.css`), not by separate theme variants. Works with any of the 14 themes.
+- **Theme transition animations** — When switching themes, `html` and `body` animate `color`, `background-color`, and `border-color` over `--theme-transition-duration` (default 0.2s, ease-out). Set to 0s when `prefers-reduced-motion: reduce` or when the Settings “Reduce motion” toggle is on.
 
 ## Using Themes
 

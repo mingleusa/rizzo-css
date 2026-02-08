@@ -3,11 +3,19 @@
 html {
   background-color: var(--background);
   color: var(--text);
+  transition:
+    color var(--theme-transition-duration) ease-out,
+    background-color var(--theme-transition-duration) ease-out,
+    border-color var(--theme-transition-duration) ease-out;
 }
 
 body {
   background-color: var(--background);
   color: var(--text);
+  transition:
+    color var(--theme-transition-duration) ease-out,
+    background-color var(--theme-transition-duration) ease-out,
+    border-color var(--theme-transition-duration) ease-out;
 }
 
 /* Links */

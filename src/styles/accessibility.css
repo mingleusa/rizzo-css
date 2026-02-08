@@ -76,6 +76,10 @@
 
 /* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --theme-transition-duration: 0s;
+  }
+
   *,
   *::before,
   *::after {
@@ -87,6 +91,10 @@
 }
 
 /* Class-based reduced motion (for settings) */
+.reduced-motion {
+  --theme-transition-duration: 0s;
+}
+
 .reduced-motion *,
 .reduced-motion *::before,
 .reduced-motion *::after {
