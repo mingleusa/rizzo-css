@@ -273,7 +273,7 @@ div.navbar__sublink {
   width: max-content;
   max-width: var(--spacing-80);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   list-style: none;
@@ -305,7 +305,7 @@ div.navbar__sublink {
   }
 
   .navbar__submenu--components .navbar__submenu-overview {
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
     margin-bottom: var(--spacing-2);
     padding-bottom: var(--spacing-2);
   }
@@ -359,7 +359,7 @@ div.navbar__sublink {
   }
 
   .navbar__submenu--themes .navbar__submenu-overview {
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
     margin-bottom: var(--spacing-2);
     padding-bottom: var(--spacing-2);
   }
@@ -393,7 +393,7 @@ div.navbar__sublink {
     color: var(--text-dim);
     padding: var(--spacing-0-625) var(--spacing-4);
     margin-bottom: var(--spacing-0-625);
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
   .navbar__submenu--themes .navbar__submenu-column .navbar__sublink {
@@ -504,7 +504,7 @@ div.navbar__sublink {
     gap: var(--spacing-2);
     padding: var(--spacing-2) var(--spacing-6);
     background-color: var(--background-alt);
-    border: 1px solid var(--border);
+    border: var(--border-width) solid var(--border);
     border-radius: var(--radius-md);
     color: var(--text);
     cursor: pointer;
@@ -572,7 +572,7 @@ div.navbar__sublink {
     /* Enhanced mobile menu button design */
     padding: var(--spacing-2) var(--spacing-3);
     background-color: var(--background-alt);
-    border: 1px solid var(--border);
+    border: var(--border-width) solid var(--border);
     border-radius: var(--radius-md);
     min-width: var(--touch-target-min);
     min-height: var(--touch-target-min);
@@ -671,7 +671,7 @@ div.navbar__sublink {
 
   .navbar__link {
     padding: var(--spacing-3) var(--spacing-4) var(--spacing-3) var(--spacing-3); /* Increased vertical padding, minimal left padding, right padding for spacing */
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
     width: 100%;
     max-width: 100%;
     min-width: 0; /* Allow flex child to shrink so long labels don't overflow */
@@ -705,7 +705,7 @@ div.navbar__sublink {
     transform: none;
     box-shadow: none;
     border: none;
-    border-top: 1px solid var(--border);
+    border-top: var(--border-width) solid var(--border);
     margin: 0 !important;
     padding: 0 !important;
     max-height: 0;
@@ -738,11 +738,11 @@ div.navbar__sublink {
   .navbar__submenu--components .navbar__submenu-column .navbar__sublink {
     padding: var(--spacing-3) var(--spacing-5) var(--spacing-3) var(--spacing-10) !important;
     min-height: var(--touch-target-min) !important;
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
   .navbar__item--has-dropdown[aria-expanded="true"] .navbar__submenu {
-    max-height: 2000px; /* Large enough to accommodate all items (17 items × ~72px = ~1224px) */
+    max-height: var(--max-height-navbar-submenu);
     padding: 0 !important;
     overflow: visible; /* Ensure all items are visible after animation */
   }
@@ -778,7 +778,7 @@ div.navbar__sublink {
     min-height: var(--touch-target-min) !important;
     display: block !important;
     box-sizing: border-box !important;
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
     margin: 0 !important;
     overflow-wrap: break-word !important;
   }
@@ -807,7 +807,7 @@ div.navbar__sublink {
     padding-right: var(--spacing-5);
     padding-bottom: var(--spacing-0-625);
     box-sizing: border-box;
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
     font-weight: var(--font-weight-bold);
   }
 
@@ -818,7 +818,7 @@ div.navbar__sublink {
   .navbar__submenu--themes .navbar__submenu-column .navbar__sublink {
     padding: var(--spacing-3) var(--spacing-5) var(--spacing-3) var(--spacing-10) !important;
     min-height: var(--touch-target-min) !important;
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
   .navbar__submenu--themes .navbar__sublink--with-icon {
@@ -840,7 +840,7 @@ div.navbar__sublink {
 
   /* Keep border on last main link */
   .navbar__item:last-of-type .navbar__link {
-    border-bottom: 1px solid var(--border);
+    border-bottom: var(--border-width) solid var(--border);
   }
 
   /* On mobile: Search and settings same size as menu toggle, icons only */
@@ -938,15 +938,15 @@ div.navbar__sublink {
   .theme-switcher__trigger {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
-    padding: var(--spacing-2) var(--spacing-4);
+    gap: var(--spacing-3);
+    padding: var(--spacing-3) var(--spacing-4);
     background-color: var(--background-alt);
     color: var(--text);
-    border: 1px solid var(--border);
+    border: var(--border-width) solid var(--border);
     border-radius: var(--radius-md);
     cursor: pointer;
     font-family: var(--font-family);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     transition: background-color var(--transition-base), border-color var(--transition-base);
   }
 
@@ -958,8 +958,8 @@ div.navbar__sublink {
 
   .theme-switcher__label-icon {
     flex-shrink: 0;
-    width: var(--spacing-4);
-    height: var(--spacing-4);
+    width: var(--spacing-5);
+    height: var(--spacing-5);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -994,11 +994,11 @@ div.navbar__sublink {
   position: absolute;
   top: calc(100% + var(--spacing-2));
   left: 0;
-  min-width: var(--spacing-50);
+  min-width: var(--spacing-64);
   max-height: var(--spacing-100);
   overflow-y: auto;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   opacity: 0;
@@ -1025,10 +1025,10 @@ div.navbar__sublink {
 
 .theme-switcher__preview {
   flex: 0 0 auto;
-  width: var(--spacing-28);
-  min-width: var(--spacing-28);
-  padding: var(--spacing-3);
-  border-left: 1px solid var(--border);
+  width: var(--spacing-32);
+  min-width: var(--spacing-32);
+  padding: var(--spacing-4);
+  border-left: var(--border-width) solid var(--border);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-2);
@@ -1057,7 +1057,7 @@ div.navbar__sublink {
 }
 
 .theme-switcher__preview-swatch-wrap {
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--spacing-1);
   background-color: var(--background-alt);
@@ -1097,7 +1097,7 @@ div.navbar__sublink {
   gap: var(--spacing-3);
   margin-bottom: var(--spacing-6);
   padding: var(--spacing-3) 0;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
 }
 
 .framework-switcher__label {
@@ -1111,7 +1111,7 @@ div.navbar__sublink {
 .framework-switcher__segmented {
   display: inline-flex;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-0-5);
   box-shadow: inset 0 1px 2px oklch(from var(--shadow-color) l c h / 8%);
@@ -1121,7 +1121,7 @@ div.navbar__sublink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 5rem;
+  min-width: var(--spacing-20);
   padding: var(--spacing-2) var(--spacing-4);
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
@@ -1160,26 +1160,26 @@ div.navbar__sublink {
 }
 
 .theme-switcher__group {
-  padding: var(--spacing-2) 0;
+  padding: var(--spacing-3) 0;
 }
 
   .theme-switcher__group-label {
     padding: var(--spacing-2) var(--spacing-4);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--text-dim);
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
   margin-bottom: var(--spacing-1);
 }
 
   .theme-switcher__option {
     display: flex;
     align-items: center;
-    gap: var(--spacing-2);
+    gap: var(--spacing-3);
     width: 100%;
-    padding: var(--spacing-0-625) var(--spacing-4);
+    padding: var(--spacing-2) var(--spacing-4);
     font: inherit;
     text-align: left;
     background-color: transparent;
@@ -1190,7 +1190,7 @@ div.navbar__sublink {
     border: none;
     cursor: pointer;
     font-family: var(--font-family);
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     transition: background-color var(--transition-fast), color var(--transition-fast);
     position: relative;
     user-select: none;
@@ -1209,8 +1209,8 @@ div.navbar__sublink {
 
   .theme-switcher__option-icon {
     flex-shrink: 0;
-    width: var(--spacing-4);
-    height: var(--spacing-4);
+    width: var(--spacing-5);
+    height: var(--spacing-5);
   }
 
   /* Active option: theme background + accent bar so it’s always clearly visible */
@@ -1221,8 +1221,8 @@ div.navbar__sublink {
     color: var(--text);
     font-weight: var(--font-weight-medium);
     border-radius: var(--radius);
-    border-left: 3px solid var(--accent);
-    padding-left: calc(var(--spacing-4) - 3px);
+    border-left: var(--border-width-accent) solid var(--accent);
+    padding-left: calc(var(--spacing-4) - var(--border-width-accent));
   }
 
   .theme-switcher__option--active:focus-visible {
@@ -1276,7 +1276,7 @@ div.navbar__sublink {
   max-width: var(--spacing-105);
   height: 100%;
   background-color: var(--background-alt);
-  border-left: 1px solid var(--border);
+  border-left: var(--border-width) solid var(--border);
   box-shadow: calc(-1 * var(--spacing-1)) 0 var(--spacing-3) calc(-1 * var(--spacing-0-125)) oklch(from var(--shadow-color) l c h / 15%);
   display: flex;
   flex-direction: column;
@@ -1312,7 +1312,7 @@ div.navbar__sublink {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
   background-color: var(--background-alt);
   position: sticky;
   top: 0;
@@ -1333,16 +1333,20 @@ div.navbar__sublink {
   width: var(--spacing-8);
   height: var(--spacing-8);
   padding: 0;
-  background: none;
-  border: none;
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
+  background-color: var(--background-alt);
+  border: var(--border-width) solid var(--border);
   color: var(--text);
   cursor: pointer;
-  border-radius: var(--radius);
-  transition: background-color var(--transition-base);
+  border-radius: var(--radius-md);
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base);
 }
 
 .settings__close:hover {
-  background-color: var(--background);
+  background-color: var(--background-alt);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .settings__close:focus-visible {
@@ -1401,7 +1405,7 @@ div.navbar__sublink {
   width: 100%;
   height: var(--spacing-2);
   background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--slider-progress, 50%), var(--background-alt) var(--slider-progress, 50%), var(--background-alt) 100%);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   outline: none;
   appearance: none;
@@ -1413,7 +1417,7 @@ div.navbar__sublink {
   width: 100%;
   height: var(--spacing-2);
   background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--slider-progress, 50%), var(--background-alt) var(--slider-progress, 50%), var(--background-alt) 100%);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   box-shadow: inset 0 var(--spacing-0-125) var(--spacing-0-125) oklch(from var(--shadow-color) l c h / 10%);
 }
@@ -1422,7 +1426,7 @@ div.navbar__sublink {
   width: 100%;
   height: var(--spacing-2);
   background: linear-gradient(to right, var(--accent) 0%, var(--accent) var(--slider-progress, 50%), var(--background-alt) var(--slider-progress, 50%), var(--background-alt) 100%);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   box-shadow: inset 0 var(--spacing-0-125) var(--spacing-0-125) oklch(from var(--shadow-color) l c h / 10%);
 }
@@ -1433,7 +1437,7 @@ div.navbar__sublink {
   height: var(--spacing-5);
   background-color: var(--accent);
   border: var(--outline-width) solid var(--background);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   cursor: pointer;
   transition: background-color var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
   box-shadow: 0 0 0 var(--spacing-0-125) var(--border);
@@ -1450,7 +1454,7 @@ div.navbar__sublink {
   height: var(--spacing-5);
   background-color: var(--accent);
   border: var(--outline-width) solid var(--background);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   cursor: pointer;
   transition: background-color var(--transition-base), transform var(--transition-base), border-color var(--transition-base);
   box-shadow: 0 0 0 var(--spacing-0-125) var(--border);
@@ -1571,7 +1575,7 @@ div.navbar__sublink {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: var(--background);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   z-index: var(--z-modal);
@@ -1595,7 +1599,7 @@ div.navbar__sublink {
   align-items: center;
   justify-content: space-between;
   padding: var(--spacing-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
   flex-shrink: 0;
 }
 
@@ -1639,7 +1643,7 @@ div.navbar__sublink {
 
 .modal__footer {
   padding: var(--spacing-6);
-  border-top: 1px solid var(--border);
+  border-top: var(--border-width) solid var(--border);
   display: flex;
   gap: var(--spacing-3);
   justify-content: flex-end;
@@ -1700,7 +1704,7 @@ div.navbar__sublink {
   gap: var(--spacing-2);
   padding: var(--spacing-2) var(--spacing-3);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text);
   font-family: var(--font-family-mono);
@@ -1717,8 +1721,8 @@ div.navbar__sublink {
 }
 
 .copy-to-clipboard:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
 }
 
 .copy-to-clipboard__text {
@@ -1776,7 +1780,7 @@ div.navbar__sublink {
   gap: var(--spacing-3);
   padding: var(--spacing-4) var(--spacing-5);
   border-radius: var(--radius-lg);
-  border: 1px solid;
+  border: var(--border-width) solid var(--border);
   background-color: var(--background-alt);
   color: var(--text);
   transition: opacity var(--transition-base), transform var(--transition-base);
@@ -2285,7 +2289,7 @@ div.navbar__sublink {
   padding: var(--spacing-2) var(--spacing-4);
   background-color: var(--background-alt);
   color: var(--text);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   cursor: pointer;
   font-family: var(--font-family);
@@ -2326,7 +2330,7 @@ div.navbar__sublink {
   max-width: calc(100vw - var(--spacing-8));
   overflow: visible !important;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   opacity: 0;
@@ -2407,7 +2411,7 @@ div.navbar__sublink {
 }
 
 .dropdown__separator {
-  height: 1px;
+  height: var(--border-width);
   background-color: var(--border);
   margin: var(--spacing-2) 0;
 }
@@ -2458,7 +2462,7 @@ div.navbar__sublink {
   max-width: 100%;
   overflow: visible !important;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
   opacity: 0;
@@ -2544,7 +2548,7 @@ div.navbar__sublink {
   gap: var(--spacing-2);
   padding: var(--spacing-2) var(--spacing-4);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text);
   cursor: pointer;
@@ -2594,7 +2598,7 @@ div.navbar__sublink {
 .search__kbd kbd {
   padding: var(--spacing-0-125) var(--spacing-0-375);
   background-color: var(--background);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
   font-size: var(--font-size-xs);
   line-height: 1;
@@ -2663,7 +2667,7 @@ div.navbar__sublink {
   max-height: calc(100vh - var(--spacing-8));
   max-height: calc(100dvh - var(--spacing-8));
   background-color: var(--background);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-xl);
   z-index: var(--z-search-panel);
@@ -2711,7 +2715,7 @@ div.navbar__sublink {
   align-items: center;
   gap: var(--spacing-3);
   padding: var(--spacing-5) var(--spacing-6);
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
   position: relative;
   flex-shrink: 0;
   background-color: var(--background);
@@ -2729,7 +2733,7 @@ div.navbar__sublink {
   gap: var(--spacing-2);
   padding: var(--spacing-2);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text);
   cursor: pointer;
@@ -2743,8 +2747,9 @@ div.navbar__sublink {
 }
 
 .search__close-btn:hover {
-  background-color: var(--background);
+  background-color: var(--background-alt);
   border-color: var(--accent);
+  color: var(--accent);
 }
 
 .search__close-btn:focus-visible {
@@ -2823,7 +2828,7 @@ div.navbar__sublink {
   width: 100%;
   padding: var(--spacing-3) calc(var(--spacing-14) + var(--spacing-0-125)) var(--spacing-3) var(--spacing-16) !important;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   color: var(--text);
   font-family: var(--font-family);
@@ -2891,9 +2896,9 @@ div.navbar__sublink {
   flex: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  padding: var(--spacing-4) var(--spacing-6);
+  padding: var(--spacing-4) var(--spacing-6) var(--spacing-6) var(--spacing-6);
   min-height: var(--spacing-75) !important;
-  max-height: calc(70vh - var(--spacing-20));
+  max-height: calc(var(--vh-70) - var(--spacing-20));
   display: flex !important;
   flex-direction: column;
   visibility: visible !important;
@@ -2961,7 +2966,7 @@ div.navbar__sublink {
   visibility: visible !important;
   min-height: auto !important;
   margin-bottom: 0;
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
 }
 
 .search__result-item:hover {
@@ -3176,7 +3181,7 @@ div.navbar__sublink {
   padding: var(--spacing-2) var(--spacing-3);
   color: var(--text);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   font-family: var(--font-family);
   font-size: var(--font-size-sm);
@@ -3225,14 +3230,14 @@ div.navbar__sublink {
 /* Accordion Component */
 .accordion {
   width: 100%;
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   overflow: hidden;
   background-color: var(--background-alt);
 }
 
 .accordion__item {
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
 }
 
 .accordion__item:last-child {
@@ -3527,7 +3532,7 @@ div.navbar__sublink {
 .progress__track {
   width: 100%;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-full);
   overflow: hidden;
 }
@@ -3646,19 +3651,19 @@ div.navbar__sublink {
 .spinner--sm .spinner__ring {
   width: var(--spacing-4);
   height: var(--spacing-4);
-  border-width: 2px;
+  border-width: var(--border-width-2);
 }
 
 .spinner--md .spinner__ring {
   width: var(--spacing-6);
   height: var(--spacing-6);
-  border-width: 3px;
+  border-width: var(--border-width-3);
 }
 
 .spinner--lg .spinner__ring {
   width: var(--spacing-8);
   height: var(--spacing-8);
-  border-width: 4px;
+  border-width: var(--border-width-4);
 }
 
 /* Variants - set color via border-top-color */
@@ -3710,7 +3715,7 @@ div.navbar__sublink {
   flex-shrink: 0;
   overflow: hidden;
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   color: var(--text-dim);
   font-weight: var(--font-weight-semibold);
   font-size: inherit;
@@ -3777,7 +3782,7 @@ div.navbar__sublink {
   min-width: 0;
   min-height: 0;
   border: none;
-  border-top: 1px solid var(--border);
+  border-top: var(--border-width) solid var(--border);
   border-left: none;
 }
 
@@ -3794,7 +3799,7 @@ div.navbar__sublink {
 
 .divider--horizontal .divider__line {
   border-left: none;
-  border-top: 1px solid var(--border);
+  border-top: var(--border-width) solid var(--border);
 }
 
 /* Vertical */
@@ -3810,7 +3815,7 @@ div.navbar__sublink {
   width: 0;
   min-height: var(--spacing-4);
   border-top: none;
-  border-left: 1px solid var(--border);
+  border-left: var(--border-width) solid var(--border);
 }
 
 /* ==========================================================================
@@ -3865,7 +3870,7 @@ div.navbar__sublink {
   font-family: var(--font-family);
   color: var(--text);
   background-color: var(--background);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
 }
 
@@ -3898,13 +3903,13 @@ div.navbar__sublink {
 }
 
 .table__head .table__row {
-  border-bottom: 2px solid var(--border);
+  border-bottom: var(--border-width-2) solid var(--border);
 }
 
 .table__cell {
   padding: var(--spacing-3) var(--spacing-4);
   text-align: left;
-  border-bottom: 1px solid var(--border);
+  border-bottom: var(--border-width) solid var(--border);
   color: var(--text);
 }
 

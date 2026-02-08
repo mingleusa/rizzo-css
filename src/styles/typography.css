@@ -64,7 +64,7 @@ pre {
   color: var(--text);
   padding: var(--spacing-4);
   border-radius: var(--radius-lg);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   overflow-x: auto;
 }
 

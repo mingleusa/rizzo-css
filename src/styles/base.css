@@ -50,7 +50,7 @@ a:hover {
 ::-webkit-scrollbar-thumb {
   background-color: var(--border);
   border-radius: var(--radius);
-  border: 1px solid var(--background);
+  border: var(--border-width) solid var(--background);
   transition: background-color var(--transition-base);
 }
 
@@ -87,7 +87,7 @@ a:hover {
 .scrollbar-thick ::-webkit-scrollbar-thumb {
   background-color: var(--border);
   border-radius: var(--radius);
-  border: 1px solid var(--background);
+  border: var(--border-width) solid var(--background);
   transition: background-color var(--transition-base);
 }
 

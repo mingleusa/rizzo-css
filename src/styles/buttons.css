@@ -6,7 +6,7 @@ button,
 .btn {
   background-color: var(--accent);
   color: var(--accent-text);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   padding: var(--spacing-2) var(--spacing-4);
   border-radius: var(--radius-md);
   cursor: pointer;
@@ -113,7 +113,7 @@ button:disabled,
 /* Outline Button */
 .btn-outline {
   background-color: transparent;
-  border: 1px solid var(--accent);
+  border: var(--border-width) solid var(--accent);
   color: var(--accent);
 }
 

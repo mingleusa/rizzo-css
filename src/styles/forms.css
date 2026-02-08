@@ -22,7 +22,7 @@ select {
   line-height: var(--line-height-normal);
   color: var(--text);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   transition: border-color var(--transition-base), box-shadow var(--transition-base);
   appearance: none;
@@ -61,7 +61,7 @@ input[type="month"]:disabled,
 input[type="week"]:disabled,
 textarea:disabled,
 select:disabled {
-  opacity: 0.6;
+  opacity: var(--opacity-60);
   cursor: not-allowed;
   background-color: var(--background);
 }
@@ -230,7 +230,7 @@ input[type="checkbox"] {
 }
 
 input[type="radio"] {
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
 }
 
 input[type="checkbox"]:checked,
@@ -309,7 +309,7 @@ input[type="file"] {
   font-family: var(--font-family);
   color: var(--text);
   background-color: var(--background-alt);
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   cursor: pointer;
 }
@@ -340,7 +340,7 @@ input[type="range"]::-webkit-slider-thumb {
   width: var(--spacing-5);
   height: var(--spacing-5);
   background-color: var(--accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   cursor: pointer;
   border: var(--outline-width) solid var(--background-alt);
   box-shadow: 0 0 0 var(--spacing-0-125) var(--accent);
@@ -350,7 +350,7 @@ input[type="range"]::-moz-range-thumb {
   width: var(--spacing-5);
   height: var(--spacing-5);
   background-color: var(--accent);
-  border-radius: 50%;
+  border-radius: var(--radius-circle);
   cursor: pointer;
   border: var(--outline-width) solid var(--background-alt);
   box-shadow: 0 0 0 var(--spacing-0-125) var(--accent);
@@ -366,7 +366,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
 /* Fieldset */
 fieldset {
-  border: 1px solid var(--border);
+  border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
   padding: var(--spacing-4);
   margin: 0 0 var(--spacing-6);
