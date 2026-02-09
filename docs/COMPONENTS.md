@@ -1,6 +1,12 @@
 # Components
 
-Rizzo CSS includes accessible, themeable components built with Astro (reference implementation). Each component has its own dedicated documentation page with live examples, usage instructions, and API details. **Svelte** versions and docs are available at [/docs/svelte](/docs/svelte) — use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch. To add components to a new project, use **`npx rizzo-css init`** and choose Astro or Svelte plus the components you want (see [Getting Started](./GETTING_STARTED.md)).
+Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
+
+- **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example page with theme switcher and samples, or copy markup from the [component docs](/docs/components).
+- **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro + components to copy into your project.
+- **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page. Use `npx rizzo-css init` and choose Svelte + components to copy into your project.
+
+See [Getting Started](./GETTING_STARTED.md) for full setup.
 
 ## Component Pages
 

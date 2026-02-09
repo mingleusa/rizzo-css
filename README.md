@@ -24,7 +24,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
 - 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages (Astro reference + Svelte examples)
-- 🔀 **Multi-framework docs** - Framework switcher on component/theme pages (View as: Astro | Svelte); Svelte docs at /docs/svelte with same structure
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red in the terminal). Framework switcher on docs (View as: Astro | Svelte); Svelte docs at /docs/svelte
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -45,7 +45,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo in your project?** Quickest: `npx rizzo-css init` (prompts for framework and optional Astro/Svelte components). Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. Use Astro or Svelte components from this repo or from the CLI scaffold. Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
+**Using Rizzo in your project?** Quickest: `npx rizzo-css init` — choose **Vanilla JS**, **Astro**, or **Svelte** (interactive menus; all get the same CSS and component styles). Vanilla JS gets an example page with theme switcher and samples; Astro/Svelte can add component files. Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. To add CSS to an existing app: `cd your-app && npx rizzo-css add` (auto-detects Svelte/Astro). Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
 
 ### Prerequisites
 

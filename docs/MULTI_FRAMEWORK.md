@@ -1,6 +1,6 @@
 # Multi-Framework Support Strategy
 
-This document outlines the strategy for adding Vue and React support to Rizzo CSS. **Svelte is already implemented** (docs and components at `/docs/svelte`); React and Vue would follow the same pattern.
+This document outlines the strategy for multi-framework support. **Vanilla JS**, **Astro**, and **Svelte** are fully supported today (same CSS and component styles; CLI offers all three with framework-specific scaffolds). React and Vue would follow the same pattern.
 
 ## Overview
 
@@ -51,8 +51,8 @@ src/
 
 **Single package: rizzo-css.** We publish one unscoped npm package. No @ scope or separate core/react/vue/svelte packages.
 
-- **npm:** `rizzo-css` — CSS + **CLI** + **scaffold** (`dist/`, `bin/rizzo-css.js`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init` to scaffold a project with optional Astro/Svelte component picker (24 components copied from the package).
-- **Framework components** — Astro reference and Svelte components live in **this repo** (`src/components/` and `src/components/svelte/`). Use `npx rizzo-css init` and choose a framework + components to copy into your project, or copy the folder manually and import from your local path. React/Vue components, when added, will also live in-repo; no separate npm packages for them.
+- **npm:** `rizzo-css` — CSS + **CLI** + **scaffold** (`dist/`, `bin/rizzo-css.js`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init` to scaffold a project. Choose **Vanilla JS** (example page with theme switcher + samples), **Astro**, or **Svelte**; all get the same CSS. Astro/Svelte can optionally copy 24 components from the package.
+- **Framework components** — **Vanilla JS** uses the same BEM markup (scaffold in `scaffold/vanilla/`). Astro reference and Svelte components live in this repo (`src/components/` and `src/components/svelte/`). Use `npx rizzo-css init` and choose a framework + (for Astro/Svelte) components, or copy manually. React/Vue components, when added, will also live in-repo.
 
 ```
 rizzo-css/

@@ -1,6 +1,6 @@
 # Publishing the npm package
 
-The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffold** templates (Astro and Svelte components for the CLI component picker). Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffold** templates: **Vanilla JS** (example index with theme switcher + samples), **Astro**, and **Svelte** (component picker). All frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
 
 ## Versioning strategy
 
@@ -27,14 +27,14 @@ Before pushing to GitHub and publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.3"` (or semver of your choice)
+   - `packages/rizzo-css/package.json` → `"version": "0.0.4"` (or semver of your choice)
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/` with Astro and Svelte templates) before the actual publish. Enter your npm OTP if prompted (2FA).
+   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/svelte/` and `scaffold/astro/` from repo; `scaffold/vanilla/` is committed in the package) before the actual publish. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash

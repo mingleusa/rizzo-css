@@ -3,11 +3,11 @@
 /* https://piccalil.li/blog/a-more-modern-css-reset/ */
 
 
-/* Box sizing rules */
-*,
-*::before,
-*::after {
+/* Box sizing and strip default spacing on all elements and pseudos */
+*, *::before, *::after {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 /* Prevent font size inflation */

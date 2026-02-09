@@ -2,7 +2,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented (Phase 1 + component selection). CLI ships in the **rizzo-css** package; `npx rizzo-css init` | `add` | `theme`. Init prompts for framework (vanilla / Astro / Svelte) and optional component picker for Astro and Svelte (24 components). Scaffold templates are in `packages/rizzo-css/scaffold/` (filled by `scripts/copy-scaffold.js` on prepublish).
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** uses interactive menus (arrows + Enter, Space to toggle): project location, **framework** (Vanilla JS / Astro / Svelte — each with distinct CLI color), **themes** (multi-select), and (for Astro/Svelte) optional **components** (multi-select). All options get the same CSS and component styles. **Vanilla JS** uses `scaffold/vanilla/index.html` (theme switcher + sample components). **Add** auto-detects Svelte/Astro and copies CSS to `static/css` or `public/css`; supports `--path` and `--framework`. Scaffold: `scaffold/vanilla/` (in-repo), `scaffold/svelte/` and `scaffold/astro/` (filled by `scripts/copy-scaffold.js` on prepublish).
 
 ---
 
@@ -18,9 +18,9 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 | Command | Description |
 |--------|-------------|
-| `npx rizzo-css init` | Scaffold a new project (or add to current directory). Prompts: project name, framework (vanilla / Astro / Svelte / React / Vue), theme (default or pick one), optional component layer. |
-| `npx rizzo-css add` | Add Rizzo CSS to an existing project: copies or links built CSS (and optionally base HTML/body setup), no full scaffold. |
-| `npx rizzo-css theme` | List themes or add a theme file (e.g. copy a theme CSS snippet into the project). |
+| `npx rizzo-css init` | Scaffold a new project. Interactive menus: project location (current dir / enter name), framework (Vanilla JS / Astro / Svelte), themes (multi-select), and (Astro/Svelte only) components (multi-select). Vanilla JS gets `scaffold/vanilla/index.html`; Astro/Svelte get optional component files from `scaffold/`. |
+| `npx rizzo-css add` | Add Rizzo CSS to the current project. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
+| `npx rizzo-css theme` | List all 14 theme IDs (for use with `data-theme` on `<html>`). |
 | `npx rizzo-css upgrade` *(later)* | Check for updates and optionally update CSS/package version. |
 
 **Invocation**
@@ -43,16 +43,16 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 ### Phase 1 – Minimum viable
 
 - [x] Add CLI to **rizzo-css** package: `bin` entry in `packages/rizzo-css/package.json` (`"rizzo-css": "./bin/rizzo-css.js"`) and `bin/rizzo-css.js`.
-- [x] Implement `init`: prompt (project name, framework: vanilla / Astro / Svelte, theme); scaffold with built CSS and minimal `index.html` that links CSS and sets `data-theme`.
-- [x] Implement `add`: copy CSS to current project (default `./css/` or `--path`); print `<link>` to add.
+- [x] Implement `init`: interactive menus (project location, framework: Vanilla JS / Astro / Svelte, themes multi-select, components multi-select for Astro/Svelte). Vanilla uses `scaffold/vanilla/index.html`; Astro/Svelte copy from `scaffold/` when selected.
+- [x] Implement `add`: copy CSS; auto-detect Svelte/Astro; default paths `static/css` or `public/css`; `--path` and `--framework` support.
 - [x] Implement `theme`: list 14 theme IDs.
 - [x] Document in [Getting Started](./GETTING_STARTED.md): “Quick start with CLI” via `npx rizzo-css init` / `add`.
 - [x] **Component selection:** For Astro and Svelte, init prompts “Include components? (y/n)”; if yes, numbered list of 24 components, then copy from `scaffold/astro/` or `scaffold/svelte/` into the project. Scaffold populated by `scripts/copy-scaffold.js` (run in prepublishOnly).
 
 ### Phase 2 – Themes and options
 
-- [ ] `theme` command: list available themes (from docs or bundled list), optionally copy a theme override file.
-- [ ] `init` / `add`: optional theme selection (default theme vs. one of the 14).
+- [x] `init`: theme selection (multi-select; first selected is default `data-theme`).
+- [ ] `theme` command: optionally copy a theme override file.
 - [ ] Optional: `--css-only` flag to skip any framework-specific files.
 
 ### Phase 3 – Enhancements

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{DATA_THEME}}">{{THEME_LIST_COMMENT}}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="{{LINK_HREF}}" />
+</head>
+<body>
+  <header style="margin-bottom: var(--spacing-6);">
+    <h1>Hello, Rizzo CSS</h1>
+    <p>Vanilla JS — same styles and components as Astro/Svelte. Use the same BEM classes; see <a href="https://rizzo-css.vercel.app/docs/components">docs</a>.</p>
+    <div style="display: flex; align-items: center; gap: var(--spacing-3); flex-wrap: wrap; margin-top: var(--spacing-3);">
+      <label for="theme-select">Theme:</label>
+      <select id="theme-select" style="width: auto; min-width: 12rem;">
+        <option value="github-dark-classic">github-dark-classic</option>
+        <option value="github-light">github-light</option>
+        <option value="shades-of-purple">shades-of-purple</option>
+        <option value="sandstorm-classic">sandstorm-classic</option>
+        <option value="rocky-blood-orange">rocky-blood-orange</option>
+        <option value="minimal-dark-neon-yellow">minimal-dark-neon-yellow</option>
+        <option value="hack-the-box">hack-the-box</option>
+        <option value="pink-cat-boo">pink-cat-boo</option>
+        <option value="red-velvet-cupcake">red-velvet-cupcake</option>
+        <option value="orangy-one-light">orangy-one-light</option>
+        <option value="sunflower">sunflower</option>
+        <option value="green-breeze-light">green-breeze-light</option>
+        <option value="cute-pink">cute-pink</option>
+        <option value="semi-light-purple">semi-light-purple</option>
+      </select>
+    </div>
+  </header>
+
+  <section style="margin-bottom: var(--spacing-6);">
+    <h2>Buttons</h2>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+      <button type="button" class="btn">Default</button>
+      <button type="button" class="btn btn-primary">Primary</button>
+      <button type="button" class="btn btn-success">Success</button>
+      <button type="button" class="btn btn-warning">Warning</button>
+      <button type="button" class="btn btn-error">Error</button>
+      <button type="button" class="btn btn-outline">Outline</button>
+    </div>
+  </section>
+
+  <section style="margin-bottom: var(--spacing-6);">
+    <h2>Card &amp; Badge</h2>
+    <div class="card" style="max-width: 20rem;">
+      <div class="card__body">
+        <h3 class="card__title">Card title</h3>
+        <p>Same component styles as Astro and Svelte. Use class names from the <a href="https://rizzo-css.vercel.app/docs/components">component docs</a>.</p>
+        <span class="badge badge--primary">Badge</span>
+      </div>
+    </div>
+  </section>
+
+  <p><small>All themes and component styles are included. Run <code>npx rizzo-css theme</code> to list themes.</small></p>
+
+  <script>
+    (function () {
+      var select = document.getElementById('theme-select');
+      var html = document.documentElement;
+      var key = 'rizzo-theme';
+      function applyTheme(value) {
+        html.setAttribute('data-theme', value);
+        try { localStorage.setItem(key, value); } catch (e) {}
+        select.value = value;
+      }
+      var stored = null;
+      try { stored = localStorage.getItem(key); } catch (e) {}
+      var initial = stored || html.getAttribute('data-theme') || 'github-dark-classic';
+      applyTheme(initial);
+      select.addEventListener('change', function () { applyTheme(select.value); });
+    })();
+  </script>
+</body>
+</html>

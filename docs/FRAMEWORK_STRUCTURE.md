@@ -1,4 +1,4 @@
-# Framework structure (Astro vs Svelte)
+# Framework structure (Vanilla JS, Astro, Svelte)
 
 Rizzo CSS keeps each framework’s implementation **separate but integrated** in one repo.
 
@@ -53,6 +53,7 @@ src/
 
 ## Rules
 
+- **Vanilla JS** — No in-repo component folder; same BEM classes and HTML as Astro/Svelte. The CLI scaffolds from `packages/rizzo-css/scaffold/vanilla/` (example index with theme switcher and samples). Use the [component docs](/docs/components) for markup.
 - **Astro** docs and components live under `src/pages/docs/` and `src/components/` (no subfolder).
 - **Svelte** docs live under `src/pages/docs/svelte/`; Svelte components live under `src/components/svelte/`.
 - **React/Vue** (when added): same pattern — `src/pages/docs/react/`, `src/components/react/`, etc.

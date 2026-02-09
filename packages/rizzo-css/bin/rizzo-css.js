@@ -36,6 +36,19 @@ const ASTRO_COMPONENTS = [
   'Modal', 'Toast', 'Table',
 ];
 
+// ANSI colors for CLI (framework logo colors)
+const C = {
+  reset: '\u001b[0m',
+  dim: '\u001b[90m',
+  cyan: '\u001b[36m',
+  vanilla: '\u001b[38;5;226m', // Vanilla JS yellow
+  astro: '\u001b[38;5;208m',   // Astro orange #ff5d01
+  svelte: '\u001b[38;5;202m',  // Svelte orange #ff3e00
+};
+
+const CIRCLE_EMPTY = '\u25CB ';  // ○
+const CIRCLE_FILLED = '\u25CF '; // ●
+
 // Resolve path to this package (works when run via npx or from repo)
 function getPackageRoot() {
   return dirname(require.resolve('../package.json'));
@@ -55,6 +68,189 @@ function question(prompt) {
   });
 }
 
+/** Format label with optional ANSI color (item.color). */
+function formatLabel(item) {
+  const text = item.label || item.value;
+  return item.color ? item.color + text + C.reset : text;
+}
+
+/** Single-select menu with circles. options: array of { value, label, color? }. Returns selected value. */
+function selectMenu(options, title) {
+  const items = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+  const isTty = process.stdin.isTTY && process.stdout.isTTY;
+
+  if (!isTty) {
+    console.log('\n' + (title || 'Choose one') + ':');
+    items.forEach((item, i) => console.log('  ' + (i + 1) + '. ' + (item.label || item.value)));
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    return new Promise((resolve) => {
+      rl.question('\nEnter number [1]: ', (answer) => {
+        rl.close();
+        const n = parseInt((answer || '1').trim(), 10);
+        const idx = n >= 1 && n <= items.length ? n - 1 : 0;
+        resolve(items[idx].value);
+      });
+    });
+  }
+
+  return new Promise((resolve) => {
+    let index = 0;
+    const lineCount = (title ? 1 : 0) + items.length + 1;
+
+    const render = (first) => {
+      const lines = (title ? [title] : []).concat(
+        items.map((item, i) => {
+          const circle = i === index ? CIRCLE_FILLED : CIRCLE_EMPTY;
+          const prefix = i === index ? C.cyan + '>' + C.reset + ' ' : '  ';
+          return prefix + circle + formatLabel(item);
+        })
+      );
+      if (!first) {
+        process.stdout.write('\u001b[' + lineCount + 'A');
+      }
+      process.stdout.write('\u001b[?25l');
+      process.stdout.write(lines.join('\n') + '\n\n');
+      process.stdout.write('\u001b[?25h');
+    };
+
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+
+    render(true);
+
+    let buf = '';
+    const onData = (ch) => {
+      if (ch === '\u0003') {
+        process.stdin.setRawMode(false);
+        process.stdin.removeListener('data', onData);
+        process.stdout.write('\n');
+        process.exit(130);
+      }
+      if (ch === '\r' || ch === '\n') {
+        process.stdin.setRawMode(false);
+        process.stdin.removeListener('data', onData);
+        process.stdin.pause();
+        process.stdout.write('\n');
+        resolve(items[index].value);
+        return;
+      }
+      buf += ch;
+      const isUp = buf === '\u001b[A' || buf === '\u001bOA' || (buf.length >= 2 && buf.endsWith('A') && buf.startsWith('\u001b'));
+      const isDown = buf === '\u001b[B' || buf === '\u001bOB' || (buf.length >= 2 && buf.endsWith('B') && buf.startsWith('\u001b'));
+      if (isUp) {
+        buf = '';
+        index = index <= 0 ? items.length - 1 : index - 1;
+        render(false);
+      } else if (isDown) {
+        buf = '';
+        index = index >= items.length - 1 ? 0 : index + 1;
+        render(false);
+      } else if (buf.length > 12 || (buf.length === 1 && ch !== '\u001b')) {
+        buf = '';
+      }
+    };
+    process.stdin.on('data', onData);
+  });
+}
+
+/** Multi-select menu: circles ○/●, Space toggles, Enter confirms. Returns array of selected values. */
+function multiSelectMenu(options, title) {
+  const items = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+  const isTty = process.stdin.isTTY && process.stdout.isTTY;
+
+  if (!isTty) {
+    console.log('\n' + (title || 'Choose (space to toggle, enter when done') + ':');
+    items.forEach((item, i) => console.log('  ' + (i + 1) + '. ' + (item.label || item.value)));
+    const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
+    return new Promise((resolve) => {
+      rl.question('\nEnter numbers to include (e.g. 1 3 5 or all): ', (answer) => {
+        rl.close();
+        const s = (answer || '').trim().toLowerCase();
+        if (s === 'all' || s === 'a') {
+          resolve(items.map((i) => i.value));
+          return;
+        }
+        const parts = s.split(/[\s,]+/).filter(Boolean);
+        const indices = new Set();
+        for (const p of parts) {
+          const n = parseInt(p, 10);
+          if (n >= 1 && n <= items.length) indices.add(n - 1);
+        }
+        resolve(Array.from(indices).sort((a, b) => a - b).map((i) => items[i].value));
+      });
+    });
+  }
+
+  return new Promise((resolve) => {
+    let index = 0;
+    const selected = new Set();
+    const lineCount = (title ? 1 : 0) + items.length + 1;
+
+    const render = (first) => {
+      const lines = (title ? [title] : []).concat(
+        items.map((item, i) => {
+          const circle = selected.has(i) ? CIRCLE_FILLED : CIRCLE_EMPTY;
+          const prefix = i === index ? C.cyan + '>' + C.reset + ' ' : '  ';
+          return prefix + circle + formatLabel(item);
+        })
+      );
+      if (!first) {
+        process.stdout.write('\u001b[' + lineCount + 'A');
+      }
+      process.stdout.write('\u001b[?25l');
+      process.stdout.write(lines.join('\n') + '\n\n');
+      process.stdout.write('\u001b[?25h');
+    };
+
+    process.stdin.setRawMode(true);
+    process.stdin.resume();
+    process.stdin.setEncoding('utf8');
+
+    render(true);
+
+    let buf = '';
+    const onData = (ch) => {
+      if (ch === '\u0003') {
+        process.stdin.setRawMode(false);
+        process.stdin.removeListener('data', onData);
+        process.stdout.write('\n');
+        process.exit(130);
+      }
+      if (ch === '\r' || ch === '\n') {
+        process.stdin.setRawMode(false);
+        process.stdin.removeListener('data', onData);
+        process.stdin.pause();
+        process.stdout.write('\n');
+        resolve(Array.from(selected).sort((a, b) => a - b).map((i) => items[i].value));
+        return;
+      }
+      if (ch === ' ') {
+        buf = '';
+        if (selected.has(index)) selected.delete(index);
+        else selected.add(index);
+        render(false);
+        return;
+      }
+      buf += ch;
+      const isUp = buf === '\u001b[A' || buf === '\u001bOA' || (buf.length >= 2 && buf.endsWith('A') && buf.startsWith('\u001b'));
+      const isDown = buf === '\u001b[B' || buf === '\u001bOB' || (buf.length >= 2 && buf.endsWith('B') && buf.startsWith('\u001b'));
+      if (isUp) {
+        buf = '';
+        index = index <= 0 ? items.length - 1 : index - 1;
+        render(false);
+      } else if (isDown) {
+        buf = '';
+        index = index >= items.length - 1 ? 0 : index + 1;
+        render(false);
+      } else if (buf.length > 12 || (buf.length === 1 && ch !== '\u001b')) {
+        buf = '';
+      }
+    };
+    process.stdin.on('data', onData);
+  });
+}
+
 function printHelp() {
   console.log(`
 rizzo-css CLI — Add Rizzo CSS to your project
@@ -63,15 +259,23 @@ Usage:
   npx rizzo-css <command> [options]
 
 Commands:
-  init    Scaffold a new project (prompts: name, framework, theme; Astro/Svelte: optional component picker)
-  add     Copy Rizzo CSS into the current project
-  theme   List available themes
+  init    Scaffold a minimal project (menus: location, framework, themes, components)
+  add     Copy Rizzo CSS into the current project (auto-detects Svelte/Astro)
+  theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
+
+Use framework CLI first, then add Rizzo CSS:
+  npm create svelte@latest my-app
+  cd my-app && npx rizzo-css add
+
+  npm create astro@latest my-app
+  cd my-app && npx rizzo-css add
 
 Examples:
   npx rizzo-css init
   npx rizzo-css add
   npx rizzo-css add --path public/css
+  npx rizzo-css add --framework svelte
   npx rizzo-css theme
 
 Docs: https://rizzo-css.vercel.app
@@ -79,16 +283,44 @@ Docs: https://rizzo-css.vercel.app
 }
 
 function cmdTheme() {
-  console.log('\nAvailable themes (set data-theme on <html>):\n');
-  THEMES.forEach((t) => console.log('  ' + t));
-  console.log('\nExample: <html lang="en" data-theme="github-dark-classic">\n');
+  process.stdout.write('\nAvailable themes (set data-theme on <html>):\n\n');
+  THEMES.forEach((t) => process.stdout.write('  ' + t + '\n'));
+  process.stdout.write('\nExample: <html lang="en" data-theme="github-dark-classic">\n\n');
+}
+
+/** Detect framework from cwd: "svelte" | "astro" | null. */
+function detectFramework(cwd) {
+  if (existsSync(join(cwd, 'svelte.config.js')) || existsSync(join(cwd, 'svelte.config.ts'))) return 'svelte';
+  if (existsSync(join(cwd, 'astro.config.mjs')) || existsSync(join(cwd, 'astro.config.mts')) || existsSync(join(cwd, 'astro.config.js'))) return 'astro';
+  try {
+    const pkg = readFileSync(join(cwd, 'package.json'), 'utf8');
+    const json = JSON.parse(pkg);
+    const deps = { ...json.dependencies, ...(json.devDependencies || {}) };
+    if (deps['@sveltejs/kit'] || deps['svelte']) return 'svelte';
+    if (deps['astro']) return 'astro';
+  } catch (_) { /* ignore */ }
+  return null;
+}
+
+/** Default CSS directory and link href for a framework (for add command). */
+function getFrameworkCssPaths(framework) {
+  if (framework === 'svelte') return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css' };
+  if (framework === 'astro') return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css' };
+  return { targetDir: 'css', linkHref: 'css/rizzo.min.css' };
 }
 
 function cmdAdd(argv) {
   const pathIdx = argv.indexOf('--path');
   const customPath = pathIdx !== -1 && argv[pathIdx + 1] ? argv[pathIdx + 1] : null;
-  const targetDir = customPath || 'css';
-  const targetFile = join(process.cwd(), targetDir, 'rizzo.min.css');
+  const frameworkIdx = argv.indexOf('--framework');
+  const explicitFramework = frameworkIdx !== -1 && argv[frameworkIdx + 1] ? argv[frameworkIdx + 1].toLowerCase() : null;
+  const cwd = process.cwd();
+  const framework = explicitFramework && FRAMEWORKS.includes(explicitFramework)
+    ? explicitFramework
+    : (explicitFramework === null ? detectFramework(cwd) : null);
+  const paths = getFrameworkCssPaths(framework);
+  const targetDir = customPath || paths.targetDir;
+  const targetFile = join(cwd, targetDir, 'rizzo.min.css');
   const cssSource = getCssPath();
 
   if (!existsSync(cssSource)) {
@@ -96,26 +328,27 @@ function cmdAdd(argv) {
     process.exit(1);
   }
 
-  mkdirSync(join(process.cwd(), targetDir), { recursive: true });
+  mkdirSync(join(cwd, targetDir), { recursive: true });
   copyFileSync(cssSource, targetFile);
-  const linkPath = targetDir + '/rizzo.min.css';
+  const linkHref = customPath ? customPath + '/rizzo.min.css' : paths.linkHref;
   console.log('\n✓ Rizzo CSS copied to ' + targetFile);
-  console.log('\nAdd to your HTML or layout:\n');
-  console.log('  <link rel="stylesheet" href="' + linkPath + '" />');
-  console.log('\nSet a theme on <html>: data-theme="github-dark-classic" (see: npx rizzo-css theme)\n');
-}
-
-function parseComponentSelection(input, componentList, maxNum) {
-  const s = (input || '').trim().toLowerCase();
-  if (s === 'none' || s === 'n') return [];
-  if (s === 'all' || s === 'a') return componentList.slice();
-  const parts = s.split(/[\s,]+/).filter(Boolean);
-  const indices = new Set();
-  for (const p of parts) {
-    const n = parseInt(p, 10);
-    if (n >= 1 && n <= maxNum) indices.add(n - 1);
+  if (framework === 'svelte') {
+    console.log('\nDetected Svelte/SvelteKit. Add to your root layout (e.g. src/app.html):\n');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('\nSet a theme on <html>: data-theme="github-dark-classic" (see: npx rizzo-css theme)');
+    console.log('\nTo add Rizzo Svelte components later: copy from this package\'s scaffold or run npx rizzo-css init and pick Svelte + components in an empty folder, then copy the generated files.\n');
+  } else if (framework === 'astro') {
+    console.log('\nDetected Astro. Add to your layout (e.g. src/layouts/Layout.astro):\n');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('\nSet a theme on <html>: data-theme="github-dark-classic" (see: npx rizzo-css theme)\n');
+  } else {
+    console.log('\nAdd to your HTML or layout:\n');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    if (framework === 'vanilla') {
+      console.log('\nVanilla JS: same CSS and component classes as Astro/Svelte. Use the same BEM markup from the docs.');
+    }
+    console.log('\nSet a theme on <html>: data-theme="github-dark-classic" (see: npx rizzo-css theme)\n');
   }
-  return indices.size === 0 ? [] : Array.from(indices).sort((a, b) => a - b).map((i) => componentList[i]);
 }
 
 function getScaffoldSvelteDir() {
@@ -124,6 +357,10 @@ function getScaffoldSvelteDir() {
 
 function getScaffoldAstroDir() {
   return join(getPackageRoot(), 'scaffold', 'astro');
+}
+
+function getScaffoldVanillaIndex() {
+  return join(getPackageRoot(), 'scaffold', 'vanilla', 'index.html');
 }
 
 function copyDirRecursive(src, dest) {
@@ -205,23 +442,47 @@ function copyAstroComponents(projectDir, selectedNames) {
 }
 
 async function cmdInit() {
-  const name = await question('Project name (folder name, or leave blank for current directory): ');
-  let framework = await question('Framework: vanilla, astro, svelte (default: vanilla): ') || 'vanilla';
-  framework = framework.toLowerCase();
-  if (!FRAMEWORKS.includes(framework)) framework = 'vanilla';
+  const projectChoice = await selectMenu(
+    [
+      { value: 'cwd', label: 'Current directory' },
+      { value: 'name', label: 'Enter project name (new folder)' },
+    ],
+    '? Project location'
+  );
+  const name = projectChoice === 'name' ? await question('Project name (folder name): ') : '';
 
-  const theme = await question('Theme (default: github-dark-classic, or run "npx rizzo-css theme" for list): ') || 'github-dark-classic';
+  const framework = await selectMenu(
+    [
+      { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },
+      { value: 'astro', label: 'Astro', color: C.astro },
+      { value: 'svelte', label: 'Svelte', color: C.svelte },
+    ],
+    '? Framework (arrows, Enter to select) — all get the same CSS and component styles'
+  );
+
+  const selectedThemes = await multiSelectMenu(
+    THEMES.map((t) => ({ value: t, label: t })),
+    '? Themes (Space to toggle, Enter to confirm)'
+  );
+  const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
+  const theme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
 
   let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
   if (componentList.length > 0) {
-    const label = framework === 'svelte' ? 'Svelte' : 'Astro';
-    const include = await question('Include ' + label + ' components? (y/n, default: n): ') || 'n';
-    if (include.toLowerCase() === 'y' || include.toLowerCase() === 'yes') {
-      console.log('\nComponents (enter numbers to include, e.g. 1 3 5, or "all" / "none"):');
-      componentList.forEach((c, i) => console.log('  ' + (i + 1) + '. ' + c));
-      const choice = await question('\nSelection (e.g. 1 2 3 or all): ');
-      selectedComponents = parseComponentSelection(choice, componentList, componentList.length);
+    const includeLabel = framework === 'svelte' ? 'Svelte' : 'Astro';
+    const includeChoice = await selectMenu(
+      [
+        { value: 'none', label: 'None' },
+        { value: 'pick', label: 'Yes, pick ' + includeLabel + ' components' },
+      ],
+      '? Include ' + includeLabel + ' components?'
+    );
+    if (includeChoice === 'pick') {
+      selectedComponents = await multiSelectMenu(
+        componentList.map((c) => ({ value: c, label: c })),
+        '? Components (Space to toggle, Enter to confirm)'
+      );
     }
   }
 
@@ -239,8 +500,22 @@ async function cmdInit() {
   copyFileSync(cssSource, cssTarget);
 
   const linkHref = framework === 'astro' ? '/css/rizzo.min.css' : 'css/rizzo.min.css';
-  const indexHtml = `<!DOCTYPE html>
-<html lang="en" data-theme="${theme}">
+  const themeComment = themeList.length > 0
+    ? '\n  <!-- Selected themes: ' + themeList.join(', ') + ' -->'
+    : '';
+  const indexPath = join(projectDir, 'index.html');
+  const vanillaScaffoldPath = getScaffoldVanillaIndex();
+  if (framework === 'vanilla' && existsSync(vanillaScaffoldPath)) {
+    let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
+    indexHtml = indexHtml
+      .replace(/\{\{DATA_THEME\}\}/g, theme)
+      .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
+      .replace(/\{\{TITLE\}\}/g, name || 'App')
+      .replace(/\{\{LINK_HREF\}\}/g, linkHref);
+    writeFileSync(indexPath, indexHtml, 'utf8');
+  } else {
+    const indexHtml = `<!DOCTYPE html>
+<html lang="en" data-theme="${theme}">${themeComment}
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -253,9 +528,8 @@ async function cmdInit() {
 </body>
 </html>
 `;
-
-  const indexPath = join(projectDir, 'index.html');
-  writeFileSync(indexPath, indexHtml, 'utf8');
+    writeFileSync(indexPath, indexHtml, 'utf8');
+  }
 
   if (framework === 'svelte' && selectedComponents.length > 0) {
     copySvelteComponents(projectDir, selectedComponents);
@@ -266,6 +540,13 @@ async function cmdInit() {
   console.log('\n✓ Project ready at ' + projectDir);
   console.log('  - ' + cssTarget);
   console.log('  - ' + indexPath);
+  if (framework === 'vanilla') {
+    console.log('  - Vanilla JS: same CSS and component styles as Astro/Svelte; index includes theme switcher and sample components.');
+  }
+  if (framework === 'svelte' || framework === 'astro') {
+    const fw = framework === 'svelte' ? 'Svelte' : 'Astro';
+    console.log('\nTip: To use the official ' + fw + ' scaffold instead, create a project with their CLI (e.g. npm create ' + framework + '@latest my-app), then run npx rizzo-css add in that folder.');
+  }
   console.log('\nRun a local server (e.g. npx serve .) or open index.html. Docs: https://rizzo-css.vercel.app\n');
 }
 

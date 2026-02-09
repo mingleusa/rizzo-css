@@ -1,6 +1,6 @@
 # rizzo-css
 
-A modern CSS design system with semantic theming, 14 built-in themes, and accessible components (BEM). Framework-agnostic: use with Astro, Svelte, React, Vue, or plain HTML.
+A modern CSS design system with semantic theming, 14 built-in themes, and accessible components (BEM). **The same CSS and component styles** ship for every option: **Vanilla JS**, Astro, and Svelte. Framework-agnostic: use with any stack or plain HTML.
 
 ## Install
 
@@ -12,7 +12,14 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` scaffolds a project (prompts for framework and optional Astro/Svelte components). `npx rizzo-css add` copies the CSS into the current project. `npx rizzo-css theme` lists themes.
+**Quick start (no install):** `npx rizzo-css init` scaffolds a project. Choose **Vanilla JS** (yellow in the CLI), **Astro** (orange), or **Svelte** (orange-red). All options get the **same CSS and component styles**. Vanilla JS gets an example page with theme switcher and sample components; Astro/Svelte can optionally add component files. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then add our CSS:
+
+```bash
+npm create svelte@latest my-app && cd my-app && npx rizzo-css add
+npm create astro@latest my-app   && cd my-app && npx rizzo-css add
+```
+
+`add` auto-detects Svelte/Astro and copies CSS to the right place (`static/css` or `public/css`). `npx rizzo-css theme` lists themes.
 
 ## Use
 
@@ -34,7 +41,7 @@ import 'rizzo-css';
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rizzo-css@latest" />
 ```
 
-Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). For Astro or Svelte, reference components and examples are in the [documentation](https://rizzo-css.vercel.app/docs/getting-started).
+Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files for convenience.
 
 ## Themes
 

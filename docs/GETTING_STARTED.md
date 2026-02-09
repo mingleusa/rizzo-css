@@ -2,9 +2,23 @@
 
 This guide will help you get started with Rizzo CSS. The documentation site is available at **[rizzo-css.vercel.app](https://rizzo-css.vercel.app)**.
 
+---
+
+## CLI at a glance
+
+| Command | What it does |
+|--------|----------------|
+| `npx rizzo-css init` | Scaffold a new project. Interactive menus: project location → **framework** (Vanilla JS / Astro / Svelte, with yellow / orange / orange-red in the terminal) → **themes** (multi-select, Space to toggle) → **components** (Astro/Svelte only, multi-select). All get the same CSS. |
+| `npx rizzo-css add` | Add Rizzo CSS to the current directory. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
+| `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
+
+**Tip:** To use the official Svelte or Astro scaffold plus Rizzo CSS: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or the same with `astro`).
+
+---
+
 ## Using Rizzo in your project
 
-Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactive components) works in any stack. **Right now we provide reference implementations and docs for Astro and Svelte.** You can use the built CSS in any project; for React and Vue, see [React and Vue (planned)](#react-and-vue-planned) below.
+Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are included for **Vanilla JS**, Astro, and Svelte. All three get full theming and the same BEM component markup; we provide reference implementations and docs for each. For React and Vue, see [React and Vue (planned)](#react-and-vue-planned) below.
 
 ### Step 1: Get the CSS
 
@@ -14,7 +28,7 @@ Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactiv
 npx rizzo-css init
 ```
 
-Prompts for project name, **framework** (vanilla / Astro / Svelte), and theme. For **Astro** or **Svelte**, you can optionally include components: the CLI lists 24 components (Button, Badge, Card, etc.) and you choose by number (e.g. `1 2 3`) or `all` / `none`. **Astro:** selected components and icons are copied to `src/components/rizzo/`. **Svelte:** selected components are copied to `src/lib/rizzo/` with a generated barrel file. Creates a folder with the CSS and a minimal `index.html`. To add only the CSS to an existing project:
+Prompts for project name, **framework** (Vanilla JS / Astro / Svelte), themes, and (for Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** creates an example `index.html` with theme switcher and sample components (buttons, card, badge). **Astro** or **Svelte:** you can optionally include component files (Button, Badge, Card, etc.); the CLI lists 24 components. **Astro:** selected components and icons are copied to `src/components/rizzo/`. **Svelte:** selected components are copied to `src/lib/rizzo/` with a generated barrel file. To add only the CSS to an existing project:
 
 ```bash
 npx rizzo-css add
@@ -54,18 +68,23 @@ Import the CSS **once** in your app (root layout or main entry):
 - **If you used npm but have no bundler (plain HTML):** Use a CDN: `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest" />` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest`. Or copy the built file from `node_modules/rizzo-css/dist/rizzo.min.css` into your `public/` or `static/` folder and link to that path.
 - **If you cloned and built:** Add a `<link>` or `import` to where you put `main.min.css` (e.g. `public/css/main.min.css`).
 
-### Step 3: Use components (Astro)
+### Step 3: Use components (Vanilla JS)
+
+- **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** to get an example `index.html` with a theme switcher and sample components (buttons, card, badge).
+- **Class names and structure:** Use the same BEM classes and HTML structure as in the [Components documentation](/docs/components) (e.g. `btn`, `btn--primary`, `card`, `card__body`). Interactive components (Modal, Dropdown, Tabs, Search) need a small amount of JS; copy patterns from the Astro/Svelte components or the docs.
+
+### Step 4: Use components (Astro)
 
 - **Reference implementation:** This repo is an Astro app. Use the Astro components from `src/components/` directly if your project is Astro, or copy the markup and class names from the component source or the [component docs](/docs/components).
-- **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn-primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components) (and individual component pages). Interactive components (Modal, Dropdown, Tabs, Search, etc.) require a small amount of JS; copy the patterns from the Astro components or the docs.
+- **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn--primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components). Interactive components require a small amount of JS; copy the patterns from the Astro components or the docs.
 
-### Step 4: Use components (Svelte)
+### Step 5: Use components (Svelte)
 
-- **Svelte components:** This repo includes Svelte versions of most components in `src/components/svelte/`, using the **same BEM classes** as the Astro reference. You can copy that folder (and `index.ts`) into your Svelte app and import from it:
+- **Svelte components:** This repo includes Svelte versions of most components in `src/components/svelte/`, using the **same BEM classes** as the Astro reference. Copy that folder (and `index.ts`) into your Svelte app, or run `npx rizzo-css init` and choose Svelte + components.
   ```js
-  import { Button, Badge, Card, Modal, Tabs, /* ... */ } from './components/svelte';
+  import { Button, Badge, Card, Modal, Tabs, /* ... */ } from '$lib/rizzo';
   ```
-- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, and Theme Switcher link to the Astro reference and use the same CSS/BEM). Use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch views.
+- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 24 component pages. Use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch views.
 - **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
 ### React and Vue (planned)
@@ -95,8 +114,9 @@ Import from `src/utils` (barrel) or from the specific file, e.g. `import { apply
 
 | You're using | Get CSS | Use components |
 |--------------|---------|-----------------|
-| **Any**      | `npx rizzo-css init` (scaffold) or `npx rizzo-css add` (CSS only), or `pnpm add rizzo-css` + `import 'rizzo-css'` | CLI can copy Astro components to `src/components/rizzo/` or Svelte to `src/lib/rizzo/`; or copy from this repo. |
-| **Astro**    | Same | Use `src/components/` from this repo, or run `npx rizzo-css init` and choose Astro + components. [Docs](/docs/components). |
+| **Any**      | `npx rizzo-css init` (scaffold) or `npx rizzo-css add` (CSS only), or `pnpm add rizzo-css` + `import 'rizzo-css'` | Same BEM classes and markup for all; see [Components](/docs/components). |
+| **Vanilla JS** | Same | Run `npx rizzo-css init` and choose Vanilla JS — same CSS and component styles; example page includes theme switcher. Use class names and HTML from the [component docs](/docs/components). |
+| **Astro**    | Same | Run `npx rizzo-css init` and choose Astro + components, or copy from this repo. [Docs](/docs/components). |
 | **Svelte**   | Same | Run `npx rizzo-css init` and choose Svelte + components, or copy `src/components/svelte/` from this repo. [Docs](/docs/svelte). |
 | **React / Vue** | Same: install and import CSS | Same BEM and markup; build your own wrappers. React/Vue components planned later. |
 
@@ -238,9 +258,10 @@ rizzo-css/
 │       │   └── rizzo.min.css
 │       ├── bin/
 │       │   └── rizzo-css.js   # CLI: init, add, theme
-│       └── scaffold/          # Populated by scripts/copy-scaffold.js (prepublish)
-│           ├── svelte/        # Svelte components for CLI component picker
-│           └── astro/         # Astro components + icons for CLI component picker
+│       └── scaffold/          # CLI scaffolds (vanilla in-repo; svelte/astro from copy-scaffold.js)
+│           ├── vanilla/      # Vanilla JS example (index.html with theme switcher + samples)
+│           ├── svelte/       # Svelte components for CLI component picker
+│           └── astro/        # Astro components + icons for CLI component picker
 ├── public/              # Static assets
 │   └── css/
 │       └── main.min.css # Generated CSS (docs site)
