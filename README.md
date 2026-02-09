@@ -2,14 +2,15 @@
 
 <div align="center">
 
+[![npm](https://img.shields.io/npm/v/rizzo-css.svg)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.16.13-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
+![Svelte](https://img.shields.io/badge/Svelte-5.x-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![PostCSS](https://img.shields.io/badge/PostCSS-8.5.6-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white)
 ![Stylelint](https://img.shields.io/badge/Stylelint-17.0.0-263238?style=for-the-badge&logo=stylelint&logoColor=white)
 
 A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.
-
-[![npm](https://img.shields.io/npm/v/rizzo-css.svg)](https://www.npmjs.com/package/rizzo-css)
 
 [Getting Started](#-getting-started) • [Documentation](#-documentation) • [Components](#-components) • [Theming](#-theming-system)
 

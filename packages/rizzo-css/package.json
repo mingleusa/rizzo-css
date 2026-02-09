@@ -38,6 +38,7 @@
     "type": "git",
     "url": "https://github.com/mingleusa/rizzo-css.git"
   },
+  "homepage": "https://rizzo-css.vercel.app",
   "license": "MIT",
   "author": "mingleusa"
 }

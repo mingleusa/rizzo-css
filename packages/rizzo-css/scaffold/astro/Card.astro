@@ -1,0 +1,18 @@
+---
+interface Props {
+  variant?: 'default' | 'elevated' | 'outlined' | 'filled';
+  class?: string;
+}
+
+const {
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+const variantClass = variant !== 'default' ? `card--${variant}` : '';
+const classes = `card ${variantClass} ${className}`.trim();
+---
+
+<div class={classes}>
+  <slot />
+</div>

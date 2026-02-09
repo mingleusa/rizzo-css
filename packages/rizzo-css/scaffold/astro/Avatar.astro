@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+  /** Image URL (when provided, shows image; otherwise shows initials or placeholder). For remote URLs, add the domain to image.domains in astro.config. */
+  src?: string;
+  /** Alt text for the image */
+  alt?: string;
+  /** Full name used to derive initials when no image (e.g. "Jane Doe" → "JD") */
+  name?: string;
+  /** Override initials when no image (e.g. "JD"); ignored if name is provided */
+  initials?: string;
+  /** Size */
+  size?: 'sm' | 'md' | 'lg';
+  /** Shape */
+  shape?: 'circle' | 'square';
+  class?: string;
+}
+
+const {
+  src,
+  alt = '',
+  name = '',
+  initials: initialsProp = '',
+  size = 'md',
+  shape = 'circle',
+  class: className = '',
+} = Astro.props;
+
+function getInitials(name: string): string {
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length === 0) return '';
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+}
+
+const displayInitials = name ? getInitials(name) : initialsProp;
+const sizeClass = `avatar--${size}`;
+const shapeClass = `avatar--${shape}`;
+const classes = `avatar ${sizeClass} ${shapeClass} ${className}`.trim();
+
+const sizePixels = size === 'sm' ? 32 : size === 'lg' ? 48 : 40;
+---
+
+<span class={classes} role="img" aria-label={alt || name || (displayInitials ? `Avatar: ${displayInitials}` : 'Avatar')}>
+  {src ? (
+    <Image
+      src={src}
+      alt={alt || name || ''}
+      width={sizePixels}
+      height={sizePixels}
+      class="avatar__img"
+    />
+  ) : (
+    <span class="avatar__initials" aria-hidden="true">
+      {displayInitials || '?'}
+    </span>
+  )}
+</span>

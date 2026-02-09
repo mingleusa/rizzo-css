@@ -1,0 +1,38 @@
+---
+interface Props {
+  id?: string;
+  name?: string;
+  value?: string;
+  checked?: boolean;
+  required?: boolean;
+  disabled?: boolean;
+  class?: string;
+  ariaDescribedby?: string;
+  ariaLabel?: string;
+}
+
+const {
+  id,
+  name,
+  value,
+  checked = false,
+  required = false,
+  disabled = false,
+  class: className = '',
+  ariaDescribedby,
+  ariaLabel,
+} = Astro.props;
+---
+
+<input
+  type="radio"
+  id={id}
+  name={name}
+  value={value}
+  checked={checked}
+  required={required}
+  disabled={disabled}
+  class={className}
+  aria-describedby={ariaDescribedby}
+  aria-label={ariaLabel}
+/>
