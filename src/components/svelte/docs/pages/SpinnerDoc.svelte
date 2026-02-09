@@ -22,7 +22,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Spinner from '@rizzo-css/svelte/Spinner.svelte';
+  import Spinner from './components/svelte/Spinner.svelte';
 </script>
 
 <Spinner />

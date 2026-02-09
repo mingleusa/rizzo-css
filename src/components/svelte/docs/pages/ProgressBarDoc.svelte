@@ -20,7 +20,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import ProgressBar from '@rizzo-css/svelte/ProgressBar.svelte';
+  import ProgressBar from './components/svelte/ProgressBar.svelte';
 </script>
 
 <ProgressBar value={60} max={100} />

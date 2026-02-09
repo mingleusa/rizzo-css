@@ -24,7 +24,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Button from '@rizzo-css/svelte/Button.svelte';
+  import Button from './components/svelte/Button.svelte';
 </script>
 
 <Button>Click me</Button>

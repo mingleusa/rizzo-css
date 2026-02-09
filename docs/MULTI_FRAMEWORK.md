@@ -1,6 +1,6 @@
 # Multi-Framework Support Strategy
 
-This document outlines the strategy for adding Vue, React, and Svelte support to Rizzo CSS after the Astro implementation is complete.
+This document outlines the strategy for adding Vue and React support to Rizzo CSS. **Svelte is already implemented** (docs and components at `/docs/svelte`); React and Vue would follow the same pattern.
 
 ## Overview
 
@@ -49,101 +49,36 @@ src/
 
 ## Distribution Strategy
 
-### Recommended: Monorepo with Packages
+**Single package: rizzo-css.** We publish one unscoped npm package. No @ scope or separate core/react/vue/svelte packages.
+
+- **npm:** `rizzo-css` — CSS + **CLI** + **scaffold** (`dist/`, `bin/rizzo-css.js`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init` to scaffold a project with optional Astro/Svelte component picker (24 components copied from the package).
+- **Framework components** — Astro reference and Svelte components live in **this repo** (`src/components/` and `src/components/svelte/`). Use `npx rizzo-css init` and choose a framework + components to copy into your project, or copy the folder manually and import from your local path. React/Vue components, when added, will also live in-repo; no separate npm packages for them.
 
 ```
 rizzo-css/
 ├── packages/
-│   ├── core/              # CSS + utilities (framework-agnostic)
-│   │   ├── dist/
-│   │   │   ├── css/
-│   │   │   │   ├── rizzo.css
-│   │   │   │   └── rizzo.min.css
-│   │   │   └── themes/
-│   │   └── src/
-│   │       └── utils/      # Shared JavaScript utilities
-│   ├── react/             # React components
-│   │   ├── src/
-│   │   │   ├── Badge.tsx
-│   │   │   ├── Button.tsx
-│   │   │   └── index.ts
-│   │   └── package.json
-│   ├── vue/               # Vue components
-│   │   ├── src/
-│   │   │   ├── Badge.vue
-│   │   │   ├── Button.vue
-│   │   │   └── index.ts
-│   │   └── package.json
-│   └── svelte/            # Svelte components
-│       ├── src/
-│       │   ├── Badge.svelte
-│       │   ├── Button.svelte
-│       │   └── index.ts
-│       └── package.json
-├── src/                   # Astro reference implementation
-└── package.json           # Root workspace config
+│   └── rizzo-css/         # Single published package (CSS, CLI, scaffold)
+│       ├── dist/
+│       │   └── rizzo.min.css
+│       ├── package.json
+│       └── README.md
+├── src/
+│   ├── components/        # Astro reference implementation
+│   │   ├── Button.astro
+│   │   └── ...
+│   └── components/svelte/ # Svelte components (copy into your app)
+│       ├── Button.svelte
+│       └── ...
+└── docs/                  # Documentation (and live site)
 ```
 
-### Package Structure
-
-#### Core Package (`@rizzo-css/core`)
-
-**Purpose**: Framework-agnostic CSS and utilities
-
-```json
-{
-  "name": "@rizzo-css/core",
-  "version": "1.0.0",
-  "main": "./dist/css/rizzo.css",
-  "exports": {
-    ".": "./dist/css/rizzo.css",
-    "./themes/*": "./dist/themes/*.css",
-    "./utils/*": "./dist/utils/*.js"
-  },
-  "files": ["dist/"]
-}
-```
-
-**Contents**:
-- Compiled CSS bundle
-- Individual theme files
-- Shared JavaScript utilities (theme management, focus trap, etc.)
-
-#### Framework Packages
-
-Each framework package:
-- Depends on `@rizzo-css/core` for CSS
-- Provides framework-specific component wrappers
-- Uses the same CSS classes as Astro components
-
-## Implementation Approach
-
-### Phase 1: CSS Distribution (Foundation)
-
-**Goal**: Package CSS for distribution
-
-1. **Build CSS bundle**
-   - Compile all CSS files into single bundle
-   - Create minified version
-   - Export individual theme files
-
-2. **Create core package**
-   - Set up `packages/core/`
-   - Configure build process
-   - Export CSS and utilities
-
-3. **Publish to npm**
-   ```bash
-   npm publish @rizzo-css/core
-   ```
-
-**Usage** (works immediately):
+**Usage** (any framework):
 ```javascript
-// Any framework
-import '@rizzo-css/core';
-// or
-import '@rizzo-css/core/themes/github-dark-classic.css';
+import 'rizzo-css';  // CSS from the published package
+// Svelte: copy src/components/svelte/ into your project, then e.g. import Button from './components/svelte/Button.svelte'
 ```
+
+## Implementation Approach (in-repo)
 
 ### Phase 2: JavaScript Utilities Extraction
 
@@ -160,7 +95,7 @@ import '@rizzo-css/core/themes/github-dark-classic.css';
 **Create shared utilities**:
 
 ```typescript
-// packages/core/src/utils/theme.ts
+// e.g. src/utils/theme.ts (in-repo)
 export function applyTheme(theme: string) {
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem('theme', theme);
@@ -170,13 +105,13 @@ export function getTheme(): string {
   return localStorage.getItem('theme') || 'github-dark-classic';
 }
 
-// packages/core/src/utils/focus-trap.ts
+// e.g. src/utils/focus-trap.ts (in-repo)
 export function createFocusTrap(container: HTMLElement) {
   // Framework-agnostic focus trap logic
   // Returns { activate, deactivate } functions
 }
 
-// packages/core/src/utils/localStorage.ts
+// e.g. src/utils/localStorage.ts (in-repo)
 export function saveSetting(key: string, value: string) {
   localStorage.setItem(key, value);
 }
@@ -194,7 +129,7 @@ export function loadSetting(key: string, defaultValue: string): string {
 
 All framework components follow this pattern:
 
-1. **Import CSS** from `@rizzo-css/core`
+1. **Import CSS** from `rizzo-css`
 2. **Apply BEM classes** based on props
 3. **Use shared utilities** for JavaScript logic
 4. **Handle framework-specific** prop/event patterns
@@ -219,9 +154,9 @@ const classes = `badge badge--${variant} badge--${size} ${pill ? 'badge--pill' :
 </span>
 ```
 
-**React** (`packages/react/src/Badge.tsx`):
+**React** (example; React components would live in-repo or your app):
 ```tsx
-import '@rizzo-css/core';
+import 'rizzo-css';
 import { cn } from '../utils'; // className utility
 
 interface BadgeProps {
@@ -251,7 +186,7 @@ export function Badge({
 }
 ```
 
-**Vue** (`packages/vue/src/Badge.vue`):
+**Vue** (example; Vue components would live in-repo or your app):
 ```vue
 <template>
   <span :class="badgeClasses">
@@ -260,7 +195,7 @@ export function Badge({
 </template>
 
 <script setup lang="ts">
-import '@rizzo-css/core';
+import 'rizzo-css';
 
 interface Props {
   variant?: 'primary' | 'success' | 'warning' | 'error' | 'info';
@@ -283,10 +218,10 @@ const badgeClasses = computed(() => [
 </script>
 ```
 
-**Svelte** (`packages/svelte/src/Badge.svelte`):
+**Svelte** (in this repo: `src/components/svelte/Badge.svelte`; copy into your app and import from your path):
 ```svelte
 <script lang="ts">
-  import '@rizzo-css/core';
+  import 'rizzo-css';
   
   interface Props {
     variant?: 'primary' | 'success' | 'warning' | 'error' | 'info';
@@ -311,7 +246,7 @@ const badgeClasses = computed(() => [
 
 #### Example: Component with JavaScript (Settings)
 
-**Shared Logic** (`packages/core/src/utils/settings.ts`):
+**Shared Logic** (e.g. `src/utils/settings.ts` in-repo):
 ```typescript
 export interface SettingsState {
   theme: string;
@@ -338,10 +273,10 @@ export function saveSettings(settings: Partial<SettingsState>) {
 }
 ```
 
-**React** (`packages/react/src/Settings.tsx`):
+**React** (example):
 ```tsx
-import '@rizzo-css/core';
-import { loadSettings, saveSettings, type SettingsState } from '@rizzo-css/core/utils/settings';
+import 'rizzo-css';
+import { loadSettings, saveSettings, type SettingsState } from './utils/settings';  // or your in-repo utils
 import { useState, useEffect } from 'react';
 
 export function Settings() {
@@ -371,101 +306,16 @@ export function Settings() {
    - Ensure all CSS is external (no inline styles)
    - Document all BEM class patterns
 
-2. **Set Up Package Structure**
-   - Create `packages/` directory
-   - Set up monorepo (pnpm workspaces, npm workspaces, or Turborepo)
-   - Configure build tools
+2. **Single package** — We publish only `rizzo-css` (CSS). No separate core/react/vue/svelte packages. See [Publishing](./PUBLISHING.md).
 
-3. **Create Core Package**
-   - Extract CSS build process
-   - Create `packages/core/`
-   - Set up CSS bundling and minification
-   - Extract JavaScript utilities
-
-4. **Choose First Framework**
-   - Start with one framework (recommend React for largest ecosystem)
-   - Create `packages/react/`
-   - Implement simple components first (Badge, Button)
-   - Test with real projects
-
-5. **Expand to Other Frameworks**
-   - Add Vue support
-   - Add Svelte support
-   - Ensure API consistency across frameworks
-
-6. **Documentation**
+3. **Documentation**
    - Framework-specific usage guides
    - Migration guides
    - API reference for each framework
 
 ## Package Configuration
 
-### Root `package.json` (Monorepo)
-
-```json
-{
-  "name": "rizzo-css",
-  "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {
-    "build": "pnpm -r build",
-    "dev": "pnpm -r dev",
-    "publish:core": "pnpm --filter @rizzo-css/core publish",
-    "publish:react": "pnpm --filter @rizzo-css/react publish"
-  }
-}
-```
-
-### Core Package
-
-```json
-{
-  "name": "@rizzo-css/core",
-  "version": "1.0.0",
-  "main": "./dist/css/rizzo.css",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": {
-      "import": "./dist/css/rizzo.css",
-      "require": "./dist/css/rizzo.css"
-    },
-    "./themes/*": "./dist/themes/*.css",
-    "./utils/*": "./dist/utils/*.js"
-  },
-  "files": ["dist/"],
-  "scripts": {
-    "build": "node scripts/build-css.js && tsc",
-    "dev": "node scripts/build-css.js --watch"
-  }
-}
-```
-
-### React Package
-
-```json
-{
-  "name": "@rizzo-css/react",
-  "version": "1.0.0",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "exports": {
-    ".": "./dist/index.js",
-    "./css": "@rizzo-css/core"
-  },
-  "peerDependencies": {
-    "react": "^18.0.0"
-  },
-  "dependencies": {
-    "@rizzo-css/core": "workspace:*"
-  },
-  "scripts": {
-    "build": "tsc && vite build",
-    "dev": "vite build --watch"
-  }
-}
-```
+We publish a **single package** `rizzo-css` (see `packages/rizzo-css/package.json`). It contains the built CSS, the CLI (`bin/rizzo-css.js`), and scaffold templates (Astro + Svelte) for the component picker, plus README. Framework components also live in this repo; use `npx rizzo-css init` to copy selected components into your project or copy from `src/components/` / `src/components/svelte/` manually. No separate npm packages for React/Vue/Svelte.
 
 ## Component Mapping
 
@@ -497,7 +347,7 @@ These need shared utilities:
 ### 1. CSS Classes as Source of Truth
 
 - **Never duplicate CSS** in framework components
-- Always import from `@rizzo-css/core`
+- Always import CSS from `rizzo-css`
 - Use exact same BEM class names
 
 ### 2. Prop API Consistency
@@ -508,7 +358,7 @@ These need shared utilities:
 
 ### 3. JavaScript Logic Sharing
 
-- Extract reusable logic to `@rizzo-css/core/utils`
+- Extract reusable logic to in-repo utils (e.g. `src/utils/`)
 - Framework components call shared utilities
 - Avoid framework-specific logic in utilities
 
@@ -538,7 +388,7 @@ npm install rizzo-css
 // In any framework
 import 'rizzo-css';
 // or
-import 'rizzo-css/themes/github-dark-classic.css';
+// All themes are in the main bundle; set data-theme on <html>
 ```
 
 Then use CSS classes directly:

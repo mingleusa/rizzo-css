@@ -32,7 +32,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Tabs from '@rizzo-css/svelte/Tabs.svelte';
+  import Tabs from './components/svelte/Tabs.svelte';
 </script>
 
 <Tabs

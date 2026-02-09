@@ -154,6 +154,22 @@ const themeToApply = savedTheme === 'system'
 document.documentElement.setAttribute('data-theme', themeToApply);
 ```
 
+## Theme accent colors (reference)
+
+Each theme sets `--accent` (links, buttons, active states). OKLCH hue roughly maps to: 0–30° Red; 50–70° Orange/Yellow; 90–160° Green; 200–260° Blue/Cyan; 270–300° Purple; 320–360° Pink. The set is balanced with one dark and one light theme per color family:
+
+| Color      | Dark theme                | Light theme           |
+|-----------|---------------------------|------------------------|
+| Red       | Sandstorm Classic         | Red Velvet Cupcake    |
+| Orange    | Rocky Blood Orange        | Orangy One Light      |
+| Yellow    | Minimal Dark Neon Yellow  | Sunflower             |
+| Green     | Hack The Box              | Green Breeze Light     |
+| Blue/Cyan | GitHub Dark Classic       | GitHub Light           |
+| Purple    | Shades of Purple          | Semi Light Purple     |
+| Pink      | Pink Cat Boo              | Cute Pink             |
+
+Theme files live in `src/styles/themes/dark/` and `src/styles/themes/light/`.
+
 ## Theme File Structure
 
 Themes are organized in `src/styles/themes/`:

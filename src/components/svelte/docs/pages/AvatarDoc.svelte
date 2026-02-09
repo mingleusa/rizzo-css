@@ -69,7 +69,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Avatar from '@rizzo-css/svelte/Avatar.svelte';
+  import Avatar from './components/svelte/Avatar.svelte';
 </script>
 
 <Avatar name="Jane Doe" />

@@ -57,9 +57,9 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import FormGroup from '@rizzo-css/svelte/FormGroup.svelte';
-  import Input from '@rizzo-css/svelte/Input.svelte';
-  import Checkbox from '@rizzo-css/svelte/Checkbox.svelte';
+  import FormGroup from './components/svelte/FormGroup.svelte';
+  import Input from './components/svelte/Input.svelte';
+  import Checkbox from './components/svelte/Checkbox.svelte';
 </script>
 
 <FormGroup label="Email" labelFor="email">

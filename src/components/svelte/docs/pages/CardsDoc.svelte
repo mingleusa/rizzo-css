@@ -35,7 +35,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Card from '@rizzo-css/svelte/Card.svelte';
+  import Card from './components/svelte/Card.svelte';
 </script>
 
 <Card variant="elevated">

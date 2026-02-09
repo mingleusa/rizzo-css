@@ -1,6 +1,14 @@
 # Publishing the npm package
 
-The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains only the built CSS and a README so consumers can `npm install rizzo-css` and import the styles.
+The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffold** templates (Astro and Svelte components for the CLI component picker). Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+
+## Versioning strategy
+
+- **Semver:** Use [semantic versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
+- **Patch** (`0.0.x`): Bug fixes, docs-only changes, non-breaking tweaks.
+- **Minor** (`0.x.0`): New features, new themes, new components or utilities; no breaking changes to existing APIs or class names.
+- **Major** (`x.0.0`): Breaking changes (e.g. renamed classes, removed or changed public APIs).
+- Bump the version in `packages/rizzo-css/package.json` (and optionally root `package.json`) before publishing.
 
 ## Prerequisites
 
@@ -17,24 +25,26 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains only t
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css` (writes CSS to `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css`), then runs `pnpm --filter rizzo-css publish`.
+   This runs `pnpm build:css`, then `node scripts/copy-scaffold.js` (fills `packages/rizzo-css/scaffold/` with Svelte and Astro templates), then `cd packages/rizzo-css && npm publish`. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash
    pnpm build:css
+   node scripts/copy-scaffold.js
    cd packages/rizzo-css
    npm publish
    ```
+   (Or `npm publish --otp=XXXXXX` with your one-time password.)
 
-4. **First-time publish:** If the package name `rizzo-css` is taken on npm, use a scoped name in `packages/rizzo-css/package.json`, e.g. `"name": "@your-username/rizzo-css"`. Then users install with `npm install @your-username/rizzo-css`.
-
-5. **Repository URL:** In `packages/rizzo-css/package.json`, set `repository.url` to your real repo URL before publishing so npm and GitHub link correctly.
+4. **Repository URL** in `packages/rizzo-css/package.json` should point to your repo (e.g. `https://github.com/mingleusa/rizzo-css.git`) so the npm page links correctly. We publish a single unscoped package **rizzo-css** only (no scoped @ packages).
 
 ## What gets published
 
 Only what’s listed in `packages/rizzo-css/package.json` under `"files"`:
 
 - `dist/` (contains `rizzo.min.css`)
+- `bin/` (CLI: `rizzo-css` → `bin/rizzo-css.js`)
+- `scaffold/` (Svelte and Astro component templates for `npx rizzo-css init` component picker)
 - `README.md`
 
-Consumers get no Astro/Svelte source, no docs site, and no dev dependencies—just the built CSS and the package README.
+Consumers get the CSS, the CLI, and the scaffold templates; they do not get the full repo (docs site, dev dependencies, or source beyond the scaffold).

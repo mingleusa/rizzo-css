@@ -9,6 +9,8 @@
 
 A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.
 
+[![npm](https://img.shields.io/npm/v/rizzo-css.svg)](https://www.npmjs.com/package/rizzo-css)
+
 [Getting Started](#-getting-started) • [Documentation](#-documentation) • [Components](#-components) • [Theming](#-theming-system)
 
 </div>
@@ -42,7 +44,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo in an Astro or Svelte project?** See **[Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project)** in the docs: get the built CSS, import it, and use the Astro components or Svelte components (same BEM classes). React and Vue: same CSS works; component wrappers and docs planned later.
+**Using Rizzo in your project?** Quickest: `npx rizzo-css init` (prompts for framework and optional Astro/Svelte components). Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. Use Astro or Svelte components from this repo or from the CLI scaffold. Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
 
 ### Prerequisites
 
@@ -104,27 +106,7 @@ Use PostCSS imports (similar to SCSS/SASS) in `src/styles/main.css`:
 
 ### CSS Architecture
 
-CSS is organized into logical files:
-- `variables.css` - Default theme variables and typography system
-- `reset.css` - Modern CSS reset
-- `base.css` - Base HTML element styles
-- `typography.css` - Typography system (font families, sizes, weights, line heights, utilities)
-- `accessibility.css` - Accessibility utilities
-- `buttons.css` - Button component styles
-- `layout.css` - Layout utilities
-- `spacing.css` - Margin and padding utility classes
-- `sizes.css` - Width, height, min/max dimensions, and container utilities
-- `utilities.css` - Comprehensive utility classes (display, position, borders, flexbox, grid, gap, animations, colors, focus states)
-- `forms.css` - Form component styles
-- `components.css` - Component styles (Navbar, Settings, ThemeSwitcher, Modal, CopyToClipboard, Card, Alert, Toast, Badge, Tooltip, CodeBlock, Dropdown, Tabs, Search)
-- `pages.css` - Page-specific styles
-- `media-queries.css` - Responsive breakpoints and media query definitions
-- `themes/` - Theme definitions (dark/light folders)
-
-**Naming Convention**: All component classes use BEM (Block Element Modifier) naming:
-- `.navbar` (block)
-- `.navbar__container` (element)
-- `.navbar__menu--open` (modifier)
+CSS is organized into logical files (variables, reset, base, typography, components, themes, etc.). All components use **BEM** naming (e.g. `.navbar`, `.navbar__container`, `.navbar__menu--open`). See [Design System](./docs/DESIGN_SYSTEM.md) for the full file list and variable reference.
 
 ### Theming System
 
@@ -176,19 +158,20 @@ See [Components Documentation](./docs/COMPONENTS.md) for usage examples.
 
 ## 📚 Documentation
 
-Comprehensive documentation is available in the `docs/` directory:
+**Live site:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 
-- [Getting Started](./docs/GETTING_STARTED.md) - Quick start guide and installation
-- [Design System](./docs/DESIGN_SYSTEM.md) - Core design principles and semantic variables
-- [Theming](./docs/THEMING.md) - Theme system documentation and custom theme creation
-- [Colors](./docs/COLORS.md) - Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)
-- [Components](./docs/COMPONENTS.md) - Component library and usage examples
-- [Accessibility](./docs/ACCESSIBILITY.md) - Accessibility guidelines and utility classes
-- [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Strategy for adding Vue, React, and Svelte support
-- [Theme Features Plan](./docs/THEME_FEATURES_PLAN.md) - Current theme behavior and optional enhancements
-- [Theme Colors Audit](./docs/THEME_COLORS.md) - Which themes use which accent colors (rainbow coverage)
-- [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - How Astro, Svelte (and future frameworks) are organized in the repo
-- [TODO](./docs/TODO.md) - Roadmap and tasks for continuing the design system
+Comprehensive documentation is also in the `docs/` directory:
+
+- [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast)
+- [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
+- [Components](./docs/COMPONENTS.md) - Component library and usage (24 components)
+- [Theming](./docs/THEMING.md) - Themes, system preference, custom themes
+- [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
+- [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes
+- [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - Astro vs Svelte layout; framework switcher
+- [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Svelte (done); React/Vue (planned)
+- [Publishing](./docs/PUBLISHING.md) - How to publish the npm package
+- [TODO](./docs/TODO.md) - Roadmap and tasks
 
 ## 📚 External Resources
 

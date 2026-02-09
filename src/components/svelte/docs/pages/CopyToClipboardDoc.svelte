@@ -10,13 +10,13 @@
   <h3>Example</h3>
   <div class="example">
     <div class="example-title">Live example</div>
-    <CopyToClipboard value="npm install @rizzo-css/svelte" label="Copy" format="command" />
+    <CopyToClipboard value="pnpm add rizzo-css" label="Copy" format="command" />
   </div>
 
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import CopyToClipboard from '@rizzo-css/svelte/CopyToClipboard.svelte';
+  import CopyToClipboard from './components/svelte/CopyToClipboard.svelte';
 </script>
 
 <CopyToClipboard value="npm install foo" label="Copy" />

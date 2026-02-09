@@ -30,7 +30,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Dropdown from '@rizzo-css/svelte/Dropdown.svelte';
+  import Dropdown from './components/svelte/Dropdown.svelte';
 </script>
 
 <Dropdown

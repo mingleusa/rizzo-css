@@ -1,6 +1,6 @@
 # Design System
 
-Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** - all hardcoded values have been replaced with CSS variables and utility classes, ensuring consistency and making it easy to port to other frameworks (Vue, React, Svelte) by only porting JavaScript.
+Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** - all hardcoded values have been replaced with CSS variables and utility classes, ensuring consistency and making it easy to port to other frameworks (Vue, React, Svelte) by only porting JavaScript. For the small JS utilities used by interactive components (theme, storage, clipboard, toast), see [Getting Started – JavaScript utilities](./GETTING_STARTED.md#javascript-utilities).
 
 ## Semantic Variables
 

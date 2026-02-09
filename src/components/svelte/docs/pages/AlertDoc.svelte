@@ -21,7 +21,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Alert from '@rizzo-css/svelte/Alert.svelte';
+  import Alert from './components/svelte/Alert.svelte';
 </script>
 
 <Alert variant="success">Saved.</Alert>

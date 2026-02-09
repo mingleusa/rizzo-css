@@ -37,7 +37,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Accordion from '@rizzo-css/svelte/Accordion.svelte';
+  import Accordion from './components/svelte/Accordion.svelte';
 </script>
 
 <Accordion

@@ -34,10 +34,11 @@ src/
 │   ├── Pagination.svelte
 │   ├── Tabs.svelte
 │   └── ...
-├── config/               # Shared config (frameworks, themes, docs)
+├── config/               # Shared config (frameworks, themes, search)
 │   ├── frameworks.ts
 │   ├── themes.ts         # Theme list + icons (ThemeSwitcher, Navbar)
-│   └── docs.ts
+│   └── search.ts
+├── utils/                # JS utilities (theme, storage, clipboard, toast)
 ├── layouts/
 ├── pages/
 │   └── docs/

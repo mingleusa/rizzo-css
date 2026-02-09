@@ -34,8 +34,8 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Button from '@rizzo-css/svelte/Button.svelte';
-  import Tooltip from '@rizzo-css/svelte/Tooltip.svelte';
+  import Button from './components/svelte/Button.svelte';
+  import Tooltip from './components/svelte/Tooltip.svelte';
 </script>
 
 <div class="tooltip-wrapper" aria-describedby="my-tooltip">

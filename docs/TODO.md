@@ -1,13 +1,24 @@
 # Design System TODO
 
-A focused list of remaining tasks to continue building and improving the Rizzo CSS design system.
+A focused list of remaining tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-> **Note**: Completed features are documented in the **Features** (or **Implemented Features**) section of each doc:
-> - [Components](./COMPONENTS.md#features) - Implemented components (24 doc pages)
-> - [Theming](./THEMING.md#features) - 14 themes, theme pages, system preference, high contrast
-> - [Accessibility](./ACCESSIBILITY.md#accessibility-features) - Keyboard, ARIA, focus, high contrast mode, reduce motion
-> - [README](../README.md), [Design System](./DESIGN_SYSTEM.md), [Getting Started](./GETTING_STARTED.md) - Overview, variables, setup
-> - [Framework Structure](./FRAMEWORK_STRUCTURE.md) - Astro vs Svelte (and future frameworks) folder layout; framework switcher on docs
+**Current state:** Single package **rizzo-css** (CSS + CLI + scaffold) is published; CDN (unpkg/jsDelivr) works. CLI: `npx rizzo-css init` | `add` | `theme`; init offers framework (vanilla/Astro/Svelte) and optional component picker for Astro and Svelte. Svelte and Astro components and docs live in-repo; framework switcher in place. JS utilities (theme, storage, clipboard, toast) live in `src/utils/` and are documented in [GETTING_STARTED](./GETTING_STARTED.md#javascript-utilities). Versioning strategy is in [PUBLISHING](./PUBLISHING.md#versioning-strategy). React/Vue are planned.
+
+> **Done and documented elsewhere:** [Components](./COMPONENTS.md#features) (24 pages), [Theming](./THEMING.md#features) (14 themes), [Accessibility](./ACCESSIBILITY.md#accessibility-features), [Getting Started](./GETTING_STARTED.md), [Publishing](./PUBLISHING.md), [Framework Structure](./FRAMEWORK_STRUCTURE.md).
+
+---
+
+## ▶️ Start next (recommended)
+
+**1. Accessibility best practices (doc)** — Add a short “Best practices” section to [ACCESSIBILITY.md](./ACCESSIBILITY.md) (or a linked doc): keyboard patterns, when to use which ARIA, focus order, and how to test with screen readers. Low effort, high value; your components already follow these patterns—documenting them helps adopters and reinforces the design system’s a11y story.
+
+**2. Contributing guide + issue templates** — CONTRIBUTING.md (how to run, build, where to add components, code style) and GitHub issue templates (bug report, feature request). Unlocks contributors and keeps issues consistent.
+
+**3. TypeScript** — Type definitions and props interfaces for components and utils. Improves DX for Astro, Svelte, and future React/Vue; foundation for better IDE support.
+
+After that, in order: **component composition patterns** (doc) → **testing** (component + a11y) → **ARIA & focus** (deepen a11y) → **performance** (bundle/optimization) → **React/Vue** when you’re ready.
+
+---
 
 ## 🎨 Completed (recent)
 
@@ -21,151 +32,77 @@ A focused list of remaining tasks to continue building and improving the Rizzo C
   - [x] Theme preview in switcher (panel in menu updates on hover/focus with theme background + accent; hidden on viewports ≤480px)
   - [x] Unique icon per theme in theme switcher (14 icons; Sunflower uses Rainbow); Dark themes / Light themes section labels (with underlines on mobile)
 
-## 🎨 Documentation
+## 🎨 1. Documentation (priority)
 
 - [ ] **Consumption & distribution** (docs + tooling)
-  - [x] **Docs: Using Rizzo in your project** — [GETTING_STARTED.md](./GETTING_STARTED.md#using-rizzo-in-your-project): get CSS (clone + build → `main.min.css`), import in app, use Astro or Svelte components (copy `src/components/svelte/` or same BEM from docs). React/Vue: same CSS; build your own wrappers; planned for later.
-  - [ ] **CLI** (e.g. init/scaffold or pull CSS into a project) — build *after* frameworks/components; see [Package Distribution → CLI tool](#-cli-tool-after-frameworks-and-components-are-added) below
-  - [ ] NPM package / CDN — when added, link from consumption docs
-  - [x] Svelte docs at /docs/svelte with 24 component pages (19 full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added (see [In-repo framework routes](#-package-distribution) below).
+  - [x] **Docs: Using Rizzo in your project** — [GETTING_STARTED.md](./GETTING_STARTED.md#using-rizzo-in-your-project): install from npm (recommended) or clone + build; import CSS; use Astro or Svelte components. React/Vue: same CSS; build your own wrappers; planned for later.
+  - [x] **CLI** — `npx rizzo-css init` | `add` | `theme` (same package; see [CLI Planning](./CLI_PLANNING.md)).
+  - [x] **NPM** — [rizzo-css](https://www.npmjs.com/package/rizzo-css) published; docs and README link to it.
+  - [x] **CDN** — unpkg and jsDelivr via package.json; `https://unpkg.com/rizzo-css@latest` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest` for plain HTML.
+  - [x] **Svelte** — /docs/svelte with 24 component pages (19 full examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added.
 
-- [ ] **Best Practices**
+- [ ] **Best Practices** *(start with accessibility best practices)*
+  - [ ] **Accessibility best practices** — Document keyboard patterns, ARIA usage, focus order, and how to test with screen readers (e.g. in [ACCESSIBILITY.md](./ACCESSIBILITY.md) or linked doc).
   - [ ] Component composition patterns
-  - [ ] Accessibility best practices
   - [ ] Performance optimization tips
 
-## 🎨 CSS Variables & Design System
+## 🎨 2. Community (priority)
+
+- [ ] **Contributing guide** — CONTRIBUTING.md: how to run/build, where to add components, code style, PR process.
+- [ ] **Issue templates** — Bug report and feature request templates (e.g. `.github/ISSUE_TEMPLATE/`).
+
+## 🎨 3. Developer Experience (priority)
+
+- [ ] **TypeScript** — Type definitions and props interfaces for components and utils.
+- [ ] **Testing** — Component, accessibility, and (optionally) visual regression tests.
+- [ ] **Build** — Bundle size, tree-shaking, critical CSS (if needed).
+- [ ] **Storybook** *(optional)* — Interactive playground and design system showcase.
+
+## 🎨 4. Accessibility (deeper work)
+
+- [ ] **ARIA & testing** — Ensure ARIA best practices; screen reader and keyboard testing.
+- [ ] **Focus** — Focus trap utilities, focus restoration, skip links.
+- [ ] **Contrast** — Verify themes meet WCAG AA/AAA; contrast tooling.
+
+## 🎨 5. Package Distribution
+
+- [x] **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`.
+  - [x] Document versioning strategy in [PUBLISHING](./PUBLISHING.md) (semver, when to bump).
+- [x] **CDN** — unpkg + jsDelivr; short URLs work. Pin with `@1.0.0` in URL or use `@latest`.
+- [ ] **Multi-Framework Support**
+  - [x] Single npm package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
+  - [x] **JavaScript utilities extraction** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
+  - [ ] React components (in-repo or separate later; no separate React package)
+  - [ ] Vue components (in-repo or separate later; no separate Vue package)
+  - [x] Svelte components in `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
+- [ ] **In-repo framework routes** *(Svelte done; React/Vue later)*
+  - [x] Svelte in Astro; framework switcher; 24 Svelte component pages at /docs/svelte.
+  - [ ] Adding React/Vue: same pattern. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
+- [x] **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI Planning](./CLI_PLANNING.md).
+
+## 🎨 6. Performance
+
+- [ ] **Optimization** — Bundle analysis, unused CSS removal, critical CSS, load strategy.
+- [ ] **Lazy loading** *(optional)* — Themes or component CSS on demand.
+
+## 🎨 7. CSS Variables & Design System (as needed)
 
 - [ ] **Additional CSS Variables** (if needed)
   - [ ] Any additional spacing values discovered during framework porting
   - [ ] Additional transform values if needed
   - [ ] Additional animation timing values if needed
 
-## 🎨 Developer Experience
+## 🎨 8. Browser Support
 
-- [ ] **TypeScript Support**
-  - [ ] Type definitions for components
-  - [ ] Props interfaces
+- [ ] **Polyfills** — OKLCH fallbacks; modern CSS feature detection.
+- [ ] **Testing** — Cross-browser, mobile, accessibility tooling.
 
-- [ ] **Build Improvements**
-  - [ ] CSS bundle size optimization
-  - [ ] Tree-shaking support
-  - [ ] Critical CSS extraction
+## 🎨 9. Examples & Demos
 
-- [ ] **Testing**
-  - [ ] Component tests
-  - [ ] Accessibility tests
-  - [ ] Visual regression tests
-
-- [ ] **Storybook/Component Library**
-  - [ ] Interactive component playground
-  - [ ] Component documentation
-  - [ ] Design system showcase
-
-## 🎨 Accessibility
-
-- [ ] **ARIA Patterns**
-  - [ ] Ensure all components follow ARIA best practices
-  - [ ] Screen reader testing
-  - [ ] Keyboard navigation testing
-
-- [ ] **Focus Management**
-  - [ ] Focus trap utilities
-  - [ ] Focus restoration
-  - [ ] Skip links improvements
-
-- [ ] **Color Contrast**
-  - [ ] Verify all themes meet WCAG AA/AAA
-  - [ ] Contrast checking tools
-
-## 🎨 Performance
-
-- [ ] **Optimization**
-  - [ ] CSS bundle analysis
-  - [ ] Unused CSS removal
-  - [ ] Critical CSS inlining
-  - [ ] CSS loading optimization
-
-- [ ] **Lazy Loading**
-  - [ ] Theme lazy loading
-  - [ ] Component CSS lazy loading
-
-## 🎨 Browser Support
-
-- [ ] **Polyfills**
-  - [ ] OKLCH color format fallbacks
-  - [ ] Modern CSS feature detection
-
-- [ ] **Testing**
-  - [ ] Cross-browser testing
-  - [ ] Mobile device testing
-  - [ ] Accessibility testing tools
-
-## 🎨 Examples & Demos
-
-- [ ] **Example Pages**
-  - [ ] Component showcase page
-  - [ ] Theme showcase page
-  - [ ] Form examples
-  - [ ] Layout examples
-
-- [ ] **Templates**
-  - [ ] Landing page template
-  - [ ] Dashboard template
-  - [ ] Documentation site template
-
-## 🎨 Package Distribution
-
-- [ ] **NPM Package**
-  - [ ] Package setup
-  - [ ] Distribution build
-  - [ ] Versioning strategy
-
-- [ ] **CDN Distribution**
-  - [ ] CDN setup
-  - [ ] Versioned releases
-
-- [ ] **Multi-Framework Support**
-  - [ ] Core CSS package (`@rizzo-css/core`)
-  - [ ] JavaScript utilities extraction
-  - [ ] React components (`@rizzo-css/react`)
-  - [ ] Vue components (`@rizzo-css/vue`)
-  - [ ] Svelte components (`@rizzo-css/svelte`)
-  
-  See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) for detailed implementation plan.
-
-- [ ] **In-repo framework routes (docs site parity)** *(Svelte complete; React/Vue when added)*
-  - [x] Add Svelte to this Astro project (`@astrojs/svelte`); later add React/Vue as needed.
-  - [x] Shared docs config (`src/config/docs.ts`) and theme config (`src/config/themes.ts`) — single source of truth for component list and theme icons.
-  - [x] Framework switcher UI ("View as: Astro | Svelte") — segmented control on component/theme docs; links to same path per framework.
-  - [x] Svelte components in `src/components/svelte/` (same BEM classes as Astro); 24 component doc pages at **/docs/svelte** (19 full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference). Component order and doc copy (Search toggle, Theme Switcher Dark/Light labels) match Astro.
-  - [ ] When adding another framework (e.g. React), repeat: same components, same routes, same examples. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
-
-- [ ] **CLI tool** *(after frameworks and components are added)*
-  - [ ] Design and build the CLI (e.g. `create-rizzo-app`, `rizzo init`, or `npx rizzo-css`).
-  - [ ] Commands: init/scaffold a project, pull CSS (and optional JS) into an existing project, maybe theme or variant selection.
-  - [ ] Publish as a separate package (e.g. `rizzo-css-cli` or scoped `@rizzo-css/cli`) so users can run `npx rizzo-css-cli init` or similar.
-  - [ ] Docs: how to install and use the CLI (link from Consumption & distribution).
-  - [ ] **Planning**: See [CLI Planning](./CLI_PLANNING.md) for proposed commands, package shape, and phases.
-
-## 🎨 Community
-
-- [ ] **Contributing Guide**
-  - [ ] Contribution guidelines
-  - [ ] Code of conduct
-  - [ ] Pull request template
-
-- [ ] **Issue Templates**
-  - [ ] Bug report template
-  - [ ] Feature request template
+- [ ] **Example pages** — Component/theme showcase; form and layout examples.
+- [ ] **Templates** — Landing, dashboard, or docs-site starter (optional).
 
 ---
-
-## Priority Legend
-
-- **High Priority**: Core components needed for most projects
-- **Medium Priority**: Commonly used but not essential
-- **Low Priority**: Nice-to-have features
 
 ## Notes
 

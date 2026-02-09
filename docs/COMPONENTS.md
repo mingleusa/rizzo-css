@@ -1,6 +1,6 @@
 # Components
 
-Rizzo CSS includes accessible, themeable components built with Astro (reference implementation). Each component has its own dedicated documentation page with live examples, usage instructions, and API details. **Svelte** versions and docs are available at [/docs/svelte](/docs/svelte) — use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch.
+Rizzo CSS includes accessible, themeable components built with Astro (reference implementation). Each component has its own dedicated documentation page with live examples, usage instructions, and API details. **Svelte** versions and docs are available at [/docs/svelte](/docs/svelte) — use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch. To add components to a new project, use **`npx rizzo-css init`** and choose Astro or Svelte plus the components you want (see [Getting Started](./GETTING_STARTED.md)).
 
 ## Component Pages
 
@@ -556,16 +556,33 @@ A powerful search component with Algolia integration and live filtering. **Cmd+K
 ### Features
 
 - **Full-screen overlay** - When open, a full-screen overlay covers the viewport; the search modal is centered inside it both horizontally and vertically.
-- Algolia integration with client-side fallback
-- Keyboard shortcut: Cmd+K / Ctrl+K toggles open or close; Escape closes
-- Close button (X) with bordered style, visible on hover (accent border and icon)
-- Modal bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state
-- Mobile responsive with full-width panel
-- Live search results as you type
-- Full keyboard navigation
-- Mutually exclusive with mobile menu (only one open at a time)
+- Algolia integration with client-side fallback (works without Algolia for development).
+- Keyboard shortcut: Cmd+K / Ctrl+K toggles open or close; Escape closes.
+- Close button (X) with bordered style, visible on hover (accent border and icon).
+- Modal bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state.
+- Mobile responsive with full-width panel; live search as you type; full keyboard navigation (Arrow keys, Enter, Tab). Mutually exclusive with mobile menu.
 
-See [Search Documentation](/docs/components/search) for complete details.
+### Keyboard shortcuts
+
+- **Ctrl+K** / **Cmd+K** — Toggle search (open/close).
+- **Escape** — Close search.
+- **Arrow Down/Up** — Next/previous result.
+- **Enter** — Open selected result.
+- **Tab** — Move focus through results.
+
+### Algolia setup (optional)
+
+For production search: create an Algolia app, get Application ID and Search-Only API Key, then index your content (e.g. run `node scripts/index-docs.js` with `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME`). Pass credentials to the Search component via props: `algoliaAppId`, `algoliaApiKey`, `algoliaIndexName`. Use environment variables (e.g. `PUBLIC_ALGOLIA_APP_ID`) and never commit the Admin API key. See [Algolia docs](https://www.algolia.com/doc/) and the repo’s `ALGOLIA_SETUP.md` if you use this repo’s indexing script.
+
+### Customization
+
+Search uses semantic theme variables. Customize via CSS (e.g. `.search__panel { max-width: var(--spacing-80); }`, `.search__result-item { padding: var(--spacing-4); }`). To change the client-side index, edit the `searchIndex` array in `Search.astro`.
+
+### Troubleshooting
+
+If search doesn’t work: check the browser console; verify Algolia credentials and index if using Algolia; ensure CSS is loaded. If results don’t show, confirm the query is at least 2 characters and the index contains the pages.
+
+See [Search component page](/docs/components/search) for live examples and props.
 
 ## Alert Component
 

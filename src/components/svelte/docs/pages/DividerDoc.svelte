@@ -17,7 +17,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Divider from '@rizzo-css/svelte/Divider.svelte';
+  import Divider from './components/svelte/Divider.svelte';
 </script>
 
 <Divider />

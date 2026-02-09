@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide will help you get started with Rizzo CSS.
+This guide will help you get started with Rizzo CSS. The documentation site is available at **[rizzo-css.vercel.app](https://rizzo-css.vercel.app)**.
 
 ## Using Rizzo in your project
 
@@ -8,44 +8,51 @@ Rizzo CSS is **framework-agnostic**: the same CSS (and minimal JS for interactiv
 
 ### Step 1: Get the CSS
 
-**Option A — Clone and build (recommended):**
+**Option A — Quick start with CLI:**
 
-1. Clone this repo and install dependencies:
+```bash
+npx rizzo-css init
+```
+
+Prompts for project name, **framework** (vanilla / Astro / Svelte), and theme. For **Astro** or **Svelte**, you can optionally include components: the CLI lists 24 components (Button, Badge, Card, etc.) and you choose by number (e.g. `1 2 3`) or `all` / `none`. **Astro:** selected components and icons are copied to `src/components/rizzo/`. **Svelte:** selected components are copied to `src/lib/rizzo/` with a generated barrel file. Creates a folder with the CSS and a minimal `index.html`. To add only the CSS to an existing project:
+
+```bash
+npx rizzo-css add
+# or: npx rizzo-css add --path public/css
+```
+
+List themes: `npx rizzo-css theme`.
+
+**Option B — Install from npm:**
+
+```bash
+pnpm add rizzo-css
+# or: npm install rizzo-css   or   yarn add rizzo-css
+```
+
+Package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css).
+
+**Option C — Clone and build (for full source or to contribute):**
+
+1. Clone this repo, install dependencies, and build:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/mingleusa/rizzo-css.git
    cd rizzo-css
    pnpm install
-   ```
-2. Build the minified CSS:
-   ```bash
    pnpm build:css
    ```
-3. Use the output file: **`public/css/main.min.css`**. Copy it into your project (e.g. `public/` or `src/assets/`) or reference it from the Rizzo repo path.
+2. Use **`public/css/main.min.css`** (or copy it into your project).
 
-**Option B — Install from npm (after publishing):**
-   ```bash
-   pnpm add rizzo-css
-   # or: npm install rizzo-css   or   yarn add rizzo-css
-   ```
-   Then import once in your app: `import 'rizzo-css'` (or link to `node_modules/rizzo-css/dist/rizzo.min.css` in HTML). See the [package README](../packages/rizzo-css/README.md) in the repo.
-
-**Option C — Use the built file from a release:**  
-When we publish releases, you can download `main.min.css` from the release assets. (CLI is planned; see [TODO](./TODO.md).)
+**Option D — Release assets:**  
+Download the built CSS from [GitHub Releases](https://github.com/mingleusa/rizzo-css/releases) when available.
 
 ### Step 2: Import the CSS
 
-In your app, import the Rizzo CSS **once** (e.g. in your root layout or main entry):
+Import the CSS **once** in your app (root layout or main entry):
 
-- **Astro:** In your root layout or a global stylesheet, add:
-  ```html
-  <link rel="stylesheet" href="/css/main.min.css" />
-  ```
-  (If you copied the file to `public/css/`, the path is as above.)
-- **Svelte (Vite):** Copy `main.min.css` into your project (e.g. `src/lib/rizzo.css` or `public/css/`) and import it in your root layout or `main.js`:
-  ```js
-  import '/src/lib/rizzo.css';  // or path to where you put the file
-  ```
-  Or in `index.html`: `<link rel="stylesheet" href="/css/main.min.css" />` if the file is in `public/css/`.
+- **If you used npm with a bundler (Vite, Astro, webpack, etc.):** `import 'rizzo-css'` in your main JS or root layout.
+- **If you used npm but have no bundler (plain HTML):** Use a CDN: `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest" />` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest`. Or copy the built file from `node_modules/rizzo-css/dist/rizzo.min.css` into your `public/` or `static/` folder and link to that path.
+- **If you cloned and built:** Add a `<link>` or `import` to where you put `main.min.css` (e.g. `public/css/main.min.css`).
 
 ### Step 3: Use components (Astro)
 
@@ -71,13 +78,27 @@ The **same CSS and BEM class names** work in React and Vue. We do not yet ship R
 
 We plan to add React and Vue component packages and docs later; see [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
 
+### JavaScript utilities
+
+The repo provides small JS utilities used by the Astro/Svelte components; you can import them in your own code:
+
+| Util | Purpose |
+|------|--------|
+| **Theme** (`src/utils/theme.ts`) | `applyTheme(value)`, `getStoredTheme()`, `getCurrentTheme()`, `resolveSystemTheme()`, `getThemeLabel(value)`, `getThemeInfo(value)`, and constants `THEME_SYSTEM`, `DEFAULT_THEME_DARK`, `DEFAULT_THEME_LIGHT`. Dispatches `rizzo-theme-change` when the theme changes. |
+| **Storage** (`src/utils/storage.ts`) | SSR-safe `getItem(key, default?)`, `setItem(key, value)`, `removeItem(key)` (wraps `localStorage` with try/catch). |
+| **Clipboard** (`src/utils/clipboard.ts`) | `copyToClipboard(text): Promise<boolean>` (Clipboard API with fallback). |
+| **Toast** (`src/utils/toast.ts`) | `showToast(message, options?)`, `hideToast(id)`, and `ToastOptions` for programmatic toasts. |
+
+Import from `src/utils` (barrel) or from the specific file, e.g. `import { applyTheme, getThemeLabel } from '../utils/theme'` in Astro, or from your copied `utils` folder in a Svelte app.
+
 ### Summary
 
 | You're using | Get CSS | Use components |
 |--------------|---------|-----------------|
-| **Astro**    | `pnpm add rizzo-css` and `import 'rizzo-css'`, or clone + build → `public/css/main.min.css` | Use `src/components/` from this repo or copy markup + classes from [docs](/docs/components). |
-| **Svelte**   | Same (npm or clone + build); copy `main.min.css` into your app if not using npm | Copy `src/components/svelte/` (and `index.ts`) into your app, or copy markup + classes from [docs](/docs/svelte). |
-| **React / Vue** | Same: `pnpm add rizzo-css` and import CSS, or use built file | Same BEM and markup as docs; build your own wrappers. React/Vue components and docs planned later. |
+| **Any**      | `npx rizzo-css init` (scaffold) or `npx rizzo-css add` (CSS only), or `pnpm add rizzo-css` + `import 'rizzo-css'` | CLI can copy Astro components to `src/components/rizzo/` or Svelte to `src/lib/rizzo/`; or copy from this repo. |
+| **Astro**    | Same | Use `src/components/` from this repo, or run `npx rizzo-css init` and choose Astro + components. [Docs](/docs/components). |
+| **Svelte**   | Same | Run `npx rizzo-css init` and choose Svelte + components, or copy `src/components/svelte/` from this repo. [Docs](/docs/svelte). |
+| **React / Vue** | Same: install and import CSS | Same BEM and markup; build your own wrappers. React/Vue components planned later. |
 
 ---
 
@@ -158,6 +179,7 @@ rizzo-css/
 │   │           ├── Javascript.astro
 │   │           ├── Nodejs.astro
 │   │           └── Plaintext.astro
+│   ├── utils/           # JS utilities (theme, storage, clipboard, toast)
 │   ├── layouts/         # Page layouts
 │   │   ├── Layout.astro
 │   │   └── DocsLayout.astro
@@ -200,17 +222,28 @@ rizzo-css/
 │   ├── COMPONENTS.md
 │   ├── ACCESSIBILITY.md
 │   ├── COLORS.md
-│   ├── SEARCH.md
+│   ├── PUBLISHING.md
 │   ├── MULTI_FRAMEWORK.md
-│   ├── THEME_COLORS.md
-│   ├── THEME_FEATURES_PLAN.md
 │   ├── FRAMEWORK_STRUCTURE.md
-│   └── TODO.md
+│   ├── TODO.md
+│   └── ...
+├── packages/
+│   └── rizzo-css/       # npm package (CSS + CLI, same package)
+│       ├── package.json  # bin: rizzo-css -> ./bin/rizzo-css.js
+│       ├── README.md
+│       ├── dist/
+│       │   └── rizzo.min.css
+│       ├── bin/
+│       │   └── rizzo-css.js   # CLI: init, add, theme
+│       └── scaffold/          # Populated by scripts/copy-scaffold.js (prepublish)
+│           ├── svelte/        # Svelte components for CLI component picker
+│           └── astro/         # Astro components + icons for CLI component picker
 ├── public/              # Static assets
-│   └── css/             # Generated CSS
-│       └── main.min.css
-└── scripts/             # Build scripts
-    └── build-css.js
+│   └── css/
+│       └── main.min.css # Generated CSS (docs site)
+└── scripts/
+    ├── build-css.js     # Outputs to public/css and packages/rizzo-css/dist
+    └── copy-scaffold.js # Copies Svelte + Astro components into packages/rizzo-css/scaffold (run on prepublish)
 ```
 
 ## Development
@@ -231,136 +264,22 @@ Build for production:
 pnpm build
 ```
 
-This will:
-1. Build and minify CSS to `public/css/main.min.css`
-2. Build the Astro site to `dist/`
+This will build and minify CSS (to `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css`), then build the Astro site to `dist/`.
 
 ## Using Components
 
-Rizzo CSS includes a comprehensive set of accessible components. Each component has its own dedicated documentation page with live examples, usage instructions, and API details.
-
-### Component Documentation
-
-- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
-- [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher
-- [Button](/docs/components/button) - Semantic button component
-- [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
-- [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
-- [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
-- [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, and ellipsis
-- [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, and indeterminate state
-- [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
-- [Avatar](/docs/components/avatar) - User avatar with image or initials fallback
-- [Divider](/docs/components/divider) - Horizontal or vertical divider with optional label
-- [Table](/docs/components/table) - Data table with sorting and filtering
-- [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality
-- [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
-- [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
-- [Cards](/docs/components/cards) - Flexible card component
-- [Modal](/docs/components/modal) - Accessible modal/dialog component
-- [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
-- [Toast](/docs/components/toast) - Fixed position toast notifications
-- [Search](/docs/components/search) - Search component with Algolia integration
-- [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
-- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
-- [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
-
-See the [Components Documentation](/docs/components) for an overview and links to all component pages.
+See the [Components documentation](/docs/components) for the full list of 24 components, usage examples, and API details. Each component has a dedicated doc page with live examples.
 
 ## Using Themes
 
-Rizzo CSS includes 14 built-in themes (7 dark, 7 light). Themes are applied via the `data-theme` attribute on the HTML element. The theme switcher (in Settings) supports a **System** option that follows your OS light/dark preference; the choice is persisted in `localStorage` as `theme` (a theme id or `system`).
-
-```html
-<html lang="en" data-theme="github-dark-classic">
-```
-
-See [Theming Documentation](./THEMING.md) for system preference, persistence, and custom themes.
+Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). The theme switcher supports a **System** option; the choice is persisted in `localStorage`. See [Theming](./THEMING.md) for theme IDs, system preference, and custom themes.
 
 ## Using Colors
 
-Rizzo CSS uses a semantic color system with CSS custom properties. All colors are available in multiple formats (OKLCH, Hex, RGB, HSL, CSS Variable) and can be viewed and copied from the [Colors Documentation Page](/docs/colors).
+See [Colors](./COLORS.md) and the [Colors documentation page](/docs/colors) for the semantic color system and format options (OKLCH, Hex, RGB, HSL).
 
-See [Colors Documentation](./COLORS.md) for complete color reference and format conversion details.
+## CSS Architecture (this repo)
 
-## CSS Architecture
+CSS is organized into logical files (`variables.css`, `reset.css`, `base.css`, `typography.css`, `components.css`, `themes/`, etc.). All styles use semantic theme variables and BEM; there are no inline styles. PostCSS handles imports and vendor prefixes; the `build:css` script minifies for production and outputs to both `public/css/main.min.css` (docs site) and `packages/rizzo-css/dist/rizzo.min.css` (npm package).
 
-### File Organization
-
-CSS is organized into logical files:
-
-- `variables.css` - Default theme variables and typography system
-- `reset.css` - Modern CSS reset
-- `base.css` - Base HTML element styles
-- `typography.css` - Typography system (font families, sizes, weights, line heights, utilities)
-- `accessibility.css` - Accessibility utilities
-- `buttons.css` - Button component styles
-- `layout.css` - Layout utilities
-- `spacing.css` - Margin and padding utility classes
-- `sizes.css` - Width, height, min/max dimensions, and container utilities
-- `utilities.css` - Comprehensive utility classes (display, position, borders, flexbox, grid, gap, animations, colors, focus states)
-- `forms.css` - Form component styles
-- `pages.css` - Page-specific styles
-- `media-queries.css` - Responsive breakpoints and media query definitions
-- `components.css` - Component styles (Accordion, Alert, Avatar, Badge, Breadcrumb, Card, CodeBlock, CopyToClipboard, Divider, Dropdown, Modal, Navbar, Pagination, Progress Bar, Search, Settings, Spinner, Table, Tabs, ThemeSwitcher, Toast, Tooltip)
-- `themes/` - Theme definitions (dark/light folders)
-
-### Semantic Variables
-
-All styles use semantic theme variables. **The design system is the source of truth for all styling** - all hardcoded values have been replaced with CSS variables and utility classes:
-
-```css
-.my-component {
-  background-color: var(--background);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: var(--spacing-4);
-  border-radius: var(--radius-md);
-  transition: background-color var(--transition-base);
-  opacity: var(--opacity-100);
-  z-index: var(--z-dropdown);
-}
-```
-
-Available variable categories:
-- **Spacing**: `--spacing-*` (0 through 2500, including fractional values)
-- **Border Radius**: `--radius-*` (none, sm, md, lg, xl, 2xl, 3xl, full)
-- **Z-Index**: `--z-*` (base, dropdown, modal, tooltip, toast, navbar, navbar-mobile-menu-open, settings, etc.)
-- **Transitions**: `--transition-*` (fast, base, slow, slower, slowest, ease-out, ease-in)
-- **Opacity**: `--opacity-*` (0, 50, 60, 70, 80, 90, 100)
-- **Transform Scale**: `--scale-*` (80, 95, 100, 110)
-- **Blur**: `--blur-*` (sm, md, lg)
-- **Viewport Heights**: `--vh-*` (80, 90)
-- **Touch Targets**: `--touch-target-min`
-- **Max Heights**: `--max-height-*` (dropdown, modal)
-- **Easing**: `--ease-in-out-cubic`
-- And more...
-
-See [Design System Documentation](./DESIGN_SYSTEM.md) for complete variable reference.
-
-### PostCSS Processing
-
-- **Development**: PostCSS processes imports and adds vendor prefixes
-- **Production**: CSS is minified via `build:css` script
-- **Linting**: Stylelint configured for BEM naming convention
-- **No Inline Styles**: All component styles are in external CSS files
-
-### Spacing Utilities
-
-Rizzo CSS includes comprehensive spacing utilities for margins and padding:
-
-```html
-<!-- Margin utilities -->
-<div class="m-4">Margin on all sides</div>
-<div class="mx-auto">Centered with auto margins</div>
-<div class="mt-6 mb-4">Top and bottom margins</div>
-
-<!-- Padding utilities -->
-<div class="p-4">Padding on all sides</div>
-<div class="px-6 py-4">Horizontal and vertical padding</div>
-
-<!-- Sizes: 0, 1 (4px), 2 (8px), 3 (12px), 4 (16px), 5 (20px), 6 (24px), 8 (32px), 10 (40px), 12 (48px), 16 (64px), 20 (80px), 24 (96px) -->
-```
-
-See [Design System Documentation](./DESIGN_SYSTEM.md) for available variables and utilities.
+See [Design System](./DESIGN_SYSTEM.md) for the full variable reference, file list, and utility classes.

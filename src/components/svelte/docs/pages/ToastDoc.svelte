@@ -18,7 +18,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Toast from '@rizzo-css/svelte/Toast.svelte';
+  import Toast from './components/svelte/Toast.svelte';
 </script>
 
 <Toast variant="success" dismissible autoDismiss={5000} position="top-right">

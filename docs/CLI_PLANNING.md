@@ -2,7 +2,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Planning. Implementation should start after Svelte (and optionally React/Vue) component parity and docs are in place. See [TODO](./TODO.md#-cli-tool-after-frameworks-and-components-are-added).
+> **Status**: Implemented (Phase 1 + component selection). CLI ships in the **rizzo-css** package; `npx rizzo-css init` | `add` | `theme`. Init prompts for framework (vanilla / Astro / Svelte) and optional component picker for Astro and Svelte (24 components). Scaffold templates are in `packages/rizzo-css/scaffold/` (filled by `scripts/copy-scaffold.js` on prepublish).
 
 ---
 
@@ -25,17 +25,16 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 **Invocation**
 
-- Prefer **`npx rizzo-css <command>`** or **`npx @rizzo-css/cli <command>`** so we don’t require a global install.
-- Optional global install: `npm i -g @rizzo-css/cli` then `rizzo-css init`, etc.
+- **`npx rizzo-css <command>`** — no global install. Same package as the CSS.
+- Optional global: `npm i -g rizzo-css` then `rizzo-css init`, etc.
 
 ---
 
 ## Package Shape
 
-- **Package name**: `@rizzo-css/cli` (or `rizzo-css-cli` if unscoped).
-- **Repo**: Can live in this monorepo (e.g. `packages/cli`) or a separate repo; single package is enough to start.
-- **Bin**: One binary, e.g. `rizzo-css`, that delegates to subcommands (init, add, theme).
-- **Dependencies**: Keep minimal (e.g. Node 18+); use only what’s needed for prompts, file copy, and HTTP if we ever fetch CSS from a CDN).
+**Recommended: ship the CLI from the same rizzo-css package.** Add a `bin` entry to `packages/rizzo-css/package.json` (e.g. `"bin": { "rizzo-css": "./cli.js" }`). One package, one publish; users get CSS and CLI from `pnpm add rizzo-css` or `npx rizzo-css`. CLI code can live in the package (e.g. `packages/rizzo-css/cli.js` or `bin/`). Keep CLI dependencies minimal (Node 18+; only what’s needed for prompts, file copy, optional HTTP).
+
+**Current:** CLI ships from the same **rizzo-css** package (`bin/rizzo-css.js`). One package, one publish. Optional separate package only if we need to version the CLI independently.
 
 ---
 
@@ -43,14 +42,12 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 ### Phase 1 – Minimum viable
 
-- [ ] Create `packages/cli` (or `cli/`) with `package.json` and bin entry.
-- [ ] Implement `init`:
-  - Prompt: project name, directory (default current), framework (vanilla, Astro, Svelte).
-  - Scaffold: copy `public/css/main.min.css` (or built CSS) into the project; add a minimal HTML template or framework entry that links the CSS and sets `data-theme` if needed.
-- [ ] Implement `add`:
-  - No scaffold; copy (or symlink) CSS into a configurable path (e.g. `public/css/`, `src/styles/`) and optionally add a line to import it (e.g. in `index.html` or main layout).
-- [ ] Publish `@rizzo-css/cli` (or chosen name) to npm.
-- [ ] Document in main docs: “Install with CLI” under [Consumption & distribution](./TODO.md).
+- [x] Add CLI to **rizzo-css** package: `bin` entry in `packages/rizzo-css/package.json` (`"rizzo-css": "./bin/rizzo-css.js"`) and `bin/rizzo-css.js`.
+- [x] Implement `init`: prompt (project name, framework: vanilla / Astro / Svelte, theme); scaffold with built CSS and minimal `index.html` that links CSS and sets `data-theme`.
+- [x] Implement `add`: copy CSS to current project (default `./css/` or `--path`); print `<link>` to add.
+- [x] Implement `theme`: list 14 theme IDs.
+- [x] Document in [Getting Started](./GETTING_STARTED.md): “Quick start with CLI” via `npx rizzo-css init` / `add`.
+- [x] **Component selection:** For Astro and Svelte, init prompts “Include components? (y/n)”; if yes, numbered list of 24 components, then copy from `scaffold/astro/` or `scaffold/svelte/` into the project. Scaffold populated by `scripts/copy-scaffold.js` (run in prepublishOnly).
 
 ### Phase 2 – Themes and options
 
@@ -70,7 +67,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 - **Source of CSS**: Bundle built CSS in the CLI package vs. download from CDN/github release on first run. Bundling is simpler and works offline.
 - **Themes**: Ship theme list + snippets in the CLI, or point to docs/URLs. Shipping a small set of theme files keeps init/add self-contained.
-- **Component layer**: Whether `init` should also scaffold Svelte/React components (e.g. copy from `@rizzo-css/svelte`) or only CSS + docs link; defer to post-MVP.
+- **Component layer**: Done for Svelte and Astro — CLI copies selected components from `scaffold/svelte/` or `scaffold/astro/` (icons included for Astro). React/Vue: later.
 
 ---
 

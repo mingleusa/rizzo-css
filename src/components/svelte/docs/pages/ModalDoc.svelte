@@ -34,7 +34,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Modal from '@rizzo-css/svelte/Modal.svelte';
+  import Modal from './components/svelte/Modal.svelte';
   let open = $state(false);
 </script>
 

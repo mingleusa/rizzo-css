@@ -281,4 +281,4 @@ Configure in Algolia dashboard:
 
 - [Algolia Documentation](https://www.algolia.com/doc/)
 - [Algolia Dashboard](https://www.algolia.com/apps/)
-- [Rizzo CSS Search Docs](./docs/SEARCH.md)
+- [Rizzo CSS Search (in Components)](./docs/COMPONENTS.md#search-component)
