@@ -27,7 +27,7 @@ Before pushing to GitHub and publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.2"` (or semver of your choice)
+   - `packages/rizzo-css/package.json` → `"version": "0.0.3"` (or semver of your choice)
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**

@@ -178,7 +178,10 @@ rizzo-css/
 │   │           ├── Html5.astro
 │   │           ├── Javascript.astro
 │   │           ├── Nodejs.astro
-│   │           └── Plaintext.astro
+│   │           ├── Plaintext.astro
+│   │           ├── React.astro
+│   │           ├── Svelte.astro
+│   │           └── Vue.astro
 │   ├── utils/           # JS utilities (theme, storage, clipboard, toast)
 │   ├── layouts/         # Page layouts
 │   │   ├── Layout.astro

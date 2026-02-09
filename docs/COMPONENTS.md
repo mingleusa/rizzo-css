@@ -777,7 +777,7 @@ All regular icons accept `width`, `height`, and `class` props, use `currentColor
 
 ### Devicons (Colored Brand Icons)
 
-CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext, Git, Bash
+CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext, Git, Bash, Svelte, React, Vue
 
 Devicons use brand colors and are visible on both light and dark themes. They include colored gradients and paths optimized for visibility across all themes.
 
@@ -846,6 +846,9 @@ The CodeBlock component displays 20px colored brand icons (Devicons) for:
 - **Plaintext** - Plaintext icon (theme-aware)
 - **Git** - Git brand icon
 - **Bash/Shell** - Bash brand icon
+- **Svelte** - Svelte brand icon
+- **React / JSX / TSX** - React brand icon
+- **Vue** - Vue brand icon
 
 For unsupported languages, the component falls back to text labels. All icons are displayed at 20px size for better visibility and are vertically centered with the copy button.
 

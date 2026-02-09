@@ -133,7 +133,7 @@ Accessible, themeable components:
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling (theme background + accent bar). Larger dropdown (trigger, menu, options) for better readability
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, and more)
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
@@ -169,7 +169,7 @@ Comprehensive documentation is also in the `docs/` directory:
 - [Components](./docs/COMPONENTS.md) - Component library and usage (24 components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
-- [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes
+- [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes; [Accessibility testing](./docs/ACCESSIBILITY_TESTING.md) - Checklist (keyboard, screen reader, tools) before documenting best practices
 - [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - Astro vs Svelte layout; framework switcher
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Svelte (done); React/Vue (planned)
 - [Publishing](./docs/PUBLISHING.md) - How to publish the npm package
