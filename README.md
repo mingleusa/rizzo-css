@@ -45,7 +45,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo in your project?** Quickest: `npx rizzo-css init` — choose **Vanilla JS**, **Astro**, or **Svelte** (interactive menus; all get the same CSS and component styles). Vanilla JS gets an example page with theme switcher and samples; Astro/Svelte can add component files. Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. To add CSS to an existing app: `cd your-app && npx rizzo-css add` (auto-detects Svelte/Astro). Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
+**Using Rizzo in your project?** Quickest: `npx rizzo-css init` — first choose **add to existing project** (current directory) or **create new**. Existing: framework (auto-detect), themes, optional components. New: full scaffold (Vanilla example, default Astro app, or default Svelte app). Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. To add CSS only: `cd your-app && npx rizzo-css add` (auto-detects Svelte/Astro). Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
 
 ### Prerequisites
 

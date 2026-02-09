@@ -259,7 +259,7 @@ Usage:
   npx rizzo-css <command> [options]
 
 Commands:
-  init    Scaffold a minimal project (menus: location, framework, themes, components)
+  init    Add Rizzo to existing project or scaffold new one (first menu: existing vs new)
   add     Copy Rizzo CSS into the current project (auto-detects Svelte/Astro)
   theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
@@ -363,6 +363,14 @@ function getScaffoldVanillaIndex() {
   return join(getPackageRoot(), 'scaffold', 'vanilla', 'index.html');
 }
 
+function getScaffoldAstroAppDir() {
+  return join(getPackageRoot(), 'scaffold', 'astro-app');
+}
+
+function getScaffoldSvelteAppDir() {
+  return join(getPackageRoot(), 'scaffold', 'svelte-app');
+}
+
 function copyDirRecursive(src, dest) {
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(src, { withFileTypes: true });
@@ -373,6 +381,31 @@ function copyDirRecursive(src, dest) {
       copyDirRecursive(srcPath, destPath);
     } else {
       copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+/** Copy directory recursively; in text files (utf-8), replace each key in replacements with its value. */
+function copyDirRecursiveWithReplacements(src, dest, replacements) {
+  mkdirSync(dest, { recursive: true });
+  const entries = readdirSync(src, { withFileTypes: true });
+  const textExtensions = new Set(['.html', '.astro', '.svelte', '.ts', '.js', '.mjs', '.json', '.css', '.md']);
+  for (const e of entries) {
+    const srcPath = join(src, e.name);
+    const destPath = join(dest, e.name);
+    if (e.isDirectory()) {
+      copyDirRecursiveWithReplacements(srcPath, destPath, replacements);
+    } else {
+      const ext = srcPath.slice(srcPath.lastIndexOf('.'));
+      if (textExtensions.has(ext)) {
+        let content = readFileSync(srcPath, 'utf8');
+        for (const [key, value] of Object.entries(replacements)) {
+          content = content.split(key).join(value);
+        }
+        writeFileSync(destPath, content, 'utf8');
+      } else {
+        copyFileSync(srcPath, destPath);
+      }
     }
   }
 }
@@ -441,7 +474,104 @@ function copyAstroComponents(projectDir, selectedNames) {
   }
 }
 
+/** Add Rizzo CSS (and optional components) to an existing project in cwd. */
+async function runAddToExisting() {
+  const cwd = process.cwd();
+  const detected = detectFramework(cwd);
+  const frameworkOptions = [
+    { value: 'vanilla', label: 'Vanilla JS (HTML + CSS)', color: C.vanilla },
+    { value: 'astro', label: 'Astro', color: C.astro },
+    { value: 'svelte', label: 'Svelte', color: C.svelte },
+  ];
+  let frameworkPrompt = '? Framework';
+  if (detected) {
+    frameworkPrompt += ' (detected: ' + detected + ' — pick to confirm or choose another)';
+  }
+  const framework = await selectMenu(frameworkOptions, frameworkPrompt);
+
+  const selectedThemes = await multiSelectMenu(
+    THEMES.map((t) => ({ value: t, label: t })),
+    '? Themes (Space to toggle, Enter to confirm) — we\'ll suggest the first as default data-theme'
+  );
+  const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
+  const suggestedTheme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
+
+  let selectedComponents = [];
+  const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
+  if (componentList.length > 0) {
+    const includeLabel = framework === 'svelte' ? 'Svelte' : 'Astro';
+    const includeChoice = await selectMenu(
+      [
+        { value: 'none', label: 'None' },
+        { value: 'pick', label: 'Yes, pick ' + includeLabel + ' components' },
+      ],
+      '? Include ' + includeLabel + ' components?'
+    );
+    if (includeChoice === 'pick') {
+      selectedComponents = await multiSelectMenu(
+        componentList.map((c) => ({ value: c, label: c })),
+        '? Components (Space to toggle, Enter to confirm)'
+      );
+    }
+  }
+
+  const cssSource = getCssPath();
+  if (!existsSync(cssSource)) {
+    console.error('Error: Rizzo CSS build not found. Run from repo root: pnpm build:css');
+    process.exit(1);
+  }
+
+  const paths = getFrameworkCssPaths(framework);
+  const targetDir = join(cwd, paths.targetDir);
+  const cssTarget = join(targetDir, 'rizzo.min.css');
+  mkdirSync(targetDir, { recursive: true });
+  copyFileSync(cssSource, cssTarget);
+
+  if (framework === 'svelte' && selectedComponents.length > 0) {
+    copySvelteComponents(cwd, selectedComponents);
+  } else if (framework === 'astro' && selectedComponents.length > 0) {
+    copyAstroComponents(cwd, selectedComponents);
+  }
+
+  const linkHref = paths.linkHref;
+  console.log('\n✓ Rizzo CSS added to your existing project');
+  console.log('  - ' + cssTarget);
+  if (framework === 'svelte') {
+    console.log('\nAdd to your root layout (e.g. src/app.html):');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+    if (selectedComponents.length > 0) {
+      console.log('  Components are in src/lib/rizzo — import from \'$lib/rizzo\'.');
+    }
+  } else if (framework === 'astro') {
+    console.log('\nAdd to your layout (e.g. src/layouts/Layout.astro):');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+    if (selectedComponents.length > 0) {
+      console.log('  Components are in src/components/rizzo — import from there.');
+    }
+  } else {
+    console.log('\nAdd to your HTML or layout:');
+    console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+  }
+  console.log('\nDocs: https://rizzo-css.vercel.app\n');
+}
+
 async function cmdInit() {
+  const initMode = await selectMenu(
+    [
+      { value: 'existing', label: 'Add to existing project (current directory)' },
+      { value: 'new', label: 'Create new project (scaffold)' },
+    ],
+    '? Are you using an existing project or creating a new one?'
+  );
+
+  if (initMode === 'existing') {
+    await runAddToExisting();
+    return;
+  }
+
   const projectChoice = await selectMenu(
     [
       { value: 'cwd', label: 'Current directory' },
@@ -487,8 +617,6 @@ async function cmdInit() {
   }
 
   const projectDir = name ? join(process.cwd(), name) : process.cwd();
-  const cssDir = framework === 'astro' ? join(projectDir, 'public', 'css') : join(projectDir, 'css');
-  const cssTarget = join(cssDir, 'rizzo.min.css');
   const cssSource = getCssPath();
 
   if (!existsSync(cssSource)) {
@@ -496,25 +624,62 @@ async function cmdInit() {
     process.exit(1);
   }
 
-  mkdirSync(cssDir, { recursive: true });
-  copyFileSync(cssSource, cssTarget);
-
-  const linkHref = framework === 'astro' ? '/css/rizzo.min.css' : 'css/rizzo.min.css';
   const themeComment = themeList.length > 0
     ? '\n  <!-- Selected themes: ' + themeList.join(', ') + ' -->'
     : '';
-  const indexPath = join(projectDir, 'index.html');
-  const vanillaScaffoldPath = getScaffoldVanillaIndex();
-  if (framework === 'vanilla' && existsSync(vanillaScaffoldPath)) {
-    let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
-    indexHtml = indexHtml
-      .replace(/\{\{DATA_THEME\}\}/g, theme)
-      .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
-      .replace(/\{\{TITLE\}\}/g, name || 'App')
-      .replace(/\{\{LINK_HREF\}\}/g, linkHref);
-    writeFileSync(indexPath, indexHtml, 'utf8');
+  const projectNamePkg = name
+    ? name.replace(/\s+/g, '-').toLowerCase()
+    : (framework === 'astro' ? 'my-astro-app' : framework === 'svelte' ? 'my-svelte-app' : 'my-app');
+  const replacements = {
+    '{{DATA_THEME}}': theme,
+    '{{THEME_LIST_COMMENT}}': themeComment,
+    '{{TITLE}}': name || 'App',
+    '{{PROJECT_NAME}}': projectNamePkg,
+  };
+
+  const astroAppDir = getScaffoldAstroAppDir();
+  const svelteAppDir = getScaffoldSvelteAppDir();
+
+  let cssTarget;
+  let indexPath;
+
+  if (framework === 'astro' && existsSync(astroAppDir)) {
+    mkdirSync(projectDir, { recursive: true });
+    copyDirRecursiveWithReplacements(astroAppDir, projectDir, replacements);
+    mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
+    cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+    copyFileSync(cssSource, cssTarget);
+    if (selectedComponents.length > 0) {
+      copyAstroComponents(projectDir, selectedComponents);
+    }
+  } else if (framework === 'svelte' && existsSync(svelteAppDir)) {
+    mkdirSync(projectDir, { recursive: true });
+    copyDirRecursiveWithReplacements(svelteAppDir, projectDir, replacements);
+    mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
+    cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
+    copyFileSync(cssSource, cssTarget);
+    if (selectedComponents.length > 0) {
+      copySvelteComponents(projectDir, selectedComponents);
+    }
   } else {
-    const indexHtml = `<!DOCTYPE html>
+    const cssDir = framework === 'astro' ? join(projectDir, 'public', 'css') : join(projectDir, 'css');
+    cssTarget = join(cssDir, 'rizzo.min.css');
+    const linkHref = framework === 'astro' ? '/css/rizzo.min.css' : 'css/rizzo.min.css';
+    mkdirSync(cssDir, { recursive: true });
+    copyFileSync(cssSource, cssTarget);
+
+    const vanillaScaffoldPath = getScaffoldVanillaIndex();
+    indexPath = join(projectDir, 'index.html');
+    if (framework === 'vanilla' && existsSync(vanillaScaffoldPath)) {
+      let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
+      indexHtml = indexHtml
+        .replace(/\{\{DATA_THEME\}\}/g, theme)
+        .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
+        .replace(/\{\{TITLE\}\}/g, name || 'App')
+        .replace(/\{\{LINK_HREF\}\}/g, linkHref);
+      writeFileSync(indexPath, indexHtml, 'utf8');
+    } else {
+      const indexHtml = `<!DOCTYPE html>
 <html lang="en" data-theme="${theme}">${themeComment}
 <head>
   <meta charset="UTF-8" />
@@ -528,26 +693,32 @@ async function cmdInit() {
 </body>
 </html>
 `;
-    writeFileSync(indexPath, indexHtml, 'utf8');
-  }
-
-  if (framework === 'svelte' && selectedComponents.length > 0) {
-    copySvelteComponents(projectDir, selectedComponents);
-  } else if (framework === 'astro' && selectedComponents.length > 0) {
-    copyAstroComponents(projectDir, selectedComponents);
+      writeFileSync(indexPath, indexHtml, 'utf8');
+    }
+    if (framework === 'svelte' && selectedComponents.length > 0) {
+      copySvelteComponents(projectDir, selectedComponents);
+    } else if (framework === 'astro' && selectedComponents.length > 0) {
+      copyAstroComponents(projectDir, selectedComponents);
+    }
   }
 
   console.log('\n✓ Project ready at ' + projectDir);
   console.log('  - ' + cssTarget);
-  console.log('  - ' + indexPath);
+  if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
-    console.log('  - Vanilla JS: same CSS and component styles as Astro/Svelte; index includes theme switcher and sample components.');
+    console.log('  - Vanilla JS: same CSS and component styles; index includes theme switcher and sample components.');
   }
-  if (framework === 'svelte' || framework === 'astro') {
+  if (framework === 'astro' && existsSync(astroAppDir)) {
+    console.log('  - Default Astro project with Rizzo CSS. Run: pnpm install && pnpm dev');
+  }
+  if (framework === 'svelte' && existsSync(svelteAppDir)) {
+    console.log('  - Default SvelteKit project with Rizzo CSS. Run: pnpm install && pnpm dev');
+  }
+  if ((framework === 'svelte' || framework === 'astro') && !existsSync(framework === 'astro' ? astroAppDir : svelteAppDir)) {
     const fw = framework === 'svelte' ? 'Svelte' : 'Astro';
-    console.log('\nTip: To use the official ' + fw + ' scaffold instead, create a project with their CLI (e.g. npm create ' + framework + '@latest my-app), then run npx rizzo-css add in that folder.');
+    console.log('\nTip: To use the official ' + fw + ' scaffold, create a project with their CLI (e.g. npm create ' + framework + '@latest my-app), then run npx rizzo-css add in that folder.');
   }
-  console.log('\nRun a local server (e.g. npx serve .) or open index.html. Docs: https://rizzo-css.vercel.app\n');
+  console.log('\nDocs: https://rizzo-css.vercel.app\n');
 }
 
 function main() {

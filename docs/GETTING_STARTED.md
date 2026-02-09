@@ -8,11 +8,11 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | Scaffold a new project. Interactive menus: project location → **framework** (Vanilla JS / Astro / Svelte, with yellow / orange / orange-red in the terminal) → **themes** (multi-select, Space to toggle) → **components** (Astro/Svelte only, multi-select). All get the same CSS. |
-| `npx rizzo-css add` | Add Rizzo CSS to the current directory. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
+| `npx rizzo-css init` | **First question:** Add to existing project (current directory) or create new? **Existing:** framework (with auto-detect), themes, optional components → copies CSS (+ components) into cwd. **New:** project location → framework (Vanilla JS / Astro / Svelte) → themes → components → scaffolds full project (default Astro/Svelte app or Vanilla example). |
+| `npx rizzo-css add` | Add Rizzo CSS to the current directory only. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
-**Tip:** To use the official Svelte or Astro scaffold plus Rizzo CSS: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or the same with `astro`).
+**Tip:** To use the official Svelte or Astro scaffold plus Rizzo CSS: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or the same with `astro`). Or run `npx rizzo-css init`, choose “Add to existing”, then pick that folder.
 
 ---
 
@@ -28,7 +28,7 @@ Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are i
 npx rizzo-css init
 ```
 
-Prompts for project name, **framework** (Vanilla JS / Astro / Svelte), themes, and (for Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** creates an example `index.html` with theme switcher and sample components (buttons, card, badge). **Astro** or **Svelte:** you can optionally include component files (Button, Badge, Card, etc.); the CLI lists 24 components. **Astro:** selected components and icons are copied to `src/components/rizzo/`. **Svelte:** selected components are copied to `src/lib/rizzo/` with a generated barrel file. To add only the CSS to an existing project:
+**First question:** Add to existing project (current directory) or create new? **If existing:** choose framework (auto-detected when possible), themes, and (Astro/Svelte) optional components; CSS and components are copied into the current folder. **If new:** project location → **framework** (Vanilla JS / Astro / Svelte), themes, and (Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** example `index.html` with theme switcher and samples. **Astro / Svelte:** default app scaffold (package.json, config, layout, index page) plus optional 24 components. To add only the CSS to an existing project without menus:
 
 ```bash
 npx rizzo-css add
@@ -258,10 +258,12 @@ rizzo-css/
 │       │   └── rizzo.min.css
 │       ├── bin/
 │       │   └── rizzo-css.js   # CLI: init, add, theme
-│       └── scaffold/          # CLI scaffolds (vanilla in-repo; svelte/astro from copy-scaffold.js)
+│       └── scaffold/          # CLI scaffolds
 │           ├── vanilla/      # Vanilla JS example (index.html with theme switcher + samples)
-│           ├── svelte/       # Svelte components for CLI component picker
-│           └── astro/        # Astro components + icons for CLI component picker
+│           ├── astro-app/    # Default Astro project (package.json, config, layout, pages)
+│           ├── svelte-app/   # Default SvelteKit project (package.json, config, app.html, routes)
+│           ├── astro/        # Astro components + icons (from copy-scaffold.js on prepublish)
+│           └── svelte/       # Svelte components (from copy-scaffold.js on prepublish)
 ├── public/              # Static assets
 │   └── css/
 │       └── main.min.css # Generated CSS (docs site)

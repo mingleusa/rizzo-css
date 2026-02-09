@@ -12,7 +12,7 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` scaffolds a project. Choose **Vanilla JS** (yellow in the CLI), **Astro** (orange), or **Svelte** (orange-red). All options get the **same CSS and component styles**. Vanilla JS gets an example page with theme switcher and sample components; Astro/Svelte can optionally add component files. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then add our CSS:
+**Quick start (no install):** `npx rizzo-css init` — first choose **add to existing project** or **create new**. Existing: framework (auto-detect), themes, optional components. New: scaffold (Vanilla example, default Astro app, or default Svelte app; CLI colors: Vanilla = yellow, Astro = orange, Svelte = orange-red). All get the **same CSS and component styles**. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add

@@ -51,8 +51,8 @@ src/
 
 **Single package: rizzo-css.** We publish one unscoped npm package. No @ scope or separate core/react/vue/svelte packages.
 
-- **npm:** `rizzo-css` — CSS + **CLI** + **scaffold** (`dist/`, `bin/rizzo-css.js`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init` to scaffold a project. Choose **Vanilla JS** (example page with theme switcher + samples), **Astro**, or **Svelte**; all get the same CSS. Astro/Svelte can optionally copy 24 components from the package.
-- **Framework components** — **Vanilla JS** uses the same BEM markup (scaffold in `scaffold/vanilla/`). Astro reference and Svelte components live in this repo (`src/components/` and `src/components/svelte/`). Use `npx rizzo-css init` and choose a framework + (for Astro/Svelte) components, or copy manually. React/Vue components, when added, will also live in-repo.
+- **npm:** `rizzo-css` — CSS + **CLI** + **scaffolds** (`dist/`, `bin/`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init`. Init first asks **existing project** (add to cwd) or **new project** (scaffold). New: Vanilla example (`scaffold/vanilla/`), default Astro app (`scaffold/astro-app/`), or default Svelte app (`scaffold/svelte-app/`); optional 24 components from `scaffold/astro/` and `scaffold/svelte/`.
+- **Framework components** — Vanilla uses same BEM (no components folder). Astro/Svelte: use `npx rizzo-css init` (new or existing) and pick components, or copy from this repo. React/Vue components, when added, will also live in-repo.
 
 ```
 rizzo-css/

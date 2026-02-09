@@ -1,6 +1,6 @@
 # Publishing the npm package
 
-The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffold** templates: **Vanilla JS** (example index with theme switcher + samples), **Astro**, and **Svelte** (component picker). All frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffolds**: **Vanilla JS** (`scaffold/vanilla/`), default **Astro** app (`scaffold/astro-app/`), default **Svelte** app (`scaffold/svelte-app/`), plus component picker (`scaffold/astro/`, `scaffold/svelte/` from `copy-scaffold.js`). Init first asks existing vs new project; all frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
 
 ## Versioning strategy
 
@@ -27,7 +27,7 @@ Before pushing to GitHub and publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.4"` (or semver of your choice)
+   - `packages/rizzo-css/package.json` → `"version": "0.0.5"` (or semver of your choice)
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**
@@ -53,7 +53,7 @@ Only what’s listed in `packages/rizzo-css/package.json` under `"files"`:
 
 - `dist/` (contains `rizzo.min.css`)
 - `bin/` (CLI: `rizzo-css` → `bin/rizzo-css.js`)
-- `scaffold/` (Svelte and Astro component templates for `npx rizzo-css init` component picker)
+- `scaffold/` (vanilla example, astro-app, svelte-app, plus astro/ and svelte/ component templates for init)
 - `README.md`
 
 Consumers get the CSS, the CLI, and the scaffold templates; they do not get the full repo (docs site, dev dependencies, or source beyond the scaffold).
