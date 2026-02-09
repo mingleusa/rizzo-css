@@ -404,13 +404,13 @@ Then use CSS classes directly:
 <button class="btn btn-primary">Click me</button>
 ```
 
-## Timeline Recommendation
+## Timeline (current status)
 
-1. **Phase 1** (After Astro completion): CSS distribution package
-2. **Phase 2** (Month 1): Extract JavaScript utilities
-3. **Phase 3** (Month 2-3): React components
-4. **Phase 4** (Month 4-5): Vue components
-5. **Phase 5** (Month 6): Svelte components
+1. **Phase 1** — Done: CSS distribution package (`rizzo-css` on npm)
+2. **Phase 2** — Done: JavaScript utilities in `src/utils/` (theme, storage, clipboard, toast)
+3. **Phase 3** — Done: Svelte components in `src/components/svelte/`; docs at /docs/svelte; framework switcher
+4. **Phase 4** — Planned: React components (in-repo; same pattern as Svelte)
+5. **Phase 5** — Planned: Vue components (in-repo; same pattern as Svelte)
 
 ## Resources
 

@@ -131,7 +131,7 @@ Rizzo CSS is built on Astro. To run and develop this repo (documentation site an
 git clone <repository-url>
 cd rizzo-css
 
-# Install dependencies
+# Install dependencies (all are devDependencies; no production runtime deps for the docs site)
 pnpm install
 ```
 
@@ -140,10 +140,9 @@ pnpm install
 ```
 rizzo-css/
 ├── src/
-│   ├── config/          # Shared config (frameworks, themes, docs, search)
+│   ├── config/          # Shared config (frameworks, themes, search)
 │   │   ├── frameworks.ts
 │   │   ├── themes.ts
-│   │   ├── docs.ts
 │   │   └── search.ts
 │   ├── components/      # Astro components (reference implementation)
 │   │   ├── Accordion.astro
@@ -175,33 +174,35 @@ rizzo-css/
 │   │   ├── ThemeSwitcher.astro
 │   │   ├── Toast.astro
 │   │   ├── Tooltip.astro
-│   │   └── icons/      # Icon components
-│   │       ├── Copy.astro
-│   │       ├── Check.astro
-│   │       ├── ChevronDown.astro
-│   │       ├── Circle.astro
-│   │       ├── Close.astro
-│   │       ├── Gear.astro
-│   │       ├── Search.astro
-│   │       ├── Sort.astro
-│   │       ├── Filter.astro
-│   │       ├── (theme icons: Owl, Palette, Sun, Flame, Heart, Leaf, Shield, Zap, Rainbow, Cake, Sunset, Cherry, Brush, Lemon)
-│   │       ├── FrameworkSwitcher.astro
-│   │       ├── svelte/    # Svelte components (same BEM classes)
-│   │       │   ├── Button.svelte
-│   │       │   └── Badge.svelte
-│   │       └── devicons/  # Devicon brand icons
-│   │           ├── Astro.astro
-│   │           ├── Bash.astro
-│   │           ├── Css3.astro
-│   │           ├── Git.astro
-│   │           ├── Html5.astro
-│   │           ├── Javascript.astro
-│   │           ├── Nodejs.astro
-│   │           ├── Plaintext.astro
-│   │           ├── React.astro
-│   │           ├── Svelte.astro
-│   │           └── Vue.astro
+│   │   ├── FrameworkSwitcher.astro
+│   │   ├── icons/      # Icon components
+│   │   │   ├── Copy.astro
+│   │   │   ├── Check.astro
+│   │   │   ├── ChevronDown.astro
+│   │   │   ├── Circle.astro
+│   │   │   ├── Close.astro
+│   │   │   ├── Gear.astro
+│   │   │   ├── Search.astro
+│   │   │   ├── Sort.astro
+│   │   │   ├── Filter.astro
+│   │   │   ├── (theme icons: Owl, Palette, Sun, Flame, Heart, Leaf, Shield, Zap, Rainbow, Cake, Sunset, Cherry, Brush, Lemon)
+│   │   │   └── devicons/  # Devicon brand icons
+│   │   │       ├── Astro.astro
+│   │   │       ├── Bash.astro
+│   │   │       ├── Css3.astro
+│   │   │       ├── Git.astro
+│   │   │       ├── Html5.astro
+│   │   │       ├── Javascript.astro
+│   │   │       ├── Nodejs.astro
+│   │   │       ├── Plaintext.astro
+│   │   │       ├── React.astro
+│   │   │       ├── Svelte.astro
+│   │   │       └── Vue.astro
+│   │   └── svelte/    # Svelte components (same BEM classes)
+│   │       ├── index.ts
+│   │       ├── Button.svelte
+│   │       ├── Badge.svelte
+│   │       └── ...
 │   ├── utils/           # JS utilities (theme, storage, clipboard, toast)
 │   ├── layouts/         # Page layouts
 │   │   ├── Layout.astro

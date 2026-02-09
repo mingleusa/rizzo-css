@@ -232,6 +232,18 @@ function multiSelectMenu(options, title) {
         render(false);
         return;
       }
+      if (ch === 'a' || ch === 'A') {
+        buf = '';
+        for (let i = 0; i < items.length; i++) selected.add(i);
+        render(false);
+        return;
+      }
+      if (ch === 'n' || ch === 'N') {
+        buf = '';
+        selected.clear();
+        render(false);
+        return;
+      }
       buf += ch;
       const isUp = buf === '\u001b[A' || buf === '\u001bOA' || (buf.length >= 2 && buf.endsWith('A') && buf.startsWith('\u001b'));
       const isDown = buf === '\u001b[B' || buf === '\u001bOB' || (buf.length >= 2 && buf.endsWith('B') && buf.startsWith('\u001b'));
