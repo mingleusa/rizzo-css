@@ -38,5 +38,6 @@
     "type": "git",
     "url": "https://github.com/mingleusa/rizzo-css.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "author": "mingleusa"
 }

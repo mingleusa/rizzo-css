@@ -2,12 +2,15 @@
  * Copies Svelte and Astro component templates into packages/rizzo-css/scaffold/
  * so the CLI can offer framework + component selection. Run before publishing (e.g. in prepublishOnly).
  */
-const { copyFileSync, mkdirSync, readdirSync, existsSync } = require('fs');
-const { join, dirname, resolve } = require('path');
+import { copyFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
+import { join, dirname, resolve } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // Resolve repo root: script is at <repo>/scripts/copy-scaffold.js (works with node scripts/copy-scaffold.js from repo root)
-const scriptPath = process.argv[1] || require.main.filename;
-const selfDir = resolve(process.cwd(), dirname(scriptPath));
+const selfDir = __dirname;
 const rootDir = resolve(selfDir, '..');
 const pkgDir = join(rootDir, 'packages', 'rizzo-css');
 const scaffoldDir = join(pkgDir, 'scaffold');
