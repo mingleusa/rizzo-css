@@ -10,6 +10,15 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
 - **Major** (`x.0.0`): Breaking changes (e.g. renamed classes, removed or changed public APIs).
 - Bump the version in `packages/rizzo-css/package.json` (and optionally root `package.json`) before publishing.
 
+## Pre-publish checklist
+
+Before pushing to GitHub and publishing to npm:
+
+1. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
+2. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
+3. **Commit & push** — Commit all changes, then `git push` (or push to your default remote).
+4. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
+
 ## Prerequisites
 
 - npm account (and logged in: `npm login`)
@@ -25,7 +34,7 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css`, then `node scripts/copy-scaffold.js` (fills `packages/rizzo-css/scaffold/` with Svelte and Astro templates), then `cd packages/rizzo-css && npm publish`. Enter your npm OTP if prompted (2FA).
+   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/` with Astro and Svelte templates) before the actual publish. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash
