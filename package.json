@@ -4,6 +4,7 @@
   "version": "0.0.2",
   "license": "MIT",
   "scripts": {
+    "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
     "dev": "astro dev --open",
     "build": "pnpm build:css && astro build",
     "build:css": "node scripts/build-css.js",

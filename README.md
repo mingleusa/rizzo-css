@@ -70,6 +70,7 @@ Site available at `http://localhost:4321`
 
 | Command | Description |
 |---------|-------------|
+| `pnpm rizzo-css` | Run the CLI from this repo (e.g. `pnpm rizzo-css init`, `pnpm rizzo-css add`, `pnpm rizzo-css theme`). Elsewhere use `npx rizzo-css`. |
 | `pnpm dev` | Start development server |
 | `pnpm build` | Build production site (includes CSS minification) |
 | `pnpm build:css` | Build minified CSS to `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css` |
