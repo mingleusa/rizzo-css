@@ -1,8 +1,9 @@
 /**
  * Copies Svelte and Astro component templates into packages/rizzo-css/scaffold/
  * so the CLI can offer framework + component selection. Run before publishing (e.g. in prepublishOnly).
+ * Also generates Svelte icon components from Astro icons and static SVG icons for vanilla.
  */
-import { copyFileSync, mkdirSync, readdirSync, existsSync } from 'fs';
+import { copyFileSync, mkdirSync, readdirSync, existsSync, readFileSync, writeFileSync } from 'fs';
 import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -41,6 +42,104 @@ function copyDirRecursive(src, dest) {
   }
 }
 
+/** Convert one Astro icon to a Svelte icon component. */
+function astroIconToSvelte(astroPath, sveltePath, relativeName) {
+  const raw = readFileSync(astroPath, 'utf8');
+  const parts = raw.split('---');
+  const template = parts.length >= 3 ? parts.slice(2).join('---').trim() : raw;
+  const baseName = relativeName.replace(/\.astro$/, '').replace(/^.*[\\/]/, '');
+  const idPrefix = baseName.toLowerCase().replace(/\s+/g, '-');
+  let svg = template
+    .replace(/\bclass=\{className\}/g, 'class={className}')
+    .replace(/\bclass=\{`([^`]*)`\.trim\(\)\}/g, (_, inner) => 'class="' + inner.replace(/\$\{className\}/g, '{className}') + '"')
+    .replace(/\bid=\{gradientId1\}/g, `id="${idPrefix}-grad-1"`)
+    .replace(/\bid=\{gradientId2\}/g, `id="${idPrefix}-grad-2"`)
+    .replace(/\bfill=\{`url\(#\$\{gradientId1\}\)`\}/g, `fill="url(#${idPrefix}-grad-1)"`)
+    .replace(/\bfill=\{`url\(#\$\{gradientId2\}\)`\}/g, `fill="url(#${idPrefix}-grad-2)"`);
+  svg = svg.replace(/url\(#\$\{gradientId1\}\)/g, `url(#${idPrefix}-grad-1)`);
+  svg = svg.replace(/url\(#\$\{gradientId2\}\)/g, `url(#${idPrefix}-grad-2)`);
+  // Remove <style is:global> blocks (Svelte can use :global in <style> if needed; for simplicity strip for now)
+  svg = svg.replace(/<style is:global>[^]*?<\/style>\s*/g, '');
+  const svelteContent = `<script>
+  export let width = 16;
+  export let height = 16;
+  export let className = '';
+</script>
+
+${svg}
+`;
+  mkdirSync(dirname(sveltePath), { recursive: true });
+  writeFileSync(sveltePath, svelteContent);
+}
+
+/** Recursively convert Astro icons dir to Svelte icons dir. */
+function copyAstroIconsToSvelte(astroIconsDir, svelteIconsDir) {
+  if (!existsSync(astroIconsDir)) return 0;
+  mkdirSync(svelteIconsDir, { recursive: true });
+  let count = 0;
+  const entries = readdirSync(astroIconsDir, { withFileTypes: true });
+  for (const e of entries) {
+    const srcPath = join(astroIconsDir, e.name);
+    const destPath = join(svelteIconsDir, e.name.replace(/\.astro$/, '.svelte'));
+    if (e.isDirectory()) {
+      count += copyAstroIconsToSvelte(srcPath, destPath);
+    } else if (e.name.endsWith('.astro')) {
+      astroIconToSvelte(srcPath, destPath, e.name);
+      count++;
+    }
+  }
+  return count;
+}
+
+/** Extract raw SVG from Astro icon and write to file (for vanilla). */
+function extractSvgFromAstro(astroPath) {
+  const raw = readFileSync(astroPath, 'utf8');
+  const parts = raw.split('---');
+  const template = parts.length >= 3 ? parts.slice(2).join('---').trim() : raw;
+  const match = template.match(/<svg[\s\S]*?<\/svg>/);
+  if (!match) return null;
+  let svg = match[0]
+    .replace(/\s*width=\{[^}]+\}/, ' width="24"')
+    .replace(/\s*height=\{[^}]+\}/, ' height="24"')
+    .replace(/\s*class=\{[^}]+\}/, '')
+    .replace(/\s*class=\{[\s\S]*?\.trim\(\)\}/, '')
+    .replace(/\s*class=\{[^}]+\}/, '')
+    .replace(/\bid=\{gradientId1\}/g, 'id="grad-1"')
+    .replace(/\bid=\{gradientId2\}/g, 'id="grad-2"')
+    .replace(/\bfill=\{`url\(#\$\{gradientId1\}\)`\}/g, 'fill="url(#grad-1)"')
+    .replace(/\bfill=\{`url\(#\$\{gradientId2\}\)`\}/g, 'fill="url(#grad-2)"')
+    .replace(/"`\.trim\(\)\}/g, '"')
+    .replace(/`\.trim\(\)\}/g, '');
+  return svg;
+}
+
+function copyVanillaIcons(astroIconsDir, vanillaIconsDir) {
+  if (!existsSync(astroIconsDir)) return 0;
+  let count = 0;
+  function walk(dir, rel = '') {
+    const entries = readdirSync(dir, { withFileTypes: true });
+    for (const e of entries) {
+      const srcPath = join(dir, e.name);
+      const destRel = rel ? join(rel, e.name) : e.name;
+      if (e.isDirectory()) {
+        mkdirSync(join(vanillaIconsDir, destRel), { recursive: true });
+        walk(srcPath, destRel);
+      } else if (e.name.endsWith('.astro')) {
+        const svg = extractSvgFromAstro(srcPath);
+        if (svg) {
+          const outPath = join(vanillaIconsDir, destRel.replace(/\.astro$/, '.svg'));
+          mkdirSync(dirname(outPath), { recursive: true });
+          writeFileSync(outPath, svg);
+          count++;
+        }
+      }
+    }
+  }
+  mkdirSync(vanillaIconsDir, { recursive: true });
+  walk(astroIconsDir);
+  return count;
+}
+
 function copySvelte() {
   if (!existsSync(svelteSrc)) {
     console.warn('copy-scaffold: ' + svelteSrc + ' not found, skipping');
@@ -56,7 +155,10 @@ function copySvelte() {
       count++;
     }
   }
-  console.log('copy-scaffold: ' + count + ' Svelte files -> packages/rizzo-css/scaffold/svelte');
+  const astroIconsDir = join(astroDest, 'icons');
+  const svelteIconsDir = join(svelteDest, 'icons');
+  const iconCount = copyAstroIconsToSvelte(astroIconsDir, svelteIconsDir);
+  console.log('copy-scaffold: ' + count + ' Svelte files + ' + iconCount + ' Svelte icons -> packages/rizzo-css/scaffold/svelte');
 }
 
 function copyAstro() {
@@ -77,8 +179,11 @@ function copyAstro() {
   if (existsSync(iconsSrc)) {
     copyDirRecursive(iconsSrc, join(astroDest, 'icons'));
   }
+  const vanillaIconsDir = join(scaffoldDir, 'vanilla', 'icons');
+  const vanillaCount = copyVanillaIcons(join(astroDest, 'icons'), vanillaIconsDir);
   console.log('copy-scaffold: ' + ASTRO_SCAFFOLD.length + ' Astro components + icons -> packages/rizzo-css/scaffold/astro');
+  console.log('copy-scaffold: ' + vanillaCount + ' vanilla SVG icons -> packages/rizzo-css/scaffold/vanilla/icons');
 }
 
-copySvelte();
 copyAstro();
+copySvelte();

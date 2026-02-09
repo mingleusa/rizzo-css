@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync } = require('fs');
+const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync, statSync } = require('fs');
 const { join, dirname } = require('path');
 const readline = require('readline');
 
@@ -363,6 +363,33 @@ function getScaffoldVanillaIndex() {
   return join(getPackageRoot(), 'scaffold', 'vanilla', 'index.html');
 }
 
+function getScaffoldVanillaIconsDir() {
+  return join(getPackageRoot(), 'scaffold', 'vanilla', 'icons');
+}
+
+/** Copy Rizzo icons into the project for the given framework. */
+function copyRizzoIcons(projectDir, framework) {
+  if (framework === 'astro') {
+    const iconsSrc = join(getScaffoldAstroDir(), 'icons');
+    if (!existsSync(iconsSrc)) return;
+    const targetDir = join(projectDir, 'src', 'components', 'rizzo', 'icons');
+    mkdirSync(targetDir, { recursive: true });
+    copyDirRecursive(iconsSrc, targetDir);
+  } else if (framework === 'svelte') {
+    const iconsSrc = join(getScaffoldSvelteDir(), 'icons');
+    if (!existsSync(iconsSrc)) return;
+    const targetDir = join(projectDir, 'src', 'lib', 'rizzo', 'icons');
+    mkdirSync(targetDir, { recursive: true });
+    copyDirRecursive(iconsSrc, targetDir);
+  } else if (framework === 'vanilla') {
+    const iconsSrc = getScaffoldVanillaIconsDir();
+    if (!existsSync(iconsSrc)) return;
+    const targetDir = join(projectDir, 'icons');
+    mkdirSync(targetDir, { recursive: true });
+    copyDirRecursive(iconsSrc, targetDir);
+  }
+}
+
 function getScaffoldAstroAppDir() {
   return join(getPackageRoot(), 'scaffold', 'astro-app');
 }
@@ -433,10 +460,14 @@ function copySvelteComponents(projectDir, selectedNames) {
       exports.push(`export { default as ${name} } from './${name}.svelte';`);
     }
   }
+  const iconsSrc = join(scaffoldDir, 'icons');
+  if (existsSync(iconsSrc)) {
+    copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
+  }
   if (exports.length > 0) {
     const indexContent = `/** Rizzo CSS Svelte components — selected via npx rizzo-css init */\n${exports.join('\n')}\n`;
     writeFileSync(join(targetDir, 'index.ts'), indexContent, 'utf8');
-    console.log('\n  ✓ ' + exports.length + ' Svelte components copied to ' + targetDir);
+    console.log('\n  ✓ ' + exports.length + ' Svelte components copied to ' + targetDir + (existsSync(iconsSrc) ? ' + icons' : ''));
     console.log('  Import in your app: import { Button, Badge, ... } from \'$lib/rizzo\';\n');
   }
 }
@@ -527,6 +558,7 @@ async function runAddToExisting() {
   mkdirSync(targetDir, { recursive: true });
   copyFileSync(cssSource, cssTarget);
 
+  copyRizzoIcons(cwd, framework);
   if (framework === 'svelte' && selectedComponents.length > 0) {
     copySvelteComponents(cwd, selectedComponents);
   } else if (framework === 'astro' && selectedComponents.length > 0) {
@@ -649,6 +681,10 @@ async function cmdInit() {
     mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    if (statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    copyRizzoIcons(projectDir, 'astro');
     if (selectedComponents.length > 0) {
       copyAstroComponents(projectDir, selectedComponents);
     }
@@ -658,6 +694,10 @@ async function cmdInit() {
     mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    if (statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    copyRizzoIcons(projectDir, 'svelte');
     if (selectedComponents.length > 0) {
       copySvelteComponents(projectDir, selectedComponents);
     }
@@ -667,6 +707,9 @@ async function cmdInit() {
     const linkHref = framework === 'astro' ? '/css/rizzo.min.css' : 'css/rizzo.min.css';
     mkdirSync(cssDir, { recursive: true });
     copyFileSync(cssSource, cssTarget);
+    if (statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
 
     const vanillaScaffoldPath = getScaffoldVanillaIndex();
     indexPath = join(projectDir, 'index.html');
@@ -695,6 +738,7 @@ async function cmdInit() {
 `;
       writeFileSync(indexPath, indexHtml, 'utf8');
     }
+    copyRizzoIcons(projectDir, framework);
     if (framework === 'svelte' && selectedComponents.length > 0) {
       copySvelteComponents(projectDir, selectedComponents);
     } else if (framework === 'astro' && selectedComponents.length > 0) {
@@ -707,12 +751,15 @@ async function cmdInit() {
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
     console.log('  - Vanilla JS: same CSS and component styles; index includes theme switcher and sample components.');
+    console.log('  - Icons: ' + join(projectDir, 'icons') + ' (SVG files)');
   }
   if (framework === 'astro' && existsSync(astroAppDir)) {
     console.log('  - Default Astro project with Rizzo CSS. Run: pnpm install && pnpm dev');
+    console.log('  - Icons: src/components/rizzo/icons/ (Astro components)');
   }
   if (framework === 'svelte' && existsSync(svelteAppDir)) {
     console.log('  - Default SvelteKit project with Rizzo CSS. Run: pnpm install && pnpm dev');
+    console.log('  - Icons: src/lib/rizzo/icons/ (Svelte components)');
   }
   if ((framework === 'svelte' || framework === 'astro') && !existsSync(framework === 'astro' ? astroAppDir : svelteAppDir)) {
     const fw = framework === 'svelte' ? 'Svelte' : 'Astro';

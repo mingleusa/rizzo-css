@@ -29,9 +29,18 @@ postcss([
 ])
   .process(css, { from: inputFile, to: outputPublic })
   .then((result) => {
-    writeFileSync(outputPublic, result.css);
+    // Single full bundle (reset + base + components + themes) — write to both outputs
+    const fullCss = result.css;
+    mkdirSync(join(rootDir, 'public', 'css'), { recursive: true });
     mkdirSync(join(rootDir, 'packages/rizzo-css/dist'), { recursive: true });
-    writeFileSync(outputPackage, result.css);
+    writeFileSync(outputPublic, fullCss);
+    writeFileSync(outputPackage, fullCss);
+    // Ensure both files match
+    const a = readFileSync(outputPublic, 'utf8');
+    const b = readFileSync(outputPackage, 'utf8');
+    if (a !== b) {
+      throw new Error('Build outputs differ: public/css/main.min.css vs packages/rizzo-css/dist/rizzo.min.css');
+    }
   })
   .catch((error) => {
     console.error('Error building CSS:', error);
