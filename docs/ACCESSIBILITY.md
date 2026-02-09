@@ -1,6 +1,6 @@
 # Accessibility
 
-Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 guidelines.
+Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 guidelines. For a **testing checklist** (keyboard, screen reader, tools) run before documenting best practices, see [Accessibility testing](./ACCESSIBILITY_TESTING.md).
 
 ## Accessibility Features
 

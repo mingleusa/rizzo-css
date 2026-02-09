@@ -1,5 +1,9 @@
 ---
 import { FRAMEWORKS, FRAMEWORK_STORAGE_KEY, getFrameworkFromPath, shouldShowFrameworkSwitcher } from '../config/frameworks.js';
+import AstroIcon from './icons/devicons/Astro.astro';
+import Svelte from './icons/devicons/Svelte.astro';
+import React from './icons/devicons/React.astro';
+import Vue from './icons/devicons/Vue.astro';
 
 interface Props {
   currentPath: string;
@@ -12,6 +16,13 @@ if (!shouldShowFrameworkSwitcher(currentPath)) {
 }
 
 const { framework: currentFramework, canonicalPath } = getFrameworkFromPath(currentPath);
+
+const FRAMEWORK_ICONS: Record<string, typeof AstroIcon> = {
+  astro: AstroIcon,
+  svelte: Svelte,
+  react: React,
+  vue: Vue,
+};
 ---
 
 <nav class="framework-switcher" aria-label="Switch documentation framework">
@@ -22,6 +33,7 @@ const { framework: currentFramework, canonicalPath } = getFrameworkFromPath(curr
       const isCurrent = fw.id === currentFramework.id;
       const isFirst = i === 0;
       const isLast = i === FRAMEWORKS.length - 1;
+      const IconComponent = FRAMEWORK_ICONS[fw.id];
       return (
         <a
           class={`framework-switcher__segment ${isCurrent ? 'framework-switcher__segment--current' : ''} ${isFirst ? 'framework-switcher__segment--first' : ''} ${isLast ? 'framework-switcher__segment--last' : ''}`}
@@ -29,7 +41,8 @@ const { framework: currentFramework, canonicalPath } = getFrameworkFromPath(curr
           data-framework={fw.id}
           aria-current={isCurrent ? 'page' : undefined}
         >
-          {fw.label}
+          {IconComponent && <IconComponent width={18} height={18} class="framework-switcher__icon" aria-hidden="true" />}
+          <span class="framework-switcher__segment-label">{fw.label}</span>
         </a>
       );
     })}

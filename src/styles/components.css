@@ -1121,6 +1121,7 @@ div.navbar__sublink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-2);
   min-width: var(--spacing-20);
   padding: var(--spacing-2) var(--spacing-4);
   font-size: var(--font-size-sm);
@@ -1129,6 +1130,16 @@ div.navbar__sublink {
   text-decoration: none;
   border-radius: var(--radius-md);
   transition: color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.framework-switcher__icon {
+  flex-shrink: 0;
+  display: block;
+}
+
+.framework-switcher__segment--current .framework-switcher__icon {
+  /* Brand icons keep their colors; ensure visibility on accent background */
+  opacity: 0.95;
 }
 
 .framework-switcher__segment--first {

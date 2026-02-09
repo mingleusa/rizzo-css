@@ -10,13 +10,15 @@ A focused list of remaining tasks for the Rizzo CSS design system, **ordered by 
 
 ## ▶️ Start next (recommended)
 
-**1. Accessibility best practices (doc)** — Add a short “Best practices” section to [ACCESSIBILITY.md](./ACCESSIBILITY.md) (or a linked doc): keyboard patterns, when to use which ARIA, focus order, and how to test with screen readers. Low effort, high value; your components already follow these patterns—documenting them helps adopters and reinforces the design system’s a11y story.
+**1. Accessibility testing** — Run ARIA, keyboard, and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, etc.). Fix any issues found. Do this *before* writing a11y docs so the docs reflect actual, tested behavior.
 
-**2. Contributing guide + issue templates** — CONTRIBUTING.md (how to run, build, where to add components, code style) and GitHub issue templates (bug report, feature request). Unlocks contributors and keeps issues consistent.
+**2. Accessibility best practices (doc)** — After testing, add a “Best practices” section to [ACCESSIBILITY.md](./ACCESSIBILITY.md): keyboard patterns, when to use which ARIA, focus order, and how to test. Documents what you’ve verified.
 
-**3. TypeScript** — Type definitions and props interfaces for components and utils. Improves DX for Astro, Svelte, and future React/Vue; foundation for better IDE support.
+**3. Contributing guide + issue templates** — CONTRIBUTING.md and GitHub issue templates (bug report, feature request). Unlocks contributors and keeps issues consistent.
 
-After that, in order: **component composition patterns** (doc) → **testing** (component + a11y) → **ARIA & focus** (deepen a11y) → **performance** (bundle/optimization) → **React/Vue** when you’re ready.
+**4. TypeScript** — Type definitions and props interfaces for components and utils. Improves DX for Astro, Svelte, and future React/Vue.
+
+After that: **component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
 
 ---
 
@@ -41,8 +43,8 @@ After that, in order: **component composition patterns** (doc) → **testing** (
   - [x] **CDN** — unpkg and jsDelivr via package.json; `https://unpkg.com/rizzo-css@latest` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest` for plain HTML.
   - [x] **Svelte** — /docs/svelte with 24 component pages (19 full examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added.
 
-- [ ] **Best Practices** *(start with accessibility best practices)*
-  - [ ] **Accessibility best practices** — Document keyboard patterns, ARIA usage, focus order, and how to test with screen readers (e.g. in [ACCESSIBILITY.md](./ACCESSIBILITY.md) or linked doc).
+- [ ] **Best Practices** *(accessibility best practices doc after §4 Accessibility testing)*
+  - [ ] **Accessibility best practices** — After a11y testing: document keyboard patterns, ARIA usage, focus order, and how to test (e.g. in [ACCESSIBILITY.md](./ACCESSIBILITY.md)).
   - [ ] Component composition patterns
   - [ ] Performance optimization tips
 
@@ -58,9 +60,9 @@ After that, in order: **component composition patterns** (doc) → **testing** (
 - [ ] **Build** — Bundle size, tree-shaking, critical CSS (if needed).
 - [ ] **Storybook** *(optional)* — Interactive playground and design system showcase.
 
-## 🎨 4. Accessibility (deeper work)
+## 🎨 4. Accessibility (do before a11y best-practices doc)
 
-- [ ] **ARIA & testing** — Ensure ARIA best practices; screen reader and keyboard testing.
+- [ ] **ARIA & accessibility testing** — Use [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) checklist: keyboard + screen reader + axe on key components; fix issues. Do this first so the a11y doc reflects reality.
 - [ ] **Focus** — Focus trap utilities, focus restoration, skip links.
 - [ ] **Contrast** — Verify themes meet WCAG AA/AAA; contrast tooling.
 

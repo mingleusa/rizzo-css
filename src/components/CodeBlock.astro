@@ -9,6 +9,9 @@ import AstroIcon from './icons/devicons/Astro.astro';
 import Plaintext from './icons/devicons/Plaintext.astro';
 import Git from './icons/devicons/Git.astro';
 import Bash from './icons/devicons/Bash.astro';
+import Svelte from './icons/devicons/Svelte.astro';
+import React from './icons/devicons/React.astro';
+import Vue from './icons/devicons/Vue.astro';
 
 interface Props {
   code: string;
@@ -75,13 +78,31 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
+        {languageLower === 'svelte' && (
+          <>
+            <Svelte width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {(languageLower === 'react' || languageLower === 'jsx' || languageLower === 'tsx') && (
+          <>
+            <React width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'vue' && (
+          <>
+            <Vue width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
         {(languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh') && (
           <>
             <Bash width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
-        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'bash', 'shell', 'sh'].includes(languageLower) && (
+        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'svelte', 'react', 'jsx', 'tsx', 'vue', 'bash', 'shell', 'sh'].includes(languageLower) && (
           <span class="code-block__language-text">{language}</span>
         )}
         <span class="sr-only">{languageLabel}</span>
