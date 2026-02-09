@@ -13,15 +13,16 @@ Rizzo CSS is built with a **CSS-first architecture**, which makes it inherently 
 
 This architecture allows the CSS to work with any framework, and framework-specific components are thin wrappers around the CSS classes.
 
-### In-repo framework routes (docs site) — Svelte implemented
+### In-repo framework routes (docs site) — Features (Svelte implemented)
 
 Svelte is integrated into **this same Astro project**; React/Vue can follow the same pattern.
 
-**Done:**
+**Implemented:**
 1. **Framework** — `@astrojs/svelte` added; Astro renders Svelte components.
 2. **Svelte components** — `src/components/svelte/` with 24 components (Button, Badge, Card, Divider, Spinner, ProgressBar, Avatar, Alert, Breadcrumb, Forms, CopyToClipboard, Tooltip, Pagination, Tabs, Accordion, Dropdown, Modal, Toast, Table, etc.) using the same BEM classes as Astro.
 3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference and same CSS).
 4. **Framework switcher** — “View as: Astro | Svelte” (segmented control with framework icons) on component/theme doc pages; links to the same path under each framework. Config in `src/config/frameworks.ts`.
+5. **Scaffold JS parity** — All three scaffolds (Vanilla, Astro, Svelte) include theme flash prevention and global toast (`showToast`, `removeToast`, `removeAllToasts`). Vanilla scaffold also includes a full Settings panel and `openSettings()`; Astro/Svelte layouts include the scripts; add Navbar and Settings from the repo for full parity.
 
 **Remaining:** Svelte theme pages for full parity (optional). When adding React or Vue, repeat: same folder pattern and register in `frameworks.ts`.
 

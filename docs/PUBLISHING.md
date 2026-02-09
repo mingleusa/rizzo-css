@@ -2,6 +2,16 @@
 
 The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffolds**: **Vanilla JS** (`scaffold/vanilla/`), default **Astro** app (`scaffold/astro-app/`), default **Svelte** app (`scaffold/svelte-app/`), plus component picker (`scaffold/astro/`, `scaffold/svelte/` from `copy-scaffold.js`). Init first asks existing vs new project; all frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
 
+## Features
+
+- **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` produces `dist/rizzo.min.css`. Versioning strategy (semver, when to bump) is documented in [Versioning strategy](#versioning-strategy) below.
+- **CDN** — unpkg and jsDelivr; short URLs work. Pin with `@1.0.0` in URL or use `@latest`.
+- **Single package** — One unscoped package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
+- **JavaScript utilities** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
+- **Svelte components** — In `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
+- **In-repo framework routes** — Svelte integrated in Astro; framework switcher; 24 Svelte component pages at `/docs/svelte`. React/Vue: same pattern when added. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
+- **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI Planning](./CLI_PLANNING.md).
+
 ## Versioning strategy
 
 - **Semver:** Use [semantic versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
@@ -27,7 +37,7 @@ Before pushing to GitHub and publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.7"` (or semver of your choice)
+   - `packages/rizzo-css/package.json` → `"version": "0.0.8"` (or semver of your choice)
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**

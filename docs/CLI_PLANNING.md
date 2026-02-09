@@ -2,7 +2,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **existing or new?** — **Existing:** add Rizzo to current directory (framework with auto-detect, themes, optional components). **New:** project location → framework (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red) → themes (multi-select) → components (Astro/Svelte, multi-select). **New** scaffolds: Vanilla = `scaffold/vanilla/index.html`; Astro = full app from `scaffold/astro-app/`; Svelte = full app from `scaffold/svelte-app/`. Component picker uses `scaffold/astro/` and `scaffold/svelte/` (filled by `copy-scaffold.js` on prepublish). **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **existing or new?** — **Existing:** add Rizzo to current directory (framework with auto-detect, themes, optional components). **New:** project location → framework (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red) → themes (multi-select) → components (Astro/Svelte, multi-select). **Themes and components** menus offer "Select all" and "Select none" as first options; you can also pick individuals (Space to toggle, Enter to confirm). **New** scaffolds: Vanilla = `scaffold/vanilla/` (full Settings, toast, theme with System); Astro = `scaffold/astro-app/`; Svelte = `scaffold/svelte-app/` (both include theme flash + toast in layout). Component picker uses `scaffold/astro/` and `scaffold/svelte/` (filled by `copy-scaffold.js` on prepublish). **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.
 
 ---
 
@@ -18,7 +18,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 | Command | Description |
 |--------|-------------|
-| `npx rizzo-css init` | First menu: **Add to existing** (cwd) or **Create new**. Existing: framework (auto-detect), themes, optional components → copy CSS + components. New: location → framework → themes → components; scaffolds default Astro/Svelte app or Vanilla example; optional component files from `scaffold/`. |
+| `npx rizzo-css init` | First menu: **Add to existing** (cwd) or **Create new**. Existing: framework (auto-detect), themes, optional components → copy CSS + components. New: location → framework → themes → components; scaffolds default Astro/Svelte app or Vanilla example; optional component files from `scaffold/`. Themes/components: first options "Select all" / "Select none"; or pick individuals (Space=toggle, Enter=confirm). |
 | `npx rizzo-css add` | Add Rizzo CSS to the current project. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs (for use with `data-theme` on `<html>`). |
 | `npx rizzo-css upgrade` *(later)* | Check for updates and optionally update CSS/package version. |

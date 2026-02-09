@@ -105,6 +105,7 @@ Visit individual theme pages for detailed information:
 - **High contrast** — Provided by the Settings “High contrast” toggle (`.high-contrast` in `accessibility.css`), not by separate theme variants. Works with any of the 14 themes.
 - **Theme transition animations** — When switching themes, `html` and `body` animate `color`, `background-color`, and `border-color` over `--theme-transition-duration` (default 0.2s, ease-out). Set to 0s when `prefers-reduced-motion: reduce` or when the Settings “Reduce motion” toggle is on.
 - **Theme preview in switcher** — Hover or focus a theme option in the ThemeSwitcher menu to see a preview panel with the theme name, background swatch, and accent bar. The swatch has a bordered frame so light and dark themes are both visible. System option has no preview. Preview is hidden on viewports ≤480px so the theme list has full width on mobile.
+- **Unique icon per theme** — Theme switcher shows a distinct icon for each of the 14 themes (Sunflower uses Rainbow). Dark themes and Light themes are grouped with section labels; on mobile, section labels use underlines.
 
 ## Using Themes
 

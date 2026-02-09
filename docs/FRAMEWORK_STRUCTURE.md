@@ -2,6 +2,13 @@
 
 Rizzo CSS keeps each framework’s implementation **separate but integrated** in one repo.
 
+## Features
+
+- **Svelte in Astro** — Svelte is integrated into this Astro project via `@astrojs/svelte`. Svelte components live in `src/components/svelte/`; docs live under `src/pages/docs/svelte/`.
+- **Framework switcher** — "View as: Astro | Svelte" (with framework icons) on component/theme doc pages; config in `src/config/frameworks.ts`.
+- **24 Svelte component pages** at `/docs/svelte` (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference).
+- **Adding React/Vue** — Same pattern: add to `frameworks.ts`, create `src/components/<framework>/` and `src/pages/docs/<framework>/`. See [Adding a new framework](#adding-a-new-framework) below.
+
 ## Folder layout
 
 ```
@@ -53,7 +60,7 @@ src/
 
 ## Rules
 
-- **Vanilla JS** — No in-repo component folder; same BEM classes and HTML as Astro/Svelte. The CLI scaffolds from `packages/rizzo-css/scaffold/vanilla/` (example index with theme switcher and samples). Use the [component docs](/docs/components) for markup.
+- **Vanilla JS** — No in-repo component folder; same BEM classes and HTML as Astro/Svelte. The CLI scaffolds from `packages/rizzo-css/scaffold/vanilla/` (example index with theme flash prevention, theme switcher including System, full Settings panel, toast, and samples). Astro and Svelte scaffolds include theme flash and toast in their layout/app.html; add Navbar and Settings from this repo for full parity.
 - **Astro** docs and components live under `src/pages/docs/` and `src/components/` (no subfolder).
 - **Svelte** docs live under `src/pages/docs/svelte/`; Svelte components live under `src/components/svelte/`.
 - **React/Vue** (when added): same pattern — `src/pages/docs/react/`, `src/components/react/`, etc.

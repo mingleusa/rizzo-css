@@ -41,6 +41,42 @@
   text-align: center;
 }
 
+.home__install {
+  margin-bottom: var(--spacing-16);
+}
+
+.home__install-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--spacing-100)), 1fr));
+  gap: var(--spacing-6);
+  max-width: var(--spacing-175);
+  margin: 0 auto;
+}
+
+.home__install-block {
+  background-color: var(--background-alt);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-5);
+}
+
+.home__install-label {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  margin: 0 0 var(--spacing-3) 0;
+}
+
+.home__install-copy {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+}
+
+.home__install-copy .copy-to-clipboard__text {
+  white-space: normal;
+  word-break: break-all;
+}
+
 .home__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--spacing-75), 1fr));

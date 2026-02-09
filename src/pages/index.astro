@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+import CopyToClipboard from '../components/CopyToClipboard.astro';
 ---
 
 <Layout>
@@ -11,6 +12,20 @@ import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 				<h1 class="home__title">Rizzo CSS</h1>
 				<p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.</p>
 			</header>
+
+			<section class="home__install">
+				<h2 class="home__section-title">Install</h2>
+				<div class="home__install-grid">
+					<div class="home__install-block">
+						<p class="home__install-label">Add the package to your project</p>
+						<CopyToClipboard id="copy-npm-install" value="pnpm add rizzo-css" format="command" class="home__install-copy" />
+					</div>
+					<div class="home__install-block">
+						<p class="home__install-label">Scaffold a new app (Astro, Svelte, or Vanilla)</p>
+						<CopyToClipboard id="copy-cli-init" value="npx rizzo-css init" format="command" class="home__install-copy" />
+					</div>
+				</div>
+			</section>
 			
 			<section class="home__features">
 				<h2 class="home__section-title">Features</h2>

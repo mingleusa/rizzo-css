@@ -154,13 +154,28 @@ function selectMenu(options, title) {
   });
 }
 
-/** Multi-select menu: circles ○/●, Space toggles, Enter confirms. Returns array of selected values. */
+/** Index of first "real" option when using all/none sentinels (0=Select all, 1=Select none, 2+=real). */
+const SENTINEL_ALL = '__all__';
+const SENTINEL_NONE = '__none__';
+
+function hasAllNoneSentinels(items) {
+  return items.length >= 2 && items[0].value === SENTINEL_ALL && items[1].value === SENTINEL_NONE;
+}
+
+function getRealValues(items) {
+  if (hasAllNoneSentinels(items)) return items.slice(2).map((i) => i.value);
+  return items.map((i) => i.value);
+}
+
+/** Multi-select menu: circles ○/●, Space toggles, Enter confirms. Optional first two options: Select all / Select none (value __all__ / __none__). Returns array of selected values. */
 function multiSelectMenu(options, title) {
   const items = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
   const isTty = process.stdin.isTTY && process.stdout.isTTY;
+  const withSentinels = hasAllNoneSentinels(items);
+  const realValues = getRealValues(items);
 
   if (!isTty) {
-    console.log('\n' + (title || 'Choose (space to toggle, enter when done') + ':');
+    console.log('\n' + (title || 'Choose (space to toggle, enter when done)') + ':');
     items.forEach((item, i) => console.log('  ' + (i + 1) + '. ' + (item.label || item.value)));
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
     return new Promise((resolve) => {
@@ -168,7 +183,15 @@ function multiSelectMenu(options, title) {
         rl.close();
         const s = (answer || '').trim().toLowerCase();
         if (s === 'all' || s === 'a') {
-          resolve(items.map((i) => i.value));
+          resolve(realValues);
+          return;
+        }
+        if (withSentinels && s === '1') {
+          resolve(realValues);
+          return;
+        }
+        if (withSentinels && (s === '2' || s === 'none' || s === 'n')) {
+          resolve([]);
           return;
         }
         const parts = s.split(/[\s,]+/).filter(Boolean);
@@ -177,7 +200,19 @@ function multiSelectMenu(options, title) {
           const n = parseInt(p, 10);
           if (n >= 1 && n <= items.length) indices.add(n - 1);
         }
-        resolve(Array.from(indices).sort((a, b) => a - b).map((i) => items[i].value));
+        if (withSentinels && indices.has(0)) {
+          resolve(realValues);
+          return;
+        }
+        if (withSentinels && indices.has(1)) {
+          resolve([]);
+          return;
+        }
+        const result = Array.from(indices)
+          .sort((a, b) => a - b)
+          .filter((i) => !withSentinels || (i !== 0 && i !== 1))
+          .map((i) => items[i].value);
+        resolve(result);
       });
     });
   }
@@ -186,11 +221,30 @@ function multiSelectMenu(options, title) {
     let index = 0;
     const selected = new Set();
     const lineCount = (title ? 1 : 0) + items.length + 1;
+    const realStart = withSentinels ? 2 : 0;
+
+    const finish = () => {
+      if (withSentinels && index === 0) {
+        resolve(realValues);
+        return;
+      }
+      if (withSentinels && index === 1) {
+        resolve([]);
+        return;
+      }
+      resolve(
+        Array.from(selected)
+          .filter((i) => i >= realStart)
+          .sort((a, b) => a - b)
+          .map((i) => items[i].value)
+      );
+    };
 
     const render = (first) => {
       const lines = (title ? [title] : []).concat(
         items.map((item, i) => {
-          const circle = selected.has(i) ? CIRCLE_FILLED : CIRCLE_EMPTY;
+          const isAction = withSentinels && (i === 0 || i === 1);
+          const circle = isAction ? CIRCLE_EMPTY : selected.has(i) ? CIRCLE_FILLED : CIRCLE_EMPTY;
           const prefix = i === index ? C.cyan + '>' + C.reset + ' ' : '  ';
           return prefix + circle + formatLabel(item);
         })
@@ -222,25 +276,36 @@ function multiSelectMenu(options, title) {
         process.stdin.removeListener('data', onData);
         process.stdin.pause();
         process.stdout.write('\n');
-        resolve(Array.from(selected).sort((a, b) => a - b).map((i) => items[i].value));
+        if (withSentinels && (index === 0 || index === 1)) {
+          if (index === 0) resolve(realValues);
+          else resolve([]);
+        } else {
+          finish();
+        }
         return;
       }
       if (ch === ' ') {
         buf = '';
-        if (selected.has(index)) selected.delete(index);
-        else selected.add(index);
+        if (withSentinels && index === 0) {
+          for (let i = realStart; i < items.length; i++) selected.add(i);
+        } else if (withSentinels && index === 1) {
+          for (let i = realStart; i < items.length; i++) selected.delete(i);
+        } else {
+          if (selected.has(index)) selected.delete(index);
+          else selected.add(index);
+        }
         render(false);
         return;
       }
       if (ch === 'a' || ch === 'A') {
         buf = '';
-        for (let i = 0; i < items.length; i++) selected.add(i);
+        for (let i = realStart; i < items.length; i++) selected.add(i);
         render(false);
         return;
       }
       if (ch === 'n' || ch === 'N') {
         buf = '';
-        selected.clear();
+        for (let i = realStart; i < items.length; i++) selected.delete(i);
         render(false);
         return;
       }
@@ -533,8 +598,12 @@ async function runAddToExisting() {
   const framework = await selectMenu(frameworkOptions, frameworkPrompt);
 
   const selectedThemes = await multiSelectMenu(
-    THEMES.map((t) => ({ value: t, label: t })),
-    '? Themes (Space to toggle, Enter to confirm) — we\'ll suggest the first as default data-theme'
+    [
+      { value: SENTINEL_ALL, label: 'Select all themes' },
+      { value: SENTINEL_NONE, label: 'Select no themes' },
+      ...THEMES.map((t) => ({ value: t, label: t })),
+    ],
+    '? Themes — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
   );
   const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
   const suggestedTheme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
@@ -552,8 +621,12 @@ async function runAddToExisting() {
     );
     if (includeChoice === 'pick') {
       selectedComponents = await multiSelectMenu(
-        componentList.map((c) => ({ value: c, label: c })),
-        '? Components (Space to toggle, Enter to confirm)'
+        [
+          { value: SENTINEL_ALL, label: 'Select all components' },
+          { value: SENTINEL_NONE, label: 'Select no components' },
+          ...componentList.map((c) => ({ value: c, label: c })),
+        ],
+        '? Components — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
       );
     }
   }
@@ -635,8 +708,12 @@ async function cmdInit() {
   );
 
   const selectedThemes = await multiSelectMenu(
-    THEMES.map((t) => ({ value: t, label: t })),
-    '? Themes (Space to toggle, Enter to confirm)'
+    [
+      { value: SENTINEL_ALL, label: 'Select all themes' },
+      { value: SENTINEL_NONE, label: 'Select no themes' },
+      ...THEMES.map((t) => ({ value: t, label: t })),
+    ],
+    '? Themes — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
   );
   const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
   const theme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
@@ -654,8 +731,12 @@ async function cmdInit() {
     );
     if (includeChoice === 'pick') {
       selectedComponents = await multiSelectMenu(
-        componentList.map((c) => ({ value: c, label: c })),
-        '? Components (Space to toggle, Enter to confirm)'
+        [
+          { value: SENTINEL_ALL, label: 'Select all components' },
+          { value: SENTINEL_NONE, label: 'Select no components' },
+          ...componentList.map((c) => ({ value: c, label: c })),
+        ],
+        '? Components — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
       );
     }
   }

@@ -24,7 +24,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
 - 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages (Astro reference + Svelte examples)
-- 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red in the terminal). Framework switcher on docs (View as: Astro | Svelte); Svelte docs at /docs/svelte
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte); Svelte docs at /docs/svelte
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints

@@ -2,13 +2,21 @@
 
 This guide will help you get started with Rizzo CSS. The documentation site is available at **[rizzo-css.vercel.app](https://rizzo-css.vercel.app)**.
 
+## Features
+
+- **Using Rizzo in your project** — Install from npm (recommended), clone + build, or use a CDN; import the CSS once; use Astro or Svelte components. React/Vue: same CSS; build your own wrappers; planned for later. See [Using Rizzo in your project](#using-rizzo-in-your-project) below.
+- **CLI** — `npx rizzo-css init` | `add` | `theme` (same package). See [CLI Planning](./CLI_PLANNING.md).
+- **NPM** — [rizzo-css](https://www.npmjs.com/package/rizzo-css) published; docs and README link to it.
+- **CDN** — unpkg and jsDelivr via package.json: `https://unpkg.com/rizzo-css@latest` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest` for plain HTML.
+- **Svelte** — `/docs/svelte` with 24 component pages (19 full examples; Icons, Navbar, Search, Settings, Theme Switcher use Astro reference). React/Vue when added.
+
 ---
 
 ## CLI at a glance
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | **First question:** Add to existing project (current directory) or create new? **Existing:** framework (with auto-detect), themes, optional components → copies CSS (+ components) into cwd. **New:** project location → framework (Vanilla JS / Astro / Svelte) → themes → components → scaffolds full project (default Astro/Svelte app or Vanilla example). |
+| `npx rizzo-css init` | **First question:** Add to existing project (current directory) or create new? **Existing:** framework (with auto-detect), themes, optional components → copies CSS (+ components) into cwd. **New:** project location → framework (Vanilla JS / Astro / Svelte) → themes → components → scaffolds full project (default Astro/Svelte app or Vanilla example). **Themes and components:** first two options are "Select all" and "Select none"; you can also pick individuals (Space to toggle, Enter to confirm). |
 | `npx rizzo-css add` | Add Rizzo CSS to the current directory only. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
@@ -28,7 +36,7 @@ Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are i
 npx rizzo-css init
 ```
 
-**First question:** Add to existing project (current directory) or create new? **If existing:** choose framework (auto-detected when possible), themes, and (Astro/Svelte) optional components; CSS and components are copied into the current folder. **If new:** project location → **framework** (Vanilla JS / Astro / Svelte), themes, and (Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** example `index.html` with theme switcher and samples. **Astro / Svelte:** default app scaffold (package.json, config, layout, index page) plus optional 24 components. To add only the CSS to an existing project without menus:
+**First question:** Add to existing project (current directory) or create new? **If existing:** choose framework (auto-detected when possible), themes, and (Astro/Svelte) optional components; CSS and components are copied into the current folder. **If new:** project location → **framework** (Vanilla JS / Astro / Svelte), themes, and (Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** example `index.html` with theme (System option), Settings panel, toast, and samples. **Astro / Svelte:** default app scaffold (package.json, config, layout with theme flash + toast, index page) plus optional 24 components. To add only the CSS to an existing project without menus:
 
 ```bash
 npx rizzo-css add
@@ -70,12 +78,13 @@ Import the CSS **once** in your app (root layout or main entry):
 
 ### Step 3: Use components (Vanilla JS)
 
-- **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** to get an example `index.html` with a theme switcher and sample components (buttons, card, badge).
+- **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** to get an example `index.html` with full functionality: **theme flash prevention** (persisted theme, font size, reduce motion, high contrast, scrollbar), **Settings panel** (theme with System option, font size, accessibility toggles; open via `window.openSettings()`), **toast** (`showToast(message, options)`, `removeToast(id)`, `removeAllToasts()`), and sample components (buttons, card, badge). Theme is stored in `localStorage` under key `theme`; use value `system` for OS light/dark.
 - **Class names and structure:** Use the same BEM classes and HTML structure as in the [Components documentation](/docs/components) (e.g. `btn`, `btn--primary`, `card`, `card__body`). Interactive components (Modal, Dropdown, Tabs, Search) need a small amount of JS; copy patterns from the Astro/Svelte components or the docs.
 
 ### Step 4: Use components (Astro)
 
 - **Reference implementation:** This repo is an Astro app. Use the Astro components from `src/components/` directly if your project is Astro, or copy the markup and class names from the component source or the [component docs](/docs/components).
+- **Scaffold:** The Astro scaffold layout includes **theme flash prevention** (persisted theme, font size, accessibility) and **toast** (`showToast`, `removeToast`, `removeAllToasts`). Add Navbar and Settings from this repo for full parity with the docs site.
 - **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn--primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components). Interactive components require a small amount of JS; copy the patterns from the Astro components or the docs.
 
 ### Step 5: Use components (Svelte)
@@ -84,8 +93,9 @@ Import the CSS **once** in your app (root layout or main entry):
   ```js
   import { Button, Badge, Card, Modal, Tabs, /* ... */ } from '$lib/rizzo';
   ```
+- **Scaffold:** The Svelte scaffold `app.html` includes **theme flash prevention** and **toast** (`showToast`, `removeToast`, `removeAllToasts`). Add a layout with Settings/Navbar from this repo for full parity.
 - **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 24 component pages. Use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page to switch views.
-- **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
+- **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Persist with `localStorage` key `theme`; use `system` for OS preference. Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
 ### React and Vue (planned)
 
@@ -106,16 +116,18 @@ The repo provides small JS utilities used by the Astro/Svelte components; you ca
 | **Theme** (`src/utils/theme.ts`) | `applyTheme(value)`, `getStoredTheme()`, `getCurrentTheme()`, `resolveSystemTheme()`, `getThemeLabel(value)`, `getThemeInfo(value)`, and constants `THEME_SYSTEM`, `DEFAULT_THEME_DARK`, `DEFAULT_THEME_LIGHT`. Dispatches `rizzo-theme-change` when the theme changes. |
 | **Storage** (`src/utils/storage.ts`) | SSR-safe `getItem(key, default?)`, `setItem(key, value)`, `removeItem(key)` (wraps `localStorage` with try/catch). |
 | **Clipboard** (`src/utils/clipboard.ts`) | `copyToClipboard(text): Promise<boolean>` (Clipboard API with fallback). |
-| **Toast** (`src/utils/toast.ts`) | `showToast(message, options?)`, `hideToast(id)`, and `ToastOptions` for programmatic toasts. |
+| **Toast** (`src/utils/toast.ts`) | `showToast(message, options?)`, `removeToast(id)`, `removeAllToasts()`, and `ToastOptions` for programmatic toasts. |
 
 Import from `src/utils` (barrel) or from the specific file, e.g. `import { applyTheme, getThemeLabel } from '../utils/theme'` in Astro, or from your copied `utils` folder in a Svelte app.
+
+**Scaffolds:** The **Vanilla** scaffold ships with inline theme flash, toast, and a full Settings panel (`openSettings()`). The **Astro** and **Svelte** scaffold layouts include theme flash and toast scripts so `showToast`, `removeToast`, and `removeAllToasts` are available globally; add Navbar and Settings from this repo for the full experience.
 
 ### Summary
 
 | You're using | Get CSS | Use components |
 |--------------|---------|-----------------|
 | **Any**      | `npx rizzo-css init` (scaffold) or `npx rizzo-css add` (CSS only), or `pnpm add rizzo-css` + `import 'rizzo-css'` | Same BEM classes and markup for all; see [Components](/docs/components). |
-| **Vanilla JS** | Same | Run `npx rizzo-css init` and choose Vanilla JS — same CSS and component styles; example page includes theme switcher. Use class names and HTML from the [component docs](/docs/components). |
+| **Vanilla JS** | Same | Run `npx rizzo-css init` and choose Vanilla JS — same CSS and component styles; example includes theme (with System), Settings panel, toast, and samples. Use class names and HTML from the [component docs](/docs/components). |
 | **Astro**    | Same | Run `npx rizzo-css init` and choose Astro + components, or copy from this repo. [Docs](/docs/components). |
 | **Svelte**   | Same | Run `npx rizzo-css init` and choose Svelte + components, or copy `src/components/svelte/` from this repo. [Docs](/docs/svelte). |
 | **React / Vue** | Same: install and import CSS | Same BEM and markup; build your own wrappers. React/Vue components planned later. |
@@ -260,7 +272,7 @@ rizzo-css/
 │       ├── bin/
 │       │   └── rizzo-css.js   # CLI: init, add, theme
 │       └── scaffold/          # CLI scaffolds
-│           ├── vanilla/      # Vanilla JS example (index.html with theme switcher + samples)
+│           ├── vanilla/      # Vanilla JS example (theme flash, Settings panel, toast, theme with System, samples)
 │           ├── astro-app/    # Default Astro project (package.json, config, layout, pages)
 │           ├── svelte-app/   # Default SvelteKit project (package.json, config, app.html, routes)
 │           ├── astro/        # Astro components + icons (from copy-scaffold.js on prepublish)
@@ -307,6 +319,6 @@ See [Colors](./COLORS.md) and the [Colors documentation page](/docs/colors) for 
 
 ## CSS Architecture (this repo)
 
-CSS is organized into logical files (`variables.css`, `reset.css`, `base.css`, `typography.css`, `components.css`, `themes/`, etc.). All styles use semantic theme variables and BEM; there are no inline styles. PostCSS handles imports and vendor prefixes; the `build:css` script minifies for production and outputs to both `public/css/main.min.css` (docs site) and `packages/rizzo-css/dist/rizzo.min.css` (npm package).
+CSS is organized into logical files (`variables.css`, `reset.css`, `base.css`, `typography.css`, `components.css`, `themes/`, etc.). The reset leaves body with no margin or padding so content is flush to the viewport by default; use the `.container` class (or layout utilities) when you want spacing. All styles use semantic theme variables and BEM; there are no inline styles. PostCSS handles imports and vendor prefixes; the `build:css` script minifies for production and outputs to both `public/css/main.min.css` (docs site) and `packages/rizzo-css/dist/rizzo.min.css` (npm package).
 
 See [Design System](./DESIGN_SYSTEM.md) for the full variable reference, file list, and utility classes.

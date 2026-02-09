@@ -2,6 +2,10 @@
 
 Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** — all hardcoded values have been replaced with CSS variables and utility classes. The same CSS and component styles ship for **Vanilla JS**, **Astro**, and **Svelte**; porting to other frameworks (Vue, React) requires only JS and the same BEM markup. For the small JS utilities used by interactive components (theme, storage, clipboard, toast), see [Getting Started – JavaScript utilities](./GETTING_STARTED.md#javascript-utilities).
 
+## Features
+
+- **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, and layout limits (e.g. `--max-height-navbar-submenu`) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
+
 ## Semantic Variables
 
 All components use semantic variables that automatically adapt to themes:

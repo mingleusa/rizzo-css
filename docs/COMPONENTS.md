@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-- **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example page with theme switcher and samples, or copy markup from the [component docs](/docs/components).
+- **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples, or copy markup from the [component docs](/docs/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro + components to copy into your project.
 - **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page. Use `npx rizzo-css init` and choose Svelte + components to copy into your project.
 
@@ -46,7 +46,7 @@ All of the following components are implemented with dedicated documentation pag
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
 **Theme & settings:** Theme Switcher, Settings  
-**Search:** Search (with Algolia integration)  
+**Search:** Search (with Algolia integration). **Search modal UX:** Bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
 (24 component doc pages in total.)

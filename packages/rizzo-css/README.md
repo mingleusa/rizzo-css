@@ -41,7 +41,7 @@ import 'rizzo-css';
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/rizzo-css@latest" />
 ```
 
-Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files for convenience.
+Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files for convenience. The **Vanilla** scaffold includes a full Settings panel and toast; **Astro** and **Svelte** scaffold layouts include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
 
 ## Themes
 
