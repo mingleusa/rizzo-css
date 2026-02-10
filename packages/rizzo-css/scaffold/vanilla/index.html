@@ -13,7 +13,8 @@
         var defaultLight = 'github-light';
         var resolvedTheme;
         if (!savedTheme) {
-          resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
+          var initialTheme = document.documentElement.getAttribute('data-theme');
+          resolvedTheme = initialTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight);
         } else if (savedTheme === 'system') {
           resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
         } else {

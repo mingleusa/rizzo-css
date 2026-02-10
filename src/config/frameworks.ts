@@ -15,6 +15,7 @@ export interface Framework {
 export const FRAMEWORKS: Framework[] = [
   { id: 'astro', label: 'Astro', pathPrefix: '/docs' },
   { id: 'svelte', label: 'Svelte', pathPrefix: '/docs/svelte' },
+  { id: 'vanilla', label: 'Vanilla', pathPrefix: '/docs/vanilla' },
   // { id: 'react', label: 'React', pathPrefix: '/docs/react' },
   // { id: 'vue', label: 'Vue', pathPrefix: '/docs/vue' },
 ];
@@ -49,14 +50,10 @@ export function getFrameworkFromPath(pathname: string): {
 }
 
 /**
- * True when this path should show the framework switcher (components, themes, or framework root).
+ * True when this path should show the framework switcher.
+ * Only component pages are framework-specific; docs and themes are general.
  */
 export function shouldShowFrameworkSwitcher(pathname: string): boolean {
   const { canonicalPath } = getFrameworkFromPath(pathname);
-  return (
-    canonicalPath.startsWith('/components') ||
-    canonicalPath.startsWith('/themes') ||
-    canonicalPath === '/' ||
-    canonicalPath === ''
-  );
+  return canonicalPath.startsWith('/components');
 }

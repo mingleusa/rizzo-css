@@ -1,6 +1,5 @@
 <script lang="ts">
   import Index from './pages/Index.svelte';
-  import Theming from './pages/Theming.svelte';
   import ComponentsOverview from './pages/ComponentsOverview.svelte';
   import ComingSoon from './pages/ComingSoon.svelte';
   import ButtonDoc from './pages/ButtonDoc.svelte';
@@ -40,8 +39,6 @@
 
 {#if path.length === 0 || (path.length === 1 && first === '')}
   <Index />
-{:else if first === 'theming'}
-  <Theming />
 {:else if first === 'components' && !second}
   <ComponentsOverview />
 {:else if first === 'components' && second === 'button'}

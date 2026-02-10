@@ -1,6 +1,6 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm build:css && node scripts/copy-scaffold.js"
   },

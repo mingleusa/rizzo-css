@@ -33,12 +33,13 @@ interface Props {
 
 const { siteName = 'Rizzo CSS', logo } = Astro.props;
 
-// Get current URL pathname and framework so doc links stay in the same framework
+// Get current URL pathname and framework for component links only
 const currentPath = Astro.url.pathname;
 const { framework } = getFrameworkFromPath(currentPath);
 const docsPrefix = framework.pathPrefix;
 
-function docHref(path: string): string {
+/** Use only for component routes; docs and themes are general (no framework prefix). */
+function componentHref(path: string): string {
   if (!path.startsWith('/docs')) return path;
   return docsPrefix + path.slice('/docs'.length) || docsPrefix || '/';
 }
@@ -82,60 +83,60 @@ const themeIconMap: Record<ThemeIconKey, typeof Owl> = {
 const navLinks: NavLink[] = [
   { href: '/', label: 'Home' },
   {
-    href: docHref('/docs/getting-started'),
+    href: '/docs/getting-started',
     label: 'Docs',
     subLinks: [
-      { href: docHref('/docs/getting-started'), label: 'Getting Started' },
-      { href: docHref('/docs/design-system'), label: 'Design System' },
-      { href: docHref('/docs/accessibility'), label: 'Accessibility' },
-      { href: docHref('/docs/colors'), label: 'Colors' },
+      { href: '/docs/getting-started', label: 'Getting Started' },
+      { href: '/docs/design-system', label: 'Design System' },
+      { href: '/docs/accessibility', label: 'Accessibility' },
+      { href: '/docs/colors', label: 'Colors' },
     ],
   },
   {
-    href: docHref('/docs/components'),
+    href: componentHref('/docs/components'),
     label: 'Components',
     componentsMenu: {
-      overview: { href: docHref('/docs/components'), label: 'Overview' },
+      overview: { href: componentHref('/docs/components'), label: 'Overview' },
       links: [
-        { href: docHref('/docs/components/accordion'), label: 'Accordion' },
-        { href: docHref('/docs/components/alert'), label: 'Alert' },
-        { href: docHref('/docs/components/avatar'), label: 'Avatar' },
-        { href: docHref('/docs/components/badge'), label: 'Badge' },
-        { href: docHref('/docs/components/breadcrumb'), label: 'Breadcrumb' },
-        { href: docHref('/docs/components/button'), label: 'Button' },
-        { href: docHref('/docs/components/cards'), label: 'Cards' },
-        { href: docHref('/docs/components/copy-to-clipboard'), label: 'CopyToClipboard' },
-        { href: docHref('/docs/components/divider'), label: 'Divider' },
-        { href: docHref('/docs/components/dropdown'), label: 'Dropdown' },
-        { href: docHref('/docs/components/forms'), label: 'Forms' },
-        { href: docHref('/docs/components/icons'), label: 'Icons' },
-        { href: docHref('/docs/components/modal'), label: 'Modal' },
-        { href: docHref('/docs/components/navbar'), label: 'Navbar' },
-        { href: docHref('/docs/components/pagination'), label: 'Pagination' },
-        { href: docHref('/docs/components/progress-bar'), label: 'Progress Bar' },
-        { href: docHref('/docs/components/search'), label: 'Search' },
-        { href: docHref('/docs/components/settings'), label: 'Settings' },
-        { href: docHref('/docs/components/spinner'), label: 'Spinner' },
-        { href: docHref('/docs/components/table'), label: 'Table' },
-        { href: docHref('/docs/components/tabs'), label: 'Tabs' },
-        { href: docHref('/docs/components/theme-switcher'), label: 'Theme Switcher' },
-        { href: docHref('/docs/components/toast'), label: 'Toast' },
-        { href: docHref('/docs/components/tooltip'), label: 'Tooltip' },
+        { href: componentHref('/docs/components/accordion'), label: 'Accordion' },
+        { href: componentHref('/docs/components/alert'), label: 'Alert' },
+        { href: componentHref('/docs/components/avatar'), label: 'Avatar' },
+        { href: componentHref('/docs/components/badge'), label: 'Badge' },
+        { href: componentHref('/docs/components/breadcrumb'), label: 'Breadcrumb' },
+        { href: componentHref('/docs/components/button'), label: 'Button' },
+        { href: componentHref('/docs/components/cards'), label: 'Cards' },
+        { href: componentHref('/docs/components/copy-to-clipboard'), label: 'CopyToClipboard' },
+        { href: componentHref('/docs/components/divider'), label: 'Divider' },
+        { href: componentHref('/docs/components/dropdown'), label: 'Dropdown' },
+        { href: componentHref('/docs/components/forms'), label: 'Forms' },
+        { href: componentHref('/docs/components/icons'), label: 'Icons' },
+        { href: componentHref('/docs/components/modal'), label: 'Modal' },
+        { href: componentHref('/docs/components/navbar'), label: 'Navbar' },
+        { href: componentHref('/docs/components/pagination'), label: 'Pagination' },
+        { href: componentHref('/docs/components/progress-bar'), label: 'Progress Bar' },
+        { href: componentHref('/docs/components/search'), label: 'Search' },
+        { href: componentHref('/docs/components/settings'), label: 'Settings' },
+        { href: componentHref('/docs/components/spinner'), label: 'Spinner' },
+        { href: componentHref('/docs/components/table'), label: 'Table' },
+        { href: componentHref('/docs/components/tabs'), label: 'Tabs' },
+        { href: componentHref('/docs/components/theme-switcher'), label: 'Theme Switcher' },
+        { href: componentHref('/docs/components/toast'), label: 'Toast' },
+        { href: componentHref('/docs/components/tooltip'), label: 'Tooltip' },
       ],
     },
   },
   {
-    href: docHref('/docs/theming'),
+    href: '/docs/theming',
     label: 'Themes',
     themesMenu: {
-      overview: { href: docHref('/docs/theming'), label: 'Overview' },
+      overview: { href: '/docs/theming', label: 'Overview' },
       dark: THEMES_DARK.map((t) => ({
-        href: docHref(`/docs/themes/${t.value}`),
+        href: `/docs/themes/${t.value}`,
         label: t.label,
         icon: themeIconMap[t.iconKey],
       })),
       light: THEMES_LIGHT.map((t) => ({
-        href: docHref(`/docs/themes/${t.value}`),
+        href: `/docs/themes/${t.value}`,
         label: t.label,
         icon: themeIconMap[t.iconKey],
       })),

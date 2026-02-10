@@ -1,14 +1,15 @@
 # Colors
 
-Rizzo CSS uses a semantic color system with CSS custom properties that adapt to the selected theme. All colors are available in multiple formats for easy copying and use.
+Rizzo CSS uses a semantic color system with CSS custom properties that adapt to the selected theme. All colors are available in multiple formats for easy copying and use. The color reference supports **all 14 themes** (7 dark, 7 light).
 
 ## Color Reference Page
 
-Visit the [Colors Documentation Page](/docs/colors) for an interactive color reference with:
-- **Live color swatches** for all semantic variables
-- **Multiple format options**: OKLCH, Hex, RGB, HSL, and CSS Variable
-- **Copy-to-clipboard functionality** for each color value
-- **Theme switching** to see how colors adapt across themes
+Visit the [Colors Documentation Page](/docs/colors) on the docs site for an interactive color reference with:
+- **Live color swatches** for all semantic variables (Core, Accent, Semantic)
+- **All 14 themes** — OKLCH and other formats update when you switch themes
+- **Multiple format options**: OKLCH, Hex, RGB, HSL, and CSS Variable (tabbed)
+- **Copy-to-clipboard** for each color value in the selected format
+- **Theme switcher** so you can see how colors adapt across themes
 
 ## Semantic Color Variables
 
@@ -122,11 +123,11 @@ These variables ensure WCAG AA contrast compliance (4.5:1 for normal text, 3:1 f
 ## Theme Adaptation
 
 Colors automatically adapt when themes change:
-- Switch themes using the theme switcher
-- Color values update to reflect the active theme
-- All format conversions recalculate based on the new theme
-- Copy-to-clipboard values update automatically
+- Switch themes using the theme switcher on the Colors page (or the site navbar)
+- Color values update to reflect the active theme (all 14 themes supported)
+- All format conversions (OKLCH, Hex, RGB, HSL) recalculate based on the new theme
+- Copy-to-clipboard values update automatically for the selected format
 
 ## Color Reference
 
-For a complete interactive reference with all colors in all formats, visit the [Colors Documentation Page](/docs/colors).
+For a complete interactive reference with all colors in all formats and all 14 themes, visit the [Colors Documentation Page](/docs/colors) on the docs site.

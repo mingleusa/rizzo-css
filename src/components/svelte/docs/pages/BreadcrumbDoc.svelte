@@ -20,7 +20,7 @@
       />
       <Breadcrumb
         items={[
-          { label: 'Home', href: '#' },
+          { label: 'Home', href: '/' },
           { label: 'Current' },
         ]}
         separator="slash"

@@ -23,17 +23,16 @@ import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 <ThemeSwitcher />`} language="astro" />
 		
 		<h3>Features</h3>
-		<p>The theme switcher automatically:</p>
+		<p>The theme switcher:</p>
 		<ul>
-			<li><strong>System option</strong> – Under “Preference”, choose <strong>System</strong> to follow your OS light/dark setting; the theme updates when you change the OS preference.</li>
-			<li>Groups themes by Preference (System), Dark, and Light</li>
-			<li>Shows active theme name and icon in the trigger button</li>
-			<li>When System is selected, both System and the currently applied theme (e.g. Dracula At Night) show the active background</li>
-			<li>Active option has a theme-colored background and a left accent bar so the selection is always visible</li>
-			<li>Each theme has its own icon</li>
-			<li>Persists selection in localStorage (<code>theme</code>: theme id or <code>system</code>)</li>
-			<li>First visit uses OS preference (no saved theme) to pick a default dark or light theme</li>
-			<li>Supports full keyboard navigation</li>
+			<li><strong>Preference (System)</strong> – Choose System to follow OS light/dark; theme updates when you change the OS preference.</li>
+			<li><strong>Preview panel</strong> – Always visible when the menu is open (on viewports &gt;480px). Shows a fixed “Preview” label; the theme name, swatch, and accent bar show the <strong>current</strong> theme by default and the <strong>hovered</strong> theme on hover/focus. Full-height divider between list and preview. Hidden on small viewports.</li>
+			<li>Groups themes by Preference, Dark, and Light; each theme has a unique icon.</li>
+			<li>Shows active theme name and icon in the trigger button.</li>
+			<li>When System is selected, both System and the applied theme show the active background and accent bar.</li>
+			<li>Persists selection in <code>localStorage</code> (key <code>theme</code>: theme id or <code>system</code>).</li>
+			<li>First visit uses initial <code>data-theme</code> or OS preference.</li>
+			<li>Full keyboard navigation (see below).</li>
 		</ul>
 		
 		<h3>Keyboard Navigation</h3>
@@ -48,5 +47,18 @@ import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 			<li><code>Escape</code> - Close menu</li>
 			<li><code>Tab</code> - Close menu and continue tabbing</li>
 		</ul>
+
+		<h3>Building your own theme switcher</h3>
+		<p>All 14 themes are included in the Rizzo CSS bundle. Switching themes is done by setting <code>data-theme</code> on <code>&lt;html&gt;</code> and persisting the choice in <code>localStorage</code> (key <code>theme</code>). You can use the ThemeSwitcher component above, or build a custom UI with the same behavior.</p>
+		<p><strong>Theme utilities</strong> (see <a href="/docs/getting-started#javascript-utilities">Getting Started – JavaScript utilities</a>):</p>
+		<ul>
+			<li><code>applyTheme(value)</code> – Sets <code>data-theme</code> and saves to <code>localStorage</code>. Use a theme id (e.g. <code>github-dark-classic</code>) or <code>system</code> to follow OS light/dark. Dispatches <code>rizzo-theme-change</code>.</li>
+			<li><code>getThemeLabel(value)</code> / <code>getThemeInfo(value)</code> – Display names for theme ids and for <code>system</code>.</li>
+			<li><code>getStoredTheme()</code> – Current stored value (<code>theme</code> id or <code>system</code>).</li>
+			<li><code>resolveSystemTheme()</code> – Resolves OS preference to a concrete theme id (dark → GitHub Dark Classic, light → GitHub Light).</li>
+			<li>Constants: <code>THEME_SYSTEM</code>, <code>DEFAULT_THEME_DARK</code>, <code>DEFAULT_THEME_LIGHT</code>.</li>
+		</ul>
+		<p><strong>Theme IDs:</strong> Run <code>npx rizzo-css theme</code> to list all 14 ids, or see <a href="/docs/theming#available-themes">Theming – Available themes</a>. To sync a custom UI when the theme changes elsewhere, listen for the <code>rizzo-theme-change</code> event.</p>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/theme-switcher">Svelte</a> · Vanilla: use theme utilities (<code>applyTheme</code>, <code>getThemeLabel</code>) or same HTML/BEM; see <a href="/docs/theming#building-your-own-theme-switcher">Building your own theme switcher</a>.</p>
 	</section>
 </DocsLayout>

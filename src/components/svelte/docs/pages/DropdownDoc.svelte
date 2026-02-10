@@ -23,7 +23,7 @@
 
   <h3>Live example</h3>
   <div class="example">
-    <div class="example-title">Dropdown</div>
+    <h4 class="example-title">Dropdown</h4>
     <Dropdown trigger="Menu" {items} />
   </div>
 

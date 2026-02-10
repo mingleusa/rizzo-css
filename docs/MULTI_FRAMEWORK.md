@@ -20,7 +20,7 @@ Svelte is integrated into **this same Astro project**; React/Vue can follow the 
 **Implemented:**
 1. **Framework** — `@astrojs/svelte` added; Astro renders Svelte components.
 2. **Svelte components** — `src/components/svelte/` with 24 components (Button, Badge, Card, Divider, Spinner, ProgressBar, Avatar, Alert, Breadcrumb, Forms, CopyToClipboard, Tooltip, Pagination, Tabs, Accordion, Dropdown, Modal, Toast, Table, etc.) using the same BEM classes as Astro.
-3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference and same CSS).
+3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference and same CSS). **Documentation and examples for every framework:** each component has an Astro page (live demos + usage), a Svelte page (examples or Astro link), and Vanilla uses the same HTML and BEM from the Astro Usage sections (see [Components – Documentation by framework](./COMPONENTS.md#documentation-and-examples-by-framework)).
 4. **Framework switcher** — “View as: Astro | Svelte” (segmented control with framework icons) on component/theme doc pages; links to the same path under each framework. Config in `src/config/frameworks.ts`.
 5. **Scaffold JS parity** — All three scaffolds (Vanilla, Astro, Svelte) include theme flash prevention and global toast (`showToast`, `removeToast`, `removeAllToasts`). Vanilla scaffold also includes a full Settings panel and `openSettings()`; Astro/Svelte layouts include the scripts; add Navbar and Settings from the repo for full parity.
 

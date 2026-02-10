@@ -1,5 +1,14 @@
 /* Layout Styles - Using semantic theme variables */
 
+/* Main content container: same width and padding as navbar for alignment */
+.layout__container {
+  max-width: var(--container-default);
+  margin: 0 auto;
+  padding: 0 var(--spacing-4);
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .container {
   max-width: var(--container-default);
   margin: 0 auto;

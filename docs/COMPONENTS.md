@@ -13,7 +13,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
 - [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme switcher with System option (follows OS light/dark), Preference + Dark/Light groups, unique icon per theme, and active state styling
+- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
@@ -62,6 +62,18 @@ All components in Rizzo CSS share these core features:
 - **Theme-Aware** - Automatically adapt to all 14 available themes
 - **WCAG AA Compliant** - Proper contrast ratios and accessible color combinations
 - **Multi-framework** - Same BEM classes and CSS; Svelte component examples at /docs/svelte (see [Framework Structure](./FRAMEWORK_STRUCTURE.md))
+
+## Documentation and examples by framework
+
+Every component has documentation and examples for **Astro**, **Svelte**, and **Vanilla** (HTML + same BEM):
+
+| Framework | Where to find it | What you get |
+|-----------|------------------|--------------|
+| **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage, live demos, props, and "Using classes" HTML snippets. |
+| **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples, or a link to the Astro doc with same BEM markup for layout components (Navbar, Search, Settings, Theme Switcher, Icons). |
+| **Vanilla** | Same as Astro doc | Use the same HTML and BEM classes from the Astro page ("Using classes" or raw markup in Usage). For interactive components (Modal, Dropdown, Tabs, etc.), add minimal JS (copy from Astro component source or the doc). |
+
+Use the **framework switcher** ("View as: Astro | Svelte") at the top of any component or theme page to switch between Astro and Svelte docs. Vanilla always uses the same markup as shown in the Astro Usage section.
 
 ## Accordion
 
@@ -459,16 +471,17 @@ See [Settings Documentation](/docs/components/settings) for complete details.
 
 ## Theme Switcher
 
-An accessible dropdown menu for switching between themes, integrated into the Settings component.
+An accessible dropdown for switching themes, used in the Settings panel and standalone on doc pages. All 14 themes are in the CSS; the switcher sets `data-theme` on `<html>` and persists the choice in `localStorage`. The preview panel (when the menu is open, on viewports >480px) shows the current theme by default and the hovered theme on hover; only the word “Preview” is fixed. To build your own switcher, use the theme utilities (`applyTheme`, `getThemeLabel`, etc.) and see [Theme Switcher](/docs/components/theme-switcher) and [Theming – Building your own theme switcher](/docs/theming#building-your-own-theme-switcher).
 
 ### Features
 
-- Groups themes by **Dark themes** and **Light themes** (section labels; on mobile, bold labels with underlines); each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush)
-- **Larger dropdown** - Trigger, menu, and options use increased padding and font size for better readability
-- Active theme displays name and icon in trigger button
-- Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End)
-- Accessible ARIA menu pattern
-- Persists selection in localStorage
+- **Preference + Dark/Light groups** — Preference (System), Dark themes, and Light themes with section labels; on mobile, bold labels with underlines. Each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush).
+- **Preview panel** — Always visible when the menu is open (viewports >480px). Fixed **Preview** label; theme name, swatch, and accent bar show the **current** theme by default and the **hovered** theme on hover/focus. Full-height vertical divider between list and preview. Hidden on viewports ≤480px.
+- **Wider dropdown** — On doc pages (not in Settings), trigger and menu use a larger min-width; in Settings, full width for trigger and menu.
+- Active theme displays name and icon in trigger button.
+- Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End).
+- Accessible ARIA menu pattern.
+- Persists selection in localStorage.
 
 ## Button Component
 

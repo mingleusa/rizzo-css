@@ -104,7 +104,7 @@ Visit individual theme pages for detailed information:
 - **System preference** — “System” option in ThemeSwitcher follows OS light/dark (`prefers-color-scheme`). Default dark: `github-dark-classic`; default light: `github-light`. Theme updates when OS preference changes while System is selected.
 - **High contrast** — Provided by the Settings “High contrast” toggle (`.high-contrast` in `accessibility.css`), not by separate theme variants. Works with any of the 14 themes.
 - **Theme transition animations** — When switching themes, `html` and `body` animate `color`, `background-color`, and `border-color` over `--theme-transition-duration` (default 0.2s, ease-out). Set to 0s when `prefers-reduced-motion: reduce` or when the Settings “Reduce motion” toggle is on.
-- **Theme preview in switcher** — Hover or focus a theme option in the ThemeSwitcher menu to see a preview panel with the theme name, background swatch, and accent bar. The swatch has a bordered frame so light and dark themes are both visible. System option has no preview. Preview is hidden on viewports ≤480px so the theme list has full width on mobile.
+- **Theme preview in switcher** — The preview panel is always visible when the dropdown is open (viewports >480px). It shows a fixed **Preview** label; the theme name, swatch, and accent bar show the **current** theme by default and update to the **hovered** theme on hover/focus. A full-height vertical divider separates the theme list from the preview. The swatch uses a bordered frame so light and dark themes are both visible. Preview is hidden on viewports ≤480px so the theme list has full width on mobile.
 - **Unique icon per theme** — Theme switcher shows a distinct icon for each of the 14 themes (Sunflower uses Rainbow). Dark themes and Light themes are grouped with section labels; on mobile, section labels use underlines.
 
 ## Using Themes
@@ -125,11 +125,19 @@ The `ThemeSwitcher` component handles theme switching automatically. It:
 - Persists choice in `localStorage`
 - Updates all components instantly
 
+### Building your own theme switcher
+
+All 14 themes are included in the Rizzo CSS bundle; you only set `data-theme` on `<html>` to switch. You can use the [Theme Switcher component](/docs/components/theme-switcher) as-is, or build a custom switcher:
+
+- **Theme utilities** (see [Getting Started – JavaScript utilities](./GETTING_STARTED.md#javascript-utilities)): `applyTheme(value)`, `getThemeLabel(value)`, `getThemeInfo(value)`, `getStoredTheme()`, `resolveSystemTheme()`, and constants `THEME_SYSTEM`, `DEFAULT_THEME_DARK`, `DEFAULT_THEME_LIGHT`. Calling `applyTheme(themeId)` or `applyTheme('system')` sets `data-theme` and persists to `localStorage` (key `theme`), and dispatches `rizzo-theme-change` for UI sync.
+- **Theme IDs:** Run `npx rizzo-css theme` or see [Available themes](#available-themes) above.
+- For a minimal custom switcher: list the theme ids, call `applyTheme(id)` on selection, and optionally listen for `rizzo-theme-change` to keep your UI in sync.
+
 ### System Preference
 
 You can follow the operating system light/dark preference:
 
-- **First visit** (no saved theme): The site uses `prefers-color-scheme` to pick a default dark theme (GitHub Dark Classic) or default light theme (GitHub Light) before the first paint, so there is no flash.
+- **First visit** (no saved theme): The site uses the initial `data-theme` from the HTML (e.g. the default theme from `npx rizzo-css init`) if present, otherwise `prefers-color-scheme` to pick a default dark or light theme before the first paint, so there is no flash.
 - **"System" option**: In the theme switcher, choose **System** under **Preference** to follow OS preference. The resolved theme (dark or light default) is applied, and your choice is stored as `theme=system` in `localStorage`.
 - **Live updates**: When System is selected and the user changes their OS light/dark setting, the theme updates automatically.
 

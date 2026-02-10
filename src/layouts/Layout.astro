@@ -318,7 +318,9 @@ const cssPath = import.meta.env.PROD
 		<Navbar />
 		<Settings />
 		<main id="main-content">
-			<slot />
+			<div class="layout__container">
+				<slot />
+			</div>
 		</main>
 	</body>
 </html>

@@ -163,7 +163,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     </div>
     </div>
     <div class="theme-switcher__preview" data-theme-preview aria-hidden="true">
-      <div class="theme-switcher__preview-header" data-theme-preview-label>Preview</div>
+      <div class="theme-switcher__preview-title">Preview</div>
+      <div class="theme-switcher__preview-header" data-theme-preview-label></div>
       <div class="theme-switcher__preview-swatch-wrap">
         <div class="theme-switcher__preview-swatch" data-theme-preview-swatch></div>
       </div>
@@ -292,9 +293,10 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
           trigger.focus();
         } else {
           updateAllSwitchers();
+          updatePreview(null);
           const firstOption = options[0];
           if (firstOption) {
-            setTimeout(() => firstOption.focus(), 0);
+            setTimeout(() => (firstOption as HTMLElement).focus(), 0);
           }
         }
       };
@@ -337,21 +339,36 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
       const previewAccent = switcher.querySelector('[data-theme-preview-accent]') as HTMLElement | null;
 
       const previewLabel = switcher.querySelector('[data-theme-preview-label]') as HTMLElement | null;
+      const getActiveOption = (): HTMLElement | null => {
+        const active = Array.from(options).filter((opt) => (opt as HTMLElement).classList.contains('theme-switcher__option--active'));
+        const withTheme = active.find((opt) => (opt as HTMLElement).getAttribute('data-theme-value') !== THEME_SYSTEM) as HTMLElement | undefined;
+        return (withTheme ?? active[0] ?? null) as HTMLElement | null;
+      };
+      const getResolvedOption = (): HTMLElement | null => {
+        return (Array.from(options).find((opt) => (opt as HTMLElement).getAttribute('data-theme-value') !== THEME_SYSTEM && (opt as HTMLElement).classList.contains('theme-switcher__option--active')) as HTMLElement) ?? null;
+      };
       const updatePreview = (option: HTMLElement | null) => {
         if (!preview || !previewSwatch || !previewAccent) return;
-        const bg = option?.getAttribute('data-theme-bg');
-        const accent = option?.getAttribute('data-theme-accent');
-        const label = option?.getAttribute('data-theme-label');
-        if (bg && accent) {
-          previewSwatch.style.backgroundColor = bg;
-          preview.style.setProperty('--preview-accent', accent);
-          if (previewLabel) previewLabel.textContent = label || 'Preview';
-          preview.setAttribute('aria-hidden', 'false');
-        } else {
+        const target = option ?? getActiveOption();
+        if (!target) {
           preview.style.removeProperty('--preview-accent');
-          if (previewLabel) previewLabel.textContent = 'Preview';
+          previewSwatch.style.backgroundColor = '';
+          if (previewLabel) previewLabel.textContent = '';
           preview.setAttribute('aria-hidden', 'true');
+          return;
         }
+        const value = target.getAttribute('data-theme-value') || '';
+        const isSystem = value === THEME_SYSTEM;
+        const resolved = getResolvedOption();
+        const bg = isSystem
+          ? (getComputedStyle(target).getPropertyValue('--theme-bg').trim() || resolved?.getAttribute('data-theme-bg'))
+          : target.getAttribute('data-theme-bg');
+        const accent = isSystem ? (resolved?.getAttribute('data-theme-accent') || '') : (target.getAttribute('data-theme-accent') || '');
+        const label = isSystem ? 'System' : (target.getAttribute('data-theme-label') || '');
+        previewSwatch.style.backgroundColor = bg || '';
+        preview.style.setProperty('--preview-accent', accent);
+        if (previewLabel) previewLabel.textContent = label;
+        preview.setAttribute('aria-hidden', 'false');
       };
 
       options.forEach((option) => {

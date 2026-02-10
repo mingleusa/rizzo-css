@@ -29,17 +29,18 @@
     align = 'start',
   }: Props = $props();
 
-  const dropdownId = $derived(id ?? `dropdown-${Math.random().toString(36).slice(2, 11)}`);
-  const menuId = `${dropdownId}-menu`;
-  const triggerId = `${dropdownId}-trigger`;
+  const fallbackId = `dropdown-${Math.random().toString(36).slice(2, 11)}`;
+  const dropdownId = $derived(id ?? fallbackId);
+  const menuId = $derived(`${dropdownId}-menu`);
+  const triggerId = $derived(`${dropdownId}-trigger`);
 
   let open = $state(false);
   let openSubmenuIndex = $state<number | null>(null);
   let menuEl: HTMLDivElement;
   let triggerEl: HTMLButtonElement;
 
-  const classes = ['dropdown', className].filter(Boolean).join(' ').trim();
-  const menuClasses = `dropdown__menu dropdown__menu--${position} dropdown__menu--${align}`;
+  const classes = $derived(['dropdown', className].filter(Boolean).join(' ').trim());
+  const menuClasses = $derived(`dropdown__menu dropdown__menu--${position} dropdown__menu--${align}`);
 
   function closeMenu() {
     open = false;
@@ -119,7 +120,8 @@
   >
     <span class="dropdown__trigger-text">{trigger}</span>
     <span class="dropdown__icon" aria-hidden="true">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-labelledby="{dropdownId}-trigger-icon-title">
+        <title id="{dropdownId}-trigger-icon-title">Expand menu</title>
         <path d="m6 9 6 6 6-6" />
       </svg>
     </span>
@@ -147,7 +149,8 @@
             <a
               class="dropdown__item dropdown__item--disabled={item.disabled}"
               role="menuitem"
-              href={item.disabled ? undefined : item.href}
+              href={item.href}
+              aria-label={item.label}
               aria-disabled={item.disabled ? 'true' : undefined}
               tabindex={open ? 0 : -1}
               onclick={(e) => {
@@ -175,16 +178,21 @@
                 }
               }}
               onkeydown={(e) => {
+                if (item.disabled) return;
                 if (hasSubmenu && (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowRight')) {
                   e.preventDefault();
                   toggleSubmenu(index);
+                } else if (!hasSubmenu && (e.key === 'Enter' || e.key === ' ')) {
+                  e.preventDefault();
+                  handleItemClick(item, e as unknown as MouseEvent);
                 }
               }}
             >
               <span>{item.label}</span>
               {#if hasSubmenu}
                 <span class="dropdown__item-arrow" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" role="img" aria-labelledby="{dropdownId}-submenu-arrow-{index}-title">
+                    <title id="{dropdownId}-submenu-arrow-{index}-title">Expand submenu</title>
                     <path d="m6 9 6 6 6-6" />
                   </svg>
                 </span>
@@ -205,9 +213,13 @@
                   <a
                     class="dropdown__item dropdown__submenu-item dropdown__item--disabled={subItem.disabled}"
                     role="menuitem"
-                    href={subItem.disabled ? undefined : subItem.href}
+                    href={subItem.href}
+                    aria-label={subItem.label}
                     aria-disabled={subItem.disabled ? 'true' : undefined}
-                    onclick={() => closeMenu()}
+                    onclick={(e) => {
+                      if (subItem.disabled) e.preventDefault();
+                      else closeMenu();
+                    }}
                   >
                     <span>{subItem.label}</span>
                   </a>
@@ -219,6 +231,14 @@
                     tabindex={open ? 0 : -1}
                     onclick={(e) => {
                       if (!subItem.disabled) {
+                        subItem.onClick?.(subItem.value ?? subItem.label);
+                        closeMenu();
+                      }
+                    }}
+                    onkeydown={(e) => {
+                      if (subItem.disabled) return;
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
                         subItem.onClick?.(subItem.value ?? subItem.label);
                         closeMenu();
                       }

@@ -130,7 +130,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 Accessible, themeable components:
 - **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Desktop dropdowns use 2-column layout for Components and Themes with vertical divider. Mobile menu toggle on left, search/settings on right, with improved spacing and smooth transitions
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Close button (X) bordered and visible on hover. Opening/closing animations, mobile responsive
-- **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling (theme background + accent bar). Larger dropdown (trigger, menu, options) for better readability
+- **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. Larger dropdown on doc pages; full width in Settings.
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
 - **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)

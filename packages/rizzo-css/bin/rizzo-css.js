@@ -597,16 +597,11 @@ async function runAddToExisting() {
   }
   const framework = await selectMenu(frameworkOptions, frameworkPrompt);
 
-  const selectedThemes = await multiSelectMenu(
-    [
-      { value: SENTINEL_ALL, label: 'Select all themes' },
-      { value: SENTINEL_NONE, label: 'Select no themes' },
-      ...THEMES.map((t) => ({ value: t, label: t })),
-    ],
-    '? Themes — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
+  const defaultTheme = await selectMenu(
+    THEMES.map((t) => ({ value: t, label: t })),
+    '? Default theme (all 14 themes are included in the CSS; this sets the initial data-theme)'
   );
-  const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
-  const suggestedTheme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
+  const theme = THEMES.includes(defaultTheme) ? defaultTheme : THEMES[0];
 
   let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
@@ -656,21 +651,21 @@ async function runAddToExisting() {
   if (framework === 'svelte') {
     console.log('\nAdd to your root layout (e.g. src/app.html):');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
     if (selectedComponents.length > 0) {
       console.log('  Components are in src/lib/rizzo — import from \'$lib/rizzo\'.');
     }
   } else if (framework === 'astro') {
     console.log('\nAdd to your layout (e.g. src/layouts/Layout.astro):');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
     if (selectedComponents.length > 0) {
       console.log('  Components are in src/components/rizzo — import from there.');
     }
   } else {
     console.log('\nAdd to your HTML or layout:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + suggestedTheme + '" (see: npx rizzo-css theme)');
+    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
   }
   console.log('\nDocs: https://rizzo-css.vercel.app\n');
 }
@@ -707,16 +702,11 @@ async function cmdInit() {
     '? Framework (arrows, Enter to select) — all get the same CSS and component styles'
   );
 
-  const selectedThemes = await multiSelectMenu(
-    [
-      { value: SENTINEL_ALL, label: 'Select all themes' },
-      { value: SENTINEL_NONE, label: 'Select no themes' },
-      ...THEMES.map((t) => ({ value: t, label: t })),
-    ],
-    '? Themes — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
+  const defaultTheme = await selectMenu(
+    THEMES.map((t) => ({ value: t, label: t })),
+    '? Default theme (all 14 themes are included in the CSS; this sets the initial data-theme)'
   );
-  const themeList = selectedThemes.length > 0 ? selectedThemes : [THEMES[0]];
-  const theme = THEMES.includes(themeList[0]) ? themeList[0] : THEMES[0];
+  const theme = THEMES.includes(defaultTheme) ? defaultTheme : THEMES[0];
 
   let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
@@ -749,9 +739,7 @@ async function cmdInit() {
     process.exit(1);
   }
 
-  const themeComment = themeList.length > 0
-    ? '\n  <!-- Selected themes: ' + themeList.join(', ') + ' -->'
-    : '';
+  const themeComment = '\n  <!-- Default theme: ' + theme + ' (all 14 themes included in CSS) -->';
   const projectNamePkg = name
     ? name.replace(/\s+/g, '-').toLowerCase()
     : (framework === 'astro' ? 'my-astro-app' : framework === 'svelte' ? 'my-svelte-app' : 'my-app');
@@ -846,13 +834,14 @@ async function cmdInit() {
     console.log('  - Vanilla JS: same CSS and component styles; index includes theme switcher and sample components.');
     console.log('  - Icons: ' + join(projectDir, 'icons') + ' (SVG files)');
   }
+  const runPrefix = name ? 'cd ' + name + ' && ' : '';
   if (framework === 'astro' && existsSync(astroAppDir)) {
-    console.log('  - Default Astro project with Rizzo CSS. Run: pnpm install && pnpm dev');
+    console.log('  - Default Astro project with Rizzo CSS. Run: ' + runPrefix + 'pnpm install && pnpm dev');
     console.log('  - Icons: src/components/rizzo/icons/ (Astro components)');
   }
   if (framework === 'svelte' && existsSync(svelteAppDir)) {
-    console.log('  - Default SvelteKit project with Rizzo CSS. Run: pnpm install && pnpm dev');
-    console.log('  - Icons: src/lib/rizzo/icons/ (Svelte components)');
+    console.log('  - Default SvelteKit project with Rizzo CSS. Run: ' + runPrefix + 'pnpm install && pnpm dev');
+    console.log('  - Install dependencies first (required before dev). Icons: src/lib/rizzo/icons/ (Svelte components)');
   }
   if ((framework === 'svelte' || framework === 'astro') && !existsSync(framework === 'astro' ? astroAppDir : svelteAppDir)) {
     const fw = framework === 'svelte' ? 'Svelte' : 'Astro';

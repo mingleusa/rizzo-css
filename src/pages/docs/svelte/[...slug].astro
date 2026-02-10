@@ -4,7 +4,6 @@ import SvelteDocPage from '../../../components/svelte/docs/SvelteDocPage.svelte'
 
 export function getStaticPaths() {
   const paths: { params: { slug: string } }[] = [
-    { params: { slug: 'theming' } },
     { params: { slug: 'components' } },
     { params: { slug: 'components/button' } },
     { params: { slug: 'components/badge' } },
@@ -39,7 +38,6 @@ const path = slugParam ? slugParam.split('/').filter(Boolean) : [];
 const slug = path;
 
 function getMeta() {
-  if (path[0] === 'theming') return { title: 'Theming', description: 'Theme system for Rizzo CSS in Svelte.' };
   if (path[0] === 'components' && !path[1]) return { title: 'Components', description: 'Svelte component library.' };
   const titles: Record<string, string> = {
     button: 'Button',

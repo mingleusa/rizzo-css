@@ -1,0 +1,81 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import { VANILLA_COMPONENT_SLUGS, VANILLA_COMPONENT_TITLES, VANILLA_SNIPPETS, VANILLA_FALLBACK_HTML } from '../../../../config/vanillaSnippets';
+
+export function getStaticPaths() {
+  return VANILLA_COMPONENT_SLUGS.map((slug) => ({ params: { slug } }));
+}
+
+const { slug } = Astro.params as { slug: string };
+const snippet = VANILLA_SNIPPETS[slug];
+const fallbackHtml = VANILLA_FALLBACK_HTML[slug];
+const title = snippet?.title ?? VANILLA_COMPONENT_TITLES[slug] ?? slug.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
+const description = `${title} — Vanilla HTML + BEM. Copy the markup and ensure Rizzo CSS is loaded.`;
+---
+
+<DocsLayout title={title} description={description}>
+  <section>
+    <h2>{title}</h2>
+    {snippet ? (
+      <>
+        {snippet.description && <p>{snippet.description}</p>}
+        {snippet.demoHtml && (
+          <div class="example">
+            <div class="example-title">Live example</div>
+            <div class="example-demo" set:html={snippet.demoHtml} />
+          </div>
+        )}
+        <h3>HTML</h3>
+        <p>Copy the markup below. Ensure Rizzo CSS is loaded on the page.</p>
+        <CodeBlock code={snippet.html} language="html" />
+        {snippet.js && (
+          <>
+            <h3>JavaScript (optional)</h3>
+            <CodeBlock code={snippet.js} language="javascript" />
+          </>
+        )}
+        <p><strong>Astro / Svelte:</strong> <a href={`/docs/components/${slug}`}>Astro</a> · <a href={`/docs/svelte/components/${slug}`}>Svelte</a></p>
+      </>
+    ) : (
+      <>
+        <p>Use the same BEM classes and structure in your HTML. Copy the markup below (or from the Astro docs for full variants). Ensure Rizzo CSS is loaded.</p>
+        {fallbackHtml ? (
+          <>
+            <h3>HTML</h3>
+            <p>Copy the markup below. For more variants and full usage, see the Astro component docs.</p>
+            <CodeBlock code={fallbackHtml} language="html" />
+          </>
+        ) : (
+          <p>For the full HTML structure and variants, copy the markup from the Usage section on the Astro docs.</p>
+        )}
+        <p><a href={`/docs/components/${slug}`}>View <strong>{title}</strong> on the Astro docs</a> for complete markup and variants.</p>
+        <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+      </>
+    )}
+  </section>
+</DocsLayout>
+
+<style>
+  .example {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-4);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .example-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-3);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+  }
+  .example-demo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    align-items: center;
+  }
+</style>

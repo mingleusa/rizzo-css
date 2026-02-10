@@ -24,7 +24,7 @@
     { href: '/docs/svelte/components/spinner', title: 'Spinner', desc: 'Loading spinner with variants and sizes' },
     { href: '/docs/svelte/components/table', title: 'Table', desc: 'Data table with sorting and optional filter' },
     { href: '/docs/svelte/components/tabs', title: 'Tabs', desc: 'Tabs with default, pills, and underline variants' },
-    { href: '/docs/svelte/components/theme-switcher', title: 'Theme Switcher', desc: 'Theme dropdown with System option, Dark themes / Light themes, unique icon per theme; Astro reference' },
+    { href: '/docs/svelte/components/theme-switcher', title: 'Theme Switcher', desc: 'Theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview); Astro reference' },
     { href: '/docs/svelte/components/toast', title: 'Toast', desc: 'Positioned alerts with dismiss and auto-dismiss' },
     { href: '/docs/svelte/components/tooltip', title: 'Tooltip', desc: 'Tooltip with positioning options' },
   ];
@@ -33,6 +33,7 @@
 <section>
   <h2>Component library</h2>
   <p>These components are built with Svelte and use the same Rizzo CSS classes and variables. Each page includes live examples and usage snippets.</p>
+  <p><strong>Every framework:</strong> Each component also has an <a href="/docs/components">Astro</a> doc page (live demos + “Using classes” HTML). Vanilla uses the same HTML and BEM from the Astro Usage sections. Use the framework switcher at the top to toggle between Astro and Svelte docs.</p>
 </section>
 
 <section>

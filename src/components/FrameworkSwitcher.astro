@@ -2,6 +2,7 @@
 import { FRAMEWORKS, FRAMEWORK_STORAGE_KEY, getFrameworkFromPath, shouldShowFrameworkSwitcher } from '../config/frameworks.js';
 import AstroIcon from './icons/devicons/Astro.astro';
 import Svelte from './icons/devicons/Svelte.astro';
+import Javascript from './icons/devicons/Javascript.astro';
 import React from './icons/devicons/React.astro';
 import Vue from './icons/devicons/Vue.astro';
 
@@ -20,6 +21,7 @@ const { framework: currentFramework, canonicalPath } = getFrameworkFromPath(curr
 const FRAMEWORK_ICONS: Record<string, typeof AstroIcon> = {
   astro: AstroIcon,
   svelte: Svelte,
+  vanilla: Javascript,
   react: React,
   vue: Vue,
 };
