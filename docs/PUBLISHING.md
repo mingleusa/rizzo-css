@@ -12,6 +12,16 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
 - **In-repo framework routes** — Svelte integrated in Astro; framework switcher; 24 Svelte component pages at `/docs/svelte`. React/Vue: same pattern when added. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
 - **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI Planning](./CLI_PLANNING.md).
 
+## Keeping npm and GitHub in sync
+
+**The npm package is a snapshot at publish time.** When you run `pnpm publish:package` (or `npm publish` from `packages/rizzo-css`), npm packs whatever is in that package **at that moment** — after `prepublishOnly` has run (`build:css` + `copy-scaffold.js`). Pushing to GitHub **after** you publish does **not** update the published package. The package only changes when you bump the version and run `npm publish` again.
+
+So:
+
+- **New files that appear right after you run publish** — During `pnpm publish:package`, npm runs `prepublishOnly` first (`build:css` + `copy-scaffold.js`). That script writes/overwrites `scaffold/astro/`, `scaffold/svelte/`, and `scaffold/vanilla/icons`. **Then** npm packs the directory and uploads. So those “new” files you see in the scaffold folder after the command finishes **were included in the tarball**. The published npm package is up to date with them. Your working tree now has those files on disk; if they’re not committed, GitHub won’t have them until you commit and push (so commit and push to keep the repo in sync with what’s on npm).
+- **Changes you make after the publish command has finished** — Any edits or new files you add *after* `pnpm publish:package` completes are **not** in the tarball you just published. To get them on npm, bump the version and publish again.
+- **Recommended order:** (1) Commit all source and scaffold changes. (2) Bump version. (3) Run `pnpm publish:package`. (4) Commit the scaffold/astro and scaffold/svelte (and vanilla/icons) updates that prepublishOnly wrote, then push. That way npm and GitHub both match the same release.
+
 ## Versioning strategy
 
 - **Semver:** Use [semantic versioning](https://semver.org/): `MAJOR.MINOR.PATCH`.
@@ -22,13 +32,14 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
 
 ## Pre-publish checklist
 
-Before pushing to GitHub and publishing to npm:
+Before publishing to npm:
 
-1. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
-2. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
-3. **Commit & push** — Commit all changes, then `git push` (or push to your default remote).
+1. **Commit all changes** — Everything that should be in this release: `scaffold/vanilla/`, `scaffold/astro-app/`, `scaffold/svelte-app/`, `src/components/`, `src/components/svelte/`, CSS, CLI, docs. The pack step uses the repo state at publish time (see [Keeping npm and GitHub in sync](#keeping-npm-and-github-in-sync)).
+2. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
+3. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
 4. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
-5. **Verify CDN** *(optional)* — After publishing, confirm the new version is available: `curl -I https://unpkg.com/rizzo-css@<version>/dist/rizzo.min.css` and same for `https://cdn.jsdelivr.net/npm/rizzo-css@<version>/dist/rizzo.min.css` (expect `200 OK`).
+5. **Push** — `git push` (and `git push --tags` if you tag releases). This does not update npm; it keeps GitHub in sync with what you published.
+6. **Verify CDN** *(optional)* — Confirm the new version is available: `curl -I https://unpkg.com/rizzo-css@<version>/dist/rizzo.min.css` and same for jsDelivr (expect `200 OK`).
 
 ## Prerequisites
 
