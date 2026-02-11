@@ -8,6 +8,7 @@ Rizzo CSS keeps each framework’s implementation **separate but integrated** in
 - **Framework switcher** — "View as: Astro | Svelte | Vanilla" (with framework icons) on component/theme doc pages; config in `src/config/frameworks.ts`.
 - **24 Svelte component pages** at `/docs/svelte` (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher include the same live standalone example as Astro, e.g. full Search component on the Search doc page).
 - **Vanilla component pages** at `/docs/vanilla/components` — one static `.astro` file per component (e.g. `accordion.astro`, `button.astro`) with real HTML, optional inline script for behavior, copyable code blocks, and a live demo. For **Dropdown**, the Vanilla page uses the same Astro Dropdown component for live examples so look and behavior match Astro and Svelte.
+- **Scaffold READMEs** — Each scaffold folder (Vanilla, Astro, Svelte) has a README with setup and commands; main and package READMEs reference them. Markdown docs (GETTING_STARTED, FRAMEWORK_STRUCTURE, COMPONENTS, MULTI_FRAMEWORK, PUBLISHING, DESIGN_SYSTEM) are aligned with npm/CLI and what ships.
 - **Adding React/Vue** — Same pattern: add to `frameworks.ts`, create `src/components/<framework>/` and `src/pages/docs/<framework>/`. See [Adding a new framework](#adding-a-new-framework) below.
 
 ## Folder layout

@@ -6,9 +6,11 @@
   "scripts": {
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
     "dev": "astro dev --open",
-    "build": "pnpm build:css && astro build",
+    "build": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && astro build",
     "build:css": "node scripts/build-css.js",
-    "publish:package": "pnpm build:css && cd packages/rizzo-css && npm publish",
+    "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold",
+    "copy-scaffold": "node scripts/copy-scaffold.js",
+    "publish:package": "pnpm build:package && cd packages/rizzo-css && npm publish",
     "preview": "astro preview",
     "astro": "astro",
     "lint:css": "stylelint \"src/**/*.css\"",

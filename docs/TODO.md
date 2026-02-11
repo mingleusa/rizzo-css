@@ -4,35 +4,25 @@ A focused list of remaining tasks for the Rizzo CSS design system, **ordered by 
 
 **Current state:** Single package **rizzo-css** (CSS + CLI + scaffolds) is published; CDN (unpkg/jsDelivr) works. CLI: `npx rizzo-css init` | `add` | `theme`. **Init** first asks: **existing project** (add to cwd) or **new project** (scaffold). Themes/components menus offer "Select all" and "Select none" plus individual pick (Space/Enter). Scaffolds: **Vanilla** `scaffold/vanilla/` (`index.html` with inline theme flash prevention + `js/main.js` for theme, toast, settings, tabs, modal, dropdown, accordion; see `scaffold/vanilla/README.md`), **Astro** `scaffold/astro-app/` (minimal Astro app; see `scaffold/astro-app/README.md`), **Svelte** `scaffold/svelte-app/` (SvelteKit app; see `scaffold/svelte-app/README.md`). All scaffolds include theme persistence and toast; Vanilla also includes full Settings and `openSettings()`. Optional component files: `scaffold/astro/` and `scaffold/svelte/` (24 components each). **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`. Svelte and Astro components and docs in-repo; framework switcher in place. Theme switcher: same look everywhere (full-width trigger and menu; full-height divider between list and preview ≥481px; preview panel always visible). Svelte ThemeSwitcher lives in repo `src/components/svelte/` (docs only; not in scaffold due to config/utils deps). Versioning in [PUBLISHING](./PUBLISHING.md#versioning-strategy). React/Vue planned.
 
-> **Completed work** is documented in the **Features** sections of [COMPONENTS](./COMPONENTS.md#features), [THEMING](./THEMING.md#features), [GETTING_STARTED](./GETTING_STARTED.md#features), [PUBLISHING](./PUBLISHING.md#features), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md#features), [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md), and [DESIGN_SYSTEM](./DESIGN_SYSTEM.md#features).
+> **Completed work** is documented in the **Features** sections of [COMPONENTS](./COMPONENTS.md#features), [THEMING](./THEMING.md#features), [GETTING_STARTED](./GETTING_STARTED.md#features), [PUBLISHING](./PUBLISHING.md#features), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md#features), [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md), and [DESIGN_SYSTEM](./DESIGN_SYSTEM.md#features). Package/CLI/scaffold completed items (Vanilla no node_modules, CDN verification, copy vanilla README, one package any framework, scaffold READMEs, docs aligned, version bump, verify CDN, docs audit) have been moved there.
 
 ---
 
-## Package, CLI & scaffold tasks
+## ▶️ Next task (recommended)
 
-- [x] **Vanilla scaffold: no node_modules** — Vanilla scaffold uses only local `css/rizzo.min.css` (copied by CLI) or CDN; no link to `node_modules/rizzo-css`. See [scaffold/vanilla/README.md](../packages/rizzo-css/scaffold/vanilla/README.md).
-- [x] **CDN verification** — Docs and README use explicit CDN URLs (`/dist/rizzo.min.css`) and note how to verify after publish (`curl -I` or open in browser). See [PUBLISHING.md](./PUBLISHING.md), package README, [GETTING_STARTED.md](./GETTING_STARTED.md).
-- [x] **Copy vanilla README on init** — When user scaffolds Vanilla, CLI copies `scaffold/vanilla/README.md` into the project as `README.md`.
-- [x] **One package, any framework** — Package README documents that one install works for Vanilla, Astro, and Svelte; table for framework-specific usage (CSS only vs optional components).
-- [x] **Scaffold READMEs** — Vanilla has `scaffold/vanilla/README.md`; Astro and Svelte scaffold READMEs include "Other scaffolds" and reference CLI/docs. Main and package READMEs mention each scaffold's README.
-- [x] **Markdown docs aligned with npm/CLI** — GETTING_STARTED, FRAMEWORK_STRUCTURE, COMPONENTS, MULTI_FRAMEWORK, PUBLISHING, site getting-started page updated (scaffold READMEs, CDN, what ships).
-- [x] **Version bump for republish** — Bump `version` in root and `packages/rizzo-css/package.json` before publishing (e.g. 0.0.11 → 0.0.12).
-- [x] **Verify CDN after publish** — Added to [PUBLISHING.md](./PUBLISHING.md) pre-publish checklist (step 5): run `curl -I` on unpkg and jsDelivr URLs after publishing and confirm 200.
-- [x] **Docs audit** — All markdown docs and references updated: PUBLISHING (version example, CDN verify step), CLI_PLANNING (TODO refs), DESIGN_SYSTEM (scaffolds + READMEs), FRAMEWORK_STRUCTURE (Vanilla no node_modules), GETTING_STARTED (Vanilla scaffold clarification).
+**Accessibility testing** — Run ARIA, keyboard, and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, etc.). Fix any issues found. Do this *before* writing the a11y best-practices doc so the docs reflect actual, tested behavior.
+
+- **Scope:** Use [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) as the checklist: keyboard nav, screen reader (NVDA/JAWS/VoiceOver), and axe (or similar) on Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion, Toast, Settings.
+- **Output:** Fix any bugs found; then the next doc task is to add a "Best practices" section to [ACCESSIBILITY.md](./ACCESSIBILITY.md) (keyboard patterns, ARIA usage, focus order, how to test).
 
 ---
 
-## ▶️ Start next (recommended)
+## After that (priority order)
 
-**1. Accessibility testing** — Run ARIA, keyboard, and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, etc.). Fix any issues found. Do this *before* writing a11y docs so the docs reflect actual, tested behavior.
-
-**2. Accessibility best practices (doc)** — After testing, add a "Best practices" section to [ACCESSIBILITY.md](./ACCESSIBILITY.md): keyboard patterns, when to use which ARIA, focus order, and how to test. Documents what you've verified.
-
-**3. Contributing guide + issue templates** — CONTRIBUTING.md and GitHub issue templates (bug report, feature request). Unlocks contributors and keeps issues consistent.
-
-**4. TypeScript** — Type definitions and props interfaces for components and utils. Improves DX for Astro, Svelte, and future React/Vue.
-
-After that: **component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
+1. **Accessibility best practices (doc)** — After testing, add "Best practices" to [ACCESSIBILITY.md](./ACCESSIBILITY.md).
+2. **Contributing guide + issue templates** — CONTRIBUTING.md and GitHub issue templates (bug report, feature request).
+3. **TypeScript** — Type definitions and props interfaces for components and utils.
+4. **Component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
 
 ---
 

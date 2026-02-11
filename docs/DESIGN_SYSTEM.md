@@ -4,6 +4,7 @@ Rizzo CSS uses a semantic theming system with CSS custom properties (variables) 
 
 ## Features
 
+- **One package, any framework** — Single npm package **rizzo-css** (CSS, CLI, scaffolds) for Vanilla JS, Astro, and Svelte; package README documents framework-specific usage (CSS only vs optional components). Scaffold READMEs and version/CDN docs live in [PUBLISHING](./PUBLISHING.md).
 - **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, and layout limits (e.g. `--max-height-navbar-submenu`) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
 
 ## Semantic Variables

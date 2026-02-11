@@ -6,6 +6,7 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` produces `dist/rizzo.min.css`. Versioning strategy (semver, when to bump) is documented in [Versioning strategy](#versioning-strategy) below.
 - **CDN** — unpkg and jsDelivr. The package sets `"unpkg": "dist/rizzo.min.css"` and `"jsdelivr": "dist/rizzo.min.css"`, so `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` resolve to the CSS. For reliability or version pinning, use the explicit path: `https://unpkg.com/rizzo-css@0.0.12/dist/rizzo.min.css` and `https://cdn.jsdelivr.net/npm/rizzo-css@0.0.12/dist/rizzo.min.css`. **Verify after publish:** open the URL in a browser or run `curl -I <url>` and expect `200 OK`.
+- **Pre-publish checklist** — Version bump (root + package), build, publish, push, and CDN verification (`curl -I` on unpkg and jsDelivr) are documented in [Pre-publish checklist](#pre-publish-checklist).
 - **Single package** — One unscoped package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
 - **JavaScript utilities** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
 - **Svelte components** — In `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
