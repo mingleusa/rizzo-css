@@ -1,12 +1,12 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "license": "MIT",
   "scripts": {
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
     "dev": "astro dev --open",
-    "build": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && astro build",
+    "build": "pnpm lint:css:fix && pnpm build:css && astro build",
     "build:css": "node scripts/build-css.js",
     "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && pnpm prepare:astro-scaffold && pnpm prepare:vanilla-scaffold && pnpm prepare:svelte-scaffold",
     "copy-scaffold": "node scripts/copy-scaffold.js",

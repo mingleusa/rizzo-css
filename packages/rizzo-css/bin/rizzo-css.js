@@ -31,13 +31,18 @@ const SVELTE_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-  'Modal', 'Toast', 'Table',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
 ];
 const ASTRO_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-  'Modal', 'Toast', 'Table',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+];
+
+// Recommended subset for "Recommended set" option (keeps CLI simple; power users can pick)
+const RECOMMENDED_COMPONENTS = [
+  'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
 
 // ANSI colors for CLI (framework logo colors)
@@ -393,6 +398,31 @@ async function promptThemes() {
   return { theme, defaultDark: DARK_THEMES.includes(defaultDark) ? defaultDark : DARK_THEMES[0], defaultLight: LIGHT_THEMES.includes(defaultLight) ? defaultLight : LIGHT_THEMES[0] };
 }
 
+/** Ask what to include: CSS only, recommended set, all components, or pick. Returns array of component names. Only call when componentList.length > 0. */
+async function promptComponentChoice(componentList, framework) {
+  const recommended = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
+  const choice = await selectMenu(
+    [
+      { value: 'none', label: 'CSS only — no components' },
+      { value: 'recommended', label: 'Recommended set (' + recommended.length + ' components: Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
+      { value: 'all', label: 'All components (' + componentList.length + ')' },
+      { value: 'pick', label: 'Pick components (choose each one)' },
+    ],
+    '? What to include?'
+  );
+  if (choice === 'none') return [];
+  if (choice === 'recommended') return recommended;
+  if (choice === 'all') return [...componentList];
+  return multiSelectMenu(
+    [
+      { value: SENTINEL_ALL, label: 'Select all components' },
+      { value: SENTINEL_NONE, label: 'Select no components' },
+      ...componentList.map((c) => ({ value: c, label: c })),
+    ],
+    '? Components — Space to toggle, Enter to confirm'
+  );
+}
+
 /** Detect framework from cwd: "svelte" | "astro" | null. */
 function detectFramework(cwd) {
   if (existsSync(join(cwd, 'svelte.config.js')) || existsSync(join(cwd, 'svelte.config.ts'))) return 'svelte';
@@ -587,6 +617,12 @@ function copySvelteComponents(projectDir, selectedNames) {
   if (existsSync(iconsSrc)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
+  if (toCopy.includes('ThemeSwitcher')) {
+    const themesSrc = join(scaffoldDir, 'themes.ts');
+    const themeSrc = join(scaffoldDir, 'theme.ts');
+    if (existsSync(themesSrc)) copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    if (existsSync(themeSrc)) copyFileSync(themeSrc, join(targetDir, 'theme.ts'));
+  }
   if (exports.length > 0) {
     const indexContent = `/** Rizzo CSS Svelte components — selected via npx rizzo-css init */\n${exports.join('\n')}\n`;
     writeFileSync(join(targetDir, 'index.ts'), indexContent, 'utf8');
@@ -622,6 +658,12 @@ function copyAstroComponents(projectDir, selectedNames) {
   if (existsSync(iconsSrc)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
+  if (toCopy.includes('ThemeSwitcher')) {
+    const themesSrc = join(scaffoldDir, 'themes.ts');
+    if (existsSync(themesSrc)) {
+      copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    }
+  }
   if (count > 0) {
     console.log('\n  ✓ ' + count + ' Astro components + icons copied to ' + targetDir);
     console.log('  Import in your pages: import Button from \'../components/rizzo/Button.astro\';\n');
@@ -646,29 +688,35 @@ async function runAddToExisting(frameworkOverride) {
     framework = await selectMenu(frameworkOptions, frameworkPrompt);
   }
 
-  const { theme, defaultDark, defaultLight } = await promptThemes();
-
-  let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
-  if (componentList.length > 0) {
-    const includeLabel = framework === 'svelte' ? 'Svelte' : 'Astro';
-    const includeChoice = await selectMenu(
+  const selectedComponents = componentList.length > 0
+    ? await promptComponentChoice(componentList, framework)
+    : [];
+
+  let theme, defaultDark, defaultLight;
+  const wantsThemeSwitcher = selectedComponents.includes('ThemeSwitcher');
+  if (wantsThemeSwitcher) {
+    const setDefaults = await selectMenu(
       [
-        { value: 'none', label: 'None' },
-        { value: 'pick', label: 'Yes, pick ' + includeLabel + ' components' },
+        { value: true, label: 'Yes — choose default dark, default light, and initial theme' },
+        { value: false, label: 'No — use defaults (github-dark-classic / github-light)' },
       ],
-      '? Include ' + includeLabel + ' components?'
+      '? Set default themes for ThemeSwitcher? (same as create-new flow)'
     );
-    if (includeChoice === 'pick') {
-      selectedComponents = await multiSelectMenu(
-        [
-          { value: SENTINEL_ALL, label: 'Select all components' },
-          { value: SENTINEL_NONE, label: 'Select no components' },
-          ...componentList.map((c) => ({ value: c, label: c })),
-        ],
-        '? Components — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
-      );
+    if (setDefaults) {
+      const out = await promptThemes();
+      theme = out.theme;
+      defaultDark = out.defaultDark;
+      defaultLight = out.defaultLight;
+    } else {
+      theme = DARK_THEMES[0];
+      defaultDark = DARK_THEMES[0];
+      defaultLight = LIGHT_THEMES[0];
     }
+  } else {
+    theme = DARK_THEMES[0];
+    defaultDark = DARK_THEMES[0];
+    defaultLight = LIGHT_THEMES[0];
   }
 
   const cssSource = getCssPath();
@@ -693,8 +741,9 @@ async function runAddToExisting(frameworkOverride) {
   const linkHref = paths.linkHref;
   console.log('\n✓ Rizzo CSS added to your existing project');
   console.log('  - ' + cssTarget);
+  console.log('\nYou must add the stylesheet link yourself — it is not added automatically.');
   if (framework === 'svelte') {
-    console.log('\nAdd to your root layout (e.g. src/app.html):');
+    console.log('\nIn your root layout (e.g. src/app.html), add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
     console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
@@ -702,7 +751,7 @@ async function runAddToExisting(frameworkOverride) {
       console.log('  Components are in src/lib/rizzo — import from \'$lib/rizzo\'.');
     }
   } else if (framework === 'astro') {
-    console.log('\nAdd to your layout (e.g. src/layouts/Layout.astro):');
+    console.log('\nIn your layout (e.g. src/layouts/Layout.astro), add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
     console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
@@ -710,7 +759,7 @@ async function runAddToExisting(frameworkOverride) {
       console.log('  Components are in src/components/rizzo — import from there.');
     }
   } else {
-    console.log('\nAdd to your HTML or layout:');
+    console.log('\nIn your HTML or layout, add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
     console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
@@ -752,28 +801,10 @@ async function cmdInit() {
 
   const { theme, defaultDark, defaultLight } = await promptThemes();
 
-  let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
-  if (componentList.length > 0) {
-    const includeLabel = framework === 'svelte' ? 'Svelte' : 'Astro';
-    const includeChoice = await selectMenu(
-      [
-        { value: 'none', label: 'None' },
-        { value: 'pick', label: 'Yes, pick ' + includeLabel + ' components' },
-      ],
-      '? Include ' + includeLabel + ' components?'
-    );
-    if (includeChoice === 'pick') {
-      selectedComponents = await multiSelectMenu(
-        [
-          { value: SENTINEL_ALL, label: 'Select all components' },
-          { value: SENTINEL_NONE, label: 'Select no components' },
-          ...componentList.map((c) => ({ value: c, label: c })),
-        ],
-        '? Components — pick individuals (Space to toggle) or choose Select all/none below. Enter=confirm'
-      );
-    }
-  }
+  const selectedComponents = componentList.length > 0
+    ? await promptComponentChoice(componentList, framework)
+    : [];
 
   const projectDir = name ? join(process.cwd(), name) : process.cwd();
   const cssSource = getCssPath();

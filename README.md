@@ -52,7 +52,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 **Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. New → full clone. Or `pnpm add rizzo-css` and `import 'rizzo-css'`. CSS only: `npx rizzo-css add` (auto-detects framework). Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-app, svelte-app) plus optional 24 components. **Create new project** → full clone; **Add to existing** → CSS + optional components. Each scaffold has a README. Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-app, svelte-app) plus optional 25 components (including ThemeSwitcher). **Create new project** → full clone (stylesheet link included). **Add to existing** → CSS + optional components; you must add the stylesheet `<link>` yourself (CLI prints the exact tag). Each scaffold has a README. Same CSS and BEM for all three.
 
 ### Prerequisites
 
@@ -79,9 +79,10 @@ Site available at `http://localhost:4321`
 |---------|-------------|
 | `pnpm rizzo-css` | Run the CLI from this repo (e.g. `pnpm rizzo-css init`, `pnpm rizzo-css add`, `pnpm rizzo-css theme`). Elsewhere use `npx rizzo-css`. |
 | `pnpm dev` | Start development server |
-| `pnpm build` | Build production site (includes CSS minification) |
-| `pnpm build:css` | Build minified CSS to `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css` |
-| `pnpm publish:package` | Build CSS and publish the `rizzo-css` npm package |
+| `pnpm build` | Lint CSS, build minified CSS, and build the docs site (Astro). Use for preview/deploy. |
+| `pnpm build:css` | Build minified CSS only → `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css` |
+| `pnpm build:package` | Full package prep: lint, build CSS, copy scaffold, run prepare-* scripts. Use before `publish:package`. |
+| `pnpm publish:package` | Run `build:package` then publish the `rizzo-css` npm package |
 | `pnpm preview` | Preview production build |
 | `pnpm lint:css` | Lint CSS files |
 | `pnpm lint:css:fix` | Auto-fix CSS linting issues |
@@ -173,7 +174,7 @@ Comprehensive documentation is also in the `docs/` directory:
 
 - [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
-- [Components](./docs/COMPONENTS.md) - Component library and usage (24 components)
+- [Components](./docs/COMPONENTS.md) - Component library and usage (25 components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes; [Accessibility testing](./docs/ACCESSIBILITY_TESTING.md) - Checklist (keyboard, screen reader, tools) before documenting best practices

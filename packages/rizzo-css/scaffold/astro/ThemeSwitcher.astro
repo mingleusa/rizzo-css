@@ -1,0 +1,504 @@
+---
+import ChevronDown from './icons/ChevronDown.astro';
+import Gear from './icons/Gear.astro';
+import Palette from './icons/Palette.astro';
+import Owl from './icons/Owl.astro';
+import Sun from './icons/Sun.astro';
+import Flame from './icons/Flame.astro';
+import Heart from './icons/Heart.astro';
+import Leaf from './icons/Leaf.astro';
+import Shield from './icons/Shield.astro';
+import Zap from './icons/Zap.astro';
+import Cake from './icons/Cake.astro';
+import Sunset from './icons/Sunset.astro';
+import Cherry from './icons/Cherry.astro';
+import Brush from './icons/Brush.astro';
+import Lemon from './icons/Lemon.astro';
+import Rainbow from './icons/Rainbow.astro';
+import type { ThemeIconKey } from './themes';
+import { THEMES_DARK, THEMES_LIGHT } from './themes';
+
+const iconMap: Record<ThemeIconKey, typeof Owl> = {
+  gear: Gear,
+  owl: Owl,
+  palette: Palette,
+  flame: Flame,
+  sunset: Sunset,
+  zap: Zap,
+  shield: Shield,
+  heart: Heart,
+  sun: Sun,
+  cake: Cake,
+  lemon: Lemon,
+  rainbow: Rainbow,
+  leaf: Leaf,
+  cherry: Cherry,
+  brush: Brush,
+};
+
+const themes = {
+  dark: THEMES_DARK.map((t) => ({ ...t, icon: iconMap[t.iconKey] })),
+  light: THEMES_LIGHT.map((t) => ({ ...t, icon: iconMap[t.iconKey] })),
+};
+
+
+// Get current theme from HTML data attribute or default
+const getCurrentTheme = () => {
+  if (typeof document !== 'undefined') {
+    return document.documentElement.getAttribute('data-theme') || 'github-dark-classic';
+  }
+  return 'github-dark-classic';
+};
+
+// System preference theme id (stored in localStorage; data-theme gets resolved to dark/light default)
+const THEME_SYSTEM = 'system';
+const DEFAULT_THEME_DARK = 'github-dark-classic';
+const DEFAULT_THEME_LIGHT = 'github-light';
+
+// Get theme info helper
+const getThemeInfo = (themeValue: string) => {
+  if (themeValue === THEME_SYSTEM) return { value: THEME_SYSTEM, label: 'System', icon: Gear };
+  const allThemes = [...themes.dark, ...themes.light];
+  return allThemes.find(t => t.value === themeValue) || null;
+};
+
+// Get initial theme info (will be updated by script, but set initial value)
+const currentTheme = getCurrentTheme();
+const initialTheme = getThemeInfo(currentTheme);
+const initialLabel = initialTheme ? initialTheme.label : 'Theme';
+const InitialIcon = initialTheme ? initialTheme.icon : null;
+
+---
+
+<div class="theme-switcher" data-theme-switcher>
+  <button
+    class="theme-switcher__trigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-controls="theme-menu"
+    aria-label="Select theme"
+    id="theme-trigger"
+  >
+    <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
+      <span class="theme-switcher__label" data-theme-label>{initialLabel}</span>
+    </span>
+    <ChevronDown class="theme-switcher__icon" width={16} height={16} />
+  </button>
+  
+  <div
+    class="theme-switcher__menu"
+    id="theme-menu"
+    role="menu"
+    aria-labelledby="theme-trigger"
+    aria-label="Theme selection menu"
+    aria-orientation="vertical"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="theme-switcher__menu-options">
+    <div class="theme-switcher__group" role="group" aria-label="Preference">
+      <div class="theme-switcher__group-label" role="presentation">Preference</div>
+      <div
+        class="theme-switcher__option"
+        role="menuitemradio"
+        aria-checked="false"
+        tabindex={-1}
+        data-theme-value="system"
+        data-theme-type="system"
+        data-theme-bg="oklch(55% 0.02 270deg)"
+        data-theme-accent=""
+      >
+        <Gear width={16} height={16} class="theme-switcher__option-icon" />
+        <span class="sr-only">Preference: </span>
+        System
+      </div>
+    </div>
+    <div class="theme-switcher__group" role="group" aria-label="Dark themes">
+      <div class="theme-switcher__group-label" role="presentation">Dark</div>
+      {themes.dark.map((theme) => {
+        const IconComponent = theme.icon;
+        return (
+          <div
+            class="theme-switcher__option"
+            role="menuitemradio"
+            aria-checked="false"
+            tabindex={-1}
+            data-theme-value={theme.value}
+            data-theme-type="dark"
+            data-theme-bg={theme.bg}
+            data-theme-accent={theme.accent}
+            data-theme-label={theme.label}
+          >
+            <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
+            <span class="sr-only">Dark theme: </span>
+            {theme.label}
+          </div>
+        );
+      })}
+    </div>
+    
+    <div class="theme-switcher__group" role="group" aria-label="Light themes">
+      <div class="theme-switcher__group-label" role="presentation">Light</div>
+      {themes.light.map((theme) => {
+        const IconComponent = theme.icon;
+        return (
+          <div
+            class="theme-switcher__option"
+            role="menuitemradio"
+            aria-checked="false"
+            tabindex={-1}
+            data-theme-value={theme.value}
+            data-theme-type="light"
+            data-theme-bg={theme.bg}
+            data-theme-accent={theme.accent}
+            data-theme-label={theme.label}
+          >
+            <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
+            <span class="sr-only">Light theme: </span>
+            {theme.label}
+          </div>
+        );
+      })}
+    </div>
+    </div>
+    <div class="theme-switcher__preview" data-theme-preview aria-hidden="true">
+      <div class="theme-switcher__preview-title">Preview</div>
+      <div class="theme-switcher__preview-header" data-theme-preview-label></div>
+      <div class="theme-switcher__preview-swatch-wrap">
+        <div class="theme-switcher__preview-swatch" data-theme-preview-swatch></div>
+      </div>
+      <div class="theme-switcher__preview-accent" data-theme-preview-accent></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import {
+    applyTheme,
+    getStoredTheme,
+    getCurrentTheme,
+    resolveSystemTheme,
+    getThemeLabel,
+    THEME_SYSTEM,
+  } from '../utils/theme';
+
+  (function initThemeSwitcher() {
+    const getIconSVG = (themeValue: string) => {
+      const svgMap: Record<string, string> = {
+        'system': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" /><circle cx="12" cy="12" r="3" /></svg>',
+        'github-dark-classic': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h.01" /><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" /><path d="m20 7 2 .5-2 .5" /><path d="M10 18v3" /><path d="M14 17.75V21" /><path d="M7 18a6 6 0 0 0 3.84-10.61" /></svg>',
+        'github-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></svg>',
+        'red-velvet-cupcake': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8" /><path d="M4 16s1-1 4-1 5 2 8 2 4-1 4-1V4" /><path d="M2 16v4M22 16v4M8 8h.01M16 8h.01M8 12h.01M16 12h.01" /></svg>',
+        'orangy-one-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.5 6.5c.5-2.5 2.5-4 5-4 1.5 0 2.5.5 3 1" /><path d="M12 12c-2 2-3 4-3 6 0 3 2 5 5 5 2 0 4-1 6-3" /><path d="M18 12c2 2 3 4 3 6 0 3-2 5-5 5-2 0-4-1-6-3" /></svg>',
+        'sunflower': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 17a10 10 0 0 0-20 0" /><path d="M6 17a6 6 0 0 1 12 0" /><path d="M10 17a2 2 0 0 1 4 0" /></svg>',
+        'shades-of-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"/><path d="M7.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M11.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M15.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg>',
+        'sandstorm-classic': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z" /></svg>',
+        'rocky-blood-orange': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 10V2M4.93 10.93l1.41 1.41M2 18h2M20 18h2M17.66 10.93l1.41-1.41M22 22H2M8 6l4-4 4 4M16 18a4 4 0 0 0-8 0" /><path d="M12 22v-4" /></svg>',
+        'minimal-dark-neon-yellow': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z" /></svg>',
+        'hack-the-box': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>',
+        'green-breeze-light': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" /></svg>',
+        'pink-cat-boo': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19.5 12.572l-7.5 7.428l-7.5 -7.428a5 5 0 1 1 7.5 -6.566a5 5 0 1 1 7.5 6.572" /></svg>',
+        'cute-pink': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18c0-2 1.5-4 4-4s4 2 4 4c0 2-1.5 4-4 4s-4-2-4-4Z" /><path d="M15 18c0-2 1.5-4 4-4s4 2 4 4c0 2-1.5 4-4 4s-4-2-4-4Z" /><path d="M12 8v4M10 10l-2 2M14 10l2 2" /></svg>',
+        'semi-light-purple': '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9.06 11.9 8.07-8.06a2.85 2.85 0 1 1 4.03 4.03l-8.06 8.08" /><path d="M7.87 14.14c-.32.32-.67.68-1.06 1.06a5.04 5.04 0 0 1-2.17 1.22c-.47.15-.85.2-1.15.2-.16 0-.3-.02-.41-.03a1 1 0 0 1-.63-.97c-.01-.14.02-.31.07-.51.1-.41.3-.95.6-1.59.3-.64.67-1.33 1.08-2.05" /></svg>',
+      };
+      return svgMap[themeValue] || '';
+    };
+
+    // Update all switchers on the page
+    // When called from applyTheme, pass stored + currentTheme so we don't rely on DOM/localStorage being updated yet
+    const updateAllSwitchers = (overrideStored?: string | null, overrideCurrentTheme?: string | null) => {
+      const stored = (overrideStored != null ? String(overrideStored) : getStoredTheme() || '').trim();
+      const currentTheme = (overrideCurrentTheme != null ? String(overrideCurrentTheme) : getCurrentTheme() || '').trim();
+      document.querySelectorAll('[data-theme-switcher]').forEach((switcher) => {
+        const label = switcher.querySelector('[data-theme-label]');
+        const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]');
+        const options = switcher.querySelectorAll('.theme-switcher__option');
+        
+        if (label && labelWrapper) {
+          const themeLabel = stored === THEME_SYSTEM ? 'System' : getThemeLabel(currentTheme);
+          label.textContent = themeLabel;
+          
+          // Update icon
+          const existingIcon = labelWrapper.querySelector('[data-theme-label-icon]');
+          if (existingIcon) {
+            existingIcon.remove();
+          }
+          const iconTheme = stored === THEME_SYSTEM ? THEME_SYSTEM : currentTheme;
+          const iconSvg = getIconSVG(iconTheme);
+          if (iconSvg) {
+            const iconElement = document.createElement('span');
+            iconElement.setAttribute('data-theme-label-icon', '');
+            iconElement.className = 'theme-switcher__label-icon';
+            iconElement.innerHTML = iconSvg;
+            labelWrapper.insertBefore(iconElement, label);
+          }
+        }
+        
+        // Update options: when System is selected, both System and the resolved theme show active styles
+        const resolvedThemeBg = stored === THEME_SYSTEM
+          ? (Array.from(options).find((opt) => (opt.getAttribute('data-theme-value') || '').trim() === currentTheme)?.getAttribute('data-theme-bg') || null)
+          : null;
+        options.forEach((option) => {
+          const el = option as HTMLElement;
+          const optionValue = (el.getAttribute('data-theme-value') || '').trim();
+          const isStoredChoice = optionValue === stored;
+          const isResolvedTheme = stored === THEME_SYSTEM && optionValue === currentTheme;
+          const isActive = isStoredChoice || isResolvedTheme;
+          el.setAttribute('aria-checked', isStoredChoice.toString());
+          if (isActive) {
+            el.classList.add('theme-switcher__option--active');
+            const themeBg = optionValue === THEME_SYSTEM && resolvedThemeBg
+              ? resolvedThemeBg
+              : el.getAttribute('data-theme-bg');
+            if (themeBg) {
+              el.style.setProperty('--theme-bg', themeBg);
+            }
+          } else {
+            el.classList.remove('theme-switcher__option--active');
+            el.style.removeProperty('--theme-bg');
+          }
+        });
+      });
+    };
+
+    // Sync UI when theme changes (from util or other tabs)
+    window.addEventListener('rizzo-theme-change', () => updateAllSwitchers());
+
+    // Initialize all theme switcher instances on the page
+    const switchers = document.querySelectorAll('[data-theme-switcher]');
+    if (!switchers.length) return;
+    
+    switchers.forEach((switcher) => {
+      const trigger = switcher.querySelector('.theme-switcher__trigger') as HTMLButtonElement | null;
+      const menu = switcher.querySelector('.theme-switcher__menu') as HTMLElement | null;
+      const options = switcher.querySelectorAll('.theme-switcher__option') as NodeListOf<HTMLElement>;
+
+      if (!trigger || !menu) return;
+
+      // Toggle menu
+      const toggleMenu = (open?: boolean) => {
+        const isOpen = open !== undefined ? open : menu.classList.contains('theme-switcher__menu--open');
+        const willBeOpen = !isOpen;
+        
+        menu.classList.toggle('theme-switcher__menu--open', willBeOpen);
+        trigger.setAttribute('aria-expanded', willBeOpen.toString());
+        menu.setAttribute('aria-hidden', (!willBeOpen).toString());
+        
+        options.forEach((option) => {
+          option.setAttribute('tabindex', willBeOpen ? '0' : '-1');
+        });
+        
+        if (!willBeOpen) {
+          trigger.focus();
+        } else {
+          updateAllSwitchers();
+          updatePreview(null);
+          const firstOption = options[0];
+          if (firstOption) {
+            setTimeout(() => (firstOption as HTMLElement).focus(), 0);
+          }
+        }
+      };
+
+      // Close menu
+      const closeMenu = () => {
+        menu.classList.remove('theme-switcher__menu--open');
+        trigger.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        options.forEach((option) => {
+          option.setAttribute('tabindex', '-1');
+        });
+      };
+
+      // Close on outside click handler
+      const handleOutsideClick = (e: MouseEvent) => {
+        const target = e.target as Node | null;
+        if (target && !switcher.contains(target)) {
+          closeMenu();
+          document.removeEventListener('click', handleOutsideClick);
+        }
+      };
+      
+      // Wrapped toggle menu that handles outside clicks
+      const wrappedToggleMenu = (open?: boolean) => {
+        const wasOpen = menu.classList.contains('theme-switcher__menu--open');
+        toggleMenu(open);
+        const isNowOpen = menu.classList.contains('theme-switcher__menu--open');
+        
+        if (isNowOpen && !wasOpen) {
+          setTimeout(() => document.addEventListener('click', handleOutsideClick), 0);
+        } else if (!isNowOpen && wasOpen) {
+          document.removeEventListener('click', handleOutsideClick);
+        }
+      };
+
+      // Theme preview: show on hover/focus of an option that has accent
+      const preview = switcher.querySelector('[data-theme-preview]') as HTMLElement | null;
+      const previewSwatch = switcher.querySelector('[data-theme-preview-swatch]') as HTMLElement | null;
+      const previewAccent = switcher.querySelector('[data-theme-preview-accent]') as HTMLElement | null;
+
+      const previewLabel = switcher.querySelector('[data-theme-preview-label]') as HTMLElement | null;
+      const getActiveOption = (): HTMLElement | null => {
+        const active = Array.from(options).filter((opt) => (opt as HTMLElement).classList.contains('theme-switcher__option--active'));
+        const withTheme = active.find((opt) => (opt as HTMLElement).getAttribute('data-theme-value') !== THEME_SYSTEM) as HTMLElement | undefined;
+        return (withTheme ?? active[0] ?? null) as HTMLElement | null;
+      };
+      const getResolvedOption = (): HTMLElement | null => {
+        return (Array.from(options).find((opt) => (opt as HTMLElement).getAttribute('data-theme-value') !== THEME_SYSTEM && (opt as HTMLElement).classList.contains('theme-switcher__option--active')) as HTMLElement) ?? null;
+      };
+      const updatePreview = (option: HTMLElement | null) => {
+        if (!preview || !previewSwatch || !previewAccent) return;
+        const target = option ?? getActiveOption();
+        if (!target) {
+          preview.style.removeProperty('--preview-accent');
+          previewSwatch.style.backgroundColor = '';
+          if (previewLabel) previewLabel.textContent = '';
+          preview.setAttribute('aria-hidden', 'true');
+          return;
+        }
+        const value = target.getAttribute('data-theme-value') || '';
+        const isSystem = value === THEME_SYSTEM;
+        const resolved = getResolvedOption();
+        const bg = isSystem
+          ? (getComputedStyle(target).getPropertyValue('--theme-bg').trim() || resolved?.getAttribute('data-theme-bg'))
+          : target.getAttribute('data-theme-bg');
+        const accent = isSystem ? (resolved?.getAttribute('data-theme-accent') || '') : (target.getAttribute('data-theme-accent') || '');
+        const label = isSystem ? 'System' : (target.getAttribute('data-theme-label') || '');
+        previewSwatch.style.backgroundColor = bg || '';
+        preview.style.setProperty('--preview-accent', accent);
+        if (previewLabel) previewLabel.textContent = label;
+        preview.setAttribute('aria-hidden', 'false');
+      };
+
+      options.forEach((option) => {
+        const el = option as HTMLElement;
+        el.addEventListener('mouseenter', () => updatePreview(el));
+        el.addEventListener('focus', () => updatePreview(el));
+      });
+      menu.addEventListener('mouseleave', () => {
+        const focused = menu.contains(document.activeElement);
+        if (!focused) updatePreview(null);
+      });
+      menu.addEventListener('focusout', (e) => {
+        const related = (e as FocusEvent).relatedTarget as Node | null;
+        if (!related || !menu.contains(related)) updatePreview(null);
+      });
+
+      // Event listeners
+      trigger.addEventListener('click', () => wrappedToggleMenu(undefined));
+      
+      menu.addEventListener('click', (e) => {
+        const target = e.target as HTMLElement | null;
+        if (!target) return;
+        const option = target.closest('.theme-switcher__option');
+        if (option) {
+          const themeValue = (option as HTMLElement).getAttribute('data-theme-value');
+          if (themeValue) {
+            applyTheme(themeValue);
+            updateAllSwitchers();
+            closeMenu();
+          }
+        }
+      });
+
+      // Keyboard navigation
+      let currentIndex = -1;
+      
+      const getVisibleOptions = () => {
+        return Array.from(options).filter(opt => {
+          return opt.offsetParent !== null || opt.closest('.theme-switcher__menu--open');
+        });
+      };
+
+      trigger.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          wrappedToggleMenu();
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          const visibleOptions = getVisibleOptions();
+          if (visibleOptions.length > 0) {
+            currentIndex = 0;
+            wrappedToggleMenu(true);
+            setTimeout(() => visibleOptions[0].focus(), 0);
+          }
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          const visibleOptions = getVisibleOptions();
+          if (visibleOptions.length > 0) {
+            currentIndex = visibleOptions.length - 1;
+            wrappedToggleMenu(true);
+            setTimeout(() => visibleOptions[currentIndex].focus(), 0);
+          }
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          closeMenu();
+        }
+      });
+
+      menu.addEventListener('keydown', (e) => {
+        const visibleOptions = getVisibleOptions();
+        
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          closeMenu();
+          trigger.focus();
+          currentIndex = -1;
+        } else if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          currentIndex = (currentIndex + 1) % visibleOptions.length;
+          visibleOptions[currentIndex].focus();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          currentIndex = currentIndex <= 0 ? visibleOptions.length - 1 : currentIndex - 1;
+          visibleOptions[currentIndex].focus();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          currentIndex = 0;
+          visibleOptions[0].focus();
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          currentIndex = visibleOptions.length - 1;
+          visibleOptions[currentIndex].focus();
+        } else if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          const target = e.target as HTMLElement | null;
+          if (!target) return;
+          const themeValue = target.getAttribute('data-theme-value');
+          if (themeValue) {
+            applyTheme(themeValue);
+            updateAllSwitchers();
+            closeMenu();
+            trigger.focus(); // Return focus to trigger after selection
+          }
+        } else if (e.key === 'Tab') {
+          // Close menu when Tab is pressed (allows natural tab flow)
+          closeMenu();
+          // Don't prevent default - allow Tab to continue naturally
+        }
+      });
+
+    });
+
+    // Initialize all switchers
+    setTimeout(() => {
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        applyTheme(savedTheme);
+        updateAllSwitchers();
+      } else {
+        updateAllSwitchers();
+      }
+    }, 0);
+
+    // When "System" is selected, update theme when OS preference changes
+    const systemMedia = window.matchMedia('(prefers-color-scheme: dark)');
+    systemMedia.addEventListener('change', () => {
+      if (getStoredTheme() === THEME_SYSTEM) {
+        applyTheme(THEME_SYSTEM);
+        updateAllSwitchers();
+      }
+    });
+  })();
+</script>

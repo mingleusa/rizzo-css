@@ -21,11 +21,11 @@ const svelteDest = join(scaffoldDir, 'svelte');
 const astroSrc = resolve(rootDir, 'src', 'components');
 const astroDest = join(scaffoldDir, 'astro');
 
-// Astro components to scaffold (exclude docs-only: Navbar, Search, Settings, ThemeSwitcher, FrameworkSwitcher, CodeBlock)
+// Astro components to scaffold (exclude docs-only: Navbar, Search, Settings, FrameworkSwitcher, CodeBlock)
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
   'CopyToClipboard', 'Divider', 'Dropdown', 'FormGroup', 'Input', 'Modal', 'Pagination',
-  'ProgressBar', 'Radio', 'Select', 'Spinner', 'Table', 'Tabs', 'Textarea', 'Toast', 'Tooltip',
+  'ProgressBar', 'Radio', 'Select', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeSwitcher', 'Toast', 'Tooltip',
 ];
 
 function copyDirRecursive(src, dest) {
@@ -145,18 +145,33 @@ function copySvelte() {
     console.warn('copy-scaffold: ' + svelteSrc + ' not found, skipping');
     return;
   }
+  const configDir = resolve(rootDir, 'src', 'config');
+  const utilsDir = resolve(rootDir, 'src', 'utils');
   mkdirSync(svelteDest, { recursive: true });
   const entries = readdirSync(svelteSrc, { withFileTypes: true });
   let count = 0;
-  // ThemeSwitcher depends on repo config/themes and utils/theme; exclude from scaffold so 24 components work out of the box
-  const SVELTE_SCAFFOLD_SKIP = new Set(['ThemeSwitcher.svelte']);
   for (const e of entries) {
     if (e.name === 'docs' || e.name === 'node_modules') continue;
-    if (SVELTE_SCAFFOLD_SKIP.has(e.name)) continue;
     if (e.isFile() && (e.name.endsWith('.svelte') || e.name === 'index.ts')) {
-      copyFileSync(join(svelteSrc, e.name), join(svelteDest, e.name));
+      let destPath = join(svelteDest, e.name);
+      if (e.name === 'ThemeSwitcher.svelte') {
+        let content = readFileSync(join(svelteSrc, e.name), 'utf8');
+        content = content.replace(/from '\.\.\/\.\.\/config\/themes'|from "\.\.\/\.\.\/config\/themes"/g, "from './themes'");
+        content = content.replace(/from '\.\.\/\.\.\/utils\/theme'|from "\.\.\/\.\.\/utils\/theme"/g, "from './theme'");
+        writeFileSync(destPath, content);
+      } else {
+        copyFileSync(join(svelteSrc, e.name), destPath);
+      }
       count++;
     }
+  }
+  if (existsSync(join(configDir, 'themes.ts'))) {
+    copyFileSync(join(configDir, 'themes.ts'), join(svelteDest, 'themes.ts'));
+  }
+  if (existsSync(join(utilsDir, 'theme.ts'))) {
+    let themeContent = readFileSync(join(utilsDir, 'theme.ts'), 'utf8');
+    themeContent = themeContent.replace(/from '\.\.\/config\/themes'|from "\.\.\/config\/themes"/g, "from './themes'");
+    writeFileSync(join(svelteDest, 'theme.ts'), themeContent);
   }
   // Copy Svelte icons from repo (Svelte 5, $props) so scaffold matches project
   const svelteIconsSrc = join(svelteSrc, 'icons');
@@ -172,14 +187,22 @@ function copyAstro() {
     console.warn('copy-scaffold: ' + astroSrc + ' not found, skipping');
     return;
   }
+  const configDir = resolve(rootDir, 'src', 'config');
   mkdirSync(astroDest, { recursive: true });
   let count = 0;
   for (const name of ASTRO_SCAFFOLD) {
     const srcFile = join(astroSrc, name + '.astro');
     if (existsSync(srcFile)) {
-      copyFileSync(srcFile, join(astroDest, name + '.astro'));
+      let content = readFileSync(srcFile, 'utf8');
+      if (name === 'ThemeSwitcher') {
+        content = content.replace(/'\.\.\/config\/themes'|"\.\.\/config\/themes"/g, "'./themes'");
+      }
+      writeFileSync(join(astroDest, name + '.astro'), content);
       count++;
     }
+  }
+  if (existsSync(join(configDir, 'themes.ts'))) {
+    copyFileSync(join(configDir, 'themes.ts'), join(astroDest, 'themes.ts'));
   }
   const iconsSrc = join(astroSrc, 'icons');
   if (existsSync(iconsSrc)) {

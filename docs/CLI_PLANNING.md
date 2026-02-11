@@ -2,7 +2,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **framework** (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red), then **existing or new?** — **Existing:** add Rizzo to current directory (default theme, optional components). **New:** project location → default theme (single select; all 14 themes in CSS) → components (Astro/Svelte, multi-select). **Components** menu offers "Select all" and "Select none"; you can pick individuals (Space to toggle, Enter to confirm). **New** scaffolds: Vanilla = `scaffold/vanilla/` (full Settings, toast, theme with System); Astro = `scaffold/astro-app/`; Svelte = `scaffold/svelte-app/` (both include theme flash + toast in layout). Component picker uses `scaffold/astro/` and `scaffold/svelte/` (filled by `copy-scaffold.js` on prepublish). **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **framework** (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red), then **existing or new?** — **Existing:** framework → **What to include?** (CSS only / Recommended set / All components / Pick components) → if ThemeSwitcher chosen, optional default-theme prompt → copy CSS + components. **New:** location → themes → **What to include?** (same four options for Astro/Svelte; Vanilla gets full scaffold with no component picker) → full clone. **What to include?** keeps the CLI simple: most users choose Recommended or All; only "Pick components" shows the 25-item multi-select. **New** scaffolds: Vanilla = `scaffold/vanilla/` (full Settings, toast, theme with System); Astro = `scaffold/astro-app/`; Svelte = `scaffold/svelte-app/`. **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.
 
 ---
 
@@ -18,7 +18,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 | Command | Description |
 |--------|-------------|
-| `npx rizzo-css init` | First: **framework** (Vanilla / Astro / Svelte). Then: **Add to existing** (cwd) or **Create new**. Existing: default theme, optional components → copy CSS + components. New: location → default theme (single select; all 14 themes in CSS) → components; scaffolds full clone (Astro/Svelte/Vanilla). Components: "Select all" / "Select none" or pick individuals (Space=toggle, Enter=confirm). |
+| `npx rizzo-css init` | First: **framework** (Vanilla / Astro / Svelte). Then: **Add to existing** or **Create new**. **What to include?** (Astro/Svelte only): CSS only / Recommended set (10 components) / All (25) / Pick (multi-select). New: location → themes → same include choice → full clone. Vanilla: no component picker; full scaffold for new. |
 | `npx rizzo-css add` | Add Rizzo CSS to the current project. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs (for use with `data-theme` on `<html>`). |
 | `npx rizzo-css upgrade` *(later)* | Check for updates and optionally update CSS/package version. |
@@ -47,7 +47,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 - [x] Implement `add`: copy CSS; auto-detect Svelte/Astro; default paths `static/css` or `public/css`; `--path` and `--framework` support.
 - [x] Implement `theme`: list 14 theme IDs.
 - [x] Document in [Getting Started](./GETTING_STARTED.md): “Quick start with CLI” via `npx rizzo-css init` / `add`.
-- [x] **Component selection:** For Astro and Svelte, init prompts “Include components? (y/n)”; if yes, numbered list of 24 components, then copy from `scaffold/astro/` or `scaffold/svelte/` into the project. Scaffold populated by `scripts/copy-scaffold.js` (run in prepublishOnly).
+- [x] **Component selection:** For Astro and Svelte, init asks **What to include?** — CSS only / Recommended set (10) / All (25) / Pick (multi-select). Only “Pick” shows the full list; Recommended and All avoid a long menu. Scaffold populated by `scripts/copy-scaffold.js` (run in prepublishOnly).
 
 ### Phase 2 – Themes and options
 

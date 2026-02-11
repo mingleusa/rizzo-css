@@ -1,19 +1,19 @@
 # Publishing the npm package
 
-The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme`), and scaffolds (Vanilla, Astro, Svelte) plus optional 24 components. Init asks framework first, then existing vs new; Create new → full clone. [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
+The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme`), and scaffolds (Vanilla, Astro, Svelte) plus optional 25 components (including ThemeSwitcher). Init asks framework first, then existing vs new; Create new → full clone. [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
 
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`. [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.13/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
-- **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, `scaffold/`. PrepublishOnly runs: `build:css`, `copy-scaffold.js`, `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js`.
+- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.14/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, `scaffold/`. PrepublishOnly runs (from repo root): `lint:css:fix`, `build:css`, `copy-scaffold.js`, then the three `prepare-*-scaffold.js` scripts.
 - **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Full clone for all three frameworks when user selects Create new project; Add to existing adds CSS + optional components.
 - **Pre-publish** — [Pre-publish checklist](#pre-publish-checklist): version bump, build, publish, push, CDN verify.
 - **CLI / Svelte / framework** — [CLI Planning](./CLI_PLANNING.md); [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md); [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md); [GETTING_STARTED – JS utilities](./GETTING_STARTED.md#javascript-utilities).
 
 ## Keeping npm and GitHub in sync
 
-**The npm package is a snapshot at publish time.** When you run `pnpm publish:package` (or `npm publish` from `packages/rizzo-css`), npm packs whatever is in that package **at that moment** — after `prepublishOnly` has run (`build:css`, `copy-scaffold.js`, then `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js`). Pushing to GitHub **after** you publish does **not** update the published package. The package only changes when you bump the version and run `npm publish` again.
+**The npm package is a snapshot at publish time.** When you run `pnpm publish:package` (or `npm publish` from `packages/rizzo-css`), npm packs whatever is in that package **at that moment** — after `prepublishOnly` has run (`lint:css:fix`, `build:css`, `copy-scaffold.js`, then the three `prepare-*-scaffold.js` scripts). Pushing to GitHub **after** you publish does **not** update the published package. The package only changes when you bump the version and run `npm publish` again.
 
 So:
 
@@ -48,14 +48,14 @@ Before publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.13"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
+   - `packages/rizzo-css/package.json` → `"version": "0.0.14"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css`, `copy-scaffold.js` (fills `scaffold/astro/`, `scaffold/svelte/`, `scaffold/vanilla/icons`), then `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js` (populate the full app scaffolds with chrome and component showcase) before the actual publish. Enter your npm OTP if prompted (2FA).
+   This runs `pnpm build:package` (lint, build CSS, copy scaffold, run all prepare-* scripts), then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` also runs the same pipeline (lint, build:css, copy-scaffold, prepare-*) so even a direct `npm publish` from the package directory ships linted, up-to-date assets. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash
@@ -76,5 +76,7 @@ Only what’s listed in `packages/rizzo-css/package.json` under `"files"`:
 - `bin/` (CLI: `rizzo-css` → `bin/rizzo-css.js`)
 - `scaffold/` (vanilla example, astro-app, svelte-app, plus astro/ and svelte/ component templates for init)
 - `README.md`
+- `LICENSE` (MIT)
+- `.env.example` (optional; for projects that add search, e.g. Algolia)
 
 Consumers get the CSS, the CLI, and the scaffold templates; they do not get the full repo (docs site, dev dependencies, or source beyond the scaffold).

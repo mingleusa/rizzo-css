@@ -1,6 +1,6 @@
 # SvelteKit + Rizzo CSS
 
-This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Svelte. This full clone (home, component showcase at `/components`) is only generated for new projects; **Add to existing project** only adds the CSS and optional components.
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Svelte. This full clone (home, component showcase at `/components`) is only generated for new projects; **Add to existing project** only adds the CSS and optional components (you must add the stylesheet `<link>` to your layout yourself; the CLI prints the exact tag).
 
 ## First-time setup
 
