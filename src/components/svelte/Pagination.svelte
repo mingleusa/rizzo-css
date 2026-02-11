@@ -38,7 +38,7 @@
     class: className = '',
   }: Props = $props();
 
-  const classes = ['pagination', className].filter(Boolean).join(' ').trim();
+  const classes = $derived(['pagination', className].filter(Boolean).join(' ').trim());
   const pageItems = $derived(getPageItems(totalPages, currentPage, maxVisible));
   const hasPrev = $derived(currentPage > 1);
   const hasNext = $derived(currentPage < totalPages);

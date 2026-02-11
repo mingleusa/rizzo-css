@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
+  <button type="button" class="theme-switcher__trigger" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" data-theme-trigger>
+    <span class="theme-switcher__label-wrapper">
+      <span class="theme-switcher__label" data-theme-label>GitHub Dark Classic</span>
+    </span>
+    <svg class="theme-switcher__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="theme-switcher__menu" id="theme-menu" role="menu" hidden>
+    <div class="theme-switcher__menu-options">
+      <div class="theme-switcher__group" role="group" aria-label="Preference">
+        <div class="theme-switcher__group-label">Preference</div>
+        <button type="button" class="theme-switcher__option" role="menuitemradio" aria-checked="true" data-theme-value="system">System</button>
+      </div>
+      <div class="theme-switcher__group" role="group" aria-label="Dark themes">
+        <div class="theme-switcher__group-label">Dark</div>
+        <button type="button" class="theme-switcher__option" role="menuitemradio" data-theme-value="github-dark-classic">GitHub Dark Classic</button>
+        <!-- more dark themes -->
+      </div>
+      <div class="theme-switcher__group" role="group" aria-label="Light themes">
+        <div class="theme-switcher__group-label">Light</div>
+        <button type="button" class="theme-switcher__option" role="menuitemradio" data-theme-value="github-light">GitHub Light</button>
+        <!-- more light themes -->
+      </div>
+    </div>
+    <div class="theme-switcher__preview" data-theme-preview aria-hidden="true">
+      <div class="theme-switcher__preview-title">Preview</div>
+      <div class="theme-switcher__preview-header" data-theme-preview-label>Theme name</div>
+      <div class="theme-switcher__preview-swatch-wrap"><div class="theme-switcher__preview-swatch" data-theme-preview-swatch></div></div>
+      <div class="theme-switcher__preview-accent" data-theme-preview-accent></div>
+    </div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Theme Switcher — Vanilla" description="Theme switcher with vanilla HTML. See Astro docs for full markup.">
+  <section>
+    <h2>Theme Switcher</h2>
+    <p>Accessible theme switcher with theme icons and keyboard navigation. Use the BEM structure below; add JS to set <code>data-theme</code> on <code>&lt;html&gt;</code>, toggle the menu, and persist the choice in <code>localStorage</code> (key <code>theme</code>; use <code>system</code> for OS preference).</p>
+
+    <h3>HTML (structure)</h3>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded. Wire trigger/menu open-close and option clicks to your theme utility (e.g. <code>applyTheme(value)</code>).</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><a href="/docs/components/theme-switcher">View <strong>Theme Switcher</strong> on the Astro docs</a> for complete markup, all themes, and preview panel.</p>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/theme-switcher">Astro</a> · <a href="/docs/svelte/components/theme-switcher">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>

@@ -1,0 +1,46 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<button class="btn">Default</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-success">Success</button>
+<button class="btn btn-warning">Warning</button>
+<button class="btn btn-error">Error</button>
+<button class="btn btn-info">Info</button>
+<button class="btn btn-outline">Outline</button>
+<button class="btn" disabled>Disabled</button>`;
+---
+
+<DocsLayout title="Button — Vanilla" description="Button variants with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Button</h2>
+    <p>Semantic button with BEM classes. No JS required for static buttons.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <button class="btn">Default</button>
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-success">Success</button>
+        <button class="btn btn-warning">Warning</button>
+        <button class="btn btn-error">Error</button>
+        <button class="btn btn-info">Info</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn" disabled>Disabled</button>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/button">Astro</a> · <a href="/docs/svelte/components/button">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

@@ -140,17 +140,24 @@ textarea {
   font-family: var(--font-family);
 }
 
-/* Select specific */
+/* Select: dropdown arrow = project ChevronDown. Default arrow uses dark stroke for light themes. */
 select {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+  padding-right: var(--spacing-10);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23374151' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right var(--spacing-3) center;
-  background-size: 1rem;
-  padding-right: var(--spacing-10);
+  background-size: 1rem 1rem;
 }
 
-select:focus {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+/* Dark themes: arrow must be light so it's visible (currentColor in data URI doesn't inherit reliably). */
+[data-theme="rocky-blood-orange"] select,
+[data-theme="minimal-dark-neon-yellow"] select,
+[data-theme="pink-cat-boo"] select,
+[data-theme="sandstorm-classic"] select,
+[data-theme="hack-the-box"] select,
+[data-theme="shades-of-purple"] select,
+[data-theme="github-dark-classic"] select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23e5e7eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 }
 
 /* Form Group */
@@ -296,11 +303,6 @@ input[type="radio"]:disabled {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
-}
-
-.checkbox-group--inline,
-.radio-group--inline {
-  flex-flow: row wrap;
 }
 
 /* File Input */

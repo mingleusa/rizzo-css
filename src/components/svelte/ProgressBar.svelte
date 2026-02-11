@@ -24,16 +24,18 @@
   const clampedValue = $derived(indeterminate ? 0 : Math.max(0, Math.min(value, safeMax)));
   const percentage = $derived(indeterminate ? 0 : Math.round((clampedValue / safeMax) * 100));
 
-  const classes = [
-    'progress',
-    `progress--${variant}`,
-    `progress--${size}`,
-    indeterminate ? 'progress--indeterminate' : '',
-    className,
-  ]
-    .filter(Boolean)
-    .join(' ')
-    .trim();
+  const classes = $derived(
+    [
+      'progress',
+      `progress--${variant}`,
+      `progress--${size}`,
+      indeterminate ? 'progress--indeterminate' : '',
+      className,
+    ]
+      .filter(Boolean)
+      .join(' ')
+      .trim()
+  );
 
   const barStyle = $derived(indeterminate ? {} : { width: `${percentage}%` });
 </script>
@@ -48,7 +50,7 @@
   aria-valuenow={indeterminate ? undefined : clampedValue}
 >
   <div class="progress__track">
-    <div class="progress__bar" style={barStyle} />
+    <div class="progress__bar" style={barStyle}></div>
   </div>
   {#if showLabel && !indeterminate}
     <span class="progress__label" aria-hidden="true">{percentage}%</span>

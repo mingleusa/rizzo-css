@@ -1,0 +1,350 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import Card from '../../../../components/Card.astro';
+import Gear from '../../../../components/icons/Gear.astro';
+import Close from '../../../../components/icons/Close.astro';
+import ChevronDown from '../../../../components/icons/ChevronDown.astro';
+import CopyIcon from '../../../../components/icons/Copy.astro';
+import Check from '../../../../components/icons/Check.astro';
+import Moon from '../../../../components/icons/Moon.astro';
+import Palette from '../../../../components/icons/Palette.astro';
+import Owl from '../../../../components/icons/Owl.astro';
+import Snowflake from '../../../../components/icons/Snowflake.astro';
+import IceCream from '../../../../components/icons/IceCream.astro';
+import Circle from '../../../../components/icons/Circle.astro';
+import Rainbow from '../../../../components/icons/Rainbow.astro';
+import Eye from '../../../../components/icons/Eye.astro';
+import Search from '../../../../components/icons/Search.astro';
+import Sort from '../../../../components/icons/Sort.astro';
+import Filter from '../../../../components/icons/Filter.astro';
+import Cmd from '../../../../components/icons/Cmd.astro';
+import Css3 from '../../../../components/icons/devicons/Css3.astro';
+import Html5 from '../../../../components/icons/devicons/Html5.astro';
+import Javascript from '../../../../components/icons/devicons/Javascript.astro';
+import Nodejs from '../../../../components/icons/devicons/Nodejs.astro';
+import AstroIcon from '../../../../components/icons/devicons/Astro.astro';
+import Plaintext from '../../../../components/icons/devicons/Plaintext.astro';
+import Git from '../../../../components/icons/devicons/Git.astro';
+import Bash from '../../../../components/icons/devicons/Bash.astro';
+import Svelte from '../../../../components/icons/devicons/Svelte.astro';
+import React from '../../../../components/icons/devicons/React.astro';
+import Vue from '../../../../components/icons/devicons/Vue.astro';
+
+// Icon data with SVG content for copying (same as Astro/Svelte icons docs)
+const regularIcons = [
+	{ name: 'Gear', component: Gear, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>' },
+	{ name: 'Close', component: Close, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>' },
+	{ name: 'ChevronDown', component: ChevronDown, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>' },
+	{ name: 'Copy', component: CopyIcon, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2"/></svg>' },
+	{ name: 'Check', component: Check, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>' },
+	{ name: 'Search', component: Search, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>' },
+	{ name: 'Moon', component: Moon, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>' },
+	{ name: 'Palette', component: Palette, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M12 21a9 9 0 0 1 0 -18c4.97 0 9 3.582 9 8c0 1.06 -.474 2.078 -1.318 2.828c-.844 .75 -1.989 1.172 -3.182 1.172h-2.5a2 2 0 0 0 -1 3.75a1.3 1.3 0 0 1 -1 2.25"/><path d="M7.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M11.5 7.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/><path d="M15.5 10.5a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"/></svg>' },
+	{ name: 'Owl', component: Owl, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 7h.01"/><path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20"/><path d="m20 7 2 .5-2 .5"/><path d="M10 18v3"/><path d="M14 17.75V21"/><path d="M7 18a6 6 0 0 0 3.84-10.61"/></svg>' },
+	{ name: 'Snowflake', component: Snowflake, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20"/><path d="m17 5-5 5-5-5"/><path d="m17 19-5-5-5 5"/><path d="M2 12h20"/><path d="m5 17 5-5 5 5"/><path d="m5 7 5 5 5-5"/></svg>' },
+	{ name: 'IceCream', component: IceCream, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 11 4.08 10.35a1 1 0 0 0 1.84 0L17 11"/><path d="M17 7A5 5 0 0 0 7 7"/><path d="M17 7a2 2 0 0 1 0 4H7a2 2 0 0 1 0-4"/></svg>' },
+	{ name: 'Circle', component: Circle, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/></svg>' },
+	{ name: 'Rainbow', component: Rainbow, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17a10 10 0 0 0-20 0"/><path d="M6 17a6 6 0 0 1 12 0"/><path d="M10 17a2 2 0 0 1 4 0"/></svg>' },
+	{ name: 'Eye', component: Eye, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>' },
+	{ name: 'Sort', component: Sort, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>' },
+	{ name: 'Filter', component: Filter, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>' },
+	{ name: 'Cmd', component: Cmd, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg>' },
+];
+
+const devicons = [
+	{ name: 'CSS3', component: Css3, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#1572b6" d="M18.814 114.123L8.76 1.352h110.48l-10.064 112.754l-45.243 12.543z"/><path fill="#33a9dc" d="m64.001 117.062l36.559-10.136l8.601-96.354h-45.16z"/><path fill="#fff" d="M64.001 51.429h18.302l1.264-14.163H64.001V23.435h34.682l-.332 3.711l-3.4 38.114h-30.95z"/><path fill="#ebebeb" d="m64.083 87.349l-.061.018l-15.403-4.159l-.985-11.031H33.752l1.937 21.717l28.331 7.863l.063-.018z"/><path fill="#fff" d="m81.127 64.675l-1.666 18.522l-15.426 4.164v14.39l28.354-7.858l.208-2.337l2.406-26.881z"/><path fill="#ebebeb" d="M64.048 23.435v13.831H30.64l-.277-3.108l-.63-7.012l-.331-3.711zm-.047 27.996v13.831H48.792l-.277-3.108l-.631-7.012l-.33-3.711z"/></svg>' },
+	{ name: 'HTML5', component: Html5, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#e44d26" d="M19.037 113.876L9.032 1.661h109.936l-10.016 112.198l-45.019 12.48z"/><path fill="#f16529" d="m64 116.8l36.378-10.086l8.559-95.878H64z"/><path fill="#ebebeb" d="M64 52.455H45.788L44.53 38.361H64V24.599H29.489l.33 3.692l3.382 37.927H64zm0 35.743l-.061.017l-15.327-4.14l-.979-10.975H33.816l1.928 21.609l28.193 7.826l.063-.017z"/><path fill="#fff" d="M63.952 52.455v13.763h16.947l-1.597 17.849l-15.35 4.143v14.319l28.215-7.82l.207-2.325l3.234-36.233l.335-3.696h-3.708zm0-27.856v13.762h33.244l.276-3.092l.628-6.978l.329-3.692z"/></svg>' },
+	{ name: 'JavaScript', component: Javascript, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#f0db4f" d="M1.408 1.408h125.184v125.185H1.408z"/><path fill="#323330" d="M116.347 96.736c-.917-5.711-4.641-10.508-15.672-14.981c-3.832-1.761-8.104-3.022-9.377-5.926c-.452-1.69-.512-2.642-.226-3.665c.821-3.32 4.784-4.355 7.925-3.403c2.023.678 3.938 2.237 5.093 4.724c5.402-3.498 5.391-3.475 9.163-5.879c-1.381-2.141-2.118-3.129-3.022-4.045c-3.249-3.629-7.676-5.498-14.756-5.355l-3.688.477c-3.534.893-6.902 2.748-8.877 5.235c-5.926 6.724-4.236 18.492 2.975 23.335c7.104 5.332 17.54 6.545 18.873 11.531c1.297 6.104-4.486 8.08-10.234 7.378c-4.236-.881-6.592-3.034-9.139-6.949c-4.688 2.713-4.688 2.713-9.508 5.485c1.143 2.499 2.344 3.63 4.26 5.795c9.068 9.198 31.76 8.746 35.83-5.176c.165-.478 1.261-3.666.38-8.581M69.462 58.943H57.753l-.048 30.272c0 6.438.333 12.34-.714 14.149c-1.713 3.558-6.152 3.117-8.175 2.427c-2.059-1.012-3.106-2.451-4.319-4.485c-.333-.584-.583-1.036-.667-1.071l-9.52 5.83c1.583 3.249 3.915 6.069 6.902 7.901c4.462 2.678 10.459 3.499 16.731 2.059c4.082-1.189 7.604-3.652 9.448-7.401c2.666-4.915 2.094-10.864 2.07-17.444c.06-10.735.001-21.468.001-32.237"/></svg>' },
+	{ name: 'Node.js', component: Nodejs, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><defs><linearGradient id="n1" x1="34.513" x2="27.157" y1="15.535" y2="30.448" gradientTransform="translate(-129.242 -73.715)scale(6.18523)" gradientUnits="userSpaceOnUse"><stop stop-color="#3f873f"/><stop offset=".33" stop-color="#3f8b3d"/><stop offset=".637" stop-color="#3e9638"/><stop offset=".934" stop-color="#3da92e"/><stop offset="1" stop-color="#3dae2b"/></linearGradient></defs><path fill="url(#n1)" d="M66.958.825a6.07 6.07 0 0 0-6.035 0L11.103 29.76c-1.895 1.072-2.96 3.095-2.96 5.24v57.988c0 2.143 1.183 4.167 2.958 5.24l49.82 28.934a6.07 6.07 0 0 0 6.036 0l49.82-28.935c1.894-1.072 2.958-3.096 2.958-5.24V35c0-2.144-1.183-4.167-2.958-5.24z"/></svg>' },
+	{ name: 'Astro', component: AstroIcon, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#ff5d01" d="M84.094 90.074c-3.57 3.055-10.696 5.137-18.903 5.137c-10.07 0-18.515-3.137-20.754-7.356c-.8 2.418-.98 5.184-.98 6.954c0 0-.527 8.675 5.508 14.71a5.67 5.67 0 0 1 5.672-5.671c5.37 0 5.367 4.683 5.363 8.488v.336c0 5.773 3.527 10.719 8.543 12.805a11.6 11.6 0 0 1-1.172-5.098c0-5.508 3.23-7.555 6.988-9.938c2.989-1.894 6.309-4 8.594-8.222a15.5 15.5 0 0 0 1.875-7.41a15.6 15.6 0 0 0-.734-4.735m0 0"/></svg>' },
+	{ name: 'Plaintext', component: Plaintext, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#32322a" d="M57.62 61.68c-1.7.24-2.87 1.78-2.62 3.43a3.07 3.07 0 0 0 2.22 2.54s7.47 2.46 20.18 3.51c10.21.85 21.8-.73 21.8-.73c1.7-.04 3.03-1.45 2.99-3.15a3.065 3.065 0 0 0-3.15-2.99c-.2 0-.4.04-.61.08c0 0-11.34 1.41-20.55.65c-12.15-.97-18.77-3.19-18.77-3.19c-.48-.16-1.01-.24-1.49-.16Zm0-15.22c-1.7.24-2.87 1.78-2.62 3.43a3.07 3.07 0 0 0 2.22 2.54s7.47 2.46 20.18 3.51c10.21.85 21.8-.73 21.8-.73c1.7-.04 3.03-1.45 2.99-3.15a3.065 3.065 0 0 0-3.15-2.99c-.2 0-.4.04-.61.08c0 0-11.34 1.41-20.55.65c-12.15-.97-18.77-3.19-18.77-3.19c-.48-.16-1.01-.24-1.49-.16Z"/></svg>' },
+	{ name: 'Git', component: Git, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#f34f29" d="M124.737 58.378L69.621 3.264c-3.172-3.174-8.32-3.174-11.497 0L46.68 14.71l14.518 14.518c3.375-1.139 7.243-.375 9.932 2.314c2.703 2.706 3.461 6.607 2.294 9.993l13.992 13.993c3.385-1.167 7.292-.413 9.994 2.295c3.78 3.777 3.78 9.9 0 13.679a9.673 9.673 0 0 1-13.683 0a9.68 9.68 0 0 1-2.105-10.521L68.574 47.933l-.002 34.341a9.7 9.7 0 0 1 2.559 1.828c3.778 3.777 3.778 9.898 0 13.683c-3.779 3.777-9.904 3.777-13.679 0c-3.778-3.784-3.778-9.905 0-13.683a9.7 9.7 0 0 1 3.167-2.11V47.333a9.6 9.6 0 0 1-3.167-2.111c-2.862-2.86-3.551-7.06-2.083-10.576L41.056 20.333L3.264 58.123a8.133 8.133 0 0 0 0 11.5l55.117 55.114c3.174 3.174 8.32 3.174 11.499 0l54.858-54.858a8.135 8.135 0 0 0-.001-11.501"/></svg>' },
+	{ name: 'Vue', component: Vue, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#41b883" d="m.91 9.569l25.067-.172l38.15 65.659L101.98 9.401l25.11.026l-62.966 108.06z"/></svg>' },
+	{ name: 'React', component: React, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><g fill="#61dafb"><circle cx="64" cy="64" r="11.4"/><path d="M107.3 45.2c-2.2-.8-4.5-1.6-6.9-2.3c.6-2.4 1.1-4.8 1.5-7.1c2.1-13.2-.2-22.5-6.6-26.1c-1.9-1.1-4-1.6-6.4-1.6c-7 0-15.9 5.2-24.9 13.9c-9-8.7-17.9-13.9-24.9-13.9c-2.4 0-4.5.5-6.4 1.6c-6.4 3.7-8.7 13-6.6 26.1c.4 2.3.9 4.7 1.5 7.1c-2.4.7-4.7 1.4-6.9 2.3C8.2 50 1.4 56.6 1.4 64s6.9 14 19.3 18.8"/></g></svg>' },
+	{ name: 'Svelte', component: Svelte, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#ff3e00" d="M110.43 16.936C98.553-.076 75.09-5.118 58.13 5.696l-29.792 19a34.2 34.2 0 0 0-15.48 22.897a25.478 30.64 0 0 0-.572 6.396a36.15 36.15 0 0 0 4.163 16.73A34.4 34.4 0 0 0 11.34 83.5a25.348 30.483 0 0 0 .345 14.412a36.5 36.5 0 0 0 5.9 13.152c11.878 17.01 35.394 22.053 52.3 11.24l29.762-19.001a34.13 34.13 0 0 0 15.438-22.918a35.5 35.5 0 0 0 .572-6.386a36.2 36.2 0 0 0-4.112-16.71a34.4 34.4 0 0 0 5.112-12.77c.369-2.11.557-4.245.562-6.386a36.4 36.4 0 0 0-6.787-21.178z"/></svg>' },
+	{ name: 'Bash', component: Bash, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><path fill="#293138" d="M112.205 26.129L71.8 2.142A15.3 15.3 0 0 0 64.005 0c-2.688 0-5.386.717-7.796 2.152L15.795 26.14C10.976 28.999 8 34.289 8 40.018v47.975c0 5.729 2.967 11.019 7.796 13.878L56.2 125.858A15.2 15.2 0 0 0 63.995 128a15.3 15.3 0 0 0 7.796-2.142l40.414-23.987c4.819-2.86 7.796-8.16 7.796-13.878V40.007c0-5.718-2.967-11.019-7.796-13.878"/><path fill="#4fa847" d="m101.614 92.619l-10.066 6.018c-.268.16-.46.332-.46.653v2.635c0 .32.214.46.481.3l10.216-6.212c.268-.16.31-.45.31-.77v-2.324c0-.322-.213-.45-.481-.3"/></svg>' },
+];
+
+const copyableHtml = `<!-- Tabler-style: stroke="currentColor" + .icon class (Rizzo CSS) = theme-friendly on light/dark -->
+<span class="icon" aria-hidden="true">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="3"/>
+    <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+  </svg>
+</span>
+
+<!-- Inline with button (inherits button color) -->
+<button type="button" class="btn btn-primary">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  <span>Next</span>
+</button>
+
+<!-- Or use BEM (e.g. dropdown__icon, navbar__settings-icon) which also use var(--icon) -->
+<span class="dropdown__icon" aria-hidden="true">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">...</svg>
+</span>`;
+---
+
+<DocsLayout title="Icons — Vanilla" description="Icon usage with vanilla HTML. Same icon set as Astro; use .icon or BEM for theme-friendly colors.">
+  <section>
+    <h2>Icons</h2>
+    <p>Reusable SVG icons (Tabler Icons and Devicons). Use <code>stroke="currentColor"</code> on the SVG and the <code>icon</code> class (or BEM like <code>dropdown__icon</code>) so Rizzo CSS sets <code>color: var(--icon)</code>—icons then match Astro/Svelte and stay visible on light and dark themes.</p>
+
+    <h3>Regular Icons (Tabler Icons)</h3>
+    <p>These use <code>currentColor</code>; wrap in <code>&lt;span class="icon"&gt;</code> for theme color. Click any card to copy its SVG to the clipboard.</p>
+    <div class="icons-grid">
+      {regularIcons.map((icon) => {
+        const IconComponent = icon.component;
+        return (
+          <span class="tooltip-host icon-card-tooltip-host" data-tooltip="Copy SVG code" data-icon-name={icon.name}>
+            <Card variant="outlined" class="icon-card icon-card--regular">
+              <div class="icon-card__preview">
+                <IconComponent width={32} height={32} class="icon-card__icon" />
+              </div>
+              <div class="icon-card__content">
+                <h4 class="icon-card__name">{icon.name}</h4>
+                <p class="icon-card__hint">Click to copy SVG</p>
+              </div>
+              <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+            </Card>
+          </span>
+        );
+      })}
+    </div>
+
+    <h3>Devicons (Colored Brand Icons)</h3>
+    <p>Brand colors; visible on all themes. Click any card to copy its SVG to the clipboard.</p>
+    <div class="icons-grid">
+      {devicons.map((icon) => {
+        const IconComponent = icon.component;
+        return (
+          <span class="tooltip-host icon-card-tooltip-host" data-tooltip="Copy SVG code" data-icon-name={icon.name}>
+            <Card variant="outlined" class="icon-card icon-card--devicon">
+              <div class="icon-card__preview icon-card__preview--devicon">
+                <IconComponent width={32} height={32} class="icon-card__icon icon-card__icon--devicon" />
+              </div>
+              <div class="icon-card__content">
+                <h4 class="icon-card__name">{icon.name}</h4>
+                <p class="icon-card__hint">Click to copy SVG</p>
+              </div>
+              <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+            </Card>
+          </span>
+        );
+      })}
+    </div>
+
+    <h3>HTML (examples)</h3>
+    <p>Copy the patterns below. Ensure Rizzo CSS is loaded.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/icons">Astro</a> · <a href="/docs/svelte/components/icons">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+	(function initVanillaIconCopy() {
+		const init = () => {
+			const iconCards = document.querySelectorAll('.icon-card');
+			iconCards.forEach((card) => {
+				if (card.hasAttribute('data-copy-initialized')) return;
+				card.setAttribute('data-copy-initialized', 'true');
+				const host = card.closest('.tooltip-host');
+				const iconName = (host && host.getAttribute('data-icon-name')) || card.getAttribute('data-icon-name') || 'Icon';
+				const svgEl = card.querySelector('[data-icon-svg-text]');
+				if (!svgEl) return;
+				const svgText = svgEl.textContent || svgEl.innerText || '';
+				if (!svgText) return;
+				const defaultTooltip = 'Copy SVG code';
+				const copyToClipboard = async () => {
+					try {
+						await navigator.clipboard.writeText(svgText);
+						const hint = card.querySelector('.icon-card__hint');
+						if (hint) { hint.textContent = 'Copied!'; hint.classList.add('icon-card__hint--copied'); }
+						if (host) host.setAttribute('data-tooltip', 'Copied!');
+						card.setAttribute('aria-label', 'Copied!');
+						setTimeout(() => {
+							if (hint) { hint.textContent = 'Click to copy SVG'; hint.classList.remove('icon-card__hint--copied'); }
+							if (host) host.setAttribute('data-tooltip', defaultTooltip);
+							card.setAttribute('aria-label', 'Copy ' + iconName + ' SVG code');
+						}, 2000);
+					} catch (_) {
+						const ta = document.createElement('textarea');
+						ta.value = svgText;
+						ta.style.position = 'fixed';
+						ta.style.left = '-999999px';
+						document.body.appendChild(ta);
+						ta.focus();
+						ta.select();
+						try {
+							document.execCommand('copy');
+							const hint = card.querySelector('.icon-card__hint');
+							if (hint) { hint.textContent = 'Copied!'; hint.classList.add('icon-card__hint--copied'); }
+							if (host) host.setAttribute('data-tooltip', 'Copied!');
+							card.setAttribute('aria-label', 'Copied!');
+							setTimeout(() => {
+								if (hint) { hint.textContent = 'Click to copy SVG'; hint.classList.remove('icon-card__hint--copied'); }
+								if (host) host.setAttribute('data-tooltip', defaultTooltip);
+								card.setAttribute('aria-label', 'Copy ' + iconName + ' SVG code');
+							}, 2000);
+						} catch (__) {}
+						document.body.removeChild(ta);
+					}
+				};
+				card.setAttribute('tabindex', '0');
+				card.setAttribute('role', 'button');
+				card.setAttribute('aria-label', 'Copy ' + iconName + ' SVG code');
+				card.addEventListener('click', copyToClipboard);
+				card.addEventListener('keydown', (e) => {
+					if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyToClipboard(); }
+				});
+			});
+		};
+		if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+		else init();
+		document.addEventListener('astro:page-load', () => setTimeout(init, 0));
+	})();
+</script>
+
+<style>
+  .icons-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3);
+    margin: var(--spacing-6) 0;
+  }
+
+  @media (width >= 640px) {
+    .icons-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-4);
+    }
+  }
+
+  @media (width >= 1024px) {
+    .icons-grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  .icon-card-tooltip-host {
+    display: block;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .icon-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-3);
+    text-align: center;
+    min-height: auto;
+    cursor: pointer;
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+  }
+
+  .icon-card:focus-visible {
+    outline: var(--outline-width) solid var(--accent);
+    outline-offset: var(--outline-offset);
+  }
+
+  .icon-card:hover {
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent);
+    background-color: var(--background-alt);
+  }
+
+  .icon-card__preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: var(--spacing-2);
+    min-height: var(--spacing-32);
+    width: 100%;
+  }
+
+  .icon-card__preview--devicon {
+    background-color: var(--background-alt);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-2);
+    border: 1px solid var(--border);
+  }
+
+  .icon-card--devicon {
+    background-color: var(--background);
+  }
+
+  .icon-card--devicon:hover {
+    background-color: var(--background-alt);
+  }
+
+  .icon-card__icon {
+    color: var(--icon);
+    flex-shrink: 0;
+  }
+
+  .icon-card__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .icon-card__name {
+    margin: 0 0 var(--spacing-0-125) 0;
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+    line-height: var(--line-height-tight);
+    text-align: center;
+  }
+
+  .icon-card__hint {
+    margin: 0;
+    font-size: calc(var(--font-size-xs) * 0.875);
+    color: var(--text-dim);
+    line-height: var(--line-height-tight);
+    text-align: center;
+    transition: color var(--transition-base);
+  }
+
+  .icon-card__hint--copied {
+    color: var(--accent);
+    font-weight: var(--font-weight-medium);
+  }
+
+  @media (width <= 640px) {
+    .icons-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-2);
+    }
+
+    .icon-card {
+      padding: var(--spacing-2);
+    }
+
+    .icon-card__preview {
+      min-height: var(--spacing-24);
+      margin-bottom: var(--spacing-1);
+    }
+
+    .icon-card__icon {
+      width: var(--spacing-8);
+      height: var(--spacing-8);
+    }
+
+    .icon-card__name {
+      font-size: calc(var(--font-size-xs) * 0.875);
+    }
+
+    .icon-card__hint {
+      font-size: calc(var(--font-size-xs) * 0.75);
+    }
+  }
+</style>

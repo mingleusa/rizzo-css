@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<span class="spinner spinner--md spinner--primary" role="status" aria-label="Loading">
+  <span class="spinner__ring" aria-hidden="true"></span>
+</span>
+<span class="spinner spinner--sm spinner--success" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+<span class="spinner spinner--lg spinner--warning" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>`;
+---
+
+<DocsLayout title="Spinner — Vanilla" description="Loading spinner with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Spinner</h2>
+    <p>Loading spinner. Use <code>spinner--sm</code>, <code>spinner--md</code>, <code>spinner--lg</code> and <code>spinner--primary</code>, <code>spinner--success</code>, etc.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <span class="spinner spinner--sm spinner--primary" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+        <span class="spinner spinner--md spinner--success" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+        <span class="spinner spinner--lg spinner--warning" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+        <span class="spinner spinner--md spinner--error" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+        <span class="spinner spinner--md spinner--info" role="status" aria-label="Loading"><span class="spinner__ring" aria-hidden="true"></span></span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/spinner">Astro</a> · <a href="/docs/svelte/components/spinner">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

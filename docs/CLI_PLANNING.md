@@ -73,6 +73,5 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 ## References
 
-- [TODO – CLI tool](./TODO.md#-cli-tool-after-frameworks-and-components-are-added)
-- [TODO – Consumption & distribution](./TODO.md#-consumption--distribution-docs--tooling)
-- [Getting Started](./GETTING_STARTED.md) – current manual setup (what the CLI should automate)
+- [TODO – Package, CLI & scaffold tasks](./TODO.md#package-cli--scaffold-tasks)
+- [Getting Started](./GETTING_STARTED.md) – setup and CLI usage

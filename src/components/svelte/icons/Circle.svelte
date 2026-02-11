@@ -16,9 +16,14 @@
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class={className}
+  class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Circle</title>
   <circle cx="12" cy="12" r="10" />
 </svg>
+
+<style>
+  .rizzo-icon {
+    color: var(--icon);
+  }
+</style>

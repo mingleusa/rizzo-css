@@ -17,7 +17,6 @@
   class={className}
   aria-hidden="true"
 >
-  <title>Node.js</title>
   <defs>
     <linearGradient id={id1} x1="34.513" x2="27.157" y1="15.535" y2="30.448" gradientTransform="translate(-129.242 -73.715)scale(6.18523)" gradientUnits="userSpaceOnUse">
       <stop stop-color="#3f873f"/>

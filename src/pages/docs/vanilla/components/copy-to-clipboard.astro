@@ -1,0 +1,113 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import Copy from '../../../../components/icons/Copy.astro';
+import Check from '../../../../components/icons/Check.astro';
+
+// Same Tabler Copy/Check SVG as Astro and Svelte for consistent copy buttons
+const copyIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2"/></svg>';
+const checkIconSvg = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+
+const copyableHtml = `<span class="tooltip-host" data-tooltip="Copy to clipboard">
+  <button type="button" class="copy-to-clipboard" data-copy-value="pnpm add rizzo-css" aria-label="Copy to clipboard">
+    <span class="copy-to-clipboard__text">pnpm add rizzo-css</span>
+    <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true">${copyIconSvg}</span>
+    <span class="copy-to-clipboard__icon copy-to-clipboard__icon--check copy-to-clipboard__icon--hidden" aria-hidden="true">${checkIconSvg}</span>
+    <span class="copy-to-clipboard__feedback" aria-live="polite"></span>
+  </button>
+</span>`;
+
+const copyableJs = `document.querySelectorAll('.copy-to-clipboard').forEach(function(btn) {
+  var host = btn.closest('.tooltip-host');
+  var defaultTooltip = host ? (host.getAttribute('data-tooltip') || 'Copy to clipboard') : 'Copy to clipboard';
+  if (host) host.setAttribute('data-copy-default-tooltip', defaultTooltip);
+  btn.addEventListener('click', async function() {
+    var value = btn.getAttribute('data-copy-value') || '';
+    try {
+      await navigator.clipboard.writeText(value);
+      var copyIcon = btn.querySelector('.copy-to-clipboard__icon--copy');
+      var checkIcon = btn.querySelector('.copy-to-clipboard__icon--check');
+      var feedback = btn.querySelector('.copy-to-clipboard__feedback');
+      if (copyIcon) copyIcon.classList.add('copy-to-clipboard__icon--hidden');
+      if (checkIcon) checkIcon.classList.remove('copy-to-clipboard__icon--hidden');
+      if (feedback) feedback.textContent = 'Copied!';
+      if (host) { host.setAttribute('data-tooltip', 'Copied!'); }
+      btn.setAttribute('aria-label', 'Copied!');
+      setTimeout(function() {
+        if (copyIcon) copyIcon.classList.remove('copy-to-clipboard__icon--hidden');
+        if (checkIcon) checkIcon.classList.add('copy-to-clipboard__icon--hidden');
+        if (feedback) feedback.textContent = '';
+        if (host) host.setAttribute('data-tooltip', host.getAttribute('data-copy-default-tooltip') || defaultTooltip);
+        btn.setAttribute('aria-label', 'Copy to clipboard');
+      }, 2000);
+    } catch (_) {}
+  });
+});`;
+---
+
+<DocsLayout title="Copy to Clipboard — Vanilla" description="Copy button with vanilla HTML + JS. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Copy to Clipboard</h2>
+    <p>Button that copies text to the clipboard. Add your own copy/check icons inside the icon spans; the JS below wires up the click behavior.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <span class="tooltip-host" data-tooltip="Copy to clipboard">
+          <button type="button" class="copy-to-clipboard" data-copy-value="pnpm add rizzo-css" aria-label="Copy to clipboard">
+            <span class="copy-to-clipboard__text">pnpm add rizzo-css</span>
+            <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true">
+              <Copy width={16} height={16} />
+            </span>
+            <span class="copy-to-clipboard__icon copy-to-clipboard__icon--check copy-to-clipboard__icon--hidden" aria-hidden="true">
+              <Check width={16} height={16} />
+            </span>
+            <span class="copy-to-clipboard__feedback" aria-live="polite"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <h3>JavaScript</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/copy-to-clipboard">Astro</a> · <a href="/docs/svelte/components/copy-to-clipboard">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+document.querySelectorAll('.copy-to-clipboard').forEach(function(btn) {
+  var host = btn.closest('.tooltip-host');
+  var defaultTooltip = host ? (host.getAttribute('data-tooltip') || 'Copy to clipboard') : 'Copy to clipboard';
+  if (host) host.setAttribute('data-copy-default-tooltip', defaultTooltip);
+  btn.addEventListener('click', async function() {
+    var value = btn.getAttribute('data-copy-value') || '';
+    try {
+      await navigator.clipboard.writeText(value);
+      var copyIcon = btn.querySelector('.copy-to-clipboard__icon--copy');
+      var checkIcon = btn.querySelector('.copy-to-clipboard__icon--check');
+      var feedback = btn.querySelector('.copy-to-clipboard__feedback');
+      if (copyIcon) copyIcon.classList.add('copy-to-clipboard__icon--hidden');
+      if (checkIcon) checkIcon.classList.remove('copy-to-clipboard__icon--hidden');
+      if (feedback) feedback.textContent = 'Copied!';
+      if (host) host.setAttribute('data-tooltip', 'Copied!');
+      btn.setAttribute('aria-label', 'Copied!');
+      setTimeout(function() {
+        if (copyIcon) copyIcon.classList.remove('copy-to-clipboard__icon--hidden');
+        if (checkIcon) checkIcon.classList.add('copy-to-clipboard__icon--hidden');
+        if (feedback) feedback.textContent = '';
+        if (host) host.setAttribute('data-tooltip', host.getAttribute('data-copy-default-tooltip') || defaultTooltip);
+        btn.setAttribute('aria-label', 'Copy to clipboard');
+      }, 2000);
+    } catch (_) {}
+  });
+});
+</script>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

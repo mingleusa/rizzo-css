@@ -2,9 +2,11 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-- **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples, or copy markup from the [component docs](/docs/components).
-- **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro + components to copy into your project.
-- **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte") on any component or theme page. Use `npx rizzo-css init` and choose Svelte + components to copy into your project.
+**What ships in the npm package:** The published `rizzo-css` package includes optional component files in `scaffold/astro/` and `scaffold/svelte/` (24 components each: Accordion, Alert, Avatar, Badge, Breadcrumb, Button, Card, CopyToClipboard, Divider, Dropdown, FormGroup/Input/Textarea/Select/Checkbox/Radio, Modal, Pagination, ProgressBar, Spinner, Table, Tabs, Toast, Tooltip, plus `icons/`). Use `npx rizzo-css add` or copy from the scaffold when creating a new app with `npx rizzo-css init`. Each scaffold folder (`vanilla/`, `astro-app/`, `svelte-app/`) has a README with setup and commands. The docs site is built from this repo; the same CSS and BEM are used everywhere.
+
+- **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
+- **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
+- **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page. Use `npx rizzo-css init` and choose Svelte, then optionally add components from `scaffold/svelte/`.
 
 See [Getting Started](./GETTING_STARTED.md) for full setup.
 
@@ -30,9 +32,9 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 - [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
-- [Search](/docs/components/search) - Search component with Algolia integration
+- [Search](/docs/components/search) - Search component with Algolia integration; trigger shows Cmd icon + K (same size as search icon); Astro, Svelte, and Vanilla docs share the same live standalone search example
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
-- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers
+- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 
 ## Features
@@ -46,7 +48,7 @@ All of the following components are implemented with dedicated documentation pag
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
 **Theme & settings:** Theme Switcher, Settings  
-**Search:** Search (with Algolia integration). **Search modal UX:** Bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
+**Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
 (24 component doc pages in total.)
@@ -70,10 +72,10 @@ Every component has documentation and examples for **Astro**, **Svelte**, and **
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
 | **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage, live demos, props, and "Using classes" HTML snippets. |
-| **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples, or a link to the Astro doc with same BEM markup for layout components (Navbar, Search, Settings, Theme Switcher, Icons). |
-| **Vanilla** | Same as Astro doc | Use the same HTML and BEM classes from the Astro page ("Using classes" or raw markup in Usage). For interactive components (Modal, Dropdown, Tabs, etc.), add minimal JS (copy from Astro component source or the doc). |
+| **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
+| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML, optional inline script for interactive behavior (modal, dropdown, tabs, accordion, toast, etc.), copyable code blocks, and a live demo. Same BEM as Astro/Svelte. |
 
-Use the **framework switcher** ("View as: Astro | Svelte") at the top of any component or theme page to switch between Astro and Svelte docs. Vanilla always uses the same markup as shown in the Astro Usage section.
+Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top of any component or theme page to switch between framework docs.
 
 ## Accordion
 
@@ -186,6 +188,8 @@ import Pagination from '../components/Pagination.astro';
 - **Configurable URLs** - `hrefTemplate` with `{page}` placeholder
 - **Hash sync (demos)** - Use `syncHash` with `hrefTemplate="#page-{page}"` so the current page and URL hash stay in sync without a full reload
 
+**Vanilla:** The [Vanilla pagination](/docs/vanilla/components/pagination) page uses the same Pagination.astro for live demos and provides copyable HTML (with First/Last, ellipsis, disabled states) matching the BEM structure.
+
 See [Pagination Documentation](/docs/components/pagination) for complete details.
 
 ## Progress Bar
@@ -221,6 +225,8 @@ import ProgressBar from '../components/ProgressBar.astro';
 - **Variants** - Primary, success, warning, error, info using theme variables
 - **Sizes** - sm, md, lg bar heights
 - **Reduced motion** - Indeterminate animation disabled when user prefers reduced motion
+
+**Vanilla:** The [Vanilla progress bar](/docs/vanilla/components/progress-bar) page uses the same ProgressBar.astro for live demos and provides copyable HTML for basic, label, variants, sizes, indeterminate, and custom max.
 
 See [Progress Bar Documentation](/docs/components/progress-bar) for complete details.
 
@@ -504,6 +510,7 @@ Small labels and tags for displaying status, categories, or counts.
 - **Variants** - `badge--primary`, `badge--success`, `badge--warning`, `badge--error`, `badge--info`
 - **Sizes** - `badge--sm`, `badge--md` (default), `badge--lg`
 - **Pill variant** - Fully rounded badges with `badge--pill` class
+- **Text contrast** - Same as buttons: primary uses `--accent-text`; success, warning, error, and info use `--success-text-on-solid`, `--warning-text-on-solid`, `--error-text-on-solid`, `--info-text-on-solid` for theme-aware contrast on solid backgrounds
 - Inline element - Can be used within text or alongside other components
 - Theme-aware styling using semantic variables
 
@@ -566,11 +573,13 @@ Accessible modal/dialog component with focus trapping and keyboard navigation.
 - `md` - Medium (512px) - Default, great for most use cases
 - `lg` - Large (768px) - Ideal for complex forms and detailed content
 
+**Vanilla:** The [Vanilla modal](/docs/vanilla/components/modal) page uses the same Modal.astro for live demos (small, medium, large) and provides copyable HTML with `modal__overlay`, `modal__header`/`body`/`footer`, and size classes.
+
 See [Modal Documentation](/docs/components/modal) for complete details and live examples.
 
 ## Search Component
 
-A powerful search component with Algolia integration and live filtering. **Cmd+K** / **Ctrl+K** toggles search (opens when closed, closes when open—including when focus is in the search box). **Escape** also closes. Closes when clicking the backdrop or the X button (not when clicking inside the modal).
+A powerful search component with Algolia integration and live filtering. The trigger displays a **Cmd icon** (⌘) and **K** at the same size as the search icon (20px) for consistent visual weight. **Cmd+K** / **Ctrl+K** toggles search (opens when closed, closes when open—including when focus is in the search box). **Escape** also closes. Closes when clicking the backdrop or the X button (not when clicking inside the modal). **Astro, Svelte, and Vanilla** doc pages all include the same live standalone search example (same as navbar).
 
 ### Features
 
@@ -790,7 +799,7 @@ Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT
 
 ### Regular Icons (Tabler Icons)
 
-Gear, Close, ChevronDown, Moon, Palette, Owl, Copy, Check, Search, Sort, Filter, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon, Circle, Rainbow, Snowflake
+Gear, Close, ChevronDown, Cmd, Moon, Palette, Owl, Copy, Check, Search, Sort, Filter, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon, Circle, Rainbow, Snowflake
 
 All regular icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and automatically adapt to both light and dark themes.
 
@@ -823,9 +832,9 @@ Comprehensive set of accessible form components with validation states.
 - **Checkbox** - Checkbox input
 - **Radio** - Radio button
 
-All form components support validation states, multiple sizes, and are fully accessible.
+All form components support validation states, multiple sizes, and are fully accessible. **Svelte** and **Vanilla** form docs match Astro: same sections (FormGroup, Input types/sizes/validation, Textarea, Select, Checkbox with `checkbox-group`/`checkbox-label`, Radio with `radio-group`/`radio-label`), complete form example, and BEM classes.
 
-See [Forms Documentation](/docs/components/forms) for complete examples.
+See [Forms Documentation](/docs/components/forms) for complete examples. Svelte: [/docs/svelte/components/forms](/docs/svelte/components/forms). Vanilla: [/docs/vanilla/components/forms](/docs/vanilla/components/forms).
 
 ## CopyToClipboard Component
 
@@ -998,6 +1007,8 @@ import Dropdown from '../components/Dropdown.astro';
 - Theme-aware styling using semantic variables
 - Smooth animations (respects prefers-reduced-motion)
 - Mobile responsive
+
+**Svelte & Vanilla:** The [Svelte dropdown](/docs/svelte/components/dropdown) and [Vanilla dropdown](/docs/vanilla/components/dropdown) pages use the same examples and behavior as Astro. Vanilla live demos use the same Astro Dropdown component for full parity.
 
 See [Dropdown Documentation](/docs/components/dropdown) for complete details and live examples.
 

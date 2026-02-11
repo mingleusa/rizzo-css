@@ -26,7 +26,7 @@
   }: Props = $props();
 
   const displayInitials = $derived(name ? getInitials(name) : initialsProp);
-  const classes = ['avatar', `avatar--${size}`, `avatar--${shape}`, className].filter(Boolean).join(' ').trim();
+  const classes = $derived(['avatar', `avatar--${size}`, `avatar--${shape}`, className].filter(Boolean).join(' ').trim());
   const ariaLabel = $derived(alt || name || (displayInitials ? `Avatar: ${displayInitials}` : 'Avatar'));
 </script>
 

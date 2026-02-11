@@ -17,9 +17,9 @@
     <Button onclick={() => (open = true)}>Open modal</Button>
     <Modal bind:open title="Example modal" closeOnOverlayClick closeOnEscape>
       <p>Modal body content. Focus is trapped; Escape or overlay click closes.</p>
-      <svelte:fragment slot="footer">
+      {#snippet footer()}
         <Button variant="primary" onclick={() => (open = false)}>Close</Button>
-      </svelte:fragment>
+      {/snippet}
     </Modal>
   </div>
 
@@ -41,9 +41,9 @@
 <button onclick={() => (open = true)}>Open</button>
 <Modal bind:open title="Title" closeOnOverlayClick closeOnEscape>
   <p>Body content.</p>
-  <svelte:fragment slot="footer">
+  {#snippet footer()}
     <button onclick={() => (open = false)}>Close</button>
-  </svelte:fragment>
+  {/snippet}
 </Modal>`}
     language="svelte"
   />

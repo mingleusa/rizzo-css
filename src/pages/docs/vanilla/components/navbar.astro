@@ -1,0 +1,42 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      <a href="/" class="navbar__brand-link" aria-label="Site name home">Site name</a>
+    </div>
+    <div class="navbar__actions-desktop">
+      <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-results">
+        <span class="search__trigger-text">Search</span>
+      </button>
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+        <span class="navbar__settings-label">Settings</span>
+      </button>
+    </div>
+    <button type="button" class="navbar__toggle" aria-expanded="false" aria-controls="navbar-menu" aria-label="Toggle navigation menu">
+      <span class="sr-only">Menu</span>
+      <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="navbar__menu" id="navbar-menu" role="menu" hidden>
+      <!-- Links and dropdowns; see Astro Navbar for full structure -->
+    </div>
+  </div>
+</nav>`;
+---
+
+<DocsLayout title="Navbar — Vanilla" description="Navbar structure with vanilla HTML. See Astro docs for full markup.">
+  <section>
+    <h2>Navbar</h2>
+    <p>Responsive, accessible navigation bar. Use the same BEM classes and structure in your HTML. For full markup and variants (including integrated settings, dropdowns, and mobile menu), copy from the Astro component docs.</p>
+
+    <h3>HTML (minimal structure)</h3>
+    <p>Copy the markup below as a starting point. Ensure Rizzo CSS is loaded. Wire search and settings with your own JS or use <code>window.openSettings()</code> if your layout provides it.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><a href="/docs/components/navbar">View <strong>Navbar</strong> on the Astro docs</a> for complete markup, dropdowns, and structure.</p>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/navbar">Astro</a> · <a href="/docs/svelte/components/navbar">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>

@@ -1,0 +1,116 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import ModalComponent from '../../../../components/Modal.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<button type="button" class="btn btn-primary" id="open-modal-btn">Open modal</button>
+
+<!-- Overlay (sibling to .modal) -->
+<div class="modal__overlay" id="demo-overlay" aria-hidden="true"></div>
+
+<!-- Dialog: add modal--sm | modal--md | modal--lg for size -->
+<div class="modal modal--md" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
+  <div class="modal__header">
+    <h2 class="modal__title" id="demo-modal-title">Modal title</h2>
+    <button type="button" class="modal__close" aria-label="Close modal">×</button>
+  </div>
+  <div class="modal__body">
+    <p>Modal body. Close via button, overlay click, or Escape.</p>
+  </div>
+  <div class="modal__footer">
+    <button type="button" class="btn">Cancel</button>
+    <button type="button" class="btn btn-primary">Confirm</button>
+  </div>
+</div>`;
+
+const copyableJs = `(function() {
+  var openBtn = document.getElementById('open-modal-btn');
+  var overlay = document.getElementById('demo-overlay');
+  var modal = document.getElementById('demo-modal');
+  if (!openBtn || !overlay || !modal) return;
+
+  function openModal() {
+    overlay.setAttribute('aria-hidden', 'false');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    overlay.setAttribute('aria-hidden', 'true');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  openBtn.addEventListener('click', openModal);
+  overlay.addEventListener('click', closeModal);
+  modal.querySelector('.modal__close').addEventListener('click', closeModal);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
+  });
+})();`;
+---
+
+<DocsLayout title="Modal — Vanilla" description="Modal dialog with vanilla HTML + JS. Same BEM and sizes as Astro/Svelte. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Modal</h2>
+    <p>Dialog with overlay, focus trap, and optional sizes (sm, md, lg). Same structure as <a href="/docs/components/modal">Astro</a> and <a href="/docs/svelte/components/modal">Svelte</a>.</p>
+
+    <h3>Modal sizes</h3>
+    <p>Small (24rem), medium (32rem), large (48rem). Click to open:</p>
+    <div class="example">
+      <div class="example-title">Live examples</div>
+      <div class="example-demo">
+        <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_modal_sm && window.openModal_vanilla_modal_sm()">Open small modal</button>
+        <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_modal_md && window.openModal_vanilla_modal_md()">Open medium modal</button>
+        <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_modal_lg && window.openModal_vanilla_modal_lg()">Open large modal</button>
+      </div>
+    </div>
+
+    <ModalComponent id="vanilla-modal-sm" title="Small modal" size="sm" open={false}>
+      <p>Small modal (24rem). Good for confirmations and short messages.</p>
+      <div slot="footer">
+        <button class="btn" onclick="window.closeModal_vanilla_modal_sm && window.closeModal_vanilla_modal_sm()">Cancel</button>
+        <button class="btn btn-primary" onclick="window.closeModal_vanilla_modal_sm && window.closeModal_vanilla_modal_sm()">OK</button>
+      </div>
+    </ModalComponent>
+    <ModalComponent id="vanilla-modal-md" title="Medium modal" size="md" open={false}>
+      <p>Medium modal (32rem) – default. Good for forms and standard content.</p>
+      <div slot="footer">
+        <button class="btn" onclick="window.closeModal_vanilla_modal_md && window.closeModal_vanilla_modal_md()">Cancel</button>
+        <button class="btn btn-primary" onclick="window.closeModal_vanilla_modal_md && window.closeModal_vanilla_modal_md()">OK</button>
+      </div>
+    </ModalComponent>
+    <ModalComponent id="vanilla-modal-lg" title="Large modal" size="lg" open={false}>
+      <p>Large modal (48rem). Use for complex forms, detailed content, or rich media.</p>
+      <div slot="footer">
+        <button class="btn" onclick="window.closeModal_vanilla_modal_lg && window.closeModal_vanilla_modal_lg()">Cancel</button>
+        <button class="btn btn-primary" onclick="window.closeModal_vanilla_modal_lg && window.closeModal_vanilla_modal_lg()">OK</button>
+      </div>
+    </ModalComponent>
+
+    <h3>Standard example</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_docs_modal && window.openModal_vanilla_docs_modal()">Open example modal</button>
+    </div>
+    <ModalComponent id="vanilla-docs-modal" title="Example modal" size="md" open={false}>
+      <p>Same component as Astro docs. Use the HTML/JS below for a vanilla-only implementation.</p>
+      <div slot="footer">
+        <button class="btn" onclick="window.closeModal_vanilla_docs_modal && window.closeModal_vanilla_docs_modal()">Close</button>
+      </div>
+    </ModalComponent>
+
+    <h3>HTML</h3>
+    <p>Use <code>modal__overlay</code> (sibling) and <code>modal</code> with <code>modal__header</code>, <code>modal__body</code>, <code>modal__footer</code>. Size: <code>modal--sm</code>, <code>modal--md</code>, <code>modal--lg</code>.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+    <h3>JavaScript</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/modal">Astro</a> · <a href="/docs/svelte/components/modal">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

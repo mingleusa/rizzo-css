@@ -1,13 +1,15 @@
-<script>
-  export let width = 16;
-  export let height = 16;
-  export let className = '';
+<script lang="ts">
+  interface Props {
+    width?: number;
+    height?: number;
+    class?: string;
+  }
+  let { width = 16, height = 16, class: className = '' }: Props = $props();
 </script>
-
 <svg
   xmlns="http://www.w3.org/2000/svg"
-  width={width}
-  height={height}
+  {width}
+  {height}
   viewBox="0 0 128 128"
   class={className}
   aria-hidden="true"

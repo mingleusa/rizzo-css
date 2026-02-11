@@ -16,9 +16,14 @@
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class={className}
+  class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Chevron Down</title>
   <path d="m6 9 6 6 6-6" />
 </svg>
+
+<style>
+  .rizzo-icon {
+    color: var(--icon);
+  }
+</style>

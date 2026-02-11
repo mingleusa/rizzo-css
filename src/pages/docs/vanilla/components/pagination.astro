@@ -1,0 +1,159 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import PaginationComponent from '../../../../components/Pagination.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination__list">
+    <!-- Optional: First (omit if showFirstLast false) -->
+    <li class="pagination__item">
+      <a class="pagination__link pagination__link--prev" href="?page=1" aria-label="First page">First</a>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link pagination__link--prev" href="?page=1" aria-label="Previous page">Previous</a>
+    </li>
+    <li class="pagination__item">
+      <span class="pagination__link pagination__link--current" aria-current="page">1</span>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link" href="?page=2" aria-label="Page 2">2</a>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link" href="?page=3" aria-label="Page 3">3</a>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link pagination__link--next" href="?page=2" aria-label="Next page">Next</a>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link pagination__link--next" href="?page=3" aria-label="Last page">Last</a>
+    </li>
+  </ul>
+</nav>`;
+
+const copyableHtmlNoFirstLast = `<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination__list">
+    <li class="pagination__item">
+      <span class="pagination__link pagination__link--prev pagination__link--disabled" aria-disabled="true">Previous</span>
+    </li>
+    <li class="pagination__item">
+      <span class="pagination__link pagination__link--current" aria-current="page">1</span>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link" href="?page=2" aria-label="Page 2">2</a>
+    </li>
+    <li class="pagination__item">
+      <a class="pagination__link pagination__link--next" href="?page=2" aria-label="Next page">Next</a>
+    </li>
+  </ul>
+</nav>`;
+
+const copyableHtmlEllipsis = `<nav class="pagination" aria-label="Pagination">
+  <ul class="pagination__list">
+    <li class="pagination__item"><a class="pagination__link pagination__link--prev" href="?page=1" aria-label="First page">First</a></li>
+    <li class="pagination__item"><a class="pagination__link pagination__link--prev" href="?page=6" aria-label="Previous page">Previous</a></li>
+    <li class="pagination__item"><a class="pagination__link" href="?page=1" aria-label="Page 1">1</a></li>
+    <li class="pagination__item"><span class="pagination__ellipsis" aria-hidden="true">…</span></li>
+    <li class="pagination__item"><a class="pagination__link" href="?page=5" aria-label="Page 5">5</a></li>
+    <li class="pagination__item"><a class="pagination__link" href="?page=6" aria-label="Page 6">6</a></li>
+    <li class="pagination__item"><span class="pagination__link pagination__link--current" aria-current="page">7</span></li>
+    <li class="pagination__item"><a class="pagination__link" href="?page=8" aria-label="Page 8">8</a></li>
+    <li class="pagination__item"><span class="pagination__ellipsis" aria-hidden="true">…</span></li>
+    <li class="pagination__item"><a class="pagination__link" href="?page=20" aria-label="Page 20">20</a></li>
+    <li class="pagination__item"><a class="pagination__link pagination__link--next" href="?page=8" aria-label="Next page">Next</a></li>
+    <li class="pagination__item"><a class="pagination__link pagination__link--next" href="?page=20" aria-label="Last page">Last</a></li>
+  </ul>
+</nav>`;
+---
+
+<DocsLayout title="Pagination — Vanilla" description="Pagination with vanilla HTML. Same BEM and structure as Astro/Svelte. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Pagination</h2>
+    <p>Accessible pagination with Previous/Next, optional First/Last, page numbers, and ellipsis for long ranges. Same structure as <a href="/docs/components/pagination">Astro</a> and <a href="/docs/svelte/components/pagination">Svelte</a>.</p>
+
+    <h3>Basic usage</h3>
+    <p>Click any page; URL hash and current page stay in sync (<code>syncHash</code>).</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <PaginationComponent
+        currentPage={3}
+        totalPages={10}
+        maxVisible={10}
+        hrefTemplate={"#page-{page}"}
+        syncHash
+      />
+    </div>
+
+    <h3>With First / Last</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <PaginationComponent
+        currentPage={2}
+        totalPages={5}
+        hrefTemplate={"#page-{page}"}
+        syncHash
+      />
+    </div>
+
+    <h3>Without First / Last</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <PaginationComponent
+        currentPage={5}
+        totalPages={10}
+        maxVisible={10}
+        showFirstLast={false}
+        hrefTemplate={"#page-{page}"}
+        syncHash
+      />
+    </div>
+
+    <h3>Many pages (ellipsis)</h3>
+    <p>When <code>totalPages</code> exceeds <code>maxVisible</code>, ellipsis is shown.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <PaginationComponent
+        currentPage={7}
+        totalPages={20}
+        maxVisible={5}
+        hrefTemplate={"#page-{page}"}
+        syncHash
+      />
+    </div>
+
+    <h3>First and last page</h3>
+    <p>Previous/Next and First/Last are disabled on boundaries.</p>
+    <div class="example">
+      <div class="example-title">Live example (page 1 of 5)</div>
+      <PaginationComponent
+        currentPage={1}
+        totalPages={5}
+        hrefTemplate={"#page-{page}"}
+        syncHash
+      />
+    </div>
+
+    <h3>BEM structure</h3>
+    <p><code>nav.pagination</code> → <code>ul.pagination__list</code> → <code>li.pagination__item</code>. Each item contains either:</p>
+    <ul>
+      <li><code>a.pagination__link</code> or <code>span.pagination__link</code> for First/Previous/Next/Last (add <code>pagination__link--prev</code> / <code>pagination__link--next</code>; use <code>span</code> + <code>pagination__link--disabled</code> when disabled)</li>
+      <li><code>a.pagination__link</code> for page numbers, or <code>span.pagination__link.pagination__link--current</code> for current page (<code>aria-current="page"</code>)</li>
+      <li><code>span.pagination__ellipsis</code> for …</li>
+    </ul>
+
+    <h4>HTML – full (with First/Last)</h4>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <h4>HTML – without First/Last, page 1 (Previous disabled)</h4>
+    <CodeBlock code={copyableHtmlNoFirstLast} language="html" />
+
+    <h4>HTML – many pages with ellipsis</h4>
+    <CodeBlock code={copyableHtmlEllipsis} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/pagination">Astro</a> · <a href="/docs/svelte/components/pagination">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

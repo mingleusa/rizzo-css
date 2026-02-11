@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
+  import { tick } from 'svelte';
+  import type { Snippet } from 'svelte';
 
   interface Props {
     id?: string;
@@ -9,6 +10,8 @@
     closeOnOverlayClick?: boolean;
     closeOnEscape?: boolean;
     class?: string;
+    children?: Snippet;
+    footer?: Snippet;
   }
 
   let {
@@ -19,11 +22,13 @@
     closeOnOverlayClick = true,
     closeOnEscape = true,
     class: className = '',
+    children,
+    footer,
   }: Props = $props();
 
   const modalId = $derived(id ?? `modal-${Math.random().toString(36).slice(2, 11)}`);
-  const sizeClass = size !== 'md' ? `modal--${size}` : '';
-  const classes = ['modal', sizeClass, className].filter(Boolean).join(' ').trim();
+  const sizeClass = $derived(size !== 'md' ? `modal--${size}` : '');
+  const classes = $derived(['modal', sizeClass, className].filter(Boolean).join(' ').trim());
 
   let overlayEl: HTMLDivElement;
   let modalEl: HTMLDivElement;
@@ -145,9 +150,9 @@
     </button>
   </div>
   <div class="modal__body">
-    <slot />
+    {@render children?.()}
   </div>
   <div class="modal__footer">
-    <slot name="footer" />
+    {@render footer?.()}
   </div>
 </div>

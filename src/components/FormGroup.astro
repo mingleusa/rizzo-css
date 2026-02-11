@@ -25,12 +25,20 @@ const helpId = labelFor && help ? `${labelFor}-help` : undefined;
 
 <div class={`form-group ${className}`}>
   {label && (
-    <label
-      for={labelFor}
-      class={`form-group__label ${required ? 'required' : ''}`}
-    >
-      {label}
-    </label>
+    labelFor
+      ? (
+        <label
+          for={labelFor}
+          class={`form-group__label ${required ? 'required' : ''}`}
+        >
+          {label}
+        </label>
+        )
+      : (
+        <span class={`form-group__label ${required ? 'required' : ''}`}>
+          {label}
+        </span>
+        )
   )}
   <slot />
   {help && (

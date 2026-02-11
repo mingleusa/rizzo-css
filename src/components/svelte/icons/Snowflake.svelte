@@ -16,10 +16,9 @@
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class={className}
+  class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Snowflake</title>
   <path d="M12 2v20" />
   <path d="m17 5-5 5-5-5" />
   <path d="m17 19-5-5-5 5" />
@@ -27,3 +26,9 @@
   <path d="m5 17 5-5 5 5" />
   <path d="m5 7 5 5 5-5" />
 </svg>
+
+<style>
+  .rizzo-icon {
+    color: var(--icon);
+  }
+</style>

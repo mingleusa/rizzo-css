@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import type { Snippet } from 'svelte';
 
   interface Props {
     variant?: 'success' | 'error' | 'warning' | 'info';
@@ -7,6 +8,8 @@
     autoDismiss?: number;
     class?: string;
     id?: string;
+    onDismiss?: () => void;
+    children?: Snippet;
   }
   let {
     variant = 'info',
@@ -14,11 +17,13 @@
     autoDismiss = 0,
     class: className = '',
     id,
+    onDismiss,
+    children,
   }: Props = $props();
 
   let visible = $state(true);
   const alertId = $derived(id ?? `alert-${Math.random().toString(36).slice(2, 11)}`);
-  const classes = ['alert', `alert--${variant}`, className].filter(Boolean).join(' ').trim();
+  const classes = $derived(['alert', `alert--${variant}`, className].filter(Boolean).join(' ').trim());
 
   const ariaLabels: Record<string, string> = {
     success: 'Success message',
@@ -32,6 +37,7 @@
   function dismiss() {
     visible = false;
     if (autoDismissTimeout) clearTimeout(autoDismissTimeout);
+    onDismiss?.();
   }
 
   onMount(() => {
@@ -54,7 +60,7 @@
     aria-label={ariaLabels[variant]}
   >
     <div class="alert__content">
-      <slot />
+      {@render children?.()}
     </div>
     {#if dismissible}
       <button
@@ -71,7 +77,6 @@
         }}
       >
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-          <title>Dismiss</title>
           <path d="M18 6L6 18M6 6l12 12" />
         </svg>
       </button>

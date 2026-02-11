@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
+
   interface Props {
     id?: string;
     name?: string;
@@ -11,6 +13,7 @@
     class?: string;
     ariaDescribedby?: string;
     ariaInvalid?: boolean | 'true' | 'false';
+    children?: Snippet;
   }
   let {
     id,
@@ -24,13 +27,14 @@
     class: className = '',
     ariaDescribedby,
     ariaInvalid,
+    children,
   }: Props = $props();
 
-  const sizeClass = size !== 'md' ? `form-input--${size}` : '';
-  const errorClass = error ? 'form-input--error' : '';
-  const successClass = success ? 'form-input--success' : '';
-  const classes = ['form-input', sizeClass, errorClass, successClass, className].filter(Boolean).join(' ').trim();
-  const invalid = error || ariaInvalid === true || ariaInvalid === 'true';
+  const sizeClass = $derived(size !== 'md' ? `form-input--${size}` : '');
+  const errorClass = $derived(error ? 'form-input--error' : '');
+  const successClass = $derived(success ? 'form-input--success' : '');
+  const classes = $derived(['form-input', sizeClass, errorClass, successClass, className].filter(Boolean).join(' ').trim());
+  const invalid = $derived(error || ariaInvalid === true || ariaInvalid === 'true');
 </script>
 
 <select
@@ -43,5 +47,5 @@
   aria-invalid={invalid ? 'true' : 'false'}
   aria-describedby={ariaDescribedby}
 >
-  <slot />
+  {@render children?.()}
 </select>

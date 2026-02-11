@@ -22,9 +22,8 @@ const { width = 20, height = 20, class: className = '' } = Astro.props;
   stroke-width="2"
   stroke-linecap="round"
   stroke-linejoin="round"
-  class={className}
+  class={`icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Filter</title>
   <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
 </svg>

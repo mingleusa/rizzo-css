@@ -1,5 +1,6 @@
 ---
 import SearchIcon from './icons/Search.astro';
+import Cmd from './icons/Cmd.astro';
 import Close from './icons/Close.astro';
 import { getSearchConfig } from '../config/search';
 
@@ -27,21 +28,24 @@ const resultsId = `${searchId}-results`;
 
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
-    <button
-      type="button"
-      class="search__trigger"
-      aria-label="Open search"
-      aria-expanded="false"
-      aria-controls={resultsId}
-      data-search-trigger
-    >
-      <SearchIcon width={20} height={20} class="search__icon" />
-      <span class="search__trigger-text">Search</span>
-      <kbd class="search__kbd" aria-hidden="true">
-        <kbd data-kbd-modifier></kbd>
-        <kbd>K</kbd>
-      </kbd>
-    </button>
+    <div class="tooltip-wrapper" aria-describedby={`${searchId}-tooltip`}>
+      <button
+        type="button"
+        class="search__trigger"
+        aria-label="Open search"
+        aria-expanded="false"
+        aria-controls={resultsId}
+        data-search-trigger
+      >
+        <SearchIcon width={20} height={20} class="search__icon" />
+        <span class="search__trigger-text">Search</span>
+        <kbd class="search__kbd" aria-hidden="true">
+          <span class="search__kbd-modifier" data-kbd-modifier><Cmd width={14} height={14} /></span>
+          <kbd>K</kbd>
+        </kbd>
+      </button>
+      <span class="tooltip tooltip--bottom" id={`${searchId}-tooltip`} role="tooltip" aria-hidden="true">Search</span>
+    </div>
   </div>
 
   <div class="search__overlay" data-search-overlay aria-hidden="true">
@@ -105,10 +109,10 @@ const resultsId = `${searchId}-results`;
 <script define:vars={{ useAlgolia, algoliaAppId, algoliaApiKey, algoliaIndexName }}>
   (function initSearch() {
     const init = () => {
-      const search = document.querySelector('[data-search]');
-      if (!search) return;
+      document.querySelectorAll('[data-search]').forEach((search) => {
+        if (search.__searchInstance) return;
 
-      const trigger = search.querySelector('[data-search-trigger]');
+        const trigger = search.querySelector('[data-search-trigger]');
       const overlay = search.querySelector('[data-search-overlay]');
       const panel = search.querySelector('.search__panel');
       const input = search.querySelector('[data-search-input]');
@@ -1189,19 +1193,10 @@ const resultsId = `${searchId}-results`;
         });
       }
 
-      // Update keyboard shortcut display based on platform
-      const updateKeyboardDisplay = () => {
-        const modifierKbd = search.querySelector('[data-kbd-modifier]');
-        if (modifierKbd) {
-          const isMac = navigator.platform.toLowerCase().includes('mac') || 
-                       navigator.userAgent.toLowerCase().includes('mac');
-          modifierKbd.textContent = isMac ? '⌘' : 'Ctrl';
-        }
-      };
-      updateKeyboardDisplay();
-      
+      });
+
       // Set up global keyboard shortcut handler (only once per page)
-      // Do this AFTER init so __searchInstance exists
+      // Do this AFTER all search instances are inited so __searchInstance exists
       if (!window.__rizzoSearchShortcutSetup) {
         window.__rizzoSearchShortcutSetup = true;
         

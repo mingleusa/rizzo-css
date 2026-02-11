@@ -1,0 +1,83 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="tabs">
+  <div class="tabs__list" role="tablist">
+    <button type="button" class="tabs__tab" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Tab 1</button>
+    <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Tab 2</button>
+  </div>
+  <div id="panel-1" class="tabs__panel" role="tabpanel" aria-labelledby="tab-1">Panel 1 content.</div>
+  <div id="panel-2" class="tabs__panel" role="tabpanel" aria-labelledby="tab-2" hidden>Panel 2 content.</div>
+</div>`;
+
+const copyableJs = `(function() {
+  var container = document.querySelector('.tabs');
+  if (!container) return;
+  container.querySelectorAll('.tabs__tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var panelId = tab.getAttribute('aria-controls');
+      var panel = panelId ? document.getElementById(panelId) : null;
+      container.querySelectorAll('.tabs__tab').forEach(function(t) {
+        t.setAttribute('aria-selected', t === tab);
+      });
+      container.querySelectorAll('.tabs__panel').forEach(function(p) {
+        p.hidden = p !== panel;
+      });
+    });
+  });
+})();`;
+---
+
+<DocsLayout title="Tabs — Vanilla" description="Tabs with vanilla HTML + JS. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Tabs</h2>
+    <p>Tabbed panels. Use JS to switch the active tab and panel.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <div class="tabs" id="vanilla-tabs-demo">
+          <div class="tabs__list" role="tablist">
+            <button type="button" class="tabs__tab" role="tab" aria-selected="true" aria-controls="vanilla-panel-1" id="vanilla-tab-1">Tab 1</button>
+            <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="vanilla-panel-2" id="vanilla-tab-2">Tab 2</button>
+          </div>
+          <div id="vanilla-panel-1" class="tabs__panel" role="tabpanel" aria-labelledby="vanilla-tab-1">Panel 1 content.</div>
+          <div id="vanilla-panel-2" class="tabs__panel" role="tabpanel" aria-labelledby="vanilla-tab-2" hidden>Panel 2 content.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <h3>JavaScript</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/tabs">Astro</a> · <a href="/docs/svelte/components/tabs">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+(function() {
+  var container = document.getElementById('vanilla-tabs-demo');
+  if (!container) return;
+  container.querySelectorAll('.tabs__tab').forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      var panelId = tab.getAttribute('aria-controls');
+      var panel = panelId ? document.getElementById(panelId) : null;
+      container.querySelectorAll('.tabs__tab').forEach(function(t) {
+        t.setAttribute('aria-selected', t === tab);
+      });
+      container.querySelectorAll('.tabs__panel').forEach(function(p) {
+        p.hidden = p !== panel;
+      });
+    });
+  });
+})();
+</script>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: flex-start; }
+</style>

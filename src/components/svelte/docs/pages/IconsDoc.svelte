@@ -17,6 +17,7 @@
   import Eye from '../../icons/Eye.svelte';
   import Sort from '../../icons/Sort.svelte';
   import Filter from '../../icons/Filter.svelte';
+  import Cmd from '../../icons/Cmd.svelte';
   import Css3 from '../../icons/devicons/Css3.svelte';
   import Html5 from '../../icons/devicons/Html5.svelte';
   import Javascript from '../../icons/devicons/Javascript.svelte';
@@ -48,6 +49,7 @@
     { name: 'Eye', component: Eye, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>' },
     { name: 'Sort', component: Sort, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>' },
     { name: 'Filter', component: Filter, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>' },
+    { name: 'Cmd', component: Cmd, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg>' },
   ];
 
   const devicons: IconEntry[] = [
@@ -113,24 +115,27 @@
 
   <div class="icons-grid">
     {#each regularIcons as icon}
+      {@const IconComponent = icon.component}
       <Card variant="outlined" class="icon-card icon-card--regular" data-icon-name={icon.name}>
-        <button
-          type="button"
-          class="icon-card__button"
-          aria-label="Copy {icon.name} SVG code"
-          onclick={() => copySvg(icon.svg, icon.name)}
-          onkeydown={(e) => handleKeydown(e, icon.svg, icon.name)}
-        >
-          <div class="icon-card__preview">
-            <svelte:component this={icon.component} width={32} height={32} class="icon-card__icon" />
-          </div>
-          <div class="icon-card__content">
-            <h4 class="icon-card__name">{icon.name}</h4>
-            <p class="icon-card__hint" class:icon-card__hint--copied={copiedId === icon.name}>
-              {copiedId === icon.name ? 'Copied!' : 'Click to copy SVG'}
-            </p>
-          </div>
-        </button>
+        <span class="tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+          <button
+            type="button"
+            class="icon-card__button"
+            aria-label={copiedId === icon.name ? 'Copied!' : `Copy ${icon.name} SVG code`}
+            onclick={() => copySvg(icon.svg, icon.name)}
+            onkeydown={(e) => handleKeydown(e, icon.svg, icon.name)}
+          >
+            <div class="icon-card__preview">
+              <IconComponent width={32} height={32} class="icon-card__icon" />
+            </div>
+            <div class="icon-card__content">
+              <h4 class="icon-card__name">{icon.name}</h4>
+              <p class="icon-card__hint" class:icon-card__hint--copied={copiedId === icon.name}>
+                {copiedId === icon.name ? 'Copied!' : 'Click to copy SVG'}
+              </p>
+            </div>
+          </button>
+        </span>
         <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
       </Card>
     {/each}
@@ -141,24 +146,27 @@
 
   <div class="icons-grid">
     {#each devicons as icon}
+      {@const IconComponent = icon.component}
       <Card variant="outlined" class="icon-card icon-card--devicon" data-icon-name={icon.name}>
-        <button
-          type="button"
-          class="icon-card__button"
-          aria-label="Copy {icon.name} SVG code"
-          onclick={() => copySvg(icon.svg, icon.name)}
-          onkeydown={(e) => handleKeydown(e, icon.svg, icon.name)}
-        >
-          <div class="icon-card__preview icon-card__preview--devicon">
-            <svelte:component this={icon.component} width={32} height={32} class="icon-card__icon icon-card__icon--devicon" />
-          </div>
-          <div class="icon-card__content">
-            <h4 class="icon-card__name">{icon.name}</h4>
-            <p class="icon-card__hint" class:icon-card__hint--copied={copiedId === icon.name}>
-              {copiedId === icon.name ? 'Copied!' : 'Click to copy SVG'}
-            </p>
-          </div>
-        </button>
+        <span class="tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+          <button
+            type="button"
+            class="icon-card__button"
+            aria-label={copiedId === icon.name ? 'Copied!' : `Copy ${icon.name} SVG code`}
+            onclick={() => copySvg(icon.svg, icon.name)}
+            onkeydown={(e) => handleKeydown(e, icon.svg, icon.name)}
+          >
+            <div class="icon-card__preview icon-card__preview--devicon">
+              <IconComponent width={32} height={32} class="icon-card__icon icon-card__icon--devicon" />
+            </div>
+            <div class="icon-card__content">
+              <h4 class="icon-card__name">{icon.name}</h4>
+              <p class="icon-card__hint" class:icon-card__hint--copied={copiedId === icon.name}>
+                {copiedId === icon.name ? 'Copied!' : 'Click to copy SVG'}
+              </p>
+            </div>
+          </button>
+        </span>
         <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
       </Card>
     {/each}
@@ -206,7 +214,13 @@
     }
   }
 
-  .icon-card {
+  :global(.icon-card .tooltip-host) {
+    display: block;
+    width: 100%;
+    flex: 1;
+    min-width: 0;
+  }
+  :global(.icon-card) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -217,7 +231,7 @@
     overflow: hidden;
   }
 
-  .icon-card__button {
+  :global(.icon-card__button) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -233,21 +247,21 @@
     transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
   }
 
-  .icon-card__button:hover {
+  :global(.icon-card__button:hover) {
     background-color: var(--background-alt);
   }
 
-  .icon-card:hover {
+  :global(.icon-card:hover) {
     box-shadow: var(--shadow-md);
     border-color: var(--accent);
   }
 
-  .icon-card__button:focus-visible {
+  :global(.icon-card__button:focus-visible) {
     outline: var(--outline-width) solid var(--accent);
     outline-offset: var(--outline-offset);
   }
 
-  .icon-card__preview {
+  :global(.icon-card__preview) {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -256,27 +270,27 @@
     width: 100%;
   }
 
-  .icon-card__preview--devicon {
+  :global(.icon-card__preview--devicon) {
     background-color: var(--background-alt);
     border-radius: var(--radius-md);
     padding: var(--spacing-2);
     border: 1px solid var(--border);
   }
 
-  .icon-card--devicon {
+  :global(.icon-card--devicon) {
     background-color: var(--background);
   }
 
-  .icon-card--devicon:hover {
+  :global(.icon-card--devicon:hover) {
     background-color: var(--background-alt);
   }
 
-  .icon-card__icon {
+  :global(.icon-card__icon) {
     color: var(--icon);
     flex-shrink: 0;
   }
 
-  .icon-card__content {
+  :global(.icon-card__content) {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -285,7 +299,7 @@
     text-align: center;
   }
 
-  .icon-card__name {
+  :global(.icon-card__name) {
     margin: 0 0 var(--spacing-0-125) 0;
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-semibold);
@@ -294,7 +308,7 @@
     text-align: center;
   }
 
-  .icon-card__hint {
+  :global(.icon-card__hint) {
     margin: 0;
     font-size: calc(var(--font-size-xs) * 0.875);
     color: var(--text-dim);
@@ -303,7 +317,7 @@
     text-align: center;
   }
 
-  .icon-card__hint--copied {
+  :global(.icon-card__hint--copied) {
     color: var(--accent);
     font-weight: var(--font-weight-medium);
   }
@@ -326,25 +340,25 @@
       gap: var(--spacing-2);
     }
 
-    .icon-card__button {
+    :global(.icon-card__button) {
       padding: var(--spacing-2);
     }
 
-    .icon-card__preview {
+    :global(.icon-card__preview) {
       min-height: var(--spacing-24);
       margin-bottom: var(--spacing-1);
     }
 
-    .icon-card__icon {
+    :global(.icon-card__icon) {
       width: var(--spacing-8);
       height: var(--spacing-8);
     }
 
-    .icon-card__name {
+    :global(.icon-card__name) {
       font-size: calc(var(--font-size-xs) * 0.875);
     }
 
-    .icon-card__hint {
+    :global(.icon-card__hint) {
       font-size: calc(var(--font-size-xs) * 0.75);
     }
   }

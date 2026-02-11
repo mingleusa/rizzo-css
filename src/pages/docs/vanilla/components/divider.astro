@@ -1,0 +1,92 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="divider divider--horizontal" role="separator" aria-orientation="horizontal">
+  <span class="divider__line" aria-hidden="true"></span>
+</div>
+
+<div class="divider divider--horizontal divider--labeled" role="separator" aria-orientation="horizontal" aria-label="OR">
+  <span class="divider__line" aria-hidden="true"></span>
+  <span class="divider__label">OR</span>
+  <span class="divider__line" aria-hidden="true"></span>
+</div>
+
+<!-- Vertical (inside flex with min-height): -->
+<div style="display: flex; align-items: center; gap: var(--spacing-3); min-height: 3rem;">
+  <span>Item 1</span>
+  <div class="divider divider--vertical" role="separator" aria-orientation="vertical"><span class="divider__line" aria-hidden="true"></span></div>
+  <span>Item 2</span>
+  <div class="divider divider--vertical" role="separator" aria-orientation="vertical"><span class="divider__line" aria-hidden="true"></span></div>
+  <span>Item 3</span>
+</div>`;
+---
+
+<DocsLayout title="Divider — Vanilla" description="Divider with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Divider component</h2>
+    <p>A simple divider for visually separating content. Supports horizontal (default) and vertical orientation, and an optional label (e.g. "OR") in the middle for horizontal dividers.</p>
+
+    <h3>BEM / attributes</h3>
+    <ul>
+      <li><code>divider</code>, <code>divider--horizontal</code> (default), <code>divider--vertical</code></li>
+      <li><code>divider--labeled</code> — when showing a label; use <code>divider__line</code>, <code>divider__label</code></li>
+      <li><code>role="separator"</code>, <code>aria-orientation="horizontal"</code> or <code>vertical</code>; <code>aria-label</code> when labeled</li>
+    </ul>
+
+    <h3>Basic usage (horizontal)</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div>
+        <p class="example-content">Content above</p>
+        <div class="divider divider--horizontal" role="separator" aria-orientation="horizontal"><span class="divider__line" aria-hidden="true"></span></div>
+        <p class="example-content example-content-below">Content below</p>
+      </div>
+    </div>
+
+    <h3>With label</h3>
+    <p>Use a labeled divider to show text in the middle (e.g. "OR" between two options).</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="divider divider--horizontal divider--labeled" role="separator" aria-orientation="horizontal" aria-label="OR">
+        <span class="divider__line" aria-hidden="true"></span>
+        <span class="divider__label">OR</span>
+        <span class="divider__line" aria-hidden="true"></span>
+      </div>
+    </div>
+
+    <h3>Vertical</h3>
+    <p>Use <code>divider--vertical</code> inside a flex row to separate items. The parent should have a defined height (e.g. <code>min-height</code> or <code>height</code>).</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-vertical-row">
+        <span>Item 1</span>
+        <div class="divider divider--vertical" role="separator" aria-orientation="vertical"><span class="divider__line" aria-hidden="true"></span></div>
+        <span>Item 2</span>
+        <div class="divider divider--vertical" role="separator" aria-orientation="vertical"><span class="divider__line" aria-hidden="true"></span></div>
+        <span>Item 3</span>
+      </div>
+    </div>
+
+    <h3>Features</h3>
+    <ul>
+      <li><strong>Accessible</strong> — <code>role="separator"</code> and <code>aria-orientation</code>; optional <code>aria-label</code> when label is set</li>
+      <li><strong>Horizontal</strong> — Full-width line; optional label in the center</li>
+      <li><strong>Vertical</strong> — Full-height line for use in flex layouts</li>
+      <li><strong>Theme-aware</strong> — Uses <code>--border</code> and <code>--text-dim</code></li>
+    </ul>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/divider">Astro</a> · <a href="/docs/svelte/components/divider">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-content { margin: 0 0 var(--spacing-2) 0; }
+  .example-content-below { margin: var(--spacing-2) 0 0 0; }
+  .example-vertical-row { display: flex; align-items: center; gap: var(--spacing-3); min-height: var(--spacing-16); }
+</style>

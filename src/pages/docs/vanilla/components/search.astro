@@ -1,0 +1,88 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import SearchComponent from '../../../../components/Search.astro';
+
+const copyableHtml = `<div class="search" data-search>
+  <div class="search__trigger-wrapper">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-results" data-search-trigger>
+      <span class="search__icon" aria-hidden="true"><!-- Search SVG --></span>
+      <span class="search__trigger-text">Search</span>
+      <kbd class="search__kbd" aria-hidden="true">
+        <span class="search__kbd-modifier"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg></span>
+        <kbd>K</kbd>
+      </kbd>
+    </button>
+  </div>
+  <div class="search__overlay" data-search-overlay aria-hidden="true">
+    <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby="search-title" id="search-results" tabindex="-1">
+      <h2 id="search-title" class="sr-only">Search documentation</h2>
+      <div class="search__header">
+        <div class="search__input-wrapper">
+          <input type="search" class="search__input" id="search-input" placeholder="Search..." aria-label="Search" data-search-input />
+          <button type="button" class="search__close-btn" aria-label="Close search" data-search-close>×</button>
+        </div>
+      </div>
+      <div class="search__results" id="search-results-list" role="listbox" aria-label="Search results">
+        <!-- Results; wire with Algolia or client-side index via JS -->
+      </div>
+    </div>
+  </div>
+</div>`;
+
+const copyableJs = `// Minimal: open/close on trigger and overlay, Cmd+K
+(function() {
+  var search = document.querySelector('[data-search]');
+  var trigger = document.querySelector('[data-search-trigger]');
+  var overlay = document.querySelector('[data-search-overlay]');
+  var closeBtn = document.querySelector('[data-search-close]');
+  if (!search || !trigger || !overlay) return;
+  function open() { overlay.setAttribute('aria-hidden', 'false'); trigger.setAttribute('aria-expanded', 'true'); }
+  function close() { overlay.setAttribute('aria-hidden', 'true'); trigger.setAttribute('aria-expanded', 'false'); }
+  trigger.addEventListener('click', open);
+  overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'k' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); overlay.getAttribute('aria-hidden') === 'true' ? open() : close(); }
+    if (e.key === 'Escape') close();
+  });
+})();`;
+---
+
+<DocsLayout title="Search — Vanilla" description="Search with vanilla HTML or use the same Astro component. Live example and copyable code.">
+  <section>
+    <h2>Search</h2>
+    <p>Search overlay with trigger, Cmd+K/Ctrl+K, and results panel. Same behavior as <a href="/docs/components/search">Astro</a> and <a href="/docs/svelte/components/search">Svelte</a>. Use the live example below or copy the HTML/JS.</p>
+
+    <h3>Live example</h3>
+    <p>Search is in the navbar (top of page) — click the search icon or press <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd>. You can also use the standalone search below.</p>
+    <div class="example">
+      <div class="example-title">Standalone search (same as navbar)</div>
+      <div class="search-doc-example">
+        <SearchComponent />
+      </div>
+    </div>
+
+    <h3>HTML (structure)</h3>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded. Wire <code>data-search-trigger</code>, <code>data-search-close</code>, <code>data-search-overlay</code>, and <code>data-search-input</code> with your own search logic (or use the JS snippet).</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <h3>JavaScript (open/close + Cmd+K)</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><a href="/docs/components/search">Astro Search docs</a> — Algolia setup, props, and full script you can port to vanilla.</p>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/search">Astro</a> · <a href="/docs/svelte/components/search">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .search-doc-example { display: flex; align-items: center; gap: var(--spacing-4); }
+  @media (width <= 1023px) {
+    .search-doc-example .search__trigger { width: auto; justify-content: center; }
+    .search-doc-example .search__trigger-text,
+    .search-doc-example .search__kbd { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+  }
+  kbd { display: inline-block; padding: var(--spacing-0-125) var(--spacing-0-375); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius); font-family: var(--font-family-mono); font-size: var(--font-size-xs); }
+</style>

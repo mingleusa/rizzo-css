@@ -4,11 +4,14 @@
 
 [![npm](https://img.shields.io/npm/v/rizzo-css.svg)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
-![Svelte](https://img.shields.io/badge/Svelte-5.x-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![PostCSS](https://img.shields.io/badge/PostCSS-8.5.6-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white)
 ![Stylelint](https://img.shields.io/badge/Stylelint-17.0.0-263238?style=for-the-badge&logo=stylelint&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-9+-F69220?style=for-the-badge&logo=pnpm&logoColor=white)
+![Algolia](https://img.shields.io/badge/Algolia-5.47.0-5468FF?style=for-the-badge&logo=algolia&logoColor=white)
 
 A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization.
 
@@ -24,7 +27,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
 - 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages (Astro reference + Svelte examples)
-- 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte); Svelte docs at /docs/svelte
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte | Vanilla). Svelte docs at [/docs/svelte](/docs/svelte); Vanilla docs at [/docs/vanilla/components](/docs/vanilla/components) with copy-paste HTML, optional JS, and live demos
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -33,19 +36,23 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🛠️ Tech Stack
 
-- **[Astro](https://astro.build)** - Web framework (docs site + reference components)
-- **[Svelte](https://svelte.dev)** - Additional framework docs and components at /docs/svelte
-- **[PostCSS](https://postcss.org/)** `^8.5.6` - CSS transformation with import support
-- **[postcss-import](https://github.com/postcss/postcss-import)** `^16.1.1` - CSS import support (SCSS/SASS-like)
-- **[Autoprefixer](https://github.com/postcss/autoprefixer)** `^10.4.23` - Automatic vendor prefixes
-- **[cssnano](https://cssnano.co/)** `^7.1.2` - CSS minification
-- **[Stylelint](https://stylelint.io/)** `^17.0.0` - CSS linter
-- **[Algolia Search](https://www.algolia.com/)** `^5.47.0` - Search integration
+- **[Astro](https://astro.build)** `5.17.1` - Web framework (docs site + reference components)
+- **[Svelte](https://svelte.dev)** `5.50.0` - Framework docs and components at /docs/svelte; Svelte scaffold uses Svelte Kit
+- **[Vite](https://vitejs.dev)** `7.3.1` - Build tool for Svelte scaffold
+- **[TypeScript](https://www.typescriptlang.org/)** `5.9.3` - Type safety
+- **[PostCSS](https://postcss.org/)** `8.5.6` - CSS transformation with import support
+- **[postcss-import](https://github.com/postcss/postcss-import)** `16.1.1` - CSS import support (SCSS/SASS-like)
+- **[Autoprefixer](https://github.com/postcss/autoprefixer)** `10.4.23` - Automatic vendor prefixes
+- **[cssnano](https://cssnano.co/)** `7.1.2` - CSS minification
+- **[Stylelint](https://stylelint.io/)** `17.0.0` - CSS linter
+- **[Algolia](https://www.algolia.com/)** `5.47.0` - Search integration (docs site)
 - **OKLCH color format** - Perceptually uniform color space
 
 ## 🚀 Getting Started
 
 **Using Rizzo in your project?** Quickest: `npx rizzo-css init` — first choose **add to existing project** (current directory) or **create new**. Existing: framework (auto-detect), themes, optional components. New: full scaffold (Vanilla example, default Astro app, or default Svelte app). Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. To add CSS only: `cd your-app && npx rizzo-css add` (auto-detects Svelte/Astro). Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
+
+**What ships (npm package & CLI):** The published `rizzo-css` package includes `dist/rizzo.min.css`, the CLI (`rizzo-css init` / `add` / `theme`), and scaffolds: `scaffold/vanilla/` (example index.html; see its README), `scaffold/astro-app/` (minimal Astro app; see its README), `scaffold/svelte-app/` (Svelte Kit app; see its README), plus optional Astro and Svelte component files in `scaffold/astro/` and `scaffold/svelte/` (24 components each). Each scaffold has a README with setup and commands. All three frameworks use the same CSS and BEM markup.
 
 ### Prerequisites
 
@@ -133,13 +140,13 @@ Accessible, themeable components:
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. Larger dropdown on doc pages; full width in Settings.
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (20+ icons including brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla; includes Cmd icon for keyboard shortcuts; 20+ regular icons plus brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages at 20px size for better visibility. Language text appears on large screens, icons only on mobile. Icons and copy button are vertically centered on all screen sizes. Used throughout documentation for code examples
-- **Search** - Search component with Algolia integration; Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; close button bordered and visible on hover; modal bottom spacing so last result is fully visible; compact empty state; mobile responsive
+- **Search** - Search component with Algolia integration; trigger uses Cmd icon and K at same size as search icon (20px); Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; same live standalone example on Astro, Svelte, and Vanilla doc pages; mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling

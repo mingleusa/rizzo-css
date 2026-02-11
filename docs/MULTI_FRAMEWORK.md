@@ -20,8 +20,8 @@ Svelte is integrated into **this same Astro project**; React/Vue can follow the 
 **Implemented:**
 1. **Framework** — `@astrojs/svelte` added; Astro renders Svelte components.
 2. **Svelte components** — `src/components/svelte/` with 24 components (Button, Badge, Card, Divider, Spinner, ProgressBar, Avatar, Alert, Breadcrumb, Forms, CopyToClipboard, Tooltip, Pagination, Tabs, Accordion, Dropdown, Modal, Toast, Table, etc.) using the same BEM classes as Astro.
-3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher link to Astro reference and same CSS). **Documentation and examples for every framework:** each component has an Astro page (live demos + usage), a Svelte page (examples or Astro link), and Vanilla uses the same HTML and BEM from the Astro Usage sections (see [Components – Documentation by framework](./COMPONENTS.md#documentation-and-examples-by-framework)).
-4. **Framework switcher** — “View as: Astro | Svelte” (segmented control with framework icons) on component/theme doc pages; links to the same path under each framework. Config in `src/config/frameworks.ts`.
+3. **Route** — `/docs/svelte`: index, theming, components overview, and 24 component pages (19 with full Svelte examples; Icons, Navbar, Search, Settings, Theme Switcher include the same live standalone example as Astro). `/docs/vanilla`: index and components overview; each component has its own static page at `/docs/vanilla/components/<name>` (e.g. `accordion.astro`, `modal.astro`) with real HTML in the template, optional inline script for behavior, copyable code blocks, and a live demo. **Search** and **Dropdown** Vanilla pages use the same Astro component for live examples so behavior matches Astro and Svelte. **Documentation and examples for every framework:** each component has an Astro page (live demos + usage), a Svelte page (examples or same live demo), and a Vanilla page (copy-paste HTML + JS and interactive demos). See [Components – Documentation by framework](./COMPONENTS.md#documentation-and-examples-by-framework).
+4. **Framework switcher** — “View as: Astro | Svelte | Vanilla” (segmented control with framework icons) on component/theme doc pages; links to the same path under each framework. Config in `src/config/frameworks.ts`.
 5. **Scaffold JS parity** — All three scaffolds (Vanilla, Astro, Svelte) include theme flash prevention and global toast (`showToast`, `removeToast`, `removeAllToasts`). Vanilla scaffold also includes a full Settings panel and `openSettings()`; Astro/Svelte layouts include the scripts; add Navbar and Settings from the repo for full parity.
 
 **Remaining:** Svelte theme pages for full parity (optional). When adding React or Vue, repeat: same folder pattern and register in `frameworks.ts`.
@@ -52,7 +52,7 @@ src/
 
 **Single package: rizzo-css.** We publish one unscoped npm package. No @ scope or separate core/react/vue/svelte packages.
 
-- **npm:** `rizzo-css` — CSS + **CLI** + **scaffolds** (`dist/`, `bin/`, `scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init`. Init first asks **existing project** (add to cwd) or **new project** (scaffold). New: Vanilla example (`scaffold/vanilla/`), default Astro app (`scaffold/astro-app/`), or default Svelte app (`scaffold/svelte-app/`); optional 24 components from `scaffold/astro/` and `scaffold/svelte/`.
+- **npm:** `rizzo-css` — Single published package containing: **CSS** (`dist/rizzo.min.css`), **CLI** (`bin/rizzo-css.js`), and **scaffolds** (`scaffold/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init`. Init first asks **existing project** (add to cwd) or **new project** (scaffold). New: Vanilla example (`scaffold/vanilla/index.html`), minimal Astro app (`scaffold/astro-app/`), or Svelte Kit app (`scaffold/svelte-app/`); optional 24 components from `scaffold/astro/` and `scaffold/svelte/` (same files as this repo’s reference implementation, copied by the CLI). Each scaffold folder has a README with setup and commands. All three frameworks use the same CSS and BEM markup.
 - **Framework components** — Vanilla uses same BEM (no components folder). Astro/Svelte: use `npx rizzo-css init` (new or existing) and pick components, or copy from this repo. React/Vue components, when added, will also live in-repo.
 
 ```
@@ -88,7 +88,7 @@ import 'rizzo-css';  // CSS from the published package
 **Components with JavaScript**:
 - Settings (localStorage, focus trap)
 - Modal (focus trap, backdrop)
-- Search (Algolia integration; Cmd+K/Ctrl+K toggles, Escape closes)
+- Search (Algolia integration; trigger uses Cmd icon + K at same size as search icon; Cmd+K/Ctrl+K toggles, Escape closes; same live example on Astro, Svelte, and Vanilla doc pages)
 - ThemeSwitcher (theme management)
 - Alert (dismiss functionality)
 - CopyToClipboard (clipboard API)

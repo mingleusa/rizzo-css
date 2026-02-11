@@ -11,11 +11,14 @@
   }
   let { items, separator = 'chevron', class: className = '' }: Props = $props();
 
-  const separatorVariant =
-    separator === 'slash' ? 'breadcrumb--slash' : separator === 'arrow' ? 'breadcrumb--arrow' : 'breadcrumb--chevron';
-  const classes = ['breadcrumb', separatorVariant, className].filter(Boolean).join(' ').trim();
-  const separatorChar = separator === 'slash' ? '/' : separator === 'arrow' ? '›' : typeof separator === 'string' ? separator : '›';
-  const useIcon = separator === 'chevron';
+  const separatorVariant = $derived(
+    separator === 'slash' ? 'breadcrumb--slash' : separator === 'arrow' ? 'breadcrumb--arrow' : 'breadcrumb--chevron'
+  );
+  const classes = $derived(['breadcrumb', separatorVariant, className].filter(Boolean).join(' ').trim());
+  const separatorChar = $derived(
+    separator === 'slash' ? '/' : separator === 'arrow' ? '›' : typeof separator === 'string' ? separator : '›'
+  );
+  const useIcon = $derived(separator === 'chevron');
 </script>
 
 <nav class={classes} aria-label="Breadcrumb">

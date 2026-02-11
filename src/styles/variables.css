@@ -118,7 +118,10 @@
   --z-tooltip: 3000;
   --z-toast: 4000;
   --z-settings: 10000;
-  --z-navbar: 5000;
+  --z-navbar: 5000; /* Keep navbar above toasts, modals, tooltips */
+
+  /* Toast position: start below navbar to avoid overlap */
+  --toast-top-offset: calc(var(--spacing-16) + var(--spacing-4));
   --z-navbar-mobile-menu-open: 5100; /* Above navbar so open menu stacks above site content */
   --z-skip-link: 10001;
   --z-navbar-mobile-menu: 101;
@@ -168,6 +171,7 @@
   /* Max Heights */
   --max-height-dropdown: 600px;
   --max-height-modal: 32rem;
+  --max-width-modal-lg: 48rem; /* 768px - large modal */
   --max-height-navbar-submenu: 2000px; /* Navbar dropdown scroll area */
 
   /* Cubic Bezier Easing */

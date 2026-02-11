@@ -1,0 +1,38 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="toast-container toast-container--top-right">
+  <div class="alert alert--info">Static toast message.</div>
+</div>
+<button type="button" class="btn btn-success" onclick="window.showToast && window.showToast('Saved!', { variant: 'success' })">Show success</button>
+<button type="button" class="btn btn-error" onclick="window.showToast && window.showToast('Error.', { variant: 'error' })">Show error</button>`;
+---
+
+<DocsLayout title="Toast — Vanilla" description="Toast notifications with vanilla HTML. Use window.showToast when provided by your layout.">
+  <section>
+    <h2>Toast</h2>
+    <p>Fixed-position notifications. On this site <code>window.showToast</code> is provided by the layout. For your own app, implement a toast util or use the layout pattern.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <button type="button" class="btn btn-success" onclick="window.showToast && window.showToast('Saved!', { variant: 'success' })">Show success</button>
+        <button type="button" class="btn btn-error" onclick="window.showToast && window.showToast('Error.', { variant: 'error' })">Show error</button>
+        <button type="button" class="btn btn-info" onclick="window.showToast && window.showToast('Info.', { variant: 'info' })">Show info</button>
+        <button type="button" class="btn" onclick="window.removeAllToasts && window.removeAllToasts()">Clear all</button>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/toast">Astro</a> · <a href="/docs/svelte/components/toast">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

@@ -820,6 +820,12 @@ async function cmdInit() {
       writeFileSync(indexPath, indexHtml, 'utf8');
     }
     copyRizzoIcons(projectDir, framework);
+    if (framework === 'vanilla') {
+      const vanillaReadme = join(getPackageRoot(), 'scaffold', 'vanilla', 'README.md');
+      if (existsSync(vanillaReadme)) {
+        copyFileSync(vanillaReadme, join(projectDir, 'README.md'));
+      }
+    }
     if (framework === 'svelte' && selectedComponents.length > 0) {
       copySvelteComponents(projectDir, selectedComponents);
     } else if (framework === 'astro' && selectedComponents.length > 0) {
@@ -833,6 +839,7 @@ async function cmdInit() {
   if (framework === 'vanilla') {
     console.log('  - Vanilla JS: same CSS and component styles; index includes theme switcher and sample components.');
     console.log('  - Icons: ' + join(projectDir, 'icons') + ' (SVG files)');
+    console.log('  - README.md (setup and CDN/local options)');
   }
   const runPrefix = name ? 'cd ' + name + ' && ' : '';
   if (framework === 'astro' && existsSync(astroAppDir)) {

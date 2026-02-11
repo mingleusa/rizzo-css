@@ -1,9 +1,10 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import Gear from '../../../components/icons/Gear.astro';
 ---
 
-<DocsLayout title="Settings Component" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
+<DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
 	<section>
 		<h2>Settings Component</h2>
 		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
@@ -36,9 +37,14 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 			<li><code>scrollbarStyle</code> - Scrollbar style preference (<code>thin</code>, <code>thick</code>, or <code>hidden</code>)</li>
 		</ul>
 		
+		<h3>Live example</h3>
+		<p>Open Settings via the gear icon in the navbar or the button below (same as navbar).</p>
 		<div class="example">
-			<div class="example-title">Try it</div>
-			<p>Click the gear icon in the navbar to open the Settings panel.</p>
+			<div class="example-title">Open Settings</div>
+			<button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+				<Gear class="navbar__settings-icon" width={20} height={20} />
+				<span class="navbar__settings-label">Settings</span>
+			</button>
 		</div>
 		
 		<h3>Usage</h3>
@@ -46,7 +52,11 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 import Settings from '../components/Settings.astro';
 ---
 
-<Settings open={false} />`} language="astro" />
+<!-- Include once in layout (e.g. with Navbar). Default closed. -->
+<Settings open={false} />
+
+<!-- Open/close from JS (e.g. navbar gear button): -->
+<!-- window.openSettings(); window.closeSettings(); -->`} language="astro" />
 		
 		<h3>Props</h3>
 		<ul>
@@ -54,12 +64,11 @@ import Settings from '../components/Settings.astro';
 		</ul>
 		
 		<h3>Opening Settings</h3>
-		<p>The Settings panel is opened via <code>window.openSettings()</code> function, which is exposed globally. The Navbar component includes a settings button that calls this function.</p>
-		
-		<CodeBlock code={`// Open settings programmatically
+		<p>The Settings component registers <code>window.openSettings()</code> and <code>window.closeSettings()</code>. The Navbar gear button calls <code>openSettings()</code>.</p>
+		<CodeBlock code={`// Open the settings panel (e.g. from a button or navbar)
 window.openSettings();
 
-// Close settings programmatically
+// Close the settings panel
 window.closeSettings();`} language="javascript" />
 		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/settings">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; scaffold includes <code>openSettings()</code>.</p>
 	</section>

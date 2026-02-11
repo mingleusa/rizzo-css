@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import SvelteDocPage from '../../../components/svelte/docs/SvelteDocPage.svelte';
+import Search from '../../../components/Search.astro';
 
 export function getStaticPaths() {
   const paths: { params: { slug: string } }[] = [
@@ -33,12 +34,11 @@ export function getStaticPaths() {
   return paths;
 }
 
-const slugParam = Astro.params.slug as string;
+const slugParam = Astro.params.slug as string | undefined;
 const path = slugParam ? slugParam.split('/').filter(Boolean) : [];
-const slug = path;
 
 function getMeta() {
-  if (path[0] === 'components' && !path[1]) return { title: 'Components', description: 'Svelte component library.' };
+  if (path[0] === 'components' && !path[1]) return { title: 'Components — Svelte', description: 'Svelte component library.' };
   const titles: Record<string, string> = {
     button: 'Button',
     badge: 'Badge',
@@ -66,12 +66,48 @@ function getMeta() {
     'theme-switcher': 'Theme Switcher',
   };
   const name = path[1] ? titles[path[1]] ?? path[1].replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'Components';
-  return { title: name, description: `${name} component — Svelte.` };
+  return { title: path[1] ? `${name} — Svelte` : name, description: `${name} component — Svelte.` };
 }
 
 const { title, description } = getMeta();
 ---
 
 <DocsLayout title={title} description={description}>
-  <SvelteDocPage slug={slug} client:load />
+  {slugParam === 'components/search' && (
+    <section class="search-doc-live">
+      <h2>Live example</h2>
+      <p>Search is in the navbar (top of page) — click the search icon or press <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd>. You can also use the standalone search below.</p>
+      <div class="example">
+        <div class="example-title">Standalone search (same as navbar)</div>
+        <div class="search-doc-example">
+          <Search />
+        </div>
+      </div>
+    </section>
+  )}
+  <SvelteDocPage slug={slugParam} client:load />
 </DocsLayout>
+
+{slugParam === 'components/search' && (
+  <style>
+    .search-doc-live .search-doc-example {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-4);
+    }
+    @media (width <= 1023px) {
+      .search-doc-live .search-doc-example .search__trigger-text,
+      .search-doc-live .search-doc-example .search__kbd {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+        border: 0;
+      }
+    }
+  </style>
+)}

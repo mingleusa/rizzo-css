@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<span class="avatar avatar--md avatar--circle" role="img" aria-label="Avatar: JD">
+  <span class="avatar__initials" aria-hidden="true">JD</span>
+</span>
+<span class="avatar avatar--sm avatar--circle" role="img" aria-label="Avatar: AB"><span class="avatar__initials" aria-hidden="true">AB</span></span>
+<span class="avatar avatar--lg avatar--square" role="img" aria-label="Avatar: XY"><span class="avatar__initials" aria-hidden="true">XY</span></span>
+<!-- With image: <img class="avatar__img" src="..." alt="..." /> inside the span -->`;
+---
+
+<DocsLayout title="Avatar — Vanilla" description="Avatar with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Avatar</h2>
+    <p>User avatar with initials or image. Sizes: <code>avatar--sm</code>, <code>avatar--md</code>, <code>avatar--lg</code>. Shape: <code>avatar--circle</code>, <code>avatar--square</code>.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <span class="avatar avatar--sm avatar--circle" role="img" aria-label="Avatar: JD"><span class="avatar__initials" aria-hidden="true">JD</span></span>
+        <span class="avatar avatar--md avatar--circle" role="img" aria-label="Avatar: AB"><span class="avatar__initials" aria-hidden="true">AB</span></span>
+        <span class="avatar avatar--lg avatar--circle" role="img" aria-label="Avatar: XY"><span class="avatar__initials" aria-hidden="true">XY</span></span>
+        <span class="avatar avatar--md avatar--square" role="img" aria-label="Avatar: SQ"><span class="avatar__initials" aria-hidden="true">SQ</span></span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/avatar">Astro</a> · <a href="/docs/svelte/components/avatar">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

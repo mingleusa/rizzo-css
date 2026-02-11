@@ -1,5 +1,6 @@
 <script lang="ts">
-  import { onMount, tick } from 'svelte';
+  import { tick } from 'svelte';
+  import type { Snippet } from 'svelte';
 
   interface Props {
     id?: string;
@@ -9,6 +10,8 @@
     closeOnOverlayClick?: boolean;
     closeOnEscape?: boolean;
     class?: string;
+    children?: Snippet;
+    footer?: Snippet;
   }
 
   let {
@@ -19,11 +22,13 @@
     closeOnOverlayClick = true,
     closeOnEscape = true,
     class: className = '',
+    children,
+    footer,
   }: Props = $props();
 
   const modalId = $derived(id ?? `modal-${Math.random().toString(36).slice(2, 11)}`);
-  const sizeClass = size !== 'md' ? `modal--${size}` : '';
-  const classes = ['modal', sizeClass, className].filter(Boolean).join(' ').trim();
+  const sizeClass = $derived(size !== 'md' ? `modal--${size}` : '');
+  const classes = $derived(['modal', sizeClass, className].filter(Boolean).join(' ').trim());
 
   let overlayEl: HTMLDivElement;
   let modalEl: HTMLDivElement;
@@ -138,16 +143,15 @@
     <h2 id="{modalId}-title" class="modal__title">{title}</h2>
     <button type="button" class="modal__close" aria-label="Close modal" data-modal-close onclick={close}>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <title>Close</title>
         <path d="M18 6L6 18" />
         <path d="M6 6l12 12" />
       </svg>
     </button>
   </div>
   <div class="modal__body">
-    <slot />
+    {@render children?.()}
   </div>
   <div class="modal__footer">
-    <slot name="footer" />
+    {@render footer?.()}
   </div>
 </div>

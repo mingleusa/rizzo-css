@@ -1,0 +1,122 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="accordion">
+  <div class="accordion__item">
+    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-1" id="acc-trigger-1">Section 1</button>
+    <div id="acc-1" class="accordion__panel" hidden>
+      <div class="accordion__panel-inner">
+        <div class="accordion__panel-content">Content here.</div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion__item">
+    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-2" id="acc-trigger-2">Section 2</button>
+    <div id="acc-2" class="accordion__panel" hidden>
+      <div class="accordion__panel-inner">
+        <div class="accordion__panel-content">More content.</div>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+const copyableJs = `document.querySelectorAll('.accordion__trigger').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var expanded = btn.getAttribute('aria-expanded') === 'true';
+    var panelId = btn.getAttribute('aria-controls');
+    var panel = panelId ? document.getElementById(panelId) : null;
+    var newExpanded = !expanded;
+    btn.setAttribute('aria-expanded', newExpanded);
+    btn.classList.toggle('accordion__trigger--expanded', newExpanded);
+    if (panel) {
+      panel.hidden = !newExpanded;
+      panel.classList.toggle('accordion__panel--expanded', newExpanded);
+    }
+  });
+});`;
+---
+
+<DocsLayout title="Accordion — Vanilla" description="Accordion with vanilla HTML + JS. Copy the markup and script; ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Accordion</h2>
+    <p>Expandable sections. Use JS to toggle <code>aria-expanded</code>, the panel <code>hidden</code> state, and the <code>accordion__trigger--expanded</code> / <code>accordion__panel--expanded</code> classes.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <div class="accordion" id="vanilla-accordion-demo">
+          <div class="accordion__item">
+            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-1" id="vanilla-acc-trigger-1">Section 1</button>
+            <div id="vanilla-acc-1" class="accordion__panel" hidden>
+              <div class="accordion__panel-inner">
+                <div class="accordion__panel-content">Content here.</div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-2" id="vanilla-acc-trigger-2">Section 2</button>
+            <div id="vanilla-acc-2" class="accordion__panel" hidden>
+              <div class="accordion__panel-inner">
+                <div class="accordion__panel-content">More content.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded on the page.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <h3>JavaScript</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/accordion">Astro</a> · <a href="/docs/svelte/components/accordion">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+(function() {
+  var triggers = document.querySelectorAll('#vanilla-accordion-demo .accordion__trigger');
+  triggers.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      var panelId = btn.getAttribute('aria-controls');
+      var panel = panelId ? document.getElementById(panelId) : null;
+      var newExpanded = !expanded;
+      btn.setAttribute('aria-expanded', newExpanded);
+      btn.classList.toggle('accordion__trigger--expanded', newExpanded);
+      if (panel) {
+        panel.hidden = !newExpanded;
+        panel.classList.toggle('accordion__panel--expanded', newExpanded);
+      }
+    });
+  });
+})();
+</script>
+
+<style>
+  .example {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-4);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .example-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-3);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+  }
+  .example-demo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    align-items: flex-start;
+  }
+</style>

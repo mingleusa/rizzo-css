@@ -31,7 +31,7 @@
 
   let expanded = $state<Set<string>>(getDefaultExpanded());
 
-  const classes = ['accordion', className].filter(Boolean).join(' ').trim();
+  const classes = $derived(['accordion', className].filter(Boolean).join(' ').trim());
 
   function toggle(itemId: string) {
     expanded = new Set(

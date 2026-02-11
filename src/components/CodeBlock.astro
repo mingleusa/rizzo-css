@@ -108,22 +108,23 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
         <span class="sr-only">{languageLabel}</span>
       </span>
     )}
-    <button
-      type="button"
-      class="code-block__copy-btn"
-      aria-label="Copy code to clipboard"
-      title="Copy code to clipboard"
-      data-code-id={codeId}
-      id={copyButtonId}
-    >
-      <span class="code-block__copy-icon code-block__copy-icon--copy" aria-hidden="true">
-        <Copy width={20} height={20} />
-      </span>
-      <span class="code-block__copy-icon code-block__copy-icon--check" aria-hidden="true">
-        <Check width={20} height={20} />
-      </span>
-      <span class="sr-only">Copy code</span>
-    </button>
+    <span class="tooltip-host" data-tooltip="Copy code to clipboard">
+      <button
+        type="button"
+        class="code-block__copy-btn"
+        aria-label="Copy code to clipboard"
+        data-code-id={codeId}
+        id={copyButtonId}
+      >
+        <span class="code-block__copy-icon code-block__copy-icon--copy" aria-hidden="true">
+          <Copy width={20} height={20} />
+        </span>
+        <span class="code-block__copy-icon code-block__copy-icon--check" aria-hidden="true">
+          <Check width={20} height={20} />
+        </span>
+        <span class="sr-only">Copy code</span>
+      </button>
+    </span>
   </div>
   <pre><code id={codeId}>{code}</code></pre>
 </div>
@@ -170,14 +171,15 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
             if (copyIcon) copyIcon.classList.add('code-block__copy-icon--hidden');
             if (checkIcon) checkIcon.classList.remove('code-block__copy-icon--hidden');
             button.setAttribute('aria-label', 'Code copied!');
-            button.setAttribute('title', 'Code copied!');
+            const tooltipHost = button.closest('.tooltip-host');
+            if (tooltipHost) tooltipHost.setAttribute('data-tooltip', 'Code copied!');
             
             // Reset after 2 seconds
             setTimeout(() => {
               if (copyIcon) copyIcon.classList.remove('code-block__copy-icon--hidden');
               if (checkIcon) checkIcon.classList.add('code-block__copy-icon--hidden');
               button.setAttribute('aria-label', 'Copy code to clipboard');
-              button.setAttribute('title', 'Copy code to clipboard');
+              if (tooltipHost) tooltipHost.setAttribute('data-tooltip', 'Copy code to clipboard');
             }, 2000);
           } catch (err) {
             // Fallback for older browsers
@@ -194,13 +196,14 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
               if (copyIcon) copyIcon.classList.add('code-block__copy-icon--hidden');
               if (checkIcon) checkIcon.classList.remove('code-block__copy-icon--hidden');
               button.setAttribute('aria-label', 'Code copied!');
-              button.setAttribute('title', 'Code copied!');
+              const tooltipHostFallback = button.closest('.tooltip-host');
+              if (tooltipHostFallback) tooltipHostFallback.setAttribute('data-tooltip', 'Code copied!');
               
               setTimeout(() => {
                 if (copyIcon) copyIcon.classList.remove('code-block__copy-icon--hidden');
                 if (checkIcon) checkIcon.classList.add('code-block__copy-icon--hidden');
                 button.setAttribute('aria-label', 'Copy code to clipboard');
-                button.setAttribute('title', 'Copy code to clipboard');
+                if (tooltipHostFallback) tooltipHostFallback.setAttribute('data-tooltip', 'Copy code to clipboard');
               }, 2000);
             } catch (fallbackErr) {
               console.error('Failed to copy:', fallbackErr);
@@ -238,7 +241,7 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
     position: relative;
     margin: var(--spacing-4) 0;
     border-radius: var(--radius-lg);
-    overflow: hidden;
+    overflow: visible;
     background-color: var(--background-alt);
     border: 1px solid var(--border);
   }
@@ -250,6 +253,10 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
     padding: var(--spacing-2) var(--spacing-3);
     background-color: var(--background);
     border-bottom: 1px solid var(--border);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
   }
   
   .code-block__language {
@@ -355,6 +362,7 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
     padding: var(--spacing-4);
     overflow-x: auto;
     background-color: var(--background-alt);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
   
   .code-block code {

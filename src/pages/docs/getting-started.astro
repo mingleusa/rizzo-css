@@ -6,7 +6,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
 <DocsLayout title="Getting Started" description="Installation, project structure, and quick start guide">
 	<section>
 		<h2>Installation</h2>
-		<p>Rizzo CSS is built on Astro. To use it in your project:</p>
+		<p><strong>Using the npm package?</strong> Run <code>npx rizzo-css init</code> or <code>pnpm add rizzo-css</code>. The published package includes <code>dist/rizzo.min.css</code>, the CLI (<code>init</code> / <code>add</code> / <code>theme</code>), and scaffolds: <code>scaffold/vanilla/</code>, <code>scaffold/astro-app/</code>, <code>scaffold/svelte-app/</code>, plus optional components in <code>scaffold/astro/</code> and <code>scaffold/svelte/</code> (24 each). Each scaffold folder has a README with setup and commands. See the <a href="https://www.npmjs.com/package/rizzo-css">npm package</a> and the project README for CLI usage and adding Rizzo to an existing project.</p>
+		<p>Rizzo CSS is built on Astro. To work on this docs site and reference components (clone the repo):</p>
 		<CodeBlock code={`# Clone the project
 git clone <repository-url>
 cd rizzo-css`} language="bash" />
@@ -48,12 +49,13 @@ pnpm install`} language="nodejs" />
 │   │   ├── ThemeSwitcher.astro
 │   │   ├── Toast.astro
 │   │   ├── Tooltip.astro
-│   │   └── icons/      # Icon components
+│   │   └── icons/      # Icon components (same set for Astro, Svelte, Vanilla)
 │   │       ├── Copy.astro
 │   │       ├── Check.astro
 │   │       ├── ChevronDown.astro
 │   │       ├── Circle.astro
 │   │       ├── Close.astro
+│   │       ├── Cmd.astro
 │   │       ├── Eye.astro
 │   │       ├── Gear.astro
 │   │       ├── IceCream.astro
@@ -71,7 +73,10 @@ pnpm install`} language="nodejs" />
 │   │           ├── Html5.astro
 │   │           ├── Javascript.astro
 │   │           ├── Nodejs.astro
-│   │           └── Plaintext.astro
+│   │           ├── Plaintext.astro
+│   │           ├── React.astro
+│   │           ├── Svelte.astro
+│   │           └── Vue.astro
 │   ├── layouts/         # Page layouts
 │   │   └── Layout.astro
 │   ├── pages/           # Route pages
@@ -153,14 +158,14 @@ pnpm install`} language="nodejs" />
 			<li><a href="/docs/components/avatar">Avatar</a> - User avatar with image or initials fallback</li>
 			<li><a href="/docs/components/divider">Divider</a> - Horizontal or vertical divider with optional label</li>
 			<li><a href="/docs/components/table">Table</a> - Data table with sorting and filtering</li>
-			<li><a href="/docs/components/icons">Icons</a> - Reusable SVG icon components</li>
+			<li><a href="/docs/components/icons">Icons</a> - Reusable SVG icon components (same set for Astro, Svelte, Vanilla; includes Cmd icon)</li>
 			<li><a href="/docs/components/copy-to-clipboard">CopyToClipboard</a> - Copy to clipboard component</li>
 			<li><a href="/docs/components/forms">Forms</a> - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)</li>
 			<li><a href="/docs/components/cards">Cards</a> - Flexible card component</li>
 			<li><a href="/docs/components/modal">Modal</a> - Accessible modal/dialog component</li>
 			<li><a href="/docs/components/alert">Alert</a> - Alert/notification component with auto-dismiss</li>
 			<li><a href="/docs/components/toast">Toast</a> - Fixed position toast notifications</li>
-			<li><a href="/docs/components/search">Search</a> - Search component with Algolia integration</li>
+			<li><a href="/docs/components/search">Search</a> - Search with Algolia integration; Cmd icon + K in trigger (same size as search icon); same live example on Astro, Svelte, and Vanilla</li>
 			<li><a href="/docs/components/tooltip">Tooltip</a> - Accessible tooltip component with positioning options</li>
 			<li><a href="/docs/components/dropdown">Dropdown</a> - Accessible dropdown menu with keyboard navigation and nested submenus</li>
 			<li><a href="/docs/components/tabs">Tabs</a> - Accessible tabs component with keyboard navigation and ARIA tab pattern</li>

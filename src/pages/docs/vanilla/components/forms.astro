@@ -1,0 +1,284 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Form Components — Vanilla" description="Form fields with vanilla HTML. Same BEM classes and structure as Astro and Svelte. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Form Components</h2>
+    <p>Rizzo CSS form components use semantic HTML and BEM classes. Use the same structure as Astro and Svelte: <code>form-group</code>, <code>form-group__label</code>, <code>form-input</code>, <code>form-group__help</code>, <code>form-error</code>, <code>form-success</code>. Sizes: <code>form-input--sm</code>, <code>form-input--lg</code>. States: <code>form-input--error</code>, <code>form-input--success</code>. Checkbox/radio: <code>checkbox-label</code>, <code>radio-label</code>, <code>checkbox-group</code>, <code>radio-group</code>.</p>
+  </section>
+
+  <section>
+    <h2>FormGroup</h2>
+    <p>Wrap fields with <code>form-group</code>. Label: <code>form-group__label</code>; add class <code>required</code> for the required indicator. Help text: <code>form-group__help</code>. Error/success: <code>form-error</code>, <code>form-success</code>.</p>
+
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="form-group">
+        <label class="form-group__label required" for="vanilla-email">Email Address</label>
+        <input id="vanilla-email" type="email" class="form-input" name="email" placeholder="you@example.com" />
+        <span class="form-group__help">We'll never share your email.</span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={`<div class="form-group">
+  <label class="form-group__label required" for="email">Email Address</label>
+  <input id="email" type="email" class="form-input" name="email" placeholder="you@example.com" />
+  <span class="form-group__help">We'll never share your email.</span>
+</div>`} language="html" />
+  </section>
+
+  <section>
+    <h2>Input</h2>
+    <p>Use <code>form-input</code> on text inputs. Add <code>form-input--sm</code> or <code>form-input--lg</code> for size; <code>form-input--error</code> or <code>form-input--success</code> for validation. Set <code>aria-invalid="true"</code> when showing an error.</p>
+
+    <h3>Input Types</h3>
+    <div class="example">
+      <div class="example-title">Live Examples</div>
+      <div class="example-demo">
+        <div class="form-group">
+          <label class="form-group__label" for="v-text">Text Input</label>
+          <input id="v-text" type="text" class="form-input" name="text" placeholder="Enter text" />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-email">Email Input</label>
+          <input id="v-email" type="email" class="form-input" name="email" placeholder="you@example.com" />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-password">Password Input</label>
+          <input id="v-password" type="password" class="form-input" name="password" placeholder="Enter password" />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-number">Number Input</label>
+          <input id="v-number" type="number" class="form-input" name="number" placeholder="Enter number" />
+        </div>
+      </div>
+    </div>
+
+    <h3>Input Sizes</h3>
+    <div class="example">
+      <div class="example-title">Live Examples</div>
+      <div class="example-demo">
+        <div class="form-group">
+          <label class="form-group__label" for="v-sm">Small Input</label>
+          <input id="v-sm" type="text" class="form-input form-input--sm" name="sm" placeholder="Small input" />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-md">Medium Input (default)</label>
+          <input id="v-md" type="text" class="form-input" name="md" placeholder="Medium input" />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-lg">Large Input</label>
+          <input id="v-lg" type="text" class="form-input form-input--lg" name="lg" placeholder="Large input" />
+        </div>
+      </div>
+    </div>
+
+    <h3>Validation States</h3>
+    <div class="example">
+      <div class="example-title">Live Examples</div>
+      <div class="example-demo">
+        <div class="form-group">
+          <label class="form-group__label" for="v-error">Error State</label>
+          <input id="v-error" type="text" class="form-input form-input--error" name="error" aria-invalid="true" placeholder="Enter text" />
+          <span class="form-error" role="alert">This field is required.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-success">Success State</label>
+          <input id="v-success" type="text" class="form-input form-input--success" name="success" value="Valid input" />
+          <span class="form-success" role="status">Looks good!</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Textarea</h2>
+    <p>Use <code>form-input</code> on <code>&lt;textarea&gt;</code> for the same sizes and validation classes.</p>
+
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="form-group">
+        <label class="form-group__label" for="v-textarea">Message</label>
+        <textarea id="v-textarea" name="message" class="form-input" rows="5" placeholder="Your message..."></textarea>
+        <span class="form-group__help">Enter your message here.</span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={`<div class="form-group">
+  <label class="form-group__label" for="message">Message</label>
+  <textarea id="message" name="message" class="form-input" rows="5" placeholder="Your message..."></textarea>
+  <span class="form-group__help">Enter your message here.</span>
+</div>`} language="html" />
+  </section>
+
+  <section>
+    <h2>Select</h2>
+    <p>Use <code>form-input</code> on <code>&lt;select&gt;</code>.</p>
+
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="form-group">
+        <label class="form-group__label required" for="v-select">Country</label>
+        <select id="v-select" name="country" class="form-input" required>
+          <option value="">Select a country</option>
+          <option value="us">United States</option>
+          <option value="ca">Canada</option>
+          <option value="uk">United Kingdom</option>
+          <option value="au">Australia</option>
+        </select>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={`<div class="form-group">
+  <label class="form-group__label required" for="country">Country</label>
+  <select id="country" name="country" class="form-input" required>
+    <option value="">Select a country</option>
+    <option value="us">United States</option>
+    <option value="ca">Canada</option>
+    <option value="uk">United Kingdom</option>
+  </select>
+</div>`} language="html" />
+  </section>
+
+  <section>
+    <h2>Checkbox</h2>
+    <p>Wrap each checkbox in a <code>checkbox-label</code>. Group multiple with <code>checkbox-group</code>. No extra class on the <code>&lt;input type="checkbox"&gt;</code>; Rizzo styles all checkboxes.</p>
+
+    <div class="example">
+      <div class="example-title">Live Examples</div>
+      <div class="form-group" role="group" aria-labelledby="vanilla-prefs-heading">
+        <span id="vanilla-prefs-heading" class="form-group__label">Preferences</span>
+        <div class="checkbox-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="v-cb-1" name="preferences" value="newsletter" />
+            Subscribe to newsletter
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="v-cb-2" name="preferences" value="updates" />
+            Receive product updates
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="v-cb-3" name="preferences" value="marketing" />
+            Marketing communications
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={`<div class="form-group" role="group" aria-labelledby="prefs-heading">
+  <span id="prefs-heading" class="form-group__label">Preferences</span>
+  <div class="checkbox-group">
+    <label class="checkbox-label">
+      <input type="checkbox" id="newsletter" name="preferences" value="newsletter" />
+      Subscribe to newsletter
+    </label>
+    <label class="checkbox-label">
+      <input type="checkbox" id="updates" name="preferences" value="updates" />
+      Receive product updates
+    </label>
+  </div>
+</div>`} language="html" />
+  </section>
+
+  <section>
+    <h2>Radio</h2>
+    <p>Wrap each radio in a <code>radio-label</code>. Group with <code>radio-group</code>. Use the same <code>name</code> for all options.</p>
+
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="form-group" role="group" aria-labelledby="vanilla-payment-heading">
+        <span id="vanilla-payment-heading" class="form-group__label required">Payment Method</span>
+        <div class="radio-group">
+          <label class="radio-label">
+            <input type="radio" id="v-radio-card" name="payment" value="card" checked />
+            Credit Card
+          </label>
+          <label class="radio-label">
+            <input type="radio" id="v-radio-paypal" name="payment" value="paypal" />
+            PayPal
+          </label>
+          <label class="radio-label">
+            <input type="radio" id="v-radio-bank" name="payment" value="bank" />
+            Bank Transfer
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={`<div class="form-group" role="group" aria-labelledby="payment-heading">
+  <span id="payment-heading" class="form-group__label required">Payment Method</span>
+  <div class="radio-group">
+    <label class="radio-label">
+      <input type="radio" id="payment-card" name="payment" value="card" checked />
+      Credit Card
+    </label>
+    <label class="radio-label">
+      <input type="radio" id="payment-paypal" name="payment" value="paypal" />
+      PayPal
+    </label>
+  </div>
+</div>`} language="html" />
+  </section>
+
+  <section>
+    <h2>Complete Form Example</h2>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <form style="max-width: 600px;" action="#" method="get" onsubmit="return false;">
+        <div class="form-group">
+          <label class="form-group__label required" for="v-form-name">Full Name</label>
+          <input id="v-form-name" type="text" class="form-input" name="name" placeholder="John Doe" required />
+        </div>
+        <div class="form-group">
+          <label class="form-group__label required" for="v-form-email">Email Address</label>
+          <input id="v-form-email" type="email" class="form-input" name="email" placeholder="you@example.com" required />
+          <span class="form-group__help">We'll never share your email.</span>
+        </div>
+        <div class="form-group">
+          <label class="form-group__label required" for="v-form-country">Country</label>
+          <select id="v-form-country" name="country" class="form-input" required>
+            <option value="">Select a country</option>
+            <option value="us">United States</option>
+            <option value="ca">Canada</option>
+            <option value="uk">United Kingdom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-group__label" for="v-form-message">Message</label>
+          <textarea id="v-form-message" name="message" class="form-input" rows="4" placeholder="Your message..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="v-form-consent" name="consent" value="yes" required />
+            I agree to the terms and conditions
+          </label>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section>
+    <h2>Accessibility</h2>
+    <p>Use <code>for</code> and <code>id</code> to associate labels with inputs. Set <code>aria-invalid="true"</code> on invalid fields. Put error messages in an element with <code>role="alert"</code>. Success messages can use <code>role="status"</code>.</p>
+  </section>
+
+  <section>
+    <h2>Styling</h2>
+    <p>Form styles use semantic theme variables in <code>src/styles/forms.css</code>. Same BEM and behavior as Astro and Svelte.</p>
+    <p><strong>Astro &amp; Svelte:</strong> <a href="/docs/components/forms">Astro</a> · <a href="/docs/svelte/components/forms">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: flex-start; }
+</style>

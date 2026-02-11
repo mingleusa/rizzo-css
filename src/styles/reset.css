@@ -10,11 +10,12 @@
   padding: 0;
 }
 
-/* Prevent font size inflation */
+/* Prevent font size inflation. No overflow on html so position:sticky (navbar) works. */
 html {
   text-size-adjust: none;
   margin: 0;
   padding: 0;
+  max-width: 100%;
 }
 
 /* Remove default margin in favour of better control in authored CSS */
@@ -30,12 +31,13 @@ ol[role='list'] {
 }
 
 /* Set core body defaults — no margin/padding so content is flush to viewport by default.
-   Use .container or layout classes when you want spacing. */
+   No overflow on body so position:sticky (navbar) works. Horizontal overflow is contained in main. */
 body {
   min-height: 100vh;
   line-height: 1.5;
   margin: 0;
   padding: 0;
+  max-width: 100%;
 }
 
 /* Set shorter line heights on headings and interactive elements */

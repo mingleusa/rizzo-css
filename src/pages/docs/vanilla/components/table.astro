@@ -1,0 +1,63 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="table table--striped">
+  <div class="table__wrapper">
+    <table class="table__table">
+      <caption class="table__caption">Sample data</caption>
+      <thead class="table__head">
+        <tr class="table__row">
+          <th class="table__cell table__cell--head">Name</th>
+          <th class="table__cell table__cell--head">Role</th>
+          <th class="table__cell table__cell--head">Status</th>
+        </tr>
+      </thead>
+      <tbody class="table__body">
+        <tr class="table__row"><td class="table__cell">Alice</td><td class="table__cell">Developer</td><td class="table__cell"><span class="badge badge--success">Active</span></td></tr>
+        <tr class="table__row"><td class="table__cell">Bob</td><td class="table__cell">Designer</td><td class="table__cell"><span class="badge badge--warning">Away</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Table — Vanilla" description="Data table with vanilla HTML. Ensure Rizzo CSS is loaded. Sorting/filtering require JS.">
+  <section>
+    <h2>Table</h2>
+    <p>Data table. BEM: <code>table</code>, <code>table__wrapper</code>, <code>table__table</code>, <code>table__head</code>, <code>table__body</code>, <code>table__row</code>, <code>table__cell</code>, <code>table__cell--head</code>. Add <code>table--striped</code> for alternating rows.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <div class="table table--striped">
+          <div class="table__wrapper">
+            <table class="table__table">
+              <thead class="table__head">
+                <tr class="table__row">
+                  <th class="table__cell table__cell--head">Name</th>
+                  <th class="table__cell table__cell--head">Status</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr class="table__row"><td class="table__cell">Item 1</td><td class="table__cell"><span class="badge badge--success">Done</span></td></tr>
+                <tr class="table__row"><td class="table__cell">Item 2</td><td class="table__cell"><span class="badge badge--warning">Pending</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/table">Astro</a> · <a href="/docs/svelte/components/table">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: flex-start; }
+</style>

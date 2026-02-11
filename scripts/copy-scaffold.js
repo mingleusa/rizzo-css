@@ -155,10 +155,13 @@ function copySvelte() {
       count++;
     }
   }
-  const astroIconsDir = join(astroDest, 'icons');
-  const svelteIconsDir = join(svelteDest, 'icons');
-  const iconCount = copyAstroIconsToSvelte(astroIconsDir, svelteIconsDir);
-  console.log('copy-scaffold: ' + count + ' Svelte files + ' + iconCount + ' Svelte icons -> packages/rizzo-css/scaffold/svelte');
+  // Copy Svelte icons from repo (Svelte 5, $props) so scaffold matches project
+  const svelteIconsSrc = join(svelteSrc, 'icons');
+  const svelteIconsDest = join(svelteDest, 'icons');
+  if (existsSync(svelteIconsSrc)) {
+    copyDirRecursive(svelteIconsSrc, svelteIconsDest);
+  }
+  console.log('copy-scaffold: Svelte components + icons (from src) -> packages/rizzo-css/scaffold/svelte');
 }
 
 function copyAstro() {

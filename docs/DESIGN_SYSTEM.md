@@ -1,6 +1,6 @@
 # Design System
 
-Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** — all hardcoded values have been replaced with CSS variables and utility classes. The same CSS and component styles ship for **Vanilla JS**, **Astro**, and **Svelte**; porting to other frameworks (Vue, React) requires only JS and the same BEM markup. For the small JS utilities used by interactive components (theme, storage, clipboard, toast), see [Getting Started – JavaScript utilities](./GETTING_STARTED.md#javascript-utilities).
+Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme. **The design system is the source of truth for all styling** — all hardcoded values have been replaced with CSS variables and utility classes. The same CSS and component styles ship for **Vanilla JS**, **Astro**, and **Svelte** in the published `rizzo-css` npm package (`dist/rizzo.min.css`, CLI, and scaffolds: `scaffold/vanilla/`, `scaffold/astro-app/`, `scaffold/svelte-app/`, plus optional component files in `scaffold/astro/` and `scaffold/svelte/`; each scaffold has a README). Porting to other frameworks (Vue, React) requires only JS and the same BEM markup. For the small JS utilities used by interactive components (theme, storage, clipboard, toast), see [Getting Started – JavaScript utilities](./GETTING_STARTED.md#javascript-utilities).
 
 ## Features
 
@@ -37,11 +37,17 @@ All semantic colors include corresponding text color variables that automaticall
 
 - `--accent-text` - Text color for accent backgrounds (white on dark accents, dark on light accents)
 - `--success-text` - Text color for success backgrounds
-- `--warning-text` - Text color for warning backgrounds (typically dark text on light yellow)
+- `--success-text-on-solid` - Text on solid success (buttons, badges); themes may override
+- `--warning-text` - Text color for warning backgrounds
+- `--warning-text-on-solid` - Text on solid warning (buttons, badges)
 - `--error-text` - Text color for error backgrounds
+- `--error-text-on-solid` - Text on solid error (buttons, badges)
 - `--info-text` - Text color for info backgrounds
+- `--info-text-on-solid` - Text on solid info (buttons, badges)
+- `--accent-text-on-hover` - Text on primary button hover
+- `--text-on-solid-hover` - Text on semantic button hover (success, warning, error, info)
 
-These variables ensure WCAG AA contrast compliance (4.5:1 for normal text, 3:1 for large text).
+Use `--*-text-on-solid` for buttons and badges with solid semantic backgrounds so themes can tune contrast. These variables ensure WCAG AA contrast compliance (4.5:1 for normal text, 3:1 for large text).
 
 ### Typography System
 
@@ -112,9 +118,10 @@ Rizzo CSS includes a comprehensive typography system:
 **Touch Target Sizes:**
 - `--touch-target-min` (3rem / 48px) - WCAG AA compliant minimum touch target size
 
-**Max Heights:**
+**Max Heights / Modal Widths:**
 - `--max-height-dropdown` (600px) - Maximum height for dropdown menus
-- `--max-height-modal` (32rem) - Maximum height for modal dialogs
+- `--max-height-modal` (32rem) - Modal max-height and medium (md) max-width
+- `--max-width-modal-lg` (48rem) - Large modal max-width (768px)
 - `--max-height-navbar-submenu` (2000px) - Navbar dropdown scroll area
 
 **Border Radius:**
@@ -640,7 +647,7 @@ This ensures:
 
 1. **Design System as Source of Truth** - Always use CSS variables and utility classes from the design system. Never hardcode values (colors, spacing, sizes, transitions, etc.). This ensures consistency and makes framework porting easier. **All styling must use design system variables for easy portability to Vue, React, and Svelte.**
 2. **Always use semantic variables** - Never hardcode colors, spacing, sizes, or other values. Use `var(--spacing-*)`, `var(--radius-*)`, `var(--transition-*)`, etc.
-3. **Use contrast-aware text colors** - Use `--accent-text`, `--success-text`, etc. when using colored backgrounds
+3. **Use contrast-aware text colors** - Use `--accent-text` for accent; use `--success-text-on-solid`, `--warning-text-on-solid`, `--error-text-on-solid`, `--info-text-on-solid` for buttons and badges with solid semantic backgrounds
 4. **Use appropriate variables** - `--background-alt` for cards, `--background` for page background
 5. **Use utility classes** - Leverage spacing, sizing, display, position, border, flexbox, grid, and gap utilities for consistent styling
 6. **Use spacing utilities** - Use margin and padding utility classes for consistent spacing

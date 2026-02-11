@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
+
   interface Props {
     label?: string;
     labelFor?: string;
@@ -7,6 +9,7 @@
     error?: string;
     success?: string;
     class?: string;
+    children?: Snippet;
   }
   let {
     label,
@@ -16,6 +19,7 @@
     error,
     success,
     class: className = '',
+    children,
   }: Props = $props();
 
   const errorId = $derived(labelFor && error ? `${labelFor}-error` : undefined);
@@ -24,11 +28,17 @@
 
 <div class="form-group {className}">
   {#if label}
-    <label for={labelFor} class="form-group__label {required ? 'required' : ''}">
-      {label}
-    </label>
+    {#if labelFor}
+      <label for={labelFor} class="form-group__label {required ? 'required' : ''}">
+        {label}
+      </label>
+    {:else}
+      <span class="form-group__label {required ? 'required' : ''}">
+        {label}
+      </span>
+    {/if}
   {/if}
-  <slot />
+  {@render children?.()}
   {#if help}
     <span id={helpId} class="form-group__help">{help}</span>
   {/if}

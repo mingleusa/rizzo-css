@@ -1,8 +1,9 @@
 /* Component Styles - Using semantic theme variables */
 
-/* Navbar */
+/* Navbar: sticky so it stays at the top when scrolling */
 .navbar {
   position: sticky;
+  position: sticky; /* Safari */
   top: 0;
   left: 0;
   right: 0;
@@ -10,7 +11,7 @@
   max-width: 100%;
   margin: 0;
   padding: 0;
-  z-index: var(--z-navbar);
+  z-index: var(--z-navbar, 5000); /* On top of toasts, modals, content */
   backdrop-filter: blur(var(--blur));
   background-color: oklch(from var(--background-alt) l c h / 90%);
   box-sizing: border-box;
@@ -253,7 +254,7 @@ div.navbar__sublink {
   height: var(--spacing-3);
   transition: transform var(--transition-base), color var(--transition-base);
   flex-shrink: 0;
-  color: inherit;
+  color: currentcolor; /* Match link: same as text by default, accent on hover/active/expanded */
 }
 
 .navbar__item--has-dropdown:hover .navbar__dropdown-icon {
@@ -262,6 +263,11 @@ div.navbar__sublink {
 
 .navbar__item--has-dropdown[aria-expanded="true"] .navbar__dropdown-icon {
   transform: rotate(180deg);
+}
+
+/* When dropdown is open, link and arrow use accent (same as hover/active) */
+.navbar__item--has-dropdown[aria-expanded="true"] .navbar__link {
+  color: var(--accent);
 }
 
 .navbar__submenu {
@@ -502,7 +508,9 @@ div.navbar__sublink {
     display: flex;
     align-items: center;
     gap: var(--spacing-2);
-    padding: var(--spacing-2) var(--spacing-6);
+    padding: var(--spacing-2) var(--spacing-3);
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
     background-color: var(--background-alt);
     border: var(--border-width) solid var(--border);
     border-radius: var(--radius-md);
@@ -512,7 +520,6 @@ div.navbar__sublink {
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     transition: background-color var(--transition-base), border-color var(--transition-base);
-    min-width: fit-content;
   }
 
   .navbar__settings-btn:hover {
@@ -530,6 +537,7 @@ div.navbar__sublink {
     flex-shrink: 0;
     width: var(--spacing-5);
     height: var(--spacing-5);
+    color: var(--icon);
   }
 
   .navbar__settings-label {
@@ -964,6 +972,7 @@ div.navbar__sublink {
     display: flex;
     align-items: center;
     justify-content: center;
+    color: var(--icon);
   }
 
   .theme-switcher__label-icon svg {
@@ -987,8 +996,9 @@ div.navbar__sublink {
 }
 
 .theme-switcher__icon {
-  transition: transform var(--transition-base);
+  transition: transform var(--transition-base), color var(--transition-base);
   flex-shrink: 0;
+  color: var(--icon);
 }
 
 .theme-switcher__menu {
@@ -1237,6 +1247,7 @@ div.navbar__sublink {
     flex-shrink: 0;
     width: var(--spacing-5);
     height: var(--spacing-5);
+    color: var(--icon);
   }
 
   /* Active option: theme background + accent bar so it’s always clearly visible */
@@ -1690,7 +1701,7 @@ div.navbar__sublink {
 }
 
 .modal--lg {
-  max-width: var(--spacing-48);
+  max-width: var(--max-width-modal-lg);
 }
 
 /* Reduced Motion */
@@ -1766,6 +1777,7 @@ div.navbar__sublink {
   justify-content: center;
   width: var(--spacing-4);
   height: var(--spacing-4);
+  color: var(--icon);
   transition: opacity var(--transition-base), transform var(--transition-base);
 }
 
@@ -1834,12 +1846,12 @@ div.navbar__sublink {
   padding: 0;
   margin: calc(-1 * var(--spacing-1)) calc(-1 * var(--spacing-2)) calc(-1 * var(--spacing-1)) 0;
   background: none;
-  border: none;
+  border: 1px solid transparent;
   border-radius: var(--radius);
   color: inherit;
   cursor: pointer;
   opacity: var(--opacity-80);
-  transition: opacity var(--transition-base), background-color var(--transition-base);
+  transition: opacity var(--transition-base), background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
 
   /* Ensure close button is always visible */
   stroke: currentcolor;
@@ -1848,7 +1860,9 @@ div.navbar__sublink {
 
 .alert__close:hover {
   opacity: 1;
-  background-color: oklch(from var(--background) l c h / 20%);
+  background-color: oklch(from var(--background) l c h / 25%);
+  border-color: var(--border);
+  color: var(--text);
 }
 
 .alert__close:focus-visible {
@@ -1887,10 +1901,24 @@ div.navbar__sublink {
   opacity: 0.9;
 }
 
+/* Keep close icon visible on hover for warning (override hover color) */
+.alert--warning .alert__close:hover {
+  color: var(--text);
+}
+
 .alert--info {
   background-color: oklch(from var(--info) l c h / 10%);
   border-color: var(--info);
   color: var(--info-text);
+}
+
+/* Alert examples on framework doc pages: vertically center alerts in the box */
+.alert-examples-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  min-height: 8rem;
 }
 
 /* Toast Container */
@@ -1963,19 +1991,19 @@ div.navbar__sublink {
   animation: none;
 }
 
-/* Toast Positions */
+/* Toast Positions (top offset keeps toasts below navbar) */
 .toast--top-right {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   right: var(--spacing-4);
 }
 
 .toast--top-left {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   left: var(--spacing-4);
 }
 
 .toast--top-center {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   left: 50%;
   transform: translateX(-50%);
 }
@@ -2007,19 +2035,19 @@ div.navbar__sublink {
 }
 
 .toast-container--top-right {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   right: var(--spacing-4);
   align-items: flex-end;
 }
 
 .toast-container--top-left {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   left: var(--spacing-4);
   align-items: flex-start;
 }
 
 .toast-container--top-center {
-  top: var(--spacing-4);
+  top: var(--toast-top-offset, var(--spacing-4));
   left: 50%;
   transform: translateX(-50%);
   align-items: center;
@@ -2111,22 +2139,22 @@ div.navbar__sublink {
 
 .badge--success {
   background-color: var(--success);
-  color: var(--success-text);
+  color: var(--success-text-on-solid);
 }
 
 .badge--warning {
   background-color: var(--warning);
-  color: var(--warning-text);
+  color: var(--warning-text-on-solid);
 }
 
 .badge--error {
   background-color: var(--error);
-  color: var(--error-text);
+  color: var(--error-text-on-solid);
 }
 
 .badge--info {
   background-color: var(--info);
-  color: var(--info-text);
+  color: var(--info-text-on-solid);
 }
 
 /* Badge Sizes */
@@ -2168,8 +2196,9 @@ div.navbar__sublink {
   position: absolute;
   z-index: var(--z-tooltip);
   padding: var(--spacing-2) var(--spacing-3);
-  background-color: var(--text);
-  color: var(--background);
+  background-color: var(--background-alt);
+  color: var(--text);
+  border: var(--border-width) solid var(--border);
   font-size: var(--font-size-sm);
   line-height: var(--line-height-tight);
   white-space: nowrap;
@@ -2205,7 +2234,7 @@ div.navbar__sublink {
   left: 50%;
   transform: translateX(-50%);
   border-width: var(--border-width-arrow) var(--border-width-arrow) 0 var(--border-width-arrow);
-  border-color: var(--text) transparent transparent transparent;
+  border-color: var(--background-alt) transparent transparent transparent;
 }
 
 /* Bottom position */
@@ -2220,7 +2249,7 @@ div.navbar__sublink {
   left: 50%;
   transform: translateX(-50%);
   border-width: 0 var(--border-width-arrow) var(--border-width-arrow) var(--border-width-arrow);
-  border-color: transparent transparent var(--text) transparent;
+  border-color: transparent transparent var(--background-alt) transparent;
 }
 
 /* Left position */
@@ -2235,7 +2264,7 @@ div.navbar__sublink {
   top: 50%;
   transform: translateY(-50%);
   border-width: var(--border-width-arrow) 0 var(--border-width-arrow) var(--border-width-arrow);
-  border-color: transparent transparent transparent var(--text);
+  border-color: transparent transparent transparent var(--background-alt);
 }
 
 /* Right position */
@@ -2250,32 +2279,49 @@ div.navbar__sublink {
   top: 50%;
   transform: translateY(-50%);
   border-width: var(--border-width-arrow) var(--border-width-arrow) var(--border-width-arrow) 0;
-  border-color: transparent var(--text) transparent transparent;
+  border-color: transparent var(--background-alt) transparent transparent;
 }
 
-/* Show tooltip on hover/focus */
+/* Show tooltip on hover/focus (and when JS adds .tooltip-visible) */
 .tooltip-wrapper:hover .tooltip,
 .tooltip-wrapper:focus-within .tooltip,
+.tooltip-wrapper.tooltip-visible .tooltip,
 .tooltip-wrapper[aria-describedby]:hover + .tooltip,
 .tooltip-wrapper[aria-describedby]:focus-within + .tooltip {
-  opacity: 1;
+  opacity: 1 !important;
+  visibility: visible;
   pointer-events: auto;
   transform: translateX(-50%) scale(1);
   transition-delay: var(--tooltip-delay, 0ms);
 }
 
+/* Tooltips inside navbar must paint above the navbar bar and any overlay */
+.navbar .tooltip-wrapper .tooltip,
+.navbar .tooltip {
+  z-index: 99999;
+}
+
+/* Force navbar tooltips visible when wrapper has tooltip-visible (max specificity) */
+.navbar .tooltip-wrapper.tooltip-visible .tooltip {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .tooltip-wrapper:hover .tooltip--bottom,
-.tooltip-wrapper:focus-within .tooltip--bottom {
+.tooltip-wrapper:focus-within .tooltip--bottom,
+.tooltip-wrapper.tooltip-visible .tooltip--bottom {
   transform: translateX(-50%) scale(1);
 }
 
 .tooltip-wrapper:hover .tooltip--left,
-.tooltip-wrapper:focus-within .tooltip--left {
+.tooltip-wrapper:focus-within .tooltip--left,
+.tooltip-wrapper.tooltip-visible .tooltip--left {
   transform: translateY(-50%) scale(1);
 }
 
 .tooltip-wrapper:hover .tooltip--right,
-.tooltip-wrapper:focus-within .tooltip--right {
+.tooltip-wrapper:focus-within .tooltip--right,
+.tooltip-wrapper.tooltip-visible .tooltip--right {
   transform: translateY(-50%) scale(1);
 }
 
@@ -2301,6 +2347,71 @@ div.navbar__sublink {
   .tooltip--right {
     transform: translateY(-50%);
   }
+}
+
+/* Attribute-based tooltip: use data-tooltip="..." for theme-colored hover text (replaces native title). */
+
+/* Prefer wrapping the trigger in .tooltip-host (span) so ::after isn't on a button (avoids browser quirks). */
+[data-tooltip] {
+  position: relative;
+}
+
+.tooltip-host {
+  display: inline-flex;
+  position: relative;
+}
+
+[data-tooltip]::after {
+  content: attr(data-tooltip);
+  display: block;
+  position: absolute;
+  bottom: calc(100% + var(--spacing-2));
+  left: 50%;
+  transform: translateX(-50%) scale(var(--scale-95));
+  padding: var(--spacing-2) var(--spacing-3);
+  background-color: var(--background-alt);
+  color: var(--text);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-tight);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base) ease-out, transform var(--transition-base) ease-out;
+  z-index: var(--z-tooltip);
+}
+
+/* Tooltips from navbar must paint above the navbar and not be clipped */
+.navbar [data-tooltip]::after {
+  z-index: calc(var(--z-navbar, 5000) + 1);
+}
+
+
+[data-tooltip]:hover::after,
+[data-tooltip]:focus-visible::after,
+[data-tooltip].tooltip-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-tooltip]::after {
+    transition-duration: 0.1s;
+    transform: translateX(-50%);
+  }
+
+  [data-tooltip]:hover::after,
+  [data-tooltip]:focus-visible::after,
+  [data-tooltip].tooltip-visible::after {
+    transform: translateX(-50%);
+  }
+}
+
+/* Standalone icon: use with SVG that has stroke/fill="currentColor" so icon follows theme (--icon). */
+.icon {
+  color: var(--icon);
 }
 
 /* Dropdown Component */
@@ -2471,7 +2582,7 @@ div.navbar__sublink {
   height: var(--spacing-3);
   margin-left: var(--spacing-2);
   transition: transform var(--transition-base), color var(--transition-base);
-  color: inherit;
+  color: var(--icon);
 }
 
 .dropdown__item:hover:not(.dropdown__item--disabled) .dropdown__item-arrow,
@@ -2585,7 +2696,9 @@ div.navbar__sublink {
   display: flex;
   align-items: center;
   gap: var(--spacing-2);
-  padding: var(--spacing-2) var(--spacing-4);
+  padding: var(--spacing-2) var(--spacing-3);
+  min-width: var(--touch-target-min);
+  min-height: var(--touch-target-min);
   background-color: var(--background-alt);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-md);
@@ -2612,6 +2725,10 @@ div.navbar__sublink {
   }
 }
 
+.search__icon {
+  color: var(--icon);
+}
+
 .search__trigger:hover {
   background-color: var(--background);
   border-color: var(--accent);
@@ -2631,7 +2748,19 @@ div.navbar__sublink {
   gap: var(--spacing-1);
   margin-left: auto;
   font-family: var(--font-family-mono);
-  font-size: var(--font-size-xs);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.search__kbd-modifier {
+  display: inline-flex;
+  align-items: center;
+}
+
+.search__kbd-modifier svg {
+  width: 0.875rem;
+  height: 0.875rem;
+  flex-shrink: 0;
 }
 
 .search__kbd kbd {
@@ -2639,7 +2768,7 @@ div.navbar__sublink {
   background-color: var(--background);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius);
-  font-size: var(--font-size-xs);
+  font-size: inherit;
   line-height: 1;
 }
 
@@ -2657,7 +2786,6 @@ div.navbar__sublink {
   bottom: 0;
   width: 100%;
   height: 100%;
-  min-width: 100vw;
   min-height: 100vh;
   min-height: 100dvh;
   background-color: var(--overlay);
@@ -2701,7 +2829,7 @@ div.navbar__sublink {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(100vw - var(--spacing-8));
+  width: calc(100% - var(--spacing-8));
   max-width: var(--spacing-150);
   max-height: calc(100vh - var(--spacing-8));
   max-height: calc(100dvh - var(--spacing-8));
@@ -2736,7 +2864,7 @@ div.navbar__sublink {
 
 @media (width <= 640px) {
   .search__panel {
-    width: calc(100vw - var(--spacing-8));
+    width: calc(100% - var(--spacing-8));
     max-width: none;
     max-height: calc(100dvh - var(--spacing-8));
   }

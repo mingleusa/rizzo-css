@@ -5,7 +5,7 @@
 
 <section>
   <h2>Badge component</h2>
-  <p>Small labels and tags with variants, sizes, and optional pill style. BEM: <code>badge</code>, <code>badge--primary</code>, etc.</p>
+  <p>Small labels and tags with variants, sizes, and optional pill style. BEM: <code>badge</code>, <code>badge--primary</code>, etc. Text on solid semantic variants (success, warning, error, info) uses the same contrast variables as buttons (<code>--success-text-on-solid</code>, etc.) for theme-aware readability.</p>
 
   <h3>Props</h3>
   <ul>

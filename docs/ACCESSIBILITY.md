@@ -183,8 +183,9 @@ Components (Astro and Svelte) use semantic theme variables so every theme can gu
 | Secondary text | `--text-dim` | Descriptions, placeholders, labels |
 | Icons | `--icon`, `--icon-dim` | Navbar, dropdown, accordion, table, breadcrumb (SVG `currentColor`) |
 | Links and primary actions | `--accent`, `--accent-hover` | Links, buttons (with `--accent-text` on fill) |
-| Text on accent | `--accent-text` | Buttons, badges, active segment, skip link |
-| Semantic states | `--success` / `--success-text`, `--error` / `--error-text`, `--warning` / `--warning-text`, `--info` / `--info-text` | Alerts, badges, button variants |
+| Text on accent | `--accent-text` | Buttons (primary), badges (primary), active segment, skip link |
+| Text on solid semantic | `--success-text-on-solid`, `--warning-text-on-solid`, `--error-text-on-solid`, `--info-text-on-solid`, `--accent-text-on-hover`, `--text-on-solid-hover` | Buttons (semantic variants), badges (success, warning, error, info) — theme-tuned contrast on solid backgrounds |
+| Semantic states | `--success` / `--success-text`, `--error` / `--error-text`, `--warning` / `--warning-text`, `--info` / `--info-text` | Alerts (soft backgrounds); buttons and badges use *-text-on-solid on solid fills |
 | Borders and dividers | `--border` | Inputs, cards, dropdowns |
 | Focus and overlays | `--accent` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
 

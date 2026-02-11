@@ -5,11 +5,11 @@
     class?: string;
   }
   let { orientation = 'horizontal', label, class: className = '' }: Props = $props();
-  const orientationClass = `divider--${orientation}`;
-  const hasLabel = typeof label === 'string' && label.trim().length > 0;
-  const labelClass = hasLabel ? 'divider--labeled' : '';
-  const classes = ['divider', orientationClass, labelClass, className].filter(Boolean).join(' ').trim();
-  const labelText = label?.trim() ?? '';
+  const orientationClass = $derived(`divider--${orientation}`);
+  const hasLabel = $derived(typeof label === 'string' && label.trim().length > 0);
+  const labelClass = $derived(hasLabel ? 'divider--labeled' : '');
+  const classes = $derived(['divider', orientationClass, labelClass, className].filter(Boolean).join(' ').trim());
+  const labelText = $derived(label?.trim() ?? '');
 </script>
 
 <div
@@ -19,10 +19,10 @@
   aria-label={labelText || undefined}
 >
   {#if hasLabel && orientation === 'horizontal'}
-    <span class="divider__line" aria-hidden="true" />
+    <span class="divider__line" aria-hidden="true"></span>
     <span class="divider__label">{labelText}</span>
-    <span class="divider__line" aria-hidden="true" />
+    <span class="divider__line" aria-hidden="true"></span>
   {:else}
-    <span class="divider__line" aria-hidden="true" />
+    <span class="divider__line" aria-hidden="true"></span>
   {/if}
 </div>

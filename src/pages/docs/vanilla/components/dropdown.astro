@@ -1,0 +1,119 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import Dropdown from '../../../../components/Dropdown.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Dropdown — Vanilla" description="Dropdown menu with vanilla HTML + JS. Same component and behavior as Astro; ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Dropdown</h2>
+    <p>An accessible dropdown menu component for displaying lists of actions or options. This page uses the same Astro Dropdown component so the live examples look and function identically to the <a href="/docs/components/dropdown">Astro dropdown</a>.</p>
+
+    <h3>Basic Usage</h3>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <Dropdown
+        trigger="Actions"
+        items={[
+          { label: 'Edit', value: 'edit', onClick: 'handleAction' },
+          { label: 'Delete', value: 'delete', onClick: 'handleAction' },
+          { separator: true },
+          { label: 'Settings', href: '/settings' },
+        ]}
+      />
+    </div>
+
+    <h3>With Links</h3>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <Dropdown
+        trigger="Navigate"
+        items={[
+          { label: 'Home', href: '/' },
+          { label: 'Documentation', href: '/docs' },
+          { label: 'Components', href: '/docs/components' },
+          { separator: true },
+          { label: 'GitHub', href: 'https://github.com' },
+        ]}
+      />
+    </div>
+
+    <h3>With Disabled Items</h3>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <Dropdown
+        trigger="Options"
+        items={[
+          { label: 'Available Option', value: 'available' },
+          { label: 'Disabled Option', value: 'disabled', disabled: true },
+          { separator: true },
+          { label: 'Another Option', value: 'another' },
+        ]}
+      />
+    </div>
+
+    <h3>Menu Positioning</h3>
+    <div class="example">
+      <div class="example-title">Live Examples</div>
+      <div class="example-row">
+        <div>
+          <p class="example-label">Left</p>
+          <Dropdown
+            trigger="Left"
+            position="left"
+            items={[
+              { label: 'Item 1', value: '1' },
+              { label: 'Item 2', value: '2' },
+              { label: 'Item 3', value: '3' },
+            ]}
+          />
+        </div>
+        <div class="example-right">
+          <p class="example-label">Right</p>
+          <Dropdown
+            trigger="Right"
+            position="right"
+            items={[
+              { label: 'Item 1', value: '1' },
+              { label: 'Item 2', value: '2' },
+              { label: 'Item 3', value: '3' },
+            ]}
+          />
+        </div>
+      </div>
+    </div>
+
+    <h3>Minimal Vanilla HTML + JS</h3>
+    <p>For a minimal custom implementation, use the same BEM classes and toggle <code>aria-expanded</code> and menu visibility. Full keyboard navigation and submenus require the script used by the Astro Dropdown component.</p>
+    <CodeBlock code={`<div class="dropdown" data-dropdown="my-menu">
+  <button type="button" class="dropdown__trigger" id="my-menu-trigger"
+    aria-expanded="false" aria-haspopup="true" aria-controls="my-menu-menu">
+    <span class="dropdown__trigger-text">Menu</span>
+    <span class="dropdown__icon" aria-hidden="true"><!-- chevron SVG --></span>
+  </button>
+  <div class="dropdown__menu" id="my-menu-menu" role="menu" aria-hidden="true" tabindex="-1">
+    <div class="dropdown__item-wrapper">
+      <div class="dropdown__item" role="menuitem" data-dropdown-value="a" data-dropdown-onclick="myHandler">Item A</div>
+    </div>
+  </div>
+</div>
+<!-- Use the same init script as in Dropdown.astro for full behavior -->`} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/dropdown">Astro</a> · <a href="/docs/svelte/components/dropdown">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+  window.handleAction = function(value) {
+    console.log('Dropdown action:', value);
+  };
+</script>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-row { display: flex; justify-content: space-between; align-items: flex-start; gap: var(--spacing-4); flex-wrap: wrap; }
+  .example-label { margin: 0 0 var(--spacing-2) 0; font-size: var(--font-size-sm); color: var(--text-dim); }
+  .example-right { margin-left: auto; }
+  .example-right .example-label { text-align: right; }
+</style>

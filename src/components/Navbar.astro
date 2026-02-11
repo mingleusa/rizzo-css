@@ -158,15 +158,18 @@ const navLinks: NavLink[] = [
     
     <div class="navbar__actions-desktop">
       <Search />
-      <button
-        class="navbar__settings-btn"
-        type="button"
-        aria-label="Open settings"
-        onclick="window.openSettings && window.openSettings()"
-      >
-        <Gear class="navbar__settings-icon" width={20} height={20} />
-        <span class="navbar__settings-label">Settings</span>
-      </button>
+      <div class="tooltip-wrapper" aria-describedby="navbar-settings-tooltip">
+        <button
+          class="navbar__settings-btn"
+          type="button"
+          aria-label="Open settings"
+          onclick="window.openSettings && window.openSettings()"
+        >
+          <Gear class="navbar__settings-icon" width={20} height={20} />
+          <span class="navbar__settings-label">Settings</span>
+        </button>
+        <span class="tooltip tooltip--bottom" id="navbar-settings-tooltip" role="tooltip" aria-hidden="true">Settings</span>
+      </div>
     </div>
     
     <button
@@ -207,7 +210,6 @@ const navLinks: NavLink[] = [
               >
                 {link.label}
                 <svg class="navbar__dropdown-icon" width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <title>Dropdown menu</title>
                   <path d="M2 4l4 4 4-4"/>
                 </svg>
               </div>
@@ -376,21 +378,19 @@ const navLinks: NavLink[] = [
       // On mobile, close search if it's open when opening menu
       const isMobile = window.innerWidth <= 1023;
       if (isMobile && !isOpen) {
-        // Menu is about to open, close search if open
-        const searchPanel = document.querySelector('.search__panel');
-        if (searchPanel && searchPanel.getAttribute('aria-hidden') === 'false') {
-          // Find and trigger search close
-          const search = document.querySelector('[data-search]') as (Element & { __searchInstance?: { closeSearch?: () => void } }) | null;
-          if (search?.__searchInstance?.closeSearch) {
-            search.__searchInstance.closeSearch();
-          } else {
-            // Fallback: trigger overlay click to close
-            const searchOverlay = document.querySelector('[data-search-overlay]');
-            if (searchOverlay instanceof HTMLElement) {
-              searchOverlay.click();
+        // Menu is about to open, close any open search instance
+        document.querySelectorAll('[data-search]').forEach((search) => {
+          const panel = search.querySelector('.search__panel');
+          if (panel?.getAttribute('aria-hidden') === 'false') {
+            const el = search as Element & { __searchInstance?: { closeSearch?: () => void } };
+            if (el?.__searchInstance?.closeSearch) {
+              el.__searchInstance.closeSearch();
+            } else {
+              const overlay = search.querySelector('[data-search-overlay]');
+              if (overlay instanceof HTMLElement) overlay.click();
             }
           }
-        }
+        });
       }
       
       // Toggle class on navbar to hide/show bottom border

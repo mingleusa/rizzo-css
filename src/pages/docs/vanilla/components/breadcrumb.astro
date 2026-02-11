@@ -1,0 +1,67 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<nav class="breadcrumb breadcrumb--chevron" aria-label="Breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item">
+      <a class="breadcrumb__link" href="/">Home</a>
+      <span class="breadcrumb__separator" aria-hidden="true">
+        <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </span>
+    </li>
+    <li class="breadcrumb__item">
+      <a class="breadcrumb__link" href="/docs">Docs</a>
+      <span class="breadcrumb__separator" aria-hidden="true">
+        <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+      </span>
+    </li>
+    <li class="breadcrumb__item breadcrumb__item--current">
+      <span class="breadcrumb__current" aria-current="page">Current</span>
+    </li>
+  </ol>
+</nav>`;
+---
+
+<DocsLayout title="Breadcrumb — Vanilla" description="Breadcrumb with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Breadcrumb</h2>
+    <p>Navigation breadcrumbs. BEM: <code>breadcrumb</code>, <code>breadcrumb__list</code>, <code>breadcrumb__item</code>, <code>breadcrumb__link</code>. Separators: <code>breadcrumb--slash</code>, <code>breadcrumb--arrow</code>, or default chevron.</p>
+
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <nav class="breadcrumb breadcrumb--chevron" aria-label="Breadcrumb">
+          <ol class="breadcrumb__list">
+            <li class="breadcrumb__item">
+              <a class="breadcrumb__link" href="/">Home</a>
+              <span class="breadcrumb__separator" aria-hidden="true">
+                <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+              </span>
+            </li>
+            <li class="breadcrumb__item">
+              <a class="breadcrumb__link" href="/docs">Docs</a>
+              <span class="breadcrumb__separator" aria-hidden="true">
+                <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+              </span>
+            </li>
+            <li class="breadcrumb__item breadcrumb__item--current">
+              <span class="breadcrumb__current" aria-current="page">Current</span>
+            </li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/breadcrumb">Astro</a> · <a href="/docs/svelte/components/breadcrumb">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

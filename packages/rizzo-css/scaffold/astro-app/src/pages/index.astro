@@ -1,10 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+/* Placeholder replaced by rizzo-css CLI when scaffolding */
+const TITLE = '{{TITLE}}';
 ---
-<Layout title="{{TITLE}}">
+<Layout title={TITLE}>
   <a href="#main-content" class="skip-link">Skip to main content</a>
   <header class="container flex flex-wrap items-center justify-between gap-4" style="padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--border);">
-    <a href="/" class="font-semibold" style="font-size: var(--font-size-lg); color: var(--text); text-decoration: none;">{{TITLE}}</a>
+    <a href="/" class="font-semibold" style="font-size: var(--font-size-lg); color: var(--text); text-decoration: none;">{TITLE}</a>
     <a href="https://rizzo-css.vercel.app/docs/getting-started" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Docs</a>
   </header>
   <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">

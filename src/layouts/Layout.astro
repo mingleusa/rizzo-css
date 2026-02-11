@@ -1,10 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Settings from '../components/Settings.astro';
-
-const cssPath = import.meta.env.PROD 
-	? '/css/main.min.css' 
-	: '/src/styles/main.css';
+import '../styles/main.css';
 ---
 
 <!doctype html>
@@ -310,7 +307,6 @@ const cssPath = import.meta.env.PROD
 				window.removeAllToasts = removeAllToasts;
 			})();
 		</script>
-		<link rel="stylesheet" href={cssPath} />
 		<title>Rizzo CSS</title>
 	</head>
 	<body>
@@ -322,5 +318,31 @@ const cssPath = import.meta.env.PROD
 				<slot />
 			</div>
 		</main>
+		<script is:inline>
+			(function initTooltips() {
+				function run() {
+					document.querySelectorAll('.tooltip-wrapper, .tooltip-host').forEach(function(el) {
+						if (el.dataset.tooltipInit) return;
+						el.dataset.tooltipInit = '1';
+						el.addEventListener('mouseenter', function() { this.classList.add('tooltip-visible'); });
+						el.addEventListener('mouseleave', function() { this.classList.remove('tooltip-visible'); });
+						var trigger = el.querySelector('button, [href], input, [tabindex="0"]');
+						if (trigger) {
+							trigger.addEventListener('focus', function() { el.classList.add('tooltip-visible'); });
+							trigger.addEventListener('blur', function() { el.classList.remove('tooltip-visible'); });
+						}
+					});
+				}
+				function schedule() {
+					if (document.readyState === 'loading') {
+						document.addEventListener('DOMContentLoaded', function() { setTimeout(run, 0); });
+					} else {
+						setTimeout(run, 0);
+					}
+				}
+				schedule();
+				document.addEventListener('astro:page-load', function() { setTimeout(run, 0); });
+			})();
+		</script>
 	</body>
 </html>

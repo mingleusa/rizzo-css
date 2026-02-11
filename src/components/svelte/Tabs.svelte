@@ -1,4 +1,6 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
+
   export interface Tab {
     id: string;
     label: string;
@@ -11,6 +13,7 @@
     defaultTab?: string;
     variant?: 'default' | 'pills' | 'underline';
     class?: string;
+    children?: Snippet<[activeTabId: string]>;
   }
   let {
     tabs,
@@ -18,18 +21,21 @@
     defaultTab,
     variant = 'default',
     class: className = '',
+    children,
   }: Props = $props();
 
-  let activeTabId = $state(defaultTab ?? tabs[0]?.id ?? '');
-  const tabsId = id ?? `tabs-${Math.random().toString(36).slice(2, 11)}`;
-  const variantClass = variant !== 'default' ? `tabs--${variant}` : '';
-  const classes = ['tabs', variantClass, className].filter(Boolean).join(' ').trim();
+  const defaultActiveId = $derived(defaultTab ?? tabs[0]?.id ?? '');
+  let selectedId = $state(null as string | null);
+  const activeTabId = $derived(selectedId ?? defaultActiveId);
+  const tabsId = $derived(id ?? `tabs-${Math.random().toString(36).slice(2, 11)}`);
+  const variantClass = $derived(variant !== 'default' ? `tabs--${variant}` : '');
+  const classes = $derived(['tabs', variantClass, className].filter(Boolean).join(' ').trim());
 
   let tabListEl: HTMLElement | null = $state(null);
 
   function activateTab(index: number) {
     if (index < 0 || index >= tabs.length) return;
-    activeTabId = tabs[index].id;
+    selectedId = tabs[index].id;
   }
 
   function handleKeydown(e: KeyboardEvent, index: number) {
@@ -101,7 +107,7 @@
         {#if tab.content}
           <div class="tabs__panel-content">{@html tab.content}</div>
         {:else if isActive}
-          <slot {activeTabId} />
+          {@render children?.(activeTabId)}
         {/if}
       </div>
     {/each}

@@ -9,7 +9,7 @@ import Radio from '../../../components/Radio.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
-<DocsLayout title="Form Components" description="Accessible form components with validation states and examples">
+<DocsLayout title="Form Components — Astro" description="Accessible form components with validation states and examples">
 	<section>
 		<h2>Form Components</h2>
 		<p>Rizzo CSS includes a comprehensive set of accessible form components built with semantic HTML and ARIA attributes. All form components use theme variables and support validation states.</p>
@@ -260,7 +260,7 @@ import Checkbox from '../components/Checkbox.astro';
 
 		<div class="example">
 			<div class="example-title">Live Example</div>
-			<FormGroup label="Payment Method" labelFor="payment" required>
+			<FormGroup label="Payment Method" required>
 				<div class="radio-group">
 					<label class="radio-label">
 						<Radio id="payment-card" name="payment" value="card" checked />
@@ -359,6 +359,6 @@ import Radio from '../components/Radio.astro';
   border-radius: var(--radius-lg);
   padding: var(--spacing-4);
 }`} language="css" />
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/forms">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/forms">Svelte</a> · <a href="/docs/vanilla/components/forms">Vanilla</a> — same BEM classes, structure, and examples.</p>
 	</section>
 </DocsLayout>

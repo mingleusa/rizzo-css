@@ -33,12 +33,18 @@ All components use semantic variables that automatically adapt to themes:
 
 - `--success` - Success state color
 - `--success-text` - Text color for success backgrounds (contrast-aware)
+- `--success-text-on-solid` - Text on solid success (buttons, badges); themes may override for dark/light
 - `--warning` - Warning state color
 - `--warning-text` - Text color for warning backgrounds (contrast-aware)
+- `--warning-text-on-solid` - Text on solid warning (buttons, badges)
 - `--error` - Error state color
 - `--error-text` - Text color for error backgrounds (contrast-aware)
+- `--error-text-on-solid` - Text on solid error (buttons, badges)
 - `--info` - Informational color
 - `--info-text` - Text color for info backgrounds (contrast-aware)
+- `--info-text-on-solid` - Text on solid info (buttons, badges)
+- `--accent-text-on-hover` - Text on primary button hover; themes may set for light accent-hover
+- `--text-on-solid-hover` - Dark text on semantic button hover (success, warning, error, info)
 
 ## Color Format
 

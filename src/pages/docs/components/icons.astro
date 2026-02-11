@@ -17,6 +17,7 @@ import Eye from '../../../components/icons/Eye.astro';
 import Search from '../../../components/icons/Search.astro';
 import Sort from '../../../components/icons/Sort.astro';
 import Filter from '../../../components/icons/Filter.astro';
+import Cmd from '../../../components/icons/Cmd.astro';
 import Css3 from '../../../components/icons/devicons/Css3.astro';
 import Html5 from '../../../components/icons/devicons/Html5.astro';
 import Javascript from '../../../components/icons/devicons/Javascript.astro';
@@ -48,6 +49,7 @@ const regularIcons = [
 	{ name: 'Eye', component: Eye, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>' },
 	{ name: 'Sort', component: Sort, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>' },
 	{ name: 'Filter', component: Filter, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>' },
+	{ name: 'Cmd', component: Cmd, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg>' },
 ];
 
 const devicons = [
@@ -65,7 +67,7 @@ const devicons = [
 ];
 ---
 
-<DocsLayout title="Icon Components" description="Reusable SVG icon components using Tabler Icons and Devicons">
+<DocsLayout title="Icon Components — Astro" description="Reusable SVG icon components using Tabler Icons and Devicons">
 	<section>
 		<h2>Icon Components</h2>
 		<p>Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT licensed). All icons use <code>currentColor</code> for theming and adapt to both light and dark themes.</p>

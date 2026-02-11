@@ -1,0 +1,172 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableHtml = `<div class="alert alert--info" role="alert" aria-live="polite" aria-label="Information message">
+  <div class="alert__content">Information message here.</div>
+</div>
+<div class="alert alert--success" role="alert" aria-live="polite" aria-label="Success message">
+  <div class="alert__content">Success! Saved.</div>
+</div>
+<!-- Dismissible: add close button and wire with JS -->
+<div class="alert alert--error" id="alert-dismiss-demo" role="alert" aria-live="polite" aria-label="Error message">
+  <div class="alert__content">Dismissible error. Click X to close.</div>
+  <button type="button" class="alert__close" aria-label="Dismiss alert" data-alert-close aria-controls="alert-dismiss-demo">&#x2715;</button>
+</div>`;
+
+const copyableJs = `document.querySelectorAll('[data-alert-close]').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var id = btn.getAttribute('aria-controls');
+    var el = id ? document.getElementById(id) : btn.closest('.alert');
+    if (el) el.remove();
+  });
+});`;
+---
+
+<DocsLayout title="Alert — Vanilla" description="Alerts with vanilla HTML + optional JS for dismiss. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Alert</h2>
+    <p>Accessible alerts with success, error, warning, info variants. Add <code>alert__close</code> and <code>data-alert-close</code> for dismissible; use JS to remove the element.</p>
+
+    <h3>Variants (show on click)</h3>
+    <p>Click the buttons below to see each variant in action:</p>
+    <div class="example">
+      <div class="example-title">Live examples</div>
+      <div class="example-buttons">
+        <button type="button" class="btn btn-success" onclick="showAlert('success', 'Success! Your changes have been saved successfully.')">Show Success Alert</button>
+        <button type="button" class="btn btn-error" onclick="showAlert('error', 'Error! Something went wrong. Please try again.')">Show Error Alert</button>
+        <button type="button" class="btn btn-warning" onclick="showAlert('warning', 'Warning! This action cannot be undone.')">Show Warning Alert</button>
+        <button type="button" class="btn btn-info" onclick="showAlert('info', 'Info: New features are available in the latest update.')">Show Info Alert</button>
+      </div>
+      <div id="vanilla-alert-examples-container" class="alert-examples-container"></div>
+    </div>
+
+    <h3>Auto-dismiss</h3>
+    <p>Alerts can automatically dismiss after a set duration:</p>
+    <div class="example">
+      <div class="example-title">Auto-dismiss examples</div>
+      <div class="example-buttons">
+        <button type="button" class="btn btn-primary" onclick="showAlert('success', 'This alert will auto-dismiss in 3 seconds', true, 3000, 'vanilla-alert-auto-dismiss-container')">3 second</button>
+        <button type="button" class="btn btn-primary" onclick="showAlert('info', 'This alert will auto-dismiss in 5 seconds', true, 5000, 'vanilla-alert-auto-dismiss-container')">5 second</button>
+        <button type="button" class="btn btn-primary" onclick="showAlert('warning', 'This alert will auto-dismiss in 7 seconds', true, 7000, 'vanilla-alert-auto-dismiss-container')">7 second</button>
+      </div>
+      <div id="vanilla-alert-auto-dismiss-container" class="alert-examples-container"></div>
+    </div>
+
+    <h3>Static examples</h3>
+    <div class="example">
+      <div class="example-title">Inline alerts</div>
+      <div class="example-stack">
+        <div class="alert alert--success" role="alert" aria-live="polite" aria-atomic="true" aria-label="Success message">
+          <div class="alert__content">Success message.</div>
+        </div>
+        <div class="alert alert--error" role="alert" aria-live="polite" aria-atomic="true" aria-label="Error message">
+          <div class="alert__content">Error message.</div>
+        </div>
+        <div class="alert alert--warning" role="alert" aria-live="polite" aria-atomic="true" aria-label="Warning message">
+          <div class="alert__content">Warning message.</div>
+        </div>
+        <div class="alert alert--info" id="vanilla-alert-dismiss" role="alert" aria-live="polite" aria-atomic="true" aria-label="Information message">
+          <div class="alert__content">Dismissible info alert.</div>
+          <button type="button" class="alert__close" aria-label="Dismiss alert" data-alert-close aria-controls="vanilla-alert-dismiss">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18M6 6l12 12" /></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <h3>JavaScript (dismissible)</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/alert">Astro</a> · <a href="/docs/svelte/components/alert">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<script is:inline>
+  function showAlert(variant, message, dismissible, autoDismiss, containerId) {
+    if (!message) return;
+    variant = variant || 'info';
+    dismissible = dismissible !== undefined ? dismissible : true;
+    autoDismiss = autoDismiss !== undefined ? autoDismiss : 0;
+    containerId = containerId || 'vanilla-alert-examples-container';
+    var container = document.getElementById(containerId);
+    if (!container) { container = document.querySelector('.alert-examples-container'); }
+    if (!container) return;
+    var alertId = 'alert-' + Math.random().toString(36).substr(2, 9);
+    var alertEl = document.createElement('div');
+    alertEl.id = alertId;
+    alertEl.className = 'alert alert--' + variant;
+    alertEl.setAttribute('role', 'alert');
+    alertEl.setAttribute('aria-live', 'polite');
+    alertEl.style.display = 'flex';
+    alertEl.style.visibility = 'visible';
+    alertEl.style.opacity = '1';
+    var content = document.createElement('div');
+    content.className = 'alert__content';
+    var variantLabel = variant.charAt(0).toUpperCase() + variant.slice(1);
+    var variantPrefix = variantLabel + '!';
+    var variantPrefixWithColon = variantLabel + ':';
+    var cleanMessage = message;
+    if (message.toLowerCase().startsWith(variantPrefix.toLowerCase())) {
+      cleanMessage = message.substring(variantPrefix.length).trim();
+    } else if (message.toLowerCase().startsWith(variantPrefixWithColon.toLowerCase())) {
+      cleanMessage = message.substring(variantPrefixWithColon.length).trim();
+    }
+    content.innerHTML = '<strong>' + variantPrefix + '</strong> ' + cleanMessage;
+    content.style.color = 'inherit';
+    content.style.display = 'block';
+    alertEl.appendChild(content);
+    var closeBtn = null;
+    if (dismissible) {
+      closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'alert__close';
+      closeBtn.setAttribute('aria-label', 'Dismiss alert');
+      closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
+      closeBtn.style.color = 'inherit';
+      closeBtn.style.opacity = '0.8';
+      alertEl.appendChild(closeBtn);
+    }
+    container.appendChild(alertEl);
+    if (variant === 'warning') {
+      alertEl.style.color = 'var(--warning-text)';
+      content.style.color = 'var(--warning-text)';
+      if (closeBtn) { closeBtn.style.color = 'var(--warning-text)'; closeBtn.style.opacity = '0.9'; }
+    }
+    var closeAlert = function() {
+      alertEl.style.opacity = '0';
+      alertEl.style.transform = 'translateY(-10px)';
+      setTimeout(function() {
+        if (alertEl && alertEl.parentNode) alertEl.remove();
+      }, 200);
+    };
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeAlert);
+      if (autoDismiss > 0) {
+        var timeoutId = setTimeout(closeAlert, autoDismiss);
+        closeBtn.addEventListener('click', function() { clearTimeout(timeoutId); });
+      }
+    } else if (autoDismiss > 0) {
+      setTimeout(closeAlert, autoDismiss);
+    }
+  }
+  window.showAlert = showAlert;
+
+  document.querySelectorAll('[data-alert-close]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('aria-controls');
+      var el = id ? document.getElementById(id) : btn.closest('.alert');
+      if (el) el.remove();
+    });
+  });
+</script>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-stack { display: flex; flex-direction: column; gap: var(--spacing-3); }
+  .example-buttons { display: flex; flex-wrap: wrap; gap: var(--spacing-3); margin-bottom: var(--spacing-4); }
+  .alert-examples-container { min-height: 1px; margin-top: var(--spacing-4); display: flex; flex-direction: column; gap: var(--spacing-3); }
+</style>

@@ -1,11 +1,11 @@
 # Publishing the npm package
 
-The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffolds**: **Vanilla JS** (`scaffold/vanilla/`), default **Astro** app (`scaffold/astro-app/`), default **Svelte** app (`scaffold/svelte-app/`), plus component picker (`scaffold/astro/`, `scaffold/svelte/` from `copy-scaffold.js`). Init first asks existing vs new project; all frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffolds**: **Vanilla JS** (`scaffold/vanilla/`), default **Astro** app (`scaffold/astro-app/`), default **Svelte** app (`scaffold/svelte-app/`), plus component picker (`scaffold/astro/`, `scaffold/svelte/` from `copy-scaffold.js`). Each scaffold folder has a README with setup and commands. Init first asks existing vs new project; all frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
 
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` produces `dist/rizzo.min.css`. Versioning strategy (semver, when to bump) is documented in [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr; short URLs work. Pin with `@1.0.0` in URL or use `@latest`.
+- **CDN** — unpkg and jsDelivr. The package sets `"unpkg": "dist/rizzo.min.css"` and `"jsdelivr": "dist/rizzo.min.css"`, so `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` resolve to the CSS. For reliability or version pinning, use the explicit path: `https://unpkg.com/rizzo-css@0.0.11/dist/rizzo.min.css` and `https://cdn.jsdelivr.net/npm/rizzo-css@0.0.11/dist/rizzo.min.css`. **Verify after publish:** open the URL in a browser or run `curl -I <url>` and expect `200 OK`.
 - **Single package** — One unscoped package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
 - **JavaScript utilities** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
 - **Svelte components** — In `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
@@ -28,6 +28,7 @@ Before pushing to GitHub and publishing to npm:
 2. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
 3. **Commit & push** — Commit all changes, then `git push` (or push to your default remote).
 4. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
+5. **Verify CDN** *(optional)* — After publishing, confirm the new version is available: `curl -I https://unpkg.com/rizzo-css@<version>/dist/rizzo.min.css` and same for `https://cdn.jsdelivr.net/npm/rizzo-css@<version>/dist/rizzo.min.css` (expect `200 OK`).
 
 ## Prerequisites
 
@@ -37,14 +38,14 @@ Before pushing to GitHub and publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.10"` (or semver of your choice)
+   - `packages/rizzo-css/package.json` → `"version": "0.0.11"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/svelte/` and `scaffold/astro/` from repo; `scaffold/vanilla/` is committed in the package) before the actual publish. Enter your npm OTP if prompted (2FA).
+   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/astro/` from repo Astro components; fills `scaffold/svelte/` from repo Svelte 5 components and icons in `src/components/svelte/`; `scaffold/vanilla/` is committed in the package) before the actual publish. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash

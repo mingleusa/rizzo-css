@@ -25,4 +25,8 @@ The theme selected during `rizzo-css init` is set in `src/app.html` (`data-theme
 - `pnpm build` — Build for production
 - `pnpm preview` — Preview production build
 
+## Other scaffolds
+
+From the same **rizzo-css** package: **Vanilla** (`scaffold/vanilla/`) — single HTML file with Settings and toast; **Astro** (`scaffold/astro-app/`) — minimal Astro app. Use `npx rizzo-css init` and pick a different framework to create one of them.
+
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

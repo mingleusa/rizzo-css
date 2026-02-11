@@ -1,0 +1,133 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import ProgressBarComponent from '../../../../components/ProgressBar.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+
+const copyableBasic = `<div class="progress progress--md progress--primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track">
+    <div class="progress__bar" style="width: 60%"></div>
+  </div>
+</div>`;
+
+const copyableLabel = `<div class="progress progress--md progress--primary" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track">
+    <div class="progress__bar" style="width: 75%"></div>
+  </div>
+  <span class="progress__label" aria-hidden="true">75%</span>
+</div>`;
+
+const copyableVariants = `<!-- primary, success, warning, error, info -->
+<div class="progress progress--md progress--primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 40%"></div></div>
+</div>
+<div class="progress progress--md progress--success" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 55%"></div></div>
+</div>
+<div class="progress progress--md progress--warning" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 70%"></div></div>
+</div>`;
+
+const copyableSizes = `<!-- progress--sm, progress--md, progress--lg -->
+<div class="progress progress--sm progress--primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 50%"></div></div>
+</div>
+<div class="progress progress--md progress--primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 50%"></div></div>
+</div>
+<div class="progress progress--lg progress--primary" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">
+  <div class="progress__track"><div class="progress__bar" style="width: 50%"></div></div>
+</div>`;
+
+const copyableIndeterminate = `<div class="progress progress--md progress--primary progress--indeterminate" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Loading" aria-valuetext="Loading">
+  <div class="progress__track">
+    <div class="progress__bar"></div>
+  </div>
+</div>`;
+
+const copyableCustomMax = `<!-- e.g. 3 of 5 steps: value 3, max 5 → 60% -->
+<div class="progress progress--md progress--primary" role="progressbar" aria-valuenow="3" aria-valuemin="0" aria-valuemax="5">
+  <div class="progress__track">
+    <div class="progress__bar" style="width: 60%"></div>
+  </div>
+  <span class="progress__label" aria-hidden="true">60%</span>
+</div>`;
+---
+
+<DocsLayout title="Progress Bar — Vanilla" description="Progress bar with vanilla HTML. Same BEM and options as Astro/Svelte. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Progress Bar</h2>
+    <p>An accessible progress bar for completion or loading state. Same structure as <a href="/docs/components/progress-bar">Astro</a> and <a href="/docs/svelte/components/progress-bar">Svelte</a>. BEM: <code>progress</code>, <code>progress__track</code>, <code>progress__bar</code>, <code>progress__label</code>. Modifiers: <code>progress--sm</code> | <code>progress--md</code> | <code>progress--lg</code>, <code>progress--primary</code> | <code>success</code> | <code>warning</code> | <code>error</code> | <code>info</code>, <code>progress--indeterminate</code>.</p>
+
+    <h3>Basic usage</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <ProgressBarComponent value={60} max={100} />
+    </div>
+    <h4>HTML</h4>
+    <CodeBlock code={copyableBasic} language="html" />
+
+    <h3>With label</h3>
+    <p>Add <code>progress__label</code> with <code>aria-hidden="true"</code> for the percentage.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <ProgressBarComponent value={75} max={100} showLabel />
+    </div>
+    <CodeBlock code={copyableLabel} language="html" />
+
+    <h3>Variants</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-stack">
+        <ProgressBarComponent value={40} variant="primary" />
+        <ProgressBarComponent value={55} variant="success" />
+        <ProgressBarComponent value={70} variant="warning" />
+        <ProgressBarComponent value={85} variant="error" />
+        <ProgressBarComponent value={25} variant="info" />
+      </div>
+    </div>
+    <CodeBlock code={copyableVariants} language="html" />
+
+    <h3>Sizes</h3>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-stack">
+        <ProgressBarComponent value={50} size="sm" />
+        <ProgressBarComponent value={50} size="md" />
+        <ProgressBarComponent value={50} size="lg" />
+      </div>
+    </div>
+    <CodeBlock code={copyableSizes} language="html" />
+
+    <h3>Indeterminate</h3>
+    <p>Use <code>progress--indeterminate</code> and omit <code>aria-valuenow</code>; set <code>aria-label</code> and <code>aria-valuetext="Loading"</code>.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <ProgressBarComponent indeterminate label="Loading" />
+    </div>
+    <CodeBlock code={copyableIndeterminate} language="html" />
+
+    <h3>Custom max</h3>
+    <p>Use <code>aria-valuenow</code> and <code>aria-valuemax</code> (e.g. 3 of 5 steps). Bar width = (value / max) * 100%.</p>
+    <div class="example">
+      <div class="example-title">Live example (3 of 5 steps)</div>
+      <ProgressBarComponent value={3} max={5} showLabel />
+    </div>
+    <CodeBlock code={copyableCustomMax} language="html" />
+
+    <h3>Features</h3>
+    <ul>
+      <li><strong>Semantic</strong> - <code>role="progressbar"</code> with <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code></li>
+      <li><strong>Indeterminate</strong> - <code>aria-valuetext="Loading"</code> when progress is unknown</li>
+      <li><strong>Variants</strong> - primary, success, warning, error, info</li>
+      <li><strong>Sizes</strong> - sm, md, lg</li>
+      <li><strong>Reduced motion</strong> - Indeterminate animation disabled when user prefers reduced motion</li>
+    </ul>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/progress-bar">Astro</a> · <a href="/docs/svelte/components/progress-bar">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-stack { display: flex; flex-direction: column; gap: var(--spacing-4); }
+</style>

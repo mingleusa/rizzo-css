@@ -2,7 +2,7 @@
   import Pagination from '../../Pagination.svelte';
   import CodeBlock from '../CodeBlock.svelte';
 
-  const docsPageTemplate = '/docs?page={page}';
+  const docsPageTemplate = '/docs/svelte?page={page}';
 </script>
 
 <section>

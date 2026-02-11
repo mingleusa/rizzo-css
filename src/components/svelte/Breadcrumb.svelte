@@ -11,11 +11,14 @@
   }
   let { items, separator = 'chevron', class: className = '' }: Props = $props();
 
-  const separatorVariant =
-    separator === 'slash' ? 'breadcrumb--slash' : separator === 'arrow' ? 'breadcrumb--arrow' : 'breadcrumb--chevron';
-  const classes = ['breadcrumb', separatorVariant, className].filter(Boolean).join(' ').trim();
-  const separatorChar = separator === 'slash' ? '/' : separator === 'arrow' ? '›' : typeof separator === 'string' ? separator : '›';
-  const useIcon = separator === 'chevron';
+  const separatorVariant = $derived(
+    separator === 'slash' ? 'breadcrumb--slash' : separator === 'arrow' ? 'breadcrumb--arrow' : 'breadcrumb--chevron'
+  );
+  const classes = $derived(['breadcrumb', separatorVariant, className].filter(Boolean).join(' ').trim());
+  const separatorChar = $derived(
+    separator === 'slash' ? '/' : separator === 'arrow' ? '›' : typeof separator === 'string' ? separator : '›'
+  );
+  const useIcon = $derived(separator === 'chevron');
 </script>
 
 <nav class={classes} aria-label="Breadcrumb">
@@ -33,7 +36,6 @@
           <span class="breadcrumb__separator" aria-hidden="true">
             {#if useIcon}
               <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <title>Separator</title>
                 <path d="M6 9l6 6 6-6" />
               </svg>
             {:else}
