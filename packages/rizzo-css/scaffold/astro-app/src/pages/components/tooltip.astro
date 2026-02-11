@@ -1,0 +1,209 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Tooltip from '../../components/Tooltip.astro';
+import Button from '../../components/Button.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Tooltip Component — Astro" description="Accessible tooltip component with positioning options and hover states">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/tooltip" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/tooltip</a>.</p>
+	
+		<section>
+		<h2>Tooltip Component</h2>
+		<p>An accessible tooltip component that provides additional context or information when users hover over or focus on an element. Tooltips are positioned relative to their trigger element and support multiple positions.</p>
+	</section>
+	
+	<section>
+		<h2>Basic Usage</h2>
+		<p>Wrap any element with a tooltip wrapper and include the Tooltip component:</p>
+		
+		<div class="example">
+			<div class="example-title">Basic Tooltip</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: center; padding: var(--spacing-8);">
+				<div class="tooltip-wrapper" aria-describedby="tooltip-basic">
+					<button class="btn btn-primary">Hover me</button>
+					<Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
+				</div>
+			</div>
+		</div>
+		
+		<CodeBlock code={`---
+import Tooltip from '../../components/Tooltip.astro';
+---
+
+<div class="tooltip-wrapper" aria-describedby="tooltip-basic">
+  <button class="btn btn-primary">Hover me</button>
+  <Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
+</div>`} language="astro" />
+	</section>
+	
+	<section>
+		<h2>Positions</h2>
+		<p>Tooltips can be positioned in four directions: top, bottom, left, or right.</p>
+		
+		<div class="example">
+			<div class="example-title">Position Examples</div>
+			<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-6); align-items: center; justify-items: center; padding: var(--spacing-12); min-height: 300px;">
+				<!-- Top -->
+				<div class="tooltip-wrapper" aria-describedby="tooltip-top" style="grid-column: 2; grid-row: 1;">
+					<button class="btn btn-primary">Top</button>
+					<Tooltip id="tooltip-top" text="Tooltip on top" position="top" />
+				</div>
+				
+				<!-- Left -->
+				<div class="tooltip-wrapper" aria-describedby="tooltip-left" style="grid-column: 1; grid-row: 2;">
+					<button class="btn btn-primary">Left</button>
+					<Tooltip id="tooltip-left" text="Tooltip on left" position="left" />
+				</div>
+				
+				<!-- Right -->
+				<div class="tooltip-wrapper" aria-describedby="tooltip-right" style="grid-column: 3; grid-row: 2;">
+					<button class="btn btn-primary">Right</button>
+					<Tooltip id="tooltip-right" text="Tooltip on right" position="right" />
+				</div>
+				
+				<!-- Bottom -->
+				<div class="tooltip-wrapper" aria-describedby="tooltip-bottom" style="grid-column: 2; grid-row: 3;">
+					<button class="btn btn-primary">Bottom</button>
+					<Tooltip id="tooltip-bottom" text="Tooltip on bottom" position="bottom" />
+				</div>
+			</div>
+		</div>
+		
+		<CodeBlock code={`<!-- Top position -->
+<div class="tooltip-wrapper" aria-describedby="tooltip-top">
+  <button>Hover me</button>
+  <Tooltip id="tooltip-top" text="Tooltip on top" position="top" />
+</div>
+
+<!-- Bottom position -->
+<div class="tooltip-wrapper" aria-describedby="tooltip-bottom">
+  <button>Hover me</button>
+  <Tooltip id="tooltip-bottom" text="Tooltip on bottom" position="bottom" />
+</div>
+
+<!-- Left position -->
+<div class="tooltip-wrapper" aria-describedby="tooltip-left">
+  <button>Hover me</button>
+  <Tooltip id="tooltip-left" text="Tooltip on left" position="left" />
+</div>
+
+<!-- Right position -->
+<div class="tooltip-wrapper" aria-describedby="tooltip-right">
+  <button>Hover me</button>
+  <Tooltip id="tooltip-right" text="Tooltip on right" position="right" />
+</div>`} language="astro" />
+	</section>
+	
+	<section>
+		<h2>With Different Elements</h2>
+		<p>Tooltips work with any element - buttons, links, icons, badges, etc.</p>
+		
+		<div class="example">
+			<div class="example-title">Tooltip Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: center; padding: var(--spacing-8);">
+				<div class="tooltip-wrapper" aria-describedby="tooltip-button">
+					<button class="btn btn-success">Success Button</button>
+					<Tooltip id="tooltip-button" text="This is a success button" position="top" />
+				</div>
+				
+				<div class="tooltip-wrapper" aria-describedby="tooltip-link">
+					<a href="#tooltip-link" style="color: var(--accent); text-decoration: underline;">Hover link</a>
+					<Tooltip id="tooltip-link" text="This is a link with a tooltip" position="top" />
+				</div>
+				
+				<div class="tooltip-wrapper" aria-describedby="tooltip-badge">
+					<span class="badge badge--primary">New</span>
+					<Tooltip id="tooltip-badge" text="This is a badge with a tooltip" position="top" />
+				</div>
+				
+				<div class="tooltip-wrapper" aria-describedby="tooltip-icon">
+					<button class="btn" aria-label="Settings" style="padding: var(--spacing-2);">
+						<svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2">
+							<circle cx="8" cy="8" r="2.5"></circle>
+							<path d="M8 1v2M8 13v2M15 8h-2M3 8H1M12.364 3.636l-1.414 1.414M5.05 10.95l-1.414 1.414M12.364 12.364l-1.414-1.414M5.05 5.05L3.636 3.636"></path>
+						</svg>
+					</button>
+					<Tooltip id="tooltip-icon" text="Settings icon" position="top" />
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Long Text</h2>
+		<p>Tooltips automatically wrap long text and have a maximum width:</p>
+		
+		<div class="example">
+			<div class="example-title">Long Text Tooltip</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: center; padding: var(--spacing-8);">
+				<div class="tooltip-wrapper" aria-describedby="tooltip-long">
+					<button class="btn btn-info">Hover for long text</button>
+					<Tooltip id="tooltip-long" text="This is a much longer tooltip that will automatically wrap to multiple lines when it exceeds the maximum width of the tooltip container." position="top" />
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Props</h2>
+		<ul>
+			<li><code>text</code> (string, required) - The tooltip text content</li>
+			<li><code>position</code> ('top' | 'bottom' | 'left' | 'right', optional) - Tooltip position relative to trigger element (default: 'top')</li>
+			<li><code>delay</code> (number, optional) - Delay in milliseconds before showing tooltip (default: 0)</li>
+			<li><code>id</code> (string, optional) - Unique ID for the tooltip. If not provided, a random ID will be generated</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Features</h2>
+		<ul>
+			<li>Four position options (top, bottom, left, right)</li>
+			<li>Automatic arrow positioning</li>
+			<li>Accessible with ARIA attributes</li>
+			<li>Keyboard accessible (works with focus states)</li>
+			<li>Theme-aware styling using semantic variables</li>
+			<li>Smooth animations (respects <code>prefers-reduced-motion</code>)</li>
+			<li>Automatic text wrapping for long content</li>
+			<li>Maximum width constraint for readability</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Accessibility</h2>
+		<p>The Tooltip component includes comprehensive accessibility features:</p>
+		<ul>
+			<li><strong>ARIA Attributes:</strong> Uses <code>role="tooltip"</code> and <code>aria-describedby</code> pattern</li>
+			<li><strong>Keyboard Support:</strong> Tooltips appear on focus for keyboard users</li>
+			<li><strong>Screen Reader Support:</strong> Tooltip content is associated with the trigger element</li>
+			<li><strong>Focus Management:</strong> Tooltips work with <code>:focus-within</code> for proper focus handling</li>
+		</ul>
+		
+		<h3>Proper Usage</h3>
+		<p>Always use <code>aria-describedby</code> on the trigger element to associate it with the tooltip:</p>
+		<CodeBlock code={`<div class="tooltip-wrapper" aria-describedby="my-tooltip">
+  <button>Hover me</button>
+  <Tooltip id="my-tooltip" text="Tooltip text" />
+</div>`} language="astro" />
+	</section>
+	
+	<section>
+		<h2>Styling</h2>
+		<p>Tooltips use semantic theme variables and automatically adapt to the selected theme:</p>
+		<ul>
+			<li>Background: <code>var(--text)</code> (uses text color for high contrast)</li>
+			<li>Text: <code>var(--background)</code> (uses background color for contrast)</li>
+			<li>Shadow: <code>var(--shadow-lg)</code> for depth</li>
+		</ul>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/tooltip">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for show/hide and position.</p>
+	</section>
+</DocsLayout>
+
+<style>
+	.tooltip-wrapper {
+		position: relative;
+		display: inline-block;
+	}
+</style>

@@ -1,6 +1,6 @@
 # Vanilla JS + Rizzo CSS
 
-This project was scaffolded with `npx rizzo-css init` (Vanilla JS).
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS. This full clone (home, component showcase) is only generated for new projects; **Add to existing project** only adds the CSS and optional files.
 
 ## First-time setup
 
@@ -13,9 +13,16 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.12`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.13`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
+
+## Editing the cloned site
+
+- **Home** — `index.html` (hero, links to component showcase and docs). Edit the main content or add your own.
+- **Component showcase** — `components/index.html` lists all components; `components/<name>.html` (e.g. `button.html`) each has a "Read the full docs" link to the main site. Edit or add HTML files; keep the same header/footer if you want the theme switcher and settings on every page.
+- **CSS** — The CLI copies `css/rizzo.min.css`; the link uses `{{LINK_HREF}}` (replaced at init). To use a CDN, replace that with the CDN URL.
+- **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion. Customize or extend as needed.
 
 ## What’s included
 
@@ -41,7 +48,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-app/` — minimal Astro app (see its README).
-- **Svelte:** `scaffold/svelte-app/` — SvelteKit app (see its README).
+- **Astro:** `scaffold/astro-app/` — navbar, home, component showcase (see its README).
+- **Svelte:** `scaffold/svelte-app/` — SvelteKit with /components and /components/[slug] (see its README).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

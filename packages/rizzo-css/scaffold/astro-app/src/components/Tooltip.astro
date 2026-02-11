@@ -1,0 +1,32 @@
+---
+interface Props {
+  text: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
+  delay?: number;
+  class?: string;
+  id?: string;
+}
+
+const {
+  text,
+  position = 'top',
+  delay = 0,
+  class: className = '',
+  id,
+} = Astro.props;
+
+const tooltipId = id || `tooltip-${Math.random().toString(36).substr(2, 9)}`;
+const positionClass = `tooltip--${position}`;
+const classes = `tooltip ${positionClass} ${className}`.trim();
+const delayStyle = delay > 0 ? `--tooltip-delay: ${delay}ms;` : '';
+---
+
+<span
+  class={classes}
+  role="tooltip"
+  id={tooltipId}
+  aria-hidden="true"
+  style={delayStyle}
+>
+  {text}
+</span>

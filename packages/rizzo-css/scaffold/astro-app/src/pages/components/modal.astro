@@ -1,0 +1,152 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import ModalComponent from '../../components/Modal.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Modal Component — Astro" description="Accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/modal" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/modal</a>.</p>
+	
+		<section>
+		<h2>Modal Component</h2>
+		<p>An accessible modal/dialog component with focus trapping, keyboard navigation, and backdrop overlay.</p>
+		
+		<h3>Modal Sizes</h3>
+		<p>Modals come in three sizes: small, medium (default), and large. Click the buttons below to see each size:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+				<button class="btn btn-primary" onclick="window.openModal_modal_sm && window.openModal_modal_sm()">Open Small Modal</button>
+				<button class="btn btn-primary" onclick="window.openModal_modal_md && window.openModal_modal_md()">Open Medium Modal</button>
+				<button class="btn btn-primary" onclick="window.openModal_modal_lg && window.openModal_modal_lg()">Open Large Modal</button>
+			</div>
+		</div>
+		
+		<ModalComponent id="modal-sm" title="Small Modal" size="sm" open={false}>
+			<p>This is a <strong>small modal</strong> (24rem / 384px max-width). Perfect for:</p>
+			<ul>
+				<li>Confirmation dialogs</li>
+				<li>Simple alerts</li>
+				<li>Quick actions</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_sm && window.closeModal_modal_sm()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_sm && window.closeModal_modal_sm()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<ModalComponent id="modal-md" title="Medium Modal" size="md" open={false}>
+			<p>This is a <strong>medium modal</strong> (32rem / 512px max-width) - the default size. Great for:</p>
+			<ul>
+				<li>Standard forms</li>
+				<li>Content dialogs</li>
+				<li>Most use cases</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_md && window.closeModal_modal_md()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_md && window.closeModal_modal_md()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<ModalComponent id="modal-lg" title="Large Modal" size="lg" open={false}>
+			<p>This is a <strong>large modal</strong> (48rem / 768px max-width). Ideal for:</p>
+			<ul>
+				<li>Complex forms</li>
+				<li>Detailed content</li>
+				<li>Multi-step processes</li>
+				<li>Rich media content</li>
+			</ul>
+			<p>Large modals provide more space for content while still maintaining a focused, centered dialog experience.</p>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_modal_lg && window.closeModal_modal_lg()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_modal_lg && window.closeModal_modal_lg()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<h3>Standard Example</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Click the button below to open a standard modal dialog:</p>
+			<button class="btn btn-primary" onclick="window.openModal_docs_modal && window.openModal_docs_modal()">Open Example Modal</button>
+		</div>
+		
+		<ModalComponent id="docs-modal" title="Example Modal" size="md" open={false}>
+			<p>This is an example modal dialog. It demonstrates:</p>
+			<ul>
+				<li>Focus trapping - Tab cycles within the modal</li>
+				<li>Keyboard navigation - Escape key closes the modal</li>
+				<li>Backdrop overlay with blur effect</li>
+				<li>Theme-aware styling</li>
+			</ul>
+			<div slot="footer">
+				<button class="btn" onclick="window.closeModal_docs_modal && window.closeModal_docs_modal()">Cancel</button>
+				<button class="btn btn-primary" onclick="window.closeModal_docs_modal && window.closeModal_docs_modal()">Confirm</button>
+			</div>
+		</ModalComponent>
+		
+		<h3>Usage</h3>
+		<CodeBlock code={`---
+import ModalComponent from '../../components/Modal.astro';
+import Button from '../../components/Button.astro';
+---
+
+<ModalComponent id="example-modal" title="Example Modal" size="md">
+  <p>Modal content goes here.</p>
+  
+  <div slot="footer">
+    <Button>Cancel</Button>
+    <Button class="btn-primary">Confirm</Button>
+  </div>
+</ModalComponent>
+
+<Button onclick="window.openModal_example_modal()">Open Modal</Button>`} language="astro" />
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code> (string, optional) - Unique ID for the modal (auto-generated if not provided)</li>
+			<li><code>title</code> (string, optional) - Modal title (default: "Modal")</li>
+			<li><code>size</code> ('sm' | 'md' | 'lg', optional) - Modal size (default: "md")</li>
+			<li><code>open</code> (boolean, optional) - Whether modal is open by default (default: false)</li>
+			<li><code>closeOnOverlayClick</code> (boolean, optional) - Close when clicking overlay (default: true)</li>
+			<li><code>closeOnEscape</code> (boolean, optional) - Close on Escape key (default: true)</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+		
+		<h3>Slots</h3>
+		<ul>
+			<li><strong>Default slot</strong> - Main modal content (goes in <code>modal__body</code>)</li>
+			<li><strong>footer</strong> - Footer content with action buttons</li>
+		</ul>
+		
+		<h3>Programmatic Control</h3>
+		<p>Each modal exposes global functions based on its ID (hyphens converted to underscores):</p>
+		<CodeBlock code={`// Open modal (ID: example-modal becomes example_modal)
+window.openModal_example_modal();
+
+// Close modal
+window.closeModal_example_modal();`} language="javascript" />
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Full keyboard accessibility (Tab, Shift+Tab, Escape)</li>
+			<li>Focus trapping - focus stays within modal when open</li>
+			<li>ARIA attributes for screen readers</li>
+			<li>Backdrop overlay with blur effect</li>
+			<li>Responsive design (mobile-friendly)</li>
+			<li>Theme-aware styling using semantic variables</li>
+			<li>Respects <code>prefers-reduced-motion</code></li>
+		</ul>
+		
+		<h3>Size Variants</h3>
+		<p>Control the modal width using the <code>size</code> prop:</p>
+		<ul>
+			<li><code>sm</code> - Small (24rem / 384px max-width) - Best for confirmation dialogs and simple alerts</li>
+			<li><code>md</code> - Medium (32rem / 512px max-width) - Default size, great for most use cases</li>
+			<li><code>lg</code> - Large (48rem / 768px max-width) - Ideal for complex forms and detailed content</li>
+		</ul>
+		<p><strong>Note:</strong> On mobile devices (≤640px), all modals automatically use 95vw width for better mobile experience.</p>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/modal">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for open/close and focus trap.</p>
+	</section>
+</DocsLayout>

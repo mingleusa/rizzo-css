@@ -120,8 +120,8 @@
 
   // --- Theme (applyTheme, sync selects, system listener) ---
   var KEY = 'theme';
-  var defaultDark = 'github-dark-classic';
-  var defaultLight = 'github-light';
+  var defaultDark = '{{DEFAULT_DARK}}';
+  var defaultLight = '{{DEFAULT_LIGHT}}';
   function resolveSystem() {
     return window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
   }
@@ -138,7 +138,8 @@
   function syncThemeSelects() {
     var stored = null;
     try { stored = localStorage.getItem(KEY); } catch (e) {}
-    var value = stored || 'system';
+    var currentAttr = document.documentElement.getAttribute('data-theme');
+    var value = stored || currentAttr || 'system';
     var headerSelect = document.getElementById('theme-select');
     var settingsSelect = document.getElementById('settings-theme');
     if (headerSelect) headerSelect.value = value;

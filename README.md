@@ -50,9 +50,9 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo in your project?** Quickest: `npx rizzo-css init` — first choose **add to existing project** (current directory) or **create new**. Existing: framework (auto-detect), themes, optional components. New: full scaffold (Vanilla example, default Astro app, or default Svelte app). Or install from npm: `pnpm add rizzo-css`, then `import 'rizzo-css'`. To add CSS only: `cd your-app && npx rizzo-css add` (auto-detects Svelte/Astro). Full guide: [Using Rizzo in your project](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React and Vue: same CSS; component wrappers planned later.
+**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. New → full clone. Or `pnpm add rizzo-css` and `import 'rizzo-css'`. CSS only: `npx rizzo-css add` (auto-detects framework). Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md#using-rizzo-in-your-project). React/Vue: same CSS; wrappers planned.
 
-**What ships (npm package & CLI):** The published `rizzo-css` package includes `dist/rizzo.min.css`, the CLI (`rizzo-css init` / `add` / `theme`), and scaffolds: `scaffold/vanilla/` (index.html + js/main.js for theme, toast, settings, tabs, modal, dropdown, accordion; see its README), `scaffold/astro-app/` (minimal Astro app; see its README), `scaffold/svelte-app/` (Svelte Kit app; see its README), plus optional Astro and Svelte component files in `scaffold/astro/` and `scaffold/svelte/` (24 components each). Each scaffold has a README with setup and commands. All three frameworks use the same CSS and BEM markup.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-app, svelte-app) plus optional 24 components. **Create new project** → full clone; **Add to existing** → CSS + optional components. Each scaffold has a README. Same CSS and BEM for all three.
 
 ### Prerequisites
 

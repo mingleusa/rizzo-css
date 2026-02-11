@@ -4,13 +4,12 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 ## Features
 
-- **Using Rizzo in your project** — Install from npm (recommended), clone + build, or use a CDN; import the CSS once; use Astro or Svelte components. React/Vue: same CSS; build your own wrappers; planned for later. See [Using Rizzo in your project](#using-rizzo-in-your-project) below.
-- **CLI** — `npx rizzo-css init` | `add` | `theme` (same package). See [CLI Planning](./CLI_PLANNING.md).
-- **NPM** — [rizzo-css](https://www.npmjs.com/package/rizzo-css) published; docs and README link to it.
-- **What ships in the package** — The published `rizzo-css` package includes: `dist/rizzo.min.css` (single CSS bundle), the CLI binary (`rizzo-css init` / `add` / `theme`), and scaffold templates: `scaffold/vanilla/` (index.html + js/main.js for theme, toast, settings, tabs, modal, dropdown, accordion; see `scaffold/vanilla/README.md`), `scaffold/astro-app/` (minimal Astro app; see `scaffold/astro-app/README.md`), `scaffold/svelte-app/` (Svelte Kit app; see `scaffold/svelte-app/README.md`), plus optional component files in `scaffold/astro/` and `scaffold/svelte/` (24 components each, same BEM and behavior as this repo). Each scaffold folder has a README with setup and commands. The docs site is built from this repo; the CLI and npm package ship the same CSS and scaffolds.
-- **Vanilla scaffold** — No node_modules: the CLI copies built CSS as `css/rizzo.min.css` and `js/main.js` into the project; the Vanilla README is copied as the project’s `README.md` on init. Users can switch the CSS link to a CDN if preferred.
-- **CDN** — unpkg and jsDelivr; the package sets `unpkg`/`jsdelivr` so the root URL serves the CSS. Use `https://unpkg.com/rizzo-css@latest` or `https://cdn.jsdelivr.net/npm/rizzo-css@latest`, or pin a version with the explicit path: `.../rizzo-css@0.0.12/dist/rizzo.min.css`. Verify after a new publish with `curl -I <url>` (expect 200).
-- **Svelte** — `/docs/svelte` with 24 component pages (live examples; Icons, Navbar, Search, Settings, Theme Switcher include the same live standalone example as Astro). The Svelte ThemeSwitcher component lives in `src/components/svelte/` for the docs site; the published scaffold ships 24 components (ThemeSwitcher is repo-only due to config/utils dependencies). React/Vue when added.
+- **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro or Svelte components. React/Vue: same CSS; wrappers planned later. See [Using Rizzo in your project](#using-rizzo-in-your-project).
+- **CLI** — `npx rizzo-css init` | `add` | `theme`. [CLI Planning](./CLI_PLANNING.md).
+- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-app, svelte-app), optional 24 components. **Create new** → full clone; **Add to existing** → CSS + optional components. Each scaffold has a README.
+- **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css` and `js/main.js`; README copied as project README. CDN link optional.
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.13/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 24 components; ThemeSwitcher docs-only. React/Vue later.
 
 ---
 
@@ -18,7 +17,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | **First question:** Add to existing project (current directory) or create new? **Existing:** framework (with auto-detect), themes, optional components → copies CSS (+ components) into cwd. **New:** project location → framework (Vanilla JS / Astro / Svelte) → themes → components → scaffolds full project (default Astro/Svelte app or Vanilla example). **Themes and components:** first two options are "Select all" and "Select none"; you can also pick individuals (Space to toggle, Enter to confirm). |
+| `npx rizzo-css init` | **First:** framework (Vanilla / Astro / Svelte). **Then:** add to existing (cwd) or create new. Existing: themes, optional components → CSS + components. New: location → themes → components → full clone. Themes/components: "Select all", "Select none", or pick (Space/Enter). |
 | `npx rizzo-css add` | Add Rizzo CSS to the current directory only. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
@@ -38,7 +37,7 @@ Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are i
 npx rizzo-css init
 ```
 
-**First question:** Add to existing project (current directory) or create new? **If existing:** choose framework (auto-detected when possible), themes, and (Astro/Svelte) optional components; CSS and components are copied into the current folder. **If new:** project location → **framework** (Vanilla JS / Astro / Svelte), themes, and (Astro/Svelte) optional components. **All options get the same CSS and component styles.** **Vanilla JS:** example `index.html` with theme (System option), Settings panel, toast, and samples. **Astro / Svelte:** default app scaffold (package.json, config, layout with theme flash + toast, index page) plus optional 24 components. To add only the CSS to an existing project without menus:
+**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** → themes, optional components; CSS (+ components) copied to cwd. **New** → location, themes, components → full clone for that framework. **Create new** = full clone (chrome + component showcase); **Add to existing** = CSS + optional components only. CSS-only add:
 
 ```bash
 npx rizzo-css add
@@ -278,17 +277,20 @@ rizzo-css/
 │       ├── bin/
 │       │   └── rizzo-css.js   # CLI: init, add, theme
 │       └── scaffold/          # CLI scaffolds
-│           ├── vanilla/      # Vanilla JS example (theme flash, Settings panel, toast, theme with System, samples)
-│           ├── astro-app/    # Default Astro project (package.json, config, layout, pages)
-│           ├── svelte-app/   # Default SvelteKit project (package.json, config, app.html, routes)
+│           ├── vanilla/      # Vanilla full clone (index + components/index.html, components/<slug>.html; theme, Settings, toast)
+│           ├── astro-app/    # Astro full clone (navbar, home, component showcase; from prepare-astro-scaffold.js)
+│           ├── svelte-app/   # SvelteKit full clone (layout, home, /components, /components/[slug]; from prepare-svelte-scaffold.js)
 │           ├── astro/        # Astro components + icons (from copy-scaffold.js on prepublish)
 │           └── svelte/       # Svelte 5 components + icons (from copy-scaffold.js on prepublish)
 ├── public/              # Static assets
 │   └── css/
 │       └── main.min.css # Generated CSS (docs site)
 └── scripts/
-    ├── build-css.js     # Outputs to public/css and packages/rizzo-css/dist
-    └── copy-scaffold.js # Copies Svelte + Astro components into packages/rizzo-css/scaffold (run on prepublish)
+    ├── build-css.js              # Outputs to public/css and packages/rizzo-css/dist
+    ├── copy-scaffold.js          # Copies Svelte + Astro components into packages/rizzo-css/scaffold (run on prepublish)
+    ├── prepare-astro-scaffold.js # Populates scaffold/astro-app (run in build:package and prepublishOnly)
+    ├── prepare-vanilla-scaffold.js # Populates scaffold/vanilla/components (run in build:package and prepublishOnly)
+    └── prepare-svelte-scaffold.js  # Populates scaffold/svelte-app lib + routes (run in build:package and prepublishOnly)
 ```
 
 ## Development

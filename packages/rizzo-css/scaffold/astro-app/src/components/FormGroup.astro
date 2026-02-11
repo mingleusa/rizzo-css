@@ -1,0 +1,59 @@
+---
+interface Props {
+  label?: string;
+  labelFor?: string;
+  required?: boolean;
+  help?: string;
+  error?: string;
+  success?: string;
+  class?: string;
+}
+
+const {
+  label,
+  labelFor,
+  required = false,
+  help,
+  error,
+  success,
+  class: className = '',
+} = Astro.props;
+
+const errorId = labelFor && error ? `${labelFor}-error` : undefined;
+const helpId = labelFor && help ? `${labelFor}-help` : undefined;
+---
+
+<div class={`form-group ${className}`}>
+  {label && (
+    labelFor
+      ? (
+        <label
+          for={labelFor}
+          class={`form-group__label ${required ? 'required' : ''}`}
+        >
+          {label}
+        </label>
+        )
+      : (
+        <span class={`form-group__label ${required ? 'required' : ''}`}>
+          {label}
+        </span>
+        )
+  )}
+  <slot />
+  {help && (
+    <span id={helpId} class="form-group__help">
+      {help}
+    </span>
+  )}
+  {error && (
+    <span id={errorId} class="form-error" role="alert">
+      {error}
+    </span>
+  )}
+  {success && (
+    <span class="form-success" role="status">
+      {success}
+    </span>
+  )}
+</div>

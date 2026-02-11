@@ -6,15 +6,18 @@ const readline = require('readline');
 
 const COMMANDS = ['init', 'add', 'theme', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
-const THEMES = [
+// Dark and light themes (order matches scaffold optgroups and config/themes.ts)
+const DARK_THEMES = [
   'github-dark-classic',
-  'github-light',
   'shades-of-purple',
   'sandstorm-classic',
   'rocky-blood-orange',
   'minimal-dark-neon-yellow',
   'hack-the-box',
   'pink-cat-boo',
+];
+const LIGHT_THEMES = [
+  'github-light',
   'red-velvet-cupcake',
   'orangy-one-light',
   'sunflower',
@@ -22,6 +25,7 @@ const THEMES = [
   'cute-pink',
   'semi-light-purple',
 ];
+const THEMES = [...DARK_THEMES, ...LIGHT_THEMES];
 // Components available for scaffold (must match scaffold/svelte and scaffold/astro)
 const SVELTE_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
@@ -336,7 +340,7 @@ Usage:
   npx rizzo-css <command> [options]
 
 Commands:
-  init    Add Rizzo to existing project or scaffold new one (first menu: existing vs new)
+  init    Add Rizzo to existing project or scaffold new one (first: framework, then existing vs new)
   add     Copy Rizzo CSS into the current project (auto-detects Svelte/Astro)
   theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
@@ -360,9 +364,33 @@ Docs: https://rizzo-css.vercel.app
 }
 
 function cmdTheme() {
-  process.stdout.write('\nAvailable themes (set data-theme on <html>):\n\n');
-  THEMES.forEach((t) => process.stdout.write('  ' + t + '\n'));
+  process.stdout.write('\nDark themes (set data-theme on <html>):\n');
+  DARK_THEMES.forEach((t) => process.stdout.write('  ' + t + '\n'));
+  process.stdout.write('\nLight themes:\n');
+  LIGHT_THEMES.forEach((t) => process.stdout.write('  ' + t + '\n'));
   process.stdout.write('\nExample: <html lang="en" data-theme="github-dark-classic">\n\n');
+}
+
+/** Prompt for default dark theme, default light theme, and initial theme. Returns { theme, defaultDark, defaultLight }. */
+async function promptThemes() {
+  const defaultDark = await selectMenu(
+    DARK_THEMES.map((t) => ({ value: t, label: t })),
+    '? Default dark theme (used when system preference is dark)'
+  );
+  const defaultLight = await selectMenu(
+    LIGHT_THEMES.map((t) => ({ value: t, label: t })),
+    '? Default light theme (used when system preference is light)'
+  );
+  const initialChoice = await selectMenu(
+    [
+      { value: 'system', label: 'System (follow OS light/dark)' },
+      { value: defaultDark, label: defaultDark + ' (dark)' },
+      { value: defaultLight, label: defaultLight + ' (light)' },
+    ],
+    '? Initial theme on first load'
+  );
+  const theme = initialChoice;
+  return { theme, defaultDark: DARK_THEMES.includes(defaultDark) ? defaultDark : DARK_THEMES[0], defaultLight: LIGHT_THEMES.includes(defaultLight) ? defaultLight : LIGHT_THEMES[0] };
 }
 
 /** Detect framework from cwd: "svelte" | "astro" | null. */
@@ -386,6 +414,24 @@ function getFrameworkCssPaths(framework) {
   return { targetDir: 'css', linkHref: 'css/rizzo.min.css' };
 }
 
+/**
+ * Browser-visible href for the CSS file. Astro serves public/ at /, SvelteKit serves static/ at /.
+ * Use this when a custom --path is provided so we tell the user the correct <link href="...">.
+ */
+function getLinkHrefForTargetDir(framework, targetDir) {
+  const file = 'rizzo.min.css';
+  if (framework === 'astro' && targetDir) {
+    const path = targetDir.replace(/^public\/?/, '').replace(/\/+$/, '') || 'css';
+    return '/' + (path ? path + '/' : '') + file;
+  }
+  if (framework === 'svelte' && targetDir) {
+    const path = targetDir.replace(/^static\/?/, '').replace(/\/+$/, '') || 'css';
+    return '/' + (path ? path + '/' : '') + file;
+  }
+  const base = targetDir ? targetDir.replace(/\/+$/, '') : 'css';
+  return base ? base + '/' + file : file;
+}
+
 function cmdAdd(argv) {
   const pathIdx = argv.indexOf('--path');
   const customPath = pathIdx !== -1 && argv[pathIdx + 1] ? argv[pathIdx + 1] : null;
@@ -407,7 +453,7 @@ function cmdAdd(argv) {
 
   mkdirSync(join(cwd, targetDir), { recursive: true });
   copyFileSync(cssSource, targetFile);
-  const linkHref = customPath ? customPath + '/rizzo.min.css' : paths.linkHref;
+  const linkHref = customPath ? getLinkHrefForTargetDir(framework, targetDir) : paths.linkHref;
   console.log('\n✓ Rizzo CSS copied to ' + targetFile);
   if (framework === 'svelte') {
     console.log('\nDetected Svelte/SvelteKit. Add to your root layout (e.g. src/app.html):\n');
@@ -582,26 +628,25 @@ function copyAstroComponents(projectDir, selectedNames) {
   }
 }
 
-/** Add Rizzo CSS (and optional components) to an existing project in cwd. */
-async function runAddToExisting() {
+/** Add Rizzo CSS (and optional components) to an existing project in cwd. frameworkOverride: when set (from init), skip framework prompt. */
+async function runAddToExisting(frameworkOverride) {
   const cwd = process.cwd();
-  const detected = detectFramework(cwd);
-  const frameworkOptions = [
-    { value: 'vanilla', label: 'Vanilla JS (HTML + CSS)', color: C.vanilla },
-    { value: 'astro', label: 'Astro', color: C.astro },
-    { value: 'svelte', label: 'Svelte', color: C.svelte },
-  ];
-  let frameworkPrompt = '? Framework';
-  if (detected) {
-    frameworkPrompt += ' (detected: ' + detected + ' — pick to confirm or choose another)';
+  let framework = frameworkOverride;
+  if (framework == null) {
+    const detected = detectFramework(cwd);
+    const frameworkOptions = [
+      { value: 'vanilla', label: 'Vanilla JS (HTML + CSS)', color: C.vanilla },
+      { value: 'astro', label: 'Astro', color: C.astro },
+      { value: 'svelte', label: 'Svelte', color: C.svelte },
+    ];
+    let frameworkPrompt = '? Framework';
+    if (detected) {
+      frameworkPrompt += ' (detected: ' + detected + ' — pick to confirm or choose another)';
+    }
+    framework = await selectMenu(frameworkOptions, frameworkPrompt);
   }
-  const framework = await selectMenu(frameworkOptions, frameworkPrompt);
 
-  const defaultTheme = await selectMenu(
-    THEMES.map((t) => ({ value: t, label: t })),
-    '? Default theme (all 14 themes are included in the CSS; this sets the initial data-theme)'
-  );
-  const theme = THEMES.includes(defaultTheme) ? defaultTheme : THEMES[0];
+  const { theme, defaultDark, defaultLight } = await promptThemes();
 
   let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
@@ -652,6 +697,7 @@ async function runAddToExisting() {
     console.log('\nAdd to your root layout (e.g. src/app.html):');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
+    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
     if (selectedComponents.length > 0) {
       console.log('  Components are in src/lib/rizzo — import from \'$lib/rizzo\'.');
     }
@@ -659,6 +705,7 @@ async function runAddToExisting() {
     console.log('\nAdd to your layout (e.g. src/layouts/Layout.astro):');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
+    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
     if (selectedComponents.length > 0) {
       console.log('  Components are in src/components/rizzo — import from there.');
     }
@@ -666,21 +713,31 @@ async function runAddToExisting() {
     console.log('\nAdd to your HTML or layout:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: npx rizzo-css theme)');
+    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
   }
   console.log('\nDocs: https://rizzo-css.vercel.app\n');
 }
 
 async function cmdInit() {
+  const framework = await selectMenu(
+    [
+      { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },
+      { value: 'astro', label: 'Astro', color: C.astro },
+      { value: 'svelte', label: 'Svelte', color: C.svelte },
+    ],
+    '? Framework — all get the same CSS and component styles'
+  );
+
   const initMode = await selectMenu(
     [
       { value: 'existing', label: 'Add to existing project (current directory)' },
       { value: 'new', label: 'Create new project (scaffold)' },
     ],
-    '? Are you using an existing project or creating a new one?'
+    '? Add to existing project or create a new one?'
   );
 
   if (initMode === 'existing') {
-    await runAddToExisting();
+    await runAddToExisting(framework);
     return;
   }
 
@@ -693,20 +750,7 @@ async function cmdInit() {
   );
   const name = projectChoice === 'name' ? await question('Project name (folder name): ') : '';
 
-  const framework = await selectMenu(
-    [
-      { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },
-      { value: 'astro', label: 'Astro', color: C.astro },
-      { value: 'svelte', label: 'Svelte', color: C.svelte },
-    ],
-    '? Framework (arrows, Enter to select) — all get the same CSS and component styles'
-  );
-
-  const defaultTheme = await selectMenu(
-    THEMES.map((t) => ({ value: t, label: t })),
-    '? Default theme (all 14 themes are included in the CSS; this sets the initial data-theme)'
-  );
-  const theme = THEMES.includes(defaultTheme) ? defaultTheme : THEMES[0];
+  const { theme, defaultDark, defaultLight } = await promptThemes();
 
   let selectedComponents = [];
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
@@ -739,12 +783,14 @@ async function cmdInit() {
     process.exit(1);
   }
 
-  const themeComment = '\n  <!-- Default theme: ' + theme + ' (all 14 themes included in CSS) -->';
+  const themeComment = '\n  <!-- Initial: ' + theme + '; dark: ' + defaultDark + '; light: ' + defaultLight + ' (all 14 themes in CSS) -->';
   const projectNamePkg = name
     ? name.replace(/\s+/g, '-').toLowerCase()
     : (framework === 'astro' ? 'my-astro-app' : framework === 'svelte' ? 'my-svelte-app' : 'my-app');
   const replacements = {
     '{{DATA_THEME}}': theme,
+    '{{DEFAULT_DARK}}': defaultDark,
+    '{{DEFAULT_LIGHT}}': defaultLight,
     '{{THEME_LIST_COMMENT}}': themeComment,
     '{{TITLE}}': name || 'App',
     '{{PROJECT_NAME}}': projectNamePkg,
@@ -798,6 +844,8 @@ async function cmdInit() {
       let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
       indexHtml = indexHtml
         .replace(/\{\{DATA_THEME\}\}/g, theme)
+        .replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark)
+        .replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight)
         .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
         .replace(/\{\{TITLE\}\}/g, name || 'App')
         .replace(/\{\{LINK_HREF\}\}/g, linkHref);
@@ -828,7 +876,9 @@ async function cmdInit() {
       const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
       if (existsSync(vanillaJs)) {
         mkdirSync(join(projectDir, 'js'), { recursive: true });
-        copyFileSync(vanillaJs, join(projectDir, 'js', 'main.js'));
+        let mainJs = readFileSync(vanillaJs, 'utf8');
+        mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+        writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
       }
     }
     if (framework === 'svelte' && selectedComponents.length > 0) {

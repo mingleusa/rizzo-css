@@ -1,0 +1,393 @@
+---
+import Copy from './icons/Copy.astro';
+import Check from './icons/Check.astro';
+import Css3 from './icons/devicons/Css3.astro';
+import Html5 from './icons/devicons/Html5.astro';
+import Javascript from './icons/devicons/Javascript.astro';
+import Nodejs from './icons/devicons/Nodejs.astro';
+import AstroIcon from './icons/devicons/Astro.astro';
+import Plaintext from './icons/devicons/Plaintext.astro';
+import Git from './icons/devicons/Git.astro';
+import Bash from './icons/devicons/Bash.astro';
+import Svelte from './icons/devicons/Svelte.astro';
+import React from './icons/devicons/React.astro';
+import Vue from './icons/devicons/Vue.astro';
+
+interface Props {
+  code: string;
+  language?: string;
+  class?: string;
+}
+
+const {
+  code,
+  language = '',
+  class: className = '',
+} = Astro.props;
+
+const languageLabel = language || '';
+const languageLower = language.toLowerCase();
+
+const codeId = `code-${Math.random().toString(36).substr(2, 9)}`;
+const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
+---
+
+<div class={`code-block ${className}`.trim()}>
+  <div class="code-block__header">
+    {language && (
+      <span class="code-block__language" aria-label={languageLabel}>
+        {languageLower === 'css' && (
+          <>
+            <Css3 width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'html' && (
+          <>
+            <Html5 width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'javascript' && (
+          <>
+            <Javascript width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'nodejs' && (
+          <>
+            <Nodejs width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'astro' && (
+          <>
+            <AstroIcon width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'plaintext' && (
+          <>
+            <Plaintext width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'git' && (
+          <>
+            <Git width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'svelte' && (
+          <>
+            <Svelte width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {(languageLower === 'react' || languageLower === 'jsx' || languageLower === 'tsx') && (
+          <>
+            <React width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'vue' && (
+          <>
+            <Vue width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {(languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh') && (
+          <>
+            <Bash width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'svelte', 'react', 'jsx', 'tsx', 'vue', 'bash', 'shell', 'sh'].includes(languageLower) && (
+          <span class="code-block__language-text">{language}</span>
+        )}
+        <span class="sr-only">{languageLabel}</span>
+      </span>
+    )}
+    <span class="tooltip-host" data-tooltip="Copy code to clipboard">
+      <button
+        type="button"
+        class="code-block__copy-btn"
+        aria-label="Copy code to clipboard"
+        data-code-id={codeId}
+        id={copyButtonId}
+      >
+        <span class="code-block__copy-icon code-block__copy-icon--copy" aria-hidden="true">
+          <Copy width={20} height={20} />
+        </span>
+        <span class="code-block__copy-icon code-block__copy-icon--check" aria-hidden="true">
+          <Check width={20} height={20} />
+        </span>
+        <span class="sr-only">Copy code</span>
+      </button>
+    </span>
+  </div>
+  <pre><code id={codeId}>{code}</code></pre>
+</div>
+
+<script is:inline>
+  (function initCodeBlockCopy() {
+    const init = () => {
+      const copyButtons = document.querySelectorAll('.code-block__copy-btn');
+      
+      copyButtons.forEach((button) => {
+        if (button.hasAttribute('data-copy-initialized')) return;
+        button.setAttribute('data-copy-initialized', 'true');
+        
+        const codeId = button.getAttribute('data-code-id');
+        if (!codeId) return;
+        
+        const codeElement = document.getElementById(codeId);
+        if (!codeElement) return;
+        
+        const copyIcon = button.querySelector('.code-block__copy-icon--copy');
+        const checkIcon = button.querySelector('.code-block__copy-icon--check');
+        
+        // Remove title elements from SVG icons to prevent tooltip conflicts
+        const copyIconSvg = copyIcon?.querySelector('svg');
+        const checkIconSvg = checkIcon?.querySelector('svg');
+        if (copyIconSvg) {
+          const copyTitle = copyIconSvg.querySelector('title');
+          if (copyTitle) copyTitle.remove();
+        }
+        if (checkIconSvg) {
+          const checkTitle = checkIconSvg.querySelector('title');
+          if (checkTitle) checkTitle.remove();
+        }
+        
+        const copyToClipboard = async () => {
+          const codeText = codeElement.textContent || '';
+          
+          if (!codeText) return;
+          
+          try {
+            await navigator.clipboard.writeText(codeText);
+            
+            // Show success state
+            if (copyIcon) copyIcon.classList.add('code-block__copy-icon--hidden');
+            if (checkIcon) checkIcon.classList.remove('code-block__copy-icon--hidden');
+            button.setAttribute('aria-label', 'Code copied!');
+            const tooltipHost = button.closest('.tooltip-host');
+            if (tooltipHost) tooltipHost.setAttribute('data-tooltip', 'Code copied!');
+            
+            // Reset after 2 seconds
+            setTimeout(() => {
+              if (copyIcon) copyIcon.classList.remove('code-block__copy-icon--hidden');
+              if (checkIcon) checkIcon.classList.add('code-block__copy-icon--hidden');
+              button.setAttribute('aria-label', 'Copy code to clipboard');
+              if (tooltipHost) tooltipHost.setAttribute('data-tooltip', 'Copy code to clipboard');
+            }, 2000);
+          } catch (err) {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = codeText;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+              document.execCommand('copy');
+              if (copyIcon) copyIcon.classList.add('code-block__copy-icon--hidden');
+              if (checkIcon) checkIcon.classList.remove('code-block__copy-icon--hidden');
+              button.setAttribute('aria-label', 'Code copied!');
+              const tooltipHostFallback = button.closest('.tooltip-host');
+              if (tooltipHostFallback) tooltipHostFallback.setAttribute('data-tooltip', 'Code copied!');
+              
+              setTimeout(() => {
+                if (copyIcon) copyIcon.classList.remove('code-block__copy-icon--hidden');
+                if (checkIcon) checkIcon.classList.add('code-block__copy-icon--hidden');
+                button.setAttribute('aria-label', 'Copy code to clipboard');
+                if (tooltipHostFallback) tooltipHostFallback.setAttribute('data-tooltip', 'Copy code to clipboard');
+              }, 2000);
+            } catch (fallbackErr) {
+              console.error('Failed to copy:', fallbackErr);
+            }
+            
+            document.body.removeChild(textArea);
+          }
+        };
+        
+        button.addEventListener('click', copyToClipboard);
+        
+        // Keyboard support
+        button.addEventListener('keydown', (e) => {
+          if (e && 'key' in e) {
+            const keyEvent = e;
+            if (keyEvent.key === 'Enter' || keyEvent.key === ' ') {
+              keyEvent.preventDefault();
+              copyToClipboard();
+            }
+          }
+        });
+      });
+    };
+    
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>
+
+<style>
+  .code-block {
+    position: relative;
+    margin: var(--spacing-4) 0;
+    border-radius: var(--radius-lg);
+    overflow: visible;
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+  }
+  
+  .code-block__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-2) var(--spacing-3);
+    background-color: var(--background);
+    border-bottom: 1px solid var(--border);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    overflow: visible;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .code-block__language {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-2);
+    font-size: var(--font-size-xs);
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .code-block__language-icon {
+    display: block;
+    flex-shrink: 0;
+    color: var(--text-dim);
+    width: var(--spacing-5); /* 20px - larger for better visibility */
+    height: var(--spacing-5);
+  }
+  
+  .code-block__language-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .code-block__language-text {
+    display: none;
+  }
+  
+  /* Show text next to icon on large screens */
+  @media (width >= 768px) {
+    .code-block__language-text {
+      display: inline;
+    }
+  }
+  
+  .code-block__copy-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--spacing-2);
+    min-width: var(--spacing-8);
+    height: var(--spacing-8);
+    margin-left: auto;
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    color: var(--text);
+    cursor: pointer;
+    transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+    position: relative;
+  }
+  
+  .code-block__copy-btn:hover {
+    background-color: var(--background);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  
+  .code-block__copy-btn:focus-visible {
+    outline: var(--outline-width) solid var(--accent);
+    outline-offset: var(--outline-offset);
+  }
+  
+  .code-block__copy-icon {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--spacing-5); /* 20px - larger for better visibility */
+    height: var(--spacing-5);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+  
+  .code-block__copy-icon svg {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .code-block__copy-icon--copy {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .code-block__copy-icon--check {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  
+  .code-block__copy-icon--check:not(.code-block__copy-icon--hidden) {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  .code-block__copy-icon--copy.code-block__copy-icon--hidden {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  
+  .code-block pre {
+    margin: 0;
+    padding: var(--spacing-4);
+    overflow-x: auto;
+    background-color: var(--background-alt);
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  }
+  
+  .code-block code {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-relaxed);
+    color: var(--text);
+    white-space: pre;
+    word-wrap: normal;
+  }
+  
+  @media (width <= 640px) {
+    .code-block__header {
+      flex-direction: row; /* Keep horizontal layout on mobile */
+      align-items: center; /* Vertically center all items */
+      gap: var(--spacing-2);
+    }
+    
+    .code-block__language {
+      align-items: center; /* Ensure language icon is vertically centered */
+    }
+    
+    .code-block__copy-btn {
+      margin-left: auto; /* Push copy button to the right */
+      flex-shrink: 0; /* Prevent copy button from shrinking */
+    }
+  }
+</style>

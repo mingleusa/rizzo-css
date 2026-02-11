@@ -1,8 +1,8 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "scripts": {
-    "prepublishOnly": "cd ../.. && pnpm build:css && node scripts/copy-scaffold.js"
+    "prepublishOnly": "cd ../.. && pnpm build:css && node scripts/copy-scaffold.js && node scripts/prepare-astro-scaffold.js && node scripts/prepare-vanilla-scaffold.js && node scripts/prepare-svelte-scaffold.js"
   },
   "description": "A modern CSS design system with semantic theming, 14 themes, and accessible components (BEM). Use with Astro, Svelte, or any framework.",
   "style": "dist/rizzo.min.css",
@@ -22,6 +22,8 @@
   "files": [
     "dist",
     "README.md",
+    "LICENSE",
+    ".env.example",
     "bin",
     "scaffold"
   ],

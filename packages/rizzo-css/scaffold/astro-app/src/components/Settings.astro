@@ -1,0 +1,382 @@
+---
+import ThemeSwitcher from './ThemeSwitcher.astro';
+import Close from './icons/Close.astro';
+
+interface Props {
+  open?: boolean;
+}
+
+const { open = false } = Astro.props;
+---
+
+<div class="settings" data-settings aria-hidden={open ? 'false' : 'true'}>
+  <div class="settings__overlay" data-settings-overlay aria-hidden="true"></div>
+  
+  <div class="settings__panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden={open ? 'false' : 'true'}>
+    <div class="settings__header">
+      <h2 id="settings-title" class="settings__title">Settings</h2>
+      <button
+        class="settings__close"
+        type="button"
+        aria-label="Close settings"
+        data-settings-close
+      >
+        <Close width={20} height={20} />
+      </button>
+    </div>
+
+    <div class="settings__content">
+      <!-- Theme Section -->
+      <section class="settings__section">
+        <h3 class="settings__section-title">Theme</h3>
+        <div class="settings__control">
+          <ThemeSwitcher />
+        </div>
+      </section>
+
+      <!-- Font Size Section -->
+      <section class="settings__section">
+        <h3 class="settings__section-title">Font Size</h3>
+        <div class="settings__control">
+          <label for="font-size-slider" class="settings__label">
+            <span class="settings__label-text">Adjust text size</span>
+            <span class="settings__label-value" data-font-size-value>100%</span>
+          </label>
+          <input
+            type="range"
+            id="font-size-slider"
+            class="settings__slider"
+            min="0.75"
+            max="1.5"
+            step="0.05"
+            value="1"
+            aria-label="Font size"
+            data-font-size-slider
+            style="--slider-progress: 50%;"
+          />
+          <div class="settings__slider-labels">
+            <span>Small</span>
+            <span>Default</span>
+            <span>Large</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accessibility Section -->
+      <section class="settings__section">
+        <h3 class="settings__section-title">Accessibility</h3>
+        
+        <div class="settings__control">
+          <label class="settings__checkbox-label">
+            <input
+              type="checkbox"
+              class="settings__checkbox"
+              data-reduced-motion
+              aria-label="Reduce motion"
+            />
+            <span>Reduce motion</span>
+          </label>
+          <p class="settings__help-text">Minimize animations and transitions</p>
+        </div>
+
+        <div class="settings__control">
+          <label class="settings__checkbox-label">
+            <input
+              type="checkbox"
+              class="settings__checkbox"
+              data-high-contrast
+              aria-label="High contrast"
+            />
+            <span>High contrast</span>
+          </label>
+          <p class="settings__help-text">Increase contrast for better visibility</p>
+        </div>
+
+        <div class="settings__control">
+          <div class="settings__label">
+            <span class="settings__label-text">Scrollbar style</span>
+          </div>
+          <div class="settings__radio-group" role="radiogroup" aria-label="Scrollbar style">
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="thin"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Thin scrollbar"
+                checked
+              />
+              <span>Thin</span>
+            </label>
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="thick"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Thick scrollbar"
+              />
+              <span>Thick</span>
+            </label>
+            <label class="settings__radio-label">
+              <input
+                type="radio"
+                name="scrollbar-style"
+                value="hidden"
+                class="settings__radio"
+                data-scrollbar-style
+                aria-label="Hidden scrollbars"
+              />
+              <span>Hidden</span>
+            </label>
+          </div>
+          <p class="settings__help-text">Choose your preferred scrollbar appearance</p>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function initSettings() {
+    const settings = document.querySelector('[data-settings]');
+    if (!settings) return;
+
+    const overlay = settings.querySelector('[data-settings-overlay]');
+    const panel = settings.querySelector('.settings__panel');
+    const closeBtn = settings.querySelector('[data-settings-close]');
+    const fontSizeSlider = settings.querySelector('[data-font-size-slider]');
+    const fontSizeValue = settings.querySelector('[data-font-size-value]');
+    const reducedMotion = settings.querySelector('[data-reduced-motion]');
+    const highContrast = settings.querySelector('[data-high-contrast]');
+    const scrollbarStyleRadios = settings.querySelectorAll('[data-scrollbar-style]');
+    const html = document.documentElement;
+
+    if (!panel || !overlay || !closeBtn) return;
+
+    // Update slider progress fill
+    const updateSliderProgress = (slider) => {
+      const min = parseFloat(slider.min);
+      const max = parseFloat(slider.max);
+      const value = parseFloat(slider.value);
+      const progress = ((value - min) / (max - min)) * 100;
+      slider.style.setProperty('--slider-progress', `${progress}%`);
+    };
+
+    // Load saved settings
+    const loadSettings = () => {
+      const savedFontScale = localStorage.getItem('fontSizeScale');
+      if (savedFontScale && fontSizeSlider) {
+        fontSizeSlider.value = savedFontScale;
+        const scale = parseFloat(savedFontScale);
+        applyFontSize(scale);
+        updateSliderProgress(fontSizeSlider);
+      } else if (fontSizeSlider) {
+        // Initialize with default value
+        updateSliderProgress(fontSizeSlider);
+      }
+
+      const savedReducedMotion = localStorage.getItem('reducedMotion') === 'true';
+      if (reducedMotion) {
+        reducedMotion.checked = savedReducedMotion;
+        html.classList.toggle('reduced-motion', savedReducedMotion);
+      }
+
+      const savedHighContrast = localStorage.getItem('highContrast') === 'true';
+      if (highContrast) {
+        highContrast.checked = savedHighContrast;
+        html.classList.toggle('high-contrast', savedHighContrast);
+      }
+
+      // Load scrollbar style preference
+      const savedScrollbarStyle = localStorage.getItem('scrollbarStyle') || 'thin';
+      scrollbarStyleRadios.forEach((radio) => {
+        const radioInput = radio as HTMLInputElement;
+        if (radioInput && radioInput.value === savedScrollbarStyle) {
+          radioInput.checked = true;
+        }
+      });
+      applyScrollbarStyle(savedScrollbarStyle);
+    };
+
+    // Apply font size
+    const applyFontSize = (scale) => {
+      html.style.setProperty('--font-size-scale', scale.toString());
+      if (fontSizeValue) {
+        fontSizeValue.textContent = `${Math.round(scale * 100)}%`;
+      }
+    };
+
+    // Focus trap helper
+    const getFocusableElements = (container) => {
+      const focusableSelectors = [
+        'button:not([disabled])',
+        'a[href]',
+        'input:not([disabled])',
+        'select:not([disabled])',
+        'textarea:not([disabled])',
+        '[tabindex]:not([tabindex="-1"])',
+      ].join(', ');
+      return Array.from(container.querySelectorAll(focusableSelectors));
+    };
+
+    let previousActiveElement = null;
+
+    // Open settings
+    const openSettings = () => {
+      previousActiveElement = document.activeElement;
+      
+      // First, make elements visible but keep panel off-screen
+      settings.setAttribute('aria-hidden', 'false');
+      if (overlay) overlay.setAttribute('aria-hidden', 'false');
+      panel.setAttribute('aria-hidden', 'false');
+      
+      // Ensure panel starts in closed position (remove data-open if it exists)
+      panel.removeAttribute('data-open');
+      
+      // Force a reflow to ensure the closed state is rendered
+      void panel.offsetHeight;
+      
+      // Then animate in - use double requestAnimationFrame for reliable animation
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          panel.setAttribute('data-open', 'true');
+          if (closeBtn) closeBtn.focus();
+        });
+      });
+    };
+
+    // Close settings
+    const closeSettings = () => {
+      // Remove data-open first to trigger close animation
+      panel.removeAttribute('data-open');
+      
+      // Wait for animation to complete before hiding
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const animationDuration = prefersReducedMotion ? 0 : 300;
+      
+      setTimeout(() => {
+        settings.setAttribute('aria-hidden', 'true');
+        overlay?.setAttribute('aria-hidden', 'true');
+        panel.setAttribute('aria-hidden', 'true');
+        
+        // Return focus to previous element
+        if (previousActiveElement) {
+          previousActiveElement.focus();
+          previousActiveElement = null;
+        }
+      }, animationDuration);
+    };
+
+    // Event listeners
+    closeBtn?.addEventListener('click', closeSettings);
+    
+    overlay?.addEventListener('click', closeSettings);
+
+    // Focus trapping and keyboard handlers
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (panel.getAttribute('data-open') !== 'true') return;
+
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        closeSettings();
+        return;
+      }
+
+      // Focus trap: Tab key
+      if (e.key === 'Tab') {
+        const focusableElements = getFocusableElements(panel);
+        if (focusableElements.length === 0) return;
+
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        const activeElement = document.activeElement as HTMLElement;
+
+        if (e.shiftKey) {
+          // Shift + Tab: move backwards
+          if (activeElement === firstElement || !panel.contains(activeElement)) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab: move forwards
+          if (activeElement === lastElement || !panel.contains(activeElement)) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    // Font size slider
+    if (fontSizeSlider) {
+      fontSizeSlider.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          const scale = parseFloat(target.value);
+          applyFontSize(scale);
+          updateSliderProgress(target);
+          localStorage.setItem('fontSizeScale', scale.toString());
+        }
+      });
+    }
+
+    // Reduced motion
+    if (reducedMotion) {
+      reducedMotion.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          html.classList.toggle('reduced-motion', target.checked);
+          localStorage.setItem('reducedMotion', target.checked.toString());
+        }
+      });
+    }
+
+    // High contrast
+    if (highContrast) {
+      highContrast.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target) {
+          html.classList.toggle('high-contrast', target.checked);
+          localStorage.setItem('highContrast', target.checked.toString());
+        }
+      });
+    }
+
+    // Apply scrollbar style
+    const applyScrollbarStyle = (style: string) => {
+      // Remove all scrollbar classes
+      html.classList.remove('scrollbar-thin', 'scrollbar-thick', 'scrollbar-hidden', 'hide-scrollbars');
+      
+      // Add the appropriate class
+      if (style === 'thick') {
+        html.classList.add('scrollbar-thick');
+      } else if (style === 'hidden') {
+        html.classList.add('scrollbar-hidden', 'hide-scrollbars'); // Keep hide-scrollbars for backward compatibility
+      }
+      // 'thin' is the default, no class needed
+    };
+
+    // Scrollbar style radio buttons
+    scrollbarStyleRadios.forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        const target = e.target as HTMLInputElement;
+        if (target && target.checked) {
+          const style = target.value;
+          applyScrollbarStyle(style);
+          localStorage.setItem('scrollbarStyle', style);
+        }
+      });
+    });
+
+    // Load settings on init
+    loadSettings();
+
+    // Expose open function globally
+    window.openSettings = openSettings;
+  })();
+</script>

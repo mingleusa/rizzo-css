@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="{{DATA_THEME}}">{{THEME_LIST_COMMENT}}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{TITLE}}</title>
+  <!-- Theme flash prevention: apply saved theme/settings before first paint (same as main site) -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('theme');
+        var defaultDark = '{{DEFAULT_DARK}}';
+        var defaultLight = '{{DEFAULT_LIGHT}}';
+        var resolvedTheme;
+        if (!savedTheme) {
+          var initialTheme = document.documentElement.getAttribute('data-theme');
+          resolvedTheme = (initialTheme && initialTheme !== 'system') ? initialTheme : (window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight);
+        } else if (savedTheme === 'system') {
+          resolvedTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? defaultDark : defaultLight;
+        } else {
+          resolvedTheme = savedTheme;
+        }
+        document.documentElement.setAttribute('data-theme', resolvedTheme);
+        var savedFontScale = localStorage.getItem('fontSizeScale');
+        if (savedFontScale) {
+          document.documentElement.style.setProperty('--font-size-scale', savedFontScale);
+        }
+        if (localStorage.getItem('reducedMotion') === 'true') {
+          document.documentElement.classList.add('reduced-motion');
+        }
+        if (localStorage.getItem('highContrast') === 'true') {
+          document.documentElement.classList.add('high-contrast');
+        }
+        var savedScrollbarStyle = localStorage.getItem('scrollbarStyle') || 'thin';
+        if (savedScrollbarStyle === 'thick') {
+          document.documentElement.classList.add('scrollbar-thick');
+        } else if (savedScrollbarStyle === 'hidden') {
+          document.documentElement.classList.add('scrollbar-hidden', 'hide-scrollbars');
+        }
+        if (!savedScrollbarStyle && localStorage.getItem('hideScrollbars') === 'true') {
+          document.documentElement.classList.add('scrollbar-hidden', 'hide-scrollbars');
+          localStorage.setItem('scrollbarStyle', 'hidden');
+        }
+      } catch (e) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="../{{LINK_HREF}}" />
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <header class="container flex flex-wrap items-center justify-between gap-4" style="padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--border);">
+    <a href="#" class="font-semibold" style="font-size: var(--font-size-lg); color: var(--text); text-decoration: none;">{{TITLE}}</a>
+    <div class="flex items-center gap-3 flex-wrap">
+      <label for="theme-select" class="sr-only">Theme</label>
+      <select id="theme-select" class="form-control" style="width: auto; min-width: 12rem;" aria-label="Theme">
+        <option value="system">System</option>
+        <optgroup label="Dark themes">
+          <option value="github-dark-classic">GitHub Dark Classic</option>
+          <option value="shades-of-purple">Shades of Purple</option>
+          <option value="sandstorm-classic">Sandstorm Classic</option>
+          <option value="rocky-blood-orange">Rocky Blood Orange</option>
+          <option value="minimal-dark-neon-yellow">Minimal Dark Neon Yellow</option>
+          <option value="hack-the-box">Hack The Box</option>
+          <option value="pink-cat-boo">Pink Cat Boo</option>
+        </optgroup>
+        <optgroup label="Light themes">
+          <option value="github-light">GitHub Light</option>
+          <option value="red-velvet-cupcake">Red Velvet Cupcake</option>
+          <option value="orangy-one-light">Orangy One Light</option>
+          <option value="sunflower">Sunflower</option>
+          <option value="green-breeze-light">Green Breeze Light</option>
+          <option value="cute-pink">Cute Pink</option>
+          <option value="semi-light-purple">Semi Light Purple</option>
+        </optgroup>
+      </select>
+      <button type="button" class="btn btn-outline" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">Settings</button>
+    </div>
+  </header>
+
+  <!-- Settings panel (same structure as main site; CSS from Rizzo) -->
+  <div class="settings" data-settings aria-hidden="true">
+    <div class="settings__overlay" data-settings-overlay aria-hidden="true"></div>
+    <div class="settings__panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden="true">
+      <div class="settings__header">
+        <h2 id="settings-title" class="settings__title">Settings</h2>
+        <button type="button" class="settings__close" aria-label="Close settings" data-settings-close>
+          <svg width="20" height="20" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>
+        </button>
+      </div>
+      <div class="settings__content">
+        <section class="settings__section">
+          <h3 class="settings__section-title">Theme</h3>
+          <div class="settings__control">
+            <label for="settings-theme" class="settings__label">Theme</label>
+            <select id="settings-theme" class="form-control" aria-label="Theme" data-settings-theme style="width: 100%;">
+              <option value="system">System</option>
+              <optgroup label="Dark themes">
+                <option value="github-dark-classic">GitHub Dark Classic</option>
+                <option value="shades-of-purple">Shades of Purple</option>
+                <option value="sandstorm-classic">Sandstorm Classic</option>
+                <option value="rocky-blood-orange">Rocky Blood Orange</option>
+                <option value="minimal-dark-neon-yellow">Minimal Dark Neon Yellow</option>
+                <option value="hack-the-box">Hack The Box</option>
+                <option value="pink-cat-boo">Pink Cat Boo</option>
+              </optgroup>
+              <optgroup label="Light themes">
+                <option value="github-light">GitHub Light</option>
+                <option value="red-velvet-cupcake">Red Velvet Cupcake</option>
+                <option value="orangy-one-light">Orangy One Light</option>
+                <option value="sunflower">Sunflower</option>
+                <option value="green-breeze-light">Green Breeze Light</option>
+                <option value="cute-pink">Cute Pink</option>
+                <option value="semi-light-purple">Semi Light Purple</option>
+              </optgroup>
+            </select>
+          </div>
+        </section>
+        <section class="settings__section">
+          <h3 class="settings__section-title">Font Size</h3>
+          <div class="settings__control">
+            <label for="font-size-slider" class="settings__label">
+              <span class="settings__label-text">Adjust text size</span>
+              <span class="settings__label-value" data-font-size-value>100%</span>
+            </label>
+            <input type="range" id="font-size-slider" class="settings__slider" min="0.75" max="1.5" step="0.05" value="1" aria-label="Font size" data-font-size-slider style="--slider-progress: 50%;" />
+            <div class="settings__slider-labels"><span>Small</span><span>Default</span><span>Large</span></div>
+          </div>
+        </section>
+        <section class="settings__section">
+          <h3 class="settings__section-title">Accessibility</h3>
+          <div class="settings__control">
+            <label class="settings__checkbox-label">
+              <input type="checkbox" class="settings__checkbox" data-reduced-motion aria-label="Reduce motion" />
+              <span>Reduce motion</span>
+            </label>
+            <p class="settings__help-text">Minimize animations and transitions</p>
+          </div>
+          <div class="settings__control">
+            <label class="settings__checkbox-label">
+              <input type="checkbox" class="settings__checkbox" data-high-contrast aria-label="High contrast" />
+              <span>High contrast</span>
+            </label>
+            <p class="settings__help-text">Increase contrast for better visibility</p>
+          </div>
+          <div class="settings__control">
+            <div class="settings__label"><span class="settings__label-text">Scrollbar style</span></div>
+            <div class="settings__radio-group" role="radiogroup" aria-label="Scrollbar style">
+              <label class="settings__radio-label">
+                <input type="radio" name="scrollbar-style" value="thin" class="settings__radio" data-scrollbar-style aria-label="Thin scrollbar" checked />
+                <span>Thin</span>
+              </label>
+              <label class="settings__radio-label">
+                <input type="radio" name="scrollbar-style" value="thick" class="settings__radio" data-scrollbar-style aria-label="Thick scrollbar" />
+                <span>Thick</span>
+              </label>
+              <label class="settings__radio-label">
+                <input type="radio" name="scrollbar-style" value="hidden" class="settings__radio" data-scrollbar-style aria-label="Hidden scrollbars" />
+                <span>Hidden</span>
+              </label>
+            </div>
+            <p class="settings__help-text">Choose your preferred scrollbar appearance</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  
+  <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">
+    <h1 style="font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-4) 0; color: var(--text);">Tooltip</h1>
+    <p style="color: var(--text-dim); margin-bottom: var(--spacing-4);">Read the full docs for this component on the main site:</p>
+    <p><a href="https://rizzo-css.vercel.app/docs/components/tooltip" target="_blank" rel="noopener noreferrer" class="btn btn-primary">https://rizzo-css.vercel.app/docs/components/tooltip</a></p>
+    <p style="margin-top: var(--spacing-8);"><a href="index.html" class="btn btn-outline">← Component list</a> <a href="../index.html" class="btn btn-outline">Home</a></p>
+  </main>
+
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

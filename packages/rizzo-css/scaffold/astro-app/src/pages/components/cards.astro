@@ -1,0 +1,247 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Card from '../../components/Card.astro';
+import Button from '../../components/Button.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Card Component — Astro" description="Flexible card component with variants, sections, and image support">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/cards" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/cards</a>.</p>
+	
+		<section>
+		<h2>Card Component</h2>
+		<p>The Card component provides a flexible container for organizing content with variants, sections, and image support.</p>
+	</section>
+
+	<section>
+		<h2>Basic Usage</h2>
+		<p>The simplest card usage:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card>
+				<h3>Card Title</h3>
+				<p>This is a basic card with default styling. It uses semantic theme variables and adapts to all themes.</p>
+			</Card>
+		</div>
+		
+		<h3>Code Example</h3>
+		<CodeBlock code={`---
+import Card from '../../components/Card.astro';
+---
+
+<Card>
+  <h3>Card Title</h3>
+  <p>Card content goes here</p>
+</Card>`} language="astro" />
+	</section>
+
+	<section>
+		<h2>Card Variants</h2>
+		<p>Cards support four variants for different visual styles:</p>
+		
+		<h3>Default</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="default">
+				<h3>Default Card</h3>
+				<p>Standard card with border and background.</p>
+			</Card>
+		</div>
+		
+		<h3>Elevated</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="elevated">
+				<h3>Elevated Card</h3>
+				<p>Card with shadow effect. Hover to see it lift up.</p>
+			</Card>
+		</div>
+		
+		<h3>Outlined</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="outlined">
+				<h3>Outlined Card</h3>
+				<p>Transparent background with border. Hover to see accent border.</p>
+			</Card>
+		</div>
+		
+		<h3>Filled</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="filled">
+				<h3>Filled Card</h3>
+				<p>Uses main background color instead of alt background.</p>
+			</Card>
+		</div>
+		
+		<h3>Code Example</h3>
+		<CodeBlock code={`---
+import Card from '../../components/Card.astro';
+---
+
+<Card variant="elevated">
+  <h3>Elevated Card</h3>
+  <p>Content</p>
+</Card>
+
+<Card variant="outlined">
+  <h3>Outlined Card</h3>
+  <p>Content</p>
+</Card>
+
+<Card variant="filled">
+  <h3>Filled Card</h3>
+  <p>Content</p>
+</Card>`} language="astro" />
+	</section>
+
+	<section>
+		<h2>Card Sections</h2>
+		<p>Use card sections for structured layouts with header, body, and footer:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card>
+				<div class="card__header">
+					<h3 class="card__title">Card Title</h3>
+					<p class="card__subtitle">Card subtitle or description</p>
+				</div>
+				<div class="card__body">
+					<p>This is the main content area of the card. It can contain any content you need.</p>
+					<p>Multiple paragraphs, lists, or other elements work great here.</p>
+				</div>
+				<div class="card__footer">
+					<button class="btn btn-primary">Action</button>
+					<button class="btn btn-outline">Cancel</button>
+				</div>
+			</Card>
+		</div>
+		
+		<h3>Code Example</h3>
+		<CodeBlock code={`---
+import Card from '../../components/Card.astro';
+import Button from '../../components/Button.astro';
+---
+
+<Card>
+  <div class="card__header">
+    <h3 class="card__title">Card Title</h3>
+    <p class="card__subtitle">Subtitle text</p>
+  </div>
+  <div class="card__body">
+    <p>Main content area</p>
+  </div>
+  <div class="card__footer">
+    <Button>Action</Button>
+  </div>
+</Card>`} language="astro" />
+		
+		<h3>Section Classes</h3>
+		<ul>
+			<li><code>card__header</code> - Header section with bottom border</li>
+			<li><code>card__body</code> - Main content area (flexible, takes remaining space)</li>
+			<li><code>card__footer</code> - Footer section with top border</li>
+			<li><code>card__title</code> - Title styling for header</li>
+			<li><code>card__subtitle</code> - Subtitle styling for header</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Card with Image</h2>
+		<p>Add an image to your card using the <code>card__image</code> class:</p>
+		
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="elevated">
+				<div style="width: 100%; height: var(--spacing-50); background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: calc(-1 * var(--spacing-6)) calc(-1 * var(--spacing-6)) var(--spacing-6) calc(-1 * var(--spacing-6)); display: flex; align-items: center; justify-content: center; color: var(--accent-text); font-weight: var(--font-weight-semibold);">
+					Image Placeholder
+				</div>
+				<div class="card__header">
+					<h3 class="card__title">Card with Image</h3>
+				</div>
+				<div class="card__body">
+					<p>This card includes an image at the top. The image automatically adjusts to the card's border radius.</p>
+				</div>
+			</Card>
+		</div>
+		
+		<h3>Code Example</h3>
+		<CodeBlock code={`---
+import Card from '../../components/Card.astro';
+---
+
+<Card variant="elevated">
+  <img src="/path/to/image.jpg" alt="Description" class="card__image" />
+  <div class="card__header">
+    <h3 class="card__title">Card Title</h3>
+  </div>
+  <div class="card__body">
+    <p>Card content</p>
+  </div>
+</Card>`} language="astro" />
+	</section>
+
+	<section>
+		<h2>Complete Example</h2>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Card variant="elevated">
+				<div style="width: 100%; height: var(--spacing-50); background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: calc(-1 * var(--spacing-6)) calc(-1 * var(--spacing-6)) var(--spacing-6) calc(-1 * var(--spacing-6)); display: flex; align-items: center; justify-content: center; color: var(--accent-text); font-weight: var(--font-weight-semibold);">
+					Featured Image
+				</div>
+				<div class="card__header">
+					<h3 class="card__title">Complete Card Example</h3>
+					<p class="card__subtitle">With image, header, body, and footer</p>
+				</div>
+				<div class="card__body">
+					<p>This is a complete card example showcasing all features:</p>
+					<ul>
+						<li>Image at the top</li>
+						<li>Structured header with title and subtitle</li>
+						<li>Flexible body content</li>
+						<li>Footer with actions</li>
+					</ul>
+				</div>
+				<div class="card__footer">
+					<button class="btn btn-primary">Primary Action</button>
+					<button class="btn btn-outline">Secondary</button>
+				</div>
+			</Card>
+		</div>
+	</section>
+
+	<section>
+		<h2>Props</h2>
+		<ul>
+			<li><code>variant</code> ('default' | 'elevated' | 'outlined' | 'filled', optional) - Card variant style (default: 'default')</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2>Styling</h2>
+		<p>All card styles use semantic theme variables and automatically adapt to the selected theme. Card styles are defined in <code>src/styles/layout.css</code>.</p>
+		
+		<h3>Customization</h3>
+		<p>You can customize cards using CSS variables or by adding custom classes:</p>
+		<CodeBlock code={`.custom-card {
+  border-radius: 1rem;
+  padding: 2rem;
+}`} language="css" />
+	</section>
+
+	<section>
+		<h2>Accessibility</h2>
+		<p>Cards are semantic containers and don't require specific ARIA attributes. However, when using cards as interactive elements (like links or buttons), ensure proper accessibility:</p>
+		<ul>
+			<li>Use semantic HTML (e.g., <code>&lt;article&gt;</code> for card content)</li>
+			<li>Provide proper heading hierarchy</li>
+			<li>Include alt text for images</li>
+			<li>Ensure keyboard navigation for interactive cards</li>
+		</ul>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/cards">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+	</section>
+</DocsLayout>

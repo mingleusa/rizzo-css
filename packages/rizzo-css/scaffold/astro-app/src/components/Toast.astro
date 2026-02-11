@@ -1,0 +1,30 @@
+---
+import Alert from './Alert.astro';
+
+interface Props {
+  variant?: 'success' | 'error' | 'warning' | 'info';
+  dismissible?: boolean;
+  autoDismiss?: number; // Duration in milliseconds (0 = disabled)
+  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left' | 'top-center' | 'bottom-center';
+  class?: string;
+  id?: string;
+}
+
+const {
+  variant = 'info',
+  dismissible = true,
+  autoDismiss = 5000, // Default 5 seconds for toasts
+  position = 'top-right',
+  class: className = '',
+  id,
+} = Astro.props;
+
+const positionClass = `toast--${position}`;
+const toastClasses = `toast ${positionClass} ${className}`.trim();
+---
+
+<div class={toastClasses} data-toast-container>
+  <Alert variant={variant} dismissible={dismissible} autoDismiss={autoDismiss} id={id}>
+    <slot />
+  </Alert>
+</div>

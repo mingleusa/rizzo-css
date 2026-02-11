@@ -1,0 +1,155 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import SearchComponent from '../../components/Search.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Search Component — Astro" description="Search component with Algolia integration and live filtering">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/search" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/search</a>.</p>
+	
+		<section>
+		<h2>Search Component</h2>
+		<p>An accessible search component with Algolia integration for fast, relevant search results. Includes live filtering, keyboard navigation, and a client-side fallback.</p>
+	</section>
+	
+	<section>
+		<h2>Features</h2>
+		<ul>
+			<li><strong>Full-screen overlay</strong> - When open, the overlay covers the viewport; the search modal is centered inside it both horizontally and vertically</li>
+			<li>Algolia integration with client-side fallback</li>
+			<li>Keyboard shortcut - <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd> to open</li>
+			<li>Close button on desktop (X icon with screen reader label)</li>
+			<li>Close button on mobile with text label</li>
+			<li>Live search results as you type</li>
+			<li>Full keyboard navigation (Arrow keys, Enter, Escape, Tab)</li>
+			<li>Mobile responsive - Full-width panel on mobile</li>
+			<li>Mutually exclusive with mobile menu (only one open at a time)</li>
+			<li>Accessible - ARIA attributes and screen reader support</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Live example</h2>
+		<p>Search is in the navbar (top of page) — click the search icon or press <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd>. You can also use the standalone search below.</p>
+		<div class="example">
+			<div class="example-title">Standalone search (same as navbar)</div>
+			<div class="search-doc-example">
+				<SearchComponent />
+			</div>
+		</div>
+	</section>
+	
+	<section>
+		<h2>Usage</h2>
+		<CodeBlock code={`---
+import Search from '../../components/Search.astro';
+---
+
+<!-- Client-side search (default; uses built-in index when no Algolia credentials) -->
+<Search />
+
+<!-- With Algolia (pass credentials via props or env) -->
+<Search
+  useAlgolia={true}
+  algoliaAppId="YOUR_APP_ID"
+  algoliaApiKey="YOUR_SEARCH_ONLY_API_KEY"
+  algoliaIndexName="rizzo-css-docs"
+/>`} language="astro" />
+	</section>
+	
+	<section>
+		<h2>Props</h2>
+		<ul>
+			<li><code>useAlgolia</code> (boolean, optional) - Enable Algolia search (default: <code>false</code>)</li>
+			<li><code>algoliaAppId</code> (string, optional) - Algolia Application ID</li>
+			<li><code>algoliaApiKey</code> (string, optional) - Algolia Search-Only API Key</li>
+			<li><code>algoliaIndexName</code> (string, optional) - Algolia index name (default: <code>"rizzo-css-docs"</code>)</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Keyboard Shortcuts</h2>
+		<ul>
+			<li><kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd> - Open/close search</li>
+			<li><kbd>Escape</kbd> - Close search</li>
+			<li><kbd>Arrow Down</kbd> - Navigate to next result</li>
+			<li><kbd>Arrow Up</kbd> - Navigate to previous result</li>
+			<li><kbd>Enter</kbd> - Navigate to selected result</li>
+		</ul>
+	</section>
+	
+	<section>
+		<h2>Algolia Setup</h2>
+		<p>To use Algolia search in production:</p>
+		<ol>
+			<li>Create an account at <a href="https://www.algolia.com/" target="_blank" rel="noopener noreferrer">algolia.com</a></li>
+			<li>Create a new application and get your credentials</li>
+			<li>Index your documentation using the indexing script:
+				<CodeBlock code={`# Install Algolia client
+pnpm add algoliasearch
+
+# Set environment variables
+export ALGOLIA_APP_ID="your-app-id"
+export ALGOLIA_API_KEY="your-admin-api-key"
+export ALGOLIA_INDEX_NAME="rizzo-css-docs"
+
+# Run indexing script
+node scripts/index-docs.js`} language="nodejs" />
+			</li>
+			<li>Configure your Search component with the credentials</li>
+		</ol>
+		<p>See <a href="/docs/search">Search Documentation</a> for complete setup instructions.</p>
+	</section>
+	
+	<section>
+		<h2>Accessibility</h2>
+		<p>The Search component includes comprehensive accessibility features:</p>
+		<ul>
+			<li><strong>ARIA Roles:</strong> <code>role="dialog"</code>, <code>role="listbox"</code>, <code>role="option"</code></li>
+			<li><strong>ARIA Labels:</strong> Descriptive labels for all interactive elements</li>
+			<li><strong>Keyboard Navigation:</strong> Full keyboard support for all interactions</li>
+			<li><strong>Focus Management:</strong> Focus trapping and restoration</li>
+			<li><strong>Screen Reader Support:</strong> Proper announcements and labels</li>
+			<li><strong>Live Regions:</strong> Search results announced to screen readers</li>
+		</ul>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/search">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add JS for Cmd+K and Algolia.</p>
+	</section>
+</DocsLayout>
+
+<style>
+	/* Search trigger matches navbar size (base .search__trigger already has same padding/min) */
+	.search-doc-example {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-4);
+	}
+	@media (width <= 1023px) {
+		.search-doc-example .search__trigger {
+			width: auto;
+			justify-content: center;
+		}
+		.search-doc-example .search__trigger-text,
+		.search-doc-example .search__kbd {
+			position: absolute;
+			width: 1px;
+			height: 1px;
+			padding: 0;
+			margin: -1px;
+			overflow: hidden;
+			clip-path: inset(50%);
+			white-space: nowrap;
+			border: 0;
+		}
+	}
+	kbd {
+		display: inline-block;
+		padding: var(--spacing-0-125) var(--spacing-0-375);
+		background-color: var(--background-alt);
+		border: var(--outline-width) solid var(--border);
+		border-radius: var(--radius);
+		font-family: var(--font-family-mono);
+		font-size: var(--font-size-xs);
+		line-height: 1;
+	}
+</style>

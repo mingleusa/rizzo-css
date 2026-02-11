@@ -1,0 +1,102 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import AvatarComponent from '../../components/Avatar.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Avatar Component — Astro" description="User avatar with image or initials fallback, sizes and shapes">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/avatar" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/avatar</a>.</p>
+	
+		<section>
+		<h2>Avatar Component</h2>
+		<p>An accessible avatar for users: show a profile image when available, or initials derived from a name (or custom initials) when no image is provided. Supports multiple sizes and circle or square shape.</p>
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>src</code> (string, optional) - Image URL; when provided, the image is shown</li>
+			<li><code>alt</code> (string, optional) - Alt text for the image</li>
+			<li><code>name</code> (string, optional) - Full name used to derive initials when no image (e.g. "Jane Doe" → "JD")</li>
+			<li><code>initials</code> (string, optional) - Override initials when no image (e.g. "JD"); ignored if <code>name</code> is provided</li>
+			<li><code>size</code> (string, optional) - <code>sm</code>, <code>md</code>, <code>lg</code> (default: md)</li>
+			<li><code>shape</code> (string, optional) - <code>circle</code>, <code>square</code> (default: circle)</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Basic Usage (initials)</h3>
+		<p>When no <code>src</code> is provided, use <code>name</code> to show initials (first letter of first and last word, or first two letters of a single word).</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div style="display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap;">
+				<AvatarComponent name="Jane Doe" />
+				<AvatarComponent name="Alice" />
+				<AvatarComponent initials="AB" />
+			</div>
+		</div>
+		<CodeBlock code={`---
+import Avatar from '../../components/Avatar.astro';
+---
+
+<Avatar name="Jane Doe" />
+<Avatar name="Alice" />
+<Avatar initials="AB" />`} language="astro" />
+
+		<h3>Sizes</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div style="display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap;">
+				<AvatarComponent name="Jane Doe" size="sm" />
+				<AvatarComponent name="Jane Doe" size="md" />
+				<AvatarComponent name="Jane Doe" size="lg" />
+			</div>
+		</div>
+		<CodeBlock code={`<Avatar name="Jane Doe" size="sm" />
+<Avatar name="Jane Doe" size="md" />
+<Avatar name="Jane Doe" size="lg" />`} language="astro" />
+
+		<h3>Shape</h3>
+		<p>Use <code>shape="square"</code> for a rounded square; default is <code>circle</code>.</p>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div style="display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap;">
+				<AvatarComponent name="Jane Doe" shape="circle" />
+				<AvatarComponent name="Jane Doe" shape="square" />
+			</div>
+		</div>
+		<CodeBlock code={`<Avatar name="Jane Doe" shape="circle" />
+<Avatar name="Jane Doe" shape="square" />`} language="astro" />
+
+		<h3>With image</h3>
+		<p>Pass <code>src</code> (and <code>alt</code>) to show a profile image. The image is scaled to cover the avatar with <code>object-fit: cover</code>.</p>
+		<div class="example">
+			<div class="example-title">Live Example (placeholder image)</div>
+			<div style="display: flex; align-items: center; gap: var(--spacing-4); flex-wrap: wrap;">
+				<AvatarComponent
+					src="https://api.dicebear.com/7.x/initials/svg?seed=Jane"
+					alt="Jane Doe"
+					size="md"
+				/>
+				<AvatarComponent
+					src="https://api.dicebear.com/7.x/initials/svg?seed=Alice"
+					alt="Alice"
+					size="lg"
+				/>
+			</div>
+		</div>
+		<CodeBlock code={`<Avatar
+  src="/path/to/photo.jpg"
+  alt="Jane Doe"
+  size="md"
+/>`} language="astro" />
+
+		<h3>Features</h3>
+		<ul>
+			<li><strong>Accessible</strong> - <code>role="img"</code> and <code>aria-label</code> from alt, name, or initials</li>
+			<li><strong>Initials</strong> - Derived from <code>name</code> (e.g. "Jane Doe" → "JD") or set via <code>initials</code></li>
+			<li><strong>Image</strong> - Optional <code>src</code> with <code>loading="lazy"</code> and <code>object-fit: cover</code></li>
+			<li><strong>Sizes</strong> - sm, md, lg</li>
+			<li><strong>Shape</strong> - circle (default) or square with rounded corners</li>
+		</ul>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/avatar">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+	</section>
+</DocsLayout>

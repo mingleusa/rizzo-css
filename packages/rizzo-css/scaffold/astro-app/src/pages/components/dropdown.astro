@@ -1,0 +1,394 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import Dropdown from '../../components/Dropdown.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<DocsLayout title="Dropdown Component — Astro" description="Accessible dropdown menu component with keyboard navigation and menu items">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/dropdown" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/dropdown</a>.</p>
+	
+		<section>
+		<h2>Dropdown Component</h2>
+		<p>An accessible dropdown menu component for displaying lists of actions or options. Supports menu items, separators, links, and custom click handlers.</p>
+		
+		<h3>Basic Usage</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Dropdown 
+				trigger="Actions"
+				items={[
+					{ label: 'Edit', value: 'edit', onClick: 'handleAction' },
+					{ label: 'Delete', value: 'delete', onClick: 'handleAction' },
+					{ separator: true },
+					{ label: 'Settings', href: '/settings' },
+				]}
+			/>
+		</div>
+		
+		<CodeBlock code={`---
+import Dropdown from '../../components/Dropdown.astro';
+---
+
+<Dropdown 
+  trigger="Actions"
+  items={[
+    { label: 'Edit', value: 'edit', onClick: 'handleAction' },
+    { label: 'Delete', value: 'delete', onClick: 'handleAction' },
+    { separator: true },
+    { label: 'Settings', href: '/settings' },
+  ]}
+/>`} language="astro" />
+		
+		<h3>With Links</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Dropdown 
+				trigger="Navigate"
+				items={[
+					{ label: 'Home', href: '/' },
+					{ label: 'Documentation', href: '/docs' },
+					{ label: 'Components', href: '/docs/components' },
+					{ separator: true },
+					{ label: 'GitHub', href: 'https://github.com' },
+				]}
+			/>
+		</div>
+		
+		<CodeBlock code={`<Dropdown 
+  trigger="Navigate"
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Documentation', href: '/docs' },
+    { label: 'Components', href: '/docs/components' },
+    { separator: true },
+    { label: 'GitHub', href: 'https://github.com' },
+  ]}
+/>`} language="astro" />
+		
+		<h3>With Disabled Items</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Dropdown 
+				trigger="Options"
+				items={[
+					{ label: 'Available Option', value: 'available' },
+					{ label: 'Disabled Option', value: 'disabled', disabled: true },
+					{ separator: true },
+					{ label: 'Another Option', value: 'another' },
+				]}
+			/>
+		</div>
+		
+		<CodeBlock code={`<Dropdown 
+  trigger="Options"
+  items={[
+    { label: 'Available Option', value: 'available' },
+    { label: 'Disabled Option', value: 'disabled', disabled: true },
+    { separator: true },
+    { label: 'Another Option', value: 'another' },
+  ]}
+/>`} language="astro" />
+		
+		<h3>Nested Menus</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Dropdown 
+				trigger="Actions"
+				items={[
+					{ 
+						label: 'Edit', 
+						submenu: [
+							{ label: 'Cut', value: 'cut', onClick: 'handleSubmenuAction' },
+							{ label: 'Copy', value: 'copy', onClick: 'handleSubmenuAction' },
+							{ label: 'Paste', value: 'paste', onClick: 'handleSubmenuAction' },
+							{ separator: true },
+							{ 
+								label: 'Advanced', 
+								submenu: [
+									{ label: 'Find & Replace', value: 'find-replace', onClick: 'handleSubmenuAction' },
+									{ label: 'Go to Line', value: 'go-to-line', onClick: 'handleSubmenuAction' },
+									{ label: 'Format Document', value: 'format', onClick: 'handleSubmenuAction' },
+								]
+							},
+						]
+					},
+					{ 
+						label: 'View', 
+						submenu: [
+							{ label: 'Zoom In', value: 'zoom-in', onClick: 'handleSubmenuAction' },
+							{ label: 'Zoom Out', value: 'zoom-out', onClick: 'handleSubmenuAction' },
+							{ label: 'Reset Zoom', value: 'reset-zoom', onClick: 'handleSubmenuAction' },
+							{ separator: true },
+							{ 
+								label: 'Appearance', 
+								submenu: [
+									{ label: 'Theme', value: 'theme', onClick: 'handleSubmenuAction' },
+									{ label: 'Font Size', value: 'font-size', onClick: 'handleSubmenuAction' },
+									{ label: 'Word Wrap', value: 'word-wrap', onClick: 'handleSubmenuAction' },
+									{ separator: true },
+									{ label: 'Show Line Numbers', value: 'line-numbers', onClick: 'handleSubmenuAction' },
+									{ label: 'Show Minimap', value: 'minimap', onClick: 'handleSubmenuAction' },
+								]
+							},
+							{ separator: true },
+							{ label: 'Full Screen', value: 'fullscreen', onClick: 'handleSubmenuAction' },
+						]
+					},
+					{ 
+						label: 'Tools', 
+						submenu: [
+							{ label: 'Command Palette', value: 'command-palette', onClick: 'handleSubmenuAction' },
+							{ label: 'Terminal', value: 'terminal', onClick: 'handleSubmenuAction' },
+							{ separator: true },
+							{ 
+								label: 'Extensions', 
+								submenu: [
+									{ label: 'Install Extension', value: 'install-ext', onClick: 'handleSubmenuAction' },
+									{ 
+										label: 'Manage Extensions', 
+										submenu: [
+											{ label: 'Installed', value: 'installed', onClick: 'handleSubmenuAction' },
+											{ label: 'Recommended', value: 'recommended', onClick: 'handleSubmenuAction' },
+											{ label: 'Popular', value: 'popular', onClick: 'handleSubmenuAction' },
+											{ separator: true },
+											{ label: 'Browse Marketplace', href: '/extensions' },
+										]
+									},
+									{ separator: true },
+									{ label: 'Update All', value: 'update-all', onClick: 'handleSubmenuAction' },
+								]
+							},
+							{ label: 'Settings', value: 'settings', onClick: 'handleSubmenuAction' },
+						]
+					},
+					{ separator: true },
+					{ label: 'Help', href: '/docs' },
+					{ label: 'Settings', href: '/docs/components/settings' },
+				]}
+			/>
+		</div>
+		
+		<CodeBlock code={`<Dropdown 
+  trigger="Actions"
+  items={[
+    { 
+      label: 'Edit', 
+      submenu: [
+        { label: 'Cut', value: 'cut' },
+        { label: 'Copy', value: 'copy' },
+        { label: 'Paste', value: 'paste' },
+        { separator: true },
+        { 
+          label: 'Advanced', 
+          submenu: [
+            { label: 'Find & Replace', value: 'find-replace' },
+            { label: 'Go to Line', value: 'go-to-line' },
+            { label: 'Format Document', value: 'format' },
+          ]
+        },
+      ]
+    },
+    { 
+      label: 'View', 
+      submenu: [
+        { label: 'Zoom In', value: 'zoom-in' },
+        { label: 'Zoom Out', value: 'zoom-out' },
+        { label: 'Reset Zoom', value: 'reset-zoom' },
+        { separator: true },
+        { 
+          label: 'Appearance', 
+          submenu: [
+            { label: 'Theme', value: 'theme' },
+            { label: 'Font Size', value: 'font-size' },
+            { label: 'Word Wrap', value: 'word-wrap' },
+            { separator: true },
+            { label: 'Show Line Numbers', value: 'line-numbers' },
+            { label: 'Show Minimap', value: 'minimap' },
+          ]
+        },
+        { separator: true },
+        { label: 'Full Screen', value: 'fullscreen' },
+      ]
+    },
+    { 
+      label: 'Tools', 
+      submenu: [
+        { label: 'Command Palette', value: 'command-palette' },
+        { label: 'Terminal', value: 'terminal' },
+        { separator: true },
+        { 
+          label: 'Extensions', 
+          submenu: [
+            { label: 'Install Extension', value: 'install-ext' },
+            { 
+              label: 'Manage Extensions', 
+              submenu: [
+                { label: 'Installed', value: 'installed' },
+                { label: 'Recommended', value: 'recommended' },
+                { label: 'Popular', value: 'popular' },
+                { separator: true },
+                { label: 'Browse Marketplace', href: '/extensions' },
+              ]
+            },
+            { separator: true },
+            { label: 'Update All', value: 'update-all' },
+          ]
+        },
+        { label: 'Settings', value: 'settings' },
+      ]
+    },
+    { separator: true },
+    { label: 'Help', href: '/docs' },
+    { label: 'Settings', href: '/settings' },
+  ]}
+/>`} language="astro" />
+		
+		<h3>Menu Positioning</h3>
+		<div class="example">
+			<div class="example-title">Live Examples</div>
+			<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: var(--spacing-4); padding: var(--spacing-4); border: var(--outline-width) solid var(--border); border-radius: var(--radius-lg); background-color: var(--background-alt);">
+				<div>
+					<p style="margin: 0 0 var(--spacing-2) 0; font-size: var(--font-size-sm); color: var(--text-dim);">Menu aligns to left edge</p>
+					<Dropdown 
+						trigger="Left Position"
+						position="left"
+						items={[
+							{ label: 'Item 1', value: '1' },
+							{ label: 'Item 2', value: '2' },
+							{ label: 'Item 3', value: '3' },
+						]}
+					/>
+				</div>
+				<div style="margin-left: auto;">
+					<p style="margin: 0 0 var(--spacing-2) 0; font-size: var(--font-size-sm); color: var(--text-dim); text-align: right;">Menu aligns to right edge</p>
+					<Dropdown 
+						trigger="Right Position"
+						position="right"
+						items={[
+							{ label: 'Item 1', value: '1' },
+							{ label: 'Item 2', value: '2' },
+							{ label: 'Item 3', value: '3' },
+						]}
+					/>
+				</div>
+			</div>
+		</div>
+		
+		<CodeBlock code={`<!-- Menu aligns to left edge of trigger (default) -->
+<Dropdown 
+  trigger="Left Position"
+  position="left"
+  items={[...]}
+/>
+
+<!-- Menu aligns to right edge of trigger -->
+<Dropdown 
+  trigger="Right Position"
+  position="right"
+  items={[...]}
+/>`} language="astro" />
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>trigger</code> (string, required) - Text displayed on the trigger button</li>
+			<li><code>items</code> (MenuItem[], required) - Array of menu items</li>
+			<li><code>id</code> (string, optional) - Unique ID for the dropdown. Auto-generated if not provided</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+			<li><code>position</code> ('left' | 'right', optional) - Menu position relative to trigger (default: 'left')</li>
+			<li><code>align</code> ('start' | 'end', optional) - Menu alignment within position (default: 'start')</li>
+		</ul>
+		
+		<h3>MenuItem Interface</h3>
+		<ul>
+			<li><code>label</code> (string, required) - Display text for the menu item</li>
+			<li><code>value</code> (string, optional) - Value passed to onClick handler</li>
+			<li><code>href</code> (string, optional) - If provided, renders as a link instead of button</li>
+			<li><code>onClick</code> (string, optional) - Name of global function to call when clicked (must be available on window)</li>
+			<li><code>disabled</code> (boolean, optional) - Whether the item is disabled</li>
+			<li><code>separator</code> (boolean, optional) - If true, renders as a separator line</li>
+			<li><code>submenu</code> (MenuItem[], optional) - Array of menu items for nested submenu</li>
+		</ul>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End, Tab)</li>
+			<li>Nested submenus with click-to-open and keyboard support (ArrowRight/ArrowLeft)</li>
+			<li>Supports up to 3 levels of nested menus with proper parent menu preservation</li>
+			<li>Submenu items properly handle clicks and close parent menu</li>
+			<li>Accessible ARIA attributes (role="menu", role="menuitem", aria-expanded, aria-haspopup, aria-label)</li>
+			<li>All menu items have accessible names via aria-label attributes for screen readers</li>
+			<li>WCAG AA compliant touch targets (minimum 2.5rem/40px height)</li>
+			<li>No horizontal scrolling - submenus appear directly under parent items</li>
+			<li>Menus expand to show all items without vertical scrollbars</li>
+			<li>Smart submenu closing - only closes siblings at the same level, preserves parent menus</li>
+			<li>Outside click to close</li>
+			<li>Focus management (returns to trigger on close)</li>
+			<li>Menu items can be links or buttons</li>
+			<li>Separator support for grouping items</li>
+			<li>Disabled item support</li>
+			<li>Positioning options (left/right alignment)</li>
+			<li>Theme-aware styling using semantic variables</li>
+			<li>Smooth animations (respects prefers-reduced-motion)</li>
+			<li>Mobile responsive</li>
+		</ul>
+		
+		<h3>Keyboard Navigation</h3>
+		<ul>
+			<li><kbd>Enter</kbd> or <kbd>Space</kbd> - Open/close menu or activate item</li>
+			<li><kbd>ArrowDown</kbd> - Open menu and focus first item, or navigate down</li>
+			<li><kbd>ArrowUp</kbd> - Open menu and focus last item, or navigate up</li>
+			<li><kbd>ArrowRight</kbd> - Open submenu (if available) and focus first submenu item</li>
+			<li><kbd>ArrowLeft</kbd> - Close submenu and return focus to parent item</li>
+			<li><kbd>Home</kbd> - Jump to first item</li>
+			<li><kbd>End</kbd> - Jump to last item</li>
+			<li><kbd>Escape</kbd> - Close menu</li>
+			<li><kbd>Tab</kbd> - Close menu and continue tabbing</li>
+		</ul>
+		
+		<h3>Accessibility</h3>
+		<ul>
+			<li>Uses proper ARIA menu pattern (role="menu", role="menuitem")</li>
+			<li>All menu items have accessible names via aria-label attributes</li>
+			<li>Keyboard accessible with full navigation support</li>
+			<li>Focus trapping within menu when open</li>
+			<li>Screen reader compatible with proper ARIA attributes</li>
+			<li>Disabled items are properly marked with aria-disabled</li>
+			<li>Submenu state properly communicated via aria-expanded and aria-haspopup</li>
+			<li>WCAG AA compliant with proper contrast ratios and touch targets</li>
+		</ul>
+		
+		<h3>Custom Click Handlers</h3>
+		<p>To use custom click handlers, define a global function and reference it by name:</p>
+		
+		<CodeBlock code={`<script is:inline>
+  window.handleAction = function(value) {
+    // console.log('Selected:', value);
+    // Your custom logic here
+  };
+</script>
+
+<Dropdown 
+  trigger="Actions"
+  items={[
+    { label: 'Edit', value: 'edit', onClick: 'handleAction' },
+    { label: 'Delete', value: 'delete', onClick: 'handleAction' },
+  ]}
+/>`} language="astro" />
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/dropdown">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for open/close and keyboard.</p>
+	</section>
+</DocsLayout>
+
+<script is:inline>
+  // Example handler for dropdown actions
+  window.handleAction = function(value) {
+    // console.log('Dropdown action selected:', value);
+    // In a real app, you would handle the action here
+  };
+  
+  // Example handler for submenu actions
+  window.handleSubmenuAction = function(value) {
+    // console.log('Submenu action selected:', value);
+    // In a real app, you would handle the action here
+  };
+</script>

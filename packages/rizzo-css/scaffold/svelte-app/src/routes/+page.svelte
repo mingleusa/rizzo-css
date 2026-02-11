@@ -16,8 +16,8 @@
   <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin: 0 0 var(--spacing-4) 0; color: var(--text);">Build something great</h1>
   <p style="font-size: var(--font-size-xl); color: var(--text-dim); max-width: 42ch; margin: 0 0 var(--spacing-8) 0; line-height: var(--line-height-relaxed);">Same design system as Vanilla JS and Astro — 14 themes, 24 components, full keyboard and screen reader support.</p>
   <div class="flex flex-wrap justify-center gap-4 mb-12">
-    <a href="https://rizzo-css.vercel.app/docs/getting-started" class="btn btn-primary" target="_blank" rel="noopener noreferrer">Get started</a>
-    <a href="https://rizzo-css.vercel.app/docs/components" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Components</a>
+    <a href="/components" class="btn btn-primary">Component showcase</a>
+    <a href="https://rizzo-css.vercel.app/docs/getting-started" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Get started (docs)</a>
     <button type="button" class="btn btn-outline" on:click={showDemoToast}>Show toast</button>
   </div>
   <div class="flex flex-wrap justify-center gap-3 mb-16">

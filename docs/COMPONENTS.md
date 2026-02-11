@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**What ships in the npm package:** The published `rizzo-css` package includes optional component files in `scaffold/astro/` and `scaffold/svelte/` (24 components each: Accordion, Alert, Avatar, Badge, Breadcrumb, Button, Card, CopyToClipboard, Divider, Dropdown, FormGroup/Input/Textarea/Select/Checkbox/Radio, Modal, Pagination, ProgressBar, Spinner, Table, Tabs, Toast, Tooltip, plus `icons/`). Use `npx rizzo-css add` or copy from the scaffold when creating a new app with `npx rizzo-css init`. Each scaffold folder (`vanilla/`, `astro-app/`, `svelte-app/`) has a README with setup and commands. The docs site is built from this repo; the same CSS and BEM are used everywhere.
+**Package:** Full scaffolds (vanilla, astro-app, svelte-app) and optional 24 components in `scaffold/astro/`, `scaffold/svelte/`. **Create new project** → full clone; **Add to existing** → CSS + optional components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.

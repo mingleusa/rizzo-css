@@ -1,0 +1,1259 @@
+---
+import SearchIcon from './icons/Search.astro';
+import Cmd from './icons/Cmd.astro';
+import Close from './icons/Close.astro';
+import { getSearchConfig } from '../config/search';
+
+interface Props {
+  algoliaAppId?: string;
+  algoliaApiKey?: string;
+  algoliaIndexName?: string;
+  useAlgolia?: boolean;
+}
+
+// Get default config from environment variables
+const envConfig = getSearchConfig();
+
+// Allow props to override environment variables
+const {
+  algoliaAppId = envConfig.algoliaAppId,
+  algoliaApiKey = envConfig.algoliaApiKey,
+  algoliaIndexName = envConfig.algoliaIndexName,
+  useAlgolia = envConfig.useAlgolia,
+} = Astro.props;
+
+const searchId = `search-${Math.random().toString(36).substr(2, 9)}`;
+const resultsId = `${searchId}-results`;
+---
+
+<div class="search" data-search>
+  <div class="search__trigger-wrapper">
+    <div class="tooltip-wrapper" aria-describedby={`${searchId}-tooltip`}>
+      <button
+        type="button"
+        class="search__trigger"
+        aria-label="Open search"
+        aria-expanded="false"
+        aria-controls={resultsId}
+        data-search-trigger
+      >
+        <SearchIcon width={20} height={20} class="search__icon" />
+        <span class="search__trigger-text">Search</span>
+        <kbd class="search__kbd" aria-hidden="true">
+          <span class="search__kbd-modifier" data-kbd-modifier><Cmd width={14} height={14} /></span>
+          <kbd>K</kbd>
+        </kbd>
+      </button>
+      <span class="tooltip tooltip--bottom" id={`${searchId}-tooltip`} role="tooltip" aria-hidden="true">Search</span>
+    </div>
+  </div>
+
+  <div class="search__overlay" data-search-overlay aria-hidden="true">
+    <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby={`${searchId}-title`} aria-hidden="true" id={resultsId} tabindex="-1" style="outline: none;">
+    <div class="search__header">
+      <h2 id={`${searchId}-title`} class="sr-only">Search documentation</h2>
+      <div class="search__input-wrapper">
+        <SearchIcon width={20} height={20} class="search__input-icon" aria-hidden="true" />
+        <input
+          type="search"
+          class="search__input"
+          id={`${searchId}-input`}
+          placeholder="Search documentation..."
+          autocomplete="off"
+          aria-label="Search documentation"
+          aria-controls={`${resultsId}-list`}
+          aria-autocomplete="list"
+          aria-activedescendant=""
+          role="searchbox"
+          tabindex="0"
+          data-search-input
+        />
+        <button
+          type="button"
+          class="search__clear"
+          aria-label="Clear search"
+          data-search-clear
+          aria-hidden="true"
+          tabindex="-1"
+        >
+          <Close width={18} height={18} />
+        </button>
+      </div>
+      <button
+        type="button"
+        class="search__close-btn"
+        aria-label="Close search"
+        data-search-close
+      >
+        <Close width={20} height={20} aria-hidden="true" />
+        <span class="search__close-text sr-only">Close</span>
+      </button>
+    </div>
+
+    <div class="search__results" id={`${resultsId}-list`} role="listbox" aria-label="Search results" aria-live="polite" aria-atomic="true">
+      <div class="search__empty" data-search-empty hidden>
+        <p class="search__empty-text">Start typing to search documentation...</p>
+      </div>
+      <div class="search__results-list" data-search-results role="group" aria-label="Search results list"></div>
+      <div class="search__loading" data-search-loading hidden>
+        <p class="search__loading-text" role="status" aria-live="polite">Searching...</p>
+      </div>
+      <div class="search__no-results" data-search-no-results hidden>
+        <p class="search__no-results-text" role="status" aria-live="polite">No results found</p>
+      </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ useAlgolia, algoliaAppId, algoliaApiKey, algoliaIndexName }}>
+  (function initSearch() {
+    const init = () => {
+      document.querySelectorAll('[data-search]').forEach((search) => {
+        if (search.__searchInstance) return;
+
+        const trigger = search.querySelector('[data-search-trigger]');
+      const overlay = search.querySelector('[data-search-overlay]');
+      const panel = search.querySelector('.search__panel');
+      const input = search.querySelector('[data-search-input]');
+      const clearBtn = search.querySelector('[data-search-clear]');
+      const closeBtn = search.querySelector('[data-search-close]');
+      const emptyState = search.querySelector('[data-search-empty]');
+      const resultsList = search.querySelector('[data-search-results]');
+      const loadingState = search.querySelector('[data-search-loading]');
+      const noResultsState = search.querySelector('[data-search-no-results]');
+
+      if (!trigger || !overlay || !panel || !input) {
+        console.error('Search: Missing required elements');
+        return;
+      }
+
+      if (!closeBtn) {
+        console.error('Search: Missing close button');
+      }
+
+      if (!emptyState || !resultsList || !loadingState || !noResultsState) {
+        console.error('Search: Missing result state elements', {
+          emptyState: !!emptyState,
+          resultsList: !!resultsList,
+          loadingState: !!loadingState,
+          noResultsState: !!noResultsState
+        });
+      }
+
+      // Extract searchId from input ID (format: searchId-input)
+      const inputId = input.id || '';
+      const searchId = inputId.replace('-input', '') || `search-${Math.random().toString(36).substr(2, 9)}`;
+      
+      // Log search configuration (commented for production)
+      // console.log('🔍 Search initialized with searchId:', searchId);
+      if (useAlgolia && algoliaAppId && algoliaApiKey) {
+        // console.log('✅ Algolia search enabled');
+        // console.log('   App ID:', algoliaAppId.substring(0, 8) + '...');
+        // console.log('   Index:', algoliaIndexName);
+      } else {
+        // console.log('ℹ️  Using client-side search (Algolia not configured)');
+        if (useAlgolia) {
+          console.warn('   ⚠️  Algolia enabled but credentials missing');
+        }
+      }
+
+      let previousActiveElement = null;
+      let searchTimeout = null;
+      let currentResults = [];
+      let selectedIndex = -1;
+      let focusableElements = [];
+      let firstFocusableElement = null;
+      let lastFocusableElement = null;
+
+      // Search index (client-side fallback)
+      const searchIndex = [
+        { title: 'Getting Started', url: '/docs/getting-started', category: 'Documentation', content: 'Installation, project structure, and quick start guide' },
+        { title: 'Design System', url: '/docs/design-system', category: 'Documentation', content: 'Core design principles, semantic variables, spacing, typography, and utilities' },
+        { title: 'Theming', url: '/docs/theming', category: 'Documentation', content: 'Theme system documentation and custom theme creation' },
+        { title: 'Colors', url: '/docs/colors', category: 'Documentation', content: 'Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)' },
+        { title: 'Accessibility', url: '/docs/accessibility', category: 'Documentation', content: 'Accessibility guidelines and utility classes' },
+        { title: 'Components Overview', url: '/docs/components', category: 'Components', content: 'Component library with usage examples and live demos' },
+        { title: 'Navbar', url: '/docs/components/navbar', category: 'Components', content: 'Responsive, accessible navigation bar' },
+        { title: 'Settings', url: '/docs/components/settings', category: 'Components', content: 'Comprehensive settings panel for theme switching and accessibility options' },
+        { title: 'Theme Switcher', url: '/docs/components/theme-switcher', category: 'Components', content: 'Accessible theme switcher with theme icons and keyboard navigation' },
+        { title: 'Button', url: '/docs/components/button', category: 'Components', content: 'Semantic button component with variants' },
+        { title: 'Badge', url: '/docs/components/badge', category: 'Components', content: 'Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option' },
+        { title: 'Forms', url: '/docs/components/forms', category: 'Components', content: 'Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)' },
+        { title: 'Cards', url: '/docs/components/cards', category: 'Components', content: 'Flexible card component with variants, sections, and image support' },
+        { title: 'Modal', url: '/docs/components/modal', category: 'Components', content: 'Accessible modal/dialog component with focus trapping and keyboard navigation' },
+        { title: 'Alert', url: '/docs/components/alert', category: 'Components', content: 'Accessible alert component with variants and dismissible functionality' },
+        { title: 'Toast', url: '/docs/components/toast', category: 'Components', content: 'Fixed position toast notifications with auto-dismiss and programmatic control' },
+        { title: 'Search', url: '/docs/components/search', category: 'Components', content: 'Search component with Algolia integration and live filtering' },
+        { title: 'CopyToClipboard', url: '/docs/components/copy-to-clipboard', category: 'Components', content: 'Copy to clipboard component with visual feedback' },
+        { title: 'Icons', url: '/docs/components/icons', category: 'Components', content: 'Reusable SVG icon components using Tabler Icons and Devicons with interactive card grid and copy functionality' },
+        { title: 'Tooltip', url: '/docs/components/tooltip', category: 'Components', content: 'Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling' },
+        { title: 'Dropdown', url: '/docs/components/dropdown', category: 'Components', content: 'Accessible dropdown menu component with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers' },
+        { title: 'Tabs', url: '/docs/components/tabs', category: 'Components', content: 'Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)' },
+        { title: 'GitHub Dark Classic', url: '/docs/themes/github-dark-classic', category: 'Themes', content: 'Dark theme - Official GitHub dark theme for VS Code' },
+        { title: 'Shades of Purple', url: '/docs/themes/shades-of-purple', category: 'Themes', content: 'Dark theme - Professional theme with bold purple shades' },
+        { title: 'Hack The Box', url: '/docs/themes/hack-the-box', category: 'Themes', content: 'Dark theme - Dark blue with lime green accent, built for hackers' },
+        { title: 'Pink Cat Boo', url: '/docs/themes/pink-cat-boo', category: 'Themes', content: 'Dark theme - Sweet and cute with rose pink accents' },
+        { title: 'Sandstorm Classic', url: '/docs/themes/sandstorm-classic', category: 'Themes', content: 'Dark theme - Dark red-based theme for late night coding' },
+        { title: 'Rocky Blood Orange', url: '/docs/themes/rocky-blood-orange', category: 'Themes', content: 'Dark theme - Dark theme with blood-orange accent' },
+        { title: 'Minimal Dark Neon Yellow', url: '/docs/themes/minimal-dark-neon-yellow', category: 'Themes', content: 'Dark theme - Minimal dark with neon yellow accent' },
+        { title: 'GitHub Light', url: '/docs/themes/github-light', category: 'Themes', content: 'Light theme - Official GitHub light theme for VS Code' },
+        { title: 'Red Velvet Cupcake', url: '/docs/themes/red-velvet-cupcake', category: 'Themes', content: 'Light theme - Velvet-cupcake theme with red accent' },
+        { title: 'Orangy One Light', url: '/docs/themes/orangy-one-light', category: 'Themes', content: 'Light theme - Light theme with orange accent' },
+        { title: 'Sunflower', url: '/docs/themes/sunflower', category: 'Themes', content: 'Light theme - Yellow light theme' },
+        { title: 'Green Breeze Light', url: '/docs/themes/green-breeze-light', category: 'Themes', content: 'Light theme - Green and blue focused with good contrast' },
+        { title: 'Cute Pink', url: '/docs/themes/cute-pink', category: 'Themes', content: 'Light theme - Cute pink light theme for VSCode' },
+        { title: 'Semi Light Purple', url: '/docs/themes/semi-light-purple', category: 'Themes', content: 'Light theme - Soft purple aesthetic theme by Kapil Yadav' },
+      ];
+
+      // Client-side search function
+      const performClientSearch = (query) => {
+        if (!query || typeof query !== 'string') {
+          return [];
+        }
+
+        const trimmed = query.trim();
+        if (trimmed.length < 1) {
+          return [];
+        }
+
+        const lowerQuery = trimmed.toLowerCase();
+        
+        try {
+          // Filter search index for matches
+          const filtered = searchIndex.filter((item) => {
+            if (!item || !item.title) return false;
+            
+            const titleLower = item.title.toLowerCase();
+            const contentLower = item.content ? item.content.toLowerCase() : '';
+            const categoryLower = item.category ? item.category.toLowerCase() : '';
+            
+            const titleMatch = titleLower.includes(lowerQuery);
+            const contentMatch = contentLower.includes(lowerQuery);
+            const categoryMatch = categoryLower.includes(lowerQuery);
+            
+            return titleMatch || contentMatch || categoryMatch;
+          });
+
+          // Calculate relevance and sort
+          const withRelevance = filtered.map((item) => ({
+            ...item,
+            relevance: calculateRelevance(item, lowerQuery),
+          }));
+
+          const sorted = withRelevance.sort((a, b) => b.relevance - a.relevance);
+          
+          return sorted;
+        } catch (error) {
+          console.error('Client search error:', error);
+          return [];
+        }
+      };
+
+      // Calculate relevance score
+      const calculateRelevance = (item, query) => {
+        let score = 0;
+        const lowerTitle = item.title.toLowerCase();
+        const lowerContent = item.content.toLowerCase();
+        const lowerCategory = item.category.toLowerCase();
+
+        // Title matches are most important
+        if (lowerTitle.includes(query)) {
+          score += 10;
+          if (lowerTitle.startsWith(query)) score += 5;
+        }
+
+        // Category matches
+        if (lowerCategory.includes(query)) {
+          score += 3;
+        }
+
+        // Content matches
+        if (lowerContent.includes(query)) {
+          score += 1;
+        }
+
+        return score;
+      };
+
+      // Algolia search function (if enabled)
+      const performAlgoliaSearch = async (query) => {
+        if (!useAlgolia || !algoliaAppId || !algoliaApiKey) {
+          // console.log('Algolia not configured, using client-side search');
+          return performClientSearch(query);
+        }
+
+        try {
+          let algoliasearch;
+          let useV5 = false;
+          
+          // Try to use npm package first (v5)
+          try {
+            const algoliaModule = await import('algoliasearch');
+            algoliasearch = algoliaModule.algoliasearch || algoliaModule.default?.algoliasearch;
+            
+            if (algoliasearch && typeof algoliasearch === 'function') {
+              useV5 = true;
+              // console.log('Using Algolia v5 client');
+            } else {
+              throw new Error('Algolia v5 not available');
+            }
+          } catch (npmError) {
+            console.warn('Algolia npm package not available, trying CDN fallback:', npmError.message);
+            // Fallback to CDN (v4)
+            try {
+              const algoliaModule = await import('https://cdn.jsdelivr.net/npm/algoliasearch@4/dist/algoliasearch-lite.umd.js');
+              algoliasearch = algoliaModule.default || algoliaModule;
+              
+              if (!algoliasearch || typeof algoliasearch !== 'function') {
+                throw new Error('Algolia client not available');
+              }
+              // console.log('Using Algolia v4 client (CDN)');
+            } catch (cdnError) {
+              console.error('Failed to load Algolia client from CDN:', cdnError.message);
+              throw new Error('Algolia client not available');
+            }
+          }
+          
+          const client = algoliasearch(algoliaAppId, algoliaApiKey);
+          
+          let results;
+          
+          if (useV5) {
+            // Use v5 API
+            // console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
+            const response = await client.search({
+              requests: [{
+                indexName: algoliaIndexName,
+                query: query,
+                params: {
+                  hitsPerPage: 10,
+                  attributesToRetrieve: ['title', 'url', 'category', 'content'],
+                  attributesToSnippet: ['content:20'],
+                },
+              }],
+            });
+            
+            results = response.results[0]?.hits || [];
+            // console.log(`Algolia returned ${results.length} results`);
+          } else {
+            // Use v4 API (fallback)
+            // console.log(`Searching Algolia index "${algoliaIndexName}" with query: "${query}"`);
+            const index = client.initIndex(algoliaIndexName);
+            const searchResponse = await index.search(query, {
+              hitsPerPage: 10,
+              attributesToRetrieve: ['title', 'url', 'category', 'content'],
+              attributesToSnippet: ['content:20'],
+            });
+            
+            results = searchResponse.hits || [];
+            // console.log(`Algolia returned ${results.length} results`);
+          }
+
+          return results.map((hit) => ({
+            title: hit.title || hit.hierarchy?.lvl0 || 'Untitled',
+            url: hit.url || hit.objectID,
+            category: hit.category || 'Documentation',
+            content: hit.content || hit._snippetResult?.content?.value || hit._highlightResult?.content?.value || '',
+          }));
+        } catch (error) {
+          console.warn('Algolia search failed, falling back to client-side search:', error);
+          console.error('Algolia error details:', {
+            message: error.message,
+            stack: error.stack,
+            useAlgolia,
+            hasAppId: !!algoliaAppId,
+            hasApiKey: !!algoliaApiKey,
+            indexName: algoliaIndexName
+          });
+          return performClientSearch(query);
+        }
+      };
+
+      // Render search results
+      const renderResults = (results) => {
+        // Always update current results and reset selection
+        currentResults = Array.isArray(results) ? results : [];
+        selectedIndex = -1;
+
+        // Hide all states first
+        if (emptyState) emptyState.setAttribute('hidden', 'true');
+        if (loadingState) loadingState.setAttribute('hidden', 'true');
+        if (noResultsState) noResultsState.setAttribute('hidden', 'true');
+
+        // Handle empty results
+        if (!results || !Array.isArray(results) || results.length === 0) {
+          if (resultsList) {
+            resultsList.setAttribute('hidden', 'true');
+            resultsList.classList.add('is-hidden');
+            resultsList.style.display = 'none';
+          }
+          if (noResultsState) noResultsState.removeAttribute('hidden');
+          if (input) input.setAttribute('aria-activedescendant', '');
+          return;
+        }
+
+        // Show results
+        if (!resultsList) {
+          console.error('Results list element not found!');
+          return;
+        }
+
+        // Build HTML for results with proper escaping
+        const resultsHTML = results.map((result, index) => {
+          if (!result || !result.title) {
+            return '';
+          }
+          
+          const resultId = `${searchId}-result-${index}`;
+          const escapedTitle = String(result.title || 'Untitled')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+          const escapedCategory = String(result.category || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;');
+          const escapedContent = result.content 
+            ? String(result.content)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .substring(0, 150)
+            : '';
+          const escapedUrl = result.url 
+            ? String(result.url).replace(/"/g, '&quot;')
+            : '#';
+          
+          return `
+            <div
+              class="search__result-item"
+              data-search-result
+              data-result-index="${index}"
+              data-url="${escapedUrl}"
+              id="${resultId}"
+              role="option"
+              aria-selected="false"
+              tabindex="-1"
+            >
+              <div class="search__result-category">${escapedCategory}</div>
+              <div class="search__result-title">${escapedTitle}</div>
+              ${escapedContent ? `<div class="search__result-content">${escapedContent}</div>` : ''}
+            </div>
+          `;
+        }).filter(Boolean).join('');
+        
+        // CRITICAL: Remove hidden state BEFORE setting innerHTML
+        resultsList.removeAttribute('hidden');
+        resultsList.classList.remove('is-hidden');
+        
+        // Set innerHTML
+        resultsList.innerHTML = resultsHTML;
+        
+        // CRITICAL: Force visibility with multiple methods
+        resultsList.removeAttribute('hidden');
+        resultsList.classList.remove('is-hidden');
+        resultsList.style.display = 'flex';
+        resultsList.style.visibility = 'visible';
+        resultsList.style.opacity = '1';
+        resultsList.style.minHeight = '200px';
+        resultsList.style.position = 'relative';
+        resultsList.style.left = '0';
+        resultsList.style.width = '100%';
+        
+        // Force a reflow to ensure styles are applied
+        void resultsList.offsetHeight;
+        
+        // Double-check and force removal again after reflow
+        if (resultsList.hasAttribute('hidden')) {
+          resultsList.removeAttribute('hidden');
+        }
+        if (resultsList.classList.contains('is-hidden')) {
+          resultsList.classList.remove('is-hidden');
+        }
+        
+        // Use requestAnimationFrame to ensure visibility after DOM updates
+        requestAnimationFrame(() => {
+          resultsList.removeAttribute('hidden');
+          resultsList.classList.remove('is-hidden');
+          resultsList.style.display = 'flex';
+          resultsList.style.visibility = 'visible';
+          resultsList.style.opacity = '1';
+        });
+        
+        // Ensure parent container (search__results) is visible
+        const resultsContainer = resultsList.parentElement;
+        if (resultsContainer) {
+          // CRITICAL: Fix positioning - reset any negative left values
+          resultsContainer.style.position = 'relative';
+          resultsContainer.style.left = '0';
+          resultsContainer.style.right = 'auto';
+          resultsContainer.style.width = '100%';
+          resultsContainer.style.display = 'flex';
+          resultsContainer.style.visibility = 'visible';
+          resultsContainer.style.opacity = '1';
+          resultsContainer.style.minHeight = '300px';
+          resultsContainer.style.height = 'auto';
+          resultsContainer.removeAttribute('hidden');
+          
+          // Also ensure the panel itself has proper height
+          const panel = resultsContainer.closest('.search__panel');
+          if (panel) {
+            panel.style.minHeight = '400px';
+          }
+        }
+        
+        // Also fix results list positioning
+        resultsList.style.position = 'relative';
+        resultsList.style.left = '0';
+        resultsList.style.right = 'auto';
+        resultsList.style.width = '100%';
+        
+        // Force each result item to be visible and add event handlers
+        const resultItems = resultsList.querySelectorAll('[data-search-result]');
+        // console.log('Found result items:', resultItems.length);
+        
+        resultItems.forEach((item, index) => {
+          if (index >= results.length) return;
+          
+          // Force visibility with explicit styles
+          item.style.display = 'block';
+          item.style.visibility = 'visible';
+          item.style.opacity = '1';
+          item.style.position = 'relative';
+          item.style.zIndex = String(10 + index);
+          item.style.width = '100%';
+          
+          // Also ensure child elements are visible
+          const title = item.querySelector('.search__result-title');
+          const category = item.querySelector('.search__result-category');
+          const content = item.querySelector('.search__result-content');
+          
+          if (title) {
+            title.style.display = 'block';
+            title.style.visibility = 'visible';
+            title.style.color = 'var(--text)';
+            title.style.fontSize = 'var(--font-size-base)';
+            title.style.fontWeight = 'var(--font-weight-medium)';
+          }
+          if (category) {
+            category.style.display = 'block';
+            category.style.visibility = 'visible';
+            category.style.color = 'var(--text-dim)';
+            category.style.fontSize = 'var(--font-size-xs)';
+          }
+          if (content) {
+            content.style.display = 'block';
+            content.style.visibility = 'visible';
+            content.style.color = 'var(--text-dim)';
+            content.style.fontSize = 'var(--font-size-sm)';
+          }
+          
+          // Verify first item is visible
+          if (index === 0) {
+            const itemStyle = window.getComputedStyle(item);
+            // console.log('First item computed styles:', {
+            //   display: itemStyle.display,
+            //   visibility: itemStyle.visibility,
+            //   opacity: itemStyle.opacity,
+            //   height: itemStyle.height,
+            //   width: itemStyle.width,
+            //   backgroundColor: itemStyle.backgroundColor,
+            //   color: itemStyle.color
+            // });
+          }
+          
+          // Add event handlers
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+            navigateToResult(results[index]);
+          });
+
+          item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              navigateToResult(results[index]);
+            }
+          });
+        });
+        
+        // console.log('Rendered', resultItems.length, 'result items');
+        if (resultItems.length > 0) {
+          const firstItemStyle = window.getComputedStyle(resultItems[0]);
+          // console.log('First item display:', firstItemStyle.display);
+          // console.log('First item visibility:', firstItemStyle.visibility);
+          // console.log('First item opacity:', firstItemStyle.opacity);
+          // console.log('First item color:', firstItemStyle.color);
+          // console.log('First item background:', firstItemStyle.backgroundColor);
+        }
+
+        // Update focusable elements - ensure all are tabbable
+        const tabbableClearBtn = clearBtn && clearBtn.getAttribute('aria-hidden') !== 'true' ? clearBtn : null;
+        const tabbableCloseBtn = closeBtn && window.innerWidth <= 1023 ? closeBtn : null; // Close button on mobile
+        focusableElements = [
+          input,
+          ...(tabbableClearBtn ? [tabbableClearBtn] : []),
+          ...(tabbableCloseBtn ? [tabbableCloseBtn] : []),
+          ...Array.from(resultItems)
+        ].filter(Boolean);
+        firstFocusableElement = focusableElements[0];
+        lastFocusableElement = focusableElements[focusableElements.length - 1];
+        
+        // Ensure all result items are tabbable
+        resultItems.forEach((item) => {
+          item.setAttribute('tabindex', '0');
+        });
+      };
+
+      // Navigate to search result
+      const navigateToResult = (result) => {
+        // Use closeSearch directly - it will be the wrapped version once reassigned
+        closeSearch();
+        window.location.href = result.url;
+      };
+
+      // Perform search
+      const performSearch = async (query) => {
+        const trimmedQuery = query ? query.trim() : '';
+        
+        // Clear previous timeout
+        if (searchTimeout) {
+          clearTimeout(searchTimeout);
+          searchTimeout = null;
+        }
+
+        // If query is empty, show ALL results by default
+        if (!trimmedQuery || trimmedQuery.length < 1) {
+          // console.log('Empty query - showing all results');
+          const allResults = searchIndex.map((item, index) => ({
+            ...item,
+            relevance: 100 - index, // Give all items a relevance score
+          }));
+          renderResults(allResults);
+          return;
+        }
+
+        // Show loading state immediately (briefly) - but don't hide results list yet
+        emptyState?.setAttribute('hidden', 'true');
+        loadingState?.removeAttribute('hidden');
+        noResultsState?.setAttribute('hidden', 'true');
+
+        // Debounce search - shorter delay for more responsive feel
+        searchTimeout = setTimeout(async () => {
+          try {
+            let results = [];
+            
+            // Use Algolia if configured, otherwise fall back to client-side search
+            if (useAlgolia && algoliaAppId && algoliaApiKey) {
+              // console.log('Using Algolia search for query:', trimmedQuery);
+              results = await performAlgoliaSearch(trimmedQuery);
+            } else {
+              // console.log('Using client-side search for query:', trimmedQuery);
+              results = performClientSearch(trimmedQuery);
+            }
+            
+            // Debug logging (commented for production)
+            // console.log('Search results:', results);
+            // console.log('Results count:', results ? results.length : 0);
+            
+            // Render results
+            if (Array.isArray(results) && results.length > 0) {
+              renderResults(results);
+            } else {
+              // Show no results state
+              renderResults([]);
+            }
+          } catch (error) {
+            console.error('Search error:', error);
+            // Fall back to client-side search on error
+            try {
+              const fallbackResults = performClientSearch(trimmedQuery);
+              renderResults(fallbackResults);
+            } catch (fallbackError) {
+              console.error('Fallback search error:', fallbackError);
+              renderResults([]);
+            }
+          }
+        }, useAlgolia && algoliaAppId && algoliaApiKey ? 300 : 150);
+      };
+
+      // Trap focus within search panel - only for Tab key navigation
+      const trapFocus = (e) => {
+        if (panel.getAttribute('aria-hidden') === 'true') return;
+        if (e.key !== 'Tab') return;
+
+        // CRITICAL: If panel itself has focus, immediately move to first element
+        if (document.activeElement === panel) {
+          e.preventDefault();
+          e.stopPropagation();
+          input?.focus();
+          return;
+        }
+
+        // Update focusable elements list (exclude panel itself)
+        const allResultItems = Array.from(resultsList?.querySelectorAll('[data-search-result]') || []);
+        const tabbableClearBtn = clearBtn && clearBtn.getAttribute('aria-hidden') !== 'true' ? clearBtn : null;
+        const tabbableCloseBtn = closeBtn && window.innerWidth <= 1023 ? closeBtn : null; // Close button on mobile
+        const currentFocusableElements = [
+          input,
+          ...(tabbableClearBtn ? [tabbableClearBtn] : []),
+          ...(tabbableCloseBtn ? [tabbableCloseBtn] : []),
+          ...allResultItems
+        ].filter(Boolean);
+        
+        // Ensure panel is never in the list
+        const filteredElements = currentFocusableElements.filter(el => el !== panel);
+        
+        const firstElement = filteredElements[0];
+        const lastElement = filteredElements[filteredElements.length - 1];
+
+        if (e.shiftKey) {
+          // Shift + Tab (backward)
+          if (document.activeElement === firstElement || document.activeElement === panel) {
+            e.preventDefault();
+            lastElement?.focus();
+          }
+        } else {
+          // Tab (forward)
+          if (document.activeElement === lastElement || document.activeElement === panel) {
+            e.preventDefault();
+            firstElement?.focus();
+          }
+        }
+      };
+
+      // Open search
+      let openSearch = () => {
+        previousActiveElement = document.activeElement;
+        
+        // On mobile, close mobile menu if it's open
+        const isMobile = window.innerWidth <= 1023;
+        if (isMobile) {
+          const mobileMenu = document.querySelector('.navbar__menu');
+          const mobileToggle = document.querySelector('.navbar__toggle');
+          if (mobileMenu && mobileMenu.classList.contains('navbar__menu--open')) {
+            mobileMenu.classList.remove('navbar__menu--open');
+          }
+          if (mobileToggle) {
+            mobileToggle.setAttribute('aria-expanded', 'false');
+          }
+        }
+        
+        // Add class to navbar to hide bottom border
+        const navbar = document.querySelector('.navbar');
+        if (navbar) {
+          navbar.classList.add('navbar--search-open');
+        }
+        
+        // Prevent body scroll
+        document.body.style.overflow = 'hidden';
+        
+        // Show overlay and panel in one step to avoid stagger
+        search.setAttribute('aria-hidden', 'false');
+        overlay?.setAttribute('aria-hidden', 'false');
+        panel.setAttribute('aria-hidden', 'false');
+        panel.setAttribute('data-open', 'true');
+
+        panel.setAttribute('tabindex', '-1');
+        panel.style.outline = 'none';
+        panel.style.pointerEvents = '';
+
+        // Show all results and update focusable elements
+        setTimeout(() => {
+          const allResults = searchIndex.map((item, index) => ({
+            ...item,
+            relevance: 100 - index,
+          }));
+          renderResults(allResults);
+
+          const allResultItems = Array.from(resultsList?.querySelectorAll('[data-search-result]') || []);
+          const tabbableCloseBtn = closeBtn && window.innerWidth <= 1023 ? closeBtn : null;
+          focusableElements = [
+            input,
+            ...(clearBtn && clearBtn.getAttribute('aria-hidden') !== 'true' ? [clearBtn] : []),
+            ...(tabbableCloseBtn ? [tabbableCloseBtn] : []),
+            ...allResultItems
+          ].filter(Boolean);
+          firstFocusableElement = focusableElements[0];
+          lastFocusableElement = focusableElements[focusableElements.length - 1];
+
+          allResultItems.forEach((item) => {
+            item.setAttribute('tabindex', '0');
+          });
+
+          input?.focus();
+        }, 0);
+      };
+
+      // Close search
+      let closeSearch = () => {
+        panel.removeAttribute('data-open');
+        input?.setAttribute('aria-activedescendant', '');
+
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const animationDuration = prefersReducedMotion ? 0 : 300;
+
+        setTimeout(() => {
+          // Restore body scroll
+          document.body.style.overflow = '';
+          
+          // Remove class from navbar to show bottom border again
+          const navbar = document.querySelector('.navbar');
+          if (navbar) {
+            navbar.classList.remove('navbar--search-open');
+          }
+          
+          search.setAttribute('aria-hidden', 'true');
+          overlay?.setAttribute('aria-hidden', 'true');
+          panel.setAttribute('aria-hidden', 'true');
+          input.value = '';
+          renderResults([]);
+          selectedIndex = -1;
+
+          const isMobile = window.innerWidth <= 1023;
+          if (!isMobile && previousActiveElement) {
+            // Desktop: restore focus normally
+            previousActiveElement.focus();
+          }
+          // Clear previousActiveElement on both mobile and desktop
+          previousActiveElement = null;
+          
+          // Ensure search elements are truly hidden and don't block clicks on both desktop and mobile
+          if (overlay) {
+            overlay.style.display = 'none';
+            overlay.style.pointerEvents = 'none';
+          }
+          if (panel) {
+            panel.style.display = 'none';
+            panel.style.pointerEvents = 'none';
+          }
+          search.style.pointerEvents = '';
+          
+          // Reset after a brief delay to ensure navigation can work
+          setTimeout(() => {
+            if (overlay) {
+              overlay.style.display = '';
+              overlay.style.pointerEvents = '';
+            }
+            if (panel) {
+              panel.style.display = '';
+              panel.style.pointerEvents = '';
+            }
+          }, isMobile ? 200 : 100);
+        }, animationDuration);
+      };
+
+      // Clear/Close search - X button closes the search panel
+      const clearSearch = (e) => {
+        const isMobile = window.innerWidth <= 1023;
+        if (e && !isMobile) {
+          // Desktop: prevent default to avoid any navigation
+          e.preventDefault();
+          e.stopPropagation();
+        }
+        // Close the search panel
+        if (isMobile) {
+          // On mobile: close asynchronously to avoid blocking menu toggle
+          setTimeout(() => {
+            closeSearch();
+          }, 0);
+        } else {
+          closeSearch();
+        }
+      };
+
+      // Update active descendant
+      const updateActiveDescendant = () => {
+        if (selectedIndex >= 0 && currentResults && currentResults[selectedIndex]) {
+          const activeId = `${searchId}-result-${selectedIndex}`;
+          const activeElement = document.getElementById(activeId);
+          if (activeElement) {
+            input?.setAttribute('aria-activedescendant', activeId);
+          } else {
+            input?.setAttribute('aria-activedescendant', '');
+          }
+        } else {
+          input?.setAttribute('aria-activedescendant', '');
+        }
+      };
+
+      // Keyboard navigation for results
+      const handleResultNavigation = (e) => {
+        if (panel.getAttribute('aria-hidden') === 'true') return;
+
+        const resultItems = resultsList?.querySelectorAll('[data-search-result]');
+        if (!resultItems || resultItems.length === 0) {
+          // If no results, allow default behavior
+          return;
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          selectedIndex = (selectedIndex + 1) % resultItems.length;
+          resultItems[selectedIndex].focus();
+          resultItems[selectedIndex].setAttribute('aria-selected', 'true');
+          Array.from(resultItems).forEach((item, idx) => {
+            if (idx !== selectedIndex) item.setAttribute('aria-selected', 'false');
+          });
+          updateActiveDescendant();
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          selectedIndex = selectedIndex <= 0 ? resultItems.length - 1 : selectedIndex - 1;
+          resultItems[selectedIndex].focus();
+          resultItems[selectedIndex].setAttribute('aria-selected', 'true');
+          Array.from(resultItems).forEach((item, idx) => {
+            if (idx !== selectedIndex) item.setAttribute('aria-selected', 'false');
+          });
+          updateActiveDescendant();
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          if (resultItems.length > 0) {
+            selectedIndex = 0;
+            resultItems[0].focus();
+            resultItems[0].setAttribute('aria-selected', 'true');
+            Array.from(resultItems).forEach((item, idx) => {
+              if (idx !== 0) item.setAttribute('aria-selected', 'false');
+            });
+            updateActiveDescendant();
+          }
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          if (resultItems.length > 0) {
+            selectedIndex = resultItems.length - 1;
+            resultItems[selectedIndex].focus();
+            resultItems[selectedIndex].setAttribute('aria-selected', 'true');
+            Array.from(resultItems).forEach((item, idx) => {
+              if (idx !== selectedIndex) item.setAttribute('aria-selected', 'false');
+            });
+            updateActiveDescendant();
+          }
+        } else if (e.key === 'Enter' && selectedIndex >= 0 && currentResults[selectedIndex]) {
+          e.preventDefault();
+          navigateToResult(currentResults[selectedIndex]);
+        }
+      };
+
+      // Event listeners - use closeSearch/openSearch directly (will be wrapped versions after reassignment)
+      trigger?.addEventListener('click', (e) => {
+        const isMobile = window.innerWidth <= 1023;
+        const isSearchOpen = panel.getAttribute('aria-hidden') === 'false';
+        
+        if (isMobile) {
+          // On mobile: check if search is actually open before toggling
+          // This prevents reopening if it's already closed
+          if (isSearchOpen) {
+            // Search is open, close it
+            closeSearch(); // Will be wrapped version after reassignment
+          } else {
+            // Search is closed, open it
+            // Don't prevent default/stop propagation to avoid blocking menu toggle
+            openSearch(); // Will be wrapped version after reassignment
+          }
+        } else {
+          // Desktop: prevent default to avoid any navigation
+          e.preventDefault();
+          e.stopPropagation();
+          
+          // Always open search when button is clicked
+          if (isSearchOpen) {
+            closeSearch(); // Toggle: close if already open
+          } else {
+            openSearch(); // Will be wrapped version after reassignment
+          }
+        }
+      });
+      
+      overlay?.addEventListener('click', (e) => {
+        // Close only when clicking the backdrop (overlay itself), not when clicking inside the panel
+        if (e.target === overlay) {
+          closeSearch(); // Will be wrapped version after reassignment
+        }
+      });
+      
+      // On desktop, also close search when clicking navbar links
+      if (window.innerWidth > 1023) {
+        document.addEventListener('click', (e) => {
+          const target = e.target;
+          // Check if click is on a navbar link
+          if (target && (target.closest('.navbar__link') || target.closest('.navbar__sublink'))) {
+            // Only close if search is actually open
+            if (panel.getAttribute('aria-hidden') === 'false') {
+              closeSearch(); // Will be wrapped version after reassignment
+            }
+          }
+        }, true); // Use capture phase to catch before navigation
+      }
+      clearBtn?.addEventListener('click', clearSearch);
+      
+      // Close button handler - must use wrapped version
+      // On mobile, ensure it doesn't block menu toggle
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          const isMobile = window.innerWidth <= 1023;
+          
+          if (isMobile) {
+            // On mobile: close search asynchronously to avoid blocking menu toggle
+            // Don't prevent default or stop propagation - let the event complete
+            setTimeout(() => {
+              closeSearch(); // Will use wrapped version after reassignment
+            }, 0);
+          } else {
+            // Desktop: prevent default to avoid any navigation
+            e.preventDefault();
+            e.stopPropagation();
+            closeSearch(); // Will use wrapped version after reassignment
+          }
+        });
+      }
+      
+      // Close search on Escape key (handled in input keydown)
+      // Close search when clicking overlay (already handled above)
+
+      input?.addEventListener('input', (e) => {
+        const query = e.target ? e.target.value : '';
+        
+        // Ensure search panel is open when user types
+        if (panel.getAttribute('aria-hidden') === 'true') {
+          openSearch(); // Will be wrapped version after reassignment
+          // After opening, perform search with the query
+          setTimeout(() => performSearch(query), 150);
+          return;
+        }
+        
+        // Show/hide clear button based on input value
+        if (query && query.trim().length > 0) {
+          clearBtn?.removeAttribute('aria-hidden');
+          clearBtn?.setAttribute('tabindex', '0');
+        } else {
+          clearBtn?.setAttribute('aria-hidden', 'true');
+          clearBtn?.setAttribute('tabindex', '-1');
+        }
+        
+        // Perform search immediately as user types
+        performSearch(query);
+      });
+      
+      // Open search when input is focused (works on both desktop and mobile)
+      input?.addEventListener('focus', () => {
+        if (panel.getAttribute('aria-hidden') === 'true') {
+          openSearch(); // Will be wrapped version after reassignment
+        }
+      });
+
+      input?.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSearch();
+          return;
+        } else if (e.key === 'Enter') {
+          // If there are results and one is selected, navigate to it
+          if (selectedIndex >= 0 && currentResults[selectedIndex]) {
+            e.preventDefault();
+            navigateToResult(currentResults[selectedIndex]);
+          } else if (currentResults.length > 0) {
+            // If there are results but none selected, navigate to first
+            e.preventDefault();
+            navigateToResult(currentResults[0]);
+          }
+        } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp' || e.key === 'Home' || e.key === 'End') {
+          handleResultNavigation(e);
+        } else if (e.key === 'Tab') {
+          // Trap Tab to keep focus within panel
+          trapFocus(e);
+        }
+      });
+      
+      // Also handle Escape on the panel itself and prevent panel from receiving focus
+      panel.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && panel.getAttribute('aria-hidden') === 'false') {
+          e.preventDefault();
+          e.stopPropagation();
+          closeSearch();
+        } else if (e.key === 'Tab') {
+          // Trap Tab key to keep focus within panel content
+          trapFocus(e);
+        }
+      });
+      
+      // AGGRESSIVELY prevent panel from receiving focus - redirect immediately
+      const preventPanelFocus = (e) => {
+        if (e.target === panel || document.activeElement === panel) {
+          e.preventDefault();
+          e.stopPropagation();
+          // Immediately redirect focus to input
+          requestAnimationFrame(() => {
+            if (document.activeElement === panel) {
+              input?.focus();
+            }
+          });
+        }
+      };
+      
+      // Multiple event listeners to catch all focus attempts
+      panel.addEventListener('focus', preventPanelFocus, true);
+      panel.addEventListener('focusin', preventPanelFocus, true);
+      
+      // Also prevent focus on mousedown/click
+      panel.addEventListener('mousedown', (e) => {
+        if (e.target === panel) {
+          e.preventDefault();
+        }
+      });
+      
+      // Monitor for any focus changes and redirect if panel gets focus
+      let focusCheckInterval = null;
+      const focusObserver = new MutationObserver(() => {
+        if (document.activeElement === panel && panel.getAttribute('aria-hidden') === 'false') {
+          input?.focus();
+        }
+      });
+      
+      // Observe the panel for attribute changes that might affect focus
+      focusObserver.observe(panel, { attributes: true, attributeFilter: ['aria-hidden'] });
+      
+      // Also check periodically (fallback) - only when panel is open
+      const startFocusCheck = () => {
+        if (focusCheckInterval) clearInterval(focusCheckInterval);
+        focusCheckInterval = setInterval(() => {
+          if (panel.getAttribute('aria-hidden') === 'false' && document.activeElement === panel) {
+            input?.focus();
+          }
+        }, 100);
+      };
+      
+      const stopFocusCheck = () => {
+        if (focusCheckInterval) {
+          clearInterval(focusCheckInterval);
+          focusCheckInterval = null;
+        }
+      };
+      
+      // Store original functions
+      const originalOpenSearch = openSearch;
+      const originalCloseSearch = closeSearch;
+      
+      // Create wrapped versions that include focus checking
+      const wrappedOpenSearch = () => {
+        originalOpenSearch();
+        startFocusCheck();
+      };
+      
+      const wrappedCloseSearch = () => {
+        stopFocusCheck();
+        originalCloseSearch();
+      };
+      
+      // Replace the function references
+      openSearch = wrappedOpenSearch;
+      closeSearch = wrappedCloseSearch;
+      
+      // Store instance on the search element for global keyboard shortcut access
+      search.__searchInstance = {
+        openSearch: wrappedOpenSearch,
+        closeSearch: wrappedCloseSearch
+      };
+
+      // Trap focus in panel - only trap Tab key, not other keys
+      panel.addEventListener('keydown', (e) => {
+        if (e.key === 'Tab') {
+          trapFocus(e);
+        }
+      });
+
+      // Close search when clicking outside (on overlay or document)
+      document.addEventListener('click', (e) => {
+        if (panel.getAttribute('aria-hidden') === 'true') return;
+        
+        const target = e.target;
+        // Close if clicking on overlay or outside the panel (but not on trigger)
+        if (target === overlay || (!panel.contains(target) && target !== trigger && !trigger?.contains(target))) {
+          closeSearch();
+        }
+      });
+
+      // Note: Keyboard shortcut is now handled globally in the outer scope
+      // This ensures it works even if multiple Search components exist
+
+      // Update trigger aria-expanded
+      const updateTriggerState = () => {
+        const isOpen = panel.getAttribute('aria-hidden') === 'false';
+        trigger?.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      };
+
+      // Watch for panel state changes
+      const observer = new MutationObserver(updateTriggerState);
+      if (panel) {
+        observer.observe(panel, {
+          attributes: true,
+          attributeFilter: ['aria-hidden'],
+        });
+      }
+
+      });
+
+      // Set up global keyboard shortcut handler (only once per page)
+      // Do this AFTER all search instances are inited so __searchInstance exists
+      if (!window.__rizzoSearchShortcutSetup) {
+        window.__rizzoSearchShortcutSetup = true;
+        
+        document.addEventListener('keydown', (e) => {
+          const isModifierKey = e.ctrlKey || e.metaKey;
+          const isKKey = e.key === 'k' || e.key === 'K';
+          if (!isModifierKey || !isKKey) return;
+
+          const search = document.querySelector('[data-search]');
+          if (!search) return;
+          const panel = search.querySelector('.search__panel');
+          if (!panel) return;
+
+          const isSearchOpen = panel.getAttribute('aria-hidden') === 'false';
+          const target = e.target;
+          const isOtherInput = target && !search.contains(target) && (
+            target.tagName === 'INPUT' ||
+            target.tagName === 'TEXTAREA' ||
+            (target.isContentEditable === true) ||
+            target.closest('input, textarea, [contenteditable="true"]')
+          );
+
+          // Handle Cmd+K / Ctrl+K: toggle search (open or close). When search is open, always handle even if focus is in search input.
+          if (isSearchOpen || !isOtherInput) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+
+            const searchInstance = search.__searchInstance;
+            if (searchInstance && searchInstance.openSearch && searchInstance.closeSearch) {
+              if (isSearchOpen) {
+                searchInstance.closeSearch();
+              } else {
+                searchInstance.openSearch();
+              }
+            } else {
+              const trigger = search.querySelector('[data-search-trigger]');
+              if (trigger) {
+                if (isSearchOpen) {
+                  const overlay = search.querySelector('[data-search-overlay]');
+                  if (overlay) overlay.click();
+                } else {
+                  trigger.click();
+                }
+              }
+            }
+            return false;
+          }
+        }, true); // Use capture phase to intercept before browser handlers
+        // console.log('✅ Global keyboard shortcut handler registered (Cmd+K / Ctrl+K)');
+      }
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

@@ -1,0 +1,223 @@
+---
+interface Tab {
+  id: string;
+  label: string;
+  content?: string;
+}
+
+interface Props {
+  tabs: Tab[];
+  id?: string;
+  defaultTab?: string;
+  variant?: 'default' | 'pills' | 'underline';
+  class?: string;
+}
+
+const {
+  tabs,
+  id,
+  defaultTab,
+  variant = 'default',
+  class: className = '',
+} = Astro.props;
+
+const tabsId = id || `tabs-${Math.random().toString(36).substr(2, 9)}`;
+const activeTabId = defaultTab || tabs[0]?.id || '';
+const variantClass = variant !== 'default' ? `tabs--${variant}` : '';
+const classes = `tabs ${variantClass} ${className}`.trim();
+---
+
+<div class={classes} data-tabs={tabsId}>
+  <div
+    class="tabs__list"
+    role="tablist"
+    aria-label="Tabs"
+  >
+    {tabs.map((tab, index) => {
+      const tabId = `${tabsId}-tab-${tab.id}`;
+      const panelId = `${tabsId}-panel-${tab.id}`;
+      const isActive = tab.id === activeTabId;
+      
+      return (
+        <span
+          class={`tabs__tab ${isActive ? 'tabs__tab--active' : ''}`}
+          id={tabId}
+          role="tab"
+          tabindex={isActive ? 0 : -1}
+          aria-selected={isActive ? 'true' : 'false'}
+          aria-controls={panelId}
+          data-tab-id={tab.id}
+          data-tab-index={index}
+        >
+          {tab.label}
+        </span>
+      );
+    })}
+  </div>
+
+  <div class="tabs__panels-wrapper">
+    {tabs.map((tab, index) => {
+      const tabId = `${tabsId}-tab-${tab.id}`;
+      const panelId = `${tabsId}-panel-${tab.id}`;
+      const isActive = tab.id === activeTabId;
+      
+      return (
+        <div
+          class={`tabs__panel ${isActive ? 'tabs__panel--active' : ''}`}
+          id={panelId}
+          role="tabpanel"
+          aria-labelledby={tabId}
+          aria-hidden={isActive ? 'false' : 'true'}
+          data-panel-id={tab.id}
+          data-panel-index={index}
+        >
+          {tab.content ? (
+            <div set:html={tab.content} class="tabs__panel-content" />
+          ) : null}
+        </div>
+      );
+    })}
+  </div>
+  
+  <!-- Default slot for panel content (matched by order) -->
+  <div class="tabs__slot-content" style="display: none;">
+    <slot />
+  </div>
+</div>
+
+<script define:vars={{ tabsId, activeTabId }}>
+  (function initTabs() {
+    const init = () => {
+      const tabsContainer = document.querySelector(`[data-tabs="${tabsId}"]`);
+      if (!tabsContainer) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', init);
+          return;
+        }
+        return;
+      }
+
+      const tabButtons = tabsContainer.querySelectorAll('[role="tab"]');
+      const tabPanels = tabsContainer.querySelectorAll('[role="tabpanel"]');
+      
+      if (tabButtons.length === 0 || tabPanels.length === 0) {
+        return;
+      }
+
+      // Set initial active state
+      let activeIndex = Array.from(tabButtons).findIndex(
+        (btn) => btn.getAttribute('data-tab-id') === activeTabId
+      );
+      if (activeIndex === -1) activeIndex = 0;
+
+      const activateTab = (index) => {
+        // Validate index
+        if (index < 0 || index >= tabButtons.length) return;
+
+        const targetButton = tabButtons[index];
+        const targetTabId = targetButton.getAttribute('data-tab-id');
+        if (!targetTabId) return;
+
+        // Update all buttons
+        tabButtons.forEach((btn, idx) => {
+          const isActive = idx === index;
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          btn.setAttribute('tabindex', isActive ? '0' : '-1');
+          btn.classList.toggle('tabs__tab--active', isActive);
+        });
+
+        // Update all panels
+        tabPanels.forEach((panel) => {
+          const panelId = panel.getAttribute('data-panel-id');
+          const isActive = panelId === targetTabId;
+          panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          panel.classList.toggle('tabs__panel--active', isActive);
+        });
+      };
+
+      // Click handler
+      tabButtons.forEach((button, index) => {
+        button.addEventListener('click', () => {
+          activateTab(index);
+        });
+      });
+
+      // Keyboard navigation
+      tabButtons.forEach((button, index) => {
+        button.addEventListener('keydown', (e) => {
+          let targetIndex = index;
+
+          switch (e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+              e.preventDefault();
+              targetIndex = (index + 1) % tabButtons.length;
+              break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+              e.preventDefault();
+              targetIndex = index === 0 ? tabButtons.length - 1 : index - 1;
+              break;
+            case 'Home':
+              e.preventDefault();
+              targetIndex = 0;
+              break;
+            case 'End':
+              e.preventDefault();
+              targetIndex = tabButtons.length - 1;
+              break;
+            case 'Enter':
+            case ' ':
+              e.preventDefault();
+              activateTab(index);
+              return;
+            default:
+              return;
+          }
+
+          activateTab(targetIndex);
+          tabButtons[targetIndex].focus();
+        });
+      });
+
+      // Distribute slot content to panels (only if content property not used)
+      // Use requestAnimationFrame to ensure DOM is ready
+      requestAnimationFrame(() => {
+        const slotContent = tabsContainer.querySelector('.tabs__slot-content');
+        if (slotContent) {
+          const slotChildren = Array.from(slotContent.children);
+          
+          // Only distribute if we have slot children
+          if (slotChildren.length > 0) {
+            slotChildren.forEach((child, index) => {
+              if (index < tabPanels.length) {
+                const panel = tabPanels[index];
+                // Check if panel already has content from content property
+                // Content property adds a div with class tabs__panel-content
+                const hasContentProperty = panel.querySelector('.tabs__panel-content') !== null;
+                
+                // Only distribute slot content if panel doesn't have content property
+                if (!hasContentProperty) {
+                  // Simply move the child element itself into the panel
+                  // This preserves all content and structure
+                  panel.appendChild(child);
+                }
+              }
+            });
+          }
+          // Remove the wrapper after distribution
+          slotContent.remove();
+        }
+      });
+
+      // Initialize with default active tab
+      activateTab(activeIndex);
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

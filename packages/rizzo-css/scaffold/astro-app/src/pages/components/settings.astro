@@ -1,0 +1,78 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import Gear from '../../components/icons/Gear.astro';
+---
+
+<DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
+	
+	<p class="docs__read-docs">Read the full docs for this component at <a href="https://rizzo-css.vercel.app/docs/components/settings" target="_blank" rel="noopener noreferrer">https://rizzo-css.vercel.app/docs/components/settings</a>.</p>
+	
+		<section>
+		<h2>Settings Component</h2>
+		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
+		
+		<h3>Features</h3>
+		<ul>
+			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons (persists in localStorage as <code>theme</code>)</li>
+			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable). Persists in localStorage as <code>fontSizeScale</code></li>
+			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root. Persists in localStorage as <code>reducedMotion</code></li>
+			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root. Persists in localStorage as <code>highContrast</code></li>
+			<li><strong>Scrollbar Style</strong> - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to <code>html</code> element (<code>.scrollbar-thick</code> or <code>.scrollbar-hidden</code>). Persists in localStorage as <code>scrollbarStyle</code> (values: <code>thin</code>, <code>thick</code>, <code>hidden</code>)</li>
+			<li><strong>Opening and Closing Animations</strong> - Smooth slide-in from right with overlay fade (respects <code>prefers-reduced-motion</code>)</li>
+			<li><strong>Focus Trapping</strong> - Tab cycles within panel when open</li>
+			<li><strong>Focus Management</strong> - Returns focus to trigger element on close</li>
+			<li>Slide-in panel with overlay</li>
+			<li><strong>All settings persist in localStorage</strong> - All preferences are automatically saved and restored on page load</li>
+			<li>Full keyboard navigation (Escape to close)</li>
+			<li>Accessible ARIA attributes</li>
+			<li>Slider track visibility optimized for all themes</li>
+			<li><strong>Mobile Responsive</strong> - Full width on mobile devices, optimized layout</li>
+		</ul>
+		
+		<h3>Settings Persistence</h3>
+		<p>All settings options automatically persist to localStorage and are restored when the page loads:</p>
+		<ul>
+			<li><code>theme</code> - Selected theme name (e.g., <code>github-dark-classic</code>, <code>github-light</code>)</li>
+			<li><code>fontSizeScale</code> - Font size multiplier (e.g., <code>1.0</code> for 100%, <code>1.25</code> for 125%)</li>
+			<li><code>reducedMotion</code> - Boolean string (<code>true</code> or <code>false</code>)</li>
+			<li><code>highContrast</code> - Boolean string (<code>true</code> or <code>false</code>)</li>
+			<li><code>scrollbarStyle</code> - Scrollbar style preference (<code>thin</code>, <code>thick</code>, or <code>hidden</code>)</li>
+		</ul>
+		
+		<h3>Live example</h3>
+		<p>Open Settings via the gear icon in the navbar or the button below (same as navbar).</p>
+		<div class="example">
+			<div class="example-title">Open Settings</div>
+			<button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+				<Gear class="navbar__settings-icon" width={20} height={20} />
+				<span class="navbar__settings-label">Settings</span>
+			</button>
+		</div>
+		
+		<h3>Usage</h3>
+		<CodeBlock code={`---
+import Settings from '../../components/Settings.astro';
+---
+
+<!-- Include once in layout (e.g. with Navbar). Default closed. -->
+<Settings open={false} />
+
+<!-- Open/close from JS (e.g. navbar gear button): -->
+<!-- window.openSettings(); window.closeSettings(); -->`} language="astro" />
+		
+		<h3>Props</h3>
+		<ul>
+			<li><code>open</code> (boolean, optional) - Whether settings panel is open by default (default: false)</li>
+		</ul>
+		
+		<h3>Opening Settings</h3>
+		<p>The Settings component registers <code>window.openSettings()</code> and <code>window.closeSettings()</code>. The Navbar gear button calls <code>openSettings()</code>.</p>
+		<CodeBlock code={`// Open the settings panel (e.g. from a button or navbar)
+window.openSettings();
+
+// Close the settings panel
+window.closeSettings();`} language="javascript" />
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/settings">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; scaffold includes <code>openSettings()</code>.</p>
+	</section>
+</DocsLayout>

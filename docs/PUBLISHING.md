@@ -1,27 +1,25 @@
 # Publishing the npm package
 
-The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the built CSS, a **CLI** (`npx rizzo-css init` / `add` / `theme`), and **scaffolds**: **Vanilla JS** (`scaffold/vanilla/`), default **Astro** app (`scaffold/astro-app/`), default **Svelte** app (`scaffold/svelte-app/`), plus component picker (`scaffold/astro/`, `scaffold/svelte/` from `copy-scaffold.js`). Each scaffold folder has a README with setup and commands. Init first asks existing vs new project; all frameworks get the same CSS and component styles. Consumers can `npm install rizzo-css` and `import 'rizzo-css'`, or use a CDN (unpkg/jsDelivr) for plain HTML. Live package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css). Docs site: [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme`), and scaffolds (Vanilla, Astro, Svelte) plus optional 24 components. Init asks framework first, then existing vs new; Create new → full clone. [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
 
 ## Features
 
-- **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` produces `dist/rizzo.min.css`. Versioning strategy (semver, when to bump) is documented in [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr. The package sets `"unpkg": "dist/rizzo.min.css"` and `"jsdelivr": "dist/rizzo.min.css"`, so `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` resolve to the CSS. For reliability or version pinning, use the explicit path: `https://unpkg.com/rizzo-css@0.0.12/dist/rizzo.min.css` and `https://cdn.jsdelivr.net/npm/rizzo-css@0.0.12/dist/rizzo.min.css`. **Verify after publish:** open the URL in a browser or run `curl -I <url>` and expect `200 OK`.
-- **Pre-publish checklist** — Version bump (root + package), build, publish, push, and CDN verification (`curl -I` on unpkg and jsDelivr) are documented in [Pre-publish checklist](#pre-publish-checklist).
-- **Single package** — One unscoped package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
-- **JavaScript utilities** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
-- **Svelte components** — In `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
-- **In-repo framework routes** — Svelte integrated in Astro; framework switcher; 24 Svelte component pages at `/docs/svelte`. React/Vue: same pattern when added. See [Framework Structure](./FRAMEWORK_STRUCTURE.md).
-- **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI Planning](./CLI_PLANNING.md).
+- **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`. [Versioning strategy](#versioning-strategy) below.
+- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.13/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, `scaffold/`. PrepublishOnly runs: `build:css`, `copy-scaffold.js`, `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js`.
+- **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Full clone for all three frameworks when user selects Create new project; Add to existing adds CSS + optional components.
+- **Pre-publish** — [Pre-publish checklist](#pre-publish-checklist): version bump, build, publish, push, CDN verify.
+- **CLI / Svelte / framework** — [CLI Planning](./CLI_PLANNING.md); [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md); [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md); [GETTING_STARTED – JS utilities](./GETTING_STARTED.md#javascript-utilities).
 
 ## Keeping npm and GitHub in sync
 
-**The npm package is a snapshot at publish time.** When you run `pnpm publish:package` (or `npm publish` from `packages/rizzo-css`), npm packs whatever is in that package **at that moment** — after `prepublishOnly` has run (`build:css` + `copy-scaffold.js`). Pushing to GitHub **after** you publish does **not** update the published package. The package only changes when you bump the version and run `npm publish` again.
+**The npm package is a snapshot at publish time.** When you run `pnpm publish:package` (or `npm publish` from `packages/rizzo-css`), npm packs whatever is in that package **at that moment** — after `prepublishOnly` has run (`build:css`, `copy-scaffold.js`, then `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js`). Pushing to GitHub **after** you publish does **not** update the published package. The package only changes when you bump the version and run `npm publish` again.
 
 So:
 
-- **New files that appear right after you run publish** — During `pnpm publish:package`, npm runs `prepublishOnly` first (`build:css` + `copy-scaffold.js`). That script writes/overwrites `scaffold/astro/`, `scaffold/svelte/`, and `scaffold/vanilla/icons`. **Then** npm packs the directory and uploads. So those “new” files you see in the scaffold folder after the command finishes **were included in the tarball**. The published npm package is up to date with them. Your working tree now has those files on disk; if they’re not committed, GitHub won’t have them until you commit and push (so commit and push to keep the repo in sync with what’s on npm).
+- **New files that appear right after you run publish** — During `pnpm publish:package`, npm runs `prepublishOnly` first: `build:css`, then `copy-scaffold.js` (writes `scaffold/astro/`, `scaffold/svelte/`, `scaffold/vanilla/icons`), then `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js` (populate `scaffold/astro-app/`, `scaffold/vanilla/components/`, `scaffold/svelte-app/` with chrome and component showcase). **Then** npm packs the directory and uploads. So those “new” files you see in the scaffold folder after the command finishes **were included in the tarball**. The published npm package is up to date with them. Your working tree now has those files on disk; if they’re not committed, GitHub won’t have them until you commit and push (so commit and push to keep the repo in sync with what’s on npm).
 - **Changes you make after the publish command has finished** — Any edits or new files you add *after* `pnpm publish:package` completes are **not** in the tarball you just published. To get them on npm, bump the version and publish again.
-- **Recommended order:** (1) Commit all source and scaffold changes. (2) Bump version. (3) Run `pnpm publish:package`. (4) Commit the scaffold/astro and scaffold/svelte (and vanilla/icons) updates that prepublishOnly wrote, then push. That way npm and GitHub both match the same release.
+- **Recommended order:** (1) Commit all source and scaffold changes. (2) Bump version. (3) Run `pnpm publish:package`. (4) Commit the scaffold updates that prepublishOnly wrote (`scaffold/astro/`, `scaffold/svelte/`, `scaffold/vanilla/icons` from copy-scaffold; `scaffold/astro-app/`, `scaffold/vanilla/`, `scaffold/svelte-app/` from the prepare-* scripts), then push. That way npm and GitHub both match the same release.
 
 ## Versioning strategy
 
@@ -50,14 +48,14 @@ Before publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.12"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
+   - `packages/rizzo-css/package.json` → `"version": "0.0.13"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**
    ```bash
    pnpm publish:package
    ```
-   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css` and `copy-scaffold.js` (fills `scaffold/astro/` from repo Astro components; fills `scaffold/svelte/` from repo Svelte 5 components and icons in `src/components/svelte/`; `scaffold/vanilla/` is committed in the package) before the actual publish. Enter your npm OTP if prompted (2FA).
+   This runs `pnpm build:css`, then `cd packages/rizzo-css && npm publish`. The package’s `prepublishOnly` script runs `build:css`, `copy-scaffold.js` (fills `scaffold/astro/`, `scaffold/svelte/`, `scaffold/vanilla/icons`), then `prepare-astro-scaffold.js`, `prepare-vanilla-scaffold.js`, `prepare-svelte-scaffold.js` (populate the full app scaffolds with chrome and component showcase) before the actual publish. Enter your npm OTP if prompted (2FA).
 
 3. **Or publish manually:**
    ```bash
