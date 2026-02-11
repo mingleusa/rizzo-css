@@ -27,8 +27,20 @@
   font-size: var(--font-size-xl);
   color: var(--text-dim);
   max-width: var(--spacing-175);
-  margin: 0 auto;
+  margin: 0 auto var(--spacing-8) auto;
   line-height: var(--line-height-relaxed);
+}
+
+.home__hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  justify-content: center;
+  margin-top: var(--spacing-6);
+}
+
+.home__hero-cta {
+  text-decoration: none;
 }
 
 .home__section-title {
@@ -274,4 +286,176 @@
 .theme-by a:hover {
   color: var(--accent-hover);
   text-decoration: underline;
+}
+
+/* ============================================
+   Docs layout (shadcn-style: sidebar + main)
+   ============================================ */
+
+.docs {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: var(--spacing-6) 0;
+  min-height: calc(100vh - 4rem);
+  position: relative;
+}
+
+.docs__sidebar-toggle {
+  display: none;
+  align-items: center;
+  gap: var(--spacing-2);
+  position: fixed;
+  bottom: var(--spacing-6);
+  left: var(--spacing-6);
+  z-index: calc(var(--z-settings) - 1);
+  background-color: var(--accent);
+  color: var(--accent-text);
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-4);
+  font-family: var(--font-family);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  transition: background-color var(--transition-base), transform var(--transition-base);
+}
+
+.docs__sidebar-toggle:hover {
+  background-color: var(--accent-hover);
+}
+
+.docs__sidebar-toggle:focus-visible {
+  outline: var(--outline-width) solid var(--accent-text);
+  outline-offset: var(--outline-offset);
+}
+
+.docs__sidebar-toggle-icon {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-0-375);
+}
+
+.docs__sidebar-toggle-icon span {
+  display: block;
+  width: var(--spacing-4);
+  height: 2px;
+  background-color: currentcolor;
+  border-radius: 1px;
+}
+
+.docs__sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: oklch(0% 0 0deg / 40%);
+  z-index: calc(var(--z-settings) - 2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.docs--sidebar-open .docs__sidebar-overlay {
+  opacity: 1;
+  visibility: visible;
+}
+
+.docs__main {
+  flex: 1 1 0%;
+  min-width: 0;
+}
+
+/* Sidebar - in-flow on desktop (inside container), sticky; fixed overlay on mobile */
+.docs-sidebar {
+  flex-shrink: 0;
+  width: var(--docs-sidebar-width, 14rem);
+  padding: var(--spacing-6) var(--spacing-4) var(--spacing-8) 0;
+  overflow-y: auto;
+  border-right: var(--border-width) solid var(--border);
+  background-color: var(--background);
+}
+
+/* Desktop: sidebar in flow next to content, sticky so it stays in place when scrolling */
+@media (width >= 1025px) {
+  .docs-sidebar {
+    position: sticky;
+    top: calc(var(--spacing-16) + var(--spacing-4));
+    max-height: calc(100vh - var(--spacing-16) - var(--spacing-4));
+    align-self: flex-start; /* don't stretch: lets sticky work when content scrolls */
+    z-index: 1;
+  }
+}
+
+.docs-sidebar__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.docs-sidebar__group-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--text-dim);
+  margin: 0 0 var(--spacing-2) 0;
+  padding: 0 var(--spacing-3);
+}
+
+.docs-sidebar__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.docs-sidebar__item {
+  margin: 0;
+}
+
+.docs-sidebar__link {
+  display: block;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  transition: color var(--transition-base), background-color var(--transition-base);
+}
+
+.docs-sidebar__link:hover {
+  color: var(--text);
+  background-color: var(--background-alt);
+}
+
+.docs-sidebar__link--active {
+  color: var(--accent);
+  font-weight: var(--font-weight-medium);
+  background-color: oklch(from var(--accent) l c h / 10%);
+}
+
+.docs-sidebar__link--active:hover {
+  color: var(--accent-hover);
+  background-color: oklch(from var(--accent) l c h / 14%);
+}
+
+/* Hide sidebar container on mobile (class set by inline script for immediate hide; media query for noscript/fallback) */
+html.docs-sidebar-mobile #docs-sidebar-container {
+  display: none !important;
+}
+
+/* Mobile: no docs sidebar (nav has full docs structure instead) */
+@media (width <= 1024px) {
+  #docs-sidebar-container,
+  .docs__sidebar-toggle,
+  .docs__sidebar-overlay,
+  .docs-sidebar {
+    display: none !important;
+  }
+}
+
+@media (width >= 1025px) {
+  .docs__sidebar-overlay[aria-hidden="true"] {
+    display: none !important;
+  }
 }

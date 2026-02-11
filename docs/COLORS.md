@@ -46,6 +46,82 @@ All components use semantic variables that automatically adapt to themes:
 - `--accent-text-on-hover` - Text on primary button hover; themes may set for light accent-hover
 - `--text-on-solid-hover` - Dark text on semantic button hover (success, warning, error, info)
 
+## Color Scales (Design Tokens)
+
+Color scales provide stepped shades (50–950) for each semantic color. **Scale 500 is the theme base** (e.g. `--color-accent-500` = `var(--accent)`); other steps are derived so they work across all themes.
+
+### Scale Variables
+
+| Scale   | Base token   | Design token steps |
+|--------|--------------|----------------------|
+| Neutral | (fixed gray) | `--color-neutral-50` … `--color-neutral-950` |
+| Accent  | `--accent`   | `--color-accent-50` … `--color-accent-950` |
+| Success | `--success`  | `--color-success-50` … `--color-success-950` |
+| Warning | `--warning`  | `--color-warning-50` … `--color-warning-950` |
+| Error   | `--error`    | `--color-error-50` … `--color-error-950` |
+| Info    | `--info`     | `--color-info-50` … `--color-info-950` |
+
+- **Neutral** is a fixed gray scale (theme-agnostic).
+- **Accent, success, warning, error, info** scales are derived from the theme’s semantic color using OKLCH relative color syntax, so they stay in sync when you switch themes.
+
+### All color scale tokens (design tokens)
+
+Every scale has 11 steps: `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, `950`. Step `500` is the theme base for accent/success/warning/error/info.
+
+**Neutral** (fixed gray scale):
+
+- `--color-neutral-50`, `--color-neutral-100`, `--color-neutral-200`, `--color-neutral-300`, `--color-neutral-400`, `--color-neutral-500`, `--color-neutral-600`, `--color-neutral-700`, `--color-neutral-800`, `--color-neutral-900`, `--color-neutral-950`
+
+**Accent** (derived from `--accent`):
+
+- `--color-accent-50`, `--color-accent-100`, `--color-accent-200`, `--color-accent-300`, `--color-accent-400`, `--color-accent-500`, `--color-accent-600`, `--color-accent-700`, `--color-accent-800`, `--color-accent-900`, `--color-accent-950`
+
+**Success** (derived from `--success`):
+
+- `--color-success-50`, `--color-success-100`, `--color-success-200`, `--color-success-300`, `--color-success-400`, `--color-success-500`, `--color-success-600`, `--color-success-700`, `--color-success-800`, `--color-success-900`, `--color-success-950`
+
+**Warning** (derived from `--warning`):
+
+- `--color-warning-50`, `--color-warning-100`, `--color-warning-200`, `--color-warning-300`, `--color-warning-400`, `--color-warning-500`, `--color-warning-600`, `--color-warning-700`, `--color-warning-800`, `--color-warning-900`, `--color-warning-950`
+
+**Error** (derived from `--error`):
+
+- `--color-error-50`, `--color-error-100`, `--color-error-200`, `--color-error-300`, `--color-error-400`, `--color-error-500`, `--color-error-600`, `--color-error-700`, `--color-error-800`, `--color-error-900`, `--color-error-950`
+
+**Info** (derived from `--info`):
+
+- `--color-info-50`, `--color-info-100`, `--color-info-200`, `--color-info-300`, `--color-info-400`, `--color-info-500`, `--color-info-600`, `--color-info-700`, `--color-info-800`, `--color-info-900`, `--color-info-950`
+
+### Using scale tokens in CSS
+
+```css
+.panel {
+  background-color: var(--color-accent-50);
+  border: 1px solid var(--color-accent-200);
+  color: var(--color-accent-800);
+}
+```
+
+### Color scale utility classes
+
+Utility classes follow the pattern `{property}-{scale}-{step}` (e.g. background, text, border):
+
+- **Background:** `bg-neutral-50`, `bg-accent-100`, `bg-success-500`, `bg-warning-200`, `bg-error-50`, `bg-info-100`, etc.
+- **Text:** `text-neutral-700`, `text-accent-600`, `text-success-700`, etc.
+- **Border:** `border-accent-200`, `border-success-300`, `border-error-500`, etc.
+
+Steps: `50`, `100`, `200`, `300`, `400`, `500`, `600`, `700`, `800`, `900`, `950`.
+
+Example:
+
+```html
+<div class="bg-accent-50 border border-accent-200 text-accent-900">
+  Light accent panel
+</div>
+```
+
+Theme colors (`--accent`, `--success`, etc.) are unchanged and remain the primary semantic tokens; scale tokens and utilities extend the system for backgrounds, borders, and stepped text colors.
+
 ## Color Format
 
 All colors use **OKLCH** format for better perceptual uniformity:

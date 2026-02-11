@@ -3,9 +3,24 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import CopyToClipboard from '../../components/CopyToClipboard.astro';
 import Card from '../../components/Card.astro';
+
+const COLOR_SCALE_STEPS = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
+const COLOR_SCALES: { id: string; label: string }[] = [
+	{ id: 'neutral', label: 'Neutral' },
+	{ id: 'accent', label: 'Accent' },
+	{ id: 'success', label: 'Success' },
+	{ id: 'warning', label: 'Warning' },
+	{ id: 'error', label: 'Error' },
+	{ id: 'info', label: 'Info' },
+];
+
+function textColorForStep(step: number): string {
+	return step <= 400 ? 'var(--text)' : 'var(--background)';
+}
 ---
 
 <DocsLayout title="Colors" description="Complete color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)">
+	<div class="colors-doc">
 	<section>
 		<h2>Color Reference</h2>
 		<p>All colors in Rizzo CSS use semantic variables that adapt to the selected theme. Switch themes to see how colors change. Select a format tab to view and copy colors in that format.</p>
@@ -28,7 +43,8 @@ import Card from '../../components/Card.astro';
 		
 		<h2>Core Colors</h2>
 		<div class="colors-grid">
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--background);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--background);" data-color-var="--background" data-color-source="--bg">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Background</h3>
@@ -38,9 +54,11 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--background-alt);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--background-alt);" data-color-var="--background-alt" data-color-source="--bg-alt">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Background Alt</h3>
@@ -50,9 +68,11 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--text);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--text); color: var(--background);" data-color-var="--text" data-color-source="--fg">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Text</h3>
@@ -62,9 +82,11 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--text-dim);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--text-dim); color: var(--background);" data-color-var="--text-dim" data-color-source="--fg-dim">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Text Dim</h3>
@@ -74,9 +96,11 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--border);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--border);" data-color-var="--border" data-color-source="--current-line">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Border</h3>
@@ -86,14 +110,16 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 		</div>
 	</section>
 	
 	<section>
 		<h2>Accent Colors</h2>
 		<div class="colors-grid">
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--accent);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--accent); color: var(--accent-text);" data-color-var="--accent" data-color-source="--purple,--cyan,--green">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Accent</h3>
@@ -103,9 +129,11 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--accent-hover);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--accent-hover); color: var(--accent-text);" data-color-var="--accent-hover" data-color-source="--pink,--purple,--cyan">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Accent Hover</h3>
@@ -115,14 +143,30 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--accent-text);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--accent-text); color: var(--accent);" data-color-var="--accent-text" data-color-source="--purple,--cyan,--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Accent Text</h3>
+						<p class="color-swatch__var">--accent-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
 		</div>
 	</section>
 	
 	<section>
 		<h2>Semantic Colors</h2>
 		<div class="colors-grid">
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--success);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--success); color: var(--success-text);" data-color-var="--success" data-color-source="--green">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Success</h3>
@@ -132,9 +176,25 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--success-text);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--success-text); color: var(--success);" data-color-var="--success-text" data-color-source="--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Success Text</h3>
+						<p class="color-swatch__var">--success-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--warning);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--warning); color: var(--warning-text);" data-color-var="--warning" data-color-source="--yellow">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Warning</h3>
@@ -144,9 +204,25 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--warning-text);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--warning-text); color: var(--warning);" data-color-var="--warning-text" data-color-source="--yellow">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Warning Text</h3>
+						<p class="color-swatch__var">--warning-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--error);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--error); color: var(--error-text);" data-color-var="--error" data-color-source="--red">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Error</h3>
@@ -156,9 +232,25 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
 			
-			<Card variant="elevated">
+			<div class="color-card" style="--color-card-bg: var(--error-text);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--error-text); color: var(--error);" data-color-var="--error-text" data-color-source="--red">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Error Text</h3>
+						<p class="color-swatch__var">--error-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--info);">
+				<Card variant="elevated">
 				<div class="color-swatch" style="background-color: var(--info); color: var(--info-text);" data-color-var="--info" data-color-source="--cyan">
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Info</h3>
@@ -168,10 +260,78 @@ import Card from '../../components/Card.astro';
 						</div>
 					</div>
 				</div>
-			</Card>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--info-text);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--info-text); color: var(--info);" data-color-var="--info-text" data-color-source="--cyan">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Info Text</h3>
+						<p class="color-swatch__var">--info-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
 		</div>
 	</section>
+
+	<section class="color-scales-section">
+		<h2>Color scales (design tokens)</h2>
+		<p>Stepped shades (50–950) for each scale. Step 500 is the theme base for accent, success, warning, error, and info. Neutral is a fixed gray scale. All values respect the format tabs above and support copy to clipboard.</p>
+		{COLOR_SCALES.map((scale) => (
+			<div class="color-scales-section__block">
+				<h3 class="color-scales-section__scale-title">{scale.label}</h3>
+				<div class="colors-grid colors-grid--scales">
+					{COLOR_SCALE_STEPS.map((step) => {
+						const varName = `--color-${scale.id}-${step}`;
+						const textColor = textColorForStep(step);
+						return (
+							<div class="color-card" style={`--color-card-bg: var(${varName});`}>
+								<Card variant="elevated">
+								<div
+									class="color-swatch color-swatch--scale"
+									style={`background-color: var(${varName}); color: ${textColor};`}
+									data-color-var={varName}
+								>
+									<div class="color-swatch__info">
+										<h4 class="color-swatch__name">{scale.label} {step}</h4>
+										<p class="color-swatch__var">{varName}</p>
+										<div class="color-swatch__formats">
+											<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+										</div>
+									</div>
+								</div>
+								</Card>
+							</div>
+						);
+					})}
+				</div>
+			</div>
+		))}
+	</section>
+	</div>
 </DocsLayout>
+
+<style is:global>
+	/* Same as core: wrapper shows color, inner card and swatch transparent. Global so scale cards (from map) get it too. */
+	.colors-doc .color-card {
+		background-color: var(--color-card-bg) !important;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+	.colors-doc .color-card .card,
+	.colors-doc .color-card .card.card--elevated {
+		background: transparent !important;
+		box-shadow: none;
+	}
+	.colors-doc .color-card .color-swatch {
+		background: transparent !important;
+	}
+</style>
 
 <style>
 	.color-format-tabs {
@@ -217,13 +377,13 @@ import Card from '../../components/Card.astro';
 	
 	.colors-grid {
 		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.5rem;
-		margin: 2rem 0;
+		grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+		gap: var(--spacing-6);
+		margin: var(--spacing-8) 0;
 	}
-	
+
 	.color-swatch {
-		min-height: var(--spacing-50);
+		min-height: 320px;
 		border-radius: var(--radius-lg);
 		padding: var(--spacing-6);
 		display: flex;
@@ -239,6 +399,7 @@ import Card from '../../components/Card.astro';
 		padding: var(--spacing-4);
 		border-radius: var(--radius-md);
 		margin-top: auto;
+		min-height: 120px;
 	}
 	
 	.color-swatch__name {
@@ -264,9 +425,84 @@ import Card from '../../components/Card.astro';
 		width: 100%;
 	}
 	
+	/* Vertically center copy button: value + icon in a row, icon centered to multi-line value */
+	.color-swatch :global(.copy-to-clipboard) {
+		display: inline-flex;
+		align-items: center;
+		width: 100%;
+	}
+	
+	/* Show full color value (no ellipsis) and leave room for icon */
+	.color-swatch :global(.copy-to-clipboard__text) {
+		flex: 1;
+		min-width: 0;
+		white-space: normal;
+		overflow: visible;
+		text-overflow: clip;
+		word-break: break-all;
+	}
+	
+	.color-swatch :global(.copy-to-clipboard__icon--copy) {
+		align-self: center;
+		flex-shrink: 0;
+	}
+	
+	.color-scales-section {
+		margin-top: var(--spacing-12);
+	}
+	
+	.color-scales-section__block {
+		margin-bottom: var(--spacing-10);
+	}
+	
+	.color-scales-section__block:last-child {
+		margin-bottom: 0;
+	}
+	
+	.color-scales-section__scale-title {
+		font-size: var(--font-size-2xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--text);
+		margin: var(--spacing-8) 0 var(--spacing-4) 0;
+		padding-bottom: var(--spacing-2);
+		border-bottom: 1px solid var(--border);
+	}
+	
+	.color-scales-section__block:first-child .color-scales-section__scale-title {
+		margin-top: var(--spacing-6);
+	}
+	
+	.colors-grid--scales {
+		grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+	}
+	
+	.color-swatch--scale {
+		min-height: 260px;
+	}
+	
+	.color-swatch--scale .color-swatch__info {
+		min-height: 100px;
+	}
+	
 	@media (width <= 640px) {
 		.colors-grid {
 			grid-template-columns: 1fr;
+		}
+		
+		.colors-grid--scales {
+			grid-template-columns: 1fr;
+		}
+		
+		.color-swatch {
+			min-height: 280px;
+		}
+		
+		.color-swatch__info {
+			min-height: 100px;
+		}
+		
+		.color-swatch--scale {
+			min-height: 240px;
 		}
 	}
 </style>
@@ -290,6 +526,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(78% 0.12 55deg)',
 				'--error': 'oklch(68% 0.16 15deg)',
 				'--info': 'oklch(72% 0.12 250deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'github-light': {
 				'--background': 'oklch(100% 0 0deg)',
@@ -303,6 +544,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(50% 0.2 25deg)',
 				'--info': 'oklch(55% 0.18 255deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'green-breeze-light': {
 				'--background': 'oklch(98% 0.008 140deg)',
@@ -316,6 +562,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(45% 0.18 25deg)',
 				'--info': 'oklch(58% 0.14 205deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'cute-pink': {
 				'--background': 'oklch(100% 0 0deg)',
@@ -329,6 +580,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(55% 0.2 25deg)',
 				'--info': 'oklch(55% 0.1 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'semi-light-purple': {
 				'--background': 'oklch(96% 0.02 290deg)',
@@ -342,6 +598,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(58% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'hack-the-box': {
 				'--background': 'oklch(16% 0.03 255deg)',
@@ -355,6 +616,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(82% 0.16 95deg)',
 				'--error': 'oklch(65% 0.22 25deg)',
 				'--info': 'oklch(68% 0.14 240deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'pink-cat-boo': {
 				'--background': 'oklch(18% 0.03 280deg)',
@@ -368,6 +634,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(78% 0.14 85deg)',
 				'--error': 'oklch(72% 0.18 350deg)',
 				'--info': 'oklch(72% 0.1 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'shades-of-purple': {
 				'--background': 'oklch(18% 0.08 290deg)',
@@ -381,6 +652,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(85% 0.18 100deg)',
 				'--error': 'oklch(65% 0.22 25deg)',
 				'--info': 'oklch(75% 0.15 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'sandstorm-classic': {
 				'--background': 'oklch(16% 0.025 25deg)',
@@ -394,6 +670,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(72% 0.14 55deg)',
 				'--error': 'oklch(58% 0.18 25deg)',
 				'--info': 'oklch(68% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'red-velvet-cupcake': {
 				'--background': 'oklch(99% 0.005 25deg)',
@@ -407,6 +688,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(62% 0.14 55deg)',
 				'--error': 'oklch(55% 0.17 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'rocky-blood-orange': {
 				'--background': 'oklch(16% 0.03 45deg)',
@@ -420,6 +706,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(62% 0.16 55deg)',
 				'--error': 'oklch(58% 0.18 25deg)',
 				'--info': 'oklch(68% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'orangy-one-light': {
 				'--background': 'oklch(99% 0.008 70deg)',
@@ -433,6 +724,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(58% 0.16 55deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'minimal-dark-neon-yellow': {
 				'--background': 'oklch(14% 0.01 95deg)',
@@ -446,6 +742,11 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(78% 0.14 55deg)',
 				'--error': 'oklch(62% 0.18 25deg)',
 				'--info': 'oklch(72% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 			'sunflower': {
 				'--background': 'oklch(98% 0.03 95deg)',
@@ -459,8 +760,22 @@ import Card from '../../components/Card.astro';
 				'--warning': 'oklch(62% 0.14 55deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
+				'--accent-text': 'oklch(100% 0 0deg)',
+				'--success-text': 'oklch(20% 0 0deg)',
+				'--warning-text': 'oklch(100% 0 0deg)',
+				'--error-text': 'oklch(100% 0 0deg)',
+				'--info-text': 'oklch(20% 0 0deg)',
 			},
 		};
+		
+			/** Scale token formulas: oklch(from var(--base) L C h). Step 500 = base; others use L,C with hue from base. */
+			const scaleTokenFormulas = {
+				'--color-accent-50': { baseVar: '--accent', L: 0.97, C: 0.03 }, '--color-accent-100': { baseVar: '--accent', L: 0.93, C: 0.06 }, '--color-accent-200': { baseVar: '--accent', L: 0.88, C: 0.1 }, '--color-accent-300': { baseVar: '--accent', L: 0.78, C: 0.14 }, '--color-accent-400': { baseVar: '--accent', L: 0.65, C: 0.16 }, '--color-accent-500': { baseVar: '--accent', L: null, C: null }, '--color-accent-600': { baseVar: '--accent', L: 0.45, C: 0.18 }, '--color-accent-700': { baseVar: '--accent', L: 0.38, C: 0.16 }, '--color-accent-800': { baseVar: '--accent', L: 0.3, C: 0.12 }, '--color-accent-900': { baseVar: '--accent', L: 0.22, C: 0.08 }, '--color-accent-950': { baseVar: '--accent', L: 0.15, C: 0.05 },
+				'--color-success-50': { baseVar: '--success', L: 0.97, C: 0.03 }, '--color-success-100': { baseVar: '--success', L: 0.93, C: 0.06 }, '--color-success-200': { baseVar: '--success', L: 0.88, C: 0.1 }, '--color-success-300': { baseVar: '--success', L: 0.78, C: 0.14 }, '--color-success-400': { baseVar: '--success', L: 0.65, C: 0.16 }, '--color-success-500': { baseVar: '--success', L: null, C: null }, '--color-success-600': { baseVar: '--success', L: 0.45, C: 0.18 }, '--color-success-700': { baseVar: '--success', L: 0.38, C: 0.16 }, '--color-success-800': { baseVar: '--success', L: 0.3, C: 0.12 }, '--color-success-900': { baseVar: '--success', L: 0.22, C: 0.08 }, '--color-success-950': { baseVar: '--success', L: 0.15, C: 0.05 },
+				'--color-warning-50': { baseVar: '--warning', L: 0.97, C: 0.03 }, '--color-warning-100': { baseVar: '--warning', L: 0.93, C: 0.06 }, '--color-warning-200': { baseVar: '--warning', L: 0.88, C: 0.1 }, '--color-warning-300': { baseVar: '--warning', L: 0.82, C: 0.12 }, '--color-warning-400': { baseVar: '--warning', L: 0.75, C: 0.14 }, '--color-warning-500': { baseVar: '--warning', L: null, C: null }, '--color-warning-600': { baseVar: '--warning', L: 0.55, C: 0.14 }, '--color-warning-700': { baseVar: '--warning', L: 0.45, C: 0.12 }, '--color-warning-800': { baseVar: '--warning', L: 0.35, C: 0.1 }, '--color-warning-900': { baseVar: '--warning', L: 0.25, C: 0.06 }, '--color-warning-950': { baseVar: '--warning', L: 0.18, C: 0.04 },
+				'--color-error-50': { baseVar: '--error', L: 0.97, C: 0.03 }, '--color-error-100': { baseVar: '--error', L: 0.93, C: 0.06 }, '--color-error-200': { baseVar: '--error', L: 0.88, C: 0.1 }, '--color-error-300': { baseVar: '--error', L: 0.78, C: 0.14 }, '--color-error-400': { baseVar: '--error', L: 0.65, C: 0.18 }, '--color-error-500': { baseVar: '--error', L: null, C: null }, '--color-error-600': { baseVar: '--error', L: 0.45, C: 0.2 }, '--color-error-700': { baseVar: '--error', L: 0.38, C: 0.18 }, '--color-error-800': { baseVar: '--error', L: 0.3, C: 0.14 }, '--color-error-900': { baseVar: '--error', L: 0.22, C: 0.1 }, '--color-error-950': { baseVar: '--error', L: 0.15, C: 0.06 },
+				'--color-info-50': { baseVar: '--info', L: 0.97, C: 0.03 }, '--color-info-100': { baseVar: '--info', L: 0.93, C: 0.06 }, '--color-info-200': { baseVar: '--info', L: 0.88, C: 0.08 }, '--color-info-300': { baseVar: '--info', L: 0.78, C: 0.1 }, '--color-info-400': { baseVar: '--info', L: 0.65, C: 0.12 }, '--color-info-500': { baseVar: '--info', L: null, C: null }, '--color-info-600': { baseVar: '--info', L: 0.45, C: 0.12 }, '--color-info-700': { baseVar: '--info', L: 0.38, C: 0.1 }, '--color-info-800': { baseVar: '--info', L: 0.3, C: 0.08 }, '--color-info-900': { baseVar: '--info', L: 0.22, C: 0.06 }, '--color-info-950': { baseVar: '--info', L: 0.15, C: 0.04 },
+			};
 		
 			let currentFormat = 'oklch';
 			
@@ -479,6 +794,12 @@ import Card from '../../components/Card.astro';
 				const themeMap = themeOklchMap[theme];
 				if (!themeMap || !themeMap.hasOwnProperty(colorVar)) return '';
 				return themeMap[colorVar] || '';
+			};
+			
+			/** Extract hue (degrees) from oklch(L% C Hdeg). Returns null if not parseable. */
+			const getHueFromOklch = (/** @type {string} */ oklchStr) => {
+				const m = oklchStr.match(/oklch\([\d.]+%\s+[\d.]+\s+([\d.]+)deg\)/);
+				return m ? parseFloat(m[1]) : null;
 			};
 			
 			/**
@@ -568,58 +889,172 @@ import Card from '../../components/Card.astro';
 				const hsl = `hsl(${Math.round(h * 360)}, ${Math.round(s * 100)}%, ${Math.round(l * 100)}%)`;
 				const rgbString = `rgb(${r}, ${g}, ${b})`;
 				
-				return { hex, rgb: rgbString, hsl };
+				return { hex, rgb: rgbString, hsl, r, g, b };
+			};
+
+			/**
+			 * Convert sRGB (0-255) to OKLCH string for display/copy (scale tokens and any var not in theme map).
+			 * Uses OKLab/OKLCH conversion per W3C CSS Color 4.
+			 * @param {number} r - Red 0-255
+			 * @param {number} g - Green 0-255
+			 * @param {number} b - Blue 0-255
+			 * @returns {string} oklch(L% C Hdeg)
+			 */
+			const rgbToOklch = (/** @type {number} */ r, /** @type {number} */ g, /** @type {number} */ b) => {
+				const rLin = r / 255;
+				const gLin = g / 255;
+				const bLin = b / 255;
+				// sRGB to linear
+				const toLinear = (c) => c <= 0.04045 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+				const lr = toLinear(rLin);
+				const lg = toLinear(gLin);
+				const lb = toLinear(bLin);
+				// Linear sRGB to LMS (OKLab matrix)
+				const l = 0.4122214708 * lr + 0.5363325363 * lg + 0.0514459929 * lb;
+				const m = 0.2119034982 * lr + 0.6806995451 * lg + 0.1073969566 * lb;
+				const s = 0.0883024619 * lr + 0.2817188376 * lg + 0.6299787005 * lb;
+				const lp = Math.cbrt(l);
+				const mp = Math.cbrt(m);
+				const sp = Math.cbrt(s);
+				// LMS to OKLab
+				const L = 0.2104542553 * lp + 0.7936177850 * mp - 0.0040720468 * sp;
+				const a = 1.9779984951 * lp - 2.4285922050 * mp + 0.4505937099 * sp;
+				const b_ = 0.0259040371 * lp + 0.7827717662 * mp - 0.8086757660 * sp;
+				// OKLab to OKLCH
+				const C = Math.sqrt(a * a + b_ * b_);
+				let H = Math.atan2(b_, a) * (180 / Math.PI);
+				if (H < 0) H += 360;
+				const Lpct = Math.round(L * 100);
+				const Cround = Math.round(C * 1000) / 1000;
+				const Hround = Math.round(H * 10) / 10;
+				return `oklch(${Lpct}% ${Cround} ${Hround}deg)`;
 			};
 			
 			/**
-			 * @param {string} colorVar
-			 * @returns {{hex: string, rgb: string, hsl: string} | null}
+			 * Parse any rgb/rgba string from getComputedStyle (comma or space-separated).
+			 * @param {string} str - e.g. "rgb(1,2,3)", "rgba(1,2,3,0.5)", "rgb(1 2 3)", "rgba(1 2 3 / 0.5)"
+			 * @returns {{r: number, g: number, b: number} | null}
 			 */
-			const getComputedColor = (/** @type {string} */ colorVar) => {
+			const parseRgbString = (/** @type {string} */ str) => {
+				if (!str || typeof str !== 'string') return null;
+				if (str.trim().toLowerCase() === 'transparent') return null;
+				// Comma-separated: rgb(r,g,b) or rgba(r,g,b,a)
+				let match = str.match(/rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*[\d.]+)?\s*\)/);
+				if (match) {
+					const r = parseInt(match[1], 10);
+					const g = parseInt(match[2], 10);
+					const b = parseInt(match[3], 10);
+					if (!isNaN(r) && !isNaN(g) && !isNaN(b)) return { r, g, b };
+				}
+				// Space-separated: rgb(r g b) or rgba(r g b / a)
+				match = str.match(/rgba?\(\s*(\d+)\s+(\d+)\s+(\d+)(?:\s*\/\s*[\d.]+)?\s*\)/);
+				if (match) {
+					const r = parseInt(match[1], 10);
+					const g = parseInt(match[2], 10);
+					const b = parseInt(match[3], 10);
+					if (!isNaN(r) && !isNaN(g) && !isNaN(b)) return { r, g, b };
+				}
+				return null;
+			};
+
+			/**
+			 * Parse a raw CSS value into oklch(L% C Hdeg) for oklchToRgb. Handles L as % or 0-1, H with or without deg.
+			 * Does not match oklch(from var(...)...).
+			 * @param {string} raw - e.g. "oklch(18% 0.012 264deg)" or "oklch(0.18 0.012 264)"
+			 * @returns {string | null} "oklch(L% C Hdeg)" or null
+			 */
+			const parseOklchFromRaw = (/** @type {string} */ raw) => {
+				if (!raw || typeof raw !== 'string') return null;
+				const t = raw.trim();
+				if (t.includes('from ')) return null; // relative color, can't parse
+				// L as percentage: oklch(18% 0.012 264deg) or oklch(18% 0.012 264)
+				let m = t.match(/^oklch\(\s*([\d.]+)%\s+([\d.]+)\s+([\d.]+)(?:deg)?\s*\)$/);
+				if (m) {
+					const L = parseFloat(m[1]);
+					const C = parseFloat(m[2]);
+					const H = parseFloat(m[3]);
+					if (!isNaN(L) && !isNaN(C) && !isNaN(H)) return `oklch(${L}% ${C} ${H}deg)`;
+				}
+				// L as 0-1: oklch(0.18 0.012 264) or oklch(0.18 0.012 264deg)
+				m = t.match(/^oklch\(\s*([\d.]+)\s+([\d.]+)\s+([\d.]+)(?:deg)?\s*\)$/);
+				if (m) {
+					const L = parseFloat(m[1]);
+					const C = parseFloat(m[2]);
+					const H = parseFloat(m[3]);
+					if (!isNaN(L) && !isNaN(C) && !isNaN(H) && L <= 1) return `oklch(${L * 100}% ${C} ${H}deg)`;
+				}
+				return null;
+			};
+
+			/**
+			 * Resolve a CSS color variable to RGB. When sourceElement is the .color-card that paints this color,
+			 * we read its computed background so scale tokens (e.g. --color-error-400) get the real value.
+			 * @param {string} colorVar - e.g. "--background", "--accent", "--color-error-400"
+			 * @param {Element | null} [sourceElement] - .color-card that has background = this color (--color-card-bg)
+			 * @returns {{hex: string, rgb: string, hsl: string, r: number, g: number, b: number} | null}
+			 */
+			const resolveColorVar = (/** @type {string} */ colorVar, /** @type {Element | null} */ sourceElement = null) => {
 				try {
-					// First, try to get OKLCH value from theme map
+					// 1) If we have the element that displays this color, read its computed background (works for scale tokens)
+					if (sourceElement) {
+						const bg = window.getComputedStyle(sourceElement).backgroundColor;
+						const rgb = parseRgbString(bg);
+						if (rgb) return rgbToFormats(rgb.r, rgb.g, rgb.b);
+					}
+
+					// 2) Theme map for semantic/core vars – CSS uses var(--cyan) etc., so we use our map
 					const oklch = getOklchValue(colorVar);
-					
-					// If we have OKLCH, convert it directly
 					if (oklch) {
-						const rgb = oklchToRgb(oklch);
-						if (rgb) {
-							return rgbToFormats(rgb.r, rgb.g, rgb.b);
+						const rgbFromMap = oklchToRgb(oklch);
+						if (rgbFromMap) return rgbToFormats(rgbFromMap.r, rgbFromMap.g, rgbFromMap.b);
+					}
+
+					// 3) Scale tokens (--color-accent-50 etc.): derive from base semantic color when browser doesn't resolve oklch(from var(...)...)
+					const formula = scaleTokenFormulas[colorVar];
+					if (formula) {
+						const baseOklch = getOklchValue(formula.baseVar);
+						if (baseOklch) {
+							if (formula.L === null) {
+								const rgbBase = oklchToRgb(baseOklch);
+								if (rgbBase) return rgbToFormats(rgbBase.r, rgbBase.g, rgbBase.b);
+							} else {
+								const H = getHueFromOklch(baseOklch);
+								if (H !== null) {
+									const derivedOklch = `oklch(${Math.round(formula.L * 100)}% ${formula.C} ${H}deg)`;
+									const rgbDerived = oklchToRgb(derivedOklch);
+									if (rgbDerived) return rgbToFormats(rgbDerived.r, rgbDerived.g, rgbDerived.b);
+								}
+							}
 						}
 					}
-					
-					// Fallback: Try to get computed RGB from browser
-					const tempEl = document.createElement('div');
-					tempEl.style.position = 'absolute';
-					tempEl.style.visibility = 'hidden';
-					tempEl.style.width = '1px';
-					tempEl.style.height = '1px';
-					tempEl.style.backgroundColor = `var(${colorVar})`;
-					document.body.appendChild(tempEl);
-					
-					// Force a reflow to ensure styles are computed
-					void tempEl.offsetHeight;
-					
-					const computedColor = window.getComputedStyle(tempEl).backgroundColor;
-					document.body.removeChild(tempEl);
-					
-					// Handle both rgb() and rgba() formats
-					const rgbMatch = computedColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*[\d.]+)?\)/);
-					if (rgbMatch) {
-						const r = parseInt(rgbMatch[1], 10);
-						const g = parseInt(rgbMatch[2], 10);
-						const b = parseInt(rgbMatch[3], 10);
-						
-						// Validate RGB values
-						if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
-							return rgbToFormats(r, g, b);
-						}
+
+					// 4) Temp element fallback
+					const temp = document.createElement('div');
+					temp.style.setProperty('background-color', `var(${colorVar})`);
+					temp.style.position = 'absolute';
+					temp.style.left = '-9999px';
+					temp.style.width = '1px';
+					temp.style.height = '1px';
+					temp.style.pointerEvents = 'none';
+					temp.style.top = '0';
+					document.documentElement.appendChild(temp);
+					void temp.offsetHeight;
+					const bg = window.getComputedStyle(temp).backgroundColor;
+					document.documentElement.removeChild(temp);
+
+					const rgb = parseRgbString(bg);
+					if (rgb) return rgbToFormats(rgb.r, rgb.g, rgb.b);
+
+					// 5) getPropertyValue from root (simple oklch only)
+					const raw = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim();
+					const oklchStr = parseOklchFromRaw(raw);
+					if (oklchStr) {
+						const rgbFromOklch = oklchToRgb(oklchStr);
+						if (rgbFromOklch) return rgbToFormats(rgbFromOklch.r, rgbFromOklch.g, rgbFromOklch.b);
 					}
-					
-					// If all else fails, return null
+
 					return null;
-				} catch (error) {
-					// If anything fails, return null
+				} catch (e) {
 					return null;
 				}
 			};
@@ -636,17 +1071,21 @@ import Card from '../../components/Card.astro';
 						const colorVar = swatch.getAttribute('data-color-var');
 						if (!colorVar) return;
 						
-						// Get computed color (for hex, rgb, hsl)
-						const computed = getComputedColor(colorVar);
-						// Get OKLCH value from theme map
-						const oklch = getOklchValue(colorVar);
-						// CSS variable format
+						// Pass the card so we read its computed background (same color as --color-card-bg); fixes scale tokens like --color-error-400
+						const card = swatch.closest('.color-card');
+						const computed = resolveColorVar(colorVar, card);
+						// OKLCH: derive from resolved RGB for every color so all swatches show OKLCH, Hex, RGB, HSL
+						let oklch = '';
+						if (computed && typeof computed.r === 'number' && typeof computed.g === 'number' && typeof computed.b === 'number') {
+							oklch = rgbToOklch(computed.r, computed.g, computed.b);
+						} else {
+							oklch = getOklchValue(colorVar);
+						}
 						const cssVar = `var(${colorVar})`;
 						
 						let value = '';
 						let formatLabel = '';
 						
-						// Determine value based on current format
 						switch (currentFormat) {
 							case 'oklch':
 								value = oklch || cssVar;
@@ -678,30 +1117,13 @@ import Card from '../../components/Card.astro';
 							return;
 						}
 						
-						// Try multiple methods to find the copy button
+						// Find the copy button (card already from above)
 						const colorVarName = colorVar.replace('--', '');
-						const expectedId = `copy-color-${colorVarName}`;
-						
-						// Method 1: Try by ID
-						let copyButton = document.getElementById(expectedId);
-						
-						// Method 2: Try within the swatch by data attribute
-						if (!copyButton) {
-							copyButton = swatch.querySelector('[data-color-copy]');
-						}
-						
-						// Method 3: Try within the swatch info div
-						if (!copyButton) {
-							const swatchInfo = swatch.querySelector('.color-swatch__info');
-							if (swatchInfo) {
-								copyButton = swatchInfo.querySelector('[data-color-copy]');
-							}
-						}
-						
-						// Method 4: Try by class within swatch
-						if (!copyButton) {
-							copyButton = swatch.querySelector('.copy-to-clipboard');
-						}
+						let copyButton = document.getElementById(`copy-color-${colorVarName}`)
+							|| swatch.querySelector('[data-color-copy]')
+							|| swatch.querySelector('.copy-to-clipboard')
+							|| (card && card.querySelector('[data-color-copy]'))
+							|| (card && card.querySelector('.copy-to-clipboard'));
 						
 						if (!copyButton) {
 							return;
@@ -793,27 +1215,15 @@ import Card from '../../components/Card.astro';
 				setTimeout(() => waitForComponents(callback, maxAttempts, attempt + 1), 100);
 			};
 			
-			// Initial update - ensure everything is ready
+			// Initial update - ensure everything is ready (theme may apply after DOM ready)
 			const runInitialUpdate = () => {
 				waitForComponents(() => {
-					// Multiple updates to ensure all values are set correctly
-					// First update
 					updateColorValues();
-					
-					// Second update after a short delay
-					setTimeout(() => {
-						updateColorValues();
-					}, 150);
-					
-					// Third update to catch any edge cases
-					setTimeout(() => {
-						updateColorValues();
-					}, 400);
-					
-					// Final update to ensure everything is set
-					setTimeout(() => {
-						updateColorValues();
-					}, 700);
+					setTimeout(updateColorValues, 100);
+					setTimeout(updateColorValues, 300);
+					setTimeout(updateColorValues, 600);
+					setTimeout(updateColorValues, 1000);
+					setTimeout(updateColorValues, 1500);
 				});
 			};
 			
@@ -826,13 +1236,11 @@ import Card from '../../components/Card.astro';
 				setTimeout(runInitialUpdate, 200);
 			}
 			
-			// Update when theme changes
-			document.addEventListener('themechange', () => {
-				setTimeout(() => updateColorValues(), 100);
-			});
-			window.addEventListener('storage', () => {
-				setTimeout(() => updateColorValues(), 100);
-			});
+			// Update when theme changes (both event names used in the codebase)
+			const scheduleColorUpdate = () => setTimeout(() => updateColorValues(), 100);
+			document.addEventListener('themechange', scheduleColorUpdate);
+			window.addEventListener('rizzo-theme-change', scheduleColorUpdate);
+			window.addEventListener('storage', scheduleColorUpdate);
 			
 			let lastTheme = getCurrentTheme();
 			setInterval(() => {

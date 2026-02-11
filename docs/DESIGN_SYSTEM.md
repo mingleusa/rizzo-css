@@ -5,7 +5,7 @@ Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth
 ## Features
 
 - **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Create new project → full clone (Vanilla, Astro, Svelte); Add to existing → CSS + optional components. [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
-- **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, and layout limits (e.g. `--max-height-navbar-submenu`) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
+- **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, layout limits (e.g. `--max-height-navbar-submenu`), and component sizing (e.g. `--theme-switcher-width` so the theme switcher trigger and dropdown are the same width everywhere and fit the longest theme name on one line) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
 
 ## Semantic Variables
 
@@ -49,6 +49,19 @@ All semantic colors include corresponding text color variables that automaticall
 - `--text-on-solid-hover` - Text on semantic button hover (success, warning, error, info)
 
 Use `--*-text-on-solid` for buttons and badges with solid semantic backgrounds so themes can tune contrast. These variables ensure WCAG AA contrast compliance (4.5:1 for normal text, 3:1 for large text).
+
+### Color scales (design tokens)
+
+Stepped color scales (50–950) are available as design tokens for backgrounds, borders, and text. Each scale has 11 steps: `--color-{scale}-50` through `--color-{scale}-950`. Step 500 is the theme base for semantic scales.
+
+- **Neutral:** `--color-neutral-50` … `--color-neutral-950` (fixed gray scale)
+- **Accent:** `--color-accent-50` … `--color-accent-950` (derived from `--accent`)
+- **Success:** `--color-success-50` … `--color-success-950` (derived from `--success`)
+- **Warning:** `--color-warning-50` … `--color-warning-950` (derived from `--warning`)
+- **Error:** `--color-error-50` … `--color-error-950` (derived from `--error`)
+- **Info:** `--color-info-50` … `--color-info-950` (derived from `--info`)
+
+Utility classes: `bg-{scale}-{step}`, `text-{scale}-{step}`, `border-{scale}-{step}` (e.g. `bg-accent-100`, `text-neutral-700`). See [Colors](./COLORS.md) for the full list of tokens and usage.
 
 ### Typography System
 
@@ -343,6 +356,8 @@ Position utilities control element positioning:
 <aside class="sticky top-4">Sticky sidebar</aside>
 ```
 
+The documentation site uses a **sticky** sidebar on desktop (full doc structure); on mobile the sidebar is hidden and the full docs structure appears in the main nav under the Docs dropdown. See [GETTING_STARTED – Documentation layout and site nav](./GETTING_STARTED.md#documentation-layout-and-site-nav).
+
 ### Border Utilities
 
 Border utilities provide comprehensive border styling:
@@ -589,12 +604,11 @@ Component CSS structure:
 ### Component Layout Patterns
 
 **Navbar Dropdown Layout:**
-The navbar uses CSS Grid for efficient dropdown layouts. Components and Themes dropdowns use a 2-column grid layout on desktop:
+The navbar uses CSS Grid for efficient dropdown layouts. The **Components** dropdown uses a 2-column grid layout on desktop (Docs dropdown shows Introduction + Foundations only; Theming is under Docs, not a separate nav item):
 
 ```css
 /* 2-column dropdown layout using design system variables */
-.navbar__submenu#navbar-submenu-components,
-.navbar__submenu#navbar-submenu-themes {
+.navbar__submenu#navbar-submenu-components {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
@@ -606,8 +620,7 @@ The navbar uses CSS Grid for efficient dropdown layouts. Components and Themes d
 }
 
 /* Vertical divider using border color variable */
-.navbar__submenu#navbar-submenu-components::before,
-.navbar__submenu#navbar-submenu-themes::before {
+.navbar__submenu#navbar-submenu-components::before {
   content: '';
   position: absolute;
   top: var(--spacing-2);
@@ -667,4 +680,4 @@ This ensures:
 19. **Use transform scale variables** - Use `--scale-*` variables for consistent transform animations
 20. **Use z-index variables** - Use `--z-*` variables for consistent layering
 21. **Use outline variables** - Use `--outline-width` and `--outline-offset` for consistent focus indicators
-22. **Component layout patterns** - Use CSS Grid with design system spacing for multi-column layouts (e.g., navbar 2-column dropdowns)
+22. **Component layout patterns** - Use CSS Grid with design system spacing for multi-column layouts (e.g., navbar Components dropdown)

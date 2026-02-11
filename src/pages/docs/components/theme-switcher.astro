@@ -29,6 +29,7 @@ import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 			<li><strong>Preview panel</strong> – Always visible when the menu is open (on viewports &gt;480px). Shows a fixed “Preview” label; the theme name, swatch, and accent bar show the <strong>current</strong> theme by default and the <strong>hovered</strong> theme on hover/focus. Full-height divider between list and preview. Hidden on small viewports.</li>
 			<li>Groups themes by Preference, Dark, and Light; each theme has a unique icon.</li>
 			<li>Shows active theme name and icon in the trigger button.</li>
+			<li><strong>Consistent width</strong> – The trigger and dropdown use a fixed width (<code>--theme-switcher-width</code>) everywhere (Settings, navbar, standalone) so the longest theme name fits on one line.</li>
 			<li>When System is selected, both System and the applied theme show the active background and accent bar.</li>
 			<li>Persists selection in <code>localStorage</code> (key <code>theme</code>: theme id or <code>system</code>).</li>
 			<li>First visit uses initial <code>data-theme</code> or OS preference.</li>

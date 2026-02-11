@@ -161,7 +161,7 @@
     height: var(--spacing-5);
     color: var(--text-dim);
   }
-  .code-block__language-icon svg {
+  .code-block__language-icon :global(svg) {
     width: 100%;
     height: 100%;
     display: block;

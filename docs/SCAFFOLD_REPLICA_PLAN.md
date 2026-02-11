@@ -1,5 +1,7 @@
 # Scaffolds: Component Showcase + Link to Docs
 
+**Internal planning.** For user-facing setup see [GETTING_STARTED](./GETTING_STARTED.md).
+
 **Goal:** Each framework scaffold (Vanilla, Astro, Svelte) ships with the **same UI chrome** as the main site (navbar, search, settings, theme switcher, footer) and **component showcase only**. No local docs pages — link to [rizzo-css.vercel.app](https://rizzo-css.vercel.app) for Getting started, Theming, etc. Standard HTML/CSS/JS; works in any browser.
 
 ## Status

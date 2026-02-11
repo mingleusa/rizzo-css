@@ -1,5 +1,9 @@
 ---
 import Layout from './Layout.astro';
+import FrameworkSwitcher from '../components/FrameworkSwitcher.astro';
+import DocsSidebar from '../components/DocsSidebar.astro';
+import { getFrameworkFromPath } from '../config/frameworks';
+
 interface Props {
 	title: string;
 	description?: string;
@@ -8,33 +12,88 @@ interface Props {
 
 const { title, description, class: className = '' } = Astro.props;
 const docsClass = className ? `docs ${className}` : 'docs';
+const { framework } = getFrameworkFromPath(currentPath);
 ---
 
 <Layout>
-	<div class={docsClass}>
-		<div class="docs__container">
-			<header class="docs__header">				<h1 class="docs__title">{title}</h1>
-				{description && <p class="docs__description">{description}</p>}
+	<div class={docsClass} data-docs>
+		<script is:inline>
+			(function(){var w=typeof window!=='undefined'?window.innerWidth:1025;if(w<=1024){document.documentElement.classList.add('docs-sidebar-mobile');}else{document.documentElement.classList.add('docs-sidebar-desktop');}})();
+		</script>
+		<div id="docs-sidebar-container">
+			<button
+				type="button"
+				class="docs__sidebar-toggle"
+				aria-label="Open documentation menu"
+				aria-expanded="false"
+				aria-controls="docs-sidebar"
+				data-docs-sidebar-toggle
+			>
+				<span class="docs__sidebar-toggle-icon" aria-hidden="true">
+					<span></span>
+					<span></span>
+					<span></span>
+				</span>
+				<span class="docs__sidebar-toggle-text">Docs</span>
+			</button>
+			<div class="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true"></div>
+			<DocsSidebar currentPath={currentPath} framework={framework} />
+		</div>
+		<div class="docs__main">
+			<div class="docs__container">
+				<header class="docs__header">					<h1 class="docs__title">{title}</h1>
+					{description && <p class="docs__description">{description}</p>}
 				<p class="docs__read-docs">
 					<a href="https://rizzo-css.vercel.app/docs" target="_blank" rel="noopener noreferrer">Read the full docs</a> (getting started, theming, API) on the main site.
 				</p>
 			
-			</header>
-			
-			<div class="docs__content">
-				<slot />
+				</header>
+				<div class="docs__content">
+					<slot />
+				</div>
 			</div>
 		</div>
 	</div>
+	<script>
+		(function () {
+			const container = document.getElementById('docs-sidebar-container');
+			if (!container) return;
+			const toggle = container.querySelector('[data-docs-sidebar-toggle]');
+			const overlay = container.querySelector('[data-docs-sidebar-overlay]');
+			const docs = document.querySelector('[data-docs]');
+			if (!toggle || !overlay || !docs) return;
+			function open() {
+				docs?.classList.add('docs--sidebar-open');
+				toggle?.setAttribute('aria-expanded', 'true');
+				overlay?.setAttribute('aria-hidden', 'false');
+			}
+			function close() {
+				docs?.classList.remove('docs--sidebar-open');
+				toggle?.setAttribute('aria-expanded', 'false');
+				overlay?.setAttribute('aria-hidden', 'true');
+			}
+			toggle.addEventListener('click', function () {
+				if (docs?.classList.contains('docs--sidebar-open')) close();
+				else open();
+			});
+			overlay.addEventListener('click', close);
+			// On mobile, remove sidebar from DOM so the page has fewer nodes
+			if (document.documentElement.classList.contains('docs-sidebar-mobile')) {
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', function () { container.remove(); });
+				} else {
+					container.remove();
+				}
+			}
+		})();
+	</script>
 </Layout>
 <style>
-	.docs {
-		padding: 2rem 0;
-		min-height: calc(100vh - 4rem);
-	}
-	
 	.docs__container {
 		width: 100%;
+		max-width: var(--container-default, 1200px);
+		margin: 0 auto;
+		padding: 0 var(--spacing-4);
 	}
 	
 	.docs__header {

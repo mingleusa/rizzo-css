@@ -1,5 +1,7 @@
 # CLI Tool Planning
 
+**Internal planning.** For user-facing CLI usage see [GETTING_STARTED](./GETTING_STARTED.md).
+
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
 > **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **framework** (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red), then **existing or new?** — **Existing:** framework → **What to include?** (CSS only / Recommended set / All components / Pick components) → if ThemeSwitcher chosen, optional default-theme prompt → copy CSS + components. **New:** location → themes → **What to include?** (same four options for Astro/Svelte; Vanilla gets full scaffold with no component picker) → full clone. **What to include?** keeps the CLI simple: most users choose Recommended or All; only "Pick components" shows the 25-item multi-select. **New** scaffolds: Vanilla = `scaffold/vanilla/` (full Settings, toast, theme with System); Astro = `scaffold/astro-app/`; Svelte = `scaffold/svelte-app/`. **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.

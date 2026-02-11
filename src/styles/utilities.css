@@ -497,6 +497,233 @@
 }
 
 /* ============================================
+   COLOR SCALE UTILITIES
+   Use with design tokens: --color-{name}-{step} (50–950).
+   ============================================ */
+
+/* Neutral scale */
+.bg-neutral-50 { background-color: var(--color-neutral-50); }
+.bg-neutral-100 { background-color: var(--color-neutral-100); }
+.bg-neutral-200 { background-color: var(--color-neutral-200); }
+.bg-neutral-300 { background-color: var(--color-neutral-300); }
+.bg-neutral-400 { background-color: var(--color-neutral-400); }
+.bg-neutral-500 { background-color: var(--color-neutral-500); }
+.bg-neutral-600 { background-color: var(--color-neutral-600); }
+.bg-neutral-700 { background-color: var(--color-neutral-700); }
+.bg-neutral-800 { background-color: var(--color-neutral-800); }
+.bg-neutral-900 { background-color: var(--color-neutral-900); }
+.bg-neutral-950 { background-color: var(--color-neutral-950); }
+
+.text-neutral-50 { color: var(--color-neutral-50); }
+.text-neutral-100 { color: var(--color-neutral-100); }
+.text-neutral-200 { color: var(--color-neutral-200); }
+.text-neutral-300 { color: var(--color-neutral-300); }
+.text-neutral-400 { color: var(--color-neutral-400); }
+.text-neutral-500 { color: var(--color-neutral-500); }
+.text-neutral-600 { color: var(--color-neutral-600); }
+.text-neutral-700 { color: var(--color-neutral-700); }
+.text-neutral-800 { color: var(--color-neutral-800); }
+.text-neutral-900 { color: var(--color-neutral-900); }
+.text-neutral-950 { color: var(--color-neutral-950); }
+
+.border-neutral-50 { border-color: var(--color-neutral-50); }
+.border-neutral-100 { border-color: var(--color-neutral-100); }
+.border-neutral-200 { border-color: var(--color-neutral-200); }
+.border-neutral-300 { border-color: var(--color-neutral-300); }
+.border-neutral-400 { border-color: var(--color-neutral-400); }
+.border-neutral-500 { border-color: var(--color-neutral-500); }
+.border-neutral-600 { border-color: var(--color-neutral-600); }
+.border-neutral-700 { border-color: var(--color-neutral-700); }
+.border-neutral-800 { border-color: var(--color-neutral-800); }
+.border-neutral-900 { border-color: var(--color-neutral-900); }
+.border-neutral-950 { border-color: var(--color-neutral-950); }
+
+/* Accent scale */
+.bg-accent-50 { background-color: var(--color-accent-50); }
+.bg-accent-100 { background-color: var(--color-accent-100); }
+.bg-accent-200 { background-color: var(--color-accent-200); }
+.bg-accent-300 { background-color: var(--color-accent-300); }
+.bg-accent-400 { background-color: var(--color-accent-400); }
+.bg-accent-500 { background-color: var(--color-accent-500); }
+.bg-accent-600 { background-color: var(--color-accent-600); }
+.bg-accent-700 { background-color: var(--color-accent-700); }
+.bg-accent-800 { background-color: var(--color-accent-800); }
+.bg-accent-900 { background-color: var(--color-accent-900); }
+.bg-accent-950 { background-color: var(--color-accent-950); }
+
+.text-accent-50 { color: var(--color-accent-50); }
+.text-accent-100 { color: var(--color-accent-100); }
+.text-accent-200 { color: var(--color-accent-200); }
+.text-accent-300 { color: var(--color-accent-300); }
+.text-accent-400 { color: var(--color-accent-400); }
+.text-accent-500 { color: var(--color-accent-500); }
+.text-accent-600 { color: var(--color-accent-600); }
+.text-accent-700 { color: var(--color-accent-700); }
+.text-accent-800 { color: var(--color-accent-800); }
+.text-accent-900 { color: var(--color-accent-900); }
+.text-accent-950 { color: var(--color-accent-950); }
+
+.border-accent-50 { border-color: var(--color-accent-50); }
+.border-accent-100 { border-color: var(--color-accent-100); }
+.border-accent-200 { border-color: var(--color-accent-200); }
+.border-accent-300 { border-color: var(--color-accent-300); }
+.border-accent-400 { border-color: var(--color-accent-400); }
+.border-accent-500 { border-color: var(--color-accent-500); }
+.border-accent-600 { border-color: var(--color-accent-600); }
+.border-accent-700 { border-color: var(--color-accent-700); }
+.border-accent-800 { border-color: var(--color-accent-800); }
+.border-accent-900 { border-color: var(--color-accent-900); }
+.border-accent-950 { border-color: var(--color-accent-950); }
+
+/* Success scale */
+.bg-success-50 { background-color: var(--color-success-50); }
+.bg-success-100 { background-color: var(--color-success-100); }
+.bg-success-200 { background-color: var(--color-success-200); }
+.bg-success-300 { background-color: var(--color-success-300); }
+.bg-success-400 { background-color: var(--color-success-400); }
+.bg-success-500 { background-color: var(--color-success-500); }
+.bg-success-600 { background-color: var(--color-success-600); }
+.bg-success-700 { background-color: var(--color-success-700); }
+.bg-success-800 { background-color: var(--color-success-800); }
+.bg-success-900 { background-color: var(--color-success-900); }
+.bg-success-950 { background-color: var(--color-success-950); }
+
+.text-success-50 { color: var(--color-success-50); }
+.text-success-100 { color: var(--color-success-100); }
+.text-success-200 { color: var(--color-success-200); }
+.text-success-300 { color: var(--color-success-300); }
+.text-success-400 { color: var(--color-success-400); }
+.text-success-500 { color: var(--color-success-500); }
+.text-success-600 { color: var(--color-success-600); }
+.text-success-700 { color: var(--color-success-700); }
+.text-success-800 { color: var(--color-success-800); }
+.text-success-900 { color: var(--color-success-900); }
+.text-success-950 { color: var(--color-success-950); }
+
+.border-success-50 { border-color: var(--color-success-50); }
+.border-success-100 { border-color: var(--color-success-100); }
+.border-success-200 { border-color: var(--color-success-200); }
+.border-success-300 { border-color: var(--color-success-300); }
+.border-success-400 { border-color: var(--color-success-400); }
+.border-success-500 { border-color: var(--color-success-500); }
+.border-success-600 { border-color: var(--color-success-600); }
+.border-success-700 { border-color: var(--color-success-700); }
+.border-success-800 { border-color: var(--color-success-800); }
+.border-success-900 { border-color: var(--color-success-900); }
+.border-success-950 { border-color: var(--color-success-950); }
+
+/* Warning scale */
+.bg-warning-50 { background-color: var(--color-warning-50); }
+.bg-warning-100 { background-color: var(--color-warning-100); }
+.bg-warning-200 { background-color: var(--color-warning-200); }
+.bg-warning-300 { background-color: var(--color-warning-300); }
+.bg-warning-400 { background-color: var(--color-warning-400); }
+.bg-warning-500 { background-color: var(--color-warning-500); }
+.bg-warning-600 { background-color: var(--color-warning-600); }
+.bg-warning-700 { background-color: var(--color-warning-700); }
+.bg-warning-800 { background-color: var(--color-warning-800); }
+.bg-warning-900 { background-color: var(--color-warning-900); }
+.bg-warning-950 { background-color: var(--color-warning-950); }
+
+.text-warning-50 { color: var(--color-warning-50); }
+.text-warning-100 { color: var(--color-warning-100); }
+.text-warning-200 { color: var(--color-warning-200); }
+.text-warning-300 { color: var(--color-warning-300); }
+.text-warning-400 { color: var(--color-warning-400); }
+.text-warning-500 { color: var(--color-warning-500); }
+.text-warning-600 { color: var(--color-warning-600); }
+.text-warning-700 { color: var(--color-warning-700); }
+.text-warning-800 { color: var(--color-warning-800); }
+.text-warning-900 { color: var(--color-warning-900); }
+.text-warning-950 { color: var(--color-warning-950); }
+
+.border-warning-50 { border-color: var(--color-warning-50); }
+.border-warning-100 { border-color: var(--color-warning-100); }
+.border-warning-200 { border-color: var(--color-warning-200); }
+.border-warning-300 { border-color: var(--color-warning-300); }
+.border-warning-400 { border-color: var(--color-warning-400); }
+.border-warning-500 { border-color: var(--color-warning-500); }
+.border-warning-600 { border-color: var(--color-warning-600); }
+.border-warning-700 { border-color: var(--color-warning-700); }
+.border-warning-800 { border-color: var(--color-warning-800); }
+.border-warning-900 { border-color: var(--color-warning-900); }
+.border-warning-950 { border-color: var(--color-warning-950); }
+
+/* Error scale */
+.bg-error-50 { background-color: var(--color-error-50); }
+.bg-error-100 { background-color: var(--color-error-100); }
+.bg-error-200 { background-color: var(--color-error-200); }
+.bg-error-300 { background-color: var(--color-error-300); }
+.bg-error-400 { background-color: var(--color-error-400); }
+.bg-error-500 { background-color: var(--color-error-500); }
+.bg-error-600 { background-color: var(--color-error-600); }
+.bg-error-700 { background-color: var(--color-error-700); }
+.bg-error-800 { background-color: var(--color-error-800); }
+.bg-error-900 { background-color: var(--color-error-900); }
+.bg-error-950 { background-color: var(--color-error-950); }
+
+.text-error-50 { color: var(--color-error-50); }
+.text-error-100 { color: var(--color-error-100); }
+.text-error-200 { color: var(--color-error-200); }
+.text-error-300 { color: var(--color-error-300); }
+.text-error-400 { color: var(--color-error-400); }
+.text-error-500 { color: var(--color-error-500); }
+.text-error-600 { color: var(--color-error-600); }
+.text-error-700 { color: var(--color-error-700); }
+.text-error-800 { color: var(--color-error-800); }
+.text-error-900 { color: var(--color-error-900); }
+.text-error-950 { color: var(--color-error-950); }
+
+.border-error-50 { border-color: var(--color-error-50); }
+.border-error-100 { border-color: var(--color-error-100); }
+.border-error-200 { border-color: var(--color-error-200); }
+.border-error-300 { border-color: var(--color-error-300); }
+.border-error-400 { border-color: var(--color-error-400); }
+.border-error-500 { border-color: var(--color-error-500); }
+.border-error-600 { border-color: var(--color-error-600); }
+.border-error-700 { border-color: var(--color-error-700); }
+.border-error-800 { border-color: var(--color-error-800); }
+.border-error-900 { border-color: var(--color-error-900); }
+.border-error-950 { border-color: var(--color-error-950); }
+
+/* Info scale */
+.bg-info-50 { background-color: var(--color-info-50); }
+.bg-info-100 { background-color: var(--color-info-100); }
+.bg-info-200 { background-color: var(--color-info-200); }
+.bg-info-300 { background-color: var(--color-info-300); }
+.bg-info-400 { background-color: var(--color-info-400); }
+.bg-info-500 { background-color: var(--color-info-500); }
+.bg-info-600 { background-color: var(--color-info-600); }
+.bg-info-700 { background-color: var(--color-info-700); }
+.bg-info-800 { background-color: var(--color-info-800); }
+.bg-info-900 { background-color: var(--color-info-900); }
+.bg-info-950 { background-color: var(--color-info-950); }
+
+.text-info-50 { color: var(--color-info-50); }
+.text-info-100 { color: var(--color-info-100); }
+.text-info-200 { color: var(--color-info-200); }
+.text-info-300 { color: var(--color-info-300); }
+.text-info-400 { color: var(--color-info-400); }
+.text-info-500 { color: var(--color-info-500); }
+.text-info-600 { color: var(--color-info-600); }
+.text-info-700 { color: var(--color-info-700); }
+.text-info-800 { color: var(--color-info-800); }
+.text-info-900 { color: var(--color-info-900); }
+.text-info-950 { color: var(--color-info-950); }
+
+.border-info-50 { border-color: var(--color-info-50); }
+.border-info-100 { border-color: var(--color-info-100); }
+.border-info-200 { border-color: var(--color-info-200); }
+.border-info-300 { border-color: var(--color-info-300); }
+.border-info-400 { border-color: var(--color-info-400); }
+.border-info-500 { border-color: var(--color-info-500); }
+.border-info-600 { border-color: var(--color-info-600); }
+.border-info-700 { border-color: var(--color-info-700); }
+.border-info-800 { border-color: var(--color-info-800); }
+.border-info-900 { border-color: var(--color-info-900); }
+.border-info-950 { border-color: var(--color-info-950); }
+
+/* ============================================
    FOCUS STATES
    ============================================ */
 

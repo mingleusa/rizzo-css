@@ -74,7 +74,7 @@ src/
 - **Astro** docs and components live under `src/pages/docs/` and `src/components/` (no subfolder).
 - **Svelte** docs live under `src/pages/docs/svelte/`; Svelte components live under `src/components/svelte/`.
 - **React/Vue** (when added): same pattern — `src/pages/docs/react/`, `src/components/react/`, etc.
-- **Shared**: `src/config/` (frameworks, themes, search), `src/styles/`, and shared Astro pieces (CodeBlock, Card, Layout, DocsLayout).
+- **Shared**: `src/config/` (frameworks, themes, search), `src/styles/`, and shared Astro pieces (CodeBlock, Card, Layout, DocsLayout). DocsLayout provides a sticky sidebar on desktop (full doc structure: Introduction, Foundations, Components). On mobile (≤1024px) the sidebar is hidden and the full doc structure appears in the main nav under the Docs dropdown. Sidebar styles use the design system (see [GETTING_STARTED – Documentation layout and site nav](./GETTING_STARTED.md#documentation-layout-and-site-nav)).
 - **Framework switcher**: Uses `config/frameworks.ts` and shows “View as: Astro | Svelte | Vanilla” (with framework icons) on component/theme pages; each option links to the same path under that framework’s prefix.
 - **Theme icons**: `config/themes.ts` defines theme id, label, icon, and preview colors; used by ThemeSwitcher and Navbar for consistent icons.
 

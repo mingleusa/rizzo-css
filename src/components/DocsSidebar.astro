@@ -1,0 +1,51 @@
+---
+import { DOCS_NAV } from '../config/docsNav';
+import type { Framework } from '../config/frameworks';
+
+interface Props {
+  currentPath: string;
+  framework: Framework;
+}
+
+const { currentPath, framework } = Astro.props;
+const pathPrefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
+
+function fullHref(link: { href: string; frameworkOnly?: boolean }) {
+  const base = link.frameworkOnly ? pathPrefix : '/docs';
+  return `${base}/${link.href}`;
+}
+
+function isActive(link: { href: string; frameworkOnly?: boolean }): boolean {
+  const path = currentPath.replace(/\/$/, '');
+  const href = fullHref(link);
+  if (path === href) return true;
+  if (path.startsWith(href + '/')) return true;
+  return false;
+}
+---
+
+<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation">
+  <nav class="docs-sidebar__nav">
+    {DOCS_NAV.map((group) => (
+      <div class="docs-sidebar__group">
+        <h2 class="docs-sidebar__group-label">{group.label}</h2>
+        <ul class="docs-sidebar__list">
+          {group.links.map((link) => {
+            const href = fullHref(link);
+            const active = isActive(link);
+            return (
+              <li class="docs-sidebar__item">
+                <a
+                  href={href}
+                  class={`docs-sidebar__link ${active ? 'docs-sidebar__link--active' : ''}`}
+                >
+                  {link.label}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    ))}
+  </nav>
+</aside>

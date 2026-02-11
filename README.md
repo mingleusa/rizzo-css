@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/npm/v/rizzo-css.svg)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.15-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -136,7 +136,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Desktop dropdowns use 2-column layout for Components and Themes with vertical divider. Mobile menu toggle on left, search/settings on right, with improved spacing and smooth transitions
+- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. **Docs** dropdown shows Introduction and Foundations (Getting Started, Design System, Theming, Accessibility, Colors). **Components** dropdown has Overview plus two columns of component links. Theming is under Docs (no separate Themes nav item). Mobile: full docs structure in the Docs dropdown; menu toggle, search, and settings with smooth transitions
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Close button (X) bordered and visible on hover. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. All theme switchers (Settings, docs) use the same full-width trigger and dropdown.
 - **Button** - Semantic button component with variants using theme variables
@@ -170,14 +170,14 @@ See [Components Documentation](./docs/COMPONENTS.md) for usage examples.
 
 **Live site:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 
-Comprehensive documentation is also in the `docs/` directory:
+Comprehensive documentation is in the `docs/` directory and on the live site. **Site nav:** Home | Docs (Introduction, Foundations) | Components. Theming is under Docs → Foundations.
 
-- [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast)
+- [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
 - [Components](./docs/COMPONENTS.md) - Component library and usage (25 components)
-- [Theming](./docs/THEMING.md) - Themes, system preference, custom themes
+- [Theming](./docs/THEMING.md) - Themes, system preference, custom themes (also linked under Docs → Foundations on the site)
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
-- [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes; [Accessibility testing](./docs/ACCESSIBILITY_TESTING.md) - Checklist (keyboard, screen reader, tools) before documenting best practices
+- [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes; [Accessibility testing](./docs/ACCESSIBILITY_TESTING.md) - Checklist (keyboard, screen reader, tools)
 - [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - Astro vs Svelte layout; framework switcher
 - [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Svelte (done); React/Vue (planned)
 - [Publishing](./docs/PUBLISHING.md) - How to publish the npm package

@@ -16,12 +16,12 @@ import CodeBlock from '../../components/CodeBlock.astro';
 			<div class="example-title">Live Example</div>
 			<p>The navbar is already included in the Layout component at the top of this page. It includes:</p>
 			<ul>
-				<li><strong>Desktop:</strong> 2-column dropdown layout for Components and Themes with vertical divider</li>
+				<li><strong>Desktop:</strong> Docs dropdown (Introduction, Foundations); Components dropdown with 2-column layout and vertical divider</li>
 				<li><strong>Mobile:</strong> Menu toggle on left; search and settings icon-only (same size as menu toggle) on right</li>
 				<li>Responsive mobile menu with hamburger toggle (activates at 1024px and below)</li>
 				<li>Smooth hamburger-to-X animation</li>
 				<li>Active link indicator with underline matching hover effect</li>
-				<li>Dropdown menus with sub-links (Components and Themes dropdowns)</li>
+				<li>Dropdown menus: Docs (Getting Started, Design System, Theming, Accessibility, Colors) and Components (Overview + all component links). Theming is under Docs; no separate Themes item in the nav.</li>
 				<li>Dropdown arrow rotates on hover</li>
 				<li>Smart dropdown alignment (prevents viewport overflow)</li>
 				<li>Full keyboard navigation for dropdowns (Arrow keys, Enter, Space, Escape, Home, End)</li>
@@ -52,7 +52,7 @@ import Navbar from '../../components/Navbar.astro';
 			<li><strong>Desktop Layout:</strong>
 				<ul>
 					<li>Search and settings buttons on far right</li>
-					<li><strong>2-column dropdown layout</strong> - Components and Themes dropdowns display in a 2-column grid with vertical divider for better navigation</li>
+					<li><strong>2-column dropdown layout</strong> - The Components dropdown displays in a 2-column grid with vertical divider. Docs dropdown shows Introduction and Foundations only (Theming is under Docs).</li>
 					<li>Smart dropdown positioning - Automatically adjusts to prevent viewport overflow</li>
 					<li>Dropdown arrow rotates on hover/expand</li>
 				</ul>
