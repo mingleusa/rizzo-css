@@ -144,6 +144,7 @@ const defaultTooltip = label || 'Copy to clipboard';
             if (feedback) {
               feedback.textContent = format ? `Copied ${format}!` : 'Copied!';
             }
+            const tooltipHost = button.closest('.tooltip-host');
             if (tooltipHost) tooltipHost.setAttribute('data-tooltip', format ? `Copied ${format}!` : 'Copied!');
             button.setAttribute('aria-label', format ? `Copied ${format}!` : 'Copied!');
             

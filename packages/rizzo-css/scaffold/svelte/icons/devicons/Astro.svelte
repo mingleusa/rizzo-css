@@ -16,7 +16,6 @@
   class={`astro-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Astro</title>
   <defs>
     <linearGradient id={g1} x1="882.997" x2="638.955" y1="27.113" y2="866.902" gradientTransform="scale(.1)" gradientUnits="userSpaceOnUse">
       <stop offset="0" stop-color="#000014"/>

@@ -19,7 +19,6 @@
   class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Owl</title>
   <path d="M16 7h.01" />
   <path d="M3.4 18H12a8 8 0 0 0 8-8V7a4 4 0 0 0-7.28-2.3L2 20" />
   <path d="m20 7 2 .5-2 .5" />

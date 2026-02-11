@@ -19,7 +19,6 @@
   class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Circle</title>
   <circle cx="12" cy="12" r="10" />
 </svg>
 

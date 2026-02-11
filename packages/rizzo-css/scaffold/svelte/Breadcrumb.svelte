@@ -36,7 +36,6 @@
           <span class="breadcrumb__separator" aria-hidden="true">
             {#if useIcon}
               <svg class="breadcrumb__separator-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <title>Separator</title>
                 <path d="M6 9l6 6 6-6" />
               </svg>
             {:else}

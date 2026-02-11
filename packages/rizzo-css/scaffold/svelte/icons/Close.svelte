@@ -19,7 +19,6 @@
   class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Close</title>
   <path d="M18 6 6 18" />
   <path d="m6 6 12 12" />
 </svg>

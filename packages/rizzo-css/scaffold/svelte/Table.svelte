@@ -87,7 +87,6 @@
       <label for="{tableId}-filter" class="sr-only">Filter table</label>
       <span class="table__filter-icon" aria-hidden="true">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table__filter-icon-svg" aria-hidden="true">
-          <title>Filter</title>
           <path d="M4 6h16M4 12h10M4 18h6" />
         </svg>
       </span>
@@ -131,7 +130,6 @@
                   <span class="table__cell-content">{col.label}</span>
                   <span class="table__sort-icon" aria-hidden="true">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table__sort-icon-svg" aria-hidden="true">
-                      <title>Sort</title>
                       <path d="M3 6h18M7 12h10M10 18h4" />
                     </svg>
                   </span>

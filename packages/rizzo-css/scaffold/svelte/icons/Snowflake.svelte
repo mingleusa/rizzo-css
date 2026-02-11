@@ -19,7 +19,6 @@
   class={`icon rizzo-icon ${className}`.trim()}
   aria-hidden="true"
 >
-  <title>Snowflake</title>
   <path d="M12 2v20" />
   <path d="m17 5-5 5-5-5" />
   <path d="m17 19-5-5-5 5" />
