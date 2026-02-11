@@ -483,7 +483,7 @@ An accessible dropdown for switching themes, used in the Settings panel and stan
 
 - **Preference + Dark/Light groups** — Preference (System), Dark themes, and Light themes with section labels; on mobile, bold labels with underlines. Each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush).
 - **Preview panel** — Always visible when the menu is open (viewports >480px). Fixed **Preview** label; theme name, swatch, and accent bar show the **current** theme by default and the **hovered** theme on hover/focus. Full-height vertical divider between list and preview. Hidden on viewports ≤480px.
-- **Wider dropdown** — On doc pages (not in Settings), trigger and menu use a larger min-width; in Settings, full width for trigger and menu.
+- **Consistent look** — All theme switchers (Settings, Astro docs, Svelte docs, Vanilla docs) use the same styling: full-width trigger with label and chevron (space-between), full-width dropdown menu.
 - Active theme displays name and icon in trigger button.
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End).
 - Accessible ARIA menu pattern.

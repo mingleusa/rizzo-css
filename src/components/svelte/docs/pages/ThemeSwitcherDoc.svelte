@@ -1,10 +1,18 @@
 <script lang="ts">
+  import ThemeSwitcher from '../../ThemeSwitcher.svelte';
   import CodeBlock from '../CodeBlock.svelte';
 </script>
 
 <section>
   <h2>Theme Switcher component</h2>
-  <p>Accessible theme dropdown with <strong>Preference</strong> (System), <strong>Dark</strong>, and <strong>Light</strong> groups, a unique icon per theme, and a preview panel. The docs site uses the <strong>Astro</strong> ThemeSwitcher (in Settings and standalone). In a Svelte app, use the same BEM classes and theme data from <code>src/config/themes.ts</code>; set <code>data-theme</code> on <code>&lt;html&gt;</code> and persist with <code>localStorage</code> (key <code>theme</code>).</p>
+  <p>Accessible theme dropdown with <strong>Preference</strong> (System), <strong>Dark</strong>, and <strong>Light</strong> groups, a unique icon per theme, and a preview panel. Same behavior as the <a href="/docs/components/theme-switcher">Astro ThemeSwitcher</a>: persists in <code>localStorage</code> (key <code>theme</code>), sets <code>data-theme</code> on <code>&lt;html&gt;</code>.</p>
+
+  <h3>Live example</h3>
+  <div class="example">
+    <div class="example-title">Live Example</div>
+    <p>Try switching themes using the theme switcher below (Svelte component):</p>
+    <ThemeSwitcher />
+  </div>
 
   <h3>Features</h3>
   <ul>
@@ -145,6 +153,21 @@
 </section>
 
 <style>
+  .example {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-4);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .example-title {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-3);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wider);
+  }
   kbd {
     display: inline-block;
     padding: var(--spacing-0-125) var(--spacing-0-375);

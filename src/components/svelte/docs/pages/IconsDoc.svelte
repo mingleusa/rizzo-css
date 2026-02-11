@@ -116,8 +116,8 @@
   <div class="icons-grid">
     {#each regularIcons as icon}
       {@const IconComponent = icon.component}
-      <Card variant="outlined" class="icon-card icon-card--regular" data-icon-name={icon.name}>
-        <span class="tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+      <span class="tooltip-host icon-card-tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+        <Card variant="outlined" class="icon-card icon-card--regular" data-icon-name={icon.name}>
           <button
             type="button"
             class="icon-card__button"
@@ -135,9 +135,9 @@
               </p>
             </div>
           </button>
-        </span>
-        <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
-      </Card>
+          <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+        </Card>
+      </span>
     {/each}
   </div>
 
@@ -147,8 +147,8 @@
   <div class="icons-grid">
     {#each devicons as icon}
       {@const IconComponent = icon.component}
-      <Card variant="outlined" class="icon-card icon-card--devicon" data-icon-name={icon.name}>
-        <span class="tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+      <span class="tooltip-host icon-card-tooltip-host" data-tooltip={copiedId === icon.name ? 'Copied!' : 'Copy SVG code'}>
+        <Card variant="outlined" class="icon-card icon-card--devicon" data-icon-name={icon.name}>
           <button
             type="button"
             class="icon-card__button"
@@ -166,9 +166,9 @@
               </p>
             </div>
           </button>
-        </span>
-        <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
-      </Card>
+          <span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+        </Card>
+      </span>
     {/each}
   </div>
 
@@ -194,40 +194,9 @@
 </section>
 
 <style>
-  .icons-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-3);
-    margin: var(--spacing-6) 0;
-  }
-
-  @media (width >= 640px) {
-    .icons-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-4);
-    }
-  }
-
-  @media (width >= 1024px) {
-    .icons-grid {
-      grid-template-columns: repeat(6, 1fr);
-    }
-  }
-
-  :global(.icon-card .tooltip-host) {
-    display: block;
-    width: 100%;
-    flex: 1;
-    min-width: 0;
-  }
+  /* Grid and card dimensions come from global components.css. Only Svelte-specific overrides here. */
   :global(.icon-card) {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     padding: 0;
-    text-align: center;
-    min-height: auto;
     overflow: hidden;
   }
 
@@ -237,6 +206,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    min-height: 100%;
     padding: var(--spacing-3);
     text-align: center;
     cursor: pointer;
@@ -251,75 +221,9 @@
     background-color: var(--background-alt);
   }
 
-  :global(.icon-card:hover) {
-    box-shadow: var(--shadow-md);
-    border-color: var(--accent);
-  }
-
   :global(.icon-card__button:focus-visible) {
     outline: var(--outline-width) solid var(--accent);
     outline-offset: var(--outline-offset);
-  }
-
-  :global(.icon-card__preview) {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: var(--spacing-2);
-    min-height: var(--spacing-32);
-    width: 100%;
-  }
-
-  :global(.icon-card__preview--devicon) {
-    background-color: var(--background-alt);
-    border-radius: var(--radius-md);
-    padding: var(--spacing-2);
-    border: 1px solid var(--border);
-  }
-
-  :global(.icon-card--devicon) {
-    background-color: var(--background);
-  }
-
-  :global(.icon-card--devicon:hover) {
-    background-color: var(--background-alt);
-  }
-
-  :global(.icon-card__icon) {
-    color: var(--icon);
-    flex-shrink: 0;
-  }
-
-  :global(.icon-card__content) {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-
-  :global(.icon-card__name) {
-    margin: 0 0 var(--spacing-0-125) 0;
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-    line-height: var(--line-height-tight);
-    text-align: center;
-  }
-
-  :global(.icon-card__hint) {
-    margin: 0;
-    font-size: calc(var(--font-size-xs) * 0.875);
-    color: var(--text-dim);
-    transition: color var(--transition-base);
-    line-height: var(--line-height-tight);
-    text-align: center;
-  }
-
-  :global(.icon-card__hint--copied) {
-    color: var(--accent);
-    font-weight: var(--font-weight-medium);
   }
 
   .sr-only {
@@ -335,31 +239,8 @@
   }
 
   @media (width <= 640px) {
-    .icons-grid {
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--spacing-2);
-    }
-
     :global(.icon-card__button) {
       padding: var(--spacing-2);
-    }
-
-    :global(.icon-card__preview) {
-      min-height: var(--spacing-24);
-      margin-bottom: var(--spacing-1);
-    }
-
-    :global(.icon-card__icon) {
-      width: var(--spacing-8);
-      height: var(--spacing-8);
-    }
-
-    :global(.icon-card__name) {
-      font-size: calc(var(--font-size-xs) * 0.875);
-    }
-
-    :global(.icon-card__hint) {
-      font-size: calc(var(--font-size-xs) * 0.75);
     }
   }
 </style>

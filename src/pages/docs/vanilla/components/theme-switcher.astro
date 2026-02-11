@@ -1,5 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import ThemeSwitcher from '../../../../components/ThemeSwitcher.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 
 const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
@@ -36,10 +37,17 @@ const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
 </div>`;
 ---
 
-<DocsLayout title="Theme Switcher — Vanilla" description="Theme switcher with vanilla HTML. See Astro docs for full markup.">
+<DocsLayout title="Theme Switcher — Vanilla" description="Theme switcher with vanilla HTML + JS. Live example and copyable markup.">
   <section>
     <h2>Theme Switcher</h2>
-    <p>Accessible theme switcher with theme icons and keyboard navigation. Use the BEM structure below; add JS to set <code>data-theme</code> on <code>&lt;html&gt;</code>, toggle the menu, and persist the choice in <code>localStorage</code> (key <code>theme</code>; use <code>system</code> for OS preference).</p>
+    <p>Accessible theme switcher with theme icons and keyboard navigation. Same BEM structure and behavior as the <a href="/docs/components/theme-switcher">Astro ThemeSwitcher</a>: set <code>data-theme</code> on <code>&lt;html&gt;</code>, persist in <code>localStorage</code> (key <code>theme</code>; use <code>system</code> for OS preference).</p>
+
+    <h3>Live example</h3>
+    <p>The switcher below is a working example (same component as Astro so it runs on this page). In a vanilla-only project you’d use the same HTML structure and wire it with your own script or theme utilities (<code>applyTheme</code>, <code>getThemeLabel</code>).</p>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <ThemeSwitcher />
+    </div>
 
     <h3>HTML (structure)</h3>
     <p>Copy the markup below. Ensure Rizzo CSS is loaded. Wire trigger/menu open-close and option clicks to your theme utility (e.g. <code>applyTheme(value)</code>).</p>
@@ -50,3 +58,8 @@ const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
     <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
   </section>
 </DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

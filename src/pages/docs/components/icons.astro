@@ -80,16 +80,18 @@ const devicons = [
 				const IconComponent = icon.component;
 				const iconId = `icon-${icon.name.toLowerCase().replace(/\s+/g, '-')}`;
 				return (
-					<Card variant="outlined" class="icon-card icon-card--regular" data-icon-name={icon.name}>
-						<div class="icon-card__preview">
-							<IconComponent width={32} height={32} class="icon-card__icon" />
-						</div>
-						<div class="icon-card__content">
-							<h4 class="icon-card__name">{icon.name}</h4>
-							<p class="icon-card__hint">Click to copy SVG</p>
-						</div>
-						<span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
-					</Card>
+					<span class="tooltip-host icon-card-tooltip-host" data-tooltip="Copy SVG code" data-icon-name={icon.name}>
+						<Card variant="outlined" class="icon-card icon-card--regular" data-icon-name={icon.name}>
+							<div class="icon-card__preview">
+								<IconComponent width={32} height={32} class="icon-card__icon" />
+							</div>
+							<div class="icon-card__content">
+								<h4 class="icon-card__name">{icon.name}</h4>
+								<p class="icon-card__hint">Click to copy SVG</p>
+							</div>
+							<span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+						</Card>
+					</span>
 				);
 			})}
 		</div>
@@ -102,16 +104,18 @@ const devicons = [
 				const IconComponent = icon.component;
 				const iconId = `icon-${icon.name.toLowerCase().replace(/\s+/g, '-')}`;
 				return (
-					<Card variant="outlined" class="icon-card icon-card--devicon" data-icon-name={icon.name}>
-						<div class="icon-card__preview icon-card__preview--devicon">
-							<IconComponent width={32} height={32} class="icon-card__icon icon-card__icon--devicon" />
-						</div>
-						<div class="icon-card__content">
-							<h4 class="icon-card__name">{icon.name}</h4>
-							<p class="icon-card__hint">Click to copy SVG</p>
-						</div>
-						<span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
-					</Card>
+					<span class="tooltip-host icon-card-tooltip-host" data-tooltip="Copy SVG code" data-icon-name={icon.name}>
+						<Card variant="outlined" class="icon-card icon-card--devicon" data-icon-name={icon.name}>
+							<div class="icon-card__preview icon-card__preview--devicon">
+								<IconComponent width={32} height={32} class="icon-card__icon icon-card__icon--devicon" />
+							</div>
+							<div class="icon-card__content">
+								<h4 class="icon-card__name">{icon.name}</h4>
+								<p class="icon-card__hint">Click to copy SVG</p>
+							</div>
+							<span class="sr-only" data-icon-svg-text={icon.svg}>{icon.svg}</span>
+						</Card>
+					</span>
 				);
 			})}
 		</div>
@@ -144,7 +148,8 @@ import Css3 from '../components/icons/devicons/Css3.astro';
 				if (card.hasAttribute('data-copy-initialized')) return;
 				card.setAttribute('data-copy-initialized', 'true');
 				
-				const iconName = card.getAttribute('data-icon-name');
+				const host = card.closest('.tooltip-host');
+				const iconName = (host && host.getAttribute('data-icon-name')) || card.getAttribute('data-icon-name');
 				const svgElement = card.querySelector('[data-icon-svg-text]');
 				
 				if (!svgElement) return;
@@ -153,6 +158,7 @@ import Css3 from '../components/icons/devicons/Css3.astro';
 				
 				if (!svgText) return;
 				
+				const defaultTooltip = 'Copy SVG code';
 				const copyToClipboard = async () => {
 					try {
 						await navigator.clipboard.writeText(svgText);
@@ -169,6 +175,8 @@ import Css3 from '../components/icons/devicons/Css3.astro';
 								originalHint.classList.remove('icon-card__hint--copied');
 							}, 2000);
 						}
+						if (host) host.setAttribute('data-tooltip', 'Copied!');
+						setTimeout(() => { if (host) host.setAttribute('data-tooltip', defaultTooltip); }, 2000);
 					} catch (err) {
 						// Fallback
 						const textArea = document.createElement('textarea');
@@ -192,6 +200,8 @@ import Css3 from '../components/icons/devicons/Css3.astro';
 									originalHint.classList.remove('icon-card__hint--copied');
 								}, 2000);
 							}
+							if (host) host.setAttribute('data-tooltip', 'Copied!');
+							setTimeout(() => { if (host) host.setAttribute('data-tooltip', defaultTooltip); }, 2000);
 						} catch (fallbackErr) {
 							console.error('Failed to copy:', fallbackErr);
 						}
@@ -229,142 +239,5 @@ import Css3 from '../components/icons/devicons/Css3.astro';
 </script>
 
 <style>
-	.icons-grid {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: var(--spacing-3);
-		margin: var(--spacing-6) 0;
-	}
-	
-	@media (width >= 640px) {
-		.icons-grid {
-			grid-template-columns: repeat(3, 1fr);
-			gap: var(--spacing-4);
-		}
-	}
-	
-	@media (width >= 1024px) {
-		.icons-grid {
-			grid-template-columns: repeat(6, 1fr);
-		}
-	}
-	
-	.icon-card {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding: var(--spacing-3);
-		text-align: center;
-		transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
-		cursor: pointer;
-		min-height: auto;
-	}
-	
-	.icon-card:hover {
-		transform: translateY(calc(-1 * var(--spacing-0-125)));
-		box-shadow: var(--shadow-md);
-		border-color: var(--accent);
-		background-color: var(--background-alt);
-	}
-	
-	.icon-card:focus-visible {
-		outline: var(--outline-width) solid var(--accent);
-		outline-offset: var(--outline-offset);
-	}
-	
-	.icon-card__preview {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		margin-bottom: var(--spacing-2);
-		min-height: var(--spacing-32);
-		width: 100%;
-	}
-	
-	.icon-card__preview--devicon {
-		background-color: var(--background-alt);
-		border-radius: var(--radius-md);
-		padding: var(--spacing-2);
-		border: 1px solid var(--border);
-	}
-	
-	/* Ensure devicons are visible on both themes */
-	.icon-card--devicon {
-		background-color: var(--background);
-	}
-	
-	.icon-card--devicon:hover {
-		background-color: var(--background-alt);
-	}
-	
-	.icon-card__icon {
-		color: var(--icon);
-		flex-shrink: 0;
-	}
-	
-	.icon-card__icon--devicon {
-		/* Devicons have their own brand colors */
-	}
-	
-	.icon-card__content {
-		width: 100%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		text-align: center;
-	}
-	
-	.icon-card__name {
-		margin: 0 0 var(--spacing-0-125) 0;
-		font-size: var(--font-size-xs);
-		font-weight: var(--font-weight-semibold);
-		color: var(--text);
-		line-height: var(--line-height-tight);
-		text-align: center;
-	}
-	
-	.icon-card__hint {
-		margin: 0;
-		font-size: calc(var(--font-size-xs) * 0.875);
-		color: var(--text-dim);
-		transition: color var(--transition-base);
-		line-height: var(--line-height-tight);
-		text-align: center;
-	}
-	
-	.icon-card__hint--copied {
-		color: var(--accent);
-		font-weight: var(--font-weight-medium);
-	}
-	
-	@media (width <= 640px) {
-		.icons-grid {
-			grid-template-columns: repeat(2, 1fr);
-			gap: var(--spacing-2);
-		}
-		
-		.icon-card {
-			padding: var(--spacing-2);
-		}
-		
-		.icon-card__preview {
-			min-height: var(--spacing-24);
-			margin-bottom: var(--spacing-1);
-		}
-		
-		.icon-card__icon {
-			width: var(--spacing-8);
-			height: var(--spacing-8);
-		}
-		
-		.icon-card__name {
-			font-size: calc(var(--font-size-xs) * 0.875);
-		}
-		
-		.icon-card__hint {
-			font-size: calc(var(--font-size-xs) * 0.75);
-		}
-	}
+	/* Icon grid and card styles are in global components.css so Astro, Svelte, and Vanilla match. */
 </style>

@@ -5,7 +5,7 @@ The **rizzo-css** npm package lives in `packages/rizzo-css/`. It contains the bu
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` produces `dist/rizzo.min.css`. Versioning strategy (semver, when to bump) is documented in [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr. The package sets `"unpkg": "dist/rizzo.min.css"` and `"jsdelivr": "dist/rizzo.min.css"`, so `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` resolve to the CSS. For reliability or version pinning, use the explicit path: `https://unpkg.com/rizzo-css@0.0.11/dist/rizzo.min.css` and `https://cdn.jsdelivr.net/npm/rizzo-css@0.0.11/dist/rizzo.min.css`. **Verify after publish:** open the URL in a browser or run `curl -I <url>` and expect `200 OK`.
+- **CDN** — unpkg and jsDelivr. The package sets `"unpkg": "dist/rizzo.min.css"` and `"jsdelivr": "dist/rizzo.min.css"`, so `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` resolve to the CSS. For reliability or version pinning, use the explicit path: `https://unpkg.com/rizzo-css@0.0.12/dist/rizzo.min.css` and `https://cdn.jsdelivr.net/npm/rizzo-css@0.0.12/dist/rizzo.min.css`. **Verify after publish:** open the URL in a browser or run `curl -I <url>` and expect `200 OK`.
 - **Single package** — One unscoped package **rizzo-css** (CSS, CLI, scaffold). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`.
 - **JavaScript utilities** — Theme, storage, clipboard, toast in `src/utils/`; documented in [GETTING_STARTED.md](./GETTING_STARTED.md#javascript-utilities).
 - **Svelte components** — In `src/components/svelte/`; copy into your project. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md).
@@ -49,7 +49,7 @@ Before publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.11"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
+   - `packages/rizzo-css/package.json` → `"version": "0.0.12"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
 
 2. **Build and publish from repo root:**

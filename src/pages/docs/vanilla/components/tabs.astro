@@ -2,51 +2,286 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 
-const copyableHtml = `<div class="tabs">
-  <div class="tabs__list" role="tablist">
-    <button type="button" class="tabs__tab" role="tab" aria-selected="true" aria-controls="panel-1" id="tab-1">Tab 1</button>
-    <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="panel-2" id="tab-2">Tab 2</button>
+const copyableHtml = `<div class="tabs" data-tabs="my-tabs">
+  <div class="tabs__list" role="tablist" aria-label="Tabs">
+    <span class="tabs__tab tabs__tab--active" id="my-tabs-tab-tab1" role="tab" tabindex="0" aria-selected="true" aria-controls="my-tabs-panel-tab1" data-tab-id="tab1" data-tab-index="0">Tab 1</span>
+    <span class="tabs__tab" id="my-tabs-tab-tab2" role="tab" tabindex="-1" aria-selected="false" aria-controls="my-tabs-panel-tab2" data-tab-id="tab2" data-tab-index="1">Tab 2</span>
+    <span class="tabs__tab" id="my-tabs-tab-tab3" role="tab" tabindex="-1" aria-selected="false" aria-controls="my-tabs-panel-tab3" data-tab-id="tab3" data-tab-index="2">Tab 3</span>
   </div>
-  <div id="panel-1" class="tabs__panel" role="tabpanel" aria-labelledby="tab-1">Panel 1 content.</div>
-  <div id="panel-2" class="tabs__panel" role="tabpanel" aria-labelledby="tab-2" hidden>Panel 2 content.</div>
+  <div class="tabs__panels-wrapper">
+    <div class="tabs__panel tabs__panel--active" id="my-tabs-panel-tab1" role="tabpanel" aria-labelledby="my-tabs-tab-tab1" aria-hidden="false" data-panel-id="tab1" data-panel-index="0">
+      <div class="tabs__panel-content">Panel 1 content.</div>
+    </div>
+    <div class="tabs__panel" id="my-tabs-panel-tab2" role="tabpanel" aria-labelledby="my-tabs-tab-tab2" aria-hidden="true" data-panel-id="tab2" data-panel-index="1">
+      <div class="tabs__panel-content">Panel 2 content.</div>
+    </div>
+    <div class="tabs__panel" id="my-tabs-panel-tab3" role="tabpanel" aria-labelledby="my-tabs-tab-tab3" aria-hidden="true" data-panel-id="tab3" data-panel-index="2">
+      <div class="tabs__panel-content">Panel 3 content.</div>
+    </div>
+  </div>
 </div>`;
 
-const copyableJs = `(function() {
-  var container = document.querySelector('.tabs');
+const copyableJs = `(function initTabs() {
+  var tabsId = 'my-tabs'; // match data-tabs on your container
+  var activeTabId = 'tab1'; // initial active tab id
+  var container = document.querySelector('[data-tabs="' + tabsId + '"]');
   if (!container) return;
-  container.querySelectorAll('.tabs__tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      var panelId = tab.getAttribute('aria-controls');
-      var panel = panelId ? document.getElementById(panelId) : null;
-      container.querySelectorAll('.tabs__tab').forEach(function(t) {
-        t.setAttribute('aria-selected', t === tab);
-      });
-      container.querySelectorAll('.tabs__panel').forEach(function(p) {
-        p.hidden = p !== panel;
-      });
+  var tabButtons = container.querySelectorAll('[role="tab"]');
+  var tabPanels = container.querySelectorAll('[role="tabpanel"]');
+  if (tabButtons.length === 0 || tabPanels.length === 0) return;
+
+  var activeIndex = [].slice.call(tabButtons).findIndex(function(btn) {
+    return btn.getAttribute('data-tab-id') === activeTabId;
+  });
+  if (activeIndex === -1) activeIndex = 0;
+
+  function activateTab(index) {
+    if (index < 0 || index >= tabButtons.length) return;
+    var targetButton = tabButtons[index];
+    var targetTabId = targetButton.getAttribute('data-tab-id');
+    if (!targetTabId) return;
+    [].forEach.call(tabButtons, function(btn, idx) {
+      var isActive = idx === index;
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      btn.setAttribute('tabindex', isActive ? '0' : '-1');
+      btn.classList.toggle('tabs__tab--active', isActive);
+    });
+    [].forEach.call(tabPanels, function(panel) {
+      var panelId = panel.getAttribute('data-panel-id');
+      var isActive = panelId === targetTabId;
+      panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+      panel.classList.toggle('tabs__panel--active', isActive);
+    });
+  }
+
+  [].forEach.call(tabButtons, function(button, index) {
+    button.addEventListener('click', function() { activateTab(index); });
+    button.addEventListener('keydown', function(e) {
+      var targetIndex = index;
+      switch (e.key) {
+        case 'ArrowRight':
+        case 'ArrowDown':
+          e.preventDefault();
+          targetIndex = (index + 1) % tabButtons.length;
+          break;
+        case 'ArrowLeft':
+        case 'ArrowUp':
+          e.preventDefault();
+          targetIndex = index === 0 ? tabButtons.length - 1 : index - 1;
+          break;
+        case 'Home':
+          e.preventDefault();
+          targetIndex = 0;
+          break;
+        case 'End':
+          e.preventDefault();
+          targetIndex = tabButtons.length - 1;
+          break;
+        case 'Enter':
+        case ' ':
+          e.preventDefault();
+          activateTab(index);
+          return;
+        default:
+          return;
+      }
+      activateTab(targetIndex);
+      tabButtons[targetIndex].focus();
     });
   });
+
+  activateTab(activeIndex);
 })();`;
+
+// Unique data-tabs ids for each example (script will init all)
+const ID_BASIC = 'vanilla-tabs-basic';
+const ID_CONTENT = 'vanilla-tabs-content';
+const ID_DEFAULT_VARIANT = 'vanilla-tabs-default-variant';
+const ID_PILLS = 'vanilla-tabs-pills';
+const ID_UNDERLINE = 'vanilla-tabs-underline';
+const ID_DEFAULT_TAB = 'vanilla-tabs-default-tab';
 ---
 
-<DocsLayout title="Tabs — Vanilla" description="Tabs with vanilla HTML + JS. Ensure Rizzo CSS is loaded.">
+<DocsLayout title="Tabs — Vanilla" description="Tabs with vanilla HTML + JS. Same structure and behavior as Astro Tabs. Ensure Rizzo CSS is loaded.">
   <section>
     <h2>Tabs</h2>
-    <p>Tabbed panels. Use JS to switch the active tab and panel.</p>
+    <p>Tabbed panels that match the <a href="/docs/components/tabs">Astro Tabs</a> component: same markup (span tabs, <code>tabs__panels-wrapper</code>, <code>data-tab-id</code> / <code>data-panel-id</code>), class-based active state (<code>tabs__tab--active</code>, <code>tabs__panel--active</code>), and full keyboard support (Arrow keys, Home, End, Enter, Space).</p>
 
+    <h3>Basic Usage</h3>
+    <p>Provide panel content in the same order as the tabs. Same example as Astro and Svelte:</p>
     <div class="example">
-      <div class="example-title">Live example</div>
+      <div class="example-title">Live Example</div>
       <div class="example-demo">
-        <div class="tabs" id="vanilla-tabs-demo">
-          <div class="tabs__list" role="tablist">
-            <button type="button" class="tabs__tab" role="tab" aria-selected="true" aria-controls="vanilla-panel-1" id="vanilla-tab-1">Tab 1</button>
-            <button type="button" class="tabs__tab" role="tab" aria-selected="false" aria-controls="vanilla-panel-2" id="vanilla-tab-2">Tab 2</button>
+        <div class="tabs" data-tabs={ID_BASIC}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab tabs__tab--active" id="{ID_BASIC}-tab-overview" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_BASIC}-panel-overview" data-tab-id="overview" data-tab-index="0">Overview</span>
+            <span class="tabs__tab" id="{ID_BASIC}-tab-features" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_BASIC}-panel-features" data-tab-id="features" data-tab-index="1">Features</span>
+            <span class="tabs__tab" id="{ID_BASIC}-tab-pricing" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_BASIC}-panel-pricing" data-tab-id="pricing" data-tab-index="2">Pricing</span>
           </div>
-          <div id="vanilla-panel-1" class="tabs__panel" role="tabpanel" aria-labelledby="vanilla-tab-1">Panel 1 content.</div>
-          <div id="vanilla-panel-2" class="tabs__panel" role="tabpanel" aria-labelledby="vanilla-tab-2" hidden>Panel 2 content.</div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel tabs__panel--active" id="{ID_BASIC}-panel-overview" role="tabpanel" aria-labelledby="{ID_BASIC}-tab-overview" aria-hidden="false" data-panel-id="overview" data-panel-index="0">
+              <div class="tabs__panel-content">
+                <h4>Overview</h4>
+                <p>This is the overview content. It provides a general introduction to the topic.</p>
+              </div>
+            </div>
+            <div class="tabs__panel" id="{ID_BASIC}-panel-features" role="tabpanel" aria-labelledby="{ID_BASIC}-tab-features" aria-hidden="true" data-panel-id="features" data-panel-index="1">
+              <div class="tabs__panel-content">
+                <h4>Features</h4>
+                <ul>
+                  <li>Feature 1: Accessible design</li>
+                  <li>Feature 2: Keyboard navigation</li>
+                  <li>Feature 3: Theme-aware styling</li>
+                </ul>
+              </div>
+            </div>
+            <div class="tabs__panel" id="{ID_BASIC}-panel-pricing" role="tabpanel" aria-labelledby="{ID_BASIC}-tab-pricing" aria-hidden="true" data-panel-id="pricing" data-panel-index="2">
+              <div class="tabs__panel-content">
+                <h4>Pricing</h4>
+                <p>Choose the plan that works best for you.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <h3>With Content Property</h3>
+    <p>You can put panel content in each panel’s <code>tabs__panel-content</code> div (or inject HTML via JS). Same labels as Astro/Svelte:</p>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo">
+        <div class="tabs" data-tabs={ID_CONTENT}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab tabs__tab--active" id="{ID_CONTENT}-tab-tab1" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_CONTENT}-panel-tab1" data-tab-id="tab1" data-tab-index="0">Tab 1</span>
+            <span class="tabs__tab" id="{ID_CONTENT}-tab-tab2" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_CONTENT}-panel-tab2" data-tab-id="tab2" data-tab-index="1">Tab 2</span>
+            <span class="tabs__tab" id="{ID_CONTENT}-tab-tab3" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_CONTENT}-panel-tab3" data-tab-id="tab3" data-tab-index="2">Tab 3</span>
+          </div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel tabs__panel--active" id="{ID_CONTENT}-panel-tab1" role="tabpanel" aria-labelledby="{ID_CONTENT}-tab-tab1" aria-hidden="false" data-panel-id="tab1" data-panel-index="0">
+              <div class="tabs__panel-content"><p>Content for tab 1</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_CONTENT}-panel-tab2" role="tabpanel" aria-labelledby="{ID_CONTENT}-tab-tab2" aria-hidden="true" data-panel-id="tab2" data-panel-index="1">
+              <div class="tabs__panel-content"><p>Content for tab 2</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_CONTENT}-panel-tab3" role="tabpanel" aria-labelledby="{ID_CONTENT}-tab-tab3" aria-hidden="true" data-panel-id="tab3" data-panel-index="2">
+              <div class="tabs__panel-content"><p>Content for tab 3</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Variants</h3>
+
+    <h4>Default Variant</h4>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo">
+        <div class="tabs" data-tabs={ID_DEFAULT_VARIANT}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab tabs__tab--active" id="{ID_DEFAULT_VARIANT}-tab-default1" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_DEFAULT_VARIANT}-panel-default1" data-tab-id="default1" data-tab-index="0">Tab 1</span>
+            <span class="tabs__tab" id="{ID_DEFAULT_VARIANT}-tab-default2" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_DEFAULT_VARIANT}-panel-default2" data-tab-id="default2" data-tab-index="1">Tab 2</span>
+            <span class="tabs__tab" id="{ID_DEFAULT_VARIANT}-tab-default3" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_DEFAULT_VARIANT}-panel-default3" data-tab-id="default3" data-tab-index="2">Tab 3</span>
+          </div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel tabs__panel--active" id="{ID_DEFAULT_VARIANT}-panel-default1" role="tabpanel" aria-labelledby="{ID_DEFAULT_VARIANT}-tab-default1" aria-hidden="false" data-panel-id="default1" data-panel-index="0">
+              <div class="tabs__panel-content"><p>Default variant with bottom border indicator</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_DEFAULT_VARIANT}-panel-default2" role="tabpanel" aria-labelledby="{ID_DEFAULT_VARIANT}-tab-default2" aria-hidden="true" data-panel-id="default2" data-panel-index="1">
+              <div class="tabs__panel-content"><p>Tab 2 content</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_DEFAULT_VARIANT}-panel-default3" role="tabpanel" aria-labelledby="{ID_DEFAULT_VARIANT}-tab-default3" aria-hidden="true" data-panel-id="default3" data-panel-index="2">
+              <div class="tabs__panel-content"><p>Tab 3 content</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Pills Variant</h4>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo">
+        <div class="tabs tabs--pills" data-tabs={ID_PILLS}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab tabs__tab--active" id="{ID_PILLS}-tab-pills1" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_PILLS}-panel-pills1" data-tab-id="pills1" data-tab-index="0">Tab 1</span>
+            <span class="tabs__tab" id="{ID_PILLS}-tab-pills2" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_PILLS}-panel-pills2" data-tab-id="pills2" data-tab-index="1">Tab 2</span>
+            <span class="tabs__tab" id="{ID_PILLS}-tab-pills3" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_PILLS}-panel-pills3" data-tab-id="pills3" data-tab-index="2">Tab 3</span>
+          </div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel tabs__panel--active" id="{ID_PILLS}-panel-pills1" role="tabpanel" aria-labelledby="{ID_PILLS}-tab-pills1" aria-hidden="false" data-panel-id="pills1" data-panel-index="0">
+              <div class="tabs__panel-content"><p>Pills variant with filled background for active tab</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_PILLS}-panel-pills2" role="tabpanel" aria-labelledby="{ID_PILLS}-tab-pills2" aria-hidden="true" data-panel-id="pills2" data-panel-index="1">
+              <div class="tabs__panel-content"><p>Tab 2 content</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_PILLS}-panel-pills3" role="tabpanel" aria-labelledby="{ID_PILLS}-tab-pills3" aria-hidden="true" data-panel-id="pills3" data-panel-index="2">
+              <div class="tabs__panel-content"><p>Tab 3 content</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h4>Underline Variant</h4>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo">
+        <div class="tabs tabs--underline" data-tabs={ID_UNDERLINE}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab tabs__tab--active" id="{ID_UNDERLINE}-tab-underline1" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_UNDERLINE}-panel-underline1" data-tab-id="underline1" data-tab-index="0">Tab 1</span>
+            <span class="tabs__tab" id="{ID_UNDERLINE}-tab-underline2" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_UNDERLINE}-panel-underline2" data-tab-id="underline2" data-tab-index="1">Tab 2</span>
+            <span class="tabs__tab" id="{ID_UNDERLINE}-tab-underline3" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_UNDERLINE}-panel-underline3" data-tab-id="underline3" data-tab-index="2">Tab 3</span>
+          </div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel tabs__panel--active" id="{ID_UNDERLINE}-panel-underline1" role="tabpanel" aria-labelledby="{ID_UNDERLINE}-tab-underline1" aria-hidden="false" data-panel-id="underline1" data-panel-index="0">
+              <div class="tabs__panel-content"><p>Underline variant with thicker bottom border for active tab</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_UNDERLINE}-panel-underline2" role="tabpanel" aria-labelledby="{ID_UNDERLINE}-tab-underline2" aria-hidden="true" data-panel-id="underline2" data-panel-index="1">
+              <div class="tabs__panel-content"><p>Tab 2 content</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_UNDERLINE}-panel-underline3" role="tabpanel" aria-labelledby="{ID_UNDERLINE}-tab-underline3" aria-hidden="true" data-panel-id="underline3" data-panel-index="2">
+              <div class="tabs__panel-content"><p>Tab 3 content</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Default Tab</h3>
+    <p>Specify which tab is active by default by setting the correct initial <code>aria-selected</code>, <code>tabindex</code>, and <code>tabs__tab--active</code> / <code>tabs__panel--active</code> in HTML, and pass that tab’s <code>data-tab-id</code> to your init script. Same example as Astro/Svelte:</p>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo">
+        <div class="tabs" data-tabs={ID_DEFAULT_TAB}>
+          <div class="tabs__list" role="tablist" aria-label="Tabs">
+            <span class="tabs__tab" id="{ID_DEFAULT_TAB}-tab-first" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_DEFAULT_TAB}-panel-first" data-tab-id="first" data-tab-index="0">First</span>
+            <span class="tabs__tab tabs__tab--active" id="{ID_DEFAULT_TAB}-tab-second" role="tab" tabindex="0" aria-selected="true" aria-controls="{ID_DEFAULT_TAB}-panel-second" data-tab-id="second" data-tab-index="1">Second</span>
+            <span class="tabs__tab" id="{ID_DEFAULT_TAB}-tab-third" role="tab" tabindex="-1" aria-selected="false" aria-controls="{ID_DEFAULT_TAB}-panel-third" data-tab-id="third" data-tab-index="2">Third</span>
+          </div>
+          <div class="tabs__panels-wrapper">
+            <div class="tabs__panel" id="{ID_DEFAULT_TAB}-panel-first" role="tabpanel" aria-labelledby="{ID_DEFAULT_TAB}-tab-first" aria-hidden="true" data-panel-id="first" data-panel-index="0">
+              <div class="tabs__panel-content"><p>First tab content</p></div>
+            </div>
+            <div class="tabs__panel tabs__panel--active" id="{ID_DEFAULT_TAB}-panel-second" role="tabpanel" aria-labelledby="{ID_DEFAULT_TAB}-tab-second" aria-hidden="false" data-panel-id="second" data-panel-index="1">
+              <div class="tabs__panel-content"><p>Second tab is active by default</p></div>
+            </div>
+            <div class="tabs__panel" id="{ID_DEFAULT_TAB}-panel-third" role="tabpanel" aria-labelledby="{ID_DEFAULT_TAB}-tab-third" aria-hidden="true" data-panel-id="third" data-panel-index="2">
+              <div class="tabs__panel-content"><p>Third tab content</p></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Features</h3>
+    <ul>
+      <li><strong>ARIA tab pattern</strong> — <code>role="tablist"</code>, <code>role="tab"</code>, <code>role="tabpanel"</code>, <code>aria-selected</code>, <code>aria-controls</code>, <code>aria-labelledby</code>, <code>aria-hidden</code></li>
+      <li><strong>Keyboard</strong> — Arrow Right/Down, Arrow Left/Up, Home, End, Enter, Space</li>
+      <li><strong>Three variants</strong> — Default, <code>tabs--pills</code>, <code>tabs--underline</code> on the wrapper</li>
+      <li><strong>Theme-aware</strong> — Adapts to all 14 themes</li>
+    </ul>
 
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
@@ -57,23 +292,85 @@ const copyableJs = `(function() {
   </section>
 </DocsLayout>
 
-<script is:inline>
-(function() {
-  var container = document.getElementById('vanilla-tabs-demo');
-  if (!container) return;
-  container.querySelectorAll('.tabs__tab').forEach(function(tab) {
-    tab.addEventListener('click', function() {
-      var panelId = tab.getAttribute('aria-controls');
-      var panel = panelId ? document.getElementById(panelId) : null;
-      container.querySelectorAll('.tabs__tab').forEach(function(t) {
-        t.setAttribute('aria-selected', t === tab);
+<script define:vars={{ ID_BASIC, ID_CONTENT, ID_DEFAULT_VARIANT, ID_PILLS, ID_UNDERLINE, ID_DEFAULT_TAB }}>
+  (function initTabs() {
+    function run(tabsId, activeTabId) {
+      var container = document.querySelector('[data-tabs="' + tabsId + '"]');
+      if (!container) return;
+      var tabButtons = container.querySelectorAll('[role="tab"]');
+      var tabPanels = container.querySelectorAll('[role="tabpanel"]');
+      if (tabButtons.length === 0 || tabPanels.length === 0) return;
+
+      var activeIndex = Array.from(tabButtons).findIndex(function(btn) {
+        return btn.getAttribute('data-tab-id') === activeTabId;
       });
-      container.querySelectorAll('.tabs__panel').forEach(function(p) {
-        p.hidden = p !== panel;
+      if (activeIndex === -1) activeIndex = 0;
+
+      function activateTab(index) {
+        if (index < 0 || index >= tabButtons.length) return;
+        var targetButton = tabButtons[index];
+        var targetTabId = targetButton.getAttribute('data-tab-id');
+        if (!targetTabId) return;
+        Array.from(tabButtons).forEach(function(btn, idx) {
+          var isActive = idx === index;
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          btn.setAttribute('tabindex', isActive ? '0' : '-1');
+          btn.classList.toggle('tabs__tab--active', isActive);
+        });
+        Array.from(tabPanels).forEach(function(panel) {
+          var panelId = panel.getAttribute('data-panel-id');
+          var isActive = panelId === targetTabId;
+          panel.setAttribute('aria-hidden', isActive ? 'false' : 'true');
+          panel.classList.toggle('tabs__panel--active', isActive);
+        });
+      }
+
+      Array.from(tabButtons).forEach(function(button, index) {
+        button.addEventListener('click', function() { activateTab(index); });
+        button.addEventListener('keydown', function(e) {
+          var targetIndex = index;
+          switch (e.key) {
+            case 'ArrowRight':
+            case 'ArrowDown':
+              e.preventDefault();
+              targetIndex = (index + 1) % tabButtons.length;
+              break;
+            case 'ArrowLeft':
+            case 'ArrowUp':
+              e.preventDefault();
+              targetIndex = index === 0 ? tabButtons.length - 1 : index - 1;
+              break;
+            case 'Home':
+              e.preventDefault();
+              targetIndex = 0;
+              break;
+            case 'End':
+              e.preventDefault();
+              targetIndex = tabButtons.length - 1;
+              break;
+            case 'Enter':
+            case ' ':
+              e.preventDefault();
+              activateTab(index);
+              return;
+            default:
+              return;
+          }
+          activateTab(targetIndex);
+          tabButtons[targetIndex].focus();
+        });
       });
-    });
-  });
-})();
+
+      activateTab(activeIndex);
+    }
+
+    run(ID_BASIC, 'overview');
+    run(ID_CONTENT, 'tab1');
+    run(ID_DEFAULT_VARIANT, 'default1');
+    run(ID_PILLS, 'pills1');
+    run(ID_UNDERLINE, 'underline1');
+    run(ID_DEFAULT_TAB, 'second');
+  })();
 </script>
 
 <style>

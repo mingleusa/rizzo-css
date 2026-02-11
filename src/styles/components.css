@@ -924,29 +924,12 @@ div.navbar__sublink {
   width: 100%;
 }
 
-/* Theme Switcher in Settings */
-.settings .theme-switcher {
-  width: 100%;
-}
-
-.settings .theme-switcher__trigger {
-  width: 100%;
-  justify-content: space-between;
-}
-
-.settings .theme-switcher__menu {
-  position: absolute;
-  top: calc(100% + var(--spacing-2));
-  right: 0;
-  left: 0;
-  min-width: auto;
-  z-index: var(--z-dropdown);
-}
-
   .theme-switcher__trigger {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: var(--spacing-3);
+    width: 100%;
     padding: var(--spacing-3) var(--spacing-4);
     min-width: var(--spacing-56);
     background-color: var(--background-alt);
@@ -1005,7 +988,8 @@ div.navbar__sublink {
   position: absolute;
   top: calc(100% + var(--spacing-2));
   left: 0;
-  min-width: var(--spacing-96);
+  right: 0;
+  min-width: auto;
   max-height: var(--spacing-100);
   overflow-y: auto;
   background-color: var(--background-alt);
@@ -2412,6 +2396,154 @@ div.navbar__sublink {
 /* Standalone icon: use with SVG that has stroke/fill="currentColor" so icon follows theme (--icon). */
 .icon {
   color: var(--icon);
+  cursor: pointer;
+}
+
+/* Icon card: clickable card wrapping an icon (Icons doc page — Astro, Svelte, Vanilla). Whole card has pointer. */
+.icon-card,
+.icon-card-tooltip-host {
+  cursor: pointer;
+}
+
+/* Icons grid and card dimensions — shared so Astro, Svelte, and Vanilla icon cards are the same size. */
+.icons-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-3);
+  margin: var(--spacing-6) 0;
+}
+
+@media (width >= 640px) {
+  .icons-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-4);
+  }
+}
+
+@media (width >= 1024px) {
+  .icons-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.icon-card-tooltip-host {
+  display: block;
+  width: 100%;
+  min-width: 0;
+}
+
+.icon-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3);
+  text-align: center;
+  min-height: 10rem;
+  transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.icon-card:hover {
+  transform: translateY(calc(-1 * var(--spacing-0-125)));
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  background-color: var(--background-alt);
+}
+
+.icon-card:focus-visible {
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+.icon-card__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--spacing-2);
+  min-height: var(--spacing-32);
+  width: 100%;
+}
+
+.icon-card__preview--devicon {
+  background-color: var(--background-alt);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-2);
+  border: 1px solid var(--border);
+}
+
+.icon-card--devicon {
+  background-color: var(--background);
+}
+
+.icon-card--devicon:hover {
+  background-color: var(--background-alt);
+}
+
+.icon-card__icon {
+  color: var(--icon);
+  flex-shrink: 0;
+}
+
+.icon-card__content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.icon-card__name {
+  margin: 0 0 var(--spacing-0-125) 0;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  line-height: var(--line-height-tight);
+  text-align: center;
+}
+
+.icon-card__hint {
+  margin: 0;
+  font-size: calc(var(--font-size-xs) * 0.875);
+  color: var(--text-dim);
+  transition: color var(--transition-base);
+  line-height: var(--line-height-tight);
+  text-align: center;
+}
+
+.icon-card__hint--copied {
+  color: var(--accent);
+  font-weight: var(--font-weight-medium);
+}
+
+@media (width <= 640px) {
+  .icons-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-2);
+  }
+
+  .icon-card {
+    padding: var(--spacing-2);
+    min-height: 8.5rem;
+  }
+
+  .icon-card__preview {
+    min-height: var(--spacing-24);
+    margin-bottom: var(--spacing-1);
+  }
+
+  .icon-card__icon {
+    width: var(--spacing-8);
+    height: var(--spacing-8);
+  }
+
+  .icon-card__name {
+    font-size: calc(var(--font-size-xs) * 0.875);
+  }
+
+  .icon-card__hint {
+    font-size: calc(var(--font-size-xs) * 0.75);
+  }
 }
 
 /* Dropdown Component */

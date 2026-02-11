@@ -85,6 +85,7 @@
         aria-selected={isActive ? 'true' : 'false'}
         aria-controls="{tabsId}-panel-{tab.id}"
         data-tab-id={tab.id}
+        data-tab-index={index}
         onclick={() => activateTab(index)}
         onkeydown={(e) => handleKeydown(e, index)}
       >
@@ -94,7 +95,7 @@
   </div>
 
   <div class="tabs__panels-wrapper">
-    {#each tabs as tab}
+    {#each tabs as tab, index}
       {@const isActive = tab.id === activeTabId}
       <div
         class="tabs__panel {isActive ? 'tabs__panel--active' : ''}"
@@ -103,6 +104,7 @@
         aria-labelledby="{tabsId}-tab-{tab.id}"
         aria-hidden={isActive ? 'false' : 'true'}
         data-panel-id={tab.id}
+        data-panel-index={index}
       >
         {#if tab.content}
           <div class="tabs__panel-content">{@html tab.content}</div>

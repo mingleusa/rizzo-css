@@ -825,6 +825,11 @@ async function cmdInit() {
       if (existsSync(vanillaReadme)) {
         copyFileSync(vanillaReadme, join(projectDir, 'README.md'));
       }
+      const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
+      if (existsSync(vanillaJs)) {
+        mkdirSync(join(projectDir, 'js'), { recursive: true });
+        copyFileSync(vanillaJs, join(projectDir, 'js', 'main.js'));
+      }
     }
     if (framework === 'svelte' && selectedComponents.length > 0) {
       copySvelteComponents(projectDir, selectedComponents);
@@ -838,6 +843,7 @@ async function cmdInit() {
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
     console.log('  - Vanilla JS: same CSS and component styles; index includes theme switcher and sample components.');
+    console.log('  - js/main.js (theme, toast, settings, tabs, modal, dropdown, accordion)');
     console.log('  - Icons: ' + join(projectDir, 'icons') + ' (SVG files)');
     console.log('  - README.md (setup and CDN/local options)');
   }

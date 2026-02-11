@@ -13,16 +13,21 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.11`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.12`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
 ## What’s included
 
-- **Theme flash prevention** — Saved theme and settings applied before first paint.
-- **Theme switcher** — System (prefer OS), dark, and light themes; choice persisted in `localStorage` as `theme`.
-- **Settings panel** — Open via `openSettings()`; theme, font size, reduce motion, high contrast, scrollbar style; all persisted in `localStorage`.
-- **Toast** — `showToast()`, `removeToast()`, `removeAllToasts()` available globally.
+- **Theme flash prevention** — Small inline script in `<head>` applies saved theme and settings before first paint.
+- **js/main.js** — Bundled vanilla JS for components (loaded via `<script src="js/main.js"></script>`):
+  - **Theme** — Header and settings theme selects; `localStorage` key `theme`; system preference listener.
+  - **Settings panel** — `openSettings()`; font size, reduce motion, high contrast, scrollbar style; focus trap and Escape to close.
+  - **Toast** — `showToast(message, options)`, `removeToast(id)`, `removeAllToasts()` on `window`.
+  - **Tabs** — Any `[data-tabs]` block gets keyboard and click behavior.
+  - **Modal** — Dialogs with `[data-modal-close]` and overlay `#id-overlay`; use `[data-modal-open="modalId"]` on a button to open; `openModal_*` / `closeModal_*` on `window` (id with hyphens replaced by underscores).
+  - **Dropdown** — Any `[data-dropdown]` with `.dropdown__trigger` and `.dropdown__menu` (and optional submenus).
+  - **Accordion** — Any `[data-accordion]` with `[data-accordion-trigger]` and panels; `data-allow-multiple="true"` for multiple open.
 
 ## Commands
 

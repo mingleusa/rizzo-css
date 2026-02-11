@@ -81,13 +81,13 @@
   }
 </script>
 
-<div class={classes} data-table-id={tableId}>
+<div class={classes} data-table-id={tableId} data-table-sortable={sortable ? 'true' : undefined} data-table-filterable={filterable ? 'true' : undefined}>
   {#if filterable}
     <div class="table__filter-wrap">
       <label for="{tableId}-filter" class="sr-only">Filter table</label>
       <span class="table__filter-icon" aria-hidden="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table__filter-icon-svg" aria-hidden="true">
-          <path d="M4 6h16M4 12h10M4 18h6" />
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="table__filter-icon-svg icon" aria-hidden="true">
+          <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z" />
         </svg>
       </span>
       <input
@@ -129,8 +129,9 @@
                 >
                   <span class="table__cell-content">{col.label}</span>
                   <span class="table__sort-icon" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="table__sort-icon-svg" aria-hidden="true">
-                      <path d="M3 6h18M7 12h10M10 18h4" />
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="table__sort-icon-svg icon" aria-hidden="true">
+                      <path d="m7 15 5 5 5-5" />
+                      <path d="m7 9 5-5 5 5" />
                     </svg>
                   </span>
                 </button>

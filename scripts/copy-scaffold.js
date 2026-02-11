@@ -148,8 +148,11 @@ function copySvelte() {
   mkdirSync(svelteDest, { recursive: true });
   const entries = readdirSync(svelteSrc, { withFileTypes: true });
   let count = 0;
+  // ThemeSwitcher depends on repo config/themes and utils/theme; exclude from scaffold so 24 components work out of the box
+  const SVELTE_SCAFFOLD_SKIP = new Set(['ThemeSwitcher.svelte']);
   for (const e of entries) {
     if (e.name === 'docs' || e.name === 'node_modules') continue;
+    if (SVELTE_SCAFFOLD_SKIP.has(e.name)) continue;
     if (e.isFile() && (e.name.endsWith('.svelte') || e.name === 'index.ts')) {
       copyFileSync(join(svelteSrc, e.name), join(svelteDest, e.name));
       count++;

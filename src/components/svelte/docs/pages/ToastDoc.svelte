@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Toast from '../../Toast.svelte';
   import CodeBlock from '../CodeBlock.svelte';
 
   function showToastGlobal(message: string, options?: { variant?: string; position?: string; autoDismiss?: number }) {
@@ -80,12 +79,11 @@ removeAllToasts();`}
   </div>
 
   <h3>Static Toast component</h3>
-  <p>For a single toast rendered in the template (e.g. a fixed “Saved” message in a form section), use the Toast component. It wraps Alert with toast positioning.</p>
+  <p>For a single toast rendered in the template (e.g. a fixed “Saved” message in a form section), use the Toast component. It wraps Alert with toast positioning. Use it when the toast is part of your layout; for one-off messages use the programmatic API above.</p>
   <div class="example">
     <div class="example-title">Static Toast (top-right, dismissible, 5s auto-dismiss)</div>
-    <Toast variant="success" dismissible autoDismiss={5000} position="top-right">
-      Changes saved.
-    </Toast>
+    <p>Click to show the same toast via the static component pattern (no toast on page load):</p>
+    <button type="button" class="btn btn-success" onclick={() => showToastGlobal('Changes saved.', { variant: 'success', autoDismiss: 5000 })}>Show “Changes saved” toast</button>
   </div>
 
   <h3>Toast options</h3>
