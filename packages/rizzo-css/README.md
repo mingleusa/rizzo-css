@@ -12,7 +12,7 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. For Astro/Svelte: **What to include?** — CSS only, Recommended set, All (25 components), or Pick. Add to existing: you must add the stylesheet `<link>` yourself (CLI prints the exact tag). New: full scaffold. All get the **same CSS and component styles**. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then run `npx rizzo-css add`:
+**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. For new projects choose a **template** (Vanilla: full or minimal; Astro/Svelte: full-app or minimal) and **package manager** (npm, pnpm, yarn, bun). For Astro/Svelte: **What to include?** — CSS only, Recommended set, All (25 components), or Pick. Add to existing: you must add the stylesheet `<link>` yourself (CLI prints the exact tag). New: full scaffold. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add
@@ -56,7 +56,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.16 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.17 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->

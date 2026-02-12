@@ -61,11 +61,18 @@
 
 .home__install-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-6);
+  grid-template-columns: 1fr;
   width: 100%;
   max-width: var(--spacing-150);
   margin: 0 auto;
+  gap: 0;
+}
+
+@media (width >= 768px) {
+  .home__install-grid {
+    grid-template-columns: 1fr auto 1fr;
+    max-width: none;
+  }
 }
 
 .home__install-block {
@@ -78,6 +85,46 @@
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--spacing-6);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* OR divider: horizontal on mobile, vertical on large */
+.home__install-or {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-4) 0;
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wider);
+  gap: var(--spacing-4);
+}
+
+.home__install-or::before,
+.home__install-or::after {
+  content: '';
+  flex: 1;
+  height: 0;
+  border-top: var(--border-width) solid var(--border);
+}
+
+@media (width >= 768px) {
+  .home__install-or {
+    flex-direction: column;
+    padding: 0 var(--spacing-4);
+    gap: var(--spacing-4);
+  }
+
+  .home__install-or::before,
+  .home__install-or::after {
+    width: 0;
+    min-height: var(--spacing-8);
+    flex: 1;
+    border-top: none;
+    border-left: var(--border-width) solid var(--border);
+  }
 }
 
 .home__install-title {
@@ -111,6 +158,45 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+
+.home__cli-tabs {
+  margin-top: var(--spacing-1);
+}
+
+.home__cli-tabs .cli-command-tabs__tabs,
+.home__cli-tabs .package-install-tabs__tabs {
+  margin-top: 0;
+}
+
+/* Package manager tabs: no scroll, minimal vertical gap (override global .tabs) */
+.home__cli-tabs .tabs__list {
+  overflow-x: visible;
+  overflow-y: visible;
+  scrollbar-width: none;
+  margin-bottom: var(--spacing-2);
+}
+
+.home__cli-tabs .tabs__list::-webkit-scrollbar {
+  display: none;
+}
+
+.home__cli-tabs .tabs__panel {
+  padding: 0;
+  min-height: 0;
+}
+
+.home__cli-tabs .cli-command-tabs__panel .code-block__header {
+  padding: var(--spacing-1) var(--spacing-2);
+}
+
+.home__cli-tabs .cli-command-tabs__panel .code-block pre {
+  padding: var(--spacing-2);
+}
+
+.home__cli-tabs .cli-command-tabs__panel .code-block {
+  margin: 0;
 }
 
 .home__grid {
@@ -289,7 +375,7 @@
 }
 
 /* ============================================
-   Docs layout (shadcn-style: sidebar + main)
+   Docs layout (sidebar + main)
    ============================================ */
 
 .docs {

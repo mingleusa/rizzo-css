@@ -4,7 +4,9 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init** starts with **framework** (Vanilla JS / Astro / Svelte, CLI colors: yellow / orange / orange-red), then **existing or new?** — **Existing:** framework → **What to include?** (CSS only / Recommended set / All components / Pick components) → if ThemeSwitcher chosen, optional default-theme prompt → copy CSS + components. **New:** location → themes → **What to include?** (same four options for Astro/Svelte; Vanilla gets full scaffold with no component picker) → full clone. **What to include?** keeps the CLI simple: most users choose Recommended or All; only "Pick components" shows the 25-item multi-select. **New** scaffolds: Vanilla = `scaffold/vanilla/` (full Settings, toast, theme with System); Astro = `scaffold/astro-app/`; Svelte = `scaffold/svelte-app/`. **Add** auto-detects Svelte/Astro; supports `--path` and `--framework`.
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new → (for new) **template** (Vanilla: full or minimal; Astro/Svelte: full-app or minimal) → themes → **What to include?** (Astro/Svelte) → **package manager** (npm, pnpm, yarn, bun; detected suggested). Optional **rizzo-css.json** (targetDir, framework, packageManager); `init --write-config` writes it. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte` and `--template`, `--install`, `--no-install`. See [CLI.md](./CLI.md).
+
+**Docs site:** The [Getting Started](/docs/getting-started) page and the home page include a **package manager tabbed selector** (npm, pnpm, yarn, bun): users click a tab to select their manager, then use the copy button to copy the CLI command. Each tab shows the appropriate command (e.g. `npx rizzo-css init`, `pnpm dlx rizzo-css init`, etc.).
 
 ---
 
@@ -61,7 +63,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 - [ ] `init` for React/Vue (e.g. Vite + Rizzo CSS + minimal setup).
 - [ ] `upgrade` (or `update`): check latest version, suggest or apply update for the CSS/package reference).
-- [ ] Config file (e.g. `rizzo-css.json`) for project-specific defaults (paths, theme).
+- [x] Config file (`rizzo-css.json`) for targetDir, framework, packageManager; read in add/init; `init --write-config` writes it.
 
 ---
 
@@ -77,3 +79,4 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 - [TODO – Package, CLI & scaffold tasks](./TODO.md#package-cli--scaffold-tasks)
 - [Getting Started](./GETTING_STARTED.md) – setup and CLI usage
+- [CLI design and implementation](./CLI.md) – CLI commands, package manager (npm / pnpm / yarn / bun), config, templates

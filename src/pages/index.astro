@@ -2,7 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Button from '../components/Button.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
-import CopyToClipboard from '../components/CopyToClipboard.astro';
+import PackageInstallTabs from '../components/PackageInstallTabs.astro';
+import CliCommandTabs from '../components/CliCommandTabs.astro';
 ---
 
 <Layout>
@@ -21,14 +22,15 @@ import CopyToClipboard from '../components/CopyToClipboard.astro';
 				<h2 class="home__section-title">Install</h2>
 				<div class="home__install-grid">
 					<div class="home__install-block">
+						<p class="home__install-title">CLI</p>
+						<p class="home__install-label">Scaffold a new app (Astro, Svelte, or Vanilla). Select your package manager and copy the command.</p>
+						<CliCommandTabs command="init" class="home__cli-tabs" />
+					</div>
+					<div class="home__install-or" aria-hidden="true">OR</div>
+					<div class="home__install-block">
 						<p class="home__install-title">npm package</p>
 						<p class="home__install-label">Add the package to your project</p>
-						<CopyToClipboard id="copy-npm-install" value="pnpm add rizzo-css" format="command" class="home__install-copy" />
-					</div>
-					<div class="home__install-block">
-						<p class="home__install-title">CLI</p>
-						<p class="home__install-label">Scaffold a new app (Astro, Svelte, or Vanilla)</p>
-						<CopyToClipboard id="copy-cli-init" value="npx rizzo-css init" format="command" class="home__install-copy" />
+						<PackageInstallTabs class="home__cli-tabs" />
 					</div>
 				</div>
 			</section>

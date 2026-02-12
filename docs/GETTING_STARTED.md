@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-app, svelte-app), optional 25 components (including ThemeSwitcher). **Create new** → full clone; **Add to existing** → CSS + optional components. Each scaffold has a README.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css` and `js/main.js`; README copied as project README. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.16/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.17/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 25 components (including ThemeSwitcher). React/Vue later.
 
 ---
@@ -17,11 +17,13 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | **First:** framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **What to include?** (Astro/Svelte): CSS only / Recommended set / All components / Pick components. Only "Pick" shows the full list. **You must add the stylesheet `<link>` yourself** when adding to existing; CLI prints the exact tag. New: full clone (link included). |
-| `npx rizzo-css add` | Add Rizzo CSS to the current directory only. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. **You must add the stylesheet `<link>` to your layout yourself**; CLI prints the exact tag. |
+| `npx rizzo-css init` | **First:** framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Create new:** choose **template** (Vanilla: full or minimal; Astro/Svelte: full-app or minimal), then package manager and optional components. **You must add the stylesheet `<link>` yourself** when adding to existing; CLI prints the exact tag. New: full clone (link included). Use **--yes --framework vanilla|astro|svelte** for non-interactive. |
+| `npx rizzo-css add` | Add Rizzo CSS to the current directory only. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. **You must add the stylesheet `<link>` to your layout yourself**; CLI prints the exact tag. Install/run commands in messages use the project's package manager (detected from lockfile or `packageManager` in package.json). |
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
-**Tip:** To use the official Svelte or Astro scaffold plus Rizzo CSS: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or the same with `astro`). Or run `npx rizzo-css init`, choose “Add to existing”, then pick that folder. When adding to existing, the CLI does not modify your layout; it prints the exact `<link>` tag to add.
+**Detection:** The CLI detects your package manager from the project (lockfile or `packageManager` in package.json). You can override with an optional **rizzo-css.json**: `{ "targetDir", "framework", "packageManager" }`. Init supports **--yes**, **--framework** (vanilla | astro | svelte), **--template** (full-app | full | minimal), **--install**, **--write-config**; add supports **--install-package** and **--no-install**. **Templates:** Vanilla = full (theme switcher + js + icons) or minimal (HTML + CSS only); Astro/Svelte = full-app (complete project) or minimal (CSS + single HTML).
+
+**Tip:** On the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page, use the **package manager tabs** (npm, pnpm, yarn, bun): click a tab to select your manager, then use the copy button to copy the command. When you **create a new project**, the CLI also asks you to select your package manager so the printed "install && dev" command matches. When **adding to existing**, the CLI detects the package manager from your lockfile. To use the official Svelte or Astro scaffold plus Rizzo CSS: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or use pnpm/yarn/bun equivalents for create and add). Or run `npx rizzo-css init`, choose “Add to existing”, then pick that folder. When adding to existing, the CLI does not modify your layout; it prints the exact `<link>` tag to add.
 
 ---
 
@@ -33,11 +35,13 @@ Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are i
 
 **Option A — Quick start with CLI:**
 
+On the [docs site](https://rizzo-css.vercel.app/docs/getting-started), use the **Install the npm package** or **Run the CLI** tabs (npm, pnpm, yarn, bun): click a tab to select your manager, then use the copy button. Or run:
+
 ```bash
 npx rizzo-css init
 ```
 
-**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** → themes, optional components; CSS (+ components) copied to cwd. **You must add the stylesheet `<link>` to your layout yourself** — the CLI does not edit your files and will print the exact tag for your framework (e.g. Svelte: `/css/rizzo.min.css` in `app.html`; Astro: same in your layout; Vanilla: `css/rizzo.min.css`). **New** → location, themes, components → full clone for that framework (link already included). **Create new** = full clone (chrome + component showcase); **Add to existing** = CSS + optional components only. CSS-only add:
+**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** → themes, optional components; CSS (+ components) copied to cwd. **You must add the stylesheet `<link>` to your layout yourself** — the CLI does not edit your files and will print the exact tag for your framework (e.g. Svelte: `/css/rizzo.min.css` in `app.html`; Astro: same in your layout; Vanilla: `css/rizzo.min.css`). **New** → location, themes, components, then **package manager** (npm, pnpm, yarn, bun; the CLI suggests the detected one) → full clone for that framework (link already included). The printed "install && dev" command uses your chosen package manager. **Create new** = full clone (chrome + component showcase); **Add to existing** = CSS + optional components only. CSS-only add:
 
 ```bash
 npx rizzo-css add
@@ -48,9 +52,11 @@ List themes: `npx rizzo-css theme`.
 
 **Option B — Install from npm:**
 
+On the [docs site](https://rizzo-css.vercel.app/docs/getting-started), use the **Install the npm package** tabs (npm, pnpm, yarn, bun) to copy the command for your manager. Or run:
+
 ```bash
-pnpm add rizzo-css
-# or: npm install rizzo-css   or   yarn add rizzo-css
+npm install rizzo-css
+# or: pnpm add rizzo-css   or   yarn add rizzo-css   or   bun add rizzo-css
 ```
 
 Package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css).

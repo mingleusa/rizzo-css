@@ -1,0 +1,87 @@
+---
+import Tabs from './Tabs.astro';
+import CodeBlock from './CodeBlock.astro';
+
+interface Props {
+  /** Package name to install, e.g. "rizzo-css" */
+  packageName?: string;
+  /** Optional default tab id (npm, pnpm, yarn, bun) */
+  defaultTab?: string;
+  /** Optional class for the wrapper */
+  class?: string;
+}
+
+const { packageName = 'rizzo-css', defaultTab = 'npm', class: className = '' } = Astro.props;
+
+const commands = {
+  npm: `npm install ${packageName}`,
+  pnpm: `pnpm add ${packageName}`,
+  yarn: `yarn add ${packageName}`,
+  bun: `bun add ${packageName}`,
+};
+
+const tabs = [
+  { id: 'npm', label: 'npm' },
+  { id: 'pnpm', label: 'pnpm' },
+  { id: 'yarn', label: 'yarn' },
+  { id: 'bun', label: 'bun' },
+];
+---
+
+<div class={`package-install-tabs ${className}`.trim()} data-package={packageName}>
+  <p class="package-install-tabs__hint">Choose your package manager — click a tab to select, then copy the command.</p>
+  <Tabs tabs={tabs} defaultTab={defaultTab} id={`pkg-tabs-${packageName.replace(/\s+/g, '-')}`} class="package-install-tabs__tabs">
+    <div class="package-install-tabs__panel">
+      <CodeBlock code={commands.npm} language="bash" />
+    </div>
+    <div class="package-install-tabs__panel">
+      <CodeBlock code={commands.pnpm} language="bash" />
+    </div>
+    <div class="package-install-tabs__panel">
+      <CodeBlock code={commands.yarn} language="bash" />
+    </div>
+    <div class="package-install-tabs__panel">
+      <CodeBlock code={commands.bun} language="bash" />
+    </div>
+  </Tabs>
+</div>
+
+<style>
+  .package-install-tabs {
+    margin: var(--spacing-2) 0;
+  }
+  .package-install-tabs__hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-1);
+  }
+  .package-install-tabs__tabs {
+    margin-top: 0;
+  }
+  .package-install-tabs :global(.tabs__list) {
+    overflow-x: visible;
+    overflow-y: visible;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
+    margin-bottom: var(--spacing-2);
+  }
+  .package-install-tabs :global(.tabs__list)::-webkit-scrollbar {
+    display: none;
+  }
+  .package-install-tabs :global(.tabs__panel) {
+    padding: 0;
+    min-height: 0;
+  }
+  .package-install-tabs__panel {
+    padding-top: var(--spacing-1);
+  }
+  .package-install-tabs__panel :global(.code-block) {
+    margin: 0;
+  }
+  .package-install-tabs__panel :global(.code-block__header) {
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+  .package-install-tabs__panel :global(.code-block pre) {
+    padding: var(--spacing-2);
+  }
+</style>

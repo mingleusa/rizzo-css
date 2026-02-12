@@ -1,12 +1,26 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import CliCommandTabs from '../../components/CliCommandTabs.astro';
+import PackageInstallTabs from '../../components/PackageInstallTabs.astro';
 ---
 
 <DocsLayout title="Getting Started" description="Installation, project structure, and quick start guide">
 	<section>
 		<h2>Installation</h2>
-		<p><strong>Using the npm package?</strong> Run <code>npx rizzo-css init</code> — choose <strong>framework</strong> (Vanilla, Astro, or Svelte), then <strong>add to existing</strong> or <strong>create new project</strong>. For Astro/Svelte you’ll see <strong>What to include?</strong>: CSS only, Recommended set, All components, or Pick components. Create new gives a full clone (stylesheet link included); add to existing copies CSS + optional components (you must add the <code>&lt;link&gt;</code> yourself; the CLI prints the exact tag). The package includes <code>dist/rizzo.min.css</code>, the CLI (<code>init</code> / <code>add</code> / <code>theme</code>), and scaffolds plus 25 optional components (including ThemeSwitcher). Each scaffold has a README. See the <a href="https://www.npmjs.com/package/rizzo-css">npm package</a> and project README for CLI details.</p>
+		<p>You can <strong>install the npm package</strong> or <strong>run the CLI</strong>; both support npm, pnpm, yarn, and bun. Use the tabs below: click a tab to select your package manager, then copy the command. For the CLI: choose <strong>framework</strong> (Vanilla, Astro, or Svelte), then <strong>add to existing</strong> or <strong>create new project</strong>. When creating new, choose a <strong>template</strong> (Vanilla: full or minimal; Astro/Svelte: full-app or minimal), then your <strong>package manager</strong> (npm, pnpm, yarn, bun); the CLI suggests the detected one. For Astro/Svelte you’ll see <strong>What to include?</strong>: CSS only, Recommended set, All components, or Pick components. Create new gives a full clone (stylesheet link included); add to existing copies CSS + optional components (you must add the <code>&lt;link&gt;</code> yourself; the CLI prints the exact tag). The package includes <code>dist/rizzo.min.css</code>, the CLI (<code>init</code> / <code>add</code> / <code>theme</code>), and scaffolds plus 25 optional components (including ThemeSwitcher). Optional <strong>rizzo-css.json</strong> and flags: <code>init --yes --framework</code>, <code>--template</code>, <code>--install</code>, <code>--write-config</code>; <code>add --install-package</code>. See the <a href="https://www.npmjs.com/package/rizzo-css">npm package</a> and project README for CLI details.</p>
+
+		<h3 class="docs-cli-heading">Install the npm package</h3>
+		<p class="docs-cli-intro">Choose your package manager, then copy the command to add Rizzo CSS to your project.</p>
+		<PackageInstallTabs class="docs-cli-tabs" />
+
+		<h3 class="docs-cli-heading">Run the CLI</h3>
+		<p class="docs-cli-intro">Click a tab to select your package manager, then use the copy button to copy the command.</p>
+		<CliCommandTabs command="init" class="docs-cli-tabs" />
+		<p class="docs-cli-label"><strong>Add to existing project:</strong></p>
+		<CliCommandTabs command="add" class="docs-cli-tabs" />
+		<p class="docs-cli-note">For <code>theme</code> (list theme IDs), use the same pattern: <code>npx rizzo-css theme</code>, <code>pnpm dlx rizzo-css theme</code>, and so on.</p>
+
 		<p>Rizzo CSS is built on Astro. To work on this docs site and reference components (clone the repo):</p>
 		<CodeBlock code={`# Clone the project
 git clone <repository-url>
@@ -14,6 +28,14 @@ cd rizzo-css`} language="bash" />
 		<CodeBlock code={`# Install dependencies
 pnpm install`} language="nodejs" />
 	</section>
+
+	<style>
+		.docs-cli-heading { margin-bottom: var(--spacing-1); }
+		.docs-cli-intro { margin-bottom: var(--spacing-1); }
+		.docs-cli-tabs { margin-top: 0; margin-bottom: var(--spacing-2); }
+		.docs-cli-label { margin-top: 0; margin-bottom: var(--spacing-1); }
+		.docs-cli-note { margin-top: 0; }
+	</style>
 	
 	<section>
 		<h2>Project Structure</h2>
