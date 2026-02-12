@@ -1,13 +1,17 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Red Velvet Cupcake Theme" description="A velvet-cupcake light theme for VS Code by Fahad Ashraf Chaudhry">
 	<section>
-		<h2>Red Velvet Cupcake</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="red-velvet-cupcake" size={32} />
+			<h2>Red Velvet Cupcake</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/fahadachaudhry/valvet-cupcake-vscode-theme" target="_blank" rel="noopener noreferrer">Fahad Ashraf Chaudhry</a></p>
 		<p>A velvet-cupcake theme for VSCode with a light background and red accent (#CF5050) for a soft, distinctive look.</p>
 		

@@ -2,12 +2,16 @@
 import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 ---
 
 <DocsLayout title="Cute Pink Theme" description="A cute pink light theme for VSCode by WebFreak">
 	<section>
-		<h2>Cute Pink</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="cute-pink" size={32} />
+			<h2>Cute Pink</h2>
+		</div>
 		<p class="theme-by">By <a href="https://gitlab.com/WebFreak001/cute-vscode" target="_blank" rel="noopener noreferrer">WebFreak</a></p>
 		<p>A cute pink light theme for VSCode. White and soft pink UI with a vibrant pink accent.</p>
 		

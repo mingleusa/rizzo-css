@@ -2,12 +2,16 @@
 import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 ---
 
 <DocsLayout title="Green Breeze Light Theme" description="A VSCode theme focused on green and blue with a bit more contrast by icy9ptcl">
 	<section>
-		<h2>Green Breeze Light</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="green-breeze-light" size={32} />
+			<h2>Green Breeze Light</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/Icy9ptcl/GreenBreeze-Light-Theme" target="_blank" rel="noopener noreferrer">icy9ptcl</a></p>
 		<p>A VSCode theme focused on green and blue with a bit more contrast. Light background with dark text and green/teal/blue accents.</p>
 		

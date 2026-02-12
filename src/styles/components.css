@@ -921,8 +921,9 @@ div.navbar__sublink {
     background-color: oklch(from var(--accent) l c h / 12%) !important;
     color: var(--accent) !important;
     font-weight: var(--font-weight-medium);
-    border-left: var(--spacing-0-5) solid var(--accent);
-    padding-left: calc(var(--spacing-10) - var(--spacing-0-5)) !important;
+
+    /* Same left padding as other docs sublinks; accent bar via inset box-shadow so padding stays consistent */
+    box-shadow: inset var(--spacing-0-125) 0 0 var(--accent) !important;
   }
 
   /* Keep border on last main link */
@@ -1329,7 +1330,23 @@ div.navbar__sublink {
     box-shadow: inset 0 0 0 var(--outline-width) var(--accent);
   }
 
-/* Theme Switcher Responsive */
+/* Theme Switcher Responsive: don't exceed container on mobile */
+@media (width <= 768px) {
+  .theme-switcher {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .theme-switcher__menu {
+    right: auto;
+    left: 0;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
 @media (width <= 640px) {
   .theme-switcher__menu {
     right: auto;

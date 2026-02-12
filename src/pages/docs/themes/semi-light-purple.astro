@@ -2,12 +2,16 @@
 import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 ---
 
 <DocsLayout title="Semi Light Purple Theme" description="A light aesthetic purple theme for VS Code by Kapil Yadav">
 	<section>
-		<h2>Semi Light Purple</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="semi-light-purple" size={32} />
+			<h2>Semi Light Purple</h2>
+		</div>
 		<p class="theme-by">By <a href="https://marketplace.visualstudio.com/items?itemName=KapilYadav.semi-light-purple-theme" target="_blank" rel="noopener noreferrer">Kapil Yadav</a></p>
 		<p>A light aesthetic theme with soft purple tones. Soft lavender backgrounds and a purple accent that pleases the eyes.</p>
 		

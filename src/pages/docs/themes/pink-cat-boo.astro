@@ -3,11 +3,15 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="Pink Cat Boo Theme" description="A sweet and cute theme especially for coder girls by Fiona Fan">
 	<section>
-		<h2>Pink Cat Boo</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="pink-cat-boo" size={32} />
+			<h2>Pink Cat Boo</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/ftsamoyed/PinkCatBoo" target="_blank" rel="noopener noreferrer">Fiona Fan (ftsamoyed)</a></p>
 		<p>A sweet and cute theme especially for coder girls. Dark blue-grey base with rose pink, light purple, and warm accents.</p>
 		

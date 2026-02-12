@@ -1,13 +1,17 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Minimal Dark Neon Yellow Theme" description="Minimal dark theme with neon yellow accent by Gabriel D Sanchez">
 	<section>
-		<h2>Minimal Dark Neon Yellow</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="minimal-dark-neon-yellow" size={32} />
+			<h2>Minimal Dark Neon Yellow</h2>
+		</div>
 		<p class="theme-by">By <a href="https://vscodethemes.com/e/GabrielDSanchez.minimal-dark-neon-yellow-theme/minimal-dark-neon-yellow-theme" target="_blank" rel="noopener noreferrer">Gabriel D Sanchez</a></p>
 		<p>A minimal dark theme with a neon yellow accent for high visibility and a clean look.</p>
 		

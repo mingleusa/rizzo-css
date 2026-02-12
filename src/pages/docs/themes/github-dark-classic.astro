@@ -1,13 +1,17 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="GitHub Dark Classic Theme" description="Official GitHub dark theme for VS Code by Primer">
 	<section>
-		<h2>GitHub Dark Classic</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="github-dark-classic" size={32} />
+			<h2>GitHub Dark Classic</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/primer/github-vscode-theme-dark-classic" target="_blank" rel="noopener noreferrer">Primer (GitHub)</a></p>
 		<p>The classic dark theme from GitHub's official VS Code theme, with a neutral blue-grey background and GitHub's signature blue accent.</p>
 		

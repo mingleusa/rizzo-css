@@ -3,11 +3,15 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="Sandstorm Classic Theme" description="Dark, red-based VS Code theme by Devan Sisson (Bardleware)">
 	<section>
-		<h2>Sandstorm Classic</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="sandstorm-classic" size={32} />
+			<h2>Sandstorm Classic</h2>
+		</div>
 		<p class="theme-by">By <a href="https://marketplace.visualstudio.com/items?itemName=Bardleware.sandstorm" target="_blank" rel="noopener noreferrer">Devan Sisson (Bardleware)</a></p>
 		<p>A dark, red-based color theme designed for working late into the night – it avoids both a bluish tint and excessive red that could strain the eyes.</p>
 		

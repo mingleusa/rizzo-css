@@ -3,11 +3,15 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="Sunflower Theme" description="Yellow light theme by Hashirama Naiff">
 	<section>
-		<h2>Sunflower</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="sunflower" size={32} />
+			<h2>Sunflower</h2>
+		</div>
 		<p class="theme-by">By <a href="https://vscodethemes.com/e/HashiramaNaiff.beSunflower-theme/sunflower" target="_blank" rel="noopener noreferrer">Hashirama Naiff</a></p>
 		<p>A yellow light theme with warm sunflower tones for a bright, cheerful look.</p>
 		

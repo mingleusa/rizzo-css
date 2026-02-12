@@ -31,3 +31,5 @@ export { default as Modal } from './Modal.svelte';
 export { default as Toast } from './Toast.svelte';
 export { default as Table } from './Table.svelte';
 export type { TableColumn } from './Table.svelte';
+export { default as ThemeIcon } from './ThemeIcon.svelte';
+export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';

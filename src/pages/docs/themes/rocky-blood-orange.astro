@@ -1,13 +1,17 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Rocky Blood Orange Theme" description="Dark theme with blood-orange accent by Luca Heyworth">
 	<section>
-		<h2>Rocky Blood Orange</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="rocky-blood-orange" size={32} />
+			<h2>Rocky Blood Orange</h2>
+		</div>
 		<p class="theme-by">By <a href="https://vscodethemes.com/e/LucaHeyworth.rocky-blood-orange-theme/rocky-blood-orange" target="_blank" rel="noopener noreferrer">Luca Heyworth</a></p>
 		<p>A dark theme with a blood-orange accent for a warm, distinctive look.</p>
 		

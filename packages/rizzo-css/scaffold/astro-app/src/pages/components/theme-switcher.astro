@@ -63,6 +63,7 @@ import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 			<li>Constants: <code>THEME_SYSTEM</code>, <code>DEFAULT_THEME_DARK</code>, <code>DEFAULT_THEME_LIGHT</code>.</li>
 		</ul>
 		<p><strong>Theme IDs:</strong> Run <code>npx rizzo-css theme</code> to list all 14 ids, or see <a href="/docs/theming#available-themes">Theming – Available themes</a>. To sync a custom UI when the theme changes elsewhere, listen for the <code>rizzo-theme-change</code> event.</p>
+		<p><strong>ThemeIcon:</strong> To show the same icon as the switcher elsewhere (e.g. theme pages, cards), use <strong>Astro</strong> <code>&lt;ThemeIcon themeId="github-dark-classic" size={24} /&gt;</code> or <strong>Svelte</strong> <code>&lt;ThemeIcon themeId="github-dark-classic" size={24} /&gt;</code>. Props: <code>themeId</code>, optional <code>size</code> (default 24), optional <code>class</code>. Vanilla: use the icon SVGs from the Icons section and map theme id to icon via <code>themes.ts</code> <code>iconKey</code>.</p>
 		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/theme-switcher">Svelte</a> (live Svelte component) · <a href="/docs/vanilla/components/theme-switcher">Vanilla</a> (live example + copyable HTML). Or use theme utilities (<code>applyTheme</code>, <code>getThemeLabel</code>) and see <a href="/docs/theming#building-your-own-theme-switcher">Building your own theme switcher</a>.</p>
 	</section>
 </DocsLayout>

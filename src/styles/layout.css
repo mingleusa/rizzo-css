@@ -1,10 +1,11 @@
 /* Layout Styles - Using semantic theme variables */
 
-/* Main content area: full width of viewport on mobile, no horizontal overflow */
+/* Main content area: full width of viewport on mobile, no horizontal overflow.
+   Use overflow-x: clip (not hidden) so position:sticky works in descendants (e.g. docs sidebar). */
 main {
   width: 100%;
   max-width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Main content container: same width and padding as navbar for alignment */

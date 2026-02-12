@@ -1,5 +1,6 @@
 <script lang="ts">
   import ThemeSwitcher from '$lib/rizzo/ThemeSwitcher.svelte';
+  import ThemeIcon from '$lib/rizzo/ThemeIcon.svelte';
   import CodeBlock from '$lib/rizzo-docs/CodeBlock.svelte';
 </script>
 
@@ -54,6 +55,13 @@
     <li>Constants: <code>THEME_SYSTEM</code>, <code>DEFAULT_THEME_DARK</code>, <code>DEFAULT_THEME_LIGHT</code>.</li>
   </ul>
   <p>Theme IDs: run <code>npx rizzo-css theme</code> or see <a href="/docs/theming#available-themes">Theming – Available themes</a>. Listen for <code>rizzo-theme-change</code> to sync other UI when the theme changes.</p>
+
+  <h3>ThemeIcon</h3>
+  <p>To show the same icon as the switcher elsewhere (e.g. theme pages, cards), use <code>&lt;ThemeIcon themeId="github-dark-classic" size={24} /&gt;</code>. Props: <code>themeId</code>, optional <code>size</code> (default 24), optional <code>class</code>.</p>
+  <div class="example">
+    <div class="example-title">Example: theme icons</div>
+    <p><ThemeIcon themeId="github-dark-classic" size={24} /> GitHub Dark Classic · <ThemeIcon themeId="sunflower" size={20} /> Sunflower · <ThemeIcon themeId="shades-of-purple" size={28} /> Shades of Purple</p>
+  </div>
 
   <h3>Structure example (simplified)</h3>
   <CodeBlock

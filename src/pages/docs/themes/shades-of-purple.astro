@@ -3,11 +3,15 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="Shades of Purple Theme" description="A professional theme with hand-picked bold shades of purple by Ahmad Awais">
 	<section>
-		<h2>Shades of Purple</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="shades-of-purple" size={32} />
+			<h2>Shades of Purple</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/ahmadawais/shades-of-purple-vscode" target="_blank" rel="noopener noreferrer">Ahmad Awais</a></p>
 		<p>A professional theme with hand-picked bold shades of purple, designed for developers who love purple.</p>
 		

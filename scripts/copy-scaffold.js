@@ -25,7 +25,7 @@ const astroDest = join(scaffoldDir, 'astro');
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
   'CopyToClipboard', 'Divider', 'Dropdown', 'FormGroup', 'Input', 'Modal', 'Pagination',
-  'ProgressBar', 'Radio', 'Select', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeSwitcher', 'Toast', 'Tooltip',
+  'ProgressBar', 'Radio', 'Select', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
 ];
 
 function copyDirRecursive(src, dest) {
@@ -194,7 +194,7 @@ function copyAstro() {
     const srcFile = join(astroSrc, name + '.astro');
     if (existsSync(srcFile)) {
       let content = readFileSync(srcFile, 'utf8');
-      if (name === 'ThemeSwitcher') {
+      if (name === 'ThemeSwitcher' || name === 'ThemeIcon') {
         content = content.replace(/'\.\.\/config\/themes'|"\.\.\/config\/themes"/g, "'./themes'");
       }
       writeFileSync(join(astroDest, name + '.astro'), content);

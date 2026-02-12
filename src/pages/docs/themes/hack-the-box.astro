@@ -3,11 +3,15 @@ import CodeBlock from '../../../components/CodeBlock.astro';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="Hack The Box Theme" description="A VS Code theme built for hackers BY hackers - dark blue with lime green accent by silofy">
 	<section>
-		<h2>Hack The Box</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="hack-the-box" size={32} />
+			<h2>Hack The Box</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/silofy/hackthebox" target="_blank" rel="noopener noreferrer">silofy</a></p>
 		<p>A VS Code theme built for hackers BY hackers. Dark blue backgrounds with a signature lime green accent and cyan highlights.</p>
 		

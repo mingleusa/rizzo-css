@@ -3,11 +3,15 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 ---
 
 <DocsLayout title="GitHub Light Theme" description="Official GitHub light theme for VS Code">
 	<section>
-		<h2>GitHub Light</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="github-light" size={32} />
+			<h2>GitHub Light</h2>
+		</div>
 		<p class="theme-by">By <a href="https://github.com/primer/github-vscode-theme" target="_blank" rel="noopener noreferrer">Primer (GitHub) / Hyzeta</a></p>
 		<p>The official GitHub light theme with a clean white background and GitHub blue accent, matching the look of GitHub.com in light mode.</p>
 		

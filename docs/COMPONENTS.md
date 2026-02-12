@@ -16,6 +16,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
 - [Settings](/docs/components/settings) - Comprehensive settings panel
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
+- [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
@@ -47,7 +48,7 @@ All of the following components are implemented with dedicated documentation pag
 **Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
-**Theme & settings:** Theme Switcher, Settings  
+**Theme & settings:** Theme Switcher, Theme Icon, Settings  
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 

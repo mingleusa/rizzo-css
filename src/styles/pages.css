@@ -295,7 +295,7 @@
 .docs {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
+  align-items: stretch; /* sidebar container stretches to content height so sticky sidebar has a full-height containing block */
   padding: var(--spacing-6) 0;
   min-height: calc(100vh - 4rem);
   position: relative;
@@ -366,6 +366,16 @@
   min-width: 0;
 }
 
+/* Sidebar container: stretch to match content height so sticky sidebar has a tall containing block */
+@media (width >= 1025px) {
+  #docs-sidebar-container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0; /* allow flex child to shrink if needed */
+  }
+}
+
 /* Sidebar - in-flow on desktop (inside container), sticky; fixed overlay on mobile */
 .docs-sidebar {
   flex-shrink: 0;
@@ -376,13 +386,13 @@
   background-color: var(--background);
 }
 
-/* Desktop: sidebar in flow next to content, sticky so it stays in place when scrolling */
+/* Desktop: sidebar sticks to top while scrolling, stops when content ends */
 @media (width >= 1025px) {
   .docs-sidebar {
     position: sticky;
     top: calc(var(--spacing-16) + var(--spacing-4));
     max-height: calc(100vh - var(--spacing-16) - var(--spacing-4));
-    align-self: flex-start; /* don't stretch: lets sticky work when content scrolls */
+    align-self: flex-start; /* keep sidebar at top of container; container is tall (stretch) */
     z-index: 1;
   }
 }
@@ -437,6 +447,18 @@
 .docs-sidebar__link--active:hover {
   color: var(--accent-hover);
   background-color: oklch(from var(--accent) l c h / 14%);
+}
+
+/* Theme page header (icon + title) */
+.theme-page__header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3);
+  margin-bottom: var(--spacing-2);
+}
+
+.theme-page__header h2 {
+  margin: 0;
 }
 
 /* Hide sidebar container on mobile (class set by inline script for immediate hide; media query for noscript/fallback) */

@@ -1,12 +1,27 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../components/ThemeIcon.astro';
 import Card from '../../components/Card.astro';
-import Palette from '../../components/icons/Palette.astro';
-import Owl from '../../components/icons/Owl.astro';
-import Circle from '../../components/icons/Circle.astro';
-import Rainbow from '../../components/icons/Rainbow.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import { THEMES_DARK, THEMES_LIGHT } from '../../config/themes';
+
+const themeCardContent: Record<string, { description: string; author: string }> = {
+  'github-dark-classic': { description: 'Official GitHub dark theme for VS Code', author: 'Primer (GitHub)' },
+  'shades-of-purple': { description: 'Professional theme with bold purple shades', author: 'Ahmad Awais' },
+  'sandstorm-classic': { description: 'Dark, red-based theme for late-night coding', author: 'Devan Sisson' },
+  'rocky-blood-orange': { description: 'Dark theme with blood-orange accent', author: 'Luca Heyworth' },
+  'minimal-dark-neon-yellow': { description: 'Minimal dark theme with neon yellow accent', author: 'Gabriel D Sanchez' },
+  'hack-the-box': { description: 'Dark blue with lime green accent, built for hackers', author: 'silofy' },
+  'pink-cat-boo': { description: 'Sweet and cute dark theme with rose pink accents', author: 'Fiona Fan' },
+  'github-light': { description: 'Official GitHub light theme for VS Code', author: 'Primer (GitHub)' },
+  'red-velvet-cupcake': { description: 'Velvet-cupcake light theme with red accent', author: 'Fahad Ashraf Chaudhry' },
+  'orangy-one-light': { description: 'Light theme with orange accent', author: 'maher-cshub' },
+  'sunflower': { description: 'Yellow light theme', author: 'Hashirama Naiff' },
+  'green-breeze-light': { description: 'Green and blue focused light theme with good contrast', author: 'icy9ptcl' },
+  'cute-pink': { description: 'Cute pink light theme for VSCode', author: 'WebFreak' },
+  'semi-light-purple': { description: 'Light aesthetic theme with soft purple tones', author: 'Kapil Yadav' },
+};
 ---
 
 <DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
@@ -22,179 +37,45 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	
 	<section>
 		<h2>Dark Themes</h2>
-		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Owl width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/github-dark-classic">GitHub Dark Classic</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Official GitHub dark theme for VS Code</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Primer (GitHub)</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>github-dark-classic</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Palette width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/shades-of-purple">Shades of Purple</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Professional theme with bold purple shades</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Ahmad Awais</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>shades-of-purple</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Circle width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/sandstorm-classic">Sandstorm Classic</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark, red-based theme for late-night coding</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Devan Sisson</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>sandstorm-classic</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Circle width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/rocky-blood-orange">Rocky Blood Orange</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark theme with blood-orange accent</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Luca Heyworth</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>rocky-blood-orange</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Circle width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/minimal-dark-neon-yellow">Minimal Dark Neon Yellow</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Minimal dark theme with neon yellow accent</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Gabriel D Sanchez</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>minimal-dark-neon-yellow</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Circle width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/hack-the-box">Hack The Box</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Dark blue with lime green accent, built for hackers</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> silofy</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>hack-the-box</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Palette width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/pink-cat-boo">Pink Cat Boo</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Sweet and cute dark theme with rose pink accents</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Fiona Fan</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>pink-cat-boo</code></p>
-				</div>
-			</Card>
+		<div class="theming-page__grid">
+			{THEMES_DARK.map((theme) => {
+				const content = themeCardContent[theme.value];
+				return (
+					<Card variant="elevated">
+						<div class="card__body">
+							<div class="theming-page__card-header">
+								<ThemeIcon themeId={theme.value} size={24} />
+								<h3 style="margin: 0;"><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
+							</div>
+							{content && <p class="theming-page__card-desc">{content.description}</p>}
+							{content && <p class="theming-page__card-meta"><strong>Author:</strong> {content.author}</p>}
+							<p class="theming-page__card-meta"><code>{theme.value}</code></p>
+						</div>
+					</Card>
+				);
+			})}
 		</div>
 	</section>
-	
+
 	<section>
 		<h2>Light Themes</h2>
-		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/github-light">GitHub Light</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Official GitHub light theme for VS Code</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Primer (GitHub)</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>github-light</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/red-velvet-cupcake">Red Velvet Cupcake</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Velvet-cupcake light theme with red accent</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Fahad Ashraf Chaudhry</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>red-velvet-cupcake</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/orangy-one-light">Orangy One Light</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Light theme with orange accent</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> maher-cshub</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>orangy-one-light</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/sunflower">Sunflower</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Yellow light theme</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Hashirama Naiff</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>sunflower</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/green-breeze-light">Green Breeze Light</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Green and blue focused light theme with good contrast</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> icy9ptcl</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>green-breeze-light</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/cute-pink">Cute Pink</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Cute pink light theme for VSCode</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> WebFreak</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>cute-pink</code></p>
-				</div>
-			</Card>
-			
-			<Card variant="elevated">
-				<div class="card__body">
-					<div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem;">
-						<Rainbow width={24} height={24} />
-						<h3 style="margin: 0;"><a href="/docs/themes/semi-light-purple">Semi Light Purple</a></h3>
-					</div>
-					<p style="margin: 0 0 var(--spacing-2) 0; color: var(--text-dim); font-size: var(--font-size-sm);">Light aesthetic theme with soft purple tones</p>
-					<p style="margin: 0; font-size: var(--font-size-xs); color: var(--text-dim);"><strong>Author:</strong> Kapil Yadav</p>
-					<p style="margin: var(--spacing-1) 0 0 0; font-size: var(--font-size-xs); color: var(--text-dim);"><code>semi-light-purple</code></p>
-				</div>
-			</Card>
+		<div class="theming-page__grid">
+			{THEMES_LIGHT.map((theme) => {
+				const content = themeCardContent[theme.value];
+				return (
+					<Card variant="elevated">
+						<div class="card__body">
+							<div class="theming-page__card-header">
+								<ThemeIcon themeId={theme.value} size={24} />
+								<h3 style="margin: 0;"><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
+							</div>
+							{content && <p class="theming-page__card-desc">{content.description}</p>}
+							{content && <p class="theming-page__card-meta"><strong>Author:</strong> {content.author}</p>}
+							<p class="theming-page__card-meta"><code>{theme.value}</code></p>
+						</div>
+					</Card>
+				);
+			})}
 		</div>
 	</section>
 	
@@ -324,6 +205,32 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 		<h2>Theme Persistence</h2>
 		<p>The theme switcher automatically saves the selected theme to <code>localStorage</code> and restores it on page load. An inline script in <code>Layout.astro</code> prevents theme flash by setting the theme immediately before the page renders.</p>
 	</section>
-	
-	</section>
 </DocsLayout>
+
+<style>
+	.theming-page__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 1.5rem;
+		margin: 2rem 0;
+	}
+	.theming-page__card-header {
+		display: flex;
+		align-items: center;
+		gap: 0.75rem;
+		margin-bottom: 0.75rem;
+	}
+	.theming-page__card-desc {
+		margin: 0 0 var(--spacing-2) 0;
+		color: var(--text-dim);
+		font-size: var(--font-size-sm);
+	}
+	.theming-page__card-meta {
+		margin: 0;
+		font-size: var(--font-size-xs);
+		color: var(--text-dim);
+	}
+	.theming-page__card-meta:last-of-type {
+		margin-top: var(--spacing-1);
+	}
+</style>

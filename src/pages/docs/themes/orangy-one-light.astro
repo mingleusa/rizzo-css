@@ -1,13 +1,17 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
+import ThemeIcon from '../../../components/ThemeIcon.astro';
 import Card from '../../../components/Card.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 ---
 
 <DocsLayout title="Orangy One Light Theme" description="Light theme with orange accent by maher-cshub">
 	<section>
-		<h2>Orangy One Light</h2>
+		<div class="theme-page__header">
+			<ThemeIcon themeId="orangy-one-light" size={32} />
+			<h2>Orangy One Light</h2>
+		</div>
 		<p class="theme-by">By <a href="https://vscodethemes.com/e/maher-cshub.orangy-one-light-theme/orangy-one-light-theme" target="_blank" rel="noopener noreferrer">maher-cshub</a></p>
 		<p>A light theme with an orange accent for a warm, readable look.</p>
 		
