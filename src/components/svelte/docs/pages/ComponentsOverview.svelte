@@ -67,8 +67,19 @@
   .component-card-link {
     text-decoration: none;
     color: inherit;
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     transition: transform var(--transition-base);
+  }
+  .component-card-link :global(.card) {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+  .component-card-link :global(.card .card__body) {
+    flex: 1;
   }
   .component-card-link:hover {
     transform: translateY(calc(-1 * var(--spacing-0-125)));

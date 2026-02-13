@@ -41,7 +41,7 @@ You install **the same package** for every framework: `npm install rizzo-css`. N
 
 With `npx rizzo-css add --path <dir>`, the CLI still suggests the correct href for your framework (e.g. Astro/Svelte get a leading `/` path).
 
-Scaffolds in the package: `scaffold/vanilla/` (Full or Manual), `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, plus `scaffold/astro/` and `scaffold/svelte/` (component templates for hand-pick). Use `npx rizzo-css init` and choose **Create new project** to get a **Full** or **Manual** scaffold; the stylesheet link is in the layout. **Add to existing** (or `add` command) drops in CSS + hand-pick components; **you must add the stylesheet `<link>` yourself** — the CLI prints the exact tag. Every scaffold includes LICENSE and README; Astro/Svelte minimal include package.json and .env.example.
+Scaffolds in the package: `scaffold/vanilla/` (Full or Manual), `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, plus `scaffold/astro/` and `scaffold/svelte/` (component templates for hand-pick). Use `npx rizzo-css init` and choose **Create new project** to get a **Full** or **Manual** scaffold; the stylesheet link is in the layout. **Add to existing** (or `add` command) drops in CSS + hand-pick components; **you must add the stylesheet `<link>` yourself** — the CLI prints the exact tag. Every scaffold includes RIZZO-LICENSE and RIZZO-README.md (does not overwrite your project LICENSE/README); Astro/Svelte minimal include package.json and .env.example.
 
 ## Use
 
@@ -56,7 +56,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.21 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.22 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->
@@ -65,7 +65,7 @@ import 'rizzo-css';
 
 Short URLs also work: `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` (CDNs serve the default file from package.json). To verify after publish: open the URL in a browser or run `curl -I https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css` and expect `200 OK`.
 
-Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files when you hand-pick. Each scaffold has a README; every install includes LICENSE. The **Vanilla** Full includes a Settings panel and toast; **Astro** and **Svelte** Full scaffolds include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
+Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files when you hand-pick. Each scaffold has RIZZO-README.md; every install includes RIZZO-LICENSE. The **Navbar** component in the scaffold includes the default Cat logo in the brand link (optional `logo` prop for a custom image). The **Vanilla** Full includes a Settings panel and toast; **Astro** and **Svelte** Full scaffolds include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
 
 ## Themes
 

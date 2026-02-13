@@ -52,7 +52,7 @@ src/
 
 **Single package: rizzo-css.** We publish one unscoped npm package. No @ scope or separate core/react/vue/svelte packages.
 
-- **npm:** `rizzo-css` — Single published package containing: **CSS** (`dist/rizzo.min.css`), **CLI** (`bin/rizzo-css.js`), and **scaffolds** (`scaffold/vanilla/`, `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, `scaffold/astro/`, `scaffold/svelte/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init`. Init first asks **framework** (Vanilla / Astro / Svelte), then **add to existing** (drop in CSS + hand-pick components) or **create new**. **Create new** → choose **Full**, **Minimal**, or **Manual** (per framework). Optional 25 components (including ThemeSwitcher) from `scaffold/astro/` and `scaffold/svelte/`; each scaffold has README, LICENSE, and (Astro/Svelte) package.json and .env.example.
+- **npm:** `rizzo-css` — Single published package containing: **CSS** (`dist/rizzo.min.css`), **CLI** (`bin/rizzo-css.js`), and **scaffolds** (`scaffold/vanilla/`, `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, `scaffold/astro/`, `scaffold/svelte/`). Install with `pnpm add rizzo-css` and `import 'rizzo-css'`, or run `npx rizzo-css init`. Init first asks **framework** (Vanilla / Astro / Svelte), then **add to existing** (drop in CSS + hand-pick components) or **create new**. **Create new** → choose **Full**, **Minimal**, or **Manual** (minimal base + component picker with minimal set pre-selected). Optional 25 components (including ThemeSwitcher) from `scaffold/astro/` and `scaffold/svelte/`; each scaffold has RIZZO-README.md, RIZZO-LICENSE, and (Astro/Svelte) package.json and .env.example.
 - **Framework components** — Vanilla uses same BEM (no components folder). Astro/Svelte: use `npx rizzo-css init` (new or existing) and pick components, or copy from this repo. React/Vue components, when added, will also live in-repo.
 
 ```
@@ -62,7 +62,7 @@ rizzo-css/
 │       ├── dist/
 │       │   └── rizzo.min.css
 │       ├── package.json
-│       └── README.md
+│       └── RIZZO-README.md
 ├── src/
 │   ├── components/        # Astro reference implementation
 │   │   ├── Button.astro
@@ -316,7 +316,7 @@ export function Settings() {
 
 ## Package Configuration
 
-We publish a **single package** `rizzo-css` (see `packages/rizzo-css/package.json`). It contains the built CSS, the CLI (`bin/rizzo-css.js`), scaffold templates (Astro + Svelte + Vanilla), README, LICENSE, and .env.example. Framework components also live in this repo; use `npx rizzo-css init` to copy selected components into your project or copy from `src/components/` / `src/components/svelte/` manually. No separate npm packages for React/Vue/Svelte.
+We publish a **single package** `rizzo-css` (see `packages/rizzo-css/package.json`). It contains the built CSS, the CLI (`bin/rizzo-css.js`), scaffold templates (Astro + Svelte + Vanilla), RIZZO-README.md, RIZZO-LICENSE, and .env.example. Framework components also live in this repo; use `npx rizzo-css init` to copy selected components into your project or copy from `src/components/` / `src/components/svelte/` manually. No separate npm packages for React/Vue/Svelte.
 
 ## Component Mapping
 

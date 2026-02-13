@@ -6,6 +6,10 @@ const { spawnSync } = require('child_process');
 const readline = require('readline');
 
 const RIZZO_CONFIG_FILE = 'rizzo-css.json';
+/** Scaffold README filename; avoids overwriting an existing project README.md. */
+const SCAFFOLD_README_FILENAME = 'RIZZO-README.md';
+/** Scaffold license filename; avoids overwriting an existing project LICENSE. */
+const SCAFFOLD_LICENSE_FILENAME = 'RIZZO-LICENSE';
 
 const COMMANDS = ['init', 'add', 'theme', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
@@ -15,17 +19,17 @@ const VALID_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'];
 /** Full = everything we ship. Minimal = recommended starting set. Manual = you choose. */
 const TEMPLATES = {
   vanilla: [
-    { value: 'full', label: 'Full — index.html + theme switcher, js/main.js, icons, component showcase, README' },
+    { value: 'full', label: 'Full — index.html + theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME },
     { value: 'minimal', label: 'Minimal — index.html + CSS + js/main.js (recommended starter; no showcase)' },
     { value: 'manual', label: 'Manual — index.html + CSS; pick components to add their pages + js/main.js' },
   ],
   astro: [
-    { value: 'full', label: 'Full — Astro app + all 25 components (config, one page, README, LICENSE, .env.example)' },
+    { value: 'full', label: 'Full — Astro app + all 25 components (config, one page, ' + SCAFFOLD_README_FILENAME + ', ' + SCAFFOLD_LICENSE_FILENAME + ', .env.example)' },
     { value: 'minimal', label: 'Minimal — Astro app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
     { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
   ],
   svelte: [
-    { value: 'full', label: 'Full — SvelteKit app + all 25 components (config, one page, README, LICENSE, .env.example)' },
+    { value: 'full', label: 'Full — SvelteKit app + all 25 components (config, one page, ' + SCAFFOLD_README_FILENAME + ', ' + SCAFFOLD_LICENSE_FILENAME + ', .env.example)' },
     { value: 'minimal', label: 'Minimal — SvelteKit app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
     { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
   ],
@@ -140,7 +144,7 @@ function getCssPath() {
   return join(getPackageRoot(), 'dist', 'rizzo.min.css');
 }
 
-/** Copy package dist/fonts into <cssTargetDir>/fonts so CSS url(./fonts/...) resolves. cssTargetDir is framework-specific (public/css | static/css | css). */
+/** Copy package dist/fonts into <cssTargetDir>/fonts so CSS url(./fonts/...) resolves. cssTargetDir is framework-specific (static/css | css). Not used for Astro; use copyRizzoCssAndFontsForAstro instead. */
 function copyRizzoFonts(cssTargetDir) {
   const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
   if (!existsSync(fontsSrc)) return;
@@ -158,11 +162,34 @@ function copyRizzoFonts(cssTargetDir) {
   }
 }
 
-/** Copy the package LICENSE into the project dir. Call after every scaffold so every install includes a license. */
+/** Astro only: copy rizzo.min.css to public/css with font URLs rewritten to /assets/fonts/, and copy fonts to public/assets/fonts. */
+function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
+  const cssDir = join(projectDir, 'public', 'css');
+  const cssTarget = join(cssDir, 'rizzo.min.css');
+  const fontsDest = join(projectDir, 'public', 'assets', 'fonts');
+  mkdirSync(cssDir, { recursive: true });
+  mkdirSync(fontsDest, { recursive: true });
+  copyFileSync(cssSource, cssTarget);
+  let css = readFileSync(cssTarget, 'utf8');
+  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
+  writeFileSync(cssTarget, css, 'utf8');
+  const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
+  if (existsSync(fontsSrc)) {
+    const entries = readdirSync(fontsSrc, { withFileTypes: true });
+    for (const e of entries) {
+      const srcPath = join(fontsSrc, e.name);
+      const destPath = join(fontsDest, e.name);
+      if (e.isDirectory()) copyDirRecursive(srcPath, destPath);
+      else copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+/** Copy the package LICENSE into the project dir as RIZZO-LICENSE so we do not overwrite an existing LICENSE. */
 function copyPackageLicense(projectDir) {
   const licensePath = join(getPackageRoot(), 'LICENSE');
   if (existsSync(licensePath)) {
-    copyFileSync(licensePath, join(projectDir, 'LICENSE'));
+    copyFileSync(licensePath, join(projectDir, SCAFFOLD_LICENSE_FILENAME));
   }
 }
 
@@ -413,12 +440,13 @@ function getRealValues(items) {
   return items.map((i) => i.value);
 }
 
-/** Multi-select menu: circles ○/●, Space toggles, Enter confirms. Optional first two options: Select all / Select none (value __all__ / __none__). Returns array of selected values. */
-function multiSelectMenu(options, title) {
+/** Multi-select menu: circles ○/●, Space toggles, Enter confirms. Optional first two options: Select all / Select none (value __all__ / __none__). initialSelected: optional array of values to pre-check. Returns array of selected values. */
+function multiSelectMenu(options, title, initialSelected) {
   const items = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
   const isTty = process.stdin.isTTY && process.stdout.isTTY;
   const withSentinels = hasAllNoneSentinels(items);
   const realValues = getRealValues(items);
+  const initialSet = Array.isArray(initialSelected) ? new Set(initialSelected) : null;
 
   if (!isTty) {
     console.log('\n' + (title || 'Choose (space to toggle, enter when done)') + ':');
@@ -466,6 +494,11 @@ function multiSelectMenu(options, title) {
   return new Promise((resolve) => {
     let index = 0;
     const selected = new Set();
+    if (initialSet && initialSet.size > 0) {
+      for (let i = 0; i < items.length; i++) {
+        if (initialSet.has(items[i].value)) selected.add(i);
+      }
+    }
     const lineCount = (title ? 1 : 0) + items.length + 1;
     const realStart = withSentinels ? 2 : 0;
 
@@ -671,9 +704,20 @@ async function promptThemes() {
   return { theme, defaultDark: DARK_THEMES.includes(defaultDark) ? defaultDark : DARK_THEMES[0], defaultLight: LIGHT_THEMES.includes(defaultLight) ? defaultLight : LIGHT_THEMES[0] };
 }
 
-/** Ask what to include: CSS only, recommended set, all components, or pick. Returns array of component names. Only call when componentList.length > 0. */
-async function promptComponentChoice(componentList, framework) {
+/** Ask what to include: CSS only, recommended set, all components, or pick. Returns array of component names. Only call when componentList.length > 0. initialSelection: when set (e.g. for manual = minimal base), skip the menu and show multi-select with these pre-selected. */
+async function promptComponentChoice(componentList, framework, initialSelection) {
   const recommended = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
+  if (initialSelection !== undefined) {
+    return multiSelectMenu(
+      [
+        { value: SENTINEL_ALL, label: 'Select all components' },
+        { value: SENTINEL_NONE, label: 'Select no components' },
+        ...componentList.map((c) => ({ value: c, label: c })),
+      ],
+      '? Components (minimal set pre-selected) — Space to toggle, Enter to confirm',
+      initialSelection
+    );
+  }
   const choice = await selectMenu(
     [
       { value: 'none', label: 'CSS only — no components' },
@@ -713,15 +757,15 @@ function detectFramework(cwd) {
 /**
  * Framework-specific paths for CSS and static assets. Use these so fonts, sounds, images
  * go in the right place per framework (Astro: public/, SvelteKit: static/, Vanilla: project root).
- * - targetDir: where rizzo.min.css is copied (fonts go in targetDir/fonts so CSS ./fonts/ resolves).
- * - assetsRoot: root for other static assets (sounds, images); use assetsRoot + '/sounds' etc. when we ship them.
+ * - targetDir: where rizzo.min.css is copied. Fonts: for Astro, public/assets/fonts (CLI rewrites URLs); for Svelte/Vanilla, targetDir/fonts so ./fonts/ resolves.
+ * - assetsRoot: root for static assets (Astro: public; use public/assets/fonts, public/assets/sounds).
  */
 function getFrameworkCssPaths(framework) {
   if (framework === 'svelte') {
     return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css', fontsDir: 'static/css/fonts', assetsRoot: 'static' };
   }
   if (framework === 'astro') {
-    return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css', fontsDir: 'public/css/fonts', assetsRoot: 'public' };
+    return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css', fontsDir: 'public/assets/fonts', assetsRoot: 'public' };
   }
   return { targetDir: 'css', linkHref: 'css/rizzo.min.css', fontsDir: 'css/fonts', assetsRoot: '' };
 }
@@ -1079,11 +1123,17 @@ async function runAddToExisting(frameworkOverride, options) {
 
   const paths = getFrameworkCssPaths(framework);
   const targetDirRaw = (options && options.targetDir) || (config && config.targetDir) || paths.targetDir;
-  const targetDir = join(cwd, targetDirRaw);
-  const cssTarget = join(targetDir, 'rizzo.min.css');
-  mkdirSync(targetDir, { recursive: true });
-  copyFileSync(cssSource, cssTarget);
-  copyRizzoFonts(targetDir);
+  let cssTarget;
+  if (framework === 'astro') {
+    copyRizzoCssAndFontsForAstro(cwd, cssSource);
+    cssTarget = join(cwd, 'public', 'css', 'rizzo.min.css');
+  } else {
+    const targetDir = join(cwd, targetDirRaw);
+    cssTarget = join(targetDir, 'rizzo.min.css');
+    mkdirSync(targetDir, { recursive: true });
+    copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(targetDir);
+  }
 
   copyRizzoIcons(cwd, framework);
   if (framework === 'svelte' && selectedComponents.length > 0) {
@@ -1214,7 +1264,8 @@ async function cmdInit(argv) {
       selectedComponents = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
     } else if (selectedTemplate === 'manual') {
       const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : ASTRO_COMPONENTS;
-      selectedComponents = await promptComponentChoice(componentList, framework);
+      const recommended = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
+      selectedComponents = await promptComponentChoice(componentList, framework, recommended);
     }
 
     const wantsThemeSwitcher = (framework === 'vanilla' && (selectedTemplate === 'full' || selectedTemplate === 'minimal')) || selectedComponents.includes('ThemeSwitcher');
@@ -1242,7 +1293,7 @@ async function cmdInit(argv) {
     process.exit(1);
   }
 
-  const themeComment = '\n  <!-- Initial: ' + theme + '; dark: ' + defaultDark + '; light: ' + defaultLight + ' (all 14 themes in CSS) -->';
+  const themeComment = '  <!-- Initial: ' + theme + '; dark: ' + defaultDark + '; light: ' + defaultLight + ' (all 14 themes in CSS) -->';
   const projectNamePkg = name
     ? name.replace(/\s+/g, '-').toLowerCase()
     : (framework === 'astro' ? 'my-astro-app' : framework === 'svelte' ? 'my-svelte-app' : 'my-app');
@@ -1286,10 +1337,8 @@ async function cmdInit(argv) {
   if (useHandpickAstro) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(astroMinimalDir, projectDir, replacements);
-    mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
+    copyRizzoCssAndFontsForAstro(projectDir, cssSource);
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1301,10 +1350,8 @@ async function cmdInit(argv) {
   } else if (useAstroBase) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(astroMinimalDir, projectDir, replacements);
-    mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
+    copyRizzoCssAndFontsForAstro(projectDir, cssSource);
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1365,9 +1412,9 @@ async function cmdInit(argv) {
       .replace(/\{\{LINK_HREF\}\}/g, linkHref);
     writeFileSync(indexPath, indexHtml, 'utf8');
     copyRizzoIcons(projectDir, 'vanilla');
-    const vanillaReadme = join(getPackageRoot(), 'scaffold', 'vanilla', 'README.md');
+    const vanillaReadme = join(getPackageRoot(), 'scaffold', 'vanilla', SCAFFOLD_README_FILENAME);
     if (existsSync(vanillaReadme)) {
-      copyFileSync(vanillaReadme, join(projectDir, 'README.md'));
+      copyFileSync(vanillaReadme, join(projectDir, SCAFFOLD_README_FILENAME));
     }
     const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
     if (existsSync(vanillaJs)) {
@@ -1399,7 +1446,7 @@ async function cmdInit(argv) {
     const minimalIndexWithScript = minimalHtml.replace('</body>', '  <script src="js/main.js"></script>\n</body>');
     indexPath = join(projectDir, 'index.html');
     writeFileSync(indexPath, minimalIndexWithScript, 'utf8');
-    writeFileSync(join(projectDir, 'README.md'), VANILLA_MINIMAL_README, 'utf8');
+    writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), VANILLA_MINIMAL_README, 'utf8');
     copyPackageLicense(projectDir);
   } else {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
@@ -1427,17 +1474,17 @@ async function cmdInit(argv) {
         indexContent = minimalHtml.replace('</body>', '  <script src="js/main.js"></script>\n</body>');
       }
       writeFileSync(indexPath, indexContent, 'utf8');
-      writeFileSync(join(projectDir, 'README.md'), VANILLA_MANUAL_README, 'utf8');
+      writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), VANILLA_MANUAL_README, 'utf8');
     } else if (framework === 'astro') {
       indexPath = join(projectDir, 'public', 'index.html');
       mkdirSync(join(projectDir, 'public'), { recursive: true });
       writeFileSync(indexPath, minimalHtml, 'utf8');
-      writeFileSync(join(projectDir, 'README.md'), FALLBACK_MINIMAL_README, 'utf8');
+      writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), FALLBACK_MINIMAL_README, 'utf8');
     } else {
       indexPath = join(projectDir, 'static', 'index.html');
       mkdirSync(join(projectDir, 'static'), { recursive: true });
       writeFileSync(indexPath, minimalHtml, 'utf8');
-      writeFileSync(join(projectDir, 'README.md'), FALLBACK_MINIMAL_README, 'utf8');
+      writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), FALLBACK_MINIMAL_README, 'utf8');
     }
     copyPackageLicense(projectDir);
   }
@@ -1447,7 +1494,7 @@ async function cmdInit(argv) {
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
     if (useVanillaFull) {
-      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, README.');
+      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME + '.');
     } else if (useVanillaMinimal) {
       console.log('  - Vanilla JS (minimal): index.html + CSS + js/main.js. Add components from docs or use Full for showcase.');
     } else {

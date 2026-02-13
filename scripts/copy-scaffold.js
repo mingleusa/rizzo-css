@@ -31,13 +31,21 @@ const ASTRO_SCAFFOLD = [
 /** Minimal Astro scaffold content for components that depend on docs config in src. Same BEM structure, no docs deps. */
 const ASTRO_SCAFFOLD_MINIMAL = {
   Navbar: `---
-interface Props { siteName?: string; }
-const { siteName = 'Site' } = Astro.props;
+import Cat from './icons/Cat.astro';
+interface Props { siteName?: string; logo?: string; }
+const { siteName = 'Site', logo } = Astro.props;
 ---
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
-      <a href="/" class="navbar__brand-link">{siteName}</a>
+      <a href="/" class="navbar__brand-link">
+        {logo ? (
+          <img src={logo} alt="" class="navbar__logo" />
+        ) : (
+          <Cat width={32} height={32} class="navbar__logo" aria-hidden="true" />
+        )}
+        {siteName}
+      </a>
     </div>
     <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>

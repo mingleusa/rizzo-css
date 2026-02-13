@@ -13,7 +13,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.21`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.22`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -24,7 +24,7 @@ The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}
 - **CSS** — The CLI copies `css/rizzo.min.css`; the link uses `{{LINK_HREF}}` (replaced at init). To use a CDN, replace that with the CDN URL.
 - **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion. Customize or extend as needed.
 
-## What’s included
+## What's included
 
 - **Theme flash prevention** — Small inline script in `<head>` applies saved theme and settings before first paint.
 - **js/main.js** — Bundled vanilla JS for components (loaded via `<script src="js/main.js"></script>`):
@@ -48,7 +48,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-minimal/` — minimal Astro app; optional components from `scaffold/astro/` (see its README).
-- **Svelte:** `scaffold/svelte-minimal/` — minimal SvelteKit app; optional components from `scaffold/svelte/` (see its README).
+- **Astro:** `scaffold/astro-minimal/` — minimal Astro app; optional components from `scaffold/astro/` (see RIZZO-README.md).
+- **Svelte:** `scaffold/svelte-minimal/` — minimal SvelteKit app; optional components from `scaffold/svelte/` (see RIZZO-README.md).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

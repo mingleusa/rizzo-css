@@ -12,7 +12,7 @@ import Card from '../../components/Card.astro';
 	
 	<section>
 		<h2>Available Components</h2>
-		<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr)); gap: var(--spacing-6); margin: var(--spacing-8) 0;">
+		<div class="docs-component-grid">
 			<a href="/docs/components/navbar" class="component-card-link">
 				<Card variant="elevated">
 					<div class="card__body">
@@ -246,11 +246,31 @@ import Card from '../../components/Card.astro';
 </DocsLayout>
 
 <style>
+	.docs-component-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr));
+		gap: var(--spacing-6);
+		margin: var(--spacing-8) 0;
+	}
+
 	.component-card-link {
 		text-decoration: none;
 		color: inherit;
-		display: block;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
 		transition: transform var(--transition-base);
+	}
+
+	.component-card-link :global(.card) {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+
+	.component-card-link :global(.card .card__body) {
+		flex: 1;
 	}
 	
 	.component-card-link:hover {
@@ -283,8 +303,8 @@ import Card from '../../components/Card.astro';
 	}
 	
 	@media (width <= 640px) {
-		div[style*="grid-template-columns"] {
-			grid-template-columns: 1fr !important;
+		.docs-component-grid {
+			grid-template-columns: 1fr;
 		}
 	}
 </style>

@@ -496,7 +496,7 @@
   letter-spacing: var(--letter-spacing-wider);
   color: var(--text-dim);
   margin: 0 0 var(--spacing-2) 0;
-  padding: 0 var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2);
 }
 
 .docs-sidebar__list {

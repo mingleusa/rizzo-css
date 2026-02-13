@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/badge/npm-0.0.21-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.22-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -52,7 +52,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 **Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components. **New** → choose **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example. **Create new** → **Full** | **Minimal** | **Manual** (per framework). **Add to existing** → CSS + hand-pick components (you must add the `<link>` yourself; CLI prints the exact tag). Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes **RIZZO-LICENSE** and **RIZZO-README.md** (does not overwrite project LICENSE/README); Astro/Svelte include package.json and .env.example. **Create new** → **Full** | **Minimal** | **Manual** (per framework). **Add to existing** → CSS + hand-pick components (you must add the `<link>` yourself; CLI prints the exact tag). Same CSS and BEM for all three.
 
 ### Prerequisites
 
@@ -136,12 +136,12 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. **Docs** dropdown shows Introduction and Foundations (Getting Started, Design System, Theming, Accessibility, Colors). **Components** dropdown has Overview plus two columns of component links. Theming is under Docs (no separate Themes nav item). Mobile: full docs structure in the Docs dropdown; menu toggle, search, and settings with smooth transitions
+- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Default Cat logo in the brand link (optional `logo` prop for custom image). **Docs** dropdown shows Introduction and Foundations (Getting Started, Design System, Theming, Accessibility, Colors). **Components** dropdown has Overview plus two columns of component links. Theming is under Docs (no separate Themes nav item). Mobile: full docs structure in the Docs dropdown; menu toggle, search, and settings with smooth transitions
 - **Settings** - Settings panel with theme switcher, font size control, and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Close button (X) bordered and visible on hover. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. All theme switchers (Settings, docs) use the same full-width trigger and dropdown.
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla; includes Cmd icon for keyboard shortcuts; 20+ regular icons plus brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla; includes Cat logo and Cmd icon for keyboard shortcuts; 20+ regular icons plus brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg

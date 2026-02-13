@@ -1,6 +1,6 @@
 # SvelteKit + Rizzo CSS (minimal)
 
-Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full`.
+Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full`, **minimal**, or **manual**.
 
 ## Setup
 
@@ -26,7 +26,10 @@ Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --
 - `src/app.html` — HTML shell with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/routes/+layout.svelte` — Root layout
 - `src/routes/+page.svelte` — Home page
-- `static/css/rizzo.min.css` — Rizzo CSS bundle (copied by CLI)
+- `static/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI)
+- `static/css/fonts/` — Rizzo font files (added by CLI)
+- `RIZZO-README.md` — This file (scaffold docs; does not replace your project README)
+- `RIZZO-LICENSE` — Rizzo CSS license (does not replace your project LICENSE)
 
 ## Commands
 

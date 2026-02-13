@@ -115,11 +115,15 @@
 .navbar__logo {
   height: var(--spacing-8);
   width: auto;
+  flex-shrink: 0;
 }
 
   .navbar__brand-link {
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-bold);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
   color: var(--text);
   text-decoration: none;
   transition: color var(--transition-base);
@@ -455,7 +459,7 @@ div.navbar__sublink {
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wider);
   color: var(--text-dim);
-  padding: 0 var(--spacing-4) var(--spacing-0-625);
+  padding: var(--spacing-2) var(--spacing-4) var(--spacing-2);
   margin: 0;
 }
 
@@ -900,7 +904,7 @@ div.navbar__sublink {
   }
 
   .navbar__submenu--docs .navbar__submenu-group-label {
-    padding: var(--spacing-2) var(--spacing-5) var(--spacing-0-625) var(--spacing-10);
+    padding: var(--spacing-2) var(--spacing-5) var(--spacing-2) var(--spacing-10);
     border-bottom: var(--border-width) solid var(--border);
   }
 

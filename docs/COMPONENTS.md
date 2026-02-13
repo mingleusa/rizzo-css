@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/` and `scaffold/svelte/` (25 components including ThemeSwitcher). **Create new** → **Full**, **Minimal**, or **Manual** (per framework); **Add to existing** → CSS + hand-pick components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/` and `scaffold/svelte/` (25 components including ThemeSwitcher). **Create new** → **Full**, **Minimal**, or **Manual** (minimal base + component picker with minimal set pre-selected); **Add to existing** → CSS + hand-pick components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -13,7 +13,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 ## Component Pages
 
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
-- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar
+- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
 - [Settings](/docs/components/settings) - Comprehensive settings panel
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
 - [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
@@ -395,7 +395,7 @@ import Navbar from '../components/Navbar.astro';
 ### Props
 
 - `siteName` (string, optional) - Site name displayed in navbar (default: "Rizzo CSS")
-- `logo` (string, optional) - Path to logo image
+- `logo` (string, optional) - Path to custom logo image; when omitted, the default Cat icon is shown in the brand link
 
 ### Features
 

@@ -1,6 +1,6 @@
 # Astro + Rizzo CSS (minimal)
 
-Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`.
+Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`, **minimal**, or **manual**.
 
 ## Setup
 
@@ -26,7 +26,10 @@ Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --fram
 - `astro.config.mjs` — Astro configuration
 - `src/layouts/Layout.astro` — Layout with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/pages/index.astro` — Home page
-- `public/css/rizzo.min.css` — Rizzo CSS bundle
+- `public/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI; font URLs point to `/assets/fonts/`)
+- `public/assets/fonts/` — Rizzo font files (added by CLI)
+- `RIZZO-README.md` — This file (scaffold docs; does not replace your project README)
+- `RIZZO-LICENSE` — Rizzo CSS license (does not replace your project LICENSE)
 
 ## Commands
 

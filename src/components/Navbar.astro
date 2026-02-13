@@ -1,5 +1,6 @@
 ---
 import Gear from './icons/Gear.astro';
+import Cat from './icons/Cat.astro';
 import Search from './Search.astro';
 import { getFrameworkFromPath } from '../config/frameworks.js';
 import { DOCS_NAV } from '../config/docsNav';
@@ -100,10 +101,12 @@ const navLinks: NavLink[] = [
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
-      {logo && (
-        <img src={logo} alt={`${siteName} logo`} class="navbar__logo" />
-      )}
       <a href="/" class="navbar__brand-link" aria-label={`${siteName} home`}>
+        {logo ? (
+          <img src={logo} alt="" class="navbar__logo" />
+        ) : (
+          <Cat width={32} height={32} class="navbar__logo" aria-hidden="true" />
+        )}
         {siteName}
       </a>
     </div>
