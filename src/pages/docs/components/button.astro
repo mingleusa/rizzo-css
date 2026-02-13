@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Button Component — Astro" description="Semantic button component with variants using theme variables">
@@ -34,21 +34,38 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 		
 		<h3>Usage</h3>
-		<CodeBlock code={`<!-- Using component -->
----
-import Button from '../../components/Button.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Button from '../components/rizzo/Button.astro';
 ---
 
 <Button>Click me</Button>
+<Button class="btn-primary">Primary</Button>
+<Button class="btn-success">Success</Button>
+<Button class="btn-warning">Warning</Button>
+<Button class="btn-error">Error</Button>
+<Button class="btn-info">Info</Button>
+<Button class="btn-outline">Outline</Button>`}
+			svelte={`<script>
+  import { Button } from '$lib/rizzo';
+</script>
 
-<!-- Using classes -->
+<Button>Click me</Button>
+<Button class="btn-primary">Primary</Button>
+<Button class="btn-success">Success</Button>
+<Button class="btn-warning">Warning</Button>
+<Button class="btn-error">Error</Button>
+<Button class="btn-info">Info</Button>
+<Button class="btn-outline">Outline</Button>`}
+			vanilla={`<!-- Ensure Rizzo CSS is loaded: <link rel="stylesheet" href="/css/rizzo.min.css" /> -->
 <button class="btn">Default</button>
 <button class="btn btn-primary">Primary</button>
 <button class="btn btn-success">Success</button>
 <button class="btn btn-warning">Warning</button>
 <button class="btn btn-error">Error</button>
 <button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>`} language="astro" />
+<button class="btn btn-outline">Outline</button>`}
+		/>
 		
 		<h3>Button Variants</h3>
 		<ul>
@@ -69,6 +86,6 @@ import Button from '../../components/Button.astro';
 				<button class="btn btn-primary" disabled>Disabled Primary</button>
 			</div>
 		</div>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/button">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/button">Svelte docs</a> · <a href="/docs/vanilla/components/button">Vanilla docs</a></p>
 	</section>
 </DocsLayout>

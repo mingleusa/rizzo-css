@@ -24,14 +24,14 @@ const TEMPLATES = {
     { value: 'manual', label: 'Manual — index.html + CSS; pick components to add their pages + js/main.js' },
   ],
   astro: [
-    { value: 'full', label: 'Full — Astro app + all 25 components (config, one page, ' + SCAFFOLD_README_FILENAME + ', ' + SCAFFOLD_LICENSE_FILENAME + ', .env.example)' },
-    { value: 'minimal', label: 'Minimal — Astro app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
-    { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
+    { value: 'full', label: 'Full — Astro app + all components (with dependencies so everything works)' },
+    { value: 'minimal', label: 'Minimal — Astro app + recommended set (includes any required dependencies)' },
+    { value: 'manual', label: 'Manual — minimal base + pick components (list shows which add others)' },
   ],
   svelte: [
-    { value: 'full', label: 'Full — SvelteKit app + all 25 components (config, one page, ' + SCAFFOLD_README_FILENAME + ', ' + SCAFFOLD_LICENSE_FILENAME + ', .env.example)' },
-    { value: 'minimal', label: 'Minimal — SvelteKit app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
-    { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
+    { value: 'full', label: 'Full — SvelteKit app + all components (with dependencies so everything works)' },
+    { value: 'minimal', label: 'Minimal — SvelteKit app + recommended set (includes any required dependencies)' },
+    { value: 'manual', label: 'Manual — minimal base + pick components (list shows which add others)' },
   ],
 };
 
@@ -111,6 +111,61 @@ const ASTRO_COMPONENTS = [
 const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
+
+// Component dependencies per framework: when user selects a component, these are copied automatically so it works.
+// Manual users can run: npx rizzo-css help components
+const COMPONENT_DEPS = {
+  astro: { Settings: ['ThemeSwitcher'], Toast: ['Alert'] },
+  svelte: { Settings: ['ThemeSwitcher'], Toast: ['Alert'] },
+};
+
+function getComponentDeps(framework, componentName) {
+  const deps = COMPONENT_DEPS[framework];
+  return (deps && deps[componentName]) ? deps[componentName] : [];
+}
+
+/** Returns a short label for the picker, e.g. " (adds ThemeSwitcher)" or "". */
+function getComponentDependencyLabel(framework, componentName) {
+  const deps = getComponentDeps(framework, componentName);
+  if (deps.length === 0) return '';
+  return ' (adds ' + deps.join(', ') + ')';
+}
+
+/** Expand a list of component names with all required dependencies. Used for full, minimal, and add so everything works. */
+function expandWithDeps(framework, names) {
+  const depsMap = COMPONENT_DEPS[framework];
+  if (!depsMap) return [...names];
+  const out = new Set(names);
+  let added = true;
+  while (added) {
+    added = false;
+    for (const name of out) {
+      const req = depsMap[name];
+      if (req) for (const d of req) {
+        if (!out.has(d)) { out.add(d); added = true; }
+      }
+    }
+  }
+  return [...names].filter((n) => out.has(n)).concat([...out].filter((n) => !names.includes(n)));
+}
+
+/** Log which components were added automatically because others require them. Call before copy when expanded.length > selected.length. */
+function logAddedDeps(selected, expanded, framework) {
+  const added = expanded.filter((n) => !selected.includes(n));
+  if (added.length === 0) return;
+  const depsMap = COMPONENT_DEPS[framework];
+  if (!depsMap) return;
+  const byRequirement = [];
+  for (const name of added) {
+    for (const [parent, deps] of Object.entries(depsMap)) {
+      if (deps.includes(name) && selected.includes(parent)) {
+        byRequirement.push(name + ' (required by ' + parent + ')');
+        break;
+      }
+    }
+  }
+  if (byRequirement.length) console.log('\n  Also adding: ' + byRequirement.join('; '));
+}
 
 // Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug. Navbar, Settings, Search, Icons are vanilla-only.
 const VANILLA_COMPONENT_SLUGS = {
@@ -395,9 +450,10 @@ function selectMenu(options, title) {
     });
   }
 
+  const HINT = '  \u2191\u2193 move \u00b7 Enter select \u00b7 1-9 pick';
   return new Promise((resolve) => {
     let index = 0;
-    const lineCount = (title ? 1 : 0) + items.length + 1;
+    const lineCount = (title ? 1 : 0) + items.length + 2; // +1 blank +1 hint
 
     const render = (first) => {
       const lines = (title ? [title] : []).concat(
@@ -406,13 +462,23 @@ function selectMenu(options, title) {
           const prefix = i === index ? C.cyan + '>' + C.reset + ' ' : '  ';
           return prefix + circle + formatLabel(item);
         })
-      );
+      ).concat(['', HINT]);
       if (!first) {
         process.stdout.write('\u001b[' + lineCount + 'A');
       }
       process.stdout.write('\u001b[?25l');
-      process.stdout.write(lines.join('\n') + '\n\n');
+      process.stdout.write(lines.join('\n') + '\n');
       process.stdout.write('\u001b[?25h');
+    };
+
+    const selectByNumber = (num) => {
+      const n = num === 0 ? 10 : num; // 0 = 10th item
+      const idx = n >= 1 && n <= items.length ? n - 1 : index;
+      process.stdin.setRawMode(false);
+      process.stdin.removeListener('data', onData);
+      process.stdin.pause();
+      process.stdout.write('\n');
+      resolve(items[idx].value);
     };
 
     process.stdin.setRawMode(true);
@@ -435,6 +501,16 @@ function selectMenu(options, title) {
         process.stdin.pause();
         process.stdout.write('\n');
         resolve(items[index].value);
+        return;
+      }
+      if (ch >= '1' && ch <= '9') {
+        buf = '';
+        selectByNumber(parseInt(ch, 10));
+        return;
+      }
+      if (ch === '0' && items.length >= 10) {
+        buf = '';
+        selectByNumber(10);
         return;
       }
       buf += ch;
@@ -528,7 +604,8 @@ function multiSelectMenu(options, title, initialSelected) {
         if (initialSet.has(items[i].value)) selected.add(i);
       }
     }
-    const lineCount = (title ? 1 : 0) + items.length + 1;
+    const HINT = '  \u2191\u2193 move \u00b7 Space toggle \u00b7 a all \u00b7 n none \u00b7 Enter confirm';
+    const lineCount = (title ? 1 : 0) + items.length + 2; // +1 blank +1 hint
     const realStart = withSentinels ? 2 : 0;
 
     const finish = () => {
@@ -556,13 +633,22 @@ function multiSelectMenu(options, title, initialSelected) {
           const prefix = i === index ? C.cyan + '>' + C.reset + ' ' : '  ';
           return prefix + circle + formatLabel(item);
         })
-      );
+      ).concat(['', HINT]);
       if (!first) {
         process.stdout.write('\u001b[' + lineCount + 'A');
       }
       process.stdout.write('\u001b[?25l');
-      process.stdout.write(lines.join('\n') + '\n\n');
+      process.stdout.write(lines.join('\n') + '\n');
       process.stdout.write('\u001b[?25h');
+    };
+
+    const toggleByNumber = (num) => {
+      const n = num === 0 ? 10 : num;
+      const idx = n >= 1 && n <= items.length ? n - 1 : -1;
+      if (idx < realStart) return; // don't toggle "Select all" / "Select none"
+      if (selected.has(idx)) selected.delete(idx);
+      else selected.add(idx);
+      render(false);
     };
 
     process.stdin.setRawMode(true);
@@ -605,6 +691,16 @@ function multiSelectMenu(options, title, initialSelected) {
         render(false);
         return;
       }
+      if (ch >= '1' && ch <= '9') {
+        buf = '';
+        toggleByNumber(parseInt(ch, 10));
+        return;
+      }
+      if (ch === '0' && items.length >= 10) {
+        buf = '';
+        toggleByNumber(10);
+        return;
+      }
       if (ch === 'a' || ch === 'A') {
         buf = '';
         for (let i = realStart; i < items.length; i++) selected.add(i);
@@ -642,6 +738,12 @@ rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 
 Available commands: init, add, theme, help
 
+Flags summary:
+  init   --yes  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install
+  add    --path <dir>  --framework <fw>  --package-manager <pm>  --install-package  --no-install
+  theme  (no flags)
+  help   (no flags)
+
 Usage (use your package manager):
   npx rizzo-css <command> [options]
   pnpm dlx rizzo-css <command> [options]
@@ -673,6 +775,11 @@ Options (add):
 Package managers:
   Supported: npm, pnpm, yarn, bun. Detection: lockfiles (pnpm-lock.yaml, yarn.lock, bun.lockb, package-lock.json) or package.json "packageManager"/"devEngines.packageManager". Use --package-manager to override.
 
+Interactive prompts (when no --yes/flag provided):
+  Single-choice: ↑/↓ move, Enter select, 1-9 pick by number (0 = 10th).
+  Multi-choice:  ↑/↓ move, Space toggle, a = all, n = none, Enter confirm, 1-9 toggle by number.
+  Ctrl+C to exit.
+
 Config:
   Optional rizzo-css.json in project root: { "targetDir", "framework", "packageManager" }.
   Used by add and init when present. Detection: lockfiles and packageManager field in package.json.
@@ -701,7 +808,40 @@ Examples:
   npx rizzo-css add --install-package
   npx rizzo-css theme
 
+Component dependencies (manual / add):
+  Some components require others to work. Picking them adds the required ones automatically.
+  Full list of available components and what relies on what: npx rizzo-css help components
+
 Docs: https://rizzo-css.vercel.app
+`);
+}
+
+function printHelpComponents() {
+  const list = ASTRO_COMPONENTS.map((name) => {
+    const deps = getComponentDeps('astro', name);
+    return deps.length ? name + ' (adds ' + deps.join(', ') + ')' : name;
+  });
+  const line1 = list.slice(0, 10).join(', ');
+  const line2 = list.slice(10, 20).join(', ');
+  const line3 = list.slice(20).join(', ');
+  console.log(`
+Components — full list and what relies on what
+
+Available to pick (Astro & Svelte; same list):
+  ` + line1 + (line2 ? ',\n  ' + line2 : '') + (line3 ? ',\n  ' + line3 : '') + `
+
+Dependencies (when you pick the component on the left, the right is added automatically):
+  Settings  →  ThemeSwitcher (and themes.ts)
+  Toast     →  Alert
+
+ThemeSwitcher and ThemeIcon: when selected, themes.ts (and Svelte theme.ts) is copied so they work.
+Icons: copied whenever you add any component.
+
+  Full     = all components above; dependencies are included so everything works.
+  Minimal  = recommended set; any component in that set that requires others gets them.
+  Manual   = you pick; the picker shows e.g. "Settings (adds ThemeSwitcher)". Required deps are added when you confirm.
+
+To see this again: npx rizzo-css help components
 `);
 }
 
@@ -735,6 +875,11 @@ async function promptThemes() {
   return { theme, defaultDark: DARK_THEMES.includes(defaultDark) ? defaultDark : DARK_THEMES[0], defaultLight: LIGHT_THEMES.includes(defaultLight) ? defaultLight : LIGHT_THEMES[0] };
 }
 
+function componentOptionLabel(framework, name) {
+  const suffix = getComponentDependencyLabel(framework, name);
+  return name + suffix;
+}
+
 /** Ask what to include: CSS only, recommended set, all components, or pick. Returns array of component names. Only call when componentList.length > 0. initialSelection: when set (e.g. for manual = minimal base), skip the menu and show multi-select with these pre-selected. */
 async function promptComponentChoice(componentList, framework, initialSelection) {
   const recommended = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
@@ -743,7 +888,7 @@ async function promptComponentChoice(componentList, framework, initialSelection)
       [
         { value: SENTINEL_ALL, label: 'Select all components' },
         { value: SENTINEL_NONE, label: 'Select no components' },
-        ...componentList.map((c) => ({ value: c, label: c })),
+        ...componentList.map((c) => ({ value: c, label: componentOptionLabel(framework, c) })),
       ],
       '? Components (minimal set pre-selected) — Space to toggle, Enter to confirm',
       initialSelection
@@ -765,9 +910,9 @@ async function promptComponentChoice(componentList, framework, initialSelection)
     [
       { value: SENTINEL_ALL, label: 'Select all components' },
       { value: SENTINEL_NONE, label: 'Select no components' },
-      ...componentList.map((c) => ({ value: c, label: c })),
+      ...componentList.map((c) => ({ value: c, label: componentOptionLabel(framework, c) })),
     ],
-    '? Components — Space to toggle, Enter to confirm'
+    '? Components — Space to toggle, Enter to confirm. Items like "Settings (adds ThemeSwitcher)" add those deps automatically. List: npx rizzo-css help components'
   );
 }
 
@@ -1021,7 +1166,7 @@ function copySvelteComponents(projectDir, selectedNames) {
   if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
-  if (toCopy.includes('ThemeSwitcher')) {
+  if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
     const themesSrc = join(scaffoldDir, 'themes.ts');
     const themeSrc = join(scaffoldDir, 'theme.ts');
     if (existsSync(themesSrc)) copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
@@ -1066,7 +1211,7 @@ function copyAstroComponents(projectDir, selectedNames) {
   if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
-  if (toCopy.includes('ThemeSwitcher')) {
+  if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
     const themesSrc = join(scaffoldDir, 'themes.ts');
     if (existsSync(themesSrc)) {
       copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
@@ -1171,9 +1316,13 @@ async function runAddToExisting(frameworkOverride, options) {
 
   copyRizzoIcons(cwd, framework);
   if (framework === 'svelte' && selectedComponents.length > 0) {
-    copySvelteComponents(cwd, selectedComponents);
+    const expanded = expandWithDeps('svelte', selectedComponents);
+    logAddedDeps(selectedComponents, expanded, 'svelte');
+    copySvelteComponents(cwd, expanded);
   } else if (framework === 'astro' && selectedComponents.length > 0) {
-    copyAstroComponents(cwd, selectedComponents);
+    const expanded = expandWithDeps('astro', selectedComponents);
+    logAddedDeps(selectedComponents, expanded, 'astro');
+    copyAstroComponents(cwd, expanded);
   } else if (framework === 'vanilla' && selectedComponents.length > 0) {
     const linkHrefForVanilla = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
     const vanillaRepl = { '{{LINK_HREF}}': linkHrefForVanilla, '{{DATA_THEME}}': theme };
@@ -1351,6 +1500,13 @@ async function cmdInit(argv) {
   const useVanillaFull = selectedTemplate === 'full' && framework === 'vanilla' && existsSync(getScaffoldVanillaIndex());
   const useVanillaMinimal = selectedTemplate === 'minimal' && framework === 'vanilla';
 
+  // Full and minimal get all required dependencies so everything works; manual gets deps when user picks (see prompt labels).
+  let componentsToCopy = selectedComponents;
+  if ((framework === 'astro' || framework === 'svelte') && selectedComponents.length > 0) {
+    componentsToCopy = expandWithDeps(framework, selectedComponents);
+    logAddedDeps(selectedComponents, componentsToCopy, framework);
+  }
+
   let cssTarget;
   let indexPath;
 
@@ -1378,9 +1534,9 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
-    if (selectedComponents.length > 0) {
+    if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'astro');
-      copyAstroComponents(projectDir, selectedComponents);
+      copyAstroComponents(projectDir, componentsToCopy);
     }
   } else if (useAstroBase) {
     mkdirSync(projectDir, { recursive: true });
@@ -1391,9 +1547,9 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
-    if (selectedComponents.length > 0) {
+    if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'astro');
-      copyAstroComponents(projectDir, selectedComponents);
+      copyAstroComponents(projectDir, componentsToCopy);
     }
   } else if (useHandpickSvelte) {
     mkdirSync(projectDir, { recursive: true });
@@ -1404,9 +1560,9 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
-    if (selectedComponents.length > 0) {
+    if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'svelte');
-      copySvelteComponents(projectDir, selectedComponents);
+      copySvelteComponents(projectDir, componentsToCopy);
     }
   } else if (useSvelteBase) {
     mkdirSync(projectDir, { recursive: true });
@@ -1417,9 +1573,9 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
-    if (selectedComponents.length > 0) {
+    if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'svelte');
-      copySvelteComponents(projectDir, selectedComponents);
+      copySvelteComponents(projectDir, componentsToCopy);
     }
   } else if (useVanillaFull) {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
@@ -1589,6 +1745,10 @@ function main() {
   const command = (argv[0] || 'help').toLowerCase().replace(/^--?/, '');
 
   if (command === 'help' || command === 'h' || !COMMANDS.includes(command)) {
+    if (argv[1] === 'components') {
+      printHelpComponents();
+      return;
+    }
     if (argv[0] && !COMMANDS.includes(command) && command !== 'h') {
       console.error('Unknown command: ' + argv[0] + '\n');
     }

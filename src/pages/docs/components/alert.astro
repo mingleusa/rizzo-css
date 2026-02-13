@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Alert Component — Astro" description="Accessible alert component with variants and dismissible functionality">
@@ -45,24 +45,30 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 	
 	<section>
 		<h2>Usage</h2>
-		<CodeBlock code={`---
-import Alert from '../../components/Alert.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Alert from '../components/rizzo/Alert.astro';
 ---
 
-<!-- Basic alert -->
-<Alert variant="success">
-  Your changes have been saved.
-</Alert>
+<Alert variant="success">Your changes have been saved.</Alert>
+<Alert variant="error" dismissible>An error occurred. Please try again.</Alert>
+<Alert variant="success" dismissible autoDismiss={5000}>This alert will automatically dismiss in 5 seconds.</Alert>`}
+			svelte={`<script>
+  import { Alert } from '$lib/rizzo';
+</script>
 
-<!-- Dismissible alert -->
-<Alert variant="error" dismissible>
-  An error occurred. Please try again.
-</Alert>
-
-<!-- Auto-dismiss alert -->
-<Alert variant="success" dismissible autoDismiss={5000}>
-  This alert will automatically dismiss in 5 seconds.
-</Alert>`} language="astro" />
+<Alert variant="success">Your changes have been saved.</Alert>
+<Alert variant="error" dismissible>An error occurred. Please try again.</Alert>
+<Alert variant="success" dismissible autoDismiss={5000}>This alert will automatically dismiss in 5 seconds.</Alert>`}
+			vanilla={`<!-- Ensure Rizzo CSS is loaded. Dismiss/auto-dismiss need minimal JS (see vanilla docs). -->
+<div class="alert alert--success" role="alert" aria-live="polite">
+  <div class="alert__content">Your changes have been saved.</div>
+</div>
+<div class="alert alert--error alert--dismissible" role="alert" aria-live="polite">
+  <div class="alert__content">An error occurred. Please try again.</div>
+  <button type="button" class="alert__close" aria-label="Dismiss">×</button>
+</div>`}
+		/>
 	</section>
 	
 	<section>
@@ -105,7 +111,7 @@ import Alert from '../../components/Alert.astro';
 			<li><strong>Focus Management:</strong> Close button has visible focus indicators</li>
 			<li><strong>Screen Reader Feedback:</strong> Announces when alerts are dismissed</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/alert">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for dismiss.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/alert">Svelte docs</a> · <a href="/docs/vanilla/components/alert">Vanilla docs</a></p>
 	</section>
 </DocsLayout>
 

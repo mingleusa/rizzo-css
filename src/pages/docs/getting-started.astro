@@ -19,7 +19,7 @@ import PackageInstallTabs from '../../components/PackageInstallTabs.astro';
 		<CliCommandTabs command="init" class="docs-cli-tabs" />
 		<p class="docs-cli-label"><strong>Add to existing project:</strong></p>
 		<CliCommandTabs command="add" class="docs-cli-tabs" />
-		<p class="docs-cli-note">To add a specific component without prompts, include its name: e.g. <code>npx rizzo-css add Button</code> or <code>npx rizzo-css add ThemeSwitcher</code>. Each component doc page has the exact command with copy buttons. For <code>theme</code> (list theme IDs), use the same pattern: <code>npx rizzo-css theme</code>, <code>pnpm dlx rizzo-css theme</code>, and so on.</p>
+		<p class="docs-cli-note">To add a specific component without prompts, include its name: e.g. <code>npx rizzo-css add Button</code> or <code>npx rizzo-css add ThemeSwitcher</code>. Some components add others automatically (e.g. Settings adds ThemeSwitcher; Toast adds Alert). Run <code>npx rizzo-css help components</code> for the full list. Each component doc page has the exact command with copy buttons. For <code>theme</code> (list theme IDs), use the same pattern: <code>npx rizzo-css theme</code>, <code>pnpm dlx rizzo-css theme</code>, and so on.</p>
 
 		<p>Rizzo CSS is built on Astro. To work on this docs site and reference components (clone the repo):</p>
 		<CodeBlock code={`# Clone the project
@@ -49,6 +49,7 @@ pnpm install`} language="nodejs" />
 │   │   ├── Button.astro
 │   │   ├── Card.astro
 │   │   ├── CodeBlock.astro
+│   │   ├── FrameworkCodeTabs.astro
 │   │   ├── CopyToClipboard.astro
 │   │   ├── Dropdown.astro
 │   │   ├── FormGroup.astro

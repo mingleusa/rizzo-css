@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). **Create new** → choose **Full** (everything), **Minimal** (recommended set), or **Manual** (minimal base + component picker with minimal set pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components. Every scaffold includes **LICENSE-RIZZO** and **README-RIZZO.md** (does not overwrite project LICENSE/README); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + showcase + js + icons. **Minimal** = index + CSS + js/main.js + recommended component pages in `components/` + icons. **Manual** = index + CSS; component picker opens with minimal set pre-selected — add or remove then confirm (or pick none). To add component JS later when you chose no components, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.23/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.24/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 25 components (including ThemeSwitcher). React/Vue later.
 
 ---
@@ -22,6 +22,8 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
 **Detection:** Package manager (npm, pnpm, yarn, bun) from lockfile or `packageManager` in package.json. Override with **--package-manager npm|pnpm|yarn|bun** on init or add. Optional **rizzo-css.json**: `{ "targetDir", "framework", "packageManager" }`. Init: **--yes**, **--framework**, **--template** (full | minimal | manual), **--package-manager**, **--install**, **--no-install**. **rizzo-css.json** is always written (new and existing projects); interactive run prompts “Run install now? (Y/n)” for Astro/Svelte. Add: **--path**, **--package-manager**, **--install-package**, **--no-install**. **Full | Minimal | Manual:** Full = everything we ship (Vanilla: showcase + js + icons; Astro/Svelte: app + all components). Minimal = recommended starter (Vanilla: index + CSS + js/main.js + recommended component pages + icons; Astro/Svelte: app + recommended components). Manual = minimal base + component picker with the minimal (recommended) set pre-selected — add or remove components then confirm. **--template** full | minimal | manual (default: full).
+
+**Component dependencies:** Some components require others (e.g. Settings needs ThemeSwitcher; Toast needs Alert). Full and Minimal include them automatically; Manual shows "Settings (adds ThemeSwitcher)" in the picker and adds required components when you confirm. List: `npx rizzo-css help components`.
 
 **Tip:** Use the **package manager tabs** on the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page (npm, pnpm, yarn, bun): click a tab to select your manager, then copy the command. **Create new:** CLI prompts for package manager so the printed "install && dev" command matches. **Add to existing** or `add`: CLI prints the exact `<link>` tag; it does not edit your layout. To use the official create command plus Rizzo: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or Astro/pnpm/yarn/bun equivalents). 
 ---
@@ -183,6 +185,7 @@ rizzo-css/
 │   │   ├── Button.astro
 │   │   ├── Card.astro
 │   │   ├── CodeBlock.astro
+│   │   ├── FrameworkCodeTabs.astro
 │   │   ├── CopyToClipboard.astro
 │   │   ├── Dropdown.astro
 │   │   ├── FormGroup.astro

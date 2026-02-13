@@ -55,14 +55,33 @@ When the user chooses **Full, Minimal, or Manual**:
 | Vanilla | **full** | index.html + theme switcher, js/main.js, icons, component showcase, README-RIZZO.md, LICENSE-RIZZO. |
 | Vanilla | **minimal** | index.html + CSS + js/main.js + recommended component pages in `components/` + icons, README-RIZZO.md, LICENSE-RIZZO. |
 | Vanilla | **manual** | index.html + CSS; component picker opens with minimal set pre-selected — add/remove then confirm (or pick none). README-RIZZO.md, LICENSE-RIZZO. |
-| Astro | **full** | Astro app + all 25 components. |
-| Astro | **minimal** | Astro app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown). |
-| Astro | **manual** | minimal base + component picker (minimal set pre-selected). |
-| Svelte | **full** | SvelteKit app + all 25 components. |
-| Svelte | **minimal** | SvelteKit app + recommended components. |
-| Svelte | **manual** | minimal base + component picker (minimal set pre-selected). |
+| Astro | **full** | Astro app + all components (with dependencies so everything works). |
+| Astro | **minimal** | Astro app + recommended set (includes any required dependencies). |
+| Astro | **manual** | minimal base + pick components (list shows which add others). |
+| Svelte | **full** | SvelteKit app + all components (with dependencies so everything works). |
+| Svelte | **minimal** | SvelteKit app + recommended set (includes any required dependencies). |
+| Svelte | **manual** | minimal base + pick components (list shows which add others). |
 
 Every scaffold includes **LICENSE-RIZZO** and **README-RIZZO.md** (does not overwrite project LICENSE/README); Astro/Svelte also include package.json and .env.example. With `init --yes`, default is **full**; use `--template minimal` or `--template manual` to override.
+
+**Full** = all components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Minimal** = recommended set; any component in that set that requires others gets them automatically. **Manual** = component picker; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
+
+---
+
+## Component dependencies
+
+When you add or pick components, the CLI automatically includes everything each component needs:
+
+| Component | Adds automatically (Astro & Svelte) |
+|-----------|-------------------------------------|
+| **Settings** | ThemeSwitcher (and themes.ts) |
+| **Toast** | Alert |
+
+**ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. Icons are always copied when any component is selected.
+
+- **Full** and **Minimal** templates expand the component list with these dependencies before copying, so everything works out of the box.
+- **Manual** (and `add`): the picker shows labels like "Settings (adds ThemeSwitcher)"; after you confirm, the CLI prints "Also adding: ThemeSwitcher (required by Settings)" and copies the expanded set.
+- To see the full list of available components and what relies on what: `npx rizzo-css help components`. It lists every component you can pick (Astro & Svelte) and notates which add others (e.g. Settings, Toast).
 
 ---
 
@@ -84,3 +103,4 @@ Every scaffold includes **LICENSE-RIZZO** and **README-RIZZO.md** (does not over
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css'); `init --install` runs pm.install after scaffold (minimal/hand-pick Astro/Svelte); `--no-install` skips.
 - [x] **--yes:** `init --yes` scaffolds new in cwd with defaults (framework: astro, template: full; PM: config or detected). Supports `--framework` and `--template`.
 - [x] **Docs:** GETTING_STARTED includes Detection + config/options; help shows all options and examples.
+- [x] **Component dependencies:** Settings→ThemeSwitcher, Toast→Alert (Astro & Svelte). Full/Minimal expand list before copy; Manual shows "adds X" in picker and logs "Also adding: …". `npx rizzo-css help components` prints the list.

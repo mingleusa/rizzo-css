@@ -1,0 +1,64 @@
+---
+import Tabs from './Tabs.astro';
+import CodeBlock from './CodeBlock.astro';
+
+/** Full code examples per framework for the Usage section. Show Astro | Svelte | Vanilla tabs with complete, runnable examples. */
+interface Props {
+  astro?: string;
+  svelte?: string;
+  vanilla?: string;
+  /** Optional default tab id */
+  defaultTab?: 'astro' | 'svelte' | 'vanilla';
+  class?: string;
+}
+
+const { astro = '', svelte = '', vanilla = '', defaultTab = 'astro', class: className = '' } = Astro.props;
+
+const tabs: { id: string; label: string }[] = [];
+if (astro) tabs.push({ id: 'astro', label: 'Astro' });
+if (svelte) tabs.push({ id: 'svelte', label: 'Svelte' });
+if (vanilla) tabs.push({ id: 'vanilla', label: 'Vanilla' });
+const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : tabs[0]?.id ?? 'astro';
+---
+
+<div class={`framework-code-tabs ${className}`.trim()}>
+  <p class="framework-code-tabs__hint">Full example for each framework. Copy the block that matches your project.</p>
+  <Tabs tabs={tabs} defaultTab={effectiveDefault} id="framework-code-tabs" class="framework-code-tabs__tabs">
+    {astro && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={astro.trim()} language="astro" />
+      </div>
+    )}
+    {svelte && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={svelte.trim()} language="svelte" />
+      </div>
+    )}
+    {vanilla && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={vanilla.trim()} language="html" />
+      </div>
+    )}
+  </Tabs>
+</div>
+
+<style>
+  .framework-code-tabs {
+    margin: var(--spacing-4) 0;
+  }
+  .framework-code-tabs__hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-2);
+  }
+  .framework-code-tabs :global(.tabs__panel) {
+    padding: 0;
+    min-height: 0;
+  }
+  .framework-code-tabs__panel :global(.code-block) {
+    margin: 0;
+  }
+  .framework-code-tabs__panel :global(.code-block pre) {
+    padding: var(--spacing-4);
+  }
+</style>

@@ -32,6 +32,7 @@ const ASTRO_SCAFFOLD = [
 const ASTRO_SCAFFOLD_MINIMAL = {
   Navbar: `---
 import Cat from './icons/Cat.astro';
+import Gear from './icons/Gear.astro';
 interface Props { siteName?: string; logo?: string; }
 const { siteName = 'Site', logo } = Astro.props;
 ---
@@ -46,6 +47,12 @@ const { siteName = 'Site', logo } = Astro.props;
         )}
         {siteName}
       </a>
+    </div>
+    <div class="navbar__actions-desktop">
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+        <Gear class="navbar__settings-icon" width={20} height={20} />
+        <span class="navbar__settings-label">Settings</span>
+      </button>
     </div>
     <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
@@ -70,20 +77,6 @@ const { id = 'search-main' } = Astro.props;
     <div class="search__panel">
       <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
     </div>
-  </div>
-</div>
-`,
-  Settings: `---
-interface Props {}
----
-<div class="settings" data-settings aria-hidden="true">
-  <div class="settings__overlay" data-settings-overlay aria-hidden="true"></div>
-  <div class="settings__panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden="true">
-    <div class="settings__header">
-      <h2 id="settings-title" class="settings__title">Settings</h2>
-      <button type="button" class="settings__close" data-settings-close aria-label="Close">×</button>
-    </div>
-    <div class="settings__content"><p>Theme, font size, and accessibility options. Wire to your state and <code>window.openSettings</code>.</p></div>
   </div>
 </div>
 `,

@@ -12,7 +12,7 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components; you must add the `<link>` yourself (CLI prints the exact tag). **New** → choose **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
+**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components; you must add the `<link>` yourself (CLI prints the exact tag). **New** → choose **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components; list shows which add others, e.g. Settings adds ThemeSwitcher), then package manager. Full and Minimal include all required dependencies so every component works. Run `npx rizzo-css help components` for the dependency list. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add
@@ -56,7 +56,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.23 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.24 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->

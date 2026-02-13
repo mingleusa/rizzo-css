@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/` and `scaffold/svelte/` (25 components including ThemeSwitcher). **Create new** → **Full**, **Minimal**, or **Manual** (minimal base + component picker with minimal set pre-selected); **Add to existing** → CSS + hand-pick components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/` and `scaffold/svelte/` (25 components including ThemeSwitcher). **Create new** → **Full**, **Minimal**, or **Manual** (minimal base + component picker; list shows which components add others, e.g. "Settings (adds ThemeSwitcher)"); **Add to existing** → CSS + hand-pick components. Full and Minimal include all required dependencies (Settings→ThemeSwitcher, Toast→Alert); run `npx rizzo-css help components` for the list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -72,7 +72,7 @@ Every component has documentation and examples for **Astro**, **Svelte**, and **
 
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
-| **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage, live demos, props, and "Using classes" HTML snippets. |
+| **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage with **Astro | Svelte | Vanilla** code tabs (complete, copy-paste examples per framework), live demos, and props. |
 | **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
 | **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML, optional inline script for interactive behavior (modal, dropdown, tabs, accordion, toast, etc.), copyable code blocks, and a live demo. Same BEM as Astro/Svelte. |
 
