@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/badge/npm-0.0.22-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.23-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -52,7 +52,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 **Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components. **New** → choose **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes **RIZZO-LICENSE** and **RIZZO-README.md** (does not overwrite project LICENSE/README); Astro/Svelte include package.json and .env.example. **Create new** → **Full** | **Minimal** | **Manual** (per framework). **Add to existing** → CSS + hand-pick components (you must add the `<link>` yourself; CLI prints the exact tag). Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes **LICENSE-RIZZO** and **README-RIZZO.md** (does not overwrite project LICENSE/README); Astro/Svelte include package.json and .env.example. **Create new** → **Full** | **Minimal** | **Manual** (per framework). **Add to existing** → CSS + hand-pick components (you must add the `<link>` yourself; CLI prints the exact tag). Same CSS and BEM for all three.
 
 ### Prerequisites
 

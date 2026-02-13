@@ -1,13 +1,12 @@
 ---
 /* Placeholders replaced by rizzo-css CLI when scaffolding */
+/* {{THEME_LIST_COMMENT}} */
 const DATA_THEME = '{{DATA_THEME}}';
-const THEME_LIST_COMMENT = '{{THEME_LIST_COMMENT}}';
 /** @type {{ title?: string }} */
 const { title = '{{TITLE}}' } = Astro.props;
 ---
 <!doctype html>
 <html lang="en" data-theme={DATA_THEME}>
-  {THEME_LIST_COMMENT}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />

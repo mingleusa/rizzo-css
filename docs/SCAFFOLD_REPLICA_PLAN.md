@@ -6,9 +6,9 @@
 
 The published **rizzo-css** package includes only these scaffolds (see `packages/rizzo-css/package.json` `"files"`):
 
-- **scaffold/vanilla/** — Full or minimal Vanilla HTML + CSS. Built by `copy-scaffold.js` (base + icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`). Includes `index.html`, `js/main.js`, `css/`, `icons/`, RIZZO-README.md, RIZZO-LICENSE.
-- **scaffold/astro-minimal/** — Minimal Astro app (config, one page, RIZZO-README.md, RIZZO-LICENSE, .env.example). Fonts go in `public/assets/fonts/` (CLI rewrites CSS URLs).
-- **scaffold/svelte-minimal/** — Minimal SvelteKit app (config, one page, RIZZO-README.md, RIZZO-LICENSE, .env.example).
+- **scaffold/vanilla/** — Full or minimal Vanilla HTML + CSS. Built by `copy-scaffold.js` (base + icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`). Includes `index.html`, `js/main.js`, `css/`, `icons/`, README-RIZZO.md, LICENSE-RIZZO.
+- **scaffold/astro-minimal/** — Minimal Astro app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example). Fonts go in `public/assets/fonts/` (CLI rewrites CSS URLs).
+- **scaffold/svelte-minimal/** — Minimal SvelteKit app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example).
 - **scaffold/astro/** — 25 Astro component files (Button, Badge, Card, etc.) for copy into a project.
 - **scaffold/svelte/** — 25 Svelte component files for copy into a project.
 
@@ -35,7 +35,7 @@ scaffold/vanilla/
 ├── js/
 │   └── main.js
 ├── icons/
-└── RIZZO-README.md
+└── README-RIZZO.md
 ```
 
-Astro and Svelte minimal scaffolds each have their own layout (see RIZZO-README.md in each scaffold folder). Component templates live in `scaffold/astro/` and `scaffold/svelte/` (no full-app layout; users add components to their own app).
+Astro and Svelte minimal scaffolds each have their own layout (see README-RIZZO.md in each scaffold folder). Component templates live in `scaffold/astro/` and `scaffold/svelte/` (no full-app layout; users add components to their own app).

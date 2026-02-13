@@ -7,9 +7,9 @@ const readline = require('readline');
 
 const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 /** Scaffold README filename; avoids overwriting an existing project README.md. */
-const SCAFFOLD_README_FILENAME = 'RIZZO-README.md';
+const SCAFFOLD_README_FILENAME = 'README-RIZZO.md';
 /** Scaffold license filename; avoids overwriting an existing project LICENSE. */
-const SCAFFOLD_LICENSE_FILENAME = 'RIZZO-LICENSE';
+const SCAFFOLD_LICENSE_FILENAME = 'LICENSE-RIZZO';
 
 const COMMANDS = ['init', 'add', 'theme', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
@@ -185,7 +185,30 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   }
 }
 
-/** Copy the package LICENSE into the project dir as RIZZO-LICENSE so we do not overwrite an existing LICENSE. */
+/** SvelteKit only: copy rizzo.min.css to static/css with font URLs rewritten to /assets/fonts/, and copy fonts to static/assets/fonts. */
+function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
+  const cssDir = join(projectDir, 'static', 'css');
+  const cssTarget = join(cssDir, 'rizzo.min.css');
+  const fontsDest = join(projectDir, 'static', 'assets', 'fonts');
+  mkdirSync(cssDir, { recursive: true });
+  mkdirSync(fontsDest, { recursive: true });
+  copyFileSync(cssSource, cssTarget);
+  let css = readFileSync(cssTarget, 'utf8');
+  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
+  writeFileSync(cssTarget, css, 'utf8');
+  const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
+  if (existsSync(fontsSrc)) {
+    const entries = readdirSync(fontsSrc, { withFileTypes: true });
+    for (const e of entries) {
+      const srcPath = join(fontsSrc, e.name);
+      const destPath = join(fontsDest, e.name);
+      if (e.isDirectory()) copyDirRecursive(srcPath, destPath);
+      else copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
+/** Copy the package LICENSE into the project dir as LICENSE-RIZZO so we do not overwrite an existing LICENSE. */
 function copyPackageLicense(projectDir) {
   const licensePath = join(getPackageRoot(), 'LICENSE');
   if (existsSync(licensePath)) {
@@ -208,11 +231,17 @@ function readRizzoConfig(cwd) {
   } catch (_) { return null; }
 }
 
-/** Write rizzo-css.json to cwd. config: { targetDir?, framework?, packageManager? }. */
+/** Write rizzo-css.json to cwd. config: { targetDir?, framework?, packageManager? }. Preserves unknown keys from existing file. */
 function writeRizzoConfig(cwd, config) {
   if (!cwd || !existsSync(cwd)) return;
   const configPath = join(cwd, RIZZO_CONFIG_FILE);
-  const obj = {};
+  let obj = {};
+  if (existsSync(configPath)) {
+    try {
+      const raw = JSON.parse(readFileSync(configPath, 'utf8'));
+      if (raw && typeof raw === 'object') obj = { ...raw };
+    } catch (_) { /* ignore */ }
+  }
   if (config.targetDir != null) obj.targetDir = config.targetDir;
   if (config.framework != null) obj.framework = config.framework;
   if (config.packageManager != null) obj.packageManager = config.packageManager;
@@ -611,6 +640,8 @@ function printHelp() {
   console.log(`
 rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 
+Available commands: init, add, theme, help
+
 Usage (use your package manager):
   npx rizzo-css <command> [options]
   pnpm dlx rizzo-css <command> [options]
@@ -757,12 +788,12 @@ function detectFramework(cwd) {
 /**
  * Framework-specific paths for CSS and static assets. Use these so fonts, sounds, images
  * go in the right place per framework (Astro: public/, SvelteKit: static/, Vanilla: project root).
- * - targetDir: where rizzo.min.css is copied. Fonts: for Astro, public/assets/fonts (CLI rewrites URLs); for Svelte/Vanilla, targetDir/fonts so ./fonts/ resolves.
- * - assetsRoot: root for static assets (Astro: public; use public/assets/fonts, public/assets/sounds).
+ * - targetDir: where rizzo.min.css is copied. Fonts: Astro public/assets/fonts, Svelte static/assets/fonts (CLI rewrites URLs); Vanilla targetDir/fonts.
+ * - assetsRoot: root for static assets (Astro: public; Svelte: static; Vanilla: '').
  */
 function getFrameworkCssPaths(framework) {
   if (framework === 'svelte') {
-    return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css', fontsDir: 'static/css/fonts', assetsRoot: 'static' };
+    return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css', fontsDir: 'static/assets/fonts', assetsRoot: 'static' };
   }
   if (framework === 'astro') {
     return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css', fontsDir: 'public/assets/fonts', assetsRoot: 'public' };
@@ -1127,6 +1158,9 @@ async function runAddToExisting(frameworkOverride, options) {
   if (framework === 'astro') {
     copyRizzoCssAndFontsForAstro(cwd, cssSource);
     cssTarget = join(cwd, 'public', 'css', 'rizzo.min.css');
+  } else if (framework === 'svelte') {
+    copyRizzoCssAndFontsForSvelte(cwd, cssSource);
+    cssTarget = join(cwd, 'static', 'css', 'rizzo.min.css');
   } else {
     const targetDir = join(cwd, targetDirRaw);
     cssTarget = join(targetDir, 'rizzo.min.css');
@@ -1146,7 +1180,7 @@ async function runAddToExisting(frameworkOverride, options) {
     copyVanillaComponents(cwd, selectedComponents, vanillaRepl);
   }
 
-  const linkHref = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
+  const linkHref = (framework === 'astro' || framework === 'svelte') ? paths.linkHref : ((options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref);
   const pmFromOption = options && options.packageManager && VALID_PACKAGE_MANAGERS.includes(options.packageManager);
   const pm = pmFromOption
     ? getPackageManagerCommands({ agent: options.packageManager, command: options.packageManager })
@@ -1154,7 +1188,8 @@ async function runAddToExisting(frameworkOverride, options) {
       ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
       : resolvePackageManager(cwd);
   const cliExample = pm.dlx('rizzo-css theme');
-  writeRizzoConfig(cwd, { targetDir: targetDirRaw, framework, packageManager: pm.agent });
+  const configTargetDir = framework === 'astro' ? 'public/css' : framework === 'svelte' ? 'static/css' : targetDirRaw;
+  writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent });
   console.log('\n✓ Rizzo CSS added to your existing project');
   console.log('  - ' + cssTarget);
   console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
@@ -1363,10 +1398,8 @@ async function cmdInit(argv) {
   } else if (useHandpickSvelte) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(svelteMinimalDir, projectDir, replacements);
-    mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
+    copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1378,10 +1411,8 @@ async function cmdInit(argv) {
   } else if (useSvelteBase) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(svelteMinimalDir, projectDir, replacements);
-    mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
+    copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1449,11 +1480,16 @@ async function cmdInit(argv) {
     writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), VANILLA_MINIMAL_README, 'utf8');
     copyPackageLicense(projectDir);
   } else {
-    const cssDir = join(projectDir, pathsForScaffold.targetDir);
-    cssTarget = join(cssDir, 'rizzo.min.css');
-    mkdirSync(cssDir, { recursive: true });
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(dirname(cssTarget));
+    if (framework === 'svelte') {
+      copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
+      cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
+    } else {
+      const cssDir = join(projectDir, pathsForScaffold.targetDir);
+      cssTarget = join(cssDir, 'rizzo.min.css');
+      mkdirSync(cssDir, { recursive: true });
+      copyFileSync(cssSource, cssTarget);
+      copyRizzoFonts(dirname(cssTarget));
+    }
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
