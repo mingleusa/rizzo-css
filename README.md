@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/badge/npm-0.0.17-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.18-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -50,9 +50,9 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. For new projects choose a **template** (Vanilla: full or minimal; Astro/Svelte: full-app or minimal) and **package manager** (npm, pnpm, yarn, bun). Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). CSS only: `npx rizzo-css add` (auto-detects framework; use `--install-package` to add the package). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
+**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components. **New** → choose **template** (Vanilla: full or minimal; Astro/Svelte: minimal) or **no template** (minimal base + hand-pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-app, svelte-app) plus optional 25 components (including ThemeSwitcher). **Create new project** → full clone (stylesheet link included). **Add to existing** → CSS + optional components; you must add the stylesheet `<link>` yourself (CLI prints the exact tag). Each scaffold has a README. Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example. **Create new** → template-based scaffold or minimal base + hand-picked components. **Add to existing** → CSS + hand-pick components (you must add the `<link>` yourself; CLI prints the exact tag). Same CSS and BEM for all three.
 
 ### Prerequisites
 

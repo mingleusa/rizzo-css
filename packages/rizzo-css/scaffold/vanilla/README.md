@@ -1,6 +1,6 @@
 # Vanilla JS + Rizzo CSS
 
-This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS. This full clone (home, component showcase) is only generated for new projects; **Add to existing project** only adds the CSS and optional files (you must add the stylesheet `<link>` to your HTML/layout yourself; the CLI prints the exact tag).
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then picked a **template** (full or minimal). **Add to existing project** (or `npx rizzo-css add`) only adds the CSS and optional files (you must add the stylesheet `<link>` yourself; the CLI prints the exact tag).
 
 ## First-time setup
 
@@ -13,7 +13,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.17`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.18`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -48,7 +48,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-app/` — navbar, home, component showcase (see its README).
-- **Svelte:** `scaffold/svelte-app/` — SvelteKit with /components and /components/[slug] (see its README).
+- **Astro:** `scaffold/astro-minimal/` — minimal Astro app; optional components from `scaffold/astro/` (see its README).
+- **Svelte:** `scaffold/svelte-minimal/` — minimal SvelteKit app; optional components from `scaffold/svelte/` (see its README).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

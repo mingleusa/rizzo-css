@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en" data-theme="{{DATA_THEME}}">{{THEME_LIST_COMMENT}}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function(){try{var s=localStorage.getItem('theme');var d='{{DEFAULT_DARK}}';var l='{{DEFAULT_LIGHT}}';var initial=document.documentElement.getAttribute('data-theme');var r=!s?((initial&&initial!=='system')?initial:(matchMedia('(prefers-color-scheme: dark)').matches?d:l)):s==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?d:l):s;document.documentElement.setAttribute('data-theme',r);}catch(e){}})();
+    </script>
+    <link rel="stylesheet" href="/css/rizzo.min.css" />
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>

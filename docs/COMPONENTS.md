@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Full scaffolds (vanilla, astro-app, svelte-app) and optional 25 components (including ThemeSwitcher) in `scaffold/astro/`, `scaffold/svelte/`. **Create new project** → full clone; **Add to existing** → CSS + optional components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/` and `scaffold/svelte/` (25 components including ThemeSwitcher). **Create new** → template (Vanilla: full or minimal; Astro/Svelte: minimal) or no template (minimal base + hand-pick); **Add to existing** → CSS + hand-pick components. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.

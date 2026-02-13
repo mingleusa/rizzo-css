@@ -12,7 +12,7 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. For new projects choose a **template** (Vanilla: full or minimal; Astro/Svelte: full-app or minimal) and **package manager** (npm, pnpm, yarn, bun). For Astro/Svelte: **What to include?** — CSS only, Recommended set, All (25 components), or Pick. Add to existing: you must add the stylesheet `<link>` yourself (CLI prints the exact tag). New: full scaffold. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro scaffold** plus Rizzo CSS, create the app with their CLI first, then run `npx rizzo-css add`:
+**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components; you must add the `<link>` yourself (CLI prints the exact tag). **New** → choose **template** (Vanilla: full or minimal; Astro/Svelte: minimal) or **no template** (minimal base + hand-pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add
@@ -41,7 +41,7 @@ You install **the same package** for every framework: `npm install rizzo-css`. N
 
 With `npx rizzo-css add --path <dir>`, the CLI still suggests the correct href for your framework (e.g. Astro/Svelte get a leading `/` path).
 
-Scaffolds (full starter apps) are in the package: `scaffold/vanilla/`, `scaffold/astro-app/`, `scaffold/svelte-app/`. Use `npx rizzo-css init` and choose **Create new project** to get the full clone (navbar/chrome + component showcase) for the chosen framework; the stylesheet link is already in the layout. **Add to existing** only adds the CSS and optional components (no full scaffold); **you must add the stylesheet `<link>` to your layout yourself** — the CLI prints the exact tag for your framework (e.g. Svelte/Astro: `/css/rizzo.min.css`; Vanilla: `css/rizzo.min.css`). Each scaffold folder has a README with setup and instructions for editing the cloned site.
+Scaffolds in the package: `scaffold/vanilla/` (full or minimal template), `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, plus `scaffold/astro/` and `scaffold/svelte/` (component templates for hand-pick). Use `npx rizzo-css init` and choose **Create new project** to get a template-based scaffold or minimal base + hand-picked components; the stylesheet link is in the layout. **Add to existing** (or `add` command) drops in CSS + hand-pick components; **you must add the stylesheet `<link>` yourself** — the CLI prints the exact tag. Every scaffold includes LICENSE and README; Astro/Svelte minimal include package.json and .env.example.
 
 ## Use
 
@@ -56,7 +56,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.17 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.18 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->
@@ -65,7 +65,7 @@ import 'rizzo-css';
 
 Short URLs also work: `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` (CDNs serve the default file from package.json). To verify after publish: open the URL in a browser or run `curl -I https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css` and expect `200 OK`.
 
-Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files for convenience. Each scaffold has a README in its folder (`scaffold/vanilla/README.md`, `scaffold/astro-app/README.md`, `scaffold/svelte-app/README.md`) with setup and commands. The **Vanilla** scaffold includes a full Settings panel and toast; **Astro** and **Svelte** scaffold layouts include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
+Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, and Svelte all use the same CSS and BEM markup; Astro/Svelte add framework component files when you hand-pick. Each scaffold has a README; every install includes LICENSE. The **Vanilla** full template includes a Settings panel and toast; **Astro** and **Svelte** minimal layouts include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
 
 ## Themes
 

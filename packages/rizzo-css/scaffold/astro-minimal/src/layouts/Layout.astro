@@ -1,0 +1,28 @@
+---
+/* Placeholders replaced by rizzo-css CLI when scaffolding */
+const DATA_THEME = '{{DATA_THEME}}';
+const THEME_LIST_COMMENT = '{{THEME_LIST_COMMENT}}';
+interface Props {
+  title?: string;
+}
+const { title = '{{TITLE}}' } = Astro.props;
+---
+<!doctype html>
+<html lang="en" data-theme={DATA_THEME}>{THEME_LIST_COMMENT}
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline>
+      (function(){try{var s=localStorage.getItem('theme');var d='{{DEFAULT_DARK}}';var l='{{DEFAULT_LIGHT}}';var initial=document.documentElement.getAttribute('data-theme');var r=!s?((initial&&initial!=='system')?initial:(matchMedia('(prefers-color-scheme: dark)').matches?d:l)):s==='system'?(matchMedia('(prefers-color-scheme: dark)').matches?d:l):s;document.documentElement.setAttribute('data-theme',r);}catch(e){}})();
+    </script>
+    <link rel="stylesheet" href="/css/rizzo.min.css" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <main id="main-content">
+      <slot />
+    </main>
+  </body>
+</html>
