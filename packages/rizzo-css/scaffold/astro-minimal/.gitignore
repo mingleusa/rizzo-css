@@ -1,3 +1,4 @@
+# Astro default .gitignore (same as npm create astro@latest)
 # build output
 dist/
 # generated types

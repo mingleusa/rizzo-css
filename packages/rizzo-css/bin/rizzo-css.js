@@ -9,6 +9,8 @@ const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 
 const COMMANDS = ['init', 'add', 'theme', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
+/** Supported package managers: detection, install/add commands, and --package-manager override. */
+const VALID_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'];
 
 /** Full = everything we ship. Minimal = recommended starting set. Manual = you choose. */
 const TEMPLATES = {
@@ -138,6 +140,24 @@ function getCssPath() {
   return join(getPackageRoot(), 'dist', 'rizzo.min.css');
 }
 
+/** Copy package dist/fonts into <cssTargetDir>/fonts so CSS url(./fonts/...) resolves. cssTargetDir is framework-specific (public/css | static/css | css). */
+function copyRizzoFonts(cssTargetDir) {
+  const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
+  if (!existsSync(fontsSrc)) return;
+  const dest = join(cssTargetDir, 'fonts');
+  mkdirSync(dest, { recursive: true });
+  const entries = readdirSync(fontsSrc, { withFileTypes: true });
+  for (const e of entries) {
+    const srcPath = join(fontsSrc, e.name);
+    const destPath = join(dest, e.name);
+    if (e.isDirectory()) {
+      copyDirRecursive(srcPath, destPath);
+    } else {
+      copyFileSync(srcPath, destPath);
+    }
+  }
+}
+
 /** Copy the package LICENSE into the project dir. Call after every scaffold so every install includes a license. */
 function copyPackageLicense(projectDir) {
   const licensePath = join(getPackageRoot(), 'LICENSE');
@@ -185,6 +205,13 @@ function hasFlag(argv, flag) {
 function getFlagValue(argv, flag) {
   const i = argv.indexOf(flag);
   return i !== -1 && argv[i + 1] != null ? argv[i + 1] : null;
+}
+
+/** Parse --package-manager value; returns npm|pnpm|yarn|bun or null if invalid/absent. */
+function parsePackageManager(value) {
+  if (!value || typeof value !== 'string') return null;
+  const v = value.toLowerCase().trim();
+  return VALID_PACKAGE_MANAGERS.includes(v) ? v : null;
 }
 
 /** Get positional args for a command (excludes --flag and --flag value). Used for e.g. add Button ThemeSwitcher. */
@@ -251,13 +278,16 @@ function getCreateProjectExample(pm, framework) {
   return 'npm create ' + framework + '@latest my-app';
 }
 
-/** Prompt user to select package manager (npm, pnpm, yarn, bun). Puts detected first with "(detected)" label. Returns agent string. */
+/** Prompt user to select package manager (npm, pnpm, yarn, bun). Shows "(detected)" only when we actually found a lockfile or packageManager; for new projects with no detection, user chooses. Returns agent string. */
 async function promptPackageManager(projectDir) {
-  const detected = resolvePackageManager(projectDir, process.cwd());
+  const actuallyDetected = detectPackageManager(projectDir) || detectPackageManager(process.cwd());
+  const resolved = actuallyDetected
+    ? getPackageManagerCommands(actuallyDetected)
+    : null;
   const agents = ['npm', 'pnpm', 'yarn', 'bun'];
   const options = agents.map((a) => ({
     value: a,
-    label: a === detected.agent ? a + ' (detected)' : a,
+    label: (resolved && a === resolved.agent) ? a + ' (detected)' : a,
   }));
   return selectMenu(options, '? Package manager (for install and run commands)');
 }
@@ -276,6 +306,12 @@ function question(prompt) {
       resolve((answer || '').trim());
     });
   });
+}
+
+/** Prompt yes/no; default yes. Returns true to run, false to skip. */
+async function confirmRunInstall(pm) {
+  const answer = await question('\nRun ' + pm.install + ' now? (Y/n) ');
+  return answer === '' || /^y(es)?$/i.test(answer);
 }
 
 /** Format label with optional ANSI color (item.color). */
@@ -558,15 +594,20 @@ Options (init):
   --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: full)
   --framework <fw>  vanilla | astro | svelte (with --yes; otherwise first prompt)
   --template <t>    full | minimal | manual (all frameworks); with --yes defaults to full
-  --install         After scaffolding, run package manager install (new project)
-  --no-install      Do not run install
-  --write-config    Write rizzo-css.json (targetDir, framework, packageManager) in the project
+  --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
+  --install         After scaffolding, run package manager install (no prompt)
+  --no-install      Do not run install and do not prompt
+  (rizzo-css.json is always written for new and existing projects; interactive run prompts "Run install now? (Y/n)" for Astro/Svelte.)
 
 Options (add):
   --path <dir>      Target directory for rizzo.min.css (overrides config and framework default)
   --framework <fw>   vanilla | astro | svelte (overrides config and detection)
+  --package-manager <pm>  npm | pnpm | yarn | bun (override detection for install/print commands)
   --install-package  After copying CSS, run package manager add rizzo-css
   --no-install      Do not run install or add (overrides --install-package)
+
+Package managers:
+  Supported: npm, pnpm, yarn, bun. Detection: lockfiles (pnpm-lock.yaml, yarn.lock, bun.lockb, package-lock.json) or package.json "packageManager"/"devEngines.packageManager". Use --package-manager to override.
 
 Config:
   Optional rizzo-css.json in project root: { "targetDir", "framework", "packageManager" }.
@@ -585,9 +626,11 @@ Use framework CLI first, then add Rizzo CSS (match your package manager):
 
 Examples:
   npx rizzo-css init
-  npx rizzo-css init --yes --framework astro --install --write-config
+  npx rizzo-css init --yes --framework astro --install
+  npx rizzo-css init --yes --framework astro --package-manager pnpm --install
   npx rizzo-css init --yes --framework vanilla
   npx rizzo-css init --yes --framework svelte --template full
+  npx rizzo-css add --package-manager yarn --install-package
   npx rizzo-css add
   npx rizzo-css add Button
   npx rizzo-css add Button ThemeSwitcher --path public/css --framework svelte
@@ -667,11 +710,20 @@ function detectFramework(cwd) {
   return null;
 }
 
-/** Default CSS directory and link href for a framework (for add command). */
+/**
+ * Framework-specific paths for CSS and static assets. Use these so fonts, sounds, images
+ * go in the right place per framework (Astro: public/, SvelteKit: static/, Vanilla: project root).
+ * - targetDir: where rizzo.min.css is copied (fonts go in targetDir/fonts so CSS ./fonts/ resolves).
+ * - assetsRoot: root for other static assets (sounds, images); use assetsRoot + '/sounds' etc. when we ship them.
+ */
 function getFrameworkCssPaths(framework) {
-  if (framework === 'svelte') return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css' };
-  if (framework === 'astro') return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css' };
-  return { targetDir: 'css', linkHref: 'css/rizzo.min.css' };
+  if (framework === 'svelte') {
+    return { targetDir: 'static/css', linkHref: '/css/rizzo.min.css', fontsDir: 'static/css/fonts', assetsRoot: 'static' };
+  }
+  if (framework === 'astro') {
+    return { targetDir: 'public/css', linkHref: '/css/rizzo.min.css', fontsDir: 'public/css/fonts', assetsRoot: 'public' };
+  }
+  return { targetDir: 'css', linkHref: 'css/rizzo.min.css', fontsDir: 'css/fonts', assetsRoot: '' };
 }
 
 /**
@@ -702,16 +754,20 @@ async function cmdAdd(argv) {
 
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
+  const pmOverride = parsePackageManager(getFlagValue(argv, '--package-manager'));
   const options = {
     config,
     targetDir: customPath || (config && config.targetDir) || undefined,
+    packageManager: pmOverride || undefined,
     preselectedComponents: positionals.length > 0 ? positionals : undefined,
   };
   await runAddToExisting(explicitFramework, options);
   if (installPackage && !noInstall) {
-    const pm = (config && config.packageManager)
-      ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
-      : resolvePackageManager(cwd);
+    const pm = (pmOverride
+      ? getPackageManagerCommands({ agent: pmOverride, command: pmOverride })
+      : (config && config.packageManager)
+        ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
+        : resolvePackageManager(cwd));
     const addPkg = pm.add('rizzo-css');
     console.log('\nRunning: ' + addPkg);
     const code = runInDir(cwd, addPkg);
@@ -1027,6 +1083,7 @@ async function runAddToExisting(frameworkOverride, options) {
   const cssTarget = join(targetDir, 'rizzo.min.css');
   mkdirSync(targetDir, { recursive: true });
   copyFileSync(cssSource, cssTarget);
+  copyRizzoFonts(targetDir);
 
   copyRizzoIcons(cwd, framework);
   if (framework === 'svelte' && selectedComponents.length > 0) {
@@ -1040,12 +1097,17 @@ async function runAddToExisting(frameworkOverride, options) {
   }
 
   const linkHref = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
-  const pm = (config && config.packageManager)
-    ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
-    : resolvePackageManager(cwd);
+  const pmFromOption = options && options.packageManager && VALID_PACKAGE_MANAGERS.includes(options.packageManager);
+  const pm = pmFromOption
+    ? getPackageManagerCommands({ agent: options.packageManager, command: options.packageManager })
+    : (config && config.packageManager)
+      ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
+      : resolvePackageManager(cwd);
   const cliExample = pm.dlx('rizzo-css theme');
+  writeRizzoConfig(cwd, { targetDir: targetDirRaw, framework, packageManager: pm.agent });
   console.log('\n✓ Rizzo CSS added to your existing project');
   console.log('  - ' + cssTarget);
+  console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
   console.log('\nYou must add the stylesheet link yourself — it is not added automatically.');
   if (framework === 'svelte') {
     console.log('\nIn your root layout (e.g. src/app.html), add:');
@@ -1081,7 +1143,6 @@ async function cmdInit(argv) {
   const yes = hasFlag(argv, '--yes');
   const runInstallAfterScaffold = hasFlag(argv, '--install');
   const noInstall = hasFlag(argv, '--no-install');
-  const writeConfig = hasFlag(argv, '--write-config');
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
 
@@ -1107,7 +1168,8 @@ async function cmdInit(argv) {
     }
     const projectDir = cwd;
     const resolved = resolvePackageManager(projectDir, cwd);
-    selectedPm = (config && config.packageManager) || resolved.agent || 'npm';
+    const pmArg = getFlagValue(argv, '--package-manager');
+    selectedPm = parsePackageManager(pmArg) || (config && config.packageManager) || resolved.agent || 'npm';
     theme = 'system';
     defaultDark = DARK_THEMES[0];
     defaultLight = LIGHT_THEMES[0];
@@ -1168,7 +1230,8 @@ async function cmdInit(argv) {
     }
 
     const projectDirForPm = name ? join(cwd, name) : cwd;
-    selectedPm = await promptPackageManager(projectDirForPm);
+    const pmArg = getFlagValue(argv, '--package-manager');
+    selectedPm = parsePackageManager(pmArg) || await promptPackageManager(projectDirForPm);
   }
 
   const projectDir = name ? join(cwd, name) : cwd;
@@ -1226,6 +1289,7 @@ async function cmdInit(argv) {
     mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1240,6 +1304,7 @@ async function cmdInit(argv) {
     mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1254,6 +1319,7 @@ async function cmdInit(argv) {
     mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1268,6 +1334,7 @@ async function cmdInit(argv) {
     mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1282,6 +1349,7 @@ async function cmdInit(argv) {
     const linkHref = 'css/rizzo.min.css';
     mkdirSync(cssDir, { recursive: true });
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1314,6 +1382,7 @@ async function cmdInit(argv) {
     cssTarget = join(cssDir, 'rizzo.min.css');
     mkdirSync(cssDir, { recursive: true });
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1337,6 +1406,7 @@ async function cmdInit(argv) {
     cssTarget = join(cssDir, 'rizzo.min.css');
     mkdirSync(cssDir, { recursive: true });
     copyFileSync(cssSource, cssTarget);
+    copyRizzoFonts(dirname(cssTarget));
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1387,19 +1457,28 @@ async function cmdInit(argv) {
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
   const runPrefix = name ? 'cd ' + name + ' && ' : '';
+  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase;
 
-  if (runInstallAfterScaffold && !noInstall && (useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase)) {
+  // Always write rizzo-css.json for new projects (targetDir, framework, packageManager).
+  const pathsForConfig = getFrameworkCssPaths(framework);
+  writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm });
+  console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
+
+  if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
     console.log('\nRunning: ' + pm.install);
     const code = runInDir(projectDir, pm.install);
     if (code !== 0) {
       console.error('\nInstall failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
     }
-  }
-
-  if (writeConfig) {
-    const pathsForConfig = getFrameworkCssPaths(framework);
-    writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm });
-    console.log('\n  - Wrote ' + RIZZO_CONFIG_FILE);
+  } else if (!yes && !noInstall && hasPackageJson) {
+    const shouldRun = await confirmRunInstall(pm);
+    if (shouldRun) {
+      console.log('\nRunning: ' + pm.install);
+      const code = runInDir(projectDir, pm.install);
+      if (code !== 0) {
+        console.error('\nInstall failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+      }
+    }
   }
 
   if (useHandpickAstro || useHandpickSvelte) {

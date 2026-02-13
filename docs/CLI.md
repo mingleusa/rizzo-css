@@ -23,9 +23,10 @@ This doc describes the Rizzo CSS CLI: commands, package manager handling, config
   - **Order:** Lockfile first, then `packageManager`, then `devEngines.packageManager`. If nothing found, we still resolve to a PM (e.g. for “create new”) via prompt or default npm.
 
 - **Where we use it**
-  - **`init` → Create new:** We prompt “Package manager (for install and run commands)” with npm, pnpm, yarn, bun; the **detected** one is listed first. The printed “install && dev” command uses the **selected** PM.
-  - **`init` → Add to existing** / **`add`:** We detect only (no prompt). Printed commands use the detected PM (or **rizzo-css.json** `packageManager`).
-  - **Command map:** We use `getPackageManagerCommands(pm)` so we never hardcode a single PM: `install`, `add(pkg)`, `addDev(pkg)`, `run(script)`, `dlx(pkgAndArgs)` for npx / pnpm dlx / yarn dlx / bunx.
+  - **`init` → Create new:** We prompt “Package manager (for install and run commands)” with npm, pnpm, yarn, bun; the **detected** one is listed first. Use **`--package-manager npm|pnpm|yarn|bun`** to skip the prompt (or with `--yes` to choose PM non-interactively). The printed “install && dev” command uses the **selected** PM.
+  - **`init` → Add to existing** / **`add`:** We detect only (no prompt). Printed commands use the detected PM (or **rizzo-css.json** `packageManager`, or **`--package-manager`** override).
+  - **Command map:** We use `getPackageManagerCommands(pm)` so we never hardcode a single PM: `install`, `add(pkg)`, `addDev(pkg)`, `run(script)`, `dlx(pkgAndArgs)` for npm / pnpm / yarn / bun.
+  - **Asset paths:** CSS and static assets (fonts, and later sounds/images) go to **framework-appropriate dirs** via `getFrameworkCssPaths(framework)`: Astro `public/css` (+ `public/css/fonts`), Svelte `static/css` (+ `static/css/fonts`), Vanilla `css` (+ `css/fonts`). See [GETTING_STARTED – Where the CLI puts CSS and assets](./GETTING_STARTED.md#where-the-cli-puts-css-and-assets-per-framework).
 
 ---
 
@@ -34,7 +35,7 @@ This doc describes the Rizzo CSS CLI: commands, package manager handling, config
 Optional **rizzo-css.json** in the project root: `{ "targetDir", "framework", "packageManager" }`.
 
 - **Read** in `add` and `init`: used for targetDir, framework, and packageManager when present.
-- **Write** with `init --write-config`: writes the file in the scaffolded project with targetDir, framework, and selected package manager.
+- **Write:** `rizzo-css.json` is **always written** with targetDir, framework, and packageManager in both flows: **new projects** (init → create new) and **existing projects** (init → add to existing, or `add`). Future runs use it for detection.
 - Detection (lockfiles + `packageManager` field) still runs; config overrides when set.
 
 ---
@@ -61,9 +62,9 @@ Every scaffold includes LICENSE; Astro/Svelte also include package.json and .env
 
 ## Options summary
 
-**init:** `--yes`, `--framework vanilla|astro|svelte`, `--template full|minimal|manual`, `--install`, `--no-install`, `--write-config`.
+**init:** `--yes`, `--framework vanilla|astro|svelte`, `--template full|minimal|manual`, `--package-manager npm|pnpm|yarn|bun`, `--install`, `--no-install`. New projects always get `rizzo-css.json`; interactive run prompts “Run install now? (Y/n)” for Astro/Svelte.
 
-**add:** `--path <dir>`, `--framework vanilla|astro|svelte`, `--install-package`, `--no-install`.
+**add:** `--path <dir>`, `--framework vanilla|astro|svelte`, `--package-manager npm|pnpm|yarn|bun`, `--install-package`, `--no-install`.
 
 ---
 
@@ -73,7 +74,7 @@ Every scaffold includes LICENSE; Astro/Svelte also include package.json and .env
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
 - [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Package manager prompted. Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example.
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
-- [x] **Config file:** Optional rizzo-css.json; read in add and init; `init --write-config` writes it.
+- [x] **Config file:** rizzo-css.json is always written (targetDir, framework, packageManager) for both new and existing projects; read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css'); `init --install` runs pm.install after scaffold (minimal/hand-pick Astro/Svelte); `--no-install` skips.
 - [x] **--yes:** `init --yes` scaffolds new in cwd with defaults (framework: astro, template: full; PM: config or detected). Supports `--framework` and `--template`.
 - [x] **Docs:** GETTING_STARTED includes Detection + config/options; help shows all options and examples.

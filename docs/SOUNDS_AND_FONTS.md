@@ -2,8 +2,8 @@
 
 ## Where assets live
 
-- **Docs site (this repo):** `src/assets/sfx/` (sounds), `src/assets/fonts/` (webfonts).
-- **Published package:** Today the npm package does not ship `src/`. To ship sounds/fonts later, add a build step that copies from `src/assets/` into e.g. `packages/rizzo-css/assets/` and list that in the package `files` field.
+- **Docs site (this repo):** `src/assets/sfx/` (sounds), `src/assets/fonts/` (webfonts). Built CSS and fonts are copied to `public/css/` and `public/assets/fonts/` by `pnpm build:css`.
+- **Published package:** The npm package ships **fonts** with the CSS. The `build:css` script copies `src/assets/fonts/` to `packages/rizzo-css/dist/fonts/` and rewrites font URLs in `dist/rizzo.min.css` to `./fonts/...`. The CLI copies CSS and fonts into **framework-appropriate locations** (see [GETTING_STARTED – Where the CLI puts CSS and assets](./GETTING_STARTED.md#where-the-cli-puts-css-and-assets-per-framework)): Astro `public/css/` and `public/css/fonts/`, Svelte `static/css/` and `static/css/fonts/`, Vanilla `css/` and `css/fonts/`. When we ship sounds or images, they will follow the same pattern (static root per framework). Sounds are not yet shipped in the package.
 
 Sounds and fonts should be **opt-in** and respect preferences (e.g. `prefers-reduced-motion`, user font choices) where applicable.
 

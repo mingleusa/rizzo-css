@@ -22,6 +22,7 @@ Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --fram
 
 ## Project structure
 
+- `.gitignore` — Astro default values (same as `create-astro`): dist/, .astro/, node_modules/, .env, logs, .DS_Store, .idea/
 - `astro.config.mjs` — Astro configuration
 - `src/layouts/Layout.astro` — Layout with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/pages/index.astro` — Home page

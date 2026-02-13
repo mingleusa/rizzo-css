@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). **Create new** → choose **Full** (everything), **Minimal** (recommended set), or **Manual** (pick what you want). **Add to existing** (or `add` command) → drop in CSS + hand-pick components. Every scaffold includes LICENSE, README, and (for Astro/Svelte) package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, README, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + showcase + js + icons. **Minimal** = index + CSS + js/main.js + recommended component pages in `components/` + icons. **Manual** = index + CSS; pick components to add their pages + js/main.js + icons (or CSS only if none picked). To add component JS later when you chose no components, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.20/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.21/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 25 components (including ThemeSwitcher). React/Vue later.
 
 ---
@@ -21,7 +21,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 | `npx rizzo-css add` | Same as init → existing: drop in CSS + hand-pick components. Auto-detects framework (or rizzo-css.json / `--framework`). You must add the `<link>` yourself (CLI prints it). `--path <dir>`, `--install-package`. |
 | `npx rizzo-css theme` | List all 14 theme IDs for `data-theme` on `<html>`. |
 
-**Detection:** Package manager from lockfile or `packageManager` in package.json. Optional **rizzo-css.json**: `{ "targetDir", "framework", "packageManager" }`. Init: **--yes**, **--framework**, **--template** (full | minimal | manual), **--install**, **--write-config**. Add: **--path**, **--install-package**, **--no-install**. **Full | Minimal | Manual:** Full = everything we ship (Vanilla: showcase + js + icons; Astro/Svelte: app + all components). Minimal = recommended starter (Vanilla: index + CSS + js/main.js + recommended component pages + icons; Astro/Svelte: app + recommended components). Manual = you choose (Vanilla: index + CSS, or pick components to add their pages + js/main.js + icons; Astro/Svelte: base + component picker). **--template** full | minimal | manual (default: full).
+**Detection:** Package manager (npm, pnpm, yarn, bun) from lockfile or `packageManager` in package.json. Override with **--package-manager npm|pnpm|yarn|bun** on init or add. Optional **rizzo-css.json**: `{ "targetDir", "framework", "packageManager" }`. Init: **--yes**, **--framework**, **--template** (full | minimal | manual), **--package-manager**, **--install**, **--no-install**. **rizzo-css.json** is always written (new and existing projects); interactive run prompts “Run install now? (Y/n)” for Astro/Svelte. Add: **--path**, **--package-manager**, **--install-package**, **--no-install**. **Full | Minimal | Manual:** Full = everything we ship (Vanilla: showcase + js + icons; Astro/Svelte: app + all components). Minimal = recommended starter (Vanilla: index + CSS + js/main.js + recommended component pages + icons; Astro/Svelte: app + recommended components). Manual = you choose (Vanilla: index + CSS, or pick components to add their pages + js/main.js + icons; Astro/Svelte: base + component picker). **--template** full | minimal | manual (default: full).
 
 **Tip:** Use the **package manager tabs** on the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page (npm, pnpm, yarn, bun): click a tab to select your manager, then copy the command. **Create new:** CLI prompts for package manager so the printed "install && dev" command matches. **Add to existing** or `add`: CLI prints the exact `<link>` tag; it does not edit your layout. To use the official create command plus Rizzo: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or Astro/pnpm/yarn/bun equivalents). 
 ---
@@ -127,6 +127,18 @@ The repo provides small JS utilities used by the Astro/Svelte components; you ca
 Import from `src/utils` (barrel) or from the specific file, e.g. `import { applyTheme, getThemeLabel } from '../utils/theme'` in Astro, or from your copied `utils` folder in a Svelte app.
 
 **Scaffolds:** The **Vanilla** scaffold ships with inline theme flash, toast, and a full Settings panel (`openSettings()`). The **Astro** and **Svelte** scaffold layouts include theme flash and toast scripts so `showToast`, `removeToast`, and `removeAllToasts` are available globally; Navbar, Search, and Settings are in the package scaffolds (minimal versions)—add them via the CLI or copy from this repo for the full experience.
+
+### Where the CLI puts CSS and assets (per framework)
+
+When you run `init` or `add`, the CLI copies the built CSS and static assets (fonts, and later sounds/images) into **framework-appropriate locations** so each framework’s conventions and build are respected:
+
+| Framework | CSS file | Fonts | Static root (for future sounds/images) |
+|-----------|----------|--------|----------------------------------------|
+| **Astro** | `public/css/rizzo.min.css` | `public/css/fonts/` | `public/` |
+| **Svelte** | `static/css/rizzo.min.css` | `static/css/fonts/` | `static/` |
+| **Vanilla** | `css/rizzo.min.css` | `css/fonts/` | project root |
+
+The CSS uses relative URLs (`./fonts/...`), so fonts are always placed next to the CSS in a `fonts` subdirectory. When we ship other assets (e.g. sounds, images), they will follow the same pattern: under the static root for the framework (`public/`, `static/`, or a top-level folder for Vanilla).
 
 ### Summary
 
