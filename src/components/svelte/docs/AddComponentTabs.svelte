@@ -12,6 +12,7 @@
     'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
     'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
     'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+    'Navbar', 'Settings', 'Search', 'Icons',
   ]);
 
   interface Props {

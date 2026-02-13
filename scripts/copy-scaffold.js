@@ -21,12 +21,65 @@ const svelteDest = join(scaffoldDir, 'svelte');
 const astroSrc = resolve(rootDir, 'src', 'components');
 const astroDest = join(scaffoldDir, 'astro');
 
-// Astro components to scaffold (exclude docs-only: Navbar, Search, Settings, FrameworkSwitcher, CodeBlock)
+// Astro components to scaffold. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
-  'CopyToClipboard', 'Divider', 'Dropdown', 'FormGroup', 'Input', 'Modal', 'Pagination',
-  'ProgressBar', 'Radio', 'Select', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
+  'CopyToClipboard', 'Divider', 'Dropdown', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
+  'ProgressBar', 'Radio', 'Search', 'Select', 'Settings', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
 ];
+
+/** Minimal Astro scaffold content for components that depend on docs config in src. Same BEM structure, no docs deps. */
+const ASTRO_SCAFFOLD_MINIMAL = {
+  Navbar: `---
+interface Props { siteName?: string; }
+const { siteName = 'Site' } = Astro.props;
+---
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      <a href="/" class="navbar__brand-link">{siteName}</a>
+    </div>
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="navbar__menu" aria-hidden="true">
+      <a href="/" class="navbar__link">Home</a>
+    </div>
+  </div>
+</nav>
+`,
+  Search: `---
+interface Props { id?: string; }
+const { id = 'search-main' } = Astro.props;
+---
+<div class="search" data-search>
+  <div class="search__trigger-wrapper">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel">
+      <span class="search__trigger-text">Search</span>
+    </button>
+  </div>
+  <div class="search__overlay" id="{id}-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+    <div class="search__panel">
+      <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+    </div>
+  </div>
+</div>
+`,
+  Settings: `---
+interface Props {}
+---
+<div class="settings" data-settings aria-hidden="true">
+  <div class="settings__overlay" data-settings-overlay aria-hidden="true"></div>
+  <div class="settings__panel" role="dialog" aria-modal="true" aria-labelledby="settings-title" aria-hidden="true">
+    <div class="settings__header">
+      <h2 id="settings-title" class="settings__title">Settings</h2>
+      <button type="button" class="settings__close" data-settings-close aria-label="Close">×</button>
+    </div>
+    <div class="settings__content"><p>Theme, font size, and accessibility options. Wire to your state and <code>window.openSettings</code>.</p></div>
+  </div>
+</div>
+`,
+};
 
 function copyDirRecursive(src, dest) {
   mkdirSync(dest, { recursive: true });
@@ -191,14 +244,20 @@ function copyAstro() {
   mkdirSync(astroDest, { recursive: true });
   let count = 0;
   for (const name of ASTRO_SCAFFOLD) {
-    const srcFile = join(astroSrc, name + '.astro');
-    if (existsSync(srcFile)) {
-      let content = readFileSync(srcFile, 'utf8');
-      if (name === 'ThemeSwitcher' || name === 'ThemeIcon') {
-        content = content.replace(/'\.\.\/config\/themes'|"\.\.\/config\/themes"/g, "'./themes'");
-      }
-      writeFileSync(join(astroDest, name + '.astro'), content);
+    const destFile = join(astroDest, name + '.astro');
+    if (ASTRO_SCAFFOLD_MINIMAL[name]) {
+      writeFileSync(destFile, ASTRO_SCAFFOLD_MINIMAL[name]);
       count++;
+    } else {
+      const srcFile = join(astroSrc, name + '.astro');
+      if (existsSync(srcFile)) {
+        let content = readFileSync(srcFile, 'utf8');
+        if (name === 'ThemeSwitcher' || name === 'ThemeIcon') {
+          content = content.replace(/'\.\.\/config\/themes'|"\.\.\/config\/themes"/g, "'./themes'");
+        }
+        writeFileSync(destFile, content);
+        count++;
+      }
     }
   }
   if (existsSync(join(configDir, 'themes.ts'))) {

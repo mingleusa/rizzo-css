@@ -22,27 +22,38 @@ src/
 │   ├── icons/
 │   └── ...
 ├── components/svelte/    # Svelte components (same BEM classes, Svelte API)
-│   ├── index.ts          # Re-exports all Svelte components
-│   ├── Button.svelte
-│   ├── Badge.svelte
-│   ├── Card.svelte
-│   ├── Divider.svelte
-│   ├── Spinner.svelte
-│   ├── ProgressBar.svelte
-│   ├── Avatar.svelte
+│   ├── index.ts          # Re-exports Svelte components (layout components below available in scaffold)
+│   ├── Accordion.svelte
 │   ├── Alert.svelte
+│   ├── Avatar.svelte
+│   ├── Badge.svelte
 │   ├── Breadcrumb.svelte
+│   ├── Button.svelte
+│   ├── Card.svelte
+│   ├── CopyToClipboard.svelte
+│   ├── Divider.svelte
+│   ├── Dropdown.svelte
 │   ├── FormGroup.svelte
 │   ├── Input.svelte
 │   ├── Checkbox.svelte
 │   ├── Textarea.svelte
 │   ├── Select.svelte
 │   ├── Radio.svelte
-│   ├── CopyToClipboard.svelte
-│   ├── Tooltip.svelte
+│   ├── Modal.svelte
+│   ├── Navbar.svelte
 │   ├── Pagination.svelte
+│   ├── ProgressBar.svelte
+│   ├── Search.svelte
+│   ├── Settings.svelte
+│   ├── Spinner.svelte
+│   ├── Table.svelte
 │   ├── Tabs.svelte
-│   └── ...
+│   ├── ThemeIcon.svelte
+│   ├── ThemeSwitcher.svelte
+│   ├── Toast.svelte
+│   ├── Tooltip.svelte
+│   ├── icons/
+│   └── docs/             # Svelte doc page components
 ├── config/               # Shared config (frameworks, themes, search, vanilla index)
 │   ├── frameworks.ts
 │   ├── themes.ts         # Theme list + icons (ThemeSwitcher, Navbar)
@@ -70,7 +81,7 @@ src/
 
 ## Rules
 
-- **Vanilla JS** — No in-repo component folder; same BEM classes and HTML as Astro/Svelte. The **npm package and CLI** ship `scaffold/vanilla/` (`index.html` with inline theme flash prevention and `js/main.js` for theme, toast, settings, tabs, modal, dropdown, accordion; see `scaffold/vanilla/README.md`). The Vanilla scaffold does **not** use the npm package from node_modules: the CLI copies the built CSS into the project as `css/rizzo.min.css` and copies `js/main.js`; users can alternatively use a CDN link for CSS. Astro and Svelte ship minimal scaffolds (`scaffold/astro-minimal/`, `scaffold/svelte-minimal/`) and component templates (`scaffold/astro/`, `scaffold/svelte/`). Add Navbar and Settings from this repo (or copy from scaffold components) for full parity with the docs site.
+- **Vanilla JS** — No in-repo component folder; same BEM classes and HTML as Astro/Svelte. The **npm package and CLI** ship `scaffold/vanilla/` (`index.html` with inline theme flash prevention and `js/main.js` for theme, toast, settings, tabs, modal, dropdown, accordion; see `scaffold/vanilla/README.md`). The Vanilla scaffold does **not** use the npm package from node_modules: the CLI copies the built CSS into the project as `css/rizzo.min.css` and copies `js/main.js`; users can alternatively use a CDN link for CSS. Astro and Svelte ship minimal scaffolds (`scaffold/astro-minimal/`, `scaffold/svelte-minimal/`) and component templates (`scaffold/astro/`, `scaffold/svelte/`) including **Navbar**, **Search**, and **Settings** (minimal scaffold versions). For full parity with the docs site, use the CLI to add these components or copy the full versions from this repo.
 - **Astro** docs and components live under `src/pages/docs/` and `src/components/` (no subfolder).
 - **Svelte** docs live under `src/pages/docs/svelte/`; Svelte components live under `src/components/svelte/`.
 - **React/Vue** (when added): same pattern — `src/pages/docs/react/`, `src/components/react/`, etc.

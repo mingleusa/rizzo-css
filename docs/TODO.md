@@ -2,7 +2,7 @@
 
 A focused list of remaining tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.19) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example. **Add** = same as init → existing. Optional **rizzo-css.json**; **--yes**, **--template**, **--install**, **--write-config**. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md).
+**Current state:** Single package **rizzo-css** (v0.0.20) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example. **Add** = same as init → existing. Optional **rizzo-css.json**; **--yes**, **--template**, **--install**, **--write-config**. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md).
 
 **Completed:** One package any framework, full and minimal templates, prepublish scripts, scaffold READMEs, CDN/docs aligned, config file, run install/add flags, accessibility docs and testing checklist. Scaffold plan: [SCAFFOLD_REPLICA_PLAN](./SCAFFOLD_REPLICA_PLAN.md).
 

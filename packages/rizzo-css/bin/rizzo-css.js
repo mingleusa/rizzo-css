@@ -91,12 +91,14 @@ const SVELTE_COMPONENTS = [
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Navbar', 'Settings', 'Search', 'Icons',
 ];
 const ASTRO_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Navbar', 'Settings', 'Search', 'Icons',
 ];
 
 // Recommended subset for Full/Minimal (same for Astro, Svelte, Vanilla)
@@ -104,13 +106,14 @@ const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
 
-// Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug
+// Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug. Navbar, Settings, Search, Icons are vanilla-only.
 const VANILLA_COMPONENT_SLUGS = {
   Button: 'button', Badge: 'badge', Card: 'cards', Divider: 'divider', Spinner: 'spinner', ProgressBar: 'progress-bar',
   Avatar: 'avatar', Alert: 'alert', Breadcrumb: 'breadcrumb', FormGroup: 'forms', Input: 'forms', Checkbox: 'forms',
   Textarea: 'forms', Select: 'forms', Radio: 'forms', CopyToClipboard: 'copy-to-clipboard', Tooltip: 'tooltip',
   Pagination: 'pagination', Tabs: 'tabs', Accordion: 'accordion', Dropdown: 'dropdown', Modal: 'modal',
   Toast: 'toast', Table: 'table', ThemeSwitcher: 'theme-switcher',
+  Navbar: 'navbar', Settings: 'settings', Search: 'search', Icons: 'icons',
 };
 
 // ANSI colors for CLI (framework logo colors)
@@ -867,8 +870,9 @@ function copySvelteComponents(projectDir, selectedNames) {
   }
   const files = readdirSync(scaffoldDir);
   const available = files.filter((f) => f.endsWith('.svelte')).map((f) => f.replace('.svelte', ''));
-  const toCopy = selectedNames.filter((n) => available.includes(n));
-  if (toCopy.length === 0) {
+  const toCopy = selectedNames.filter((n) => n !== 'Icons' && available.includes(n));
+  const copyIconsOnly = selectedNames.includes('Icons') && toCopy.length === 0;
+  if (toCopy.length === 0 && !copyIconsOnly) {
     console.log('\n  No matching component files in scaffold; use CSS only or copy from repo.');
     return;
   }
@@ -883,7 +887,7 @@ function copySvelteComponents(projectDir, selectedNames) {
     }
   }
   const iconsSrc = join(scaffoldDir, 'icons');
-  if (existsSync(iconsSrc)) {
+  if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
   if (toCopy.includes('ThemeSwitcher')) {
@@ -892,10 +896,13 @@ function copySvelteComponents(projectDir, selectedNames) {
     if (existsSync(themesSrc)) copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
     if (existsSync(themeSrc)) copyFileSync(themeSrc, join(targetDir, 'theme.ts'));
   }
-  if (exports.length > 0) {
-    const indexContent = `/** Rizzo CSS Svelte components — selected via npx rizzo-css init */\n${exports.join('\n')}\n`;
-    writeFileSync(join(targetDir, 'index.ts'), indexContent, 'utf8');
-    console.log('\n  ✓ ' + exports.length + ' Svelte components copied to ' + targetDir + (existsSync(iconsSrc) ? ' + icons' : ''));
+  if (exports.length > 0 || copyIconsOnly) {
+    if (exports.length > 0) {
+      const indexContent = `/** Rizzo CSS Svelte components — selected via npx rizzo-css init */\n${exports.join('\n')}\n`;
+      writeFileSync(join(targetDir, 'index.ts'), indexContent, 'utf8');
+    }
+    const msg = copyIconsOnly ? 'Icons' : exports.length + ' Svelte components' + (existsSync(iconsSrc) ? ' + icons' : '');
+    console.log('\n  ✓ ' + msg + ' copied to ' + targetDir);
     console.log('  Import in your app: import { Button, Badge, ... } from \'$lib/rizzo\';\n');
   }
 }
@@ -908,8 +915,9 @@ function copyAstroComponents(projectDir, selectedNames) {
   }
   const files = readdirSync(scaffoldDir).filter((f) => f.endsWith('.astro'));
   const available = files.map((f) => f.replace('.astro', ''));
-  const toCopy = selectedNames.filter((n) => available.includes(n));
-  if (toCopy.length === 0) {
+  const toCopy = selectedNames.filter((n) => n !== 'Icons' && available.includes(n));
+  const copyIconsOnly = selectedNames.includes('Icons') && toCopy.length === 0;
+  if (toCopy.length === 0 && !copyIconsOnly) {
     console.log('\n  No matching Astro components in scaffold; use CSS only or copy from repo.');
     return;
   }
@@ -924,7 +932,7 @@ function copyAstroComponents(projectDir, selectedNames) {
     }
   }
   const iconsSrc = join(scaffoldDir, 'icons');
-  if (existsSync(iconsSrc)) {
+  if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
     copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   }
   if (toCopy.includes('ThemeSwitcher')) {
@@ -933,8 +941,9 @@ function copyAstroComponents(projectDir, selectedNames) {
       copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
     }
   }
-  if (count > 0) {
-    console.log('\n  ✓ ' + count + ' Astro components + icons copied to ' + targetDir);
+  if (count > 0 || copyIconsOnly) {
+    const msg = copyIconsOnly ? 'Icons' : count + ' Astro components + icons';
+    console.log('\n  ✓ ' + msg + ' copied to ' + targetDir);
     console.log('  Import in your pages: import Button from \'../components/rizzo/Button.astro\';\n');
   }
 }

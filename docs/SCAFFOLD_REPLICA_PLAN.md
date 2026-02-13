@@ -30,7 +30,7 @@ scaffold/vanilla/
 │   ├── index.html
 │   ├── accordion.html
 │   ├── button.html
-│   └── ...        # 24 component pages
+│   └── ...        # 25 component pages (navbar, settings, theme-switcher, button, etc.)
 ├── css/
 ├── js/
 │   └── main.js

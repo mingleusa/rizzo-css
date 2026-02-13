@@ -1,0 +1,17 @@
+---
+interface Props { siteName?: string; }
+const { siteName = 'Site' } = Astro.props;
+---
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      <a href="/" class="navbar__brand-link">{siteName}</a>
+    </div>
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+      <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="navbar__menu" aria-hidden="true">
+      <a href="/" class="navbar__link">Home</a>
+    </div>
+  </div>
+</nav>

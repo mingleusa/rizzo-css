@@ -1,0 +1,16 @@
+---
+interface Props { id?: string; }
+const { id = 'search-main' } = Astro.props;
+---
+<div class="search" data-search>
+  <div class="search__trigger-wrapper">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel">
+      <span class="search__trigger-text">Search</span>
+    </button>
+  </div>
+  <div class="search__overlay" id="{id}-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+    <div class="search__panel">
+      <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+    </div>
+  </div>
+</div>
