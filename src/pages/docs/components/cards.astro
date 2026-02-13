@@ -4,6 +4,7 @@ import Card from '../../../components/Card.astro';
 import Button from '../../../components/Button.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Card Component — Astro" description="Flexible card component with variants, sections, and image support">
@@ -26,15 +27,32 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</Card>
 		</div>
 		
-		<h3>Code Example</h3>
-		<CodeBlock code={`---
-import Card from '../../components/Card.astro';
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Card from '../components/rizzo/Card.astro';
 ---
 
 <Card>
   <h3>Card Title</h3>
   <p>Card content goes here</p>
-</Card>`} language="astro" />
+</Card>`}
+			svelte={`<script>
+  import { Card } from '$lib/rizzo';
+</script>
+
+<Card>
+  <h3>Card Title</h3>
+  <p>Card content goes here</p>
+</Card>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<div class="card">
+  <div class="card__body">
+    <h3>Card Title</h3>
+    <p>Card content goes here</p>
+  </div>
+</div>`}
+		/>
 	</section>
 
 	<section>

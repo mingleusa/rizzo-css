@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Toast Component — Astro" description="Fixed position toast notifications with auto-dismiss and programmatic control">
@@ -61,33 +62,29 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<p>Import the toast utility and use it programmatically:</p>
-		<CodeBlock code={`// Import toast utility
-import { showToast, removeToast, removeAllToasts } from '../utils/toast';
+		<p>Toast uses the Alert component; include Toast (or Alert) once so <code>showToast</code> is available. Scripts run after DOM ready.</p>
+		<FrameworkCodeTabs
+			astro={`---
+import '../components/rizzo/Toast.astro';
+---
 
-// Show a simple toast
-showToast('Success! Your changes have been saved.', {
-  variant: 'success'
-});
+<!-- Toast container is rendered by the component. Then anywhere: -->
+<button class="btn btn-primary" onclick="window.showToast('Saved!', { variant: 'success' })">Show Toast</button>`}
+			svelte={`<script>
+  import { Toast } from '$lib/rizzo';
+  import { showToast } from '$lib/rizzo/utils/toast';
+</script>
 
-// Show toast with custom options
-showToast('Error occurred', {
-  variant: 'error',
-  position: 'top-right',
-  autoDismiss: 5000,
-  dismissible: true
-});
-
-// Remove a specific toast by ID
-const toastId = showToast('This will be removed', { variant: 'info' });
-setTimeout(() => removeToast(toastId), 2000);
-
-// Remove all toasts
-removeAllToasts();`} language="javascript" />
-		
-		<p>Or use the global functions (available after importing the utility):</p>
-		<CodeBlock code={`// Global functions (available on window)
+<Toast />
+<button class="btn btn-primary" on:click={() => showToast('Saved!', { variant: 'success' })}>Show Toast</button>`}
+			vanilla={`<!-- Include toast container + script from package scaffold. Then: -->
+<button class="btn btn-primary" onclick="window.showToast('Saved!', { variant: 'success' })">Show Toast</button>
+<!-- window.showToast(msg, { variant, position, autoDismiss }); window.removeAllToasts(); -->`}
+		/>
+		<p>Programmatic API:</p>
+		<CodeBlock code={`// After including Toast/Alert component (or vanilla script)
 window.showToast('Success!', { variant: 'success' });
+window.showToast('Error', { variant: 'error', position: 'top-right', autoDismiss: 5000 });
 window.removeToast('toast-id');
 window.removeAllToasts();`} language="javascript" />
 		

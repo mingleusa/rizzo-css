@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AvatarComponent from '../../../components/Avatar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Avatar Component — Astro" description="User avatar with image or initials fallback, sizes and shapes">
@@ -33,13 +34,25 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<AvatarComponent initials="AB" />
 			</div>
 		</div>
-		<CodeBlock code={`---
-import Avatar from '../../components/Avatar.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Avatar from '../components/rizzo/Avatar.astro';
 ---
 
 <Avatar name="Jane Doe" />
 <Avatar name="Alice" />
-<Avatar initials="AB" />`} language="astro" />
+<Avatar initials="AB" />`}
+			svelte={`<script>
+  import { Avatar } from '$lib/rizzo';
+</script>
+
+<Avatar name="Jane Doe" />
+<Avatar name="Alice" />
+<Avatar initials="AB" />`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<span class="avatar avatar--md avatar--circle" role="img" aria-label="Jane Doe"><span class="avatar__initials">JD</span></span>
+<span class="avatar avatar--md avatar--circle" role="img" aria-label="Alice"><span class="avatar__initials">Al</span></span>`}
+		/>
 
 		<h3>Sizes</h3>
 		<div class="example">

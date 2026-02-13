@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Navbar Component — Astro" description="Responsive, accessible navigation bar with integrated settings button">
@@ -32,12 +32,45 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</ul>
 		</div>
 		
-		<h3>Code Example</h3>
-		<CodeBlock code={`---
-import Navbar from '../../components/Navbar.astro';
+		<h3>Usage</h3>
+		<p>Include the Navbar in your layout; component scripts run after DOM ready so they work when imported. If you use Settings, add it once in the same layout (see Settings docs).</p>
+		<FrameworkCodeTabs
+			astro={`---
+import Navbar from '../components/rizzo/Navbar.astro';
+import Settings from '../components/rizzo/Settings.astro';
 ---
 
-<Navbar siteName="My Site" />`} language="astro" />
+<Navbar siteName="My Site" />
+<Settings />
+<main>
+  <!-- page content -->
+</main>`}
+			svelte={`<script>
+  import { Navbar, Settings } from '$lib/rizzo';
+</script>
+
+<Navbar siteName="My Site" />
+<Settings />
+<main>
+  <!-- page content -->
+</main>`}
+			vanilla={`<!-- Load Rizzo CSS; include Navbar + Settings markup from package scaffold. Component scripts run on DOMContentLoaded. -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      <a href="/" class="navbar__brand-link">My Site</a>
+    </div>
+    <div class="navbar__actions-desktop">
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">Settings</button>
+    </div>
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
+    <div class="navbar__menu" aria-hidden="true">
+      <a href="/" class="navbar__link">Home</a>
+    </div>
+  </div>
+</nav>
+<!-- Include Settings panel HTML + script from scaffold; openSettings()/closeSettings() work after DOM ready. -->`}
+		/>
 		
 		<h3>Props</h3>
 		<ul>
@@ -73,6 +106,6 @@ import Navbar from '../../components/Navbar.astro';
 			<li>Sticky positioning at top</li>
 			<li>All styles use design system variables for easy framework portability</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/navbar">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for mobile menu and dropdowns.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/navbar">Svelte docs</a> · <a href="/docs/vanilla/components/navbar">Vanilla docs</a></p>
 	</section>
 </DocsLayout>

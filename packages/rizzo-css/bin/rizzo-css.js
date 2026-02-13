@@ -450,7 +450,7 @@ function selectMenu(options, title) {
     });
   }
 
-  const HINT = '  \u2191\u2193 move \u00b7 Enter select \u00b7 1-9 pick';
+  const HINT = '  \u2191\u2193 move \u00b7 Enter select';
   return new Promise((resolve) => {
     let index = 0;
     const lineCount = (title ? 1 : 0) + items.length + 2; // +1 blank +1 hint
@@ -469,16 +469,6 @@ function selectMenu(options, title) {
       process.stdout.write('\u001b[?25l');
       process.stdout.write(lines.join('\n') + '\n');
       process.stdout.write('\u001b[?25h');
-    };
-
-    const selectByNumber = (num) => {
-      const n = num === 0 ? 10 : num; // 0 = 10th item
-      const idx = n >= 1 && n <= items.length ? n - 1 : index;
-      process.stdin.setRawMode(false);
-      process.stdin.removeListener('data', onData);
-      process.stdin.pause();
-      process.stdout.write('\n');
-      resolve(items[idx].value);
     };
 
     process.stdin.setRawMode(true);
@@ -501,16 +491,6 @@ function selectMenu(options, title) {
         process.stdin.pause();
         process.stdout.write('\n');
         resolve(items[index].value);
-        return;
-      }
-      if (ch >= '1' && ch <= '9') {
-        buf = '';
-        selectByNumber(parseInt(ch, 10));
-        return;
-      }
-      if (ch === '0' && items.length >= 10) {
-        buf = '';
-        selectByNumber(10);
         return;
       }
       buf += ch;
@@ -604,7 +584,7 @@ function multiSelectMenu(options, title, initialSelected) {
         if (initialSet.has(items[i].value)) selected.add(i);
       }
     }
-    const HINT = '  \u2191\u2193 move \u00b7 Space toggle \u00b7 a all \u00b7 n none \u00b7 Enter confirm';
+    const HINT = '  \u2191\u2193 move \u00b7 Space toggle \u00b7 a all \u00b7 n none \u00b7 1-9 toggle (0=10th) \u00b7 Enter confirm';
     const lineCount = (title ? 1 : 0) + items.length + 2; // +1 blank +1 hint
     const realStart = withSentinels ? 2 : 0;
 
@@ -776,8 +756,8 @@ Package managers:
   Supported: npm, pnpm, yarn, bun. Detection: lockfiles (pnpm-lock.yaml, yarn.lock, bun.lockb, package-lock.json) or package.json "packageManager"/"devEngines.packageManager". Use --package-manager to override.
 
 Interactive prompts (when no --yes/flag provided):
-  Single-choice: ↑/↓ move, Enter select, 1-9 pick by number (0 = 10th).
-  Multi-choice:  ↑/↓ move, Space toggle, a = all, n = none, Enter confirm, 1-9 toggle by number.
+  Single-choice (framework, template, etc.): ↑/↓ move, Enter select.
+  Multi-choice (component selection only): ↑/↓ move, Space toggle, a = all, n = none, Enter confirm, 1-9 toggle by number (0 = 10th).
   Ctrl+C to exit.
 
 Config:
@@ -1505,6 +1485,22 @@ async function cmdInit(argv) {
   if ((framework === 'astro' || framework === 'svelte') && selectedComponents.length > 0) {
     componentsToCopy = expandWithDeps(framework, selectedComponents);
     logAddedDeps(selectedComponents, componentsToCopy, framework);
+  }
+
+  // Astro layout: inject Navbar and Settings when those components are selected so the settings menu works.
+  if ((framework === 'astro') && (useHandpickAstro || useAstroBase)) {
+    const hasNavbar = componentsToCopy.includes('Navbar');
+    const hasSettings = componentsToCopy.includes('Settings');
+    const layoutImports = [];
+    if (hasNavbar) layoutImports.push("import Navbar from '../components/rizzo/Navbar.astro';");
+    if (hasSettings) layoutImports.push("import Settings from '../components/rizzo/Settings.astro';");
+    replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = layoutImports.length ? '\n' + layoutImports.join('\n') + '\n' : '\n';
+    replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = hasNavbar ? '\n    <Navbar />' : '';
+    replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = hasSettings ? '\n    <Settings />' : '';
+  } else {
+    replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = '\n';
+    replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = '';
+    replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = '';
   }
 
   let cssTarget;

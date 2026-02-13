@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import TableComponent from '../../../components/Table.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Table Component — Astro" description="Accessible data table with sorting and optional filtering">
@@ -23,6 +24,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 
 		<h3>Basic Usage</h3>
+		<p>Table sorting/filtering script runs after DOM ready when the component is used.</p>
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<TableComponent
@@ -39,8 +41,9 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				]}
 			/>
 		</div>
-		<CodeBlock code={`---
-import Table from '../../components/Table.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Table from '../components/rizzo/Table.astro';
 ---
 
 <Table
@@ -55,7 +58,26 @@ import Table from '../../components/Table.astro';
     { name: 'Bob', role: 'Designer', status: 'Active' },
     { name: 'Carol', role: 'Manager', status: 'Away' },
   ]}
-/>`} language="astro" />
+/>`}
+			svelte={`<script>
+  import { Table } from '$lib/rizzo';
+</script>
+
+<Table
+  caption="Sample data"
+  columns={[
+    { key: 'name', label: 'Name' },
+    { key: 'role', label: 'Role' },
+    { key: 'status', label: 'Status' },
+  ]}
+  data={[
+    { name: 'Alice', role: 'Developer', status: 'Active' },
+    { name: 'Bob', role: 'Designer', status: 'Active' },
+    { name: 'Carol', role: 'Manager', status: 'Away' },
+  ]}
+/>`}
+			vanilla={`<!-- Table HTML with thead/tbody; optional data-sortable + script from package/vanilla docs for sorting. -->`}
+		/>
 
 		<h3>With Sorting (number column)</h3>
 		<p>Set <code>type: 'number'</code> on columns that should sort numerically.</p>
@@ -137,6 +159,6 @@ import Table from '../../components/Table.astro';
 			<li><strong>Striped rows</strong> - Optional alternating row background; row hover uses theme colors for contrast.</li>
 			<li><strong>Responsive</strong> - Table wrapper scrolls horizontally on small screens.</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/table">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for sorting/filter if needed.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/table">Svelte docs</a> · <a href="/docs/vanilla/components/table">Vanilla docs</a></p>
 	</section>
 </DocsLayout>

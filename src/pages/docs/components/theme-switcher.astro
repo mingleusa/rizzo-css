@@ -1,8 +1,8 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
-import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Theme Switcher Component — Astro" description="Accessible theme switcher with theme icons and keyboard navigation">
@@ -17,11 +17,21 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<CodeBlock code={`---
-import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
+		<p>ThemeSwitcher script runs after DOM ready. Often used inside Settings; can be used standalone.</p>
+		<FrameworkCodeTabs
+			astro={`---
+import ThemeSwitcher from '../components/rizzo/ThemeSwitcher.astro';
 ---
 
-<ThemeSwitcher />`} language="astro" />
+<ThemeSwitcher />`}
+			svelte={`<script>
+  import { ThemeSwitcher } from '$lib/rizzo';
+</script>
+
+<ThemeSwitcher />`}
+			vanilla={`<!-- Theme switcher HTML from package scaffold; script runs on DOMContentLoaded. -->
+<!-- Include theme list + [data-theme-switcher] markup; persist with applyTheme() and localStorage key "theme". -->`}
+		/>
 		
 		<h3>Features</h3>
 		<p>The theme switcher:</p>

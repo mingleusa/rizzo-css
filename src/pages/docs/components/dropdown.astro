@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Dropdown from '../../../components/Dropdown.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Dropdown Component — Astro" description="Accessible dropdown menu component with keyboard navigation and menu items">
@@ -13,6 +14,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		<AddComponentTabs componentName="Dropdown" />
 
 		<h3>Basic Usage</h3>
+		<p>Dropdown script runs after DOM ready so it works when imported. Copy the block for your framework.</p>
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<Dropdown 
@@ -26,11 +28,12 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			/>
 		</div>
 		
-		<CodeBlock code={`---
-import Dropdown from '../../components/Dropdown.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Dropdown from '../components/rizzo/Dropdown.astro';
 ---
 
-<Dropdown 
+<Dropdown
   trigger="Actions"
   items={[
     { label: 'Edit', value: 'edit', onClick: 'handleAction' },
@@ -38,7 +41,31 @@ import Dropdown from '../../components/Dropdown.astro';
     { separator: true },
     { label: 'Settings', href: '/settings' },
   ]}
-/>`} language="astro" />
+/>`}
+			svelte={`<script>
+  import { Dropdown } from '$lib/rizzo';
+</script>
+
+<Dropdown
+  trigger="Actions"
+  items={[
+    { label: 'Edit', value: 'edit', onClick: 'handleAction' },
+    { label: 'Delete', value: 'delete', onClick: 'handleAction' },
+    { separator: true },
+    { label: 'Settings', href: '/settings' },
+  ]}
+/>`}
+			vanilla={`<!-- Rizzo CSS + dropdown script from package/vanilla docs. Script runs on DOMContentLoaded. -->
+<div class="dropdown" data-dropdown="actions-menu">
+  <button type="button" class="dropdown__trigger" aria-expanded="false" aria-haspopup="true" aria-controls="actions-menu-menu">Actions</button>
+  <div class="dropdown__menu" id="actions-menu-menu" role="menu" aria-hidden="true">
+    <a href="#" class="dropdown__item" role="menuitem">Edit</a>
+    <a href="#" class="dropdown__item" role="menuitem">Delete</a>
+    <div class="dropdown__separator" role="separator"></div>
+    <a href="/settings" class="dropdown__item" role="menuitem">Settings</a>
+  </div>
+</div>`}
+		/>
 		
 		<h3>With Links</h3>
 		<div class="example">

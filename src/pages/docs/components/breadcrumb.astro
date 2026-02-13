@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import BreadcrumbComponent from '../../../components/Breadcrumb.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Breadcrumb Component — Astro" description="Navigation breadcrumbs with separator customization and responsive behavior">
@@ -38,8 +39,9 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			/>
 		</div>
 
-		<CodeBlock code={`---
-import Breadcrumb from '../../components/Breadcrumb.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Breadcrumb from '../components/rizzo/Breadcrumb.astro';
 ---
 
 <Breadcrumb
@@ -49,7 +51,29 @@ import Breadcrumb from '../../components/Breadcrumb.astro';
     { label: 'Components', href: '/docs/components' },
     { label: 'Breadcrumb' },
   ]}
-/>`} language="astro" />
+/>`}
+			svelte={`<script>
+  import { Breadcrumb } from '$lib/rizzo';
+</script>
+
+<Breadcrumb
+  items={[
+    { label: 'Home', href: '/' },
+    { label: 'Docs', href: '/docs' },
+    { label: 'Components', href: '/docs/components' },
+    { label: 'Breadcrumb' },
+  ]}
+/>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<nav aria-label="Breadcrumb" class="breadcrumb">
+  <ol class="breadcrumb__list">
+    <li class="breadcrumb__item"><a href="/">Home</a></li>
+    <li class="breadcrumb__item"><a href="/docs">Docs</a></li>
+    <li class="breadcrumb__item"><a href="/docs/components">Components</a></li>
+    <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Breadcrumb</li>
+  </ol>
+</nav>`}
+		/>
 
 		<h3>Separator Variants</h3>
 		

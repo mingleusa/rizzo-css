@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import Gear from '../../../components/icons/Gear.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
@@ -49,15 +50,27 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<CodeBlock code={`---
-import Settings from '../../components/Settings.astro';
+		<p>Include Settings once in your layout (e.g. with Navbar). Scripts run after DOM ready so the panel and theme switcher work when imported.</p>
+		<FrameworkCodeTabs
+			astro={`---
+import Settings from '../components/rizzo/Settings.astro';
 ---
 
-<!-- Include once in layout (e.g. with Navbar). Default closed. -->
+<!-- Include once in layout. Default closed. -->
 <Settings open={false} />
 
-<!-- Open/close from JS (e.g. navbar gear button): -->
-<!-- window.openSettings(); window.closeSettings(); -->`} language="astro" />
+<!-- Navbar gear calls window.openSettings(); window.closeSettings(); -->`}
+			svelte={`<script>
+  import { Settings } from '$lib/rizzo';
+</script>
+
+<Settings open={false} />
+
+<!-- window.openSettings(); window.closeSettings(); -->`}
+			vanilla={`<!-- Include Settings panel HTML from package scaffold (theme switcher, font size, a11y toggles). -->
+<!-- Script runs on DOMContentLoaded; window.openSettings() / closeSettings() then work. -->
+<!-- Trigger: <button onclick="window.openSettings()">Settings</button> -->`}
+		/>
 		
 		<h3>Props</h3>
 		<ul>
@@ -71,6 +84,6 @@ window.openSettings();
 
 // Close the settings panel
 window.closeSettings();`} language="javascript" />
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/settings">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; scaffold includes <code>openSettings()</code>.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/settings">Svelte docs</a> · <a href="/docs/vanilla/components/settings">Vanilla docs</a></p>
 	</section>
 </DocsLayout>

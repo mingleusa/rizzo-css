@@ -68,13 +68,15 @@ All components in Rizzo CSS share these core features:
 
 ## Documentation and examples by framework
 
-Every component has documentation and examples for **Astro**, **Svelte**, and **Vanilla** (HTML + same BEM):
+Every component has documentation and examples for **Astro**, **Svelte**, and **Vanilla** (HTML + same BEM). Each component page includes **Astro | Svelte | Vanilla** code tabs with complete, copy-paste examples so you can use the block that matches your project. Some pages use multiple code blocks (e.g. setup + usage) where needed.
+
+**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla.
 
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
 | **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage with **Astro | Svelte | Vanilla** code tabs (complete, copy-paste examples per framework), live demos, and props. |
 | **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
-| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML, optional inline script for interactive behavior (modal, dropdown, tabs, accordion, toast, etc.), copyable code blocks, and a live demo. Same BEM as Astro/Svelte. |
+| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML, optional inline script for interactive behavior (modal, dropdown, tabs, accordion, toast, etc.), copyable code blocks, and a live demo. Same BEM as Astro/Svelte. Component scripts in the package run on `DOMContentLoaded`. |
 
 Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top of any component or theme page to switch between framework docs.
 

@@ -140,7 +140,7 @@ const { open = false } = Astro.props;
 </div>
 
 <script>
-  (function initSettings() {
+  function initSettings() {
     const settings = document.querySelector('[data-settings]');
     if (!settings) return;
 
@@ -378,5 +378,10 @@ const { open = false } = Astro.props;
 
     // Expose open function globally
     window.openSettings = openSettings;
-  })();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSettings);
+  } else {
+    initSettings();
+  }
 </script>

@@ -4,6 +4,7 @@
 const DATA_THEME = '{{DATA_THEME}}';
 /** @type {{ title?: string }} */
 const { title = '{{TITLE}}' } = Astro.props;
+{{RIZZO_LAYOUT_IMPORTS}}
 ---
 <!doctype html>
 <html lang="en" data-theme={DATA_THEME}>
@@ -19,8 +20,10 @@ const { title = '{{TITLE}}' } = Astro.props;
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    {{RIZZO_LAYOUT_BODY_TOP}}
     <main id="main-content">
       <slot />
     </main>
+    {{RIZZO_LAYOUT_BODY_BOTTOM}}
   </body>
 </html>

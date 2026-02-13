@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AccordionComponent from '../../../components/Accordion.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Accordion Component — Astro" description="Accessible accordion with collapsible sections, single or multiple open states, and keyboard navigation">
@@ -29,7 +30,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 
 		<h3>Basic Usage (Single Open)</h3>
-		<p>By default only one panel is open at a time. Provide panel content as children in the same order as the items array:</p>
+		<p>By default only one panel is open at a time. Component script runs after DOM ready.</p>
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<AccordionComponent
@@ -51,8 +52,9 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</AccordionComponent>
 		</div>
 
-		<CodeBlock code={`---
-import Accordion from '../../components/Accordion.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Accordion from '../components/rizzo/Accordion.astro';
 ---
 
 <Accordion
@@ -65,7 +67,38 @@ import Accordion from '../../components/Accordion.astro';
   <div><p>Content for section one</p></div>
   <div><p>Content for section two</p></div>
   <div><p>Content for section three</p></div>
-</Accordion>`} language="astro" />
+</Accordion>`}
+			svelte={`<script>
+  import { Accordion } from '$lib/rizzo';
+</script>
+
+<Accordion
+  items={[
+    { id: 'one', title: 'Section one' },
+    { id: 'two', title: 'Section two' },
+    { id: 'three', title: 'Section three' },
+  ]}
+>
+  <div><p>Content for section one</p></div>
+  <div><p>Content for section two</p></div>
+  <div><p>Content for section three</p></div>
+</Accordion>`}
+			vanilla={`<!-- Rizzo CSS + accordion script from package/vanilla docs. Script runs on DOMContentLoaded. -->
+<div class="accordion" data-accordion="faq" data-allow-multiple="false">
+  <div class="accordion__item">
+    <h3 class="accordion__heading">
+      <button type="button" class="accordion__trigger accordion__trigger--expanded" aria-expanded="true" aria-controls="faq-panel-one">Section one</button>
+    </h3>
+    <div id="faq-panel-one" class="accordion__panel accordion__panel--expanded">Content for section one</div>
+  </div>
+  <div class="accordion__item">
+    <h3 class="accordion__heading">
+      <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="faq-panel-two">Section two</button>
+    </h3>
+    <div id="faq-panel-two" class="accordion__panel" hidden>Content for section two</div>
+  </div>
+</div>`}
+		/>
 
 		<h3>Multiple Panels Open</h3>
 		<p>Set <code>allowMultiple</code> to <code>true</code> to allow multiple panels to be open at once:</p>

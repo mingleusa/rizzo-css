@@ -30,8 +30,8 @@ import Bash from '../../../components/icons/devicons/Bash.astro';
 import Svelte from '../../../components/icons/devicons/Svelte.astro';
 import React from '../../../components/icons/devicons/React.astro';
 import Vue from '../../../components/icons/devicons/Vue.astro';
-import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
 // Icon data with SVG content for copying
 const regularIcons = [
@@ -124,12 +124,25 @@ const devicons = [
 		</div>
 		
 		<h3>Usage</h3>
-		<CodeBlock code={`---
-import Gear from '../../components/icons/Gear.astro';
-import Css3 from '../../components/icons/devicons/Css3.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Gear from '../components/rizzo/icons/Gear.astro';
+import Css3 from '../components/rizzo/icons/devicons/Css3.astro';
 ---
 <Gear width={20} height={20} />
-<Css3 width={16} height={16} class="my-icon" />`} language="astro" />
+<Css3 width={16} height={16} class="my-icon" />`}
+			svelte={`<script>
+  import { Gear } from '$lib/rizzo/icons';
+  import Css3 from '$lib/rizzo/icons/devicons/Css3.svelte';
+</script>
+
+<Gear width={20} height={20} />
+<Css3 width={16} height={16} class="my-icon" />`}
+			vanilla={`<!-- Inline SVG or use .icon class; currentColor for theme. -->
+<span class="icon" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">...</svg>
+</span>`}
+		/>
 		
 		<h3>Icon Props</h3>
 		<ul>
@@ -138,7 +151,7 @@ import Css3 from '../../components/icons/devicons/Css3.astro';
 			<li><code>class</code> - Optional CSS class for styling</li>
 		</ul>
 		<p>All regular icons use <code>currentColor</code> for theming and adapt to the current theme. Devicons use brand colors and are visible on all themes.</p>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/icons">Svelte</a> · Vanilla: same SVG markup and BEM; see Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/icons">Svelte docs</a> · <a href="/docs/vanilla/components/icons">Vanilla docs</a></p>
 	</section>
 </DocsLayout>
 

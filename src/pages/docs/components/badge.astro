@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Badge from '../../../components/Badge.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Badge Component — Astro" description="Small labels and tags for displaying status, categories, or counts">
@@ -71,19 +72,26 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 		
 		<h3>Usage</h3>
-		<CodeBlock code={`<!-- Using component -->
----
-import Badge from '../../components/Badge.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Badge from '../components/rizzo/Badge.astro';
 ---
 
 <Badge variant="primary">New</Badge>
 <Badge variant="success" size="sm">Active</Badge>
-<Badge variant="error" pill>Urgent</Badge>
+<Badge variant="error" pill>Urgent</Badge>`}
+			svelte={`<script>
+  import { Badge } from '$lib/rizzo';
+</script>
 
-<!-- Using classes -->
+<Badge variant="primary">New</Badge>
+<Badge variant="success" size="sm">Active</Badge>
+<Badge variant="error" pill>Urgent</Badge>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <span class="badge badge--primary">Primary</span>
 <span class="badge badge--success badge--sm">Small Success</span>
-<span class="badge badge--error badge--lg badge--pill">Large Pill Error</span>`} language="astro" />
+<span class="badge badge--error badge--pill">Pill Error</span>`}
+		/>
 		
 		<h3>Props</h3>
 		<ul>

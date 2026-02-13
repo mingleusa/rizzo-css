@@ -287,7 +287,7 @@ const navLinks: NavLink[] = [
 </nav>
 
 <script>
-  (function initNavbar() {
+  function initNavbar() {
     const navbar = document.querySelector('.navbar');
     if (!navbar) return;
 
@@ -622,5 +622,10 @@ const navLinks: NavLink[] = [
         }
       }, 250);
     });
-  })();
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initNavbar);
+  } else {
+    initNavbar();
+  }
 </script>

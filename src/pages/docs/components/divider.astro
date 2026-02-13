@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import DividerComponent from '../../../components/Divider.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Divider Component — Astro" description="Horizontal or vertical divider line with optional label">
@@ -28,11 +29,20 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<p style="margin: var(--spacing-2) 0 0 0;">Content below</p>
 			</div>
 		</div>
-		<CodeBlock code={`---
-import Divider from '../../components/Divider.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Divider from '../components/rizzo/Divider.astro';
 ---
 
-<Divider />`} language="astro" />
+<Divider />`}
+			svelte={`<script>
+  import { Divider } from '$lib/rizzo';
+</script>
+
+<Divider />`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<hr class="divider" role="separator" />`}
+		/>
 
 		<h3>With Label</h3>
 		<p>Use <code>label</code> to show text in the middle (e.g. "OR" between two options).</p>

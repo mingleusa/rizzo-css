@@ -4,6 +4,7 @@ import Tooltip from '../../../components/Tooltip.astro';
 import Button from '../../../components/Button.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Tooltip Component — Astro" description="Accessible tooltip component with positioning options and hover states">
@@ -15,7 +16,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 	
 	<section>
 		<h2>Basic Usage</h2>
-		<p>Wrap any element with a tooltip wrapper and include the Tooltip component:</p>
+		<p>Wrap any element with a tooltip wrapper and include the Tooltip component. Works with keyboard focus (no extra script).</p>
 		
 		<div class="example">
 			<div class="example-title">Basic Tooltip</div>
@@ -27,14 +28,30 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</div>
 		</div>
 		
-		<CodeBlock code={`---
-import Tooltip from '../../components/Tooltip.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Tooltip from '../components/rizzo/Tooltip.astro';
+import Button from '../components/rizzo/Button.astro';
 ---
 
 <div class="tooltip-wrapper" aria-describedby="tooltip-basic">
-  <button class="btn btn-primary">Hover me</button>
+  <Button>Hover me</Button>
   <Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
-</div>`} language="astro" />
+</div>`}
+			svelte={`<script>
+  import { Tooltip, Button } from '$lib/rizzo';
+</script>
+
+<div class="tooltip-wrapper" aria-describedby="tooltip-basic">
+  <Button>Hover me</Button>
+  <Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
+</div>`}
+			vanilla={`<!-- Rizzo CSS; tooltip is CSS + aria-describedby; no JS required for hover/focus. -->
+<div class="tooltip-wrapper" aria-describedby="tooltip-basic">
+  <button class="btn btn-primary">Hover me</button>
+  <span id="tooltip-basic" class="tooltip tooltip--top" role="tooltip">This is a basic tooltip</span>
+</div>`}
+		/>
 	</section>
 	
 	<section>

@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import PaginationComponent from '../../../components/Pagination.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Pagination Component — Astro" description="Accessible pagination navigation with previous/next, page numbers, and ellipsis">
@@ -21,7 +22,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 
 		<h3>Basic Usage</h3>
-		<p>Click any page to see the current page update. The example uses <code>syncHash</code> so the URL hash and current page stay in sync.</p>
+		<p>Click any page to see the current page update. With <code>syncHash</code>, URL hash and current page stay in sync. Pagination script runs after DOM ready when used.</p>
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<PaginationComponent
@@ -33,15 +34,36 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			/>
 		</div>
 
-		<CodeBlock code={`---
-import Pagination from '../../components/Pagination.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Pagination from '../components/rizzo/Pagination.astro';
 ---
 
 <Pagination
   currentPage={3}
   totalPages={10}
   hrefTemplate="?page={page}"
-/>`} language="astro" />
+/>`}
+			svelte={`<script>
+  import { Pagination } from '$lib/rizzo';
+</script>
+
+<Pagination
+  currentPage={3}
+  totalPages={10}
+  hrefTemplate="?page={page}"
+/>`}
+			vanilla={`<!-- Rizzo CSS; pagination links. For hash sync include script from package/vanilla docs (runs on DOMContentLoaded). -->
+<nav class="pagination" aria-label="Pagination" data-total-pages="10" data-href-template="?page={page}">
+  <ul class="pagination__list">
+    <li><a href="?page=2" class="pagination__link">Previous</a></li>
+    <li><a href="?page=1" class="pagination__link">1</a></li>
+    <li><span class="pagination__link pagination__link--current" aria-current="page">2</span></li>
+    <li><a href="?page=3" class="pagination__link">3</a></li>
+    <li><a href="?page=3" class="pagination__link">Next</a></li>
+  </ul>
+</nav>`}
+		/>
 
 		<h3>With Query String</h3>
 		<p>Use <code>hrefTemplate</code> to build URLs. The <code>{'{page}'}</code> placeholder is replaced with the page number. For in-page demos we use hash links with <code>syncHash</code> so the current page updates without a full reload:</p>

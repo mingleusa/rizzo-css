@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import TabsComponent from '../../../components/Tabs.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Tabs Component — Astro" description="Accessible tabs component with keyboard navigation and ARIA tab pattern">
@@ -27,7 +28,7 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 		</ul>
 
 		<h3>Basic Usage</h3>
-		<p>Provide panel content as children in the same order as the tabs array:</p>
+		<p>Provide panel content as children in the same order as the tabs array. Component script runs after DOM ready.</p>
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<TabsComponent
@@ -56,8 +57,9 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</TabsComponent>
 		</div>
 
-		<CodeBlock code={`---
-import Tabs from '../../components/Tabs.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Tabs from '../components/rizzo/Tabs.astro';
 ---
 
 <Tabs
@@ -67,19 +69,37 @@ import Tabs from '../../components/Tabs.astro';
     { id: 'pricing', label: 'Pricing' },
   ]}
 >
-  <div>
-    <h4>Overview</h4>
-    <p>Overview content here</p>
+  <div><h4>Overview</h4><p>Overview content here</p></div>
+  <div><h4>Features</h4><p>Features content here</p></div>
+  <div><h4>Pricing</h4><p>Pricing content here</p></div>
+</Tabs>`}
+			svelte={`<script>
+  import { Tabs } from '$lib/rizzo';
+</script>
+
+<Tabs
+  tabs={[
+    { id: 'overview', label: 'Overview' },
+    { id: 'features', label: 'Features' },
+    { id: 'pricing', label: 'Pricing' },
+  ]}
+>
+  <div><h4>Overview</h4><p>Overview content here</p></div>
+  <div><h4>Features</h4><p>Features content here</p></div>
+  <div><h4>Pricing</h4><p>Pricing content here</p></div>
+</Tabs>`}
+			vanilla={`<!-- Rizzo CSS + component script (from package or vanilla docs). Script runs on DOMContentLoaded. -->
+<div class="tabs" data-tabs="my-tabs">
+  <div class="tabs__list" role="tablist">
+    <button type="button" role="tab" data-tab-id="overview" aria-selected="true">Overview</button>
+    <button type="button" role="tab" data-tab-id="features" aria-selected="false">Features</button>
+    <button type="button" role="tab" data-tab-id="pricing" aria-selected="false">Pricing</button>
   </div>
-  <div>
-    <h4>Features</h4>
-    <p>Features content here</p>
-  </div>
-  <div>
-    <h4>Pricing</h4>
-    <p>Pricing content here</p>
-  </div>
-</Tabs>`} language="astro" />
+  <div id="panel-overview" role="tabpanel" data-panel-id="overview"><p>Overview content here</p></div>
+  <div id="panel-features" role="tabpanel" data-panel-id="features" aria-hidden="true"><p>Features content here</p></div>
+  <div id="panel-pricing" role="tabpanel" data-panel-id="pricing" aria-hidden="true"><p>Pricing content here</p></div>
+</div>`}
+		/>
 
 		<h3>With Content Property</h3>
 		<p>You can also provide content directly in the tab object:</p>

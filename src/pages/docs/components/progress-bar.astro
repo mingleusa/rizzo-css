@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ProgressBarComponent from '../../../components/ProgressBar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Progress Bar Component — Astro" description="Accessible progress bar with variants, sizes, and indeterminate state">
@@ -27,11 +28,22 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			<div class="example-title">Live Example</div>
 			<ProgressBarComponent value={60} max={100} />
 		</div>
-		<CodeBlock code={`---
-import ProgressBar from '../../components/ProgressBar.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import ProgressBar from '../components/rizzo/ProgressBar.astro';
 ---
 
-<ProgressBar value={60} max={100} />`} language="astro" />
+<ProgressBar value={60} max={100} />`}
+			svelte={`<script>
+  import { ProgressBar } from '$lib/rizzo';
+</script>
+
+<ProgressBar value={60} max={100} />`}
+			vanilla={`<!-- Rizzo CSS. No script needed for static bar. -->
+<div class="progress-bar progress-bar--md progress-bar--primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
+  <div class="progress-bar__fill" style="width: 60%"></div>
+</div>`}
+		/>
 
 		<h3>With Label</h3>
 		<p>Use <code>showLabel</code> to display the percentage next to the bar.</p>
@@ -87,6 +99,6 @@ import ProgressBar from '../../components/ProgressBar.astro';
 			<li><strong>Sizes</strong> - sm, md, lg bar heights</li>
 			<li><strong>Reduced motion</strong> - Indeterminate animation disabled when user prefers reduced motion</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/progress-bar">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/progress-bar">Svelte docs</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla docs</a></p>
 	</section>
 </DocsLayout>

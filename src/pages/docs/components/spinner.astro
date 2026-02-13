@@ -3,6 +3,7 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import SpinnerComponent from '../../../components/Spinner.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Spinner Component — Astro" description="Accessible loading spinner with variants and sizes">
@@ -23,11 +24,20 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			<div class="example-title">Live Example</div>
 			<SpinnerComponent />
 		</div>
-		<CodeBlock code={`---
-import Spinner from '../../components/Spinner.astro';
+		<FrameworkCodeTabs
+			astro={`---
+import Spinner from '../components/rizzo/Spinner.astro';
 ---
 
-<Spinner />`} language="astro" />
+<Spinner />`}
+			svelte={`<script>
+  import { Spinner } from '$lib/rizzo';
+</script>
+
+<Spinner />`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<div class="spinner spinner--md spinner--primary" role="status" aria-label="Loading"></div>`}
+		/>
 
 		<h3>Sizes</h3>
 		<div class="example">
@@ -74,6 +84,6 @@ import Spinner from '../../components/Spinner.astro';
 			<li><strong>Sizes</strong> - sm, md, lg</li>
 			<li><strong>Reduced motion</strong> - Animation disabled when user prefers reduced motion; static segment shown instead</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/spinner">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/spinner">Svelte docs</a> · <a href="/docs/vanilla/components/spinner">Vanilla docs</a></p>
 	</section>
 </DocsLayout>
