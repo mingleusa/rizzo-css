@@ -1,11 +1,13 @@
 <script lang="ts">
   import Divider from '../../Divider.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Divider component</h2>
   <p>A simple divider for visually separating content. Supports horizontal (default) and vertical orientation, and an optional label (e.g. "OR") in the middle for horizontal dividers.</p>
+  <AddComponentTabs componentName="Divider" />
 
   <h3>Props</h3>
   <ul>

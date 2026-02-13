@@ -1,11 +1,13 @@
 <script lang="ts">
   import AvatarComponent from '../../Avatar.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Avatar component</h2>
   <p>Accessible avatar: profile image when provided, or initials from <code>name</code> / <code>initials</code>. Sizes (sm, md, lg) and shape (circle, square). BEM: <code>avatar</code>, <code>avatar--sm</code>/<code>md</code>/<code>lg</code>, <code>avatar--circle</code>/<code>square</code>.</p>
+  <AddComponentTabs componentName="Avatar" />
 
   <h3>Props</h3>
   <ul>

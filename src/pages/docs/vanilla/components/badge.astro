@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<span class="badge badge--primary">Primary</span>
 <span class="badge badge--success">Success</span>
@@ -15,7 +16,7 @@ const copyableHtml = `<span class="badge badge--primary">Primary</span>
   <section>
     <h2>Badge</h2>
     <p>Small labels and tags. Use <code>badge--primary</code>, <code>badge--success</code>, etc.</p>
-
+    <AddComponentTabs componentName="Badge" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

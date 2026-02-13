@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Theme Switcher Component — Astro" description="Accessible theme switcher with theme icons and keyboard navigation">
 	<section>
 		<h2>Theme Switcher Component</h2>
 		<p>The ThemeSwitcher is integrated into the Settings panel, but can also be used standalone.</p>
-		
+		<AddComponentTabs componentName="Theme Switcher" />
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<p>Try switching themes using the theme switcher below:</p>

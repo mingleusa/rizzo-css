@@ -1,11 +1,13 @@
 <script lang="ts">
   import Breadcrumb from '../../Breadcrumb.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Breadcrumb component</h2>
   <p>Separator options: chevron, slash, arrow.</p>
+  <AddComponentTabs componentName="Breadcrumb" />
 
   <h3>Examples</h3>
   <div class="example">

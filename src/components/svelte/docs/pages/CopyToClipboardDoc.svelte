@@ -1,11 +1,13 @@
 <script lang="ts">
   import CopyToClipboard from '../../CopyToClipboard.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Copy to clipboard</h2>
   <p>Optional <code>label</code> and <code>format</code> for feedback text.</p>
+  <AddComponentTabs componentName="Copy to Clipboard" />
 
   <h3>Example</h3>
   <div class="example">

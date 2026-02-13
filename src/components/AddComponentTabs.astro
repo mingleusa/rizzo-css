@@ -1,0 +1,60 @@
+---
+import CliCommandTabs from './CliCommandTabs.astro';
+
+/** Display name -> CLI component name (for add command). Only entries that differ. */
+const DISPLAY_TO_CLI: Record<string, string> = {
+  'Theme Switcher': 'ThemeSwitcher',
+  'Copy to Clipboard': 'CopyToClipboard',
+  'Progress Bar': 'ProgressBar',
+};
+/** Component names the CLI accepts (so we only add to command when installable). */
+const CLI_COMPONENT_NAMES = new Set([
+  'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+]);
+
+interface Props {
+  /** Display name of the component (e.g. "Button", "Theme Switcher") for the hint text */
+  componentName: string;
+  /** Optional default tab (npm, pnpm, yarn, bun) */
+  defaultTab?: string;
+  /** Optional class for the wrapper */
+  class?: string;
+}
+
+const { componentName, defaultTab = 'npm', class: className = '' } = Astro.props;
+const cliName = DISPLAY_TO_CLI[componentName] ?? componentName;
+const componentArg = CLI_COMPONENT_NAMES.has(cliName) ? cliName : undefined;
+---
+
+<div class={`add-component-tabs ${className}`.trim()}>
+  <h3 class="add-component-tabs__title">Add this component</h3>
+  <p class="add-component-tabs__hint">{componentArg ? `The command below includes <strong>${componentName}</strong>—run it in your project directory to install this component (and the CSS if needed). No prompts.` : 'Run the command below in your project directory. When prompted, select the component(s) you want. The CLI will copy the CSS and component files.'}</p>
+  <CliCommandTabs command="add" componentArg={componentArg} defaultTab={defaultTab} />
+</div>
+
+<style>
+  .add-component-tabs {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-4);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+  }
+  .add-component-tabs__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 var(--spacing-2) 0;
+  }
+  .add-component-tabs__hint {
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+    margin: 0 0 var(--spacing-3) 0;
+    line-height: var(--line-height-relaxed);
+  }
+  .add-component-tabs :global(.cli-command-tabs) {
+    margin-bottom: 0;
+  }
+</style>

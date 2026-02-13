@@ -2,6 +2,7 @@
   import Modal from '../../Modal.svelte';
   import Button from '../../Button.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   let open = $state(false);
   let openLarge = $state(false);
@@ -10,6 +11,7 @@
 <section>
   <h2>Modal component</h2>
   <p>Dialog with overlay, focus trap, optional sizes (sm, md, lg). Close via button, overlay click, or Escape.</p>
+  <AddComponentTabs componentName="Modal" />
 
   <h3>Live example</h3>
   <div class="example">

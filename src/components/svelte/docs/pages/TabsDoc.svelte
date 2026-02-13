@@ -1,11 +1,13 @@
 <script lang="ts">
   import Tabs from '../../Tabs.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Tabs component</h2>
   <p>An accessible tabs component for organizing content into multiple panels. Same styles and functionality as the <a href="/docs/components/tabs">Astro Tabs</a>: full keyboard navigation and ARIA tab pattern.</p>
+  <AddComponentTabs componentName="Tabs" />
 
   <h3>Props</h3>
   <ul>

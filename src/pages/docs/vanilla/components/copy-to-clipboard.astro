@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import Copy from '../../../../components/icons/Copy.astro';
 import Check from '../../../../components/icons/Check.astro';
 
@@ -49,7 +50,7 @@ const copyableJs = `document.querySelectorAll('.copy-to-clipboard').forEach(func
   <section>
     <h2>Copy to Clipboard</h2>
     <p>Button that copies text to the clipboard. Add your own copy/check icons inside the icon spans; the JS below wires up the click behavior.</p>
-
+    <AddComponentTabs componentName="Copy to Clipboard" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

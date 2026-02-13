@@ -4,7 +4,7 @@ Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth
 
 ## Features
 
-- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Create new → template (Vanilla: full or minimal; Astro/Svelte: minimal) or no template (minimal base + hand-pick components). Add to existing (or `add` command) → drop in CSS + hand-pick components. [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
+- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Create new → **Full**, **Minimal**, or **Manual** (per framework). Add to existing (or `add` command) → drop in CSS + hand-pick components. [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
 - **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, layout limits (e.g. `--max-height-navbar-submenu`), and component sizing (e.g. `--theme-switcher-width` so the theme switcher trigger and dropdown are the same width everywhere and fit the longest theme name on one line) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
 
 ## Semantic Variables

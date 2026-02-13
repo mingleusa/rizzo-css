@@ -8,7 +8,7 @@ This doc describes the Rizzo CSS CLI: commands, package manager handling, config
 
 | Command | Purpose |
 |--------|---------|
-| **`init`** | Add Rizzo to an existing project or create a new one. Asks: framework (Vanilla / Astro / Svelte) → existing vs new. **Existing** → drop in CSS + hand-pick components. **New** → location, then **template or no template**: use a template (Vanilla: full or minimal; Astro/Svelte: minimal) and get that scaffold, or choose no template and get minimal base + hand-pick components. Then package manager. Use `--yes --framework vanilla|astro|svelte` and optional `--template full|minimal` for non-interactive. |
+| **`init`** | Add Rizzo to an existing project or create a new one. Asks: framework (Vanilla / Astro / Svelte) → existing vs new. **Existing** → drop in CSS + hand-pick components. **New** → location, then **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components). Then package manager. Use `--yes --framework vanilla|astro|svelte` and optional `--template full|minimal|manual` for non-interactive. |
 | **`add`** | Same as init → existing: drop in CSS + hand-pick components. Auto-detects framework (or uses **rizzo-css.json**). Copies `rizzo.min.css` to the framework default dir (or `--path`). Prompts for component choice (Astro/Svelte). Prints the `<link>` tag and **install package** command. Supports `--install-package` to run the package manager add command. |
 | **`theme`** | List theme IDs (for `data-theme` on `<html>`). |
 | **`help`** | Usage, all four runners (npx, pnpm dlx, yarn dlx, bunx), framework create examples, and options. |
@@ -41,24 +41,27 @@ Optional **rizzo-css.json** in the project root: `{ "targetDir", "framework", "p
 
 ## Templates (create new)
 
-When the user chooses **Use a template** (not “No template”):
+When the user chooses **Full, Minimal, or Manual**:
 
-| Framework | Template | Result |
-|-----------|----------|--------|
-| Vanilla | **full** | index.html + theme switcher, js/main.js, icons, README, LICENSE. |
-| Vanilla | **minimal** | index.html + CSS, README, LICENSE. |
-| Astro | **minimal** | astro-minimal scaffold: config, one page, README, LICENSE, .env.example, public/css/rizzo.min.css. |
-| Svelte | **minimal** | svelte-minimal scaffold: config, one page, README, LICENSE, .env.example, static/css/rizzo.min.css. |
+| Framework | Option | Result |
+|-----------|--------|--------|
+| Vanilla | **full** | index.html + theme switcher, js/main.js, icons, component showcase, README, LICENSE. |
+| Vanilla | **minimal** | index.html + CSS + js/main.js + recommended component pages in `components/` + icons, README, LICENSE. |
+| Vanilla | **manual** | index.html + CSS; pick components to add their HTML pages + js/main.js + icons (or CSS only if none picked). README, LICENSE. |
+| Astro | **full** | Astro app + all 25 components. |
+| Astro | **minimal** | Astro app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown). |
+| Astro | **manual** | minimal base + pick components. |
+| Svelte | **full** | SvelteKit app + all 25 components. |
+| Svelte | **minimal** | SvelteKit app + recommended components. |
+| Svelte | **manual** | minimal base + pick components. |
 
-**No template:** User chooses “No template — minimal base + hand-pick components”. They get the same minimal base as above (per framework) plus a component picker (Astro/Svelte); Vanilla gets minimal base only (no component files). Every scaffold includes LICENSE; Astro/Svelte also include package.json and .env.example.
-
-With `init --yes`, default template is **full** for Vanilla and **minimal** for Astro/Svelte. Use `--template minimal` or `--template full` (Vanilla) to override.
+Every scaffold includes LICENSE; Astro/Svelte also include package.json and .env.example. With `init --yes`, default is **full**; use `--template minimal` or `--template manual` to override.
 
 ---
 
 ## Options summary
 
-**init:** `--yes`, `--framework vanilla|astro|svelte`, `--template full|minimal`, `--install`, `--no-install`, `--write-config`.
+**init:** `--yes`, `--framework vanilla|astro|svelte`, `--template full|minimal|manual`, `--install`, `--no-install`, `--write-config`.
 
 **add:** `--path <dir>`, `--framework vanilla|astro|svelte`, `--install-package`, `--no-install`.
 
@@ -68,9 +71,9 @@ With `init --yes`, default template is **full** for Vanilla and **minimal** for 
 
 - [x] **Invocation:** Document and support npx, pnpm dlx, yarn dlx, bunx.
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
-- [x] **Init (new):** Template or no template (hand-pick). Template choice: Vanilla full/minimal; Astro/Svelte minimal only. Package manager prompted. Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example.
+- [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Package manager prompted. Every scaffold includes LICENSE, README; Astro/Svelte include package.json and .env.example.
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
 - [x] **Config file:** Optional rizzo-css.json; read in add and init; `init --write-config` writes it.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css'); `init --install` runs pm.install after scaffold (minimal/hand-pick Astro/Svelte); `--no-install` skips.
-- [x] **--yes:** `init --yes` scaffolds new in cwd with defaults (framework: astro, template: minimal; PM: config or detected). Supports `--framework` and `--template`.
+- [x] **--yes:** `init --yes` scaffolds new in cwd with defaults (framework: astro, template: full; PM: config or detected). Supports `--framework` and `--template`.
 - [x] **Docs:** GETTING_STARTED includes Detection + config/options; help shows all options and examples.

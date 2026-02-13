@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import SpinnerComponent from '../../../components/Spinner.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Spinner Component — Astro" description="Accessible loading spinner with variants and sizes">
 	<section>
 		<h2>Spinner Component</h2>
 		<p>An accessible loading spinner for indicating progress when content is loading. Uses <code>role="status"</code> and an <code>aria-label</code> (default: "Loading") so screen readers announce the state. Supports multiple sizes and color variants.</p>
-		
+		<AddComponentTabs componentName="Spinner" />
 		<h3>Props</h3>
 		<ul>
 			<li><code>size</code> (string, optional) - <code>sm</code>, <code>md</code>, <code>lg</code> (default: md)</li>

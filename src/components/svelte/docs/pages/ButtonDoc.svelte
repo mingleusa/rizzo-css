@@ -1,11 +1,13 @@
 <script lang="ts">
   import Button from '../../Button.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Button component</h2>
   <p>Semantic theme variables and BEM classes (<code>btn</code>, <code>btn-primary</code>, etc.).</p>
+  <AddComponentTabs componentName="Button" />
 
   <h3>Button variants</h3>
   <div class="example">

@@ -1,11 +1,13 @@
 <script lang="ts">
   import ProgressBar from '../../ProgressBar.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Progress bar component</h2>
   <p>An accessible progress bar for showing completion or loading state. Supports determinate (value-based) and indeterminate (animated) modes, multiple variants and sizes, and an optional percentage label.</p>
+  <AddComponentTabs componentName="Progress Bar" />
 
   <h3>Props</h3>
   <ul>

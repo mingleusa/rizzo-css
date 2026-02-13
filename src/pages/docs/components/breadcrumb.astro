@@ -2,13 +2,16 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import BreadcrumbComponent from '../../../components/Breadcrumb.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Breadcrumb Component — Astro" description="Navigation breadcrumbs with separator customization and responsive behavior">
 	<section>
 		<h2>Breadcrumb Component</h2>
 		<p>An accessible breadcrumb navigation component. Supports custom separators (chevron, slash, arrow, or custom character) and responsive truncation on small screens.</p>
-		
+
+		<AddComponentTabs componentName="Breadcrumb" />
+
 		<h3>Props</h3>
 		<ul>
 			<li><code>items</code> (array, required) - Array of objects with <code>label</code> and optional <code>href</code>. The last item or any item without <code>href</code> is shown as the current page.</li>

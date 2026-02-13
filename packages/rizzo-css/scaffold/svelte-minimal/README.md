@@ -1,6 +1,6 @@
 # SvelteKit + Rizzo CSS (minimal)
 
-Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template minimal`.
+Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full`.
 
 ## Setup
 

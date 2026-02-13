@@ -1,5 +1,6 @@
 <script lang="ts">
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   function showToastGlobal(message: string, options?: { variant?: string; position?: string; autoDismiss?: number }) {
     if (typeof window !== 'undefined' && (window as any).showToast) {
@@ -17,6 +18,7 @@
 <section>
   <h2>Toast component</h2>
   <p>Fixed-position notifications (success, error, warning, info). Use the <strong>Toast</strong> component for a single static toast, or the <strong>programmatic API</strong> (<code>showToast</code>, <code>removeToast</code>, <code>removeAllToasts</code>) for dynamic toasts. Same BEM and behavior as the Astro/docs site.</p>
+  <AddComponentTabs componentName="Toast" />
 
   <h3>Features</h3>
   <ul>

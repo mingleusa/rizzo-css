@@ -4,7 +4,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add`): drop in CSS + hand-pick components. **New:** **template** (Vanilla: full or minimal; Astro/Svelte: minimal only) or **no template** (minimal base + hand-pick components) → package manager (npm, pnpm, yarn, bun; detected suggested). Optional **rizzo-css.json** (targetDir, framework, packageManager); `init --write-config` writes it. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte` and `--template`, `--install`, `--no-install`. See [CLI.md](./CLI.md).
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add`): drop in CSS + hand-pick components. **New:** **Full** or **Manual** (per framework) → package manager (npm, pnpm, yarn, bun; detected suggested). Optional **rizzo-css.json** (targetDir, framework, packageManager); `init --write-config` writes it. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte` and `--template`, `--install`, `--no-install`. See [CLI.md](./CLI.md).
 
 **Docs site:** The [Getting Started](/docs/getting-started) page and the home page include a **package manager tabbed selector** (npm, pnpm, yarn, bun): users click a tab to select their manager, then use the copy button to copy the CLI command. Each tab shows the appropriate command (e.g. `npx rizzo-css init`, `pnpm dlx rizzo-css init`, etc.).
 
@@ -22,7 +22,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 | Command | Description |
 |--------|-------------|
-| `npx rizzo-css init` | First: **framework** (Vanilla / Astro / Svelte). Then: **Add to existing** (CSS + hand-pick components) or **Create new**. **New:** template (Vanilla: full or minimal; Astro/Svelte: minimal) or no template (minimal base + hand-pick) → package manager. Package ships scaffold/vanilla, astro-minimal, svelte-minimal, astro/, svelte/. |
+| `npx rizzo-css init` | First: **framework** (Vanilla / Astro / Svelte). Then: **Add to existing** (CSS + hand-pick components) or **Create new**. **New:** **Full** or **Manual** (per framework) → package manager. Package ships scaffold/vanilla, astro-minimal, svelte-minimal, astro/, svelte/. |
 | `npx rizzo-css add` | Add Rizzo CSS to the current project. Auto-detects Svelte/Astro and copies to `static/css` or `public/css`; use `--path <dir>` or `--framework vanilla|astro|svelte` to override. |
 | `npx rizzo-css theme` | List all 14 theme IDs (for use with `data-theme` on `<html>`). |
 | `npx rizzo-css upgrade` *(later)* | Check for updates and optionally update CSS/package version. |
@@ -51,7 +51,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 - [x] Implement `add`: copy CSS; auto-detect Svelte/Astro; default paths `static/css` or `public/css`; `--path` and `--framework` support.
 - [x] Implement `theme`: list 14 theme IDs.
 - [x] Document in [Getting Started](./GETTING_STARTED.md): “Quick start with CLI” via `npx rizzo-css init` / `add`.
-- [x] **Component selection:** Init (existing or new with no template) offers hand-pick components; template path gives a pre-built scaffold (Vanilla full/minimal, Astro/Svelte minimal). Scaffold populated by `scripts/copy-scaffold.js` and `prepare-vanilla-scaffold.js` (run in prepublishOnly). Package ships scaffold/vanilla, astro-minimal, svelte-minimal, astro/, svelte/.
+- [x] **Component selection:** Init (existing or new with no template) offers hand-pick components; **Full** gives the ready-made scaffold; **Manual** gives minimal base + hand-pick (Astro/Svelte). Scaffold populated by `scripts/copy-scaffold.js` and `prepare-vanilla-scaffold.js` (run in prepublishOnly). Package ships scaffold/vanilla, astro-minimal, svelte-minimal, astro/, svelte/.
 
 ### Phase 2 – Themes and options
 

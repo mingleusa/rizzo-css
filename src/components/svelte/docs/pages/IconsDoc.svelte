@@ -29,6 +29,7 @@
   import React from '../../icons/devicons/React.svelte';
   import Vue from '../../icons/devicons/Vue.svelte';
   import Bash from '../../icons/devicons/Bash.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   type IconEntry = { name: string; component: typeof import('svelte').SvelteComponent; svg: string };
 
@@ -109,6 +110,7 @@
 <section>
   <h2>Icon Components</h2>
   <p>Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT licensed). All icons use <code>currentColor</code> for theming and adapt to both light and dark themes.</p>
+  <AddComponentTabs componentName="Icons" />
 
   <h3>Regular Icons (Tabler Icons)</h3>
   <p>These icons use <code>currentColor</code> and automatically adapt to your theme.</p>

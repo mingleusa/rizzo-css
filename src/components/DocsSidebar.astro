@@ -15,12 +15,11 @@ function fullHref(link: { href: string; frameworkOnly?: boolean }) {
   return `${base}/${link.href}`;
 }
 
+/** Active only when the current path exactly matches this link (no parent/child). */
 function isActive(link: { href: string; frameworkOnly?: boolean }): boolean {
   const path = currentPath.replace(/\/$/, '');
   const href = fullHref(link);
-  if (path === href) return true;
-  if (path.startsWith(href + '/')) return true;
-  return false;
+  return path === href;
 }
 ---
 

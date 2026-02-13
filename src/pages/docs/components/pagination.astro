@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import PaginationComponent from '../../../components/Pagination.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Pagination Component — Astro" description="Accessible pagination navigation with previous/next, page numbers, and ellipsis">
 	<section>
 		<h2>Pagination Component</h2>
 		<p>An accessible pagination component for navigating between pages. Supports previous/next, first/last, page numbers with ellipsis for long ranges, and a configurable URL pattern.</p>
-		
+		<AddComponentTabs componentName="Pagination" />
 		<h3>Props</h3>
 		<ul>
 			<li><code>currentPage</code> (number, required) - The current page number (1-based)</li>

@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<span class="avatar avatar--md avatar--circle" role="img" aria-label="Avatar: JD">
   <span class="avatar__initials" aria-hidden="true">JD</span>
@@ -14,7 +15,7 @@ const copyableHtml = `<span class="avatar avatar--md avatar--circle" role="img" 
   <section>
     <h2>Avatar</h2>
     <p>User avatar with initials or image. Sizes: <code>avatar--sm</code>, <code>avatar--md</code>, <code>avatar--lg</code>. Shape: <code>avatar--circle</code>, <code>avatar--square</code>.</p>
-
+    <AddComponentTabs componentName="Avatar" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import Gear from '../../../../components/icons/Gear.astro';
 
 const copyableHtml = `<div class="settings" data-settings aria-hidden="true">
@@ -43,7 +44,7 @@ window.closeSettings();`;
   <section>
     <h2>Settings</h2>
     <p>Settings panel for theme, font size, and accessibility. Same behavior as <a href="/docs/components/settings">Astro</a> and <a href="/docs/svelte/components/settings">Svelte</a>. The docs layout already includes Settings; open it with the button below or the <strong>gear icon in the navbar</strong>.</p>
-
+    <AddComponentTabs componentName="Settings" />
     <h3>Live example</h3>
     <p>Open the Settings panel (gear in navbar or button below — same as navbar).</p>
     <div class="example">

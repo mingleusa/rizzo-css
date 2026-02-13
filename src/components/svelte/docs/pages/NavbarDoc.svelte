@@ -1,10 +1,12 @@
 <script lang="ts">
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Navbar component</h2>
   <p>A responsive, accessible navigation bar with dropdown menus, search, and settings. The docs site uses the <strong>Astro</strong> Navbar in the layout. In a Svelte app, use the same BEM classes and HTML structure; wire open/close and keyboard behavior with Svelte state and event handlers.</p>
+  <AddComponentTabs componentName="Navbar" />
 
   <h3>Features</h3>
   <ul>

@@ -2,6 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../../components/ThemeSwitcher.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
   <button type="button" class="theme-switcher__trigger" aria-expanded="false" aria-haspopup="true" aria-controls="theme-menu" data-theme-trigger>
@@ -41,7 +42,7 @@ const copyableHtml = `<div class="theme-switcher" data-theme-switcher>
   <section>
     <h2>Theme Switcher</h2>
     <p>Accessible theme switcher with theme icons and keyboard navigation. Same BEM structure and behavior as the <a href="/docs/components/theme-switcher">Astro ThemeSwitcher</a>: set <code>data-theme</code> on <code>&lt;html&gt;</code>, persist in <code>localStorage</code> (key <code>theme</code>; use <code>system</code> for OS preference).</p>
-
+    <AddComponentTabs componentName="Theme Switcher" />
     <h3>Live example</h3>
     <p>The switcher below is a working example (same component as Astro so it runs on this page). In a vanilla-only project you’d use the same HTML structure and wire it with your own script or theme utilities (<code>applyTheme</code>, <code>getThemeLabel</code>).</p>
     <div class="example">

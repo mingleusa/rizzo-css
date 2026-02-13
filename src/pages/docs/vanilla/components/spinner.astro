@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<span class="spinner spinner--md spinner--primary" role="status" aria-label="Loading">
   <span class="spinner__ring" aria-hidden="true"></span>
@@ -13,7 +14,7 @@ const copyableHtml = `<span class="spinner spinner--md spinner--primary" role="s
   <section>
     <h2>Spinner</h2>
     <p>Loading spinner. Use <code>spinner--sm</code>, <code>spinner--md</code>, <code>spinner--lg</code> and <code>spinner--primary</code>, <code>spinner--success</code>, etc.</p>
-
+    <AddComponentTabs componentName="Spinner" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

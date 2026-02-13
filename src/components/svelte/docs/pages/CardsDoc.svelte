@@ -1,6 +1,7 @@
 <script lang="ts">
   import Card from '../../Card.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const imagePlaceholderStyle = 'width: 100%; height: var(--spacing-50); background: linear-gradient(135deg, var(--accent), var(--accent-hover)); border-radius: var(--radius-lg) var(--radius-lg) 0 0; margin: calc(-1 * var(--spacing-6)) calc(-1 * var(--spacing-6)) var(--spacing-6) calc(-1 * var(--spacing-6)); display: flex; align-items: center; justify-content: center; color: var(--accent-text); font-weight: var(--font-weight-semibold);';
 </script>
@@ -8,6 +9,7 @@
 <section>
   <h2>Card component</h2>
   <p>The Card component provides a flexible container for organizing content with variants, sections, and image support.</p>
+  <AddComponentTabs componentName="Card" />
 
   <h3>Basic usage</h3>
   <p>The simplest card usage:</p>

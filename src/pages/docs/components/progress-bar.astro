@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ProgressBarComponent from '../../../components/ProgressBar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Progress Bar Component — Astro" description="Accessible progress bar with variants, sizes, and indeterminate state">
 	<section>
 		<h2>Progress Bar Component</h2>
 		<p>An accessible progress bar for showing completion or loading state. Supports determinate (value-based) and indeterminate (animated) modes, multiple variants and sizes, and an optional percentage label.</p>
-		
+		<AddComponentTabs componentName="Progress Bar" />
 		<h3>Props</h3>
 		<ul>
 			<li><code>value</code> (number, optional) - Current value, 0 to max (default: 0)</li>

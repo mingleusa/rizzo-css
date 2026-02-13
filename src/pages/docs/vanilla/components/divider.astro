@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="divider divider--horizontal" role="separator" aria-orientation="horizontal">
   <span class="divider__line" aria-hidden="true"></span>
@@ -26,7 +27,7 @@ const copyableHtml = `<div class="divider divider--horizontal" role="separator" 
   <section>
     <h2>Divider component</h2>
     <p>A simple divider for visually separating content. Supports horizontal (default) and vertical orientation, and an optional label (e.g. "OR") in the middle for horizontal dividers.</p>
-
+    <AddComponentTabs componentName="Divider" />
     <h3>BEM / attributes</h3>
     <ul>
       <li><code>divider</code>, <code>divider--horizontal</code> (default), <code>divider--vertical</code></li>

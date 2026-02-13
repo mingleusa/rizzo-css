@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const tableIdBasic = 'table-vanilla-basic';
 const tableIdSort = 'table-vanilla-sort';
@@ -12,7 +13,7 @@ const tableIdPlain = 'table-vanilla-plain';
   <section>
     <h2>Table</h2>
     <p>Data table with the same BEM classes and behavior as the <a href="/docs/components/table">Astro Table</a>: <code>table</code>, <code>table__wrapper</code>, <code>table__table</code>, <code>table__caption</code>, <code>table__head</code>, <code>table__body</code>, <code>table__row</code>, <code>table__cell</code>, <code>table__cell--head</code>. Add <code>table--striped</code> for alternating rows, <code>table--sortable</code> for sortable headers, <code>table--filterable</code> for the filter input. Use <code>data-table-sortable="true"</code> and <code>data-table-filterable="true"</code> on the wrapper so the script below initializes sorting and filtering.</p>
-
+    <AddComponentTabs componentName="Table" />
     <h3>Basic</h3>
     <p>Same as Astro: sortable column headers (click or Enter/Space) and optional filter input with icon.</p>
     <div class="example">

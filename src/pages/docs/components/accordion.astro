@@ -2,13 +2,16 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AccordionComponent from '../../../components/Accordion.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Accordion Component — Astro" description="Accessible accordion with collapsible sections, single or multiple open states, and keyboard navigation">
 	<section>
 		<h2>Accordion Component</h2>
 		<p>An accessible accordion for collapsible sections. Supports single or multiple open panels and full keyboard navigation.</p>
-		
+
+		<AddComponentTabs componentName="Accordion" />
+
 		<h3>Props</h3>
 		<ul>
 			<li><code>items</code> (array, required) - Array of objects with <code>id</code>, <code>title</code>, and optional <code>content</code></li>

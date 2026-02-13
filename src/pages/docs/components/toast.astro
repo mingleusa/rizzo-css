@@ -1,13 +1,14 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Toast Component — Astro" description="Fixed position toast notifications with auto-dismiss and programmatic control">
 	<section>
 		<h2>Toast Notifications</h2>
 		<p>Toast notifications are fixed-position alerts that appear in a corner or center of the screen. They're perfect for non-intrusive notifications, success messages, and temporary feedback.</p>
-		
+		<AddComponentTabs componentName="Toast" />
 		<h3>Programmatic Toast Creation</h3>
 		<p>The easiest way to show toasts is using the <code>showToast()</code> function:</p>
 		

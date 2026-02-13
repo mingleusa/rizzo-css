@@ -1,11 +1,13 @@
 <script lang="ts">
   import CodeBlock from '../CodeBlock.svelte';
   import Gear from '../../icons/Gear.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Settings component</h2>
   <p>Slide-in panel for theme, font size, and accessibility options. All settings persist in <code>localStorage</code>. The docs site uses the <strong>Astro</strong> Settings in the layout; open via the navbar gear or <code>window.openSettings()</code>. In a Svelte app, use the same BEM classes and wire state + persistence to match.</p>
+  <AddComponentTabs componentName="Settings" />
 
   <h3>Live example</h3>
   <p>Open Settings via the <strong>gear icon in the navbar</strong> or the button below (same as navbar).</p>

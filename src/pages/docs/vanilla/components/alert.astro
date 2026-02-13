@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="alert alert--info" role="alert" aria-live="polite" aria-label="Information message">
   <div class="alert__content">Information message here.</div>
@@ -27,7 +28,7 @@ const copyableJs = `document.querySelectorAll('[data-alert-close]').forEach(func
   <section>
     <h2>Alert</h2>
     <p>Accessible alerts with success, error, warning, info variants. Add <code>alert__close</code> and <code>data-alert-close</code> for dismissible; use JS to remove the element.</p>
-
+    <AddComponentTabs componentName="Alert" />
     <h3>Variants (show on click)</h3>
     <p>Click the buttons below to see each variant in action:</p>
     <div class="example">

@@ -1,6 +1,6 @@
 # Astro + Rizzo CSS (minimal)
 
-Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template minimal`.
+Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`.
 
 ## Setup
 

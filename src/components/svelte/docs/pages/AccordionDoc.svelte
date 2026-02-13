@@ -1,6 +1,7 @@
 <script lang="ts">
   import Accordion from '../../Accordion.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const items = [
     { id: 'one', title: 'Section one', content: '<p>Content for section one.</p>' },
@@ -12,6 +13,7 @@
 <section>
   <h2>Accordion component</h2>
   <p>Expandable panels with single or multiple open. Keyboard (Arrow keys, Home, End, Enter/Space) and ARIA.</p>
+  <AddComponentTabs componentName="Accordion" />
 
   <h3>Props</h3>
   <ul>

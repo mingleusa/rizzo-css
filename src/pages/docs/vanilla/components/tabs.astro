@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="tabs" data-tabs="my-tabs">
   <div class="tabs__list" role="tablist" aria-label="Tabs">
@@ -106,7 +107,7 @@ const ID_DEFAULT_TAB = 'vanilla-tabs-default-tab';
   <section>
     <h2>Tabs</h2>
     <p>Tabbed panels that match the <a href="/docs/components/tabs">Astro Tabs</a> component: same markup (span tabs, <code>tabs__panels-wrapper</code>, <code>data-tab-id</code> / <code>data-panel-id</code>), class-based active state (<code>tabs__tab--active</code>, <code>tabs__panel--active</code>), and full keyboard support (Arrow keys, Home, End, Enter, Space).</p>
-
+    <AddComponentTabs componentName="Tabs" />
     <h3>Basic Usage</h3>
     <p>Provide panel content in the same order as the tabs. Same example as Astro and Svelte:</p>
     <div class="example">

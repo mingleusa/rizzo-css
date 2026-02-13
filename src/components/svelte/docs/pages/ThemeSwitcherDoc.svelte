@@ -2,11 +2,13 @@
   import ThemeSwitcher from '../../ThemeSwitcher.svelte';
   import ThemeIcon from '../../ThemeIcon.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Theme Switcher component</h2>
   <p>Accessible theme dropdown with <strong>Preference</strong> (System), <strong>Dark</strong>, and <strong>Light</strong> groups, a unique icon per theme, and a preview panel. Same behavior as the <a href="/docs/components/theme-switcher">Astro ThemeSwitcher</a>: persists in <code>localStorage</code> (key <code>theme</code>), sets <code>data-theme</code> on <code>&lt;html&gt;</code>.</p>
+  <AddComponentTabs componentName="Theme Switcher" />
 
   <h3>Live example</h3>
   <div class="example">

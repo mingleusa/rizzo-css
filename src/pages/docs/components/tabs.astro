@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import TabsComponent from '../../../components/Tabs.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Tabs Component — Astro" description="Accessible tabs component with keyboard navigation and ARIA tab pattern">
 	<section>
 		<h2>Tabs Component</h2>
 		<p>An accessible tabs component for organizing content into multiple panels. Supports full keyboard navigation and follows ARIA tab pattern best practices.</p>
-		
+		<AddComponentTabs componentName="Tabs" />
 		<h3>Props</h3>
 		<ul>
 			<li><code>tabs</code> (array, required) - Array of tab objects with <code>id</code> and <code>label</code> properties</li>

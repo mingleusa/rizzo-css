@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import Card from '../../../../components/Card.astro';
 import Gear from '../../../../components/icons/Gear.astro';
 import Close from '../../../../components/icons/Close.astro';
@@ -90,7 +91,7 @@ const copyableHtml = `<!-- Tabler-style: stroke="currentColor" + .icon class (Ri
   <section>
     <h2>Icons</h2>
     <p>Reusable SVG icons (Tabler Icons and Devicons). Use <code>stroke="currentColor"</code> on the SVG and the <code>icon</code> class (or BEM like <code>dropdown__icon</code>) so Rizzo CSS sets <code>color: var(--icon)</code>—icons then match Astro/Svelte and stay visible on light and dark themes.</p>
-
+    <AddComponentTabs componentName="Icons" />
     <h3>Regular Icons (Tabler Icons)</h3>
     <p>These use <code>currentColor</code>; wrap in <code>&lt;span class="icon"&gt;</code> for theme color. Click any card to copy its SVG to the clipboard.</p>
     <div class="icons-grid">

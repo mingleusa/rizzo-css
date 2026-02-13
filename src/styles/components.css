@@ -1890,7 +1890,7 @@ div.navbar__sublink {
   border-width: 0;
 }
 
-/* Alert Component */
+/* Alert Component — darker backgrounds that follow theme (--alert-bg, --alert-*-bg) */
 .alert {
   position: relative;
   display: flex;
@@ -1899,7 +1899,7 @@ div.navbar__sublink {
   padding: var(--spacing-4) var(--spacing-5);
   border-radius: var(--radius-lg);
   border: var(--border-width) solid var(--border);
-  background-color: var(--background-alt);
+  background-color: var(--alert-bg);
   color: var(--text);
   transition: opacity var(--transition-base), transform var(--transition-base);
   margin-bottom: var(--spacing-3);
@@ -1951,21 +1951,21 @@ div.navbar__sublink {
   opacity: 1;
 }
 
-/* Alert Variants */
+/* Alert Variants — use theme-derived darker tints (scale 200) for visibility and contrast */
 .alert--success {
-  background-color: oklch(from var(--success) l c h / 10%);
+  background-color: var(--alert-success-bg);
   border-color: var(--success);
   color: var(--success-text);
 }
 
 .alert--error {
-  background-color: oklch(from var(--error) l c h / 10%);
+  background-color: var(--alert-error-bg);
   border-color: var(--error);
   color: var(--error-text);
 }
 
 .alert--warning {
-  background-color: oklch(from var(--warning) l c h / 10%);
+  background-color: var(--alert-warning-bg);
   border-color: var(--warning);
   color: var(--warning-text);
 }
@@ -1987,7 +1987,7 @@ div.navbar__sublink {
 }
 
 .alert--info {
-  background-color: oklch(from var(--info) l c h / 10%);
+  background-color: var(--alert-info-bg);
   border-color: var(--info);
   color: var(--info-text);
 }

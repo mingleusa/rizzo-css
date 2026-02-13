@@ -2,11 +2,13 @@
   import Tooltip from '../../Tooltip.svelte';
   import Button from '../../Button.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Tooltip component</h2>
   <p>Wrap the trigger in <code>tooltip-wrapper</code> and set <code>aria-describedby</code> to the tooltip <code>id</code>. Positions: top, bottom, left, right.</p>
+  <AddComponentTabs componentName="Tooltip" />
 
   <h3>Basic and positions</h3>
   <div class="example">

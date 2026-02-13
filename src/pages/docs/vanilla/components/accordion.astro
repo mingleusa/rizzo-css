@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="accordion">
   <div class="accordion__item">
@@ -41,7 +42,7 @@ const copyableJs = `document.querySelectorAll('.accordion__trigger').forEach(fun
   <section>
     <h2>Accordion</h2>
     <p>Expandable sections. Use JS to toggle <code>aria-expanded</code>, the panel <code>hidden</code> state, and the <code>accordion__trigger--expanded</code> / <code>accordion__panel--expanded</code> classes.</p>
-
+    <AddComponentTabs componentName="Accordion" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

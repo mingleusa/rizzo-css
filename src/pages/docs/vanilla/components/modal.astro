@@ -2,6 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import ModalComponent from '../../../../components/Modal.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<button type="button" class="btn btn-primary" id="open-modal-btn">Open modal</button>
 
@@ -53,7 +54,7 @@ const copyableJs = `(function() {
   <section>
     <h2>Modal</h2>
     <p>Dialog with overlay, focus trap, and optional sizes (sm, md, lg). Same structure as <a href="/docs/components/modal">Astro</a> and <a href="/docs/svelte/components/modal">Svelte</a>.</p>
-
+    <AddComponentTabs componentName="Modal" />
     <h3>Modal sizes</h3>
     <p>Small (24rem), medium (32rem), large (48rem). Click to open:</p>
     <div class="example">

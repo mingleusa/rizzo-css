@@ -1,12 +1,14 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Form Components — Vanilla" description="Form fields with vanilla HTML. Same BEM classes and structure as Astro and Svelte. Ensure Rizzo CSS is loaded.">
   <section>
     <h2>Form Components</h2>
     <p>Rizzo CSS form components use semantic HTML and BEM classes. Use the same structure as Astro and Svelte: <code>form-group</code>, <code>form-group__label</code>, <code>form-input</code>, <code>form-group__help</code>, <code>form-error</code>, <code>form-success</code>. Sizes: <code>form-input--sm</code>, <code>form-input--lg</code>. States: <code>form-input--error</code>, <code>form-input--success</code>. Checkbox/radio: <code>checkbox-label</code>, <code>radio-label</code>, <code>checkbox-group</code>, <code>radio-group</code>.</p>
+    <AddComponentTabs componentName="FormGroup" />
   </section>
 
   <section>

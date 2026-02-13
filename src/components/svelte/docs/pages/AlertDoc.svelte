@@ -1,6 +1,7 @@
 <script lang="ts">
   import Alert from '../../Alert.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   type AlertItem = { id: string; variant: 'success' | 'error' | 'warning' | 'info'; message: string; dismissible: boolean; autoDismiss?: number };
   let liveAlerts = $state<AlertItem[]>([]);
@@ -33,6 +34,7 @@
 <section>
   <h2>Alert component</h2>
   <p>Variants: success, error, warning, info. Optional dismissible and auto-dismiss.</p>
+  <AddComponentTabs componentName="Alert" />
 
   <h3>Variants (show on click)</h3>
   <p>Click the buttons below to see each variant in action:</p>

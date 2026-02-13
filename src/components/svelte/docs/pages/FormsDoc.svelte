@@ -6,6 +6,7 @@
   import Select from '../../Select.svelte';
   import Radio from '../../Radio.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   let paymentMethod = $state('card');
 </script>
@@ -13,6 +14,7 @@
 <section>
   <h2>Form Components</h2>
   <p>Rizzo CSS includes a comprehensive set of accessible form components built with semantic HTML and ARIA attributes. All form components use theme variables and support validation states.</p>
+  <AddComponentTabs componentName="FormGroup" />
 </section>
 
 <section>

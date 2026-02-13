@@ -1,6 +1,7 @@
 <script lang="ts">
   import Table from '../../Table.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const basicColumns = [
     { key: 'name', label: 'Name' },
@@ -43,6 +44,7 @@
 <section>
   <h2>Table component</h2>
   <p>An accessible data table for displaying tabular data. Supports column header sorting (click or Enter/Space), optional filter input to search across all columns, striped rows, and responsive horizontal scroll. Same styles and functionality as the <a href="/docs/components/table">Astro Table</a>.</p>
+  <AddComponentTabs componentName="Table" />
 
   <h3>Props</h3>
   <ul>

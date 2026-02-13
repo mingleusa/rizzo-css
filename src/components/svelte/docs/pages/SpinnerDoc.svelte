@@ -1,11 +1,13 @@
 <script lang="ts">
   import Spinner from '../../Spinner.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Spinner component</h2>
   <p>Respects reduced motion via CSS.</p>
+  <AddComponentTabs componentName="Spinner" />
 
   <h3>Sizes and variants</h3>
   <div class="example">

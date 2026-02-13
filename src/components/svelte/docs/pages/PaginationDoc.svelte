@@ -1,6 +1,7 @@
 <script lang="ts">
   import Pagination from '../../Pagination.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const docsPageTemplate = '/docs/svelte?page={page}';
 </script>
@@ -8,6 +9,7 @@
 <section>
   <h2>Pagination component</h2>
   <p>First/last links, ellipsis, and <code>hrefTemplate</code> for URLs.</p>
+  <AddComponentTabs componentName="Pagination" />
 
   <h3>Examples</h3>
   <div class="example">

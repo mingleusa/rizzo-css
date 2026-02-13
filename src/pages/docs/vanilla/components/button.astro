@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<button class="btn">Default</button>
 <button class="btn btn-primary">Primary</button>
@@ -16,7 +17,7 @@ const copyableHtml = `<button class="btn">Default</button>
   <section>
     <h2>Button</h2>
     <p>Semantic button with BEM classes. No JS required for static buttons.</p>
-
+    <AddComponentTabs componentName="Button" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

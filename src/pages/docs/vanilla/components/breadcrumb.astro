@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<nav class="breadcrumb breadcrumb--chevron" aria-label="Breadcrumb">
   <ol class="breadcrumb__list">
@@ -27,7 +28,7 @@ const copyableHtml = `<nav class="breadcrumb breadcrumb--chevron" aria-label="Br
   <section>
     <h2>Breadcrumb</h2>
     <p>Navigation breadcrumbs. BEM: <code>breadcrumb</code>, <code>breadcrumb__list</code>, <code>breadcrumb__item</code>, <code>breadcrumb__link</code>. Separators: <code>breadcrumb--slash</code>, <code>breadcrumb--arrow</code>, or default chevron.</p>
-
+    <AddComponentTabs componentName="Breadcrumb" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

@@ -2,6 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import PaginationComponent from '../../../../components/Pagination.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<nav class="pagination" aria-label="Pagination">
   <ul class="pagination__list">
@@ -69,7 +70,7 @@ const copyableHtmlEllipsis = `<nav class="pagination" aria-label="Pagination">
   <section>
     <h2>Pagination</h2>
     <p>Accessible pagination with Previous/Next, optional First/Last, page numbers, and ellipsis for long ranges. Same structure as <a href="/docs/components/pagination">Astro</a> and <a href="/docs/svelte/components/pagination">Svelte</a>.</p>
-
+    <AddComponentTabs componentName="Pagination" />
     <h3>Basic usage</h3>
     <p>Click any page; URL hash and current page stay in sync (<code>syncHash</code>).</p>
     <div class="example">

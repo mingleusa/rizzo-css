@@ -1,5 +1,6 @@
 <script lang="ts">
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   // Build code string so Svelte does not interpret {open} / {query} as expressions
   const o = '{open}';
@@ -72,6 +73,7 @@
 <section>
   <h2>Search component</h2>
   <p>An accessible search overlay with Algolia integration (or client-side fallback). The docs site uses the <strong>Astro</strong> Search in the layout. In a Svelte app, use the same BEM classes and data attributes; wire open/close state, <strong>Cmd+K</strong> / <strong>Ctrl+K</strong>, and your search API or Algolia client.</p>
+  <AddComponentTabs componentName="Search" />
 
   <h3>Live example</h3>
   <p>Search is in the navbar (top of page) — click the search icon or press <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd>. You can also use the <strong>standalone search above</strong> (same as navbar).</p>

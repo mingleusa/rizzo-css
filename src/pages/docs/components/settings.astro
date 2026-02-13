@@ -2,13 +2,14 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import Gear from '../../../components/icons/Gear.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
 	<section>
 		<h2>Settings Component</h2>
 		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
-		
+		<AddComponentTabs componentName="Settings" />
 		<h3>Features</h3>
 		<ul>
 			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons (persists in localStorage as <code>theme</code>)</li>

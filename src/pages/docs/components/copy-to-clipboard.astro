@@ -2,13 +2,16 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CopyToClipboard from '../../../components/CopyToClipboard.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="CopyToClipboard Component — Astro" description="Reusable component for copying text values to the clipboard with visual feedback">
 	<section>
 		<h2>CopyToClipboard Component</h2>
 		<p>A reusable component for copying text values to the clipboard with visual feedback.</p>
-		
+
+		<AddComponentTabs componentName="Copy to Clipboard" />
+
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<p>Click the button below to copy text:</p>

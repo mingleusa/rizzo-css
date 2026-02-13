@@ -1,6 +1,7 @@
 <script lang="ts">
   import Dropdown from '../../Dropdown.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const basicItems = [
     { label: 'Edit', value: 'edit', onClick: (v) => console.log('Action:', v) },
@@ -65,6 +66,7 @@
 <section>
   <h2>Dropdown component</h2>
   <p>An accessible dropdown menu component for displaying lists of actions or options. Supports menu items, separators, links, submenus, and click handlers. Matches the <a href="/docs/components/dropdown">Astro dropdown</a> in look and behavior.</p>
+  <AddComponentTabs componentName="Dropdown" />
 
   <h3>Basic usage</h3>
   <div class="example">

@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="toast-container toast-container--top-right">
   <div class="alert alert--info">Static toast message.</div>
@@ -13,7 +14,7 @@ const copyableHtml = `<div class="toast-container toast-container--top-right">
   <section>
     <h2>Toast</h2>
     <p>Fixed-position notifications. On this site <code>window.showToast</code> is provided by the layout. For your own app, implement a toast util or use the layout pattern.</p>
-
+    <AddComponentTabs componentName="Toast" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">

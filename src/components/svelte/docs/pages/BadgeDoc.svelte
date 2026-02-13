@@ -1,11 +1,13 @@
 <script lang="ts">
   import Badge from '../../Badge.svelte';
   import CodeBlock from '../CodeBlock.svelte';
+  import AddComponentTabs from '../AddComponentTabs.svelte';
 </script>
 
 <section>
   <h2>Badge component</h2>
   <p>Small labels and tags with variants, sizes, and optional pill style. BEM: <code>badge</code>, <code>badge--primary</code>, etc. Text on solid semantic variants (success, warning, error, info) uses the same contrast variables as buttons (<code>--success-text-on-solid</code>, etc.) for theme-aware readability.</p>
+  <AddComponentTabs componentName="Badge" />
 
   <h3>Props</h3>
   <ul>

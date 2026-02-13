@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
@@ -30,7 +31,7 @@ const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main nav
   <section>
     <h2>Navbar</h2>
     <p>Responsive, accessible navigation bar. Use the same BEM classes and structure in your HTML. For full markup and variants (including integrated settings, dropdowns, and mobile menu), copy from the Astro component docs.</p>
-
+    <AddComponentTabs componentName="Navbar" />
     <h3>HTML (minimal structure)</h3>
     <p>Copy the markup below as a starting point. Ensure Rizzo CSS is loaded. Wire search and settings with your own JS or use <code>window.openSettings()</code> if your layout provides it.</p>
     <CodeBlock code={copyableHtml} language="html" />

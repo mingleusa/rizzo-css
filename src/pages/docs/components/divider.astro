@@ -2,13 +2,16 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import DividerComponent from '../../../components/Divider.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Divider Component — Astro" description="Horizontal or vertical divider line with optional label">
 	<section>
 		<h2>Divider Component</h2>
 		<p>A simple divider for visually separating content. Supports horizontal (default) and vertical orientation, and an optional label (e.g. "OR") in the middle for horizontal dividers.</p>
-		
+
+		<AddComponentTabs componentName="Divider" />
+
 		<h3>Props</h3>
 		<ul>
 			<li><code>orientation</code> (string, optional) - <code>horizontal</code>, <code>vertical</code> (default: horizontal)</li>

@@ -5,15 +5,17 @@ import CodeBlock from './CodeBlock.astro';
 interface Props {
   /** CLI command suffix, e.g. "init", "add", "theme" (will be "rizzo-css <command>") */
   command: string;
+  /** Optional args to append (e.g. component name for add: "Button", "ThemeSwitcher") */
+  componentArg?: string;
   /** Optional default tab id (npm, pnpm, yarn, bun) */
   defaultTab?: string;
   /** Optional class for the wrapper */
   class?: string;
 }
 
-const { command, defaultTab = 'npm', class: className = '' } = Astro.props;
+const { command, componentArg, defaultTab = 'npm', class: className = '' } = Astro.props;
 
-const fullCommand = `rizzo-css ${command}`;
+const fullCommand = `rizzo-css ${command}${componentArg ? ' ' + componentArg : ''}`;
 const commands = {
   npm: `npx ${fullCommand}`,
   pnpm: `pnpm dlx ${fullCommand}`,

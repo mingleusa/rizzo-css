@@ -10,27 +10,47 @@ const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 const COMMANDS = ['init', 'add', 'theme', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
 
-/** Template options for "create new" when user chooses "Use a template". When they choose "No template" they get minimal base + hand-pick components. */
+/** Full = everything we ship. Minimal = recommended starting set. Manual = you choose. */
 const TEMPLATES = {
   vanilla: [
-    { value: 'full', label: 'Full — index.html + theme switcher, js/main.js, icons, README' },
-    { value: 'minimal', label: 'Minimal — index.html + CSS link only' },
+    { value: 'full', label: 'Full — index.html + theme switcher, js/main.js, icons, component showcase, README' },
+    { value: 'minimal', label: 'Minimal — index.html + CSS + js/main.js (recommended starter; no showcase)' },
+    { value: 'manual', label: 'Manual — index.html + CSS; pick components to add their pages + js/main.js' },
   ],
   astro: [
-    { value: 'minimal', label: 'Minimal — Astro with config, one page, README, LICENSE, .env.example' },
+    { value: 'full', label: 'Full — Astro app + all 25 components (config, one page, README, LICENSE, .env.example)' },
+    { value: 'minimal', label: 'Minimal — Astro app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
+    { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
   ],
   svelte: [
-    { value: 'minimal', label: 'Minimal — SvelteKit with config, one page, README, LICENSE, .env.example' },
+    { value: 'full', label: 'Full — SvelteKit app + all 25 components (config, one page, README, LICENSE, .env.example)' },
+    { value: 'minimal', label: 'Minimal — SvelteKit app + recommended components (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
+    { value: 'manual', label: 'Manual — minimal base + pick the components you want' },
   ],
 };
 
 const VANILLA_MINIMAL_README = `# Vanilla + Rizzo CSS (minimal)
 
-Minimal HTML + Rizzo CSS. Scaffolded with \`npx rizzo-css init --framework vanilla --template minimal\`.
+Minimal starter: HTML + CSS + js/main.js + recommended component pages. Scaffolded with \`npx rizzo-css init --framework vanilla --template minimal\`.
+
+- Open \`index.html\` in a browser or serve the folder. Edit \`index.html\` and add your content. CSS: \`css/rizzo.min.css\`. Script: \`js/main.js\` (already linked).
+- \`components/\` contains HTML pages for the recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown). Open \`components/index.html\` to browse them.
+- Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
+- For the full component showcase and icons, use template **Full** or copy from a Full scaffold.
+
+Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+`;
+
+const VANILLA_MANUAL_README = `# Vanilla + Rizzo CSS (manual)
+
+Manual setup: HTML + CSS, plus any component pages you chose. Scaffolded with \`npx rizzo-css init --framework vanilla --template manual\`.
 
 - Open \`index.html\` in a browser or serve the folder with any static server.
 - Edit \`index.html\` and add your content. CSS: \`css/rizzo.min.css\`.
+- If you picked components, \`components/\` has their HTML pages and \`js/main.js\` is included (open \`components/index.html\` to browse).
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
+
+**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`icons/\` into this project.
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 `;
@@ -79,10 +99,19 @@ const ASTRO_COMPONENTS = [
   'Modal', 'Toast', 'Table', 'ThemeSwitcher',
 ];
 
-// Recommended subset for "Recommended set" option (keeps CLI simple; power users can pick)
+// Recommended subset for Full/Minimal (same for Astro, Svelte, Vanilla)
 const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
+
+// Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug
+const VANILLA_COMPONENT_SLUGS = {
+  Button: 'button', Badge: 'badge', Card: 'cards', Divider: 'divider', Spinner: 'spinner', ProgressBar: 'progress-bar',
+  Avatar: 'avatar', Alert: 'alert', Breadcrumb: 'breadcrumb', FormGroup: 'forms', Input: 'forms', Checkbox: 'forms',
+  Textarea: 'forms', Select: 'forms', Radio: 'forms', CopyToClipboard: 'copy-to-clipboard', Tooltip: 'tooltip',
+  Pagination: 'pagination', Tabs: 'tabs', Accordion: 'accordion', Dropdown: 'dropdown', Modal: 'modal',
+  Toast: 'toast', Table: 'table', ThemeSwitcher: 'theme-switcher',
+};
 
 // ANSI colors for CLI (framework logo colors)
 const C = {
@@ -155,6 +184,19 @@ function getFlagValue(argv, flag) {
   return i !== -1 && argv[i + 1] != null ? argv[i + 1] : null;
 }
 
+/** Get positional args for a command (excludes --flag and --flag value). Used for e.g. add Button ThemeSwitcher. */
+function getPositionalArgs(argv) {
+  const positionals = [];
+  for (let i = 1; i < argv.length; i++) {
+    if (argv[i].startsWith('--')) {
+      if (!argv[i].includes('=')) i++;
+      continue;
+    }
+    positionals.push(argv[i]);
+  }
+  return positionals;
+}
+
 /** Package manager detection (manual: lockfiles + packageManager field). Returns { agent, command } or null if none found. */
 function detectPackageManager(cwd) {
   if (!cwd || !existsSync(cwd)) return null;
@@ -217,10 +259,10 @@ async function promptPackageManager(projectDir) {
   return selectMenu(options, '? Package manager (for install and run commands)');
 }
 
-/** Prompt user to select template for the chosen framework. Returns template value (full or minimal for Vanilla; minimal for Astro/Svelte). */
+/** Prompt user to select Full or Manual for the chosen framework. Returns 'full' or 'manual'. */
 async function promptTemplate(framework) {
   const options = TEMPLATES[framework] || TEMPLATES.vanilla;
-  return selectMenu(options, '? Template');
+  return selectMenu(options, '? Full or Manual?');
 }
 
 function question(prompt) {
@@ -504,15 +546,15 @@ Usage (use your package manager):
   bunx rizzo-css <command> [options]
 
 Commands:
-  init    New project = template (or no template → hand-pick components). Existing = drop in CSS + hand-pick. First: framework, then existing vs new.
+  init    New project = Full (everything) | Minimal (recommended set) | Manual (pick what you want). Existing = drop in CSS + hand-pick. First: framework, then existing vs new.
   add     Same as init → existing: drop in CSS + hand-pick components (framework detected or from rizzo-css.json)
   theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
 
 Options (init):
-  --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: minimal)
+  --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: full)
   --framework <fw>  vanilla | astro | svelte (with --yes; otherwise first prompt)
-  --template <t>    full | minimal (Vanilla); minimal only (Astro/Svelte); with --yes defaults to full or minimal
+  --template <t>    full | minimal | manual (all frameworks); with --yes defaults to full
   --install         After scaffolding, run package manager install (new project)
   --no-install      Do not run install
   --write-config    Write rizzo-css.json (targetDir, framework, packageManager) in the project
@@ -542,10 +584,11 @@ Examples:
   npx rizzo-css init
   npx rizzo-css init --yes --framework astro --install --write-config
   npx rizzo-css init --yes --framework vanilla
-  npx rizzo-css init --yes --framework svelte --template minimal
+  npx rizzo-css init --yes --framework svelte --template full
   npx rizzo-css add
+  npx rizzo-css add Button
+  npx rizzo-css add Button ThemeSwitcher --path public/css --framework svelte
   npx rizzo-css add --install-package
-  npx rizzo-css add --path public/css --framework svelte
   npx rizzo-css theme
 
 Docs: https://rizzo-css.vercel.app
@@ -652,10 +695,15 @@ async function cmdAdd(argv) {
   const explicitFramework = explicitFrameworkRaw && FRAMEWORKS.includes(explicitFrameworkRaw.toLowerCase()) ? explicitFrameworkRaw.toLowerCase() : null;
   const installPackage = hasFlag(argv, '--install-package');
   const noInstall = hasFlag(argv, '--no-install');
+  const positionals = getPositionalArgs(argv);
 
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
-  const options = { config, targetDir: customPath || (config && config.targetDir) || undefined };
+  const options = {
+    config,
+    targetDir: customPath || (config && config.targetDir) || undefined,
+    preselectedComponents: positionals.length > 0 ? positionals : undefined,
+  };
   await runAddToExisting(explicitFramework, options);
   if (installPackage && !noInstall) {
     const pm = (config && config.packageManager)
@@ -684,6 +732,61 @@ function getScaffoldVanillaIndex() {
 
 function getScaffoldVanillaIconsDir() {
   return join(getPackageRoot(), 'scaffold', 'vanilla', 'icons');
+}
+
+function getScaffoldVanillaComponentsDir() {
+  return join(getPackageRoot(), 'scaffold', 'vanilla', 'components');
+}
+
+/** Copy selected Vanilla component HTML files into projectDir/components/, with replacements. Writes a simple components/index.html. */
+function copyVanillaComponents(projectDir, selectedNames, replacements) {
+  const srcDir = getScaffoldVanillaComponentsDir();
+  if (!existsSync(srcDir)) return;
+  const linkHref = replacements['{{LINK_HREF}}'] || 'css/rizzo.min.css';
+  const slugsToCopy = [];
+  const seen = new Set();
+  for (const name of selectedNames) {
+    const slug = VANILLA_COMPONENT_SLUGS[name];
+    if (slug && !seen.has(slug)) {
+      seen.add(slug);
+      slugsToCopy.push(slug);
+    }
+  }
+  if (slugsToCopy.length === 0) return;
+  const destDir = join(projectDir, 'components');
+  mkdirSync(destDir, { recursive: true });
+  for (const slug of slugsToCopy) {
+    const src = join(srcDir, slug + '.html');
+    if (existsSync(src)) {
+      let content = readFileSync(src, 'utf8');
+      for (const [key, value] of Object.entries(replacements)) {
+        content = content.split(key).join(value);
+      }
+      writeFileSync(join(destDir, slug + '.html'), content, 'utf8');
+    }
+  }
+  const indexLinks = slugsToCopy.map((s) => '    <li><a href="' + s + '.html">' + s + '</a></li>').join('\n');
+  const indexHtml = `<!DOCTYPE html>
+<html lang="en" data-theme="${replacements['{{DATA_THEME}}'] || 'github-dark-classic'}">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Components</title>
+  <link rel="stylesheet" href="../${linkHref}" />
+</head>
+<body>
+  <main style="padding: var(--spacing-6); max-width: 60ch;">
+    <h1>Components</h1>
+    <ul>
+${indexLinks}
+    </ul>
+    <p><a href="../index.html">Back to index</a></p>
+  </main>
+  <script src="../js/main.js"></script>
+</body>
+</html>
+`;
+  writeFileSync(join(destDir, 'index.html'), indexHtml, 'utf8');
 }
 
 /** Copy Rizzo icons into the project for the given framework. */
@@ -855,14 +958,31 @@ async function runAddToExisting(frameworkOverride, options) {
     framework = await selectMenu(frameworkOptions, frameworkPrompt);
   }
 
-  const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
-  const selectedComponents = componentList.length > 0
-    ? await promptComponentChoice(componentList, framework)
-    : [];
+  const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : framework === 'vanilla' ? Object.keys(VANILLA_COMPONENT_SLUGS) : [];
+  const preselected = options.preselectedComponents && options.preselectedComponents.length > 0 ? options.preselectedComponents : null;
+  let selectedComponents;
+  if (preselected && componentList.length > 0) {
+    const valid = preselected.filter((c) => componentList.includes(c));
+    const invalid = preselected.filter((c) => !componentList.includes(c));
+    if (invalid.length > 0) {
+      console.log('Unknown or unsupported component name(s) (skipped): ' + invalid.join(', '));
+    }
+    selectedComponents = valid;
+    if (selectedComponents.length > 0) {
+      const n = selectedComponents.length;
+      console.log('Adding ' + n + ' component' + (n === 1 ? '' : 's') + ': ' + selectedComponents.join(', '));
+    }
+  } else if (preselected && componentList.length === 0) {
+    selectedComponents = [];
+  } else {
+    selectedComponents = componentList.length > 0
+      ? await promptComponentChoice(componentList, framework)
+      : [];
+  }
 
   let theme, defaultDark, defaultLight;
   const wantsThemeSwitcher = selectedComponents.includes('ThemeSwitcher');
-  if (wantsThemeSwitcher) {
+  if (wantsThemeSwitcher && !preselected) {
     const setDefaults = await selectMenu(
       [
         { value: true, label: 'Yes — choose default dark, default light, and initial theme' },
@@ -904,6 +1024,10 @@ async function runAddToExisting(frameworkOverride, options) {
     copySvelteComponents(cwd, selectedComponents);
   } else if (framework === 'astro' && selectedComponents.length > 0) {
     copyAstroComponents(cwd, selectedComponents);
+  } else if (framework === 'vanilla' && selectedComponents.length > 0) {
+    const linkHrefForVanilla = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
+    const vanillaRepl = { '{{LINK_HREF}}': linkHrefForVanilla, '{{DATA_THEME}}': theme };
+    copyVanillaComponents(cwd, selectedComponents, vanillaRepl);
   }
 
   const linkHref = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
@@ -935,6 +1059,9 @@ async function runAddToExisting(frameworkOverride, options) {
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
     console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: ' + cliExample + ')');
     console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
+    if (selectedComponents.length > 0) {
+      console.log('  Component HTML files are in components/.');
+    }
   }
   console.log('\nTo install the package (CLI + components): ' + pm.add('rizzo-css'));
   console.log('\nDocs: https://rizzo-css.vercel.app\n');
@@ -962,8 +1089,13 @@ async function cmdInit(argv) {
     framework = (frameworkArg && FRAMEWORKS.includes(frameworkArg.toLowerCase())) ? frameworkArg.toLowerCase() : (config && config.framework) || 'astro';
     initMode = 'new';
     const templateArg = getFlagValue(argv, '--template');
-    const rawTemplate = (templateArg && (templateArg === 'full' || templateArg === 'minimal')) ? templateArg : (framework === 'vanilla' ? 'full' : 'minimal');
-    selectedTemplate = rawTemplate;
+    selectedTemplate = (templateArg && (templateArg === 'full' || templateArg === 'minimal' || templateArg === 'manual')) ? templateArg : 'full';
+    if (selectedTemplate === 'full' && (framework === 'astro' || framework === 'svelte')) {
+      selectedComponents = framework === 'svelte' ? [...SVELTE_COMPONENTS] : [...ASTRO_COMPONENTS];
+    } else if (selectedTemplate === 'minimal' && (framework === 'astro' || framework === 'svelte')) {
+      const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : ASTRO_COMPONENTS;
+      selectedComponents = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
+    }
     const projectDir = cwd;
     const resolved = resolvePackageManager(projectDir, cwd);
     selectedPm = (config && config.packageManager) || resolved.agent || 'npm';
@@ -1002,44 +1134,28 @@ async function cmdInit(argv) {
     );
     name = projectChoice === 'name' ? await question('Project name (folder name): ') : '';
 
-    const templateOrHandpick = await selectMenu(
-      [
-        { value: 'template', label: 'Use a template (Full or Minimal — ready-made scaffold)' },
-        { value: 'handpick', label: 'No template — minimal base + hand-pick components' },
-      ],
-      '? Template or hand-pick components?'
-    );
+    selectedTemplate = await selectMenu(TEMPLATES[framework] || TEMPLATES.vanilla, '? Full, Minimal, or Manual?');
 
-    if (templateOrHandpick === 'template') {
-      selectedTemplate = await promptTemplate(framework);
-      const templateHasThemeSwitcher = framework === 'vanilla' && selectedTemplate === 'full';
-      if (templateHasThemeSwitcher) {
-        const themeOut = await promptThemes();
-        theme = themeOut.theme;
-        defaultDark = themeOut.defaultDark;
-        defaultLight = themeOut.defaultLight;
-      } else {
-        theme = 'system';
-        defaultDark = DARK_THEMES[0];
-        defaultLight = LIGHT_THEMES[0];
-      }
+    if (selectedTemplate === 'full' && (framework === 'astro' || framework === 'svelte')) {
+      selectedComponents = framework === 'svelte' ? [...SVELTE_COMPONENTS] : [...ASTRO_COMPONENTS];
+    } else if (selectedTemplate === 'minimal' && (framework === 'astro' || framework === 'svelte')) {
+      const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : ASTRO_COMPONENTS;
+      selectedComponents = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
+    } else if (selectedTemplate === 'manual') {
+      const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : ASTRO_COMPONENTS;
+      selectedComponents = await promptComponentChoice(componentList, framework);
+    }
+
+    const wantsThemeSwitcher = (framework === 'vanilla' && (selectedTemplate === 'full' || selectedTemplate === 'minimal')) || selectedComponents.includes('ThemeSwitcher');
+    if (wantsThemeSwitcher) {
+      const themeOut = await promptThemes();
+      theme = themeOut.theme;
+      defaultDark = themeOut.defaultDark;
+      defaultLight = themeOut.defaultLight;
     } else {
-      selectedTemplate = 'handpick';
-      const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : [];
-      selectedComponents = componentList.length > 0
-        ? await promptComponentChoice(componentList, framework)
-        : [];
-      const wantsThemeSwitcher = selectedComponents.includes('ThemeSwitcher');
-      if (wantsThemeSwitcher) {
-        const themeOut = await promptThemes();
-        theme = themeOut.theme;
-        defaultDark = themeOut.defaultDark;
-        defaultLight = themeOut.defaultLight;
-      } else {
-        theme = 'system';
-        defaultDark = DARK_THEMES[0];
-        defaultLight = LIGHT_THEMES[0];
-      }
+      theme = 'system';
+      defaultDark = DARK_THEMES[0];
+      defaultLight = LIGHT_THEMES[0];
     }
 
     const projectDirForPm = name ? join(cwd, name) : cwd;
@@ -1070,11 +1186,12 @@ async function cmdInit(argv) {
   const astroMinimalDir = getScaffoldAstroMinimalDir();
   const svelteMinimalDir = getScaffoldSvelteMinimalDir();
   const pathsForScaffold = getFrameworkCssPaths(framework);
-  const useHandpickAstro = selectedTemplate === 'handpick' && framework === 'astro' && existsSync(astroMinimalDir);
-  const useHandpickSvelte = selectedTemplate === 'handpick' && framework === 'svelte' && existsSync(svelteMinimalDir);
-  const useAstroMinimal = framework === 'astro' && selectedTemplate === 'minimal' && existsSync(astroMinimalDir);
-  const useSvelteMinimal = framework === 'svelte' && selectedTemplate === 'minimal' && existsSync(svelteMinimalDir);
-  const useVanillaFull = framework === 'vanilla' && selectedTemplate === 'full' && existsSync(getScaffoldVanillaIndex());
+  const useHandpickAstro = selectedTemplate === 'manual' && framework === 'astro' && existsSync(astroMinimalDir);
+  const useHandpickSvelte = selectedTemplate === 'manual' && framework === 'svelte' && existsSync(svelteMinimalDir);
+  const useAstroBase = (selectedTemplate === 'full' || selectedTemplate === 'minimal') && framework === 'astro' && existsSync(astroMinimalDir);
+  const useSvelteBase = (selectedTemplate === 'full' || selectedTemplate === 'minimal') && framework === 'svelte' && existsSync(svelteMinimalDir);
+  const useVanillaFull = selectedTemplate === 'full' && framework === 'vanilla' && existsSync(getScaffoldVanillaIndex());
+  const useVanillaMinimal = selectedTemplate === 'minimal' && framework === 'vanilla';
 
   let cssTarget;
   let indexPath;
@@ -1108,6 +1225,20 @@ async function cmdInit(argv) {
       copyRizzoIcons(projectDir, 'astro');
       copyAstroComponents(projectDir, selectedComponents);
     }
+  } else if (useAstroBase) {
+    mkdirSync(projectDir, { recursive: true });
+    copyDirRecursiveWithReplacements(astroMinimalDir, projectDir, replacements);
+    mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
+    cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+    copyFileSync(cssSource, cssTarget);
+    if (statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    copyPackageLicense(projectDir);
+    if (selectedComponents.length > 0) {
+      copyRizzoIcons(projectDir, 'astro');
+      copyAstroComponents(projectDir, selectedComponents);
+    }
   } else if (useHandpickSvelte) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(svelteMinimalDir, projectDir, replacements);
@@ -1122,17 +1253,7 @@ async function cmdInit(argv) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, selectedComponents);
     }
-  } else if (useAstroMinimal) {
-    mkdirSync(projectDir, { recursive: true });
-    copyDirRecursiveWithReplacements(astroMinimalDir, projectDir, replacements);
-    mkdirSync(join(projectDir, 'public', 'css'), { recursive: true });
-    cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
-    copyFileSync(cssSource, cssTarget);
-    if (statSync(cssTarget).size < 5000) {
-      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
-    }
-    copyPackageLicense(projectDir);
-  } else if (useSvelteMinimal) {
+  } else if (useSvelteBase) {
     mkdirSync(projectDir, { recursive: true });
     copyDirRecursiveWithReplacements(svelteMinimalDir, projectDir, replacements);
     mkdirSync(join(projectDir, 'static', 'css'), { recursive: true });
@@ -1142,6 +1263,10 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
+    if (selectedComponents.length > 0) {
+      copyRizzoIcons(projectDir, 'svelte');
+      copySvelteComponents(projectDir, selectedComponents);
+    }
   } else if (useVanillaFull) {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
@@ -1175,6 +1300,29 @@ async function cmdInit(argv) {
       writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
     }
     copyPackageLicense(projectDir);
+  } else if (useVanillaMinimal) {
+    const cssDir = join(projectDir, pathsForScaffold.targetDir);
+    cssTarget = join(cssDir, 'rizzo.min.css');
+    mkdirSync(cssDir, { recursive: true });
+    copyFileSync(cssSource, cssTarget);
+    if (statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    mkdirSync(join(projectDir, 'js'), { recursive: true });
+    const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
+    if (existsSync(vanillaJs)) {
+      let mainJs = readFileSync(vanillaJs, 'utf8');
+      mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+      writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
+    }
+    const vanillaRepl = { ...replacements, '{{LINK_HREF}}': 'css/rizzo.min.css' };
+    copyVanillaComponents(projectDir, RECOMMENDED_COMPONENTS, vanillaRepl);
+    copyRizzoIcons(projectDir, 'vanilla');
+    const minimalIndexWithScript = minimalHtml.replace('</body>', '  <script src="js/main.js"></script>\n</body>');
+    indexPath = join(projectDir, 'index.html');
+    writeFileSync(indexPath, minimalIndexWithScript, 'utf8');
+    writeFileSync(join(projectDir, 'README.md'), VANILLA_MINIMAL_README, 'utf8');
+    copyPackageLicense(projectDir);
   } else {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
@@ -1183,10 +1331,24 @@ async function cmdInit(argv) {
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
-    if (framework === 'vanilla') {
+    if (framework === 'vanilla' && selectedTemplate === 'manual') {
       indexPath = join(projectDir, 'index.html');
-      writeFileSync(indexPath, minimalHtml, 'utf8');
-      writeFileSync(join(projectDir, 'README.md'), VANILLA_MINIMAL_README, 'utf8');
+      let indexContent = minimalHtml;
+      if (selectedComponents.length > 0) {
+        mkdirSync(join(projectDir, 'js'), { recursive: true });
+        const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
+        if (existsSync(vanillaJs)) {
+          let mainJs = readFileSync(vanillaJs, 'utf8');
+          mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+          writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
+        }
+        const vanillaRepl = { ...replacements, '{{LINK_HREF}}': 'css/rizzo.min.css' };
+        copyVanillaComponents(projectDir, selectedComponents, vanillaRepl);
+        copyRizzoIcons(projectDir, 'vanilla');
+        indexContent = minimalHtml.replace('</body>', '  <script src="js/main.js"></script>\n</body>');
+      }
+      writeFileSync(indexPath, indexContent, 'utf8');
+      writeFileSync(join(projectDir, 'README.md'), VANILLA_MANUAL_README, 'utf8');
     } else if (framework === 'astro') {
       indexPath = join(projectDir, 'public', 'index.html');
       mkdirSync(join(projectDir, 'public'), { recursive: true });
@@ -1206,16 +1368,18 @@ async function cmdInit(argv) {
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
     if (useVanillaFull) {
-      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, README.');
+      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, README.');
+    } else if (useVanillaMinimal) {
+      console.log('  - Vanilla JS (minimal): index.html + CSS + js/main.js. Add components from docs or use Full for showcase.');
     } else {
-      console.log('  - Vanilla JS (minimal): index.html + CSS link. Open index.html in a browser or add your own app.');
+      console.log('  - Vanilla JS (manual): index.html + CSS only. Add JS from docs or copy from Full.');
     }
   }
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
   const runPrefix = name ? 'cd ' + name + ' && ' : '';
 
-  if (runInstallAfterScaffold && !noInstall && (useHandpickAstro || useHandpickSvelte || useAstroMinimal || useSvelteMinimal)) {
+  if (runInstallAfterScaffold && !noInstall && (useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase)) {
     console.log('\nRunning: ' + pm.install);
     const code = runInDir(projectDir, pm.install);
     if (code !== 0) {
@@ -1231,18 +1395,17 @@ async function cmdInit(argv) {
 
   if (useHandpickAstro || useHandpickSvelte) {
     const fw = useHandpickAstro ? 'Astro' : 'SvelteKit';
-    console.log('  - Minimal ' + fw + ' base + ' + selectedComponents.length + ' hand-picked component(s). Run: ' + runPrefix + nextStep);
+    console.log('  - ' + fw + ' (manual): base + ' + selectedComponents.length + ' component(s). Run: ' + runPrefix + nextStep);
   }
-  if (useAstroMinimal) {
-    console.log('  - Minimal Astro project (config, README, LICENSE, .env.example). Run: ' + runPrefix + nextStep);
+  if (useAstroBase) {
+    const label = selectedTemplate === 'full' ? 'Full' : 'Minimal';
+    console.log('  - Astro (' + label.toLowerCase() + '): app + ' + selectedComponents.length + ' component(s). Run: ' + runPrefix + nextStep);
   }
-  if (useSvelteMinimal) {
-    console.log('  - Minimal SvelteKit project (config, README, LICENSE, .env.example). Run: ' + runPrefix + nextStep);
+  if (useSvelteBase) {
+    const label = selectedTemplate === 'full' ? 'Full' : 'Minimal';
+    console.log('  - SvelteKit (' + label.toLowerCase() + '): app + ' + selectedComponents.length + ' component(s). Run: ' + runPrefix + nextStep);
   }
-  if (selectedTemplate === 'handpick' && framework === 'vanilla') {
-    console.log('  - Vanilla minimal base (index.html + CSS, README, LICENSE). No component files for Vanilla; use BEM markup from docs.');
-  }
-  if ((framework === 'astro' || framework === 'svelte') && !useAstroMinimal && !useSvelteMinimal && !useHandpickAstro && !useHandpickSvelte) {
+  if ((framework === 'astro' || framework === 'svelte') && !useAstroBase && !useSvelteBase && !useHandpickAstro && !useHandpickSvelte) {
     const fw = framework === 'svelte' ? 'Svelte' : 'Astro';
     const createExample = getCreateProjectExample(pm, framework);
     console.log('\n  - Minimal template (CSS + index). To get a full app: ' + createExample + ', then cd into the project and run ' + pm.dlx('rizzo-css add') + '.');

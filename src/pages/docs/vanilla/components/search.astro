@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import SearchComponent from '../../../../components/Search.astro';
 
 const copyableHtml = `<div class="search" data-search>
@@ -53,7 +54,7 @@ const copyableJs = `// Minimal: open/close on trigger and overlay, Cmd+K
   <section>
     <h2>Search</h2>
     <p>Search overlay with trigger, Cmd+K/Ctrl+K, and results panel. Same behavior as <a href="/docs/components/search">Astro</a> and <a href="/docs/svelte/components/search">Svelte</a>. Use the live example below or copy the HTML/JS.</p>
-
+    <AddComponentTabs componentName="Search" />
     <h3>Live example</h3>
     <p>Search is in the navbar (top of page) — click the search icon or press <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd>. You can also use the standalone search below.</p>
     <div class="example">

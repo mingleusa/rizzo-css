@@ -2,13 +2,16 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AvatarComponent from '../../../components/Avatar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 ---
 
 <DocsLayout title="Avatar Component — Astro" description="User avatar with image or initials fallback, sizes and shapes">
 	<section>
 		<h2>Avatar Component</h2>
 		<p>An accessible avatar for users: show a profile image when available, or initials derived from a name (or custom initials) when no image is provided. Supports multiple sizes and circle or square shape.</p>
-		
+
+		<AddComponentTabs componentName="Avatar" />
+
 		<h3>Props</h3>
 		<ul>
 			<li><code>src</code> (string, optional) - Image URL; when provided, the image is shown</li>

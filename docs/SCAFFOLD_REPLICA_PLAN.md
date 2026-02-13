@@ -12,7 +12,7 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 - **scaffold/astro/** — 25 Astro component files (Button, Badge, Card, etc.) for copy into a project.
 - **scaffold/svelte/** — 25 Svelte component files for copy into a project.
 
-**CLI:** `npx rizzo-css init` → framework → add to existing (CSS + hand-pick components) or create new. Create new → template (Vanilla: full or minimal; Astro/Svelte: minimal) or no template (minimal base + hand-pick). `npx rizzo-css add` = same as add to existing.
+**CLI:** `npx rizzo-css init` → framework → add to existing (CSS + hand-pick components) or create new. Create new → **Full**, **Minimal**, or **Manual** (per framework). `npx rizzo-css add` = same as add to existing.
 
 ## Build and publish
 

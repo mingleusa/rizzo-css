@@ -1,6 +1,7 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="tooltip-wrapper" aria-describedby="tip-1">
   <button type="button" class="btn btn-primary">Hover me</button>
@@ -12,7 +13,7 @@ const copyableHtml = `<div class="tooltip-wrapper" aria-describedby="tip-1">
   <section>
     <h2>Tooltip</h2>
     <p>Tooltip with trigger. Use <code>tooltip-wrapper</code> and <code>aria-describedby</code>; tooltip has <code>role="tooltip"</code>. Add JS for show/hide on focus/hover and positioning.</p>
-
+    <AddComponentTabs componentName="Tooltip" />
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">
