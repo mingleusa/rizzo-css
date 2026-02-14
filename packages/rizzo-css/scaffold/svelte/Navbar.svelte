@@ -1,5 +1,7 @@
 <script lang="ts">
   import Cat from './icons/Cat.svelte';
+  import Gear from './icons/Gear.svelte';
+  import Search from './Search.svelte';
 
   interface Props {
     siteName?: string;
@@ -20,6 +22,13 @@
         {/if}
         {siteName}
       </a>
+    </div>
+    <div class="navbar__actions-desktop">
+      <Search id="search-navbar" />
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+        <Gear width={20} height={20} class="navbar__settings-icon" />
+        <span class="navbar__settings-label">Settings</span>
+      </button>
     </div>
     <button
       type="button"

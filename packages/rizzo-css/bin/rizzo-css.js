@@ -58,7 +58,7 @@ Manual setup: HTML + CSS, plus any component pages you chose. Scaffolded with \`
 - If you picked components, \`components/\` has their HTML pages and \`js/main.js\` is included (open \`components/index.html\` to browse).
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
 
-**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`icons/\` into this project.
+**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, search, navbar, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`icons/\` into this project.
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 `;
@@ -114,7 +114,7 @@ const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
 
-// Vanilla components that need js/main.js for interactivity (modal, dropdown, tabs, toast, theme switcher).
+// Vanilla components that need js/main.js for interactivity (modal, dropdown, tabs, toast, search, navbar mobile, theme switcher).
 const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher'];
 
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
@@ -465,7 +465,7 @@ async function confirmRunInstall(pm) {
 
 /** Ask user to copy js/main.js for vanilla interactive components. */
 async function confirmCopyVanillaJs() {
-  const answer = await question('\nCopy js/main.js for modal, dropdown, tabs, toast, theme switcher? (Y/n) ');
+  const answer = await question('\nCopy js/main.js for modal, dropdown, tabs, toast, search, navbar mobile, theme switcher? (Y/n) ');
   return answer === '' || /^y(es)?$/i.test(answer);
 }
 
@@ -811,7 +811,7 @@ Options (add):
   --no-snippet      Do not write RIZZO-SNIPPET.txt (link + theme copy-paste)
   --readme          Write README-RIZZO.md into the project
   --force           Overwrite existing rizzo.min.css without prompting
-  --vanilla-js      (Vanilla) Copy js/main.js for interactive components (modal, dropdown, tabs, toast, theme switcher)
+  --vanilla-js      (Vanilla) Copy js/main.js for interactive components (modal, dropdown, tabs, toast, search, navbar, theme switcher)
 
 Package managers:
   Supported: npm, pnpm, yarn, bun. Detection: lockfiles (pnpm-lock.yaml, yarn.lock, bun.lockb, package-lock.json) or package.json "packageManager"/"devEngines.packageManager". Use --package-manager to override.
@@ -1465,7 +1465,7 @@ async function runAddToExisting(frameworkOverride, options) {
         let mainJs = readFileSync(vanillaJsSrc, 'utf8');
         mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
         writeFileSync(vanillaJsPath, mainJs, 'utf8');
-        console.log('  - Wrote js/main.js (for modal, dropdown, tabs, toast, theme switcher)');
+        console.log('  - Wrote js/main.js (for modal, dropdown, tabs, toast, search, navbar mobile, theme switcher)');
       }
     } else if (needsJs && !existsSync(vanillaJsPath)) {
       options._vanillaJsHint = true;
@@ -1526,7 +1526,7 @@ async function runAddToExisting(frameworkOverride, options) {
     console.log('  data-theme="' + theme + '" on <html> (themes: ' + cliExample + ')');
     console.log('  Component HTML files are in components/.');
     if (options._vanillaJsHint) {
-      console.log('  For interactive components (modal, dropdown, tabs, toast, theme switcher), add js/main.js — run again with --vanilla-js or copy from a Full scaffold.');
+      console.log('  For interactive components (modal, dropdown, tabs, toast, search, navbar, theme switcher), add js/main.js — run again with --vanilla-js or copy from a Full scaffold.');
     }
   }
   console.log('\nTo install the package: ' + pm.add('rizzo-css'));

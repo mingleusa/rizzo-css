@@ -51,6 +51,18 @@
   <header class="container flex flex-wrap items-center justify-between gap-4" style="padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--border);">
     <a href="#" class="font-semibold" style="font-size: var(--font-size-lg); color: var(--text); text-decoration: none;">{{TITLE}}</a>
     <div class="flex items-center gap-3 flex-wrap">
+      <div class="search" data-search>
+        <div class="search__trigger-wrapper">
+          <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-header-panel">
+            <span class="search__trigger-text">Search</span>
+          </button>
+        </div>
+        <div class="search__overlay" id="search-header-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+          <div class="search__panel">
+            <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+          </div>
+        </div>
+      </div>
       <label for="theme-select" class="sr-only">Theme</label>
       <select id="theme-select" class="form-control" style="width: auto; min-width: 12rem;" aria-label="Theme">
         <option value="system">System</option>
@@ -233,12 +245,16 @@
   
   
   
+  
+  
   <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">
     <h1 style="font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-4) 0; color: var(--text);">Toast</h1>
     <p style="color: var(--text-dim); margin-bottom: var(--spacing-4);">Read the full docs for this component on the main site:</p>
     <p><a href="https://rizzo-css.vercel.app/docs/components/toast" target="_blank" rel="noopener noreferrer" class="btn btn-primary">https://rizzo-css.vercel.app/docs/components/toast</a></p>
     <p style="margin-top: var(--spacing-8);"><a href="index.html" class="btn btn-outline">← Component list</a> <a href="../index.html" class="btn btn-outline">Home</a></p>
   </main>
+
+
 
 
 

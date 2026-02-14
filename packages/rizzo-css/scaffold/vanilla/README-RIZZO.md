@@ -13,7 +13,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.29`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.30`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -22,12 +22,12 @@ The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}
 - **Home** — `index.html` (hero, links to component showcase and docs). Edit the main content or add your own.
 - **Component showcase** — `components/index.html` lists all components; `components/<name>.html` (e.g. `button.html`) each has a "Read the full docs" link to the main site. Edit or add HTML files; keep the same header/footer if you want the theme switcher and settings on every page.
 - **CSS** — The CLI copies `css/rizzo.min.css`; the link uses `{{LINK_HREF}}` (replaced at init). To use a CDN, replace that with the CDN URL.
-- **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion. Customize or extend as needed.
+- **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion, search (overlay), and navbar mobile menu. Customize or extend as needed.
 
 ## What's included
 
 - **Theme flash prevention** — Small inline script in `<head>` applies saved theme and settings before first paint.
-- **js/main.js** — Bundled vanilla JS for components (loaded via `<script src="js/main.js"></script>`):
+- **js/main.js** — Bundled vanilla JS for interactive components (loaded via `<script src="js/main.js"></script>`):
   - **Theme** — Header and settings theme selects; `localStorage` key `theme`; system preference listener.
   - **Settings panel** — `openSettings()`; font size, reduce motion, high contrast, scrollbar style; focus trap and Escape to close.
   - **Toast** — `showToast(message, options)`, `removeToast(id)`, `removeAllToasts()` on `window`.
@@ -35,6 +35,8 @@ The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}
   - **Modal** — Dialogs with `[data-modal-close]` and overlay `#id-overlay`; use `[data-modal-open="modalId"]` on a button to open; `openModal_*` / `closeModal_*` on `window` (id with hyphens replaced by underscores).
   - **Dropdown** — Any `[data-dropdown]` with `.dropdown__trigger` and `.dropdown__menu` (and optional submenus).
   - **Accordion** — Any `[data-accordion]` with `[data-accordion-trigger]` and panels; `data-allow-multiple="true"` for multiple open.
+  - **Search** — Any `[data-search]` with `.search__trigger`, `[data-search-overlay]`, `.search__panel`, and `.search__input`; trigger toggles overlay, Escape or overlay click closes.
+  - **Navbar** — Mobile menu: `.navbar__toggle` toggles `.navbar__menu`; Escape closes.
 
 ## Commands
 

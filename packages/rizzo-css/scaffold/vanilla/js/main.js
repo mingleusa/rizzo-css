@@ -1,6 +1,6 @@
 /**
  * Rizzo CSS — Vanilla JS component bundle
- * Theme, toast, settings, tabs, modal, dropdown, accordion.
+ * Theme, toast, settings, tabs, modal, dropdown, accordion, search, navbar (mobile).
  * Load this script after the DOM (e.g. before </body>).
  */
 (function () {
@@ -731,6 +731,41 @@
     document.querySelectorAll('[data-accordion]').forEach(initOne);
   }
 
+  // --- Search: [data-search] — trigger opens overlay, overlay click or Escape closes
+  function initSearch() {
+    document.querySelectorAll('[data-search]').forEach(function (search) {
+      if (search.getAttribute('data-search-inited') === 'true') return;
+      search.setAttribute('data-search-inited', 'true');
+      var trigger = search.querySelector('.search__trigger');
+      var overlay = search.querySelector('[data-search-overlay]');
+      var panel = search.querySelector('.search__panel');
+      var input = search.querySelector('.search__input');
+      if (!trigger || !overlay || !panel || !input) return;
+      var previousActive = null;
+      function openSearch() {
+        previousActive = document.activeElement;
+        overlay.setAttribute('aria-hidden', 'false');
+        trigger.setAttribute('aria-expanded', 'true');
+        input.focus();
+      }
+      function closeSearch() {
+        overlay.setAttribute('aria-hidden', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        if (previousActive && typeof previousActive.focus === 'function') previousActive.focus();
+        previousActive = null;
+      }
+      trigger.addEventListener('click', function () {
+        if (overlay.getAttribute('aria-hidden') === 'true') openSearch(); else closeSearch();
+      });
+      overlay.addEventListener('click', function (e) {
+        if (e.target === overlay) closeSearch();
+      });
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
+      });
+    });
+  }
+
   function initNavbarMobile() {
     document.querySelectorAll('.navbar').forEach(function (navbar) {
       var toggle = navbar.querySelector('.navbar__toggle');
@@ -770,6 +805,7 @@
     initModals();
     initDropdowns();
     initAccordions();
+    initSearch();
     initNavbarMobile();
   }
 
