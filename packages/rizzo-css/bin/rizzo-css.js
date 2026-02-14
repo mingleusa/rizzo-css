@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync, statSync } = require('fs');
+const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync, statSync, unlinkSync } = require('fs');
 const { join, dirname } = require('path');
 const { spawnSync } = require('child_process');
 const readline = require('readline');
@@ -10,8 +10,10 @@ const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 const SCAFFOLD_README_FILENAME = 'README-RIZZO.md';
 /** Scaffold license filename; avoids overwriting an existing project LICENSE. */
 const SCAFFOLD_LICENSE_FILENAME = 'LICENSE-RIZZO';
+/** Snippet file written by add command for copy-paste of link and theme. */
+const RIZZO_SNIPPET_FILE = 'RIZZO-SNIPPET.txt';
 
-const COMMANDS = ['init', 'add', 'theme', 'help'];
+const COMMANDS = ['init', 'add', 'theme', 'doctor', 'help'];
 const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
 /** Supported package managers: detection, install/add commands, and --package-manager override. */
 const VALID_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'];
@@ -111,6 +113,9 @@ const ASTRO_COMPONENTS = [
 const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
 ];
+
+// Vanilla components that need js/main.js for interactivity (modal, dropdown, tabs, toast, theme switcher).
+const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher'];
 
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
 // Manual users can run: npx rizzo-css help components
@@ -271,31 +276,38 @@ function copyPackageLicense(projectDir) {
   }
 }
 
-/** Copy scaffold vanilla .gitignore into project so new vanilla projects have sensible defaults. */
+/** Name of the scaffold gitignore file (no leading dot so npm pack includes it). Copied to project as .gitignore. */
+const SCAFFOLD_GITIGNORE_FILE = 'gitignore';
+
+/** Copy scaffold vanilla gitignore into project as .gitignore so new vanilla projects have sensible defaults. */
 function copyVanillaGitignore(projectDir) {
-  const gitignorePath = join(getPackageRoot(), 'scaffold', 'vanilla', '.gitignore');
+  const gitignorePath = join(getPackageRoot(), 'scaffold', 'vanilla', SCAFFOLD_GITIGNORE_FILE);
   if (existsSync(gitignorePath)) {
     copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
   }
 }
 
-/** Copy Astro minimal scaffold .gitignore into project (full and minimal templates). */
+/** Copy Astro minimal scaffold gitignore into project as .gitignore (full and minimal templates). */
 function copyAstroGitignore(projectDir) {
-  const gitignorePath = join(getScaffoldAstroMinimalDir(), '.gitignore');
+  const gitignorePath = join(getScaffoldAstroMinimalDir(), SCAFFOLD_GITIGNORE_FILE);
   if (existsSync(gitignorePath)) {
     copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+    const copiedAsFile = join(projectDir, SCAFFOLD_GITIGNORE_FILE);
+    if (existsSync(copiedAsFile)) unlinkSync(copiedAsFile);
   }
 }
 
-/** Copy Svelte minimal scaffold .gitignore into project (full and minimal templates). */
+/** Copy Svelte minimal scaffold gitignore into project as .gitignore (full and minimal templates). */
 function copySvelteGitignore(projectDir) {
-  const gitignorePath = join(getScaffoldSvelteMinimalDir(), '.gitignore');
+  const gitignorePath = join(getScaffoldSvelteMinimalDir(), SCAFFOLD_GITIGNORE_FILE);
   if (existsSync(gitignorePath)) {
     copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+    const copiedAsFile = join(projectDir, SCAFFOLD_GITIGNORE_FILE);
+    if (existsSync(copiedAsFile)) unlinkSync(copiedAsFile);
   }
 }
 
-/** Read rizzo-css.json from cwd. Returns { targetDir?, framework?, packageManager? } or null. */
+/** Read rizzo-css.json from cwd. Returns { targetDir?, framework?, packageManager?, theme? } or null. Preserves unknown keys. */
 function readRizzoConfig(cwd) {
   if (!cwd || !existsSync(cwd)) return null;
   const configPath = join(cwd, RIZZO_CONFIG_FILE);
@@ -306,6 +318,7 @@ function readRizzoConfig(cwd) {
     if (typeof raw.targetDir === 'string') out.targetDir = raw.targetDir;
     if (typeof raw.framework === 'string' && FRAMEWORKS.includes(raw.framework)) out.framework = raw.framework;
     if (typeof raw.packageManager === 'string' && ['npm', 'pnpm', 'yarn', 'bun'].includes(raw.packageManager)) out.packageManager = raw.packageManager;
+    if (typeof raw.theme === 'string') out.theme = raw.theme;
     return Object.keys(out).length ? out : null;
   } catch (_) { return null; }
 }
@@ -324,6 +337,7 @@ function writeRizzoConfig(cwd, config) {
   if (config.targetDir != null) obj.targetDir = config.targetDir;
   if (config.framework != null) obj.framework = config.framework;
   if (config.packageManager != null) obj.packageManager = config.packageManager;
+  if (config.theme != null) obj.theme = config.theme;
   writeFileSync(configPath, JSON.stringify(obj, null, 2) + '\n', 'utf8');
 }
 
@@ -447,6 +461,24 @@ function question(prompt) {
 async function confirmRunInstall(pm) {
   const answer = await question('\nRun ' + pm.install + ' now? (Y/n) ');
   return answer === '' || /^y(es)?$/i.test(answer);
+}
+
+/** Ask user to copy js/main.js for vanilla interactive components. */
+async function confirmCopyVanillaJs() {
+  const answer = await question('\nCopy js/main.js for modal, dropdown, tabs, toast, theme switcher? (Y/n) ');
+  return answer === '' || /^y(es)?$/i.test(answer);
+}
+
+/** True if directory looks like an existing project (has package.json, src/, or index.html). */
+function isDirNonEmpty(dir) {
+  if (!dir || !existsSync(dir)) return false;
+  return existsSync(join(dir, 'package.json')) || existsSync(join(dir, 'src')) || existsSync(join(dir, 'index.html'));
+}
+
+/** Ask user to confirm creating in a non-empty directory. */
+async function confirmNonEmptyDir(projectDir) {
+  const answer = await question('\nCurrent directory is not empty. Continue? (y/N) ');
+  return /^y(es)?$/i.test(answer);
 }
 
 /** Format label with optional ANSI color (item.color). */
@@ -740,12 +772,13 @@ function printHelp() {
   console.log(`
 rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 
-Available commands: init, add, theme, help
+Available commands: init, add, theme, doctor, help
 
 Flags summary:
   init   --yes  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install
-  add    --path <dir>  --framework <fw>  --package-manager <pm>  --install-package  --no-install
+  add    --path <dir>  --framework <fw>  ...  --no-snippet  --readme  --force  --vanilla-js
   theme  (no flags)
+  doctor Check config, CSS file, and optional layout link
   help   (no flags)
 
 Usage (use your package manager):
@@ -775,6 +808,10 @@ Options (add):
   --package-manager <pm>  npm | pnpm | yarn | bun (override detection for install/print commands)
   --install-package  After copying CSS, run package manager add rizzo-css
   --no-install      Do not run install or add (overrides --install-package)
+  --no-snippet      Do not write RIZZO-SNIPPET.txt (link + theme copy-paste)
+  --readme          Write README-RIZZO.md into the project
+  --force           Overwrite existing rizzo.min.css without prompting
+  --vanilla-js      (Vanilla) Copy js/main.js for interactive components (modal, dropdown, tabs, toast, theme switcher)
 
 Package managers:
   Supported: npm, pnpm, yarn, bun. Detection: lockfiles (pnpm-lock.yaml, yarn.lock, bun.lockb, package-lock.json) or package.json "packageManager"/"devEngines.packageManager". Use --package-manager to override.
@@ -841,6 +878,11 @@ Dependencies (when you pick the component on the left, the right is added automa
 ThemeSwitcher and ThemeIcon: when selected, themes.ts (and Svelte theme.ts) is copied so they work.
 Icons: copied whenever you add any component.
 
+Where components are copied:
+  Astro   → src/components/rizzo/   (import from there)
+  Svelte  → src/lib/rizzo/          (import from '$lib/rizzo')
+  Vanilla → components/ (HTML)     (for interactivity add js/main.js; use --vanilla-js on add)
+
   Full     = all components above; dependencies are included so everything works.
   Minimal  = recommended set; any component in that set that requires others gets them.
   Manual   = you pick; the picker shows e.g. "Settings (adds ThemeSwitcher)". Required deps are added when you confirm.
@@ -855,6 +897,45 @@ function cmdTheme() {
   process.stdout.write('\nLight themes:\n');
   LIGHT_THEMES.forEach((t) => process.stdout.write('  ' + t + '\n'));
   process.stdout.write('\nExample: <html lang="en" data-theme="github-dark-classic">\n\n');
+}
+
+/** Check project for Rizzo CSS: config, CSS file, optional link in layout. */
+function cmdDoctor() {
+  const cwd = process.cwd();
+  const config = readRizzoConfig(cwd);
+  console.log('\nRizzo CSS doctor\n');
+  let ok = true;
+  if (!config) {
+    console.log('  ✗ No ' + RIZZO_CONFIG_FILE + '. Run: npx rizzo-css add or init');
+    ok = false;
+  } else {
+    console.log('  ✓ ' + RIZZO_CONFIG_FILE + ' (framework: ' + (config.framework || '?') + ')');
+    const fw = config.framework || 'vanilla';
+    const paths = getFrameworkCssPaths(fw);
+    const targetDir = (config.targetDir || paths.targetDir);
+    const cssPath = fw === 'astro' ? join(cwd, 'public', 'css', 'rizzo.min.css') : fw === 'svelte' ? join(cwd, 'static', 'css', 'rizzo.min.css') : join(cwd, targetDir, 'rizzo.min.css');
+    if (!existsSync(cssPath)) {
+      console.log('  ✗ CSS not found at ' + cssPath);
+      ok = false;
+    } else {
+      console.log('  ✓ CSS at ' + cssPath);
+    }
+    const layoutPaths = fw === 'svelte' ? ['src/app.html'] : fw === 'astro' ? ['src/layouts/Layout.astro', 'src/layouts/BaseLayout.astro'] : [];
+    for (const lp of layoutPaths) {
+      const full = join(cwd, lp);
+      if (existsSync(full)) {
+        const content = readFileSync(full, 'utf8');
+        if (!content.includes('rizzo') && !content.includes('rizzo.min.css')) {
+          console.log('  ? Layout ' + lp + ' may not include the stylesheet — add <link rel="stylesheet" href="' + (fw === 'svelte' ? '/css/rizzo.min.css' : '/css/rizzo.min.css') + '" />');
+        } else {
+          console.log('  ✓ Layout ' + lp + ' includes Rizzo link');
+        }
+        break;
+      }
+    }
+  }
+  if (config && config.theme) console.log('  Theme (from config): ' + config.theme);
+  console.log(ok ? '\nAll checks passed.\n' : '\nFix the items above, then run your dev server.\n');
 }
 
 /** Prompt for default dark theme, default light theme, and initial theme. Returns { theme, defaultDark, defaultLight }. */
@@ -974,6 +1055,10 @@ async function cmdAdd(argv) {
   const explicitFramework = explicitFrameworkRaw && FRAMEWORKS.includes(explicitFrameworkRaw.toLowerCase()) ? explicitFrameworkRaw.toLowerCase() : null;
   const installPackage = hasFlag(argv, '--install-package');
   const noInstall = hasFlag(argv, '--no-install');
+  const writeSnippet = !hasFlag(argv, '--no-snippet');
+  const writeReadme = hasFlag(argv, '--readme');
+  const force = hasFlag(argv, '--force');
+  const copyVanillaJs = hasFlag(argv, '--vanilla-js');
   const positionals = getPositionalArgs(argv);
 
   const cwd = process.cwd();
@@ -984,6 +1069,10 @@ async function cmdAdd(argv) {
     targetDir: customPath || (config && config.targetDir) || undefined,
     packageManager: pmOverride || undefined,
     preselectedComponents: positionals.length > 0 ? positionals : undefined,
+    writeSnippet,
+    writeReadme,
+    force,
+    copyVanillaJs,
   };
   await runAddToExisting(explicitFramework, options);
   if (installPackage && !noInstall) {
@@ -1320,17 +1409,37 @@ async function runAddToExisting(frameworkOverride, options) {
   const targetDirRaw = (options && options.targetDir) || (config && config.targetDir) || paths.targetDir;
   let cssTarget;
   if (framework === 'astro') {
-    copyRizzoCssAndFontsForAstro(cwd, cssSource);
     cssTarget = join(cwd, 'public', 'css', 'rizzo.min.css');
   } else if (framework === 'svelte') {
-    copyRizzoCssAndFontsForSvelte(cwd, cssSource);
     cssTarget = join(cwd, 'static', 'css', 'rizzo.min.css');
   } else {
     const targetDir = join(cwd, targetDirRaw);
     cssTarget = join(targetDir, 'rizzo.min.css');
-    mkdirSync(targetDir, { recursive: true });
-    copyFileSync(cssSource, cssTarget);
-    copyRizzoFonts(targetDir);
+  }
+  const cssExists = existsSync(cssTarget);
+  if (cssExists && !options.force) {
+    const answer = await question('\nCSS already exists at ' + cssTarget + '. Overwrite? (y/N) ');
+    if (answer !== '' && !/^y(es)?$/i.test(answer)) {
+      console.log('Skipping CSS copy. Updating config and components only.');
+    } else {
+      options._overwriteCss = true;
+    }
+  } else if (cssExists && options.force) {
+    options._overwriteCss = true;
+  } else {
+    options._overwriteCss = true;
+  }
+  if (options._overwriteCss) {
+    if (framework === 'astro') {
+      copyRizzoCssAndFontsForAstro(cwd, cssSource);
+    } else if (framework === 'svelte') {
+      copyRizzoCssAndFontsForSvelte(cwd, cssSource);
+    } else {
+      const targetDir = join(cwd, targetDirRaw);
+      mkdirSync(targetDir, { recursive: true });
+      copyFileSync(cssSource, cssTarget);
+      copyRizzoFonts(dirname(cssTarget));
+    }
   }
 
   copyRizzoIcons(cwd, framework);
@@ -1346,6 +1455,20 @@ async function runAddToExisting(frameworkOverride, options) {
     const linkHrefForVanilla = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
     const vanillaRepl = { '{{LINK_HREF}}': linkHrefForVanilla, '{{DATA_THEME}}': theme };
     copyVanillaComponents(cwd, selectedComponents, vanillaRepl);
+    const needsJs = selectedComponents.some((c) => VANILLA_JS_COMPONENTS.includes(c));
+    const vanillaJsPath = join(cwd, 'js', 'main.js');
+    if (needsJs && !existsSync(vanillaJsPath) && (options.copyVanillaJs || (!preselected && (await confirmCopyVanillaJs())))) {
+      const vanillaJsSrc = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
+      if (existsSync(vanillaJsSrc)) {
+        mkdirSync(join(cwd, 'js'), { recursive: true });
+        let mainJs = readFileSync(vanillaJsSrc, 'utf8');
+        mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+        writeFileSync(vanillaJsPath, mainJs, 'utf8');
+        console.log('  - Wrote js/main.js (for modal, dropdown, tabs, toast, theme switcher)');
+      }
+    } else if (needsJs && !existsSync(vanillaJsPath)) {
+      options._vanillaJsHint = true;
+    }
   }
 
   const linkHref = (framework === 'astro' || framework === 'svelte') ? paths.linkHref : ((options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref);
@@ -1357,38 +1480,56 @@ async function runAddToExisting(frameworkOverride, options) {
       : resolvePackageManager(cwd);
   const cliExample = pm.dlx('rizzo-css theme');
   const configTargetDir = framework === 'astro' ? 'public/css' : framework === 'svelte' ? 'static/css' : targetDirRaw;
-  writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent });
+  writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent, theme });
+  const writeSnippet = options.writeSnippet !== false;
+  if (writeSnippet) {
+    const where = framework === 'svelte' ? 'Root layout (e.g. src/app.html)' : framework === 'astro' ? 'Layout (e.g. src/layouts/Layout.astro)' : 'HTML or layout';
+    const snippetBody = [
+      'Add to ' + where + ':',
+      '',
+      '  <link rel="stylesheet" href="' + linkHref + '" />',
+      '',
+      'On <html>: data-theme="' + theme + '"',
+      'Themes: ' + cliExample,
+    ].join('\n');
+    writeFileSync(join(cwd, RIZZO_SNIPPET_FILE), snippetBody + '\n', 'utf8');
+  }
+  if (options.writeReadme) {
+    const readmePath = join(getPackageRoot(), 'scaffold', 'vanilla', SCAFFOLD_README_FILENAME);
+    if (existsSync(readmePath)) {
+      copyFileSync(readmePath, join(cwd, SCAFFOLD_README_FILENAME));
+    }
+  }
   console.log('\n✓ Rizzo CSS added to your existing project');
   console.log('  - ' + cssTarget);
   console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
+  if (writeSnippet) console.log('  - Wrote ' + RIZZO_SNIPPET_FILE + ' (copy-paste link + theme)');
+  if (options.writeReadme) console.log('  - Wrote ' + SCAFFOLD_README_FILENAME);
   console.log('\nYou must add the stylesheet link yourself — it is not added automatically.');
-  if (framework === 'svelte') {
+  if (selectedComponents.length === 0) {
+    console.log('\n  <link rel="stylesheet" href="' + linkHref + '" />');
+    console.log('  data-theme="' + theme + '" on <html> — list themes: ' + cliExample);
+  } else if (framework === 'svelte') {
     console.log('\nIn your root layout (e.g. src/app.html), add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: ' + cliExample + ')');
-    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
-    if (selectedComponents.length > 0) {
-      console.log('  Components are in src/lib/rizzo — import from \'$lib/rizzo\'.');
-    }
+    console.log('  data-theme="' + theme + '" on <html> (themes: ' + cliExample + ')');
+    console.log('  Components: src/lib/rizzo — import from \'$lib/rizzo\'.');
   } else if (framework === 'astro') {
     console.log('\nIn your layout (e.g. src/layouts/Layout.astro), add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: ' + cliExample + ')');
-    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
-    if (selectedComponents.length > 0) {
-      console.log('  Components are in src/components/rizzo — import from there.');
-    }
+    console.log('  data-theme="' + theme + '" on <html> (themes: ' + cliExample + ')');
+    console.log('  Components: src/components/rizzo — import from there.');
   } else {
     console.log('\nIn your HTML or layout, add:');
     console.log('  <link rel="stylesheet" href="' + linkHref + '" />');
-    console.log('\nSet a theme on <html>: data-theme="' + theme + '" (see: ' + cliExample + ')');
-    console.log('  For theme "system": default dark ' + defaultDark + ', default light ' + defaultLight);
-    if (selectedComponents.length > 0) {
-      console.log('  Component HTML files are in components/.');
+    console.log('  data-theme="' + theme + '" on <html> (themes: ' + cliExample + ')');
+    console.log('  Component HTML files are in components/.');
+    if (options._vanillaJsHint) {
+      console.log('  For interactive components (modal, dropdown, tabs, toast, theme switcher), add js/main.js — run again with --vanilla-js or copy from a Full scaffold.');
     }
   }
-  console.log('\nTo install the package (CLI + components): ' + pm.add('rizzo-css'));
-  console.log('\nDocs: https://rizzo-css.vercel.app\n');
+  console.log('\nTo install the package: ' + pm.add('rizzo-css'));
+  console.log('\nNext: add the link above, then run your dev server. Docs: https://rizzo-css.vercel.app\n');
 }
 
 async function cmdInit(argv) {
@@ -1412,7 +1553,8 @@ async function cmdInit(argv) {
     framework = (frameworkArg && FRAMEWORKS.includes(frameworkArg.toLowerCase())) ? frameworkArg.toLowerCase() : (config && config.framework) || 'astro';
     initMode = 'new';
     const templateArg = getFlagValue(argv, '--template');
-    selectedTemplate = (templateArg && (templateArg === 'full' || templateArg === 'minimal' || templateArg === 'manual')) ? templateArg : 'full';
+    const defaultTemplate = framework === 'vanilla' ? 'minimal' : 'full';
+    selectedTemplate = (templateArg && (templateArg === 'full' || templateArg === 'minimal' || templateArg === 'manual')) ? templateArg : defaultTemplate;
     if (selectedTemplate === 'full' && (framework === 'astro' || framework === 'svelte')) {
       selectedComponents = framework === 'svelte' ? [...SVELTE_COMPONENTS] : [...ASTRO_COMPONENTS];
     } else if (selectedTemplate === 'minimal' && (framework === 'astro' || framework === 'svelte')) {
@@ -1489,6 +1631,13 @@ async function cmdInit(argv) {
   }
 
   const projectDir = name ? join(cwd, name) : cwd;
+  if (projectDir === cwd && isDirNonEmpty(cwd) && !yes) {
+    const ok = await confirmNonEmptyDir(projectDir);
+    if (!ok) {
+      console.log('Aborted.');
+      return;
+    }
+  }
   const cssSource = getCssPath();
 
   if (!existsSync(cssSource)) {
@@ -1742,7 +1891,7 @@ async function cmdInit(argv) {
 
   // Always write rizzo-css.json for new projects (targetDir, framework, packageManager).
   const pathsForConfig = getFrameworkCssPaths(framework);
-  writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm });
+  writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm, theme });
   console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
 
   if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
@@ -1779,6 +1928,8 @@ async function cmdInit(argv) {
     const createExample = getCreateProjectExample(pm, framework);
     console.log('\n  - Minimal template (CSS + index). To get a full app: ' + createExample + ', then cd into the project and run ' + pm.dlx('rizzo-css add') + '.');
   }
+  if (hasPackageJson) console.log('\nNext: ' + runPrefix + nextStep);
+  else if (framework === 'vanilla') console.log('\nNext: open index.html or serve the folder.');
   console.log('\nDocs: https://rizzo-css.vercel.app\n');
 }
 
@@ -1800,6 +1951,11 @@ function main() {
 
   if (command === 'theme') {
     cmdTheme();
+    return;
+  }
+
+  if (command === 'doctor') {
+    cmdDoctor();
     return;
   }
 

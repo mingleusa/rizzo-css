@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/badge/npm-0.0.27-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.28-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)

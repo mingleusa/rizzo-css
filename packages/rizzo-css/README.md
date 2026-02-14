@@ -19,7 +19,12 @@ npm create svelte@latest my-app && cd my-app && npx rizzo-css add
 npm create astro@latest my-app   && cd my-app && npx rizzo-css add
 ```
 
-`add` auto-detects Svelte/Astro and copies CSS to the right place (`static/css` or `public/css`). `npx rizzo-css theme` lists themes.
+`add` writes **RIZZO-SNIPPET.txt** (link + theme) by default; use `--no-snippet` to skip. `npx rizzo-css doctor` checks config and CSS path. `npx rizzo-css theme` lists themes.
+
+| | **Create new** (`init` → new) | **Add to existing** (`add` or `init` → existing) |
+|---|------------------------------|--------------------------------------------------|
+| Writes | Scaffold, CSS, config, LICENSE-RIZZO, README-RIZZO, .gitignore | CSS, components, config, optional RIZZO-SNIPPET.txt |
+| Link | Already in scaffold | You add it (CLI prints the tag) |
 
 ## One package, any framework
 
@@ -56,7 +61,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.27 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.28 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->
