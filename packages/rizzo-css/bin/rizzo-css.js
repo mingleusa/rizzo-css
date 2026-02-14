@@ -271,6 +271,30 @@ function copyPackageLicense(projectDir) {
   }
 }
 
+/** Copy scaffold vanilla .gitignore into project so new vanilla projects have sensible defaults. */
+function copyVanillaGitignore(projectDir) {
+  const gitignorePath = join(getPackageRoot(), 'scaffold', 'vanilla', '.gitignore');
+  if (existsSync(gitignorePath)) {
+    copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+  }
+}
+
+/** Copy Astro minimal scaffold .gitignore into project (full and minimal templates). */
+function copyAstroGitignore(projectDir) {
+  const gitignorePath = join(getScaffoldAstroMinimalDir(), '.gitignore');
+  if (existsSync(gitignorePath)) {
+    copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+  }
+}
+
+/** Copy Svelte minimal scaffold .gitignore into project (full and minimal templates). */
+function copySvelteGitignore(projectDir) {
+  const gitignorePath = join(getScaffoldSvelteMinimalDir(), '.gitignore');
+  if (existsSync(gitignorePath)) {
+    copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+  }
+}
+
 /** Read rizzo-css.json from cwd. Returns { targetDir?, framework?, packageManager? } or null. */
 function readRizzoConfig(cwd) {
   if (!cwd || !existsSync(cwd)) return null;
@@ -985,6 +1009,10 @@ function getScaffoldAstroDir() {
   return join(getPackageRoot(), 'scaffold', 'astro');
 }
 
+function getScaffoldUtilsDir() {
+  return join(getPackageRoot(), 'scaffold', 'utils');
+}
+
 function getScaffoldVanillaIndex() {
   return join(getPackageRoot(), 'scaffold', 'vanilla', 'index.html');
 }
@@ -1195,6 +1223,17 @@ function copyAstroComponents(projectDir, selectedNames) {
     const themesSrc = join(scaffoldDir, 'themes.ts');
     if (existsSync(themesSrc)) {
       copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    }
+    // ThemeSwitcher.astro imports '../utils/theme' -> need src/components/utils/theme.ts in project
+    const utilsDir = getScaffoldUtilsDir();
+    const themeSrc = join(utilsDir, 'theme.ts');
+    if (existsSync(themeSrc)) {
+      const componentsDir = join(projectDir, 'src', 'components');
+      const projectUtilsDir = join(componentsDir, 'utils');
+      mkdirSync(projectUtilsDir, { recursive: true });
+      let themeContent = readFileSync(themeSrc, 'utf8');
+      themeContent = themeContent.replace(/from ['"]\.\.\/astro\/themes['"]/g, "from '../rizzo/themes'");
+      writeFileSync(join(projectUtilsDir, 'theme.ts'), themeContent);
     }
   }
   if (count > 0 || copyIconsOnly) {
@@ -1530,6 +1569,7 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
+    copyAstroGitignore(projectDir);
     if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'astro');
       copyAstroComponents(projectDir, componentsToCopy);
@@ -1543,6 +1583,7 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
+    copyAstroGitignore(projectDir);
     if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'astro');
       copyAstroComponents(projectDir, componentsToCopy);
@@ -1556,6 +1597,7 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
+    copySvelteGitignore(projectDir);
     if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, componentsToCopy);
@@ -1569,6 +1611,7 @@ async function cmdInit(argv) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
     copyPackageLicense(projectDir);
+    copySvelteGitignore(projectDir);
     if (componentsToCopy.length > 0) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, componentsToCopy);
@@ -1607,6 +1650,7 @@ async function cmdInit(argv) {
       writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
     }
     copyPackageLicense(projectDir);
+    copyVanillaGitignore(projectDir);
   } else if (useVanillaMinimal) {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
@@ -1631,6 +1675,7 @@ async function cmdInit(argv) {
     writeFileSync(indexPath, minimalIndexWithScript, 'utf8');
     writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), VANILLA_MINIMAL_README, 'utf8');
     copyPackageLicense(projectDir);
+    copyVanillaGitignore(projectDir);
   } else {
     if (framework === 'svelte') {
       copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
@@ -1663,6 +1708,7 @@ async function cmdInit(argv) {
       }
       writeFileSync(indexPath, indexContent, 'utf8');
       writeFileSync(join(projectDir, SCAFFOLD_README_FILENAME), VANILLA_MANUAL_README, 'utf8');
+      copyVanillaGitignore(projectDir);
     } else if (framework === 'astro') {
       indexPath = join(projectDir, 'public', 'index.html');
       mkdirSync(join(projectDir, 'public'), { recursive: true });

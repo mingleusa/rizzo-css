@@ -10,13 +10,14 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 - **scaffold/astro-minimal/** — Minimal Astro app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example). Fonts go in `public/assets/fonts/` (CLI rewrites CSS URLs).
 - **scaffold/svelte-minimal/** — Minimal SvelteKit app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example).
 - **scaffold/astro/** — 25 Astro component files (Button, Badge, Card, etc.) for copy into a project.
+- **scaffold/utils/** — Theme utilities (`theme.ts`) used by ThemeSwitcher; ThemeSwitcher.astro imports `../utils/theme`. CLI copies this into the project as `src/components/utils/theme.ts` when adding ThemeSwitcher or ThemeIcon.
 - **scaffold/svelte/** — 25 Svelte component files for copy into a project.
 
 **CLI:** `npx rizzo-css init` → framework → add to existing (CSS + hand-pick components) or create new. Create new → **Full**, **Minimal**, or **Manual** (minimal base + component picker with minimal set pre-selected). `npx rizzo-css add` = same as add to existing.
 
 ## Build and publish
 
-- **copy-scaffold.js** — Run from repo root. Copies `src/components/` (Astro) and `src/components/svelte/` (Svelte) into `packages/rizzo-css/scaffold/astro/` and `scaffold/svelte/`; copies vanilla base and icons into `scaffold/vanilla/`.
+- **copy-scaffold.js** — Run from repo root. Copies `src/components/` (Astro) and `src/components/svelte/` (Svelte) into `packages/rizzo-css/scaffold/astro/` and `scaffold/svelte/`; writes `scaffold/utils/theme.ts` (from `src/utils/theme.ts`, import fixed to `../astro/themes`) for ThemeSwitcher; copies vanilla base and icons into `scaffold/vanilla/`.
 - **prepare-vanilla-scaffold.js** — Run from repo root. Builds `scaffold/vanilla/components/` (index + per-component HTML) and updates vanilla `index.html` with links to component showcase and docs.
 
 Both run in package `prepublishOnly` (with `lint:css:fix` and `build:css`). Root `pnpm build:package` runs `copy-scaffold` and `prepare:vanilla-scaffold` only. See [PUBLISHING](./PUBLISHING.md).

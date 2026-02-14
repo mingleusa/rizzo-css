@@ -77,7 +77,7 @@ When you add or pick components, the CLI automatically includes everything each 
 | **Settings** | ThemeSwitcher (and themes.ts) |
 | **Toast** | Alert |
 
-**ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. Icons are always copied when any component is selected.
+**ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. For **Astro**, they also trigger copying of `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (import fixed to `../rizzo/themes`) so ThemeSwitcher’s `../utils/theme` import resolves. Icons are always copied when any component is selected.
 
 - **Full** and **Minimal** templates expand the component list with these dependencies before copying, so everything works out of the box.
 - **Manual** (and `add`): the picker shows labels like "Settings (adds ThemeSwitcher)"; after you confirm, the CLI prints "Also adding: ThemeSwitcher (required by Settings)" and copies the expanded set.
