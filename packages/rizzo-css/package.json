@@ -1,6 +1,6 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },
@@ -26,6 +26,7 @@
     ".env.example",
     "bin",
     "scaffold/astro",
+    "scaffold/utils",
     "scaffold/svelte",
     "scaffold/vanilla",
     "scaffold/astro-minimal",

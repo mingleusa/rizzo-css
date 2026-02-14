@@ -264,6 +264,15 @@ function copyAstro() {
   if (existsSync(join(configDir, 'themes.ts'))) {
     copyFileSync(join(configDir, 'themes.ts'), join(astroDest, 'themes.ts'));
   }
+  // ThemeSwitcher.astro imports from '../utils/theme' — add scaffold/utils/theme.ts so package build resolves
+  const utilsDir = join(scaffoldDir, 'utils');
+  const themeSrc = join(rootDir, 'src', 'utils', 'theme.ts');
+  if (existsSync(themeSrc)) {
+    mkdirSync(utilsDir, { recursive: true });
+    let themeContent = readFileSync(themeSrc, 'utf8');
+    themeContent = themeContent.replace(/from '\.\.\/config\/themes'|from "\.\.\/config\/themes"/g, "from '../astro/themes'");
+    writeFileSync(join(utilsDir, 'theme.ts'), themeContent);
+  }
   const iconsSrc = join(astroSrc, 'icons');
   if (existsSync(iconsSrc)) {
     copyDirRecursive(iconsSrc, join(astroDest, 'icons'));
