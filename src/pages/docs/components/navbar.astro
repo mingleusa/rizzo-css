@@ -33,13 +33,14 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 		</div>
 		
 		<h3>Usage</h3>
-		<p>Include the Navbar in your layout; component scripts run after DOM ready so they work when imported. If you use Settings, add it once in the same layout (see Settings docs).</p>
+		<p>Include the Navbar in your layout; component scripts run after DOM ready so they work when imported. <strong>Adding Navbar automatically adds Search and Settings</strong> (CLI dependency) so the search bar and gear button work. Add Settings once in the same layout (see Settings docs).</p>
 		<FrameworkCodeTabs
 			astro={`---
 import Navbar from '../components/rizzo/Navbar.astro';
 import Settings from '../components/rizzo/Settings.astro';
 ---
 
+<!-- Navbar includes Search; add Settings so the gear button works. -->
 <Navbar siteName="My Site" />
 <Settings />
 <main>
@@ -49,27 +50,44 @@ import Settings from '../components/rizzo/Settings.astro';
   import { Navbar, Settings } from '$lib/rizzo';
 </script>
 
+<!-- Navbar includes Search; add Settings so the gear button works. -->
 <Navbar siteName="My Site" />
 <Settings />
 <main>
   <!-- page content -->
 </main>`}
-			vanilla={`<!-- Load Rizzo CSS; include Navbar + Settings markup from package scaffold. Component scripts run on DOMContentLoaded. -->
+			vanilla={`<!-- From scaffold: Navbar includes Search + Settings button. Include js/main.js for mobile menu, search, and settings. -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
       <a href="/" class="navbar__brand-link">My Site</a>
     </div>
     <div class="navbar__actions-desktop">
-      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">Settings</button>
+      <div class="search" data-search>
+        <div class="search__trigger-wrapper">
+          <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="navbar-search-panel">
+            <span class="search__trigger-text">Search</span>
+          </button>
+        </div>
+        <div class="search__overlay" id="navbar-search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+          <div class="search__panel">
+            <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+          </div>
+        </div>
+      </div>
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+        <span class="navbar__settings-label">Settings</span>
+      </button>
     </div>
-    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">Menu</button>
-    <div class="navbar__menu" aria-hidden="true">
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="navbar__menu" id="navbar-menu" role="menu" aria-hidden="true">
       <a href="/" class="navbar__link">Home</a>
     </div>
   </div>
 </nav>
-<!-- Include Settings panel HTML + script from scaffold; openSettings()/closeSettings() work after DOM ready. -->`}
+<!-- Include Settings panel HTML from scaffold; include js/main.js for mobile menu, search, and settings. -->`}
 		/>
 		
 		<h3>Props</h3>

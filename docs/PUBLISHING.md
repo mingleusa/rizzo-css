@@ -1,11 +1,11 @@
 # Publishing the npm package
 
-The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme`), and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Init: framework → existing (CSS + hand-pick) or new (template or no template + hand-pick). [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
+The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme` / `doctor` / `help`), and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Init: framework → existing (CSS + hand-pick) or new (template or no template + hand-pick). [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
 
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`. [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.28/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.29/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, and under `scaffold/`: `astro/`, `utils/` (theme for ThemeSwitcher), `svelte/`, `vanilla/`, `astro-minimal/`, `svelte-minimal/`). PrepublishOnly runs (from repo root): `lint:css:fix`, `build:css`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`.
 - **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Create new = **Full**, **Minimal**, or **Manual** (per framework); Add to existing = CSS + hand-pick components.
 - **Pre-publish** — [Pre-publish checklist](#pre-publish-checklist): version bump, build, publish, push, CDN verify.
@@ -34,7 +34,7 @@ So:
 Before publishing to npm:
 
 1. **Commit all changes** — Everything that should be in this release: `scaffold/vanilla/`, `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, `scaffold/astro/`, `scaffold/svelte/`, `src/components/`, `src/components/svelte/`, CSS, CLI, docs. The pack step uses the repo state at publish time (see [Keeping npm and GitHub in sync](#keeping-npm-and-github-in-sync)).
-2. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Update the npm badge in the main `README.md` so the version in the badge matches (e.g. `badge/npm-0.0.28-CB3837`). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
+2. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Update the npm badge in the main `README.md` so the version in the badge matches (e.g. `badge/npm-0.0.29-CB3837`). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
 3. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
 4. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
 5. **Push** — `git push` (and `git push --tags` if you tag releases). This does not update npm; it keeps GitHub in sync with what you published.
@@ -48,9 +48,9 @@ Before publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.28"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
+   - `packages/rizzo-css/package.json` → `"version": "0.0.29"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
-   - Main `README.md` — update the npm badge so the version in the URL matches (e.g. `badge/npm-0.0.28-CB3837`)
+   - Main `README.md` — update the npm badge so the version in the URL matches (e.g. `badge/npm-0.0.29-CB3837`)
 
 2. **Build and publish from repo root:**
    ```bash

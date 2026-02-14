@@ -6,9 +6,9 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 - **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro or Svelte components. React/Vue: same CSS; wrappers planned later. See [Using Rizzo in your project](#using-rizzo-in-your-project).
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
-- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). **Create new** → choose **Full** (everything), **Minimal** (recommended set), or **Manual** (minimal base + component picker with minimal set pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components. Every scaffold includes **LICENSE-RIZZO** and **README-RIZZO.md** (does not overwrite project LICENSE/README); Astro/Svelte include package.json and .env.example.
-- **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + showcase + js + icons. **Minimal** = index + CSS + js/main.js + recommended component pages in `components/` + icons. **Manual** = index + CSS; component picker opens with minimal set pre-selected — add or remove then confirm (or pick none). To add component JS later when you chose no components, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.28/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). **Create new** → **Full**, **Minimal** (recommended), or **Manual** (minimal base + component picker). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
+- **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + showcase + js + icons. **Minimal** = index + CSS + js/main.js + recommended component pages in `components/` + icons. **Manual** = index + CSS; component picker with minimal set pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full scaffold. CDN link optional.
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.29/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 25 components (including ThemeSwitcher). React/Vue later.
 
 ---
@@ -24,7 +24,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 **Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--framework**, **--template**, **--package-manager**, **--install** / **--no-install**. Add: **--path**, **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Full = everything; Minimal = recommended (vanilla default with `--yes`); Manual = pick components. `npx rizzo-css help components` lists components and copy paths.
 
-**Component dependencies:** Some components require others (e.g. Settings needs ThemeSwitcher; Toast needs Alert). Full and Minimal include them automatically; Manual shows "Settings (adds ThemeSwitcher)" in the picker and adds required components when you confirm. List: `npx rizzo-css help components`.
+**Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher; Toast adds Alert. Full and Minimal include these automatically; Manual shows e.g. "Navbar (adds Search, Settings)" in the picker. List: `npx rizzo-css help components`.
 
 **Tip:** Use the **package manager tabs** on the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page (npm, pnpm, yarn, bun): click a tab to select your manager, then copy the command. **Create new:** CLI prompts for package manager so the printed "install && dev" command matches. **Add to existing** or `add`: CLI prints the exact `<link>` tag; it does not edit your layout. To use the official create command plus Rizzo: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or Astro/pnpm/yarn/bun equivalents). 
 ---
@@ -72,7 +72,7 @@ Package: [npmjs.com/package/rizzo-css](https://www.npmjs.com/package/rizzo-css).
    pnpm install
    pnpm build:css
    ```
-2. Use **`public/css/main.min.css`** (or copy it into your project).
+2. Use **`public/css/main.min.css`** (docs site) or **`packages/rizzo-css/dist/rizzo.min.css`** (package build).
 
 **Option D — Release assets:**  
 Download the built CSS from [GitHub Releases](https://github.com/mingleusa/rizzo-css/releases) when available.
@@ -83,7 +83,7 @@ Import the CSS **once** in your app (root layout or main entry):
 
 - **If you used npm with a bundler (Vite, Astro, webpack, etc.):** `import 'rizzo-css'` in your main JS or root layout.
 - **If you used npm but have no bundler (plain HTML):** Use a CDN: `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />` or the jsDelivr equivalent. Or copy the built file from `node_modules/rizzo-css/dist/rizzo.min.css` into your `public/` or `static/` folder and link to that path.
-- **If you cloned and built:** Add a `<link>` or `import` to where you put `main.min.css` (e.g. `public/css/main.min.css`).
+- **If you cloned and built:** Add a `<link>` or `import` to `public/css/main.min.css` (docs site) or `packages/rizzo-css/dist/rizzo.min.css` (package).
 
 ### Step 3: Use components (Vanilla JS)
 

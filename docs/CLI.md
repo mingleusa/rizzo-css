@@ -80,9 +80,10 @@ When you add or pick components, the CLI automatically includes everything each 
 
 **ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. For **Astro**, they also trigger copying of `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (import fixed to `../rizzo/themes`) so ThemeSwitcher’s `../utils/theme` import resolves. Icons are always copied when any component is selected.
 
+- **Every component automatically includes what it needs:** Navbar adds Search and Settings; Settings adds ThemeSwitcher (and themes); Toast adds Alert. The CLI expands these before copying so the navbar search bar and gear button, settings panel, and toasts work without extra steps.
 - **Full** and **Minimal** templates expand the component list with these dependencies before copying, so everything works out of the box.
-- **Manual** (and `add`): the picker shows labels like "Settings (adds ThemeSwitcher)"; after you confirm, the CLI prints "Also adding: ThemeSwitcher (required by Settings)" and copies the expanded set.
-- To see the full list of available components and what relies on what: `npx rizzo-css help components`. It lists every component you can pick (Astro & Svelte) and notates which add others (e.g. Settings, Toast).
+- **Manual** (and `add`): the picker shows labels like "Navbar (adds Search, Settings)" and "Settings (adds ThemeSwitcher)"; after you confirm, the CLI copies the expanded set.
+- To see the full list: `npx rizzo-css help components`. It lists every component and which others are added automatically (Navbar → Search, Settings; Settings → ThemeSwitcher; Toast → Alert).
 
 ---
 
@@ -98,7 +99,7 @@ When you add or pick components, the CLI automatically includes everything each 
 
 - [x] **Invocation:** Document and support npx, pnpm dlx, yarn dlx, bunx.
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
-- [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Manual shows component picker with minimal set pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md; Astro/Svelte include package.json and .env.example.
+- [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Manual shows component picker with minimal set pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
 - [x] **Config file:** rizzo-css.json is always written (targetDir, framework, packageManager) for both new and existing projects; read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css'); `init --install` runs pm.install after scaffold (minimal/hand-pick Astro/Svelte); `--no-install` skips.

@@ -56,8 +56,20 @@ import Search from '../components/rizzo/Search.astro';
 </script>
 
 <Search />`}
-			vanilla={`<!-- Search markup from package scaffold; script runs on DOMContentLoaded. -->
-<!-- Include [data-search], overlay, and input; Ctrl+K/Cmd+K and click open the panel. -->`}
+			vanilla={`<!-- Shipped Navbar includes Search in the bar. Standalone Search: same structure as scaffold Search.astro. -->
+<div class="search" data-search>
+  <div class="search__trigger-wrapper">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-panel">
+      <span class="search__trigger-text">Search</span>
+    </button>
+  </div>
+  <div class="search__overlay" id="search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+    <div class="search__panel">
+      <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+    </div>
+  </div>
+</div>
+<!-- Include js/main.js for search script; Ctrl+K/Cmd+K opens panel. -->`}
 		/>
 	</section>
 	

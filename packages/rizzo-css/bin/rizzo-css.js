@@ -120,8 +120,8 @@ const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitc
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
 // Manual users can run: npx rizzo-css help components
 const COMPONENT_DEPS = {
-  astro: { Settings: ['ThemeSwitcher'], Toast: ['Alert'] },
-  svelte: { Settings: ['ThemeSwitcher'], Toast: ['Alert'] },
+  astro: { Settings: ['ThemeSwitcher'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
+  svelte: { Settings: ['ThemeSwitcher'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
 };
 
 function getComponentDeps(framework, componentName) {
@@ -872,6 +872,7 @@ Available to pick (Astro & Svelte; same list):
   ` + line1 + (line2 ? ',\n  ' + line2 : '') + (line3 ? ',\n  ' + line3 : '') + `
 
 Dependencies (when you pick the component on the left, the right is added automatically):
+  Navbar    →  Search, Settings (navbar includes search bar; Settings so gear button works)
   Settings  →  ThemeSwitcher (and themes.ts)
   Toast     →  Alert
 
