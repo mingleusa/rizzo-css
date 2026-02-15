@@ -2,9 +2,9 @@
 
 A focused list of remaining tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.35) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (all interactive components) | **Manual** (same base; all interactive pre-selected), then package manager. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **Navbar** adds Search and Settings; **Settings** adds ThemeSwitcher; **Toast** adds Alert. **Add** = same as init → existing. **rizzo-css.json** always written (new and existing); **--yes**, **--template**, **--install**, **--no-install**; interactive run prompts “Run install now?”. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
+**Current state:** Single package **rizzo-css** (v0.0.36) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (all interactive components) | **Manual** (same base; all interactive pre-selected), then package manager. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **Navbar** adds Search and Settings; **Settings** adds ThemeSwitcher; **Toast** adds Alert. **Add** = same as init → existing. **rizzo-css.json** always written (new and existing); **--yes**, **--template**, **--install**, **--no-install**; interactive run prompts “Run install now?”. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
 
-**Completed:** One package any framework, full and minimal templates, prepublish scripts, scaffold READMEs, CDN/docs aligned, config file, install/add flags. **Accessibility:** Best practices doc ([ACCESSIBILITY.md](./ACCESSIBILITY.md#best-practices)); automated axe, keyboard, and ARIA tests ([ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated)). **Colors:** Theme OKLCH map for all 14 themes and semantic variables ([COLORS.md](./COLORS.md#color-format-conversion)). **Community:** [CONTRIBUTING.md](../CONTRIBUTING.md) and [GitHub issue templates](../.github/ISSUE_TEMPLATE/) (bug report, feature request). Scaffold plan: [SCAFFOLD_REPLICA_PLAN](./SCAFFOLD_REPLICA_PLAN.md).
+**Completed:** One package any framework, full and minimal templates, prepublish scripts, scaffold READMEs, CDN/docs aligned, config file, install/add flags. **Accessibility:** Best practices doc ([ACCESSIBILITY.md](./ACCESSIBILITY.md#best-practices)); automated axe, keyboard, and ARIA tests ([ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated)). **Colors:** Theme OKLCH map for all 14 themes and semantic variables ([COLORS.md](./COLORS.md#color-format-conversion)). **Community:** [CONTRIBUTING.md](../CONTRIBUTING.md), [GitHub issue templates](../.github/ISSUE_TEMPLATE/) (bug report, feature request, question), branch protection for `main` ([.github/MANUAL_SETUP_STEPS.md](../.github/MANUAL_SETUP_STEPS.md)). Scaffold plan: [SCAFFOLD_REPLICA_PLAN](./SCAFFOLD_REPLICA_PLAN.md).
 
 ---
 
@@ -16,7 +16,7 @@ A focused list of remaining tasks for the Rizzo CSS design system, **ordered by 
 
 ## After that (priority order)
 
-1. ~~**Contributing guide + issue templates**~~ — Done: [CONTRIBUTING.md](../CONTRIBUTING.md), [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/) (bug_report.md, feature_request.md).
+1. ~~**Contributing guide + issue templates**~~ — Done: [CONTRIBUTING.md](../CONTRIBUTING.md), [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/) (bug report, feature request, question), PR template, branch protection docs.
 2. **TypeScript** — Type definitions and props interfaces for components and utils.
 3. **Component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
 
@@ -32,7 +32,7 @@ A focused list of remaining tasks for the Rizzo CSS design system, **ordered by 
 ## 2. Community (priority)
 
 - [x] **Contributing guide** — [CONTRIBUTING.md](../CONTRIBUTING.md): how to run/build, where to add components, code style, PR process.
-- [x] **Issue templates** — Bug report and feature request in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/).
+- [x] **Issue templates** — Bug report, feature request, and question in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/); branch protection for `main` documented.
 
 ## 3. Developer Experience (priority)
 

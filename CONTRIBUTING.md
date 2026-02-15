@@ -49,12 +49,20 @@ When adding a new component, add it to the Astro scaffold list in `scripts/copy-
 1. **Branch** from `main` and make changes. Keep PRs focused (one feature or fix).
 2. **Tests:** Ensure `pnpm build` and `pnpm test:a11y` pass.
 3. **Docs:** Update [docs/](docs/) or component docs if you changed behavior or added options.
-4. **Submit** the PR with a clear title and description. Link any related issue.
+4. **Submit** the PR with a clear title and description. Link any related issue. The [PR template](.github/PULL_REQUEST_TEMPLATE.md) (build, a11y, docs checklist) is applied automatically.
 5. **Review:** Address feedback; maintainers will merge when ready.
 
-## Issue templates
+**Branch protection:** The `main` branch is protected. All changes are merged via pull request; direct pushes and force pushes to `main` are disabled. Repo admins: see [.github/MANUAL_SETUP_STEPS.md](.github/MANUAL_SETUP_STEPS.md) for configuring default branch and branch protection.
 
-Use the [Bug report](.github/ISSUE_TEMPLATE/bug_report.md) or [Feature request](.github/ISSUE_TEMPLATE/feature_request.md) templates when opening an issue so we have the right context.
+## Issues and templates
+
+When opening an issue, use one of the templates so we have the right context:
+
+- **[Bug report](.github/ISSUE_TEMPLATE/bug_report.md)** — Something isn’t working.
+- **[Feature request](.github/ISSUE_TEMPLATE/feature_request.md)** — New feature or improvement.
+- **[Question / discussion](.github/ISSUE_TEMPLATE/question.md)** — Ask a question or start a discussion.
+
+You can also open a blank issue or use the contact links on the New issue page (docs, Discussions) if enabled.
 
 ## Questions
 
