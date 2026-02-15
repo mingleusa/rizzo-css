@@ -1,10 +1,10 @@
 # Vanilla JS + Rizzo CSS
 
 ```
-      /\___/\
+      /\___/\   
    __(  o o  )__
-     (  =^=  )
-    _/   ~   \_
+     (  =^=  )  
+    _/   ~   \_ 
    /  \_____/  \
  ____  ___ _____________     ____ ____ ____
 |  _ \|_ _|__  /__  / _ \   / ___/ ___/ ___|
@@ -27,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.37`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.38`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 

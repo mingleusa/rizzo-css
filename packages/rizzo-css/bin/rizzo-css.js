@@ -6,10 +6,10 @@ const { spawnSync } = require('child_process');
 const readline = require('readline');
 
 /** ASCII banner for CLI output: cat face (matches SVG logo) + name. Fits narrow terminals. */
-const CLI_BANNER = `      /\\___/\\
+const CLI_BANNER = `      /\\___/\\   
    __(  o o  )__
-     (  =^=  )
-    _/   ~   \\_
+     (  =^=  )  
+    _/   ~   \\_ 
    /  \\_____/  \\
  ____  ___ _____________     ____ ____ ____
 |  _ \\|_ _|__  /__  / _ \\   / ___/ ___/ ___|
