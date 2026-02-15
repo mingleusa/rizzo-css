@@ -54,12 +54,22 @@
       <div class="search" data-search>
         <div class="search__trigger-wrapper">
           <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-header-panel">
+            <svg class="search__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <span class="search__trigger-text">Search</span>
           </button>
         </div>
         <div class="search__overlay" id="search-header-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
-          <div class="search__panel">
-            <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+          <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby="search-header-title" aria-hidden="true" tabindex="-1">
+            <h2 id="search-header-title" class="sr-only">Search</h2>
+            <div class="search__header">
+              <div class="search__input-wrapper">
+                <svg class="search__input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+              </div>
+              <button type="button" class="search__close-btn" aria-label="Close search" data-search-close>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+              </button>
+            </div>
             <div class="search__results" role="listbox" aria-label="Search results">
               <div class="search__empty">
                 <p class="search__empty-text">Start typing to search…</p>
@@ -266,12 +276,14 @@
   
   
   
+  
   <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">
     <h1 style="font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-4) 0; color: var(--text);">Modal</h1>
     <p style="color: var(--text-dim); margin-bottom: var(--spacing-4);">Read the full docs for this component on the main site:</p>
     <p><a href="https://rizzo-css.vercel.app/docs/components/modal" target="_blank" rel="noopener noreferrer" class="btn btn-primary">https://rizzo-css.vercel.app/docs/components/modal</a></p>
     <p style="margin-top: var(--spacing-8);"><a href="index.html" class="btn btn-outline">← Component list</a> <a href="../index.html" class="btn btn-outline">Home</a></p>
   </main>
+
 
 
 

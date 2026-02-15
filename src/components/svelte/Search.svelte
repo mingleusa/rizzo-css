@@ -1,4 +1,7 @@
 <script lang="ts">
+  import SearchIcon from './icons/Search.svelte';
+  import Close from './icons/Close.svelte';
+
   interface Props {
     id?: string;
   }
@@ -56,6 +59,7 @@
       aria-controls="{id}-panel"
       onclick={() => (open = !open)}
     >
+      <SearchIcon width={20} height={20} class="search__icon" />
       <span class="search__trigger-text">Search</span>
     </button>
   </div>
@@ -68,14 +72,32 @@
     data-search-overlay
     onclick={(e) => (e.target as HTMLElement) === (e.currentTarget as HTMLElement) && (open = false)}
   >
-    <div class="search__panel" bind:this={panelEl}>
-      <input
-        type="search"
-        class="search__input"
-        placeholder="Search…"
-        aria-label="Search"
-        bind:value={query}
-      />
+    <div
+      class="search__panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="{id}-title"
+      aria-hidden={!open}
+      data-open={open ? 'true' : undefined}
+      tabindex="-1"
+      bind:this={panelEl}
+    >
+      <h2 id="{id}-title" class="sr-only">Search</h2>
+      <div class="search__header">
+        <div class="search__input-wrapper">
+          <SearchIcon width={20} height={20} class="search__input-icon" aria-hidden="true" />
+          <input
+            type="search"
+            class="search__input"
+            placeholder="Search…"
+            aria-label="Search"
+            bind:value={query}
+          />
+        </div>
+        <button type="button" class="search__close-btn" aria-label="Close search" onclick={() => (open = false)}>
+          <Close width={20} height={20} aria-hidden="true" />
+        </button>
+      </div>
       <div class="search__results" role="listbox" aria-label="Search results">
         <div class="search__empty">
           <p class="search__empty-text">Start typing to search…</p>

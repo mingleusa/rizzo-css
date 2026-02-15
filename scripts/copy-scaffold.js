@@ -108,6 +108,7 @@ const { siteName = 'Site', logo } = Astro.props;
 `,
   Search: `---
 import SearchIcon from './icons/Search.astro';
+import Close from './icons/Close.astro';
 interface Props { id?: string; }
 const { id = 'search-main' } = Astro.props;
 ---
@@ -119,8 +120,17 @@ const { id = 'search-main' } = Astro.props;
     </button>
   </div>
   <div class="search__overlay" id="{id}-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
-    <div class="search__panel">
-      <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+    <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby="{id}-title" aria-hidden="true" tabindex="-1">
+      <h2 id="{id}-title" class="sr-only">Search</h2>
+      <div class="search__header">
+        <div class="search__input-wrapper">
+          <SearchIcon width={20} height={20} class="search__input-icon" aria-hidden="true" />
+          <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+        </div>
+        <button type="button" class="search__close-btn" aria-label="Close search" data-search-close>
+          <Close width={20} height={20} aria-hidden="true" />
+        </button>
+      </div>
       <div class="search__results" role="listbox" aria-label="Search results">
         <div class="search__empty">
           <p class="search__empty-text">Start typing to search…</p>
@@ -149,20 +159,23 @@ const { id = 'search-main' } = Astro.props;
         var overlay = search.querySelector('[data-search-overlay]');
         var panel = search.querySelector('.search__panel');
         var input = search.querySelector('.search__input');
+        var closeBtn = search.querySelector('[data-search-close]');
         var resultItems = search.querySelectorAll('.search__result-item, [data-search-result-item]');
-        if (!trigger || !overlay || !input) return;
+        if (!trigger || !overlay || !panel || !input) return;
         var previousActive = null;
         var focusTrapHandler = null;
         function openSearch() {
           previousActive = document.activeElement;
           overlay.setAttribute('aria-hidden', 'false');
+          panel.setAttribute('aria-hidden', 'false');
+          panel.setAttribute('data-open', 'true');
           trigger.setAttribute('aria-expanded', 'true');
           for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '0');
           input.focus();
           focusTrapHandler = function (e) {
-            if (overlay.getAttribute('aria-hidden') === 'true') return;
+            if (panel.getAttribute('data-open') !== 'true') return;
             if (e.key === 'Escape') { e.preventDefault(); closeSearch(); return; }
-            if (e.key === 'Tab' && panel) {
+            if (e.key === 'Tab') {
               var els = getFocusable(panel);
               if (els.length === 0) return;
               var first = els[0], last = els[els.length - 1], active = document.activeElement;
@@ -178,16 +191,19 @@ const { id = 'search-main' } = Astro.props;
         function closeSearch() {
           document.removeEventListener('keydown', focusTrapHandler);
           focusTrapHandler = null;
-          for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
+          panel.removeAttribute('data-open');
+          panel.setAttribute('aria-hidden', 'true');
           overlay.setAttribute('aria-hidden', 'true');
           trigger.setAttribute('aria-expanded', 'false');
+          for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
           if (previousActive && previousActive.focus) previousActive.focus();
           previousActive = null;
         }
         trigger.addEventListener('click', function () {
-          if (overlay.getAttribute('aria-hidden') === 'true') openSearch();
-          else closeSearch();
+          if (panel.getAttribute('data-open') === 'true') closeSearch();
+          else openSearch();
         });
+        if (closeBtn) closeBtn.addEventListener('click', closeSearch);
         overlay.addEventListener('click', function (e) {
           if (e.target === overlay) closeSearch();
         });

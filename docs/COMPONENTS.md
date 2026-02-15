@@ -33,7 +33,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 - [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
 - [Toast](/docs/components/toast) - Fixed position toast notifications
-- [Search](/docs/components/search) - Search component with Algolia integration; trigger shows Cmd icon + K (same size as search icon); Astro, Svelte, and Vanilla docs share the same live standalone search example
+- [Search](/docs/components/search) - Search component with Algolia integration on the docs site; scaffold Search (package) has full overlay UI: header with search icon, input, close button, and example result links for users to edit. Trigger shows search icon (and Cmd+K on docs). Keyboard and click-outside to close.
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)

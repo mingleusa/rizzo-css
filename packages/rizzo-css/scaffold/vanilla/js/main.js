@@ -807,7 +807,7 @@
     document.querySelectorAll('[data-accordion]').forEach(initOne);
   }
 
-  // --- Search: [data-search] — trigger opens overlay, overlay click or Escape closes, focus trap when open
+  // --- Search: [data-search] — trigger opens overlay, panel has header (input + close), focus trap, overlay/close/Escape close
   function initSearch() {
     var focusableSel = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
     function getFocusable(container) {
@@ -820,6 +820,7 @@
       var overlay = search.querySelector('[data-search-overlay]');
       var panel = search.querySelector('.search__panel');
       var input = search.querySelector('.search__input');
+      var closeBtn = search.querySelector('[data-search-close]');
       var resultItems = search.querySelectorAll('.search__result-item');
       if (!trigger || !overlay || !panel || !input) return;
       var previousActive = null;
@@ -827,11 +828,13 @@
       function openSearch() {
         previousActive = document.activeElement;
         overlay.setAttribute('aria-hidden', 'false');
+        panel.setAttribute('aria-hidden', 'false');
+        panel.setAttribute('data-open', 'true');
         trigger.setAttribute('aria-expanded', 'true');
         for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '0');
         input.focus();
         focusTrapHandler = function (e) {
-          if (overlay.getAttribute('aria-hidden') === 'true') return;
+          if (panel.getAttribute('data-open') !== 'true') return;
           if (e.key === 'Escape') { e.preventDefault(); closeSearch(); return; }
           if (e.key === 'Tab') {
             var els = getFocusable(panel);
@@ -849,15 +852,18 @@
       function closeSearch() {
         document.removeEventListener('keydown', focusTrapHandler);
         focusTrapHandler = null;
-        for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
+        panel.removeAttribute('data-open');
+        panel.setAttribute('aria-hidden', 'true');
         overlay.setAttribute('aria-hidden', 'true');
         trigger.setAttribute('aria-expanded', 'false');
+        for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
         if (previousActive && typeof previousActive.focus === 'function') previousActive.focus();
         previousActive = null;
       }
       trigger.addEventListener('click', function () {
-        if (overlay.getAttribute('aria-hidden') === 'true') openSearch(); else closeSearch();
+        if (panel.getAttribute('data-open') === 'true') closeSearch(); else openSearch();
       });
+      if (closeBtn) closeBtn.addEventListener('click', closeSearch);
       overlay.addEventListener('click', function (e) {
         if (e.target === overlay) closeSearch();
       });
