@@ -1,5 +1,19 @@
 # Vanilla JS + Rizzo CSS
 
+```
+      /\___/\
+   __(  o o  )__
+     (  =^=  )
+    _/   ~   \_
+   /  \_____/  \
+ ____  ___ _____________     ____ ____ ____
+|  _ \|_ _|__  /__  / _ \   / ___/ ___/ ___|
+| |_) || |  / /  / / | | | | |   \___ \___ \
+|  _ < | | / /_ / /| |_| | | |___ ___) |__) |
+|_| \_\___/____/____\___/   \____|____/____/
+      Design system · Vanilla · Astro · Svelte
+```
+
 This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then picked **Full**, **Minimal**, or **Manual**. **Minimal** and **Manual** both use the full set of interactive components as the base; **Full** uses the same set in a full showcase layout. **Add to existing project** (or `npx rizzo-css add`) only adds the CSS and optional files (you must add the stylesheet `<link>` yourself; the CLI prints the exact tag).
 
 ## First-time setup
@@ -13,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.36`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.37`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 

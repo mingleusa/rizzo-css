@@ -1,9 +1,22 @@
 #!/usr/bin/env node
 
 const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync, statSync, unlinkSync } = require('fs');
-const { join, dirname } = require('path');
+const { join, dirname, resolve: pathResolve, relative: pathRelative } = require('path');
 const { spawnSync } = require('child_process');
 const readline = require('readline');
+
+/** ASCII banner for CLI output: cat face (matches SVG logo) + name. Fits narrow terminals. */
+const CLI_BANNER = `      /\\___/\\
+   __(  o o  )__
+     (  =^=  )
+    _/   ~   \\_
+   /  \\_____/  \\
+ ____  ___ _____________     ____ ____ ____
+|  _ \\|_ _|__  /__  / _ \\   / ___/ ___/ ___|
+| |_) || |  / /  / / | | | | |   \\___ \\___ \\
+|  _ < | | / /_ / /| |_| | | |___ ___) |__) |
+|_| \\_\\___/____/____\\___/   \\____|____/____/
+      Design system · Vanilla · Astro · Svelte`;
 
 const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 /** Scaffold README filename; avoids overwriting an existing project README.md. */
@@ -773,13 +786,14 @@ function multiSelectMenu(options, title, initialSelected) {
 }
 
 function printHelp() {
+  console.log(CLI_BANNER);
   console.log(`
 rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 
 Available commands: init, add, theme, doctor, help
 
 Flags summary:
-  init   --yes  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install
+  init   --yes  --path <dir>  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install
   add    --path <dir>  --framework <fw>  ...  --no-snippet  --readme  --force  --vanilla-js
   theme  (no flags)
   doctor Check config, CSS file, and optional layout link
@@ -799,12 +813,13 @@ Commands:
 
 Options (init):
   --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: full)
+  --path <dir>      Project directory (relative to cwd or absolute). Scaffold and run install there. With --yes; interactive: "Enter path" option.
   --framework <fw>  vanilla | astro | svelte (with --yes; otherwise first prompt)
   --template <t>    full | minimal | manual (all frameworks); with --yes defaults to full
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
-  --install         After scaffolding, run package manager install (no prompt)
+  --install         After scaffolding, run package manager install in project directory (no prompt)
   --no-install      Do not run install and do not prompt
-  (rizzo-css.json is always written for new and existing projects; interactive run prompts "Run install now? (Y/n)" for Astro/Svelte.)
+  (Install always runs in the project directory. rizzo-css.json is written for new and existing projects; interactive run prompts "Run install now? (Y/n)" for Astro/Svelte.)
 
 Options (add):
   --path <dir>      Target directory for rizzo.min.css (overrides config and framework default)
@@ -843,6 +858,7 @@ Use framework CLI first, then add Rizzo CSS (match your package manager):
 Examples:
   npx rizzo-css init
   npx rizzo-css init --yes --framework astro --install
+  npx rizzo-css init --yes --path my-app --framework astro --install
   npx rizzo-css init --yes --framework astro --package-manager pnpm --install
   npx rizzo-css init --yes --framework vanilla
   npx rizzo-css init --yes --framework svelte --template full
@@ -908,7 +924,8 @@ function cmdTheme() {
 function cmdDoctor() {
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
-  console.log('\nRizzo CSS doctor\n');
+  console.log(CLI_BANNER);
+  console.log('  Doctor — check config, CSS path, and layout link\n');
   let ok = true;
   if (!config) {
     console.log('  ✗ No ' + RIZZO_CONFIG_FILE + '. Run: npx rizzo-css add or init');
@@ -1548,6 +1565,7 @@ async function cmdInit(argv) {
   let framework;
   let initMode;
   let name = '';
+  let customProjectPath = getFlagValue(argv, '--path');
   let theme, defaultDark, defaultLight;
   let selectedPm;
   let selectedTemplate;
@@ -1566,7 +1584,7 @@ async function cmdInit(argv) {
       const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : ASTRO_COMPONENTS;
       selectedComponents = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
     }
-    const projectDir = cwd;
+    const projectDir = customProjectPath ? pathResolve(cwd, customProjectPath) : cwd;
     const resolved = resolvePackageManager(projectDir, cwd);
     const pmArg = getFlagValue(argv, '--package-manager');
     selectedPm = parsePackageManager(pmArg) || (config && config.packageManager) || resolved.agent || 'npm';
@@ -1574,6 +1592,7 @@ async function cmdInit(argv) {
     defaultDark = DARK_THEMES[0];
     defaultLight = LIGHT_THEMES[0];
   } else {
+    console.log(CLI_BANNER);
     framework = await selectMenu(
       [
         { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },
@@ -1600,10 +1619,20 @@ async function cmdInit(argv) {
       [
         { value: 'cwd', label: 'Current directory' },
         { value: 'name', label: 'Enter project name (new folder)' },
+        { value: 'path', label: 'Enter path (directory to create or use)' },
       ],
       '? Project location'
     );
-    name = projectChoice === 'name' ? await question('Project name (folder name): ') : '';
+    if (projectChoice === 'name') {
+      name = await question('Project name (folder name): ');
+    } else if (projectChoice === 'path') {
+      customProjectPath = await question('Path (relative to current dir or absolute): ');
+      customProjectPath = (customProjectPath || '').trim();
+      if (!customProjectPath) {
+        console.log('No path entered. Using current directory.');
+        customProjectPath = null;
+      }
+    }
 
     selectedTemplate = await selectMenu(TEMPLATES[framework] || TEMPLATES.vanilla, '? Full, Minimal, or Manual?');
 
@@ -1630,13 +1659,13 @@ async function cmdInit(argv) {
       defaultLight = LIGHT_THEMES[0];
     }
 
-    const projectDirForPm = name ? join(cwd, name) : cwd;
+    const projectDirForPm = customProjectPath ? pathResolve(cwd, customProjectPath) : (name ? join(cwd, name) : cwd);
     const pmArg = getFlagValue(argv, '--package-manager');
     selectedPm = parsePackageManager(pmArg) || await promptPackageManager(projectDirForPm);
   }
 
-  const projectDir = name ? join(cwd, name) : cwd;
-  if (projectDir === cwd && isDirNonEmpty(cwd) && !yes) {
+  const projectDir = customProjectPath ? pathResolve(cwd, customProjectPath) : (name ? join(cwd, name) : cwd);
+  if (isDirNonEmpty(projectDir) && !yes) {
     const ok = await confirmNonEmptyDir(projectDir);
     if (!ok) {
       console.log('Aborted.');
@@ -1893,7 +1922,7 @@ async function cmdInit(argv) {
   }
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
-  const runPrefix = name ? 'cd ' + name + ' && ' : '';
+  const runPrefix = projectDir !== cwd ? 'cd ' + pathRelative(cwd, projectDir) + ' && ' : '';
   const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase;
 
   // Always write rizzo-css.json for new projects (targetDir, framework, packageManager).

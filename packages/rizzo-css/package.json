@@ -1,6 +1,6 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.36",
+  "version": "0.0.37",
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },

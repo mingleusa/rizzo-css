@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). **Create new** → **Full**, **Minimal** (recommended; all interactive components), or **Manual** (same base; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + all 29 component pages in `components/` + js + icons (full showcase). **Minimal** = index + CSS + js/main.js + all 29 component pages in `components/` + icons. **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full or Minimal scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.36/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.37/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (24 component pages). Scaffold ships 29 components (Full) or 15 (Minimal). React/Vue later.
 
 ---
@@ -17,12 +17,12 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | Framework → add to existing or create new. **Existing** → CSS + components (add `<link>` yourself; CLI prints it). **New** → Full / Minimal / Manual, then package manager. **--yes --framework vanilla** defaults to **minimal** template. Non-empty cwd prompts to continue. |
+| `npx rizzo-css init` | Framework → add to existing or create new. **Existing** → CSS + components (add `<link>` yourself; CLI prints it). **New** → project location (current directory, project name, or **enter path**), then Full / Minimal / Manual, then package manager. Install runs in the project directory. **--yes --path &lt;dir&gt;** scaffolds into that directory; **--yes --framework vanilla** defaults to **minimal** template. Non-empty target directory prompts to continue. |
 | `npx rizzo-css add` | Same as init → existing. Writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. `--readme`, `--force` (overwrite CSS), `--vanilla-js` (copy js/main.js for Vanilla). |
 | `npx rizzo-css theme` | List 14 theme IDs for `data-theme` on `<html>`. |
 | `npx rizzo-css doctor` | Check config, CSS path, and layout link. |
 
-**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--framework**, **--template**, **--package-manager**, **--install** / **--no-install**. Add: **--path**, **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Full = everything; Minimal = all 29 interactive components (vanilla default with `--yes`); Manual = same base, pick which components to include (all pre-selected). `npx rizzo-css help components` lists components and copy paths.
+**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Full = everything; Minimal = all 29 interactive components (vanilla default with `--yes`); Manual = same base, pick which components to include (all pre-selected). `npx rizzo-css help components` lists components and copy paths.
 
 **Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher; Toast adds Alert. Full and Minimal include these automatically; Manual shows e.g. "Navbar (adds Search, Settings)" in the picker. List: `npx rizzo-css help components`. **Component counts:** Full = 29 components (all frameworks); Minimal = 29 (all interactive components as base); Manual = 0–29 (all pre-selected by default; add/remove then confirm).
 

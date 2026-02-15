@@ -1,5 +1,19 @@
 # SvelteKit + Rizzo CSS (minimal)
 
+```
+      /\___/\
+   __(  o o  )__
+     (  =^=  )
+    _/   ~   \_
+   /  \_____/  \
+ ____  ___ _____________     ____ ____ ____
+|  _ \|_ _|__  /__  / _ \   / ___/ ___/ ___|
+| |_) || |  / /  / / | | | | |   \___ \___ \
+|  _ < | | / /_ / /| |_| | | |___ ___) |__) |
+|_| \_\___/____/____\___/   \____|____/____/
+      Design system · Vanilla · Astro · Svelte
+```
+
 Minimal SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full`, **minimal**, or **manual**. When you choose **minimal** or **full**, the CLI copies all interactive Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **manual** lets you pick which of those to include (all are pre-selected by default).
 
 ## Setup
