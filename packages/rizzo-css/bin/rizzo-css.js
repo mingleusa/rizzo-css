@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 const { copyFileSync, mkdirSync, writeFileSync, existsSync, readFileSync, readdirSync, statSync, unlinkSync } = require('fs');
-const { join, dirname, resolve: pathResolve, relative: pathRelative } = require('path');
+const { join, dirname, resolve: pathResolve, relative: pathRelative, basename: pathBasename } = require('path');
 const { spawnSync } = require('child_process');
 const readline = require('readline');
 
@@ -1618,19 +1618,16 @@ async function cmdInit(argv) {
     const projectChoice = await selectMenu(
       [
         { value: 'cwd', label: 'Current directory' },
-        { value: 'name', label: 'Enter project name (new folder)' },
-        { value: 'path', label: 'Enter path (directory to create or use)' },
+        { value: 'path', label: 'Enter path or project name (new folder)' },
       ],
       '? Project location'
     );
-    if (projectChoice === 'name') {
-      name = await question('Project name (folder name): ');
-    } else if (projectChoice === 'path') {
-      customProjectPath = await question('Path (relative to current dir or absolute): ');
-      customProjectPath = (customProjectPath || '').trim();
-      if (!customProjectPath) {
-        console.log('No path entered. Using current directory.');
-        customProjectPath = null;
+    if (projectChoice === 'path') {
+      const pathInput = await question('Path or project name (relative to cwd or absolute; empty = current directory): ');
+      const trimmed = (pathInput || '').trim();
+      if (trimmed) {
+        customProjectPath = trimmed;
+        name = pathBasename(pathResolve(cwd, trimmed));
       }
     }
 
@@ -1659,12 +1656,12 @@ async function cmdInit(argv) {
       defaultLight = LIGHT_THEMES[0];
     }
 
-    const projectDirForPm = customProjectPath ? pathResolve(cwd, customProjectPath) : (name ? join(cwd, name) : cwd);
+    const projectDirForPm = customProjectPath ? pathResolve(cwd, customProjectPath) : cwd;
     const pmArg = getFlagValue(argv, '--package-manager');
     selectedPm = parsePackageManager(pmArg) || await promptPackageManager(projectDirForPm);
   }
 
-  const projectDir = customProjectPath ? pathResolve(cwd, customProjectPath) : (name ? join(cwd, name) : cwd);
+  const projectDir = customProjectPath ? pathResolve(cwd, customProjectPath) : cwd;
   if (isDirNonEmpty(projectDir) && !yes) {
     const ok = await confirmNonEmptyDir(projectDir);
     if (!ok) {

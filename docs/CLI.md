@@ -8,7 +8,7 @@ This doc describes the Rizzo CSS CLI: commands, package manager handling, config
 
 | Command | Purpose |
 |--------|---------|
-| **`init`** | Add Rizzo to an existing project or create a new one. Framework → existing vs new. **Existing** → drop in CSS + hand-pick components. **New** → location (current directory, project name, or **enter path** — relative or absolute), **Full** \| **Minimal** \| **Manual**, then package manager. Install runs in the project directory. `--yes --framework vanilla|astro|svelte`; optional `--path <dir>` to scaffold into a specific directory; vanilla default template is **minimal**. Optional `--template full|minimal|manual`, `--install` / `--no-install`. If target directory is not empty, prompts to continue. |
+| **`init`** | Add Rizzo to an existing project or create a new one. Framework → existing vs new. **Existing** → drop in CSS + hand-pick components. **New** → location (**current directory** or **enter path or project name** — one prompt; relative or absolute), **Full** \| **Minimal** \| **Manual**, then package manager. Install runs in the project directory. `--yes --framework vanilla|astro|svelte`; optional `--path <dir>` to scaffold into a specific directory; vanilla default template is **minimal**. Optional `--template full|minimal|manual`, `--install` / `--no-install`. If target directory is not empty, prompts to continue. |
 | **`add`** | Same as init → existing: CSS + hand-pick components. Writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. If CSS exists at target, prompts to overwrite (`--force` to skip). Vanilla: `--vanilla-js` or prompt to copy `js/main.js` for interactive components. `--readme` writes README-RIZZO.md. |
 | **`theme`** | List theme IDs for `data-theme` on `<html>`. |
 | **`doctor`** | Check config, CSS file at configured path, and (Astro/Svelte) whether layout includes the stylesheet link. |
@@ -99,7 +99,7 @@ When you add or pick components, the CLI automatically includes everything each 
 
 ## Options summary
 
-**init:** `--yes`, `--path <dir>` (project directory: relative to cwd or absolute; scaffold and install run there), `--framework`, `--template full|minimal|manual`, `--package-manager`, `--install`, `--no-install`. Interactive: project location = current directory, project name (new folder), or **Enter path** (directory to create or use). Install always runs in the project directory. Vanilla with `--yes` defaults to template **minimal**. Non-empty target directory prompts to continue.
+**init:** `--yes`, `--path <dir>` (project directory: relative to cwd or absolute; scaffold and install run there), `--framework`, `--template full|minimal|manual`, `--package-manager`, `--install`, `--no-install`. Interactive: project location = **current directory** or **enter path or project name** (one prompt; empty = current directory). Install always runs in the project directory. Vanilla with `--yes` defaults to template **minimal**. Non-empty target directory prompts to continue.
 
 **add:** `--path <dir>`, `--framework`, `--package-manager`, `--install-package`, `--no-install`, `--no-snippet` (skip RIZZO-SNIPPET.txt), `--readme` (write README-RIZZO.md), `--force` (overwrite CSS without prompt), `--vanilla-js` (copy js/main.js for Vanilla). If CSS already exists, prompts unless `--force`.
 
@@ -113,7 +113,7 @@ When you add or pick components, the CLI automatically includes everything each 
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
 - [x] **Config file:** rizzo-css.json is always written (targetDir, framework, packageManager) for both new and existing projects; read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css') in cwd; `init` runs pm.install **in the project directory** after scaffold (with `--install` or when user confirms). `--no-install` skips.
-- [x] **Project path:** Init supports `--path <dir>` (with `--yes`) and interactive **Enter path** (directory to create or use). Resolved relative to cwd or absolute; scaffold and install run in that directory. "Next step" shows `cd <relative-path> &&` when project is not cwd.
+- [x] **Project path:** Init supports `--path <dir>` (with `--yes`) and interactive **enter path or project name** (one prompt; empty = current directory). Resolved relative to cwd or absolute; scaffold and install run in that directory. "Next step" shows `cd <relative-path> &&` when project is not cwd.
 - [x] **--yes:** `init --yes` scaffolds new in cwd (or in `--path <dir>`); vanilla default template is **minimal**; Astro/Svelte default **full**. Non-empty target directory prompts.
 - [x] **add:** Writes RIZZO-SNIPPET.txt by default; `--no-snippet`, `--readme`, `--force`, `--vanilla-js`. CSS overwrite prompt when file exists. Config includes `theme`.
 - [x] **doctor:** Checks config, CSS path, layout link hint.

@@ -27,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.38`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.39`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -66,7 +66,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-minimal/` — minimal Astro app; optional components from `scaffold/astro/` (see README-RIZZO.md).
-- **Svelte:** `scaffold/svelte-minimal/` — minimal SvelteKit app; optional components from `scaffold/svelte/` (see README-RIZZO.md).
+- **Astro:** `scaffold/astro-minimal/` — Astro app (Full or Minimal template); optional components from `scaffold/astro/` (see README-RIZZO.md).
+- **Svelte:** `scaffold/svelte-minimal/` — SvelteKit app (Full or Minimal template); optional components from `scaffold/svelte/` (see README-RIZZO.md).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
