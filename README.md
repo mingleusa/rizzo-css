@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![npm](https://img.shields.io/badge/npm-0.0.33-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.34-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -26,7 +26,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 24 accessible, themeable components with dedicated doc pages (Astro reference + Svelte examples)
+- 📦 **Comprehensive Components** - 29 accessible, themeable components (24 doc pages; Astro reference + Svelte examples)
 - 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte | Vanilla). Svelte docs at [/docs/svelte](/docs/svelte); Vanilla docs at [/docs/vanilla/components](/docs/vanilla/components) with copy-paste HTML, optional JS, and live demos
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
@@ -50,9 +50,9 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components. **New** → choose **Full** (everything) | **Minimal** (recommended) | **Manual** (pick components), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
+**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components. **New** → choose **Full** (everything) | **Minimal** (recommended; all interactive components) | **Manual** (same base; all pre-selected), then package manager. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **Create new** → **Full** | **Minimal** | **Manual** (per framework). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher; Toast→Alert). **Add to existing** → CSS + hand-pick components, writes **RIZZO-SNIPPET.txt** unless `--no-snippet`; you add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **Create new** → **Full** | **Minimal** (all 29 interactive) | **Manual** (all 29 pre-selected; per framework). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher; Toast→Alert). **Add to existing** → CSS + hand-pick components, writes **RIZZO-SNIPPET.txt** unless `--no-snippet`; you add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all three.
 
 ### Prerequisites
 
@@ -86,6 +86,8 @@ Site available at `http://localhost:4321`
 | `pnpm preview` | Preview production build |
 | `pnpm lint:css` | Lint CSS files |
 | `pnpm lint:css:fix` | Auto-fix CSS linting issues |
+| `pnpm test:a11y` | Build site and run accessibility tests (axe-core + Playwright). See [docs/ACCESSIBILITY_TESTING.md](docs/ACCESSIBILITY_TESTING.md). |
+| `pnpm test:a11y:ci` | Install Chromium and run a11y tests (for CI). |
 
 ## 🎨 CSS Setup
 
@@ -174,7 +176,7 @@ Comprehensive documentation is in the `docs/` directory and on the live site. **
 
 - [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
-- [Components](./docs/COMPONENTS.md) - Component library and usage (25 components)
+- [Components](./docs/COMPONENTS.md) - Component library and usage (29 components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes (also linked under Docs → Foundations on the site)
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines and utility classes; [Accessibility testing](./docs/ACCESSIBILITY_TESTING.md) - Checklist (keyboard, screen reader, tools)

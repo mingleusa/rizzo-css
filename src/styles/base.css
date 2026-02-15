@@ -18,14 +18,24 @@ body {
     border-color var(--theme-transition-duration) ease-out;
 }
 
-/* Links */
+/* Links - underline so they are distinguishable without relying on color alone (WCAG link-in-text-block) */
 a {
-  color: var(--accent);
-  text-decoration: none;
+  color: var(--accent-fg);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 a:hover {
-  color: var(--accent-hover);
+  color: var(--accent-fg-hover);
+}
+
+/* Button-style and nav links keep no underline */
+a.btn,
+.navbar a,
+.docs-sidebar a,
+[role="menu"] a,
+[role="tablist"] a {
+  text-decoration: none;
 }
 
 /* Selection */

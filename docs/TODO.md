@@ -2,41 +2,37 @@
 
 A focused list of remaining tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.33) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (recommended) | **Manual** (minimal base + component picker with minimal set pre-selected), then package manager. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **Navbar** adds Search and Settings; **Settings** adds ThemeSwitcher; **Toast** adds Alert. **Add** = same as init → existing. **rizzo-css.json** always written (new and existing); **--yes**, **--template**, **--install**, **--no-install**; interactive run prompts “Run install now?”. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
+**Current state:** Single package **rizzo-css** (v0.0.34) with CSS, CLI, and scaffolds. **CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add` command) → drop in CSS + hand-pick components. **New** → **Full** (everything) | **Minimal** (all interactive components) | **Manual** (same base; all interactive pre-selected), then package manager. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **Navbar** adds Search and Settings; **Settings** adds ThemeSwitcher; **Toast** adds Alert. **Add** = same as init → existing. **rizzo-css.json** always written (new and existing); **--yes**, **--template**, **--install**, **--no-install**; interactive run prompts “Run install now?”. See [GETTING_STARTED](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
 
-**Completed:** One package any framework, full and minimal templates, prepublish scripts, scaffold READMEs, CDN/docs aligned, config file, run install/add flags, accessibility docs and testing checklist. Scaffold plan: [SCAFFOLD_REPLICA_PLAN](./SCAFFOLD_REPLICA_PLAN.md).
+**Completed:** One package any framework, full and minimal templates, prepublish scripts, scaffold READMEs, CDN/docs aligned, config file, install/add flags. **Accessibility:** Best practices doc ([ACCESSIBILITY.md](./ACCESSIBILITY.md#best-practices)); automated axe, keyboard, and ARIA tests ([ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated)). **Colors:** Theme OKLCH map for all 14 themes and semantic variables ([COLORS.md](./COLORS.md#color-format-conversion)). **Community:** [CONTRIBUTING.md](../CONTRIBUTING.md) and [GitHub issue templates](../.github/ISSUE_TEMPLATE/) (bug report, feature request). Scaffold plan: [SCAFFOLD_REPLICA_PLAN](./SCAFFOLD_REPLICA_PLAN.md).
 
 ---
 
 ## ▶️ Next task (recommended)
 
-**Accessibility testing** — Run ARIA, keyboard, and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, etc.). Fix any issues found. Do this *before* writing the a11y best-practices doc so the docs reflect actual, tested behavior.
-
-- **Scope:** Use [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) as the checklist: keyboard nav, screen reader (NVDA/JAWS/VoiceOver), and axe (or similar) on Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion, Toast, Settings.
-- **Output:** Fix any bugs found; then add a "Best practices" section to [ACCESSIBILITY.md](./ACCESSIBILITY.md) (keyboard patterns, ARIA usage, focus order, how to test).
+**Manual a11y testing** — Automated axe, keyboard, and ARIA tests are in place (`pnpm test:a11y`). Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion) per [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md); log and fix any issues.
 
 ---
 
 ## After that (priority order)
 
-1. **Accessibility best practices (doc)** — After testing, add "Best practices" to [ACCESSIBILITY.md](./ACCESSIBILITY.md).
-2. **Contributing guide + issue templates** — CONTRIBUTING.md and GitHub issue templates (bug report, feature request).
-3. **TypeScript** — Type definitions and props interfaces for components and utils.
-4. **Component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
+1. ~~**Contributing guide + issue templates**~~ — Done: [CONTRIBUTING.md](../CONTRIBUTING.md), [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/) (bug_report.md, feature_request.md).
+2. **TypeScript** — Type definitions and props interfaces for components and utils.
+3. **Component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
 
 ---
 
 ## 1. Documentation (priority)
 
-- [ ] **Best practices** *(after §4 Accessibility testing)*
-  - [ ] Accessibility best practices in [ACCESSIBILITY.md](./ACCESSIBILITY.md)
+- [ ] **Best practices**
+  - [x] Accessibility best practices — In [ACCESSIBILITY.md](./ACCESSIBILITY.md#best-practices) (keyboard patterns, ARIA usage, focus order, how to test). Automated coverage in [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated).
   - [ ] Component composition patterns
   - [ ] Performance optimization tips
 
 ## 2. Community (priority)
 
-- [ ] **Contributing guide** — CONTRIBUTING.md: how to run/build, where to add components, code style, PR process.
-- [ ] **Issue templates** — Bug report and feature request (e.g. `.github/ISSUE_TEMPLATE/`).
+- [x] **Contributing guide** — [CONTRIBUTING.md](../CONTRIBUTING.md): how to run/build, where to add components, code style, PR process.
+- [x] **Issue templates** — Bug report and feature request in [.github/ISSUE_TEMPLATE/](../.github/ISSUE_TEMPLATE/).
 
 ## 3. Developer Experience (priority)
 
@@ -45,11 +41,12 @@ A focused list of remaining tasks for the Rizzo CSS design system, **ordered by 
 - [ ] **Build** — Bundle size, tree-shaking, critical CSS (if needed).
 - [ ] **Storybook** *(optional)* — Interactive playground and design system showcase.
 
-## 4. Accessibility (do before a11y best-practices doc)
+## 4. Accessibility
 
-- [ ] **ARIA & accessibility testing** — [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) checklist: keyboard + screen reader + axe on key components; fix issues.
-- [ ] **Focus** — Focus trap utilities, focus restoration, skip links.
-- [ ] **Contrast** — Verify themes meet WCAG AA/AAA; contrast tooling.
+- [x] **Automated a11y tests** — Axe (16 docs routes), keyboard spec, and ARIA/roles spec; run `pnpm test:a11y`. All 27 tests passing. Fixes applied: colors page `aria-controls`/tabpanel, accordion title contrast, modal/dropdown/search test selectors and assertions. Details: [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated).
+- [ ] **Manual screen reader testing** — [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) checklist: NVDA/VoiceOver/JAWS on Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion; fix any announced-label or focus issues.
+- [ ] **Focus** — Focus trap utilities, focus restoration, skip links (already in place for Modal/Search/Settings).
+- [ ] **Contrast** — Themes use `--accent-fg` / `--accent-text` etc.; verify all themes meet WCAG AA.
 
 ## 5. Package distribution
 

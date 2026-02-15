@@ -307,7 +307,7 @@
 .home__doc-card h3 {
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-semibold);
-  color: var(--accent);
+  color: var(--accent-fg);
   margin: 0 0 var(--spacing-2) 0;
 }
 
@@ -344,7 +344,7 @@
 }
 
 .theming-page .card a:hover {
-  color: var(--accent);
+  color: var(--accent-fg);
 }
 
 .theming-page .card:hover {
@@ -364,13 +364,13 @@
 }
 
 .theme-by a {
-  color: var(--accent);
+  color: var(--accent-fg);
   text-decoration: none;
   transition: color var(--transition-base);
 }
 
 .theme-by a:hover {
-  color: var(--accent-hover);
+  color: var(--accent-fg-hover);
   text-decoration: underline;
 }
 
@@ -525,14 +525,14 @@
 }
 
 .docs-sidebar__link--active {
-  color: var(--accent);
+  color: var(--accent-fg);
   font-weight: var(--font-weight-medium);
-  background-color: oklch(from var(--accent) l c h / 10%);
+  background-color: oklch(from var(--accent-fg) l c h / 12%);
 }
 
 .docs-sidebar__link--active:hover {
-  color: var(--accent-hover);
-  background-color: oklch(from var(--accent) l c h / 14%);
+  color: var(--accent-fg-hover);
+  background-color: oklch(from var(--accent-fg) l c h / 16%);
 }
 
 /* Theme page header (icon + title) */

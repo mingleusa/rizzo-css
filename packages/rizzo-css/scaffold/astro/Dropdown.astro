@@ -718,7 +718,7 @@ const menuId = `${dropdownId}-menu`;
             if (keyEvent.key === 'Escape') {
               keyEvent.preventDefault();
               closeMenu();
-              trigger.focus();
+              setTimeout(() => trigger.focus(), 0);
             } else if (keyEvent.key === 'ArrowDown') {
               keyEvent.preventDefault();
               currentIndex = (currentIndex + 1) % visibleItems.length;

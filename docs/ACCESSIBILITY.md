@@ -8,7 +8,7 @@ Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 gu
 
 - **Keyboard navigation** — Full keyboard support across all interactive components (Tab, arrows, Enter/Space, Escape).
 - **ARIA attributes** — Components use appropriate ARIA (aria-label, aria-expanded, aria-controls, roles, etc.).
-- **Focus management** — Visible focus indicators (`--accent`), focus trapping in modals.
+- **Focus management** — Visible focus indicators (`--accent` / `--accent-fg` where used as foreground), focus trapping in modals, scrollable regions (e.g. code blocks) focusable via `tabindex="0"`.
 - **High contrast mode** — Implemented via Settings “High contrast” toggle; applies `.high-contrast` to the document root (see [High Contrast Mode](#high-contrast-mode)). Works with any theme; persists in localStorage.
 - **Reduce motion** — Settings “Reduce motion” toggle and `prefers-reduced-motion` media query support.
 
@@ -36,10 +36,12 @@ Components include proper ARIA attributes:
 
 ### Focus Management
 
-- Visible focus indicators using `--accent` color
+- Visible focus indicators using `--accent` or `--accent-fg` (links, outlines)
 - Focus trapping in modals
-- Focus restoration after interactions
+- Focus restoration after interactions: when closing overlays (Search, Modal, Dropdown), focus returns to the element that opened them; Search restores focus as soon as the overlay closes
+- Scrollable regions (e.g. code block `<pre>`) are focusable for keyboard access
 - Skip links for main content
+- Links use underlines so they are distinguishable without relying on color alone (WCAG link-in-text-block)
 
 ## Utility Classes
 
@@ -184,12 +186,12 @@ Components (Astro and Svelte) use semantic theme variables so every theme can gu
 | Primary text | `--text` | Body, headings, list text |
 | Secondary text | `--text-dim` | Descriptions, placeholders, labels |
 | Icons | `--icon`, `--icon-dim` | Navbar, dropdown, accordion, table, breadcrumb (SVG `currentColor`) |
-| Links and primary actions | `--accent`, `--accent-hover` | Links, buttons (with `--accent-text` on fill) |
+| Links and primary actions | `--accent-fg`, `--accent-fg-hover` (links, outlines); `--accent`, `--accent-hover` (solid buttons) | Links use `--accent-fg`; buttons use `--accent` + `--accent-text` |
 | Text on accent | `--accent-text` | Buttons (primary), badges (primary), active segment, skip link |
 | Text on solid semantic | `--success-text-on-solid`, `--warning-text-on-solid`, `--error-text-on-solid`, `--info-text-on-solid`, `--accent-text-on-hover`, `--text-on-solid-hover` | Buttons (semantic variants), badges (success, warning, error, info) — theme-tuned contrast on solid backgrounds |
 | Semantic states | `--success` / `--success-text`, `--error` / `--error-text`, `--warning` / `--warning-text`, `--info` / `--info-text` | Alerts (soft backgrounds); buttons and badges use *-text-on-solid on solid fills |
 | Borders and dividers | `--border` | Inputs, cards, dropdowns |
-| Focus and overlays | `--accent` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
+| Focus and overlays | `--accent` / `--accent-fg` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
 
 Themes must set each `-text` variable to a color that meets at least 4.5:1 contrast on its paired background (e.g. `--accent-text` on `--accent`). The design system does not use hardcoded hex/rgb for UI colors; all interactive and text colors come from these variables.
 
@@ -222,36 +224,68 @@ The Settings component also includes a "Reduce motion" toggle that applies the `
 
 ## Best Practices
 
-1. **Always provide labels** - Every form input needs a label
-2. **Use semantic HTML** - Use proper heading hierarchy, landmarks
-3. **Test with keyboard** - Navigate without a mouse
-4. **Test with screen readers** - Use NVDA, JAWS, or VoiceOver
-5. **Check color contrast** - Use tools to verify contrast ratios
-6. **Provide alternatives** - Alt text for images, captions for videos
+This section summarizes patterns used in Rizzo CSS components and how to test them. The docs site runs automated axe, keyboard, and ARIA tests (`pnpm test:a11y`); manual keyboard and screen reader testing is still recommended for key flows.
+
+### General
+
+1. **Always provide labels** — Every form input needs an associated label (`for`/`id` or wrapping) or `aria-label`; never rely on placeholder alone.
+2. **Use semantic HTML** — Proper heading hierarchy, landmarks (`<main>`, `<nav>`, `<aside>`), and list structure so assistive tech can navigate by headings and regions.
+3. **Check color contrast** — Use semantic variables (`--accent-fg`, `--*-text-on-solid`) so themes can meet WCAG AA (4.5:1 normal text, 3:1 large). Run axe or contrast checkers.
+4. **Provide alternatives** — Alt text for images, captions for video; hide decorative images from screen readers (`alt=""` or `role="presentation"`).
+
+### Keyboard patterns
+
+- **Tab order** — Logical, top-to-bottom and left-to-right; no focus traps except inside modal/search/settings overlays where trap is intentional.
+- **Enter/Space** — Activate buttons, links, tabs, menu items; toggle accordions and dropdowns.
+- **Escape** — Close modal, dropdown, theme switcher, search overlay, settings; focus returns to the trigger that opened them.
+- **Arrows** — Move within tab list (Left/Right), menu (Up/Down), and optionally accordion headers without activating.
+- **Focus visible** — All interactive elements use `:focus-visible` with a visible outline (`--accent-fg` or `--accent`).
+
+Components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion) are covered by automated keyboard tests in `tests/a11y/keyboard.spec.mjs`. Manually verify focus order and no stray traps on new pages.
+
+### ARIA usage
+
+- **Dialogs** — `role="dialog"`, `aria-modal="true"`, `aria-labelledby` (or `aria-label`) so screen readers announce purpose and scope.
+- **Menus** — Trigger has `aria-haspopup="menu"` and `aria-expanded`; menu has `role="menu"`, items `role="menuitem"` (or `menuitemradio` for single-select like theme switcher).
+- **Tabs** — `role="tablist"`, `role="tab"`, `aria-selected`, `aria-controls` linking to panel `id`; panels have `role="tabpanel"` and `aria-labelledby` to tab.
+- **Accordions** — Headers have `aria-expanded` and `aria-controls`; panels are hidden with `hidden` or `aria-hidden` when collapsed.
+
+ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader output (NVDA, VoiceOver, JAWS) still needs manual testing.
+
+### Focus order and restoration
+
+- When opening a modal or overlay, focus moves into the dialog (first focusable or the close button).
+- When closing, focus returns to the element that opened it (trigger button).
+- Scrollable regions (e.g. code block `<pre>`, sidebar `<aside>`) have `tabindex="0"` so keyboard users can focus and scroll.
+
+### How to test
+
+1. **Keyboard-only** — Unplug the mouse; Tab, Shift+Tab, Enter, Space, arrows, Escape. Confirm all actions are possible and focus never gets stuck.
+2. **Screen reader** — NVDA (Windows), VoiceOver (macOS: Cmd+F5). Navigate by headings, landmarks, and form controls; open/close modals and menus and confirm labels and state (e.g. “dialog”, “menu open”, “tab selected”).
+3. **Automated** — Run `pnpm test:a11y` (axe on 16 docs routes, keyboard and ARIA specs). Fix any reported violations before release.
+4. **Optional** — axe DevTools or Lighthouse accessibility audit for one-off checks.
 
 ## Testing
 
-### Keyboard Testing
+### Automated (recommended first)
 
-- Tab through all interactive elements
-- Use arrow keys in menus
-- Test Escape key functionality
-- Verify focus indicators are visible
+Run the full a11y suite: `pnpm test:a11y`. This runs axe on 16 docs routes, plus keyboard and ARIA specs. See [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) for details.
 
-### Screen Reader Testing
+### Keyboard testing (manual)
 
-- Test with NVDA (Windows)
-- Test with JAWS (Windows)
-- Test with VoiceOver (macOS/iOS)
-- Verify all content is announced
+- Tab through all interactive elements; confirm logical order.
+- Use arrow keys in menus and tabs; Enter/Space to activate; Escape to close.
+- Verify focus indicators are visible and focus returns to trigger after closing overlays.
 
-### Automated Testing
+### Screen reader testing (manual)
 
-Use tools like:
-- axe DevTools
-- WAVE
-- Lighthouse
-- Pa11y
+- Test with NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS (Windows).
+- Verify all content is announced, modal/dialog and menu states are clear, and labels are correct.
+
+### Other tools (optional)
+
+- axe DevTools (browser extension) for one-off page scans.
+- WAVE or Lighthouse accessibility audit for additional checks.
 
 ## Resources
 

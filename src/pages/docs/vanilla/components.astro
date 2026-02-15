@@ -81,7 +81,7 @@ const componentDescriptions: Record<string, string> = {
     transform: translateY(calc(-1 * var(--spacing-0-125)));
   }
   .component-card-link:focus-visible {
-    outline: var(--outline-width) solid var(--accent);
+    outline: var(--outline-width) solid var(--accent-fg);
     outline-offset: var(--outline-offset);
     border-radius: var(--radius-lg);
   }
@@ -90,7 +90,7 @@ const componentDescriptions: Record<string, string> = {
     transition: color var(--transition-base);
   }
   .component-card-link:hover .card__body h3 {
-    color: var(--accent);
+    color: var(--accent-fg);
   }
   @media (prefers-reduced-motion: reduce) {
     .component-card-link {

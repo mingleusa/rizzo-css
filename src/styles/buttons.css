@@ -113,8 +113,8 @@ button:disabled,
 /* Outline Button */
 .btn-outline {
   background-color: transparent;
-  border: var(--border-width) solid var(--accent);
-  color: var(--accent);
+  border: var(--border-width) solid var(--accent-fg);
+  color: var(--accent-fg);
 }
 
 .btn-outline:hover {

@@ -1,6 +1,6 @@
 # Astro + Rizzo CSS (minimal)
 
-Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`, **minimal**, or **manual**.
+Minimal Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`, **minimal**, or **manual**. When you choose **minimal** or **full**, the CLI copies all interactive Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **manual** lets you pick which of those to include (all are pre-selected by default).
 
 ## Setup
 

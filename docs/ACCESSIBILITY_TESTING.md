@@ -1,6 +1,16 @@
 # Accessibility testing checklist
 
-Use this checklist **before** writing the [Accessibility best practices](./ACCESSIBILITY.md) doc. Fix any issues you find; then document the verified patterns.
+Use this checklist for manual keyboard and screen reader testing. The [Accessibility best practices](./ACCESSIBILITY.md#best-practices) section is in place (keyboard patterns, ARIA usage, focus order, how to test). Automated axe, keyboard, and ARIA tests run via `pnpm test:a11y`.
+
+## Completed (automated)
+
+The following are implemented and run in `pnpm test:a11y`:
+
+- **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: 16 docs routes, theme locked to `github-dark-classic`, WCAG 2/2.1 A & AA; critical/serious only. See [What is tested](#what-is-tested) below.
+- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape closes, focus returns; focus in dialog), dropdown (Escape closes menu), tabs (arrow keys), search (trigger focusable, Escape closes overlay).
+- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal (dialog, aria-modal, aria-labelledby), dropdown (menu/menuitem, aria-expanded), tabs (tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio).
+
+Manual keyboard and screen reader testing (Priority 1–3 below) is still recommended.
 
 ## How to use this doc
 
@@ -8,7 +18,58 @@ Use this checklist **before** writing the [Accessibility best practices](./ACCES
 2. **Log issues** (e.g. focus order, missing labels, wrong ARIA, keyboard traps).
 3. **Fix issues** in the component or CSS.
 4. **Re-test** until the checklist passes.
-5. **Then** add the “Best practices” section to ACCESSIBILITY.md based on what you verified.
+5. **Then** update the [Best practices](./ACCESSIBILITY.md#best-practices) section in ACCESSIBILITY.md if you discover new patterns or fixes.
+
+---
+
+## Automated accessibility tests (axe-core + Playwright)
+
+The repo includes **free, automated** a11y tests using [axe-core](https://github.com/dequelabs/axe-core) and [Playwright](https://playwright.dev/). They run against the built docs site and fail on **critical** or **serious** WCAG 2/2.1 Level A and AA violations.
+
+### Run locally
+
+```bash
+pnpm test:a11y
+```
+
+This builds the site (`pnpm build`), starts the preview server, and runs the a11y test suite in `tests/a11y/`. Tests cover 16 docs routes (see [What is tested](#what-is-tested)) plus keyboard and ARIA specs.
+
+### Run in CI
+
+```bash
+pnpm test:a11y:ci
+```
+
+Installs Chromium for Playwright (e.g. in GitHub Actions) then runs the same tests. Add this to your CI pipeline:
+
+```yaml
+# Example: GitHub Actions
+- run: pnpm install
+- run: pnpm test:a11y:ci
+```
+
+### What is tested
+
+- **Pages (16):** Homepage (`/`), Getting started (`/docs/getting-started`), Components (`/docs/components`), Colors, Design system, Accessibility, Theming, and component pages: modal, theme-switcher, button, dropdown, tabs, accordion, search, settings, navbar. Each is loaded, theme is set to `github-dark-classic`, then axe runs.
+- **Rules:** WCAG 2.0 and 2.1 Level A and AA (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`). This includes (among others): color-contrast, link-in-text-block (links distinguishable without color alone), scrollable-region-focusable (keyboard access to scroll areas), aria-hidden-focus (no focusable elements in hidden/inert regions), labels, roles, and other axe rules under those tags.
+- **Impact:** Only **critical** and **serious** violations fail the build; **minor** and **moderate** are reported but do not fail (you can tighten this in `tests/a11y/*.spec.mjs` if needed).
+- **Also in this suite:** `keyboard.spec.mjs` (keyboard behavior) and `aria.spec.mjs` (ARIA/roles). For full screen reader output, use manual testing (Priority 1–3 below).
+
+### Adding more pages
+
+Add a new `test(...)` in `tests/a11y/docs.spec.mjs` that `page.goto('/docs/...')` and runs `AxeBuilder` with the same tags. To scan only part of the page, use `.include(selector)`.
+
+Automated tests **do not** replace manual keyboard and screen-reader testing (see Priority 1–3 below). They catch many WCAG violations (labels, contrast, roles) and help prevent regressions.
+
+If tests fail, the output lists each violation (rule id, impact, help URL). Fix the reported issues in CSS or markup, or add a one-off exclusion in the spec (e.g. `.exclude(selector)` for a known false positive) only when justified.
+
+**Current status:** The docs site a11y suite (`pnpm test:a11y`) includes:
+
+- **Axe (WCAG):** `tests/a11y/docs.spec.mjs` — Runs axe on 16 docs routes (homepage, getting-started, components, colors, design-system, accessibility, theming, and component pages: modal, theme-switcher, button, dropdown, tabs, accordion, search, settings, navbar). Only critical/serious violations fail.
+- **Keyboard:** `tests/a11y/keyboard.spec.mjs` — Modal (Escape closes, focus returns; focus moves into dialog), dropdown (Escape closes menu), tabs (arrow keys change selection), search (trigger focusable, Escape closes overlay).
+- **ARIA / roles:** `tests/a11y/aria.spec.mjs` — Checks markup that screen readers rely on: modal (role=dialog, aria-modal, aria-labelledby), dropdown (aria-haspopup, aria-expanded, role=menu/menuitem), tabs (role=tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio options).
+
+True screen reader testing (NVDA, VoiceOver, JAWS) is still manual; the ARIA tests verify the same markup that screen readers use.
 
 ---
 
@@ -159,11 +220,11 @@ These components have focus management, popups, or complex keyboard behavior. Te
 - **When:** Periodic check on the docs site (e.g. home, one component, one theme).
 - **How:** Run audit; use it to catch contrast, tap targets, and other high-level issues. Complements axe and manual testing.
 
-### 5. Automated E2E a11y (later, for CI)
+### 5. Automated E2E a11y (implemented)
 
-- **What:** [@axe-core/playwright](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) or [@axe-core/puppeteer](https://github.com/dequelabs/axe-core/tree/develop/doc) — run axe in headless browser tests.
-- **When:** Once you want automated regression in CI. Write tests that open key pages and run `axe.run()`; fail the build on violations.
-- **How:** Add Playwright (or Puppeteer) to the repo, one test per route or per component page that injects axe and asserts 0 violations (or only allowed ones). Can be added after manual + axe extension testing is in place.
+- **What:** [@axe-core/playwright](https://github.com/dequelabs/axe-core/blob/develop/doc/rule-descriptions.md) — axe-core runs in Playwright tests against the built docs site.
+- **When:** Run `pnpm test:a11y` locally or `pnpm test:a11y:ci` in CI. Catches critical/serious WCAG violations on key pages.
+- **How:** See [Automated accessibility tests (axe-core + Playwright)](#automated-accessibility-tests-axe-core--playwright) above. Tests live in `tests/a11y/`. Add more pages in `docs.spec.mjs` as needed.
 
 ---
 
@@ -174,7 +235,7 @@ These components have focus management, popups, or complex keyboard behavior. Te
 3. **axe DevTools** on those component pages. Fix any reported issues.
 4. Repeat for **Priority 2** (forms, Tooltip, Toast, CopyToClipboard).
 5. **Priority 3** keyboard + axe spot-check.
-6. **Then** write the “Best practices” section in ACCESSIBILITY.md describing the patterns you verified and how you test (keyboard + screen reader + axe).
+6. **Then** update the [Best practices](./ACCESSIBILITY.md#best-practices) section in ACCESSIBILITY.md if you discover new patterns (keyboard + screen reader + axe).
 
 ---
 

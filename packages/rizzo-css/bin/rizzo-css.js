@@ -18,47 +18,47 @@ const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
 /** Supported package managers: detection, install/add commands, and --package-manager override. */
 const VALID_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'];
 
-/** Full = everything we ship. Minimal = recommended starting set. Manual = you choose. */
+/** Full = everything we ship. Minimal = same full interactive base (all components). Manual = same base, pick which to include. */
 const TEMPLATES = {
   vanilla: [
     { value: 'full', label: 'Full — index.html + theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME },
-    { value: 'minimal', label: 'Minimal — index.html + CSS + js/main.js (recommended starter; no showcase)' },
-    { value: 'manual', label: 'Manual — index.html + CSS; pick components to add their pages + js/main.js' },
+    { value: 'minimal', label: 'Minimal — index.html + CSS + js/main.js + all interactive components (recommended starter)' },
+    { value: 'manual', label: 'Manual — index.html + CSS; pick which components to add (base = all interactive)' },
   ],
   astro: [
     { value: 'full', label: 'Full — Astro app + all components (with dependencies so everything works)' },
-    { value: 'minimal', label: 'Minimal — Astro app + recommended set (includes any required dependencies)' },
-    { value: 'manual', label: 'Manual — minimal base + pick components (list shows which add others)' },
+    { value: 'minimal', label: 'Minimal — Astro app + all interactive components (full base; everything works together)' },
+    { value: 'manual', label: 'Manual — same base; pick which components to include (all interactive pre-selected)' },
   ],
   svelte: [
     { value: 'full', label: 'Full — SvelteKit app + all components (with dependencies so everything works)' },
-    { value: 'minimal', label: 'Minimal — SvelteKit app + recommended set (includes any required dependencies)' },
-    { value: 'manual', label: 'Manual — minimal base + pick components (list shows which add others)' },
+    { value: 'minimal', label: 'Minimal — SvelteKit app + all interactive components (full base; everything works together)' },
+    { value: 'manual', label: 'Manual — same base; pick which components to include (all interactive pre-selected)' },
   ],
 };
 
 const VANILLA_MINIMAL_README = `# Vanilla + Rizzo CSS (minimal)
 
-Minimal starter: HTML + CSS + js/main.js + recommended component pages. Scaffolded with \`npx rizzo-css init --framework vanilla --template minimal\`.
+Minimal starter: HTML + CSS + js/main.js + all interactive component pages. Scaffolded with \`npx rizzo-css init --framework vanilla --template minimal\`.
 
 - Open \`index.html\` in a browser or serve the folder. Edit \`index.html\` and add your content. CSS: \`css/rizzo.min.css\`. Script: \`js/main.js\` (already linked).
-- \`components/\` contains HTML pages for the recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard). Open \`components/index.html\` to browse them.
+- \`components/\` contains HTML pages for every interactive component (Button, Badge, Card, Modal, Tabs, Navbar, Search, Settings, ThemeSwitcher, Dropdown, Accordion, Toast, CopyToClipboard, forms, table, etc.). Open \`components/index.html\` to browse them.
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
-- For the full component showcase and icons, use template **Full** or copy from a Full scaffold.
+- Template **Full** adds the same components in a full showcase layout with theme switcher on every page.
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 `;
 
 const VANILLA_MANUAL_README = `# Vanilla + Rizzo CSS (manual)
 
-Manual setup: HTML + CSS, plus any component pages you chose. Scaffolded with \`npx rizzo-css init --framework vanilla --template manual\`.
+Manual setup: HTML + CSS, plus the component pages you chose (base = all interactive components). Scaffolded with \`npx rizzo-css init --framework vanilla --template manual\`.
 
 - Open \`index.html\` in a browser or serve the folder with any static server.
 - Edit \`index.html\` and add your content. CSS: \`css/rizzo.min.css\`.
 - If you picked components, \`components/\` has their HTML pages and \`js/main.js\` is included (open \`components/index.html\` to browse).
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
 
-**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`icons/\` into this project.
+**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Minimal** or **Full** in a temp folder and copy \`js/main.js\` and \`components/\` into this project.
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 `;
@@ -109,10 +109,13 @@ const ASTRO_COMPONENTS = [
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 
-// Recommended subset for Full/Minimal (same for Astro, Svelte, Vanilla). Includes all interactive components.
+// Base set for Minimal and Manual: all interactive components we ship (so minimal/manual have a full working set). Full still includes everything (same list + any extras).
 const RECOMMENDED_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
-  'Navbar', 'Search', 'Settings', 'Accordion', 'CopyToClipboard',
+  'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Navbar', 'Search', 'Settings', 'Icons',
 ];
 
 // Vanilla components that need js/main.js for interactivity.
@@ -789,7 +792,7 @@ Usage (use your package manager):
   bunx rizzo-css <command> [options]
 
 Commands:
-  init    New project = Full (everything) | Minimal (recommended set) | Manual (pick what you want). Existing = drop in CSS + hand-pick. First: framework, then existing vs new.
+  init    New project = Full (everything) | Minimal (all 29 interactive) | Manual (all pre-selected; pick what to include). Existing = drop in CSS + hand-pick. First: framework, then existing vs new.
   add     Same as init → existing: drop in CSS + hand-pick components (framework detected or from rizzo-css.json)
   theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
@@ -886,7 +889,7 @@ Where components are copied:
   Vanilla → components/ (HTML)     (for interactivity add js/main.js; use --vanilla-js on add)
 
   Full     = all components above; dependencies are included so everything works.
-  Minimal  = recommended set; any component in that set that requires others gets them.
+  Minimal  = all 29 interactive components; any component that requires others gets them.
   Manual   = you pick; the picker shows e.g. "Settings (adds ThemeSwitcher)". Required deps are added when you confirm.
 
 To see this again: npx rizzo-css help components
@@ -967,7 +970,7 @@ function componentOptionLabel(framework, name) {
   return name + suffix;
 }
 
-/** Ask what to include: CSS only, recommended set, all components, or pick. Returns array of component names. Only call when componentList.length > 0. initialSelection: when set (e.g. for manual = minimal base), skip the menu and show multi-select with these pre-selected. */
+/** Ask what to include: CSS only, all 29 interactive, all components, or pick. Returns array of component names. Only call when componentList.length > 0. initialSelection: when set (e.g. for manual = all 29 pre-selected), skip the menu and show multi-select with these pre-selected. */
 async function promptComponentChoice(componentList, framework, initialSelection) {
   const recommended = RECOMMENDED_COMPONENTS.filter((c) => componentList.includes(c));
   if (initialSelection !== undefined) {
@@ -977,14 +980,14 @@ async function promptComponentChoice(componentList, framework, initialSelection)
         { value: SENTINEL_NONE, label: 'Select no components' },
         ...componentList.map((c) => ({ value: c, label: componentOptionLabel(framework, c) })),
       ],
-      '? Components (minimal set pre-selected) — Space to toggle, Enter to confirm',
+      '? Components (all interactive pre-selected) — Space to toggle, Enter to confirm',
       initialSelection
     );
   }
   const choice = await selectMenu(
     [
       { value: 'none', label: 'CSS only — no components' },
-      { value: 'recommended', label: 'Recommended set (' + recommended.length + ' components: Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard)' },
+      { value: 'recommended', label: 'All interactive components (' + recommended.length + ' — base set: Button, Badge, Card, Modal, Tabs, Navbar, Search, Settings, …)' },
       { value: 'all', label: 'All components (' + componentList.length + ')' },
       { value: 'pick', label: 'Pick components (choose each one)' },
     ],
@@ -1800,6 +1803,8 @@ async function cmdInit(argv) {
       mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
       writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
     }
+    const vanillaFullRepl = { ...replacements, '{{LINK_HREF}}': linkHref };
+    copyVanillaComponents(projectDir, Object.keys(VANILLA_COMPONENT_SLUGS), vanillaFullRepl);
     copyPackageLicense(projectDir);
     copyVanillaGitignore(projectDir);
   } else if (useVanillaMinimal) {
@@ -1881,7 +1886,7 @@ async function cmdInit(argv) {
     if (useVanillaFull) {
       console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME + '.');
     } else if (useVanillaMinimal) {
-      console.log('  - Vanilla JS (minimal): index.html + CSS + js/main.js. Add components from docs or use Full for showcase.');
+      console.log('  - Vanilla JS (minimal): index.html + CSS + js/main.js + all interactive components.');
     } else {
       console.log('  - Vanilla JS (manual): index.html + CSS only. Add JS from docs or copy from Full.');
     }

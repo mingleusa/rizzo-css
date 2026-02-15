@@ -33,10 +33,16 @@
   --icon: var(--fg);
   --icon-dim: oklch(75% 0.01 264deg);
   --border: oklch(13% 0.01 264deg);
-  --accent: var(--cyan);
-  --accent-hover: oklch(78% 0.12 250deg);
+
+  /* Accent darkened so white text meets WCAG AA 4.5:1 (--cyan is too light at 72%) */
+  --accent: oklch(45% 0.18 250deg);
+  --accent-hover: oklch(48% 0.18 250deg);
   --accent-text: oklch(100% 0 0deg);
-  --accent-text-on-hover: oklch(22% 0.03 250deg);
+  --accent-text-on-hover: var(--accent-text);
+
+  /* Foreground accent (links, outlines, tabs) light enough for 4.5:1 on dark background */
+  --accent-fg: var(--cyan);
+  --accent-fg-hover: oklch(78% 0.12 250deg);
   --success: var(--green);
   --success-hover: oklch(78% 0.16 145deg);
   --success-text: oklch(100% 0 0deg);

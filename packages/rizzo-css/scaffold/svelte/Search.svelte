@@ -1,6 +1,7 @@
 <script lang="ts">
   import SearchIcon from './icons/Search.svelte';
   import Close from './icons/Close.svelte';
+  import Cmd from './icons/Cmd.svelte';
 
   interface Props {
     id?: string;
@@ -9,6 +10,8 @@
   let open = $state(false);
   let query = $state('');
   let panelEl = $state<HTMLElement | null>(null);
+  let searchEl = $state<HTMLElement | null>(null);
+  let triggerEl = $state<HTMLElement | null>(null);
 
   const FOCUSABLE_SEL = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
 
@@ -47,20 +50,57 @@
     document.addEventListener('keydown', onKeydown);
     return () => document.removeEventListener('keydown', onKeydown);
   });
+
+  let prevOpen = $state(false);
+  $effect(() => {
+    const nowOpen = open;
+    if (prevOpen && !nowOpen && triggerEl) setTimeout(() => triggerEl!.focus(), 0);
+    prevOpen = nowOpen;
+  });
+
+  $effect(() => {
+    const el = searchEl;
+    if (!el) return;
+    const onCmdK = (e: KeyboardEvent) => {
+      const isMod = e.ctrlKey || e.metaKey;
+      const isK = e.key === 'k' || e.key === 'K';
+      if (!isMod || !isK) return;
+      const target = e.target as Node | null;
+      const inOtherInput = target && !el.contains(target) && (
+        (target as Element).tagName === 'INPUT' ||
+        (target as Element).tagName === 'TEXTAREA' ||
+        (target as HTMLElement).isContentEditable === true ||
+        (target as Element).closest?.('input, textarea, [contenteditable="true"]')
+      );
+      if (open || !inOtherInput) {
+        e.preventDefault();
+        e.stopPropagation();
+        open = !open;
+      }
+    };
+    document.addEventListener('keydown', onCmdK, true);
+    return () => document.removeEventListener('keydown', onCmdK, true);
+  });
 </script>
 
-<div class="search" data-search>
+<div class="search" data-search bind:this={searchEl}>
   <div class="search__trigger-wrapper">
     <button
       type="button"
       class="search__trigger"
       aria-label="Open search"
+      data-search-trigger
       aria-expanded={open}
       aria-controls="{id}-panel"
+      bind:this={triggerEl}
       onclick={() => (open = !open)}
     >
       <SearchIcon width={20} height={20} class="search__icon" />
       <span class="search__trigger-text">Search</span>
+      <kbd class="search__kbd" aria-hidden="true">
+        <span class="search__kbd-modifier"><Cmd width={14} height={14} /></span>
+        <kbd>K</kbd>
+      </kbd>
     </button>
   </div>
   <div

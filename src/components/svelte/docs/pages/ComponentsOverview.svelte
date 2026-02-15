@@ -93,7 +93,7 @@
     font-size: var(--font-size-sm);
   }
   .component-card-link:hover :global(.card-title) {
-    color: var(--accent);
+    color: var(--accent-fg);
   }
   @media (width <= 640px) {
     .docs-component-grid {

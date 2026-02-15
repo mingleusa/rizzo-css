@@ -33,3 +33,6 @@ export { default as Table } from './Table.svelte';
 export type { TableColumn } from './Table.svelte';
 export { default as ThemeIcon } from './ThemeIcon.svelte';
 export { default as ThemeSwitcher } from './ThemeSwitcher.svelte';
+export { default as Navbar } from './Navbar.svelte';
+export { default as Settings } from './Settings.svelte';
+export { default as Search } from './Search.svelte';

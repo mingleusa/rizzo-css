@@ -870,7 +870,29 @@
       input.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
       });
+      search.__searchOpen = openSearch;
+      search.__searchClose = closeSearch;
     });
+    if (!window.__rizzoSearchCmdK) {
+      window.__rizzoSearchCmdK = true;
+      document.addEventListener('keydown', function (e) {
+        var isMod = e.ctrlKey || e.metaKey;
+        var isK = e.key === 'k' || e.key === 'K';
+        if (!isMod || !isK) return;
+        var searchEl = document.querySelector('[data-search]');
+        if (!searchEl || !searchEl.__searchOpen) return;
+        var panelEl = searchEl.querySelector('.search__panel');
+        if (!panelEl) return;
+        var target = e.target;
+        var inOtherInput = target && !searchEl.contains(target) && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable === true || (target.closest && target.closest('input, textarea, [contenteditable="true"]')));
+        var isOpen = panelEl.getAttribute('data-open') === 'true';
+        if (isOpen || !inOtherInput) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (isOpen) searchEl.__searchClose(); else searchEl.__searchOpen();
+        }
+      }, true);
+    }
   }
 
   function initNavbarMobile() {

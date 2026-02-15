@@ -29,9 +29,9 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		
 		<h3>Focus Management</h3>
 		<ul>
-			<li>Visible focus indicators using <code>--accent</code> color</li>
+			<li>Visible focus indicators using <code>--accent</code> / <code>--accent-fg</code> color</li>
 			<li>Focus trapping in modals</li>
-			<li>Focus restoration after interactions</li>
+			<li>Focus restoration: when you close overlays (Search, Modal, Dropdown), focus returns to the trigger</li>
 			<li>Skip links for main content</li>
 		</ul>
 	</section>
@@ -62,7 +62,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 		<h2>Focus Styles</h2>
 		<p>All interactive elements have visible focus indicators:</p>
 		<CodeBlock code={`:focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-fg);
   outline-offset: 2px;
 }`} language="css" />
 	</section>

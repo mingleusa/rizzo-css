@@ -3697,6 +3697,7 @@ div.navbar__sublink {
 .accordion__title {
   flex: 1;
   margin: 0;
+  color: var(--text);
 }
 
 .accordion__icon {
@@ -3814,17 +3815,17 @@ div.navbar__sublink {
 }
 
 .tabs__tab--active {
-  color: var(--accent);
-  border-bottom-color: var(--accent);
+  color: var(--accent-fg);
+  border-bottom-color: var(--accent-fg);
   font-weight: var(--font-weight-semibold);
   background-color: var(--background-alt);
   border-bottom-width: calc(var(--outline-width) * 3);
 }
 
 .tabs__tab--active:hover {
-  color: var(--accent);
+  color: var(--accent-fg);
   background-color: var(--background-alt);
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--accent-fg);
 }
 
 .tabs__panels-wrapper {
@@ -3897,7 +3898,7 @@ div.navbar__sublink {
 }
 
 .tabs--underline .tabs__tab--active {
-  border-bottom-color: var(--accent);
+  border-bottom-color: var(--accent-fg);
   border-bottom-width: calc(var(--outline-width) * 2);
 }
 

@@ -34,13 +34,14 @@ function textColorForStep(step: number): string {
 	
 	<section>
 		<div class="color-format-tabs" role="tablist" aria-label="Color format selection">
-			<span class="color-format-tab" role="tab" tabindex="0" aria-selected="true" aria-controls="oklch-panel" id="oklch-tab" data-format="oklch">OKLCH</span>
-			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="hex-panel" id="hex-tab" data-format="hex">Hex</span>
-			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="rgb-panel" id="rgb-tab" data-format="rgb">RGB</span>
-			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="hsl-panel" id="hsl-tab" data-format="hsl">HSL</span>
-			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="cssvar-panel" id="cssvar-tab" data-format="cssvar">CSS Variable</span>
+			<span class="color-format-tab" role="tab" tabindex="0" aria-selected="true" aria-controls="color-format-panel" id="oklch-tab" data-format="oklch">OKLCH</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="color-format-panel" id="hex-tab" data-format="hex">Hex</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="color-format-panel" id="rgb-tab" data-format="rgb">RGB</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="color-format-panel" id="hsl-tab" data-format="hsl">HSL</span>
+			<span class="color-format-tab" role="tab" tabindex="-1" aria-selected="false" aria-controls="color-format-panel" id="cssvar-tab" data-format="cssvar">CSS Variable</span>
 		</div>
-		
+
+		<div id="color-format-panel" role="tabpanel" aria-labelledby="oklch-tab">
 		<h2>Core Colors</h2>
 		<div class="colors-grid">
 			<div class="color-card" style="--color-card-bg: var(--background);">
@@ -112,6 +113,52 @@ function textColorForStep(step: number): string {
 				</div>
 				</Card>
 			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--selection);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--selection); color: var(--text);" data-color-var="--selection">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Selection</h3>
+						<p class="color-swatch__var">--selection</p>
+						<p class="color-swatch__desc">Text selection highlight</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--background);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background); color: var(--icon);" data-color-var="--icon">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Icon</h3>
+						<p class="color-swatch__var">--icon</p>
+						<p class="color-swatch__desc">SVG currentColor</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--background);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background); color: var(--icon-dim);" data-color-var="--icon-dim">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Icon Dim</h3>
+						<p class="color-swatch__var">--icon-dim</p>
+						<p class="color-swatch__desc">Secondary icons</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+		</div>
 		</div>
 	</section>
 	
@@ -152,6 +199,36 @@ function textColorForStep(step: number): string {
 					<div class="color-swatch__info">
 						<h3 class="color-swatch__name">Accent Text</h3>
 						<p class="color-swatch__var">--accent-text</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--background);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background); color: var(--accent-fg); border: 2px solid var(--accent-fg);" data-color-var="--accent-fg" data-color-source="--cyan,--purple,--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Accent FG</h3>
+						<p class="color-swatch__var">--accent-fg</p>
+						<p class="color-swatch__desc">Links, outline buttons, tabs, code</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			
+			<div class="color-card" style="--color-card-bg: var(--background);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--background); color: var(--accent-fg-hover); border: 2px solid var(--accent-fg-hover);" data-color-var="--accent-fg-hover" data-color-source="--cyan,--purple,--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Accent FG Hover</h3>
+						<p class="color-swatch__var">--accent-fg-hover</p>
+						<p class="color-swatch__desc">Link/outline hover</p>
 						<div class="color-swatch__formats">
 							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
 						</div>
@@ -278,6 +355,65 @@ function textColorForStep(step: number): string {
 			</div>
 		</div>
 	</section>
+	
+	<section>
+		<h2>Text on solid (buttons, badges)</h2>
+		<p>Contrast-aware text for solid semantic backgrounds. Themes may override for WCAG AA.</p>
+		<div class="colors-grid">
+			<div class="color-card" style="--color-card-bg: var(--success);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--success); color: var(--success-text-on-solid);" data-color-var="--success-text-on-solid" data-color-source="--green">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Success Text on Solid</h3>
+						<p class="color-swatch__var">--success-text-on-solid</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			<div class="color-card" style="--color-card-bg: var(--warning);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--warning); color: var(--warning-text-on-solid);" data-color-var="--warning-text-on-solid" data-color-source="--yellow">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Warning Text on Solid</h3>
+						<p class="color-swatch__var">--warning-text-on-solid</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			<div class="color-card" style="--color-card-bg: var(--error);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--error); color: var(--error-text-on-solid);" data-color-var="--error-text-on-solid" data-color-source="--red">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Error Text on Solid</h3>
+						<p class="color-swatch__var">--error-text-on-solid</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+			<div class="color-card" style="--color-card-bg: var(--info);">
+				<Card variant="elevated">
+				<div class="color-swatch" style="background-color: var(--info); color: var(--info-text-on-solid);" data-color-var="--info-text-on-solid" data-color-source="--cyan">
+					<div class="color-swatch__info">
+						<h3 class="color-swatch__name">Info Text on Solid</h3>
+						<p class="color-swatch__var">--info-text-on-solid</p>
+						<div class="color-swatch__formats">
+							<CopyToClipboard value="" format="" class="color-format__copy" data-color-copy />
+						</div>
+					</div>
+				</div>
+				</Card>
+			</div>
+		</div>
+	</section>
 
 	<section class="color-scales-section">
 		<h2>Color scales (design tokens)</h2>
@@ -365,12 +501,12 @@ function textColorForStep(step: number): string {
 	}
 	
 	.color-format-tab[aria-selected="true"] {
-		color: var(--accent);
-		border-bottom-color: var(--accent);
+		color: var(--accent-fg);
+		border-bottom-color: var(--accent-fg);
 	}
 	
 	.color-format-tab:focus-visible {
-		outline: 2px solid var(--accent);
+		outline: 2px solid var(--accent-fg);
 		outline-offset: var(--outline-offset);
 		border-radius: var(--radius);
 	}
@@ -520,17 +656,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(91% 0.004 264deg)',
 				'--text-dim': 'oklch(66% 0.01 264deg)',
 				'--border': 'oklch(13% 0.01 264deg)',
-				'--accent': 'oklch(72% 0.12 250deg)',
-				'--accent-hover': 'oklch(78% 0.12 250deg)',
+				'--selection': 'oklch(28% 0.08 255deg)',
+				'--icon': 'oklch(91% 0.004 264deg)',
+				'--icon-dim': 'oklch(75% 0.01 264deg)',
+				'--accent': 'oklch(45% 0.18 250deg)',
+				'--accent-hover': 'oklch(48% 0.18 250deg)',
+				'--accent-fg': 'oklch(72% 0.12 250deg)',
+				'--accent-fg-hover': 'oklch(78% 0.12 250deg)',
 				'--success': 'oklch(72% 0.19 145deg)',
 				'--warning': 'oklch(78% 0.12 55deg)',
 				'--error': 'oklch(68% 0.16 15deg)',
 				'--info': 'oklch(72% 0.12 250deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
-				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text': 'oklch(100% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 145deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
-				'--info-text': 'oklch(20% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
+				'--info-text': 'oklch(100% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 250deg)',
 			},
 			'github-light': {
 				'--background': 'oklch(100% 0 0deg)',
@@ -538,17 +683,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(18% 0.02 264deg)',
 				'--text-dim': 'oklch(52% 0.02 264deg)',
 				'--border': 'oklch(86% 0.01 264deg)',
+				'--selection': 'oklch(88% 0.06 255deg)',
+				'--icon': 'oklch(18% 0.02 264deg)',
+				'--icon-dim': 'oklch(52% 0.02 264deg)',
 				'--accent': 'oklch(55% 0.18 255deg)',
 				'--accent-hover': 'oklch(38% 0.18 255deg)',
+				'--accent-fg': 'oklch(55% 0.18 255deg)',
+				'--accent-fg-hover': 'oklch(38% 0.18 255deg)',
 				'--success': 'oklch(48% 0.16 145deg)',
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(50% 0.2 25deg)',
 				'--info': 'oklch(55% 0.18 255deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 90deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(100% 0 0deg)',
 			},
 			'green-breeze-light': {
 				'--background': 'oklch(98% 0.008 140deg)',
@@ -556,17 +710,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(20% 0.02 80deg)',
 				'--text-dim': 'oklch(45% 0.02 80deg)',
 				'--border': 'oklch(88% 0.02 140deg)',
+				'--selection': 'oklch(88% 0.06 200deg)',
+				'--icon': 'oklch(20% 0.02 80deg)',
+				'--icon-dim': 'oklch(45% 0.02 80deg)',
 				'--accent': 'oklch(48% 0.16 155deg)',
 				'--accent-hover': 'oklch(38% 0.16 155deg)',
+				'--accent-fg': 'oklch(48% 0.16 155deg)',
+				'--accent-fg-hover': 'oklch(38% 0.16 155deg)',
 				'--success': 'oklch(42% 0.14 145deg)',
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(45% 0.18 25deg)',
 				'--info': 'oklch(58% 0.14 205deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 90deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 			'cute-pink': {
 				'--background': 'oklch(100% 0 0deg)',
@@ -574,17 +737,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(25% 0.01 0deg)',
 				'--text-dim': 'oklch(50% 0.02 0deg)',
 				'--border': 'oklch(88% 0.06 350deg)',
+				'--selection': 'oklch(78% 0.12 350deg)',
+				'--icon': 'oklch(25% 0.01 0deg)',
+				'--icon-dim': 'oklch(50% 0.02 0deg)',
 				'--accent': 'oklch(62% 0.22 350deg)',
 				'--accent-hover': 'oklch(55% 0.22 350deg)',
+				'--accent-fg': 'oklch(62% 0.22 350deg)',
+				'--accent-fg-hover': 'oklch(55% 0.22 350deg)',
 				'--success': 'oklch(48% 0.12 145deg)',
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(55% 0.2 25deg)',
 				'--info': 'oklch(55% 0.1 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 90deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 			'semi-light-purple': {
 				'--background': 'oklch(96% 0.02 290deg)',
@@ -592,17 +764,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(25% 0.02 290deg)',
 				'--text-dim': 'oklch(48% 0.03 290deg)',
 				'--border': 'oklch(86% 0.05 290deg)',
+				'--selection': 'oklch(88% 0.06 290deg)',
+				'--icon': 'oklch(25% 0.02 290deg)',
+				'--icon-dim': 'oklch(48% 0.03 290deg)',
 				'--accent': 'oklch(52% 0.2 290deg)',
 				'--accent-hover': 'oklch(45% 0.2 290deg)',
+				'--accent-fg': 'oklch(52% 0.2 290deg)',
+				'--accent-fg-hover': 'oklch(45% 0.2 290deg)',
 				'--success': 'oklch(50% 0.14 150deg)',
 				'--warning': 'oklch(75% 0.14 90deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(58% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 90deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 			'hack-the-box': {
 				'--background': 'oklch(16% 0.03 255deg)',
@@ -610,17 +791,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(82% 0.03 255deg)',
 				'--text-dim': 'oklch(62% 0.04 255deg)',
 				'--border': 'oklch(20% 0.03 255deg)',
+				'--selection': 'oklch(55% 0.08 255deg)',
+				'--icon': 'oklch(82% 0.03 255deg)',
+				'--icon-dim': 'oklch(70% 0.04 255deg)',
 				'--accent': 'oklch(88% 0.22 130deg)',
 				'--accent-hover': 'oklch(85% 0.2 125deg)',
+				'--accent-fg': 'oklch(88% 0.22 130deg)',
+				'--accent-fg-hover': 'oklch(85% 0.2 125deg)',
 				'--success': 'oklch(88% 0.22 130deg)',
 				'--warning': 'oklch(82% 0.16 95deg)',
 				'--error': 'oklch(65% 0.22 25deg)',
 				'--info': 'oklch(68% 0.14 240deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 130deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 95deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 240deg)',
 			},
 			'pink-cat-boo': {
 				'--background': 'oklch(18% 0.03 280deg)',
@@ -628,17 +818,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(98% 0.01 350deg)',
 				'--text-dim': 'oklch(65% 0.04 280deg)',
 				'--border': 'oklch(35% 0.04 280deg)',
+				'--selection': 'oklch(28% 0.06 320deg)',
+				'--icon': 'oklch(98% 0.01 350deg)',
+				'--icon-dim': 'oklch(75% 0.04 280deg)',
 				'--accent': 'oklch(78% 0.12 350deg)',
 				'--accent-hover': 'oklch(82% 0.1 350deg)',
+				'--accent-fg': 'oklch(78% 0.12 350deg)',
+				'--accent-fg-hover': 'oklch(82% 0.1 350deg)',
 				'--success': 'oklch(72% 0.14 165deg)',
 				'--warning': 'oklch(78% 0.14 85deg)',
 				'--error': 'oklch(72% 0.18 350deg)',
 				'--info': 'oklch(72% 0.1 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 165deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 85deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 350deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 220deg)',
 			},
 			'shades-of-purple': {
 				'--background': 'oklch(18% 0.08 290deg)',
@@ -646,17 +845,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(95% 0.01 300deg)',
 				'--text-dim': 'oklch(75% 0.05 300deg)',
 				'--border': 'oklch(25% 0.10 290deg)',
+				'--selection': 'oklch(30% 0.12 290deg)',
+				'--icon': 'oklch(95% 0.01 300deg)',
+				'--icon-dim': 'oklch(80% 0.05 300deg)',
 				'--accent': 'oklch(65% 0.25 290deg)',
 				'--accent-hover': 'oklch(75% 0.22 340deg)',
+				'--accent-fg': 'oklch(75% 0.22 340deg)',
+				'--accent-fg-hover': 'oklch(80% 0.2 340deg)',
 				'--success': 'oklch(70% 0.20 150deg)',
 				'--warning': 'oklch(85% 0.18 100deg)',
 				'--error': 'oklch(65% 0.22 25deg)',
 				'--info': 'oklch(75% 0.15 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 145deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 100deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 220deg)',
 			},
 			'sandstorm-classic': {
 				'--background': 'oklch(16% 0.025 25deg)',
@@ -664,17 +872,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(90% 0.01 25deg)',
 				'--text-dim': 'oklch(62% 0.02 25deg)',
 				'--border': 'oklch(22% 0.02 25deg)',
+				'--selection': 'oklch(28% 0.06 25deg)',
+				'--icon': 'oklch(90% 0.01 25deg)',
+				'--icon-dim': 'oklch(72% 0.02 25deg)',
 				'--accent': 'oklch(58% 0.18 25deg)',
 				'--accent-hover': 'oklch(62% 0.16 25deg)',
+				'--accent-fg': 'oklch(72% 0.14 25deg)',
+				'--accent-fg-hover': 'oklch(78% 0.12 25deg)',
 				'--success': 'oklch(68% 0.18 145deg)',
 				'--warning': 'oklch(72% 0.14 55deg)',
 				'--error': 'oklch(58% 0.18 25deg)',
 				'--info': 'oklch(68% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 145deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 220deg)',
 			},
 			'red-velvet-cupcake': {
 				'--background': 'oklch(99% 0.005 25deg)',
@@ -682,17 +899,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(28% 0.02 250deg)',
 				'--text-dim': 'oklch(48% 0.02 250deg)',
 				'--border': 'oklch(88% 0.015 25deg)',
+				'--selection': 'oklch(92% 0.04 25deg)',
+				'--icon': 'oklch(28% 0.02 250deg)',
+				'--icon-dim': 'oklch(48% 0.02 250deg)',
 				'--accent': 'oklch(55% 0.17 25deg)',
 				'--accent-hover': 'oklch(48% 0.18 25deg)',
+				'--accent-fg': 'oklch(55% 0.17 25deg)',
+				'--accent-fg-hover': 'oklch(48% 0.18 25deg)',
 				'--success': 'oklch(50% 0.16 145deg)',
 				'--warning': 'oklch(62% 0.14 55deg)',
 				'--error': 'oklch(55% 0.17 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 			'rocky-blood-orange': {
 				'--background': 'oklch(16% 0.03 45deg)',
@@ -700,17 +926,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(90% 0.01 45deg)',
 				'--text-dim': 'oklch(60% 0.02 45deg)',
 				'--border': 'oklch(22% 0.02 45deg)',
+				'--selection': 'oklch(28% 0.06 45deg)',
+				'--icon': 'oklch(90% 0.01 45deg)',
+				'--icon-dim': 'oklch(72% 0.02 45deg)',
 				'--accent': 'oklch(62% 0.16 55deg)',
 				'--accent-hover': 'oklch(68% 0.14 55deg)',
+				'--accent-fg': 'oklch(72% 0.14 55deg)',
+				'--accent-fg-hover': 'oklch(78% 0.12 55deg)',
 				'--success': 'oklch(68% 0.18 145deg)',
 				'--warning': 'oklch(62% 0.16 55deg)',
 				'--error': 'oklch(58% 0.18 25deg)',
 				'--info': 'oklch(68% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 145deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 220deg)',
 			},
 			'orangy-one-light': {
 				'--background': 'oklch(99% 0.008 70deg)',
@@ -718,17 +953,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(22% 0.02 70deg)',
 				'--text-dim': 'oklch(48% 0.02 70deg)',
 				'--border': 'oklch(88% 0.02 70deg)',
+				'--selection': 'oklch(92% 0.05 70deg)',
+				'--icon': 'oklch(22% 0.02 70deg)',
+				'--icon-dim': 'oklch(48% 0.02 70deg)',
 				'--accent': 'oklch(58% 0.16 55deg)',
 				'--accent-hover': 'oklch(50% 0.18 55deg)',
+				'--accent-fg': 'oklch(58% 0.16 55deg)',
+				'--accent-fg-hover': 'oklch(50% 0.18 55deg)',
 				'--success': 'oklch(50% 0.16 145deg)',
 				'--warning': 'oklch(58% 0.16 55deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 			'minimal-dark-neon-yellow': {
 				'--background': 'oklch(14% 0.01 95deg)',
@@ -736,17 +980,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(92% 0.02 95deg)',
 				'--text-dim': 'oklch(58% 0.02 95deg)',
 				'--border': 'oklch(20% 0.02 95deg)',
+				'--selection': 'oklch(25% 0.08 95deg)',
+				'--icon': 'oklch(92% 0.02 95deg)',
+				'--icon-dim': 'oklch(72% 0.02 95deg)',
 				'--accent': 'oklch(88% 0.18 95deg)',
 				'--accent-hover': 'oklch(90% 0.16 95deg)',
+				'--accent-fg': 'oklch(88% 0.18 95deg)',
+				'--accent-fg-hover': 'oklch(90% 0.16 95deg)',
 				'--success': 'oklch(72% 0.18 145deg)',
 				'--warning': 'oklch(78% 0.14 55deg)',
 				'--error': 'oklch(62% 0.18 25deg)',
 				'--info': 'oklch(72% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(22% 0.03 145deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(22% 0.03 25deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(22% 0.03 220deg)',
 			},
 			'sunflower': {
 				'--background': 'oklch(98% 0.03 95deg)',
@@ -754,17 +1007,26 @@ function textColorForStep(step: number): string {
 				'--text': 'oklch(22% 0.03 95deg)',
 				'--text-dim': 'oklch(45% 0.03 95deg)',
 				'--border': 'oklch(85% 0.04 95deg)',
+				'--selection': 'oklch(88% 0.08 95deg)',
+				'--icon': 'oklch(22% 0.03 95deg)',
+				'--icon-dim': 'oklch(45% 0.03 95deg)',
 				'--accent': 'oklch(75% 0.16 95deg)',
 				'--accent-hover': 'oklch(65% 0.18 95deg)',
+				'--accent-fg': 'oklch(75% 0.16 95deg)',
+				'--accent-fg-hover': 'oklch(65% 0.18 95deg)',
 				'--success': 'oklch(50% 0.16 145deg)',
 				'--warning': 'oklch(62% 0.14 55deg)',
 				'--error': 'oklch(52% 0.18 25deg)',
 				'--info': 'oklch(55% 0.12 220deg)',
 				'--accent-text': 'oklch(100% 0 0deg)',
 				'--success-text': 'oklch(20% 0 0deg)',
+				'--success-text-on-solid': 'oklch(100% 0 0deg)',
 				'--warning-text': 'oklch(100% 0 0deg)',
+				'--warning-text-on-solid': 'oklch(22% 0.02 55deg)',
 				'--error-text': 'oklch(100% 0 0deg)',
+				'--error-text-on-solid': 'oklch(100% 0 0deg)',
 				'--info-text': 'oklch(20% 0 0deg)',
+				'--info-text-on-solid': 'oklch(20% 0 0deg)',
 			},
 		};
 		

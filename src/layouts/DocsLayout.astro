@@ -164,7 +164,7 @@ const { framework } = getFrameworkFromPath(currentPath);
 	
 	.docs__content :global(code) {
 		background-color: var(--background-alt);
-		color: var(--accent);
+		color: var(--accent-fg);
 		padding: var(--spacing-0-125) var(--spacing-0-375);
 		border-radius: var(--radius);
 		font-family: var(--font-family-mono);
@@ -213,14 +213,14 @@ const { framework } = getFrameworkFromPath(currentPath);
 	}
 	
 	.docs__content :global(a) {
-		color: var(--accent);
-		text-decoration: none;
+		color: var(--accent-fg);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
 		transition: color var(--transition-base);
 	}
 	
 	.docs__content :global(a:hover) {
-		color: var(--accent-hover);
-		text-decoration: underline;
+		color: var(--accent-fg-hover);
 	}
 	
 	.docs__content :global(hr) {

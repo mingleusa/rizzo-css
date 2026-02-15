@@ -12,7 +12,7 @@ pnpm add rizzo-css
 yarn add rizzo-css
 ```
 
-**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components; you must add the `<link>` yourself (CLI prints the exact tag). **New** → choose **Full** | **Minimal** (recommended) | **Manual** (pick components; list shows which add others, e.g. Navbar adds Search and Settings, Settings adds ThemeSwitcher), then package manager. Full and Minimal include all required dependencies so every component works. Run `npx rizzo-css help components` for the dependency list. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
+**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. **Existing** (or `npx rizzo-css add`) → drop in CSS + hand-pick components; you must add the `<link>` yourself (CLI prints the exact tag). **New** → choose **Full** | **Minimal** (recommended; all interactive components) | **Manual** (same base; pick which to include; all pre-selected), then package manager. Full and Minimal include all 29 components and required dependencies so every component works. Run `npx rizzo-css help components` for the dependency list. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add
@@ -46,7 +46,7 @@ You install **the same package** for every framework: `npm install rizzo-css`. N
 
 With `npx rizzo-css add --path <dir>`, the CLI still suggests the correct href for your framework (e.g. Astro/Svelte get a leading `/` path).
 
-Scaffolds in the package: `scaffold/vanilla/` (Full or Manual), `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, plus `scaffold/astro/` and `scaffold/svelte/` (component templates for hand-pick). Use `npx rizzo-css init` and choose **Create new project** to get a **Full** or **Manual** scaffold; the stylesheet link is in the layout. **Add to existing** (or `add` command) drops in CSS + hand-pick components; **you must add the stylesheet `<link>` yourself** — the CLI prints the exact tag. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, and .gitignore (does not overwrite your project files); Astro/Svelte minimal include package.json and .env.example.
+Scaffolds in the package: `scaffold/vanilla/` (Full or Manual), `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, plus `scaffold/astro/` and `scaffold/svelte/` (component templates for hand-pick). Use `npx rizzo-css init` and choose **Create new project**; **Minimal** and **Manual** both use the full set of interactive components as the base (so everything works together), **Full** includes everything. The stylesheet link is in the layout. **Add to existing** (or `add` command) drops in CSS + hand-pick components; **you must add the stylesheet `<link>` yourself** — the CLI prints the exact tag. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, and .gitignore (does not overwrite your project files); Astro/Svelte minimal include package.json and .env.example.
 
 ## Use
 
@@ -61,7 +61,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.33 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.34 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->

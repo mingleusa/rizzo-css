@@ -796,6 +796,13 @@ const resultsId = `${searchId}-results`;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         const animationDuration = prefersReducedMotion ? 0 : 300;
 
+        const isMobile = window.innerWidth <= 1023;
+        const elementToFocus = !isMobile ? previousActiveElement : null;
+        if (elementToFocus) {
+          previousActiveElement = null;
+          elementToFocus.focus();
+        }
+
         setTimeout(() => {
           // Restore body scroll
           document.body.style.overflow = '';
@@ -813,12 +820,9 @@ const resultsId = `${searchId}-results`;
           renderResults([]);
           selectedIndex = -1;
 
-          const isMobile = window.innerWidth <= 1023;
-          if (!isMobile && previousActiveElement) {
-            // Desktop: restore focus normally
+          if (!elementToFocus && !isMobile && previousActiveElement) {
             previousActiveElement.focus();
           }
-          // Clear previousActiveElement on both mobile and desktop
           previousActiveElement = null;
           
           // Ensure search elements are truly hidden and don't block clicks on both desktop and mobile

@@ -109,14 +109,19 @@ const { siteName = 'Site', logo } = Astro.props;
   Search: `---
 import SearchIcon from './icons/Search.astro';
 import Close from './icons/Close.astro';
+import Cmd from './icons/Cmd.astro';
 interface Props { id?: string; }
 const { id = 'search-main' } = Astro.props;
 ---
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
-    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel" data-search-trigger>
       <SearchIcon width={20} height={20} class="search__icon" />
       <span class="search__trigger-text">Search</span>
+      <kbd class="search__kbd" aria-hidden="true">
+        <span class="search__kbd-modifier"><Cmd width={14} height={14} /></span>
+        <kbd>K</kbd>
+      </kbd>
     </button>
   </div>
   <div class="search__overlay" id="{id}-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
@@ -210,7 +215,29 @@ const { id = 'search-main' } = Astro.props;
         input.addEventListener('keydown', function (e) {
           if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
         });
+        search.__searchOpen = openSearch;
+        search.__searchClose = closeSearch;
       });
+      if (!window.__rizzoSearchCmdK) {
+        window.__rizzoSearchCmdK = true;
+        document.addEventListener('keydown', function (e) {
+          var isMod = e.ctrlKey || e.metaKey;
+          var isK = e.key === 'k' || e.key === 'K';
+          if (!isMod || !isK) return;
+          var searchEl = document.querySelector('[data-search]');
+          if (!searchEl || !searchEl.__searchOpen) return;
+          var panelEl = searchEl.querySelector('.search__panel');
+          if (!panelEl) return;
+          var target = e.target;
+          var inOtherInput = target && !searchEl.contains(target) && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable === true || (target.closest && target.closest('input, textarea, [contenteditable="true"]')));
+          var isOpen = panelEl.getAttribute('data-open') === 'true';
+          if (isOpen || !inOtherInput) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (isOpen) searchEl.__searchClose(); else searchEl.__searchOpen();
+          }
+        }, true);
+      }
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();

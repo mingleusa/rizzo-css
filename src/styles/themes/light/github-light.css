@@ -37,6 +37,7 @@
   --success: var(--green);
   --success-hover: oklch(55% 0.14 145deg);
   --success-text: oklch(20% 0 0deg);
+  --success-text-on-solid: oklch(100% 0 0deg); /* White on solid green for WCAG AA (green is 48% L) */
   --warning: var(--yellow);
   --warning-hover: oklch(82% 0.12 90deg);
   --warning-text: oklch(20% 0 0deg);
@@ -46,4 +47,5 @@
   --info: var(--cyan);
   --info-hover: oklch(65% 0.1 210deg);
   --info-text: oklch(20% 0 0deg);
+  --info-text-on-solid: oklch(100% 0 0deg); /* White on solid cyan for WCAG AA */
 }

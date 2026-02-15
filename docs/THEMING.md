@@ -166,7 +166,7 @@ document.documentElement.setAttribute('data-theme', themeToApply);
 
 ## Theme accent colors (reference)
 
-Each theme sets `--accent` (links, buttons, active states). OKLCH hue roughly maps to: 0–30° Red; 50–70° Orange/Yellow; 90–160° Green; 200–260° Blue/Cyan; 270–300° Purple; 320–360° Pink. The set is balanced with one dark and one light theme per color family:
+Each theme sets `--accent` (solid buttons, fills) and optionally `--accent-fg` / `--accent-fg-hover` (links, outline buttons, tabs) for contrast on dark backgrounds; links and active states use these. OKLCH hue roughly maps to: 0–30° Red; 50–70° Orange/Yellow; 90–160° Green; 200–260° Blue/Cyan; 270–300° Purple; 320–360° Pink. The set is balanced with one dark and one light theme per color family:
 
 | Color      | Dark theme                | Light theme           |
 |-----------|---------------------------|------------------------|

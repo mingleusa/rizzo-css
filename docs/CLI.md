@@ -55,17 +55,27 @@ When the user chooses **Full, Minimal, or Manual**:
 |-----------|--------|--------|
 | Vanilla | **full** | index.html + theme switcher, js/main.js, icons, component showcase, README-RIZZO.md, LICENSE-RIZZO. |
 | Vanilla | **minimal** | index.html + CSS + js/main.js + recommended component pages in `components/` + icons, README-RIZZO.md, LICENSE-RIZZO. |
-| Vanilla | **manual** | index.html + CSS; component picker opens with minimal set pre-selected — add/remove then confirm (or pick none). README-RIZZO.md, LICENSE-RIZZO. |
+| Vanilla | **manual** | index.html + CSS; component picker opens with all interactive components pre-selected — add/remove then confirm (or pick none). README-RIZZO.md, LICENSE-RIZZO. |
 | Astro | **full** | Astro app + all components (with dependencies so everything works). |
-| Astro | **minimal** | Astro app + recommended set (includes any required dependencies). |
+| Astro | **minimal** | Astro app + all interactive components (full base; includes any required dependencies). |
 | Astro | **manual** | minimal base + pick components (list shows which add others). |
 | Svelte | **full** | SvelteKit app + all components (with dependencies so everything works). |
-| Svelte | **minimal** | SvelteKit app + recommended set (includes any required dependencies). |
+| Svelte | **minimal** | SvelteKit app + all interactive components (full base; includes any required dependencies). |
 | Svelte | **manual** | minimal base + pick components (list shows which add others). |
 
 Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (from scaffold); Astro/Svelte also include package.json and .env.example. With `init --yes`, default template is **minimal** for vanilla and **full** for Astro/Svelte; use `--template` to override.
 
-**Full** = all components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Minimal** = recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard); any component in that set that requires others gets them automatically. **Manual** = component picker; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
+**Full** = all 29 components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Minimal** = same full set (all 29 interactive components as base); any component that requires others gets them automatically. **Manual** = component picker with all 29 pre-selected; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
+
+**Components per template:**
+
+| Template | Vanilla | Astro | Svelte |
+|----------|---------|-------|--------|
+| **Full** | 29 | 29 | 29 |
+| **Minimal** | 15 | 15 | 15 |
+| **Manual** | 0–29 (user choice) | 0–29 | 0–29 |
+
+(Full = all 29 scaffold components; Minimal = all 29 interactive components; Manual = whatever you pick, all 29 pre-selected. Astro/Svelte Minimal/Full auto-include dependencies so Navbar, Settings, Toast work.)
 
 ---
 
@@ -99,7 +109,7 @@ When you add or pick components, the CLI automatically includes everything each 
 
 - [x] **Invocation:** Document and support npx, pnpm dlx, yarn dlx, bunx.
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
-- [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Manual shows component picker with minimal set pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
+- [x] **Init (new):** Template or no template (hand-pick). Full | Minimal | Manual (per framework). Manual shows component picker with all interactive components pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
 - [x] **Config file:** rizzo-css.json is always written (targetDir, framework, packageManager) for both new and existing projects; read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css'); `init --install` runs pm.install after scaffold (minimal/hand-pick Astro/Svelte); `--no-install` skips.

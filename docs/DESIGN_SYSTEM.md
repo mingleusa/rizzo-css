@@ -18,8 +18,13 @@ All components use semantic variables that automatically adapt to themes:
 - `--text` - Primary text color
 - `--text-dim` - Dimmed/secondary text color
 - `--border` - Border color
-- `--accent` - Primary accent color
+- `--selection` - Text selection highlight
+- `--icon` - Icon color (SVG `currentColor`); primary icons
+- `--icon-dim` - Secondary/dimmed icon color
+- `--accent` - Primary accent color (solid buttons, fills)
 - `--accent-hover` - Accent color on hover
+- `--accent-fg` - Accent as foreground (links, outline buttons, tabs, code); defaults to `--accent`; dark themes may set a lighter value for 4.5:1 contrast on dark backgrounds
+- `--accent-fg-hover` - Accent foreground on hover (e.g. link hover); defaults to `--accent-hover`
 
 ### Semantic Colors
 

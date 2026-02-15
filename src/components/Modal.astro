@@ -105,6 +105,27 @@ const classes = `modal ${sizeClass} ${className}`.trim();
         return Array.from(container.querySelectorAll(focusableSelectors));
       };
 
+      /** Set focusables inside container to tabindex="-1" so they are not focusable when aria-hidden (a11y). */
+      const setFocusablesInert = (container) => {
+        getFocusableElements(container).forEach((el) => {
+          if (el.getAttribute('tabindex') !== '-1') {
+            el.setAttribute('data-modal-previous-tabindex', el.getAttribute('tabindex') || '0');
+            el.setAttribute('tabindex', '-1');
+          }
+        });
+      };
+
+      /** Restore focusables so they are keyboard-focusable again. */
+      const restoreFocusables = (container) => {
+        container.querySelectorAll('[data-modal-previous-tabindex]').forEach((el) => {
+          const prev = el.getAttribute('data-modal-previous-tabindex');
+          el.setAttribute('tabindex', prev || '0');
+          el.removeAttribute('data-modal-previous-tabindex');
+        });
+      };
+
+      if (!open) setFocusablesInert(modal);
+
       let previousActiveElement = null;
       let focusTrapHandler = null;
 
@@ -114,7 +135,8 @@ const classes = `modal ${sizeClass} ${className}`.trim();
         modal.setAttribute('aria-hidden', 'false');
         overlay.setAttribute('aria-hidden', 'false');
         modal.setAttribute('data-open', 'true');
-        
+        restoreFocusables(modal);
+
         // Focus first focusable element or close button
         const focusableElements = getFocusableElements(modal);
         const firstFocusable = focusableElements.length > 0 ? focusableElements[0] : closeBtn;
@@ -162,6 +184,7 @@ const classes = `modal ${sizeClass} ${className}`.trim();
 
       // Close modal
       const closeModal = () => {
+        setFocusablesInert(modal);
         modal.setAttribute('aria-hidden', 'true');
         overlay.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('data-open');

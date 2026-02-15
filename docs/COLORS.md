@@ -5,9 +5,9 @@ Rizzo CSS uses a semantic color system with CSS custom properties that adapt to 
 ## Color Reference Page
 
 Visit the [Colors Documentation Page](/docs/colors) on the docs site for an interactive color reference with:
-- **Live color swatches** for all semantic variables (Core, Accent, Semantic)
+- **Live color swatches** for all semantic variables (Core, Accent, Semantic, Text on solid)
 - **All 14 themes** — OKLCH and other formats update when you switch themes
-- **Multiple format options**: OKLCH, Hex, RGB, HSL, and CSS Variable (tabbed)
+- **Multiple format options**: OKLCH, Hex, RGB, HSL, and CSS Variable (tabbed; tabs use `aria-controls` and a single `role="tabpanel"` for accessibility)
 - **Copy-to-clipboard** for each color value in the selected format
 - **Theme switcher** so you can see how colors adapt across themes
 
@@ -22,11 +22,16 @@ All components use semantic variables that automatically adapt to themes:
 - `--text` - Primary text color
 - `--text-dim` - Dimmed/secondary text color
 - `--border` - Border color
+- `--selection` - Text selection highlight color
+- `--icon` - Icon color (SVG `currentColor`); primary icons
+- `--icon-dim` - Secondary/dimmed icon color
 
 ### Accent Colors
 
-- `--accent` - Primary accent color
+- `--accent` - Primary accent color (solid buttons, fills)
 - `--accent-hover` - Accent color on hover
+- `--accent-fg` - Accent as foreground (links, outline buttons, tabs, code); dark themes may set a lighter value for contrast
+- `--accent-fg-hover` - Accent foreground on hover
 - `--accent-text` - Text color for accent backgrounds (contrast-aware)
 
 ### Semantic Colors
@@ -153,6 +158,7 @@ The Colors page automatically converts OKLCH values to other formats:
 - **RGB to Hex**: Direct conversion from RGB values to hexadecimal
 - **RGB to HSL**: Standard RGB to HSL conversion algorithm
 - All conversions are performed client-side using JavaScript
+- **Theme map:** The Colors page uses a theme OKLCH map for all 14 themes and all semantic variables (Core, Accent, Semantic, Text on solid) so format tabs display consistent values when you switch themes.
 
 ## Using Colors
 

@@ -50,7 +50,7 @@ function main() {
   // Update root index: add "Component showcase" link (local) and keep one "Get started" to docs site.
   const rootMainContent = `<span class="badge badge--primary badge--sm mb-4">Vanilla JS + Rizzo CSS</span>
     <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin: 0 0 var(--spacing-4) 0; color: var(--text);">Build something great</h1>
-    <p style="font-size: var(--font-size-xl); color: var(--text-dim); max-width: 42ch; margin: 0 0 var(--spacing-8) 0; line-height: var(--line-height-relaxed);">Same design system as Astro and Svelte — 14 themes, 24 components, full keyboard and screen reader support.</p>
+    <p style="font-size: var(--font-size-xl); color: var(--text-dim); max-width: 42ch; margin: 0 0 var(--spacing-8) 0; line-height: var(--line-height-relaxed);">Same design system as Astro and Svelte — 14 themes, 29 components, full keyboard and screen reader support.</p>
     <div class="flex flex-wrap justify-center gap-4 mb-12">
       <a href="components/index.html" class="btn btn-primary">Component showcase</a>
       <a href="${DOCS_BASE}/docs/getting-started" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Get started (docs)</a>
@@ -58,7 +58,7 @@ function main() {
     </div>
     <div class="flex flex-wrap justify-center gap-3 mb-16">
       <span class="badge badge--info">14 themes</span>
-      <span class="badge badge--info">24 components</span>
+      <span class="badge badge--info">29 components</span>
       <span class="badge badge--info">WCAG AA</span>
     </div>
     <footer style="margin-top: auto; padding-top: var(--spacing-8); color: var(--text-dim); font-size: var(--font-size-sm);">
