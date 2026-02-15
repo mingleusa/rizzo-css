@@ -24,11 +24,45 @@ const { siteName = 'Site', logo } = Astro.props;
         <span class="navbar__settings-label">Settings</span>
       </button>
     </div>
-    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <button type="button" class="navbar__toggle" id="navbar-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="sr-only">Menu</span>
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <div class="navbar__menu" aria-hidden="true">
+    <div class="navbar__menu" id="navbar-menu" role="menu" aria-hidden="true">
       <a href="/" class="navbar__link">Home</a>
     </div>
   </div>
 </nav>
+
+<script>
+  (function initNavbarMobile() {
+    function init() {
+      var navbar = document.querySelector('.navbar');
+      if (!navbar) return;
+      var toggle = document.getElementById('navbar-toggle');
+      var menu = navbar.querySelector('.navbar__menu');
+      if (!toggle || !menu) return;
+      function setMenuOpen(open) {
+        menu.classList.toggle('navbar__menu--open', open);
+        navbar.classList.toggle('navbar--menu-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      }
+      toggle.addEventListener('click', function () {
+        setMenuOpen(!menu.classList.contains('navbar__menu--open'));
+      });
+      menu.querySelectorAll('.navbar__link').forEach(function (link) {
+        link.addEventListener('click', function () { setMenuOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (menu.classList.contains('navbar__menu--open')) {
+            setMenuOpen(false);
+          }
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

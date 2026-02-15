@@ -1,10 +1,12 @@
 ---
+import SearchIcon from './icons/Search.astro';
 interface Props { id?: string; }
 const { id = 'search-main' } = Astro.props;
 ---
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
     <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel">
+      <SearchIcon width={20} height={20} class="search__icon" />
       <span class="search__trigger-text">Search</span>
     </button>
   </div>
@@ -14,3 +16,43 @@ const { id = 'search-main' } = Astro.props;
     </div>
   </div>
 </div>
+
+<script>
+  (function initSearch() {
+    function init() {
+      document.querySelectorAll('[data-search]').forEach(function (search) {
+        if (search.__searchInited) return;
+        search.__searchInited = true;
+        var trigger = search.querySelector('.search__trigger');
+        var overlay = search.querySelector('[data-search-overlay]');
+        var input = search.querySelector('.search__input');
+        if (!trigger || !overlay || !input) return;
+        var previousActive = null;
+        function openSearch() {
+          previousActive = document.activeElement;
+          overlay.setAttribute('aria-hidden', 'false');
+          trigger.setAttribute('aria-expanded', 'true');
+          input.focus();
+        }
+        function closeSearch() {
+          overlay.setAttribute('aria-hidden', 'true');
+          trigger.setAttribute('aria-expanded', 'false');
+          if (previousActive && previousActive.focus) previousActive.focus();
+          previousActive = null;
+        }
+        trigger.addEventListener('click', function () {
+          if (overlay.getAttribute('aria-hidden') === 'true') openSearch();
+          else closeSearch();
+        });
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) closeSearch();
+        });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
+        });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

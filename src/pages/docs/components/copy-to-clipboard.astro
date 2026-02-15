@@ -34,7 +34,7 @@ import CopyToClipboard from '../components/rizzo/CopyToClipboard.astro';
 <CopyToClipboard value="example@email.com" label="Copy" format="Email" />
 <CopyToClipboard value="var(--accent)" format="CSS Variable" />
 <CopyToClipboard value="#FF5733" format="Hex" />`}
-			vanilla={`<!-- Ensure Rizzo CSS is loaded. Copy behavior requires minimal JS (see vanilla docs). -->
+			vanilla={`<!-- Ensure Rizzo CSS and js/main.js are loaded. Buttons with data-copy-value or [data-copy] work automatically. -->
 <button type="button" class="copy-trigger" data-copy value="example@email.com" aria-label="Copy">
   <span class="copy-trigger__text">Copy</span>
 </button>`}

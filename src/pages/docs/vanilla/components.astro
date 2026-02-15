@@ -4,7 +4,7 @@ import Card from '../../../components/Card.astro';
 import { VANILLA_COMPONENT_SLUGS, VANILLA_COMPONENT_TITLES } from '../../../config/vanillaSnippets';
 
 const componentDescriptions: Record<string, string> = {
-  navbar: 'Responsive, accessible navigation bar with integrated settings button',
+  navbar: 'Responsive, accessible navigation bar with Search and Settings',
   settings: 'Comprehensive settings panel for theme switching and accessibility options',
   'theme-switcher': 'Accessible theme switcher with theme icons and keyboard navigation',
   button: 'Semantic button component with variants using theme variables',
@@ -34,7 +34,7 @@ const componentDescriptions: Record<string, string> = {
 <DocsLayout title="Vanilla Components" description="Interactive examples and copyable HTML for Rizzo CSS components.">
   <section>
     <h2>Component Library</h2>
-    <p>Each component has a Vanilla page with copyable HTML and, where available, a live demo. Use the same BEM classes in your own HTML once Rizzo CSS is loaded.</p>
+    <p>Each component has a Vanilla page with copyable HTML and, where available, a live demo. Use the same BEM classes in your own HTML once Rizzo CSS is loaded. Interactive behavior (modal, dropdown, tabs, search, copy-to-clipboard, navbar mobile, etc.) is wired by <code>js/main.js</code> when you use the Full or Minimal scaffold; tooltips use CSS only (:hover and :focus-within).</p>
   </section>
   <section>
     <h2>Available Components</h2>

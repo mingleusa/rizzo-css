@@ -56,22 +56,58 @@ const { siteName = 'Site', logo } = Astro.props;
         <span class="navbar__settings-label">Settings</span>
       </button>
     </div>
-    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+    <button type="button" class="navbar__toggle" id="navbar-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="sr-only">Menu</span>
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <div class="navbar__menu" aria-hidden="true">
+    <div class="navbar__menu" id="navbar-menu" role="menu" aria-hidden="true">
       <a href="/" class="navbar__link">Home</a>
     </div>
   </div>
 </nav>
+
+<script>
+  (function initNavbarMobile() {
+    function init() {
+      var navbar = document.querySelector('.navbar');
+      if (!navbar) return;
+      var toggle = document.getElementById('navbar-toggle');
+      var menu = navbar.querySelector('.navbar__menu');
+      if (!toggle || !menu) return;
+      function setMenuOpen(open) {
+        menu.classList.toggle('navbar__menu--open', open);
+        navbar.classList.toggle('navbar--menu-open', open);
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+        menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+      }
+      toggle.addEventListener('click', function () {
+        setMenuOpen(!menu.classList.contains('navbar__menu--open'));
+      });
+      menu.querySelectorAll('.navbar__link').forEach(function (link) {
+        link.addEventListener('click', function () { setMenuOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          if (menu.classList.contains('navbar__menu--open')) {
+            setMenuOpen(false);
+          }
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>
 `,
   Search: `---
+import SearchIcon from './icons/Search.astro';
 interface Props { id?: string; }
 const { id = 'search-main' } = Astro.props;
 ---
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
     <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="{id}-panel">
+      <SearchIcon width={20} height={20} class="search__icon" />
       <span class="search__trigger-text">Search</span>
     </button>
   </div>
@@ -81,6 +117,46 @@ const { id = 'search-main' } = Astro.props;
     </div>
   </div>
 </div>
+
+<script>
+  (function initSearch() {
+    function init() {
+      document.querySelectorAll('[data-search]').forEach(function (search) {
+        if (search.__searchInited) return;
+        search.__searchInited = true;
+        var trigger = search.querySelector('.search__trigger');
+        var overlay = search.querySelector('[data-search-overlay]');
+        var input = search.querySelector('.search__input');
+        if (!trigger || !overlay || !input) return;
+        var previousActive = null;
+        function openSearch() {
+          previousActive = document.activeElement;
+          overlay.setAttribute('aria-hidden', 'false');
+          trigger.setAttribute('aria-expanded', 'true');
+          input.focus();
+        }
+        function closeSearch() {
+          overlay.setAttribute('aria-hidden', 'true');
+          trigger.setAttribute('aria-expanded', 'false');
+          if (previousActive && previousActive.focus) previousActive.focus();
+          previousActive = null;
+        }
+        trigger.addEventListener('click', function () {
+          if (overlay.getAttribute('aria-hidden') === 'true') openSearch();
+          else closeSearch();
+        });
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) closeSearch();
+        });
+        input.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') { e.preventDefault(); closeSearch(); }
+        });
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>
 `,
 };
 

@@ -1,6 +1,6 @@
 /**
  * Rizzo CSS — Vanilla JS component bundle
- * Theme, toast, settings, tabs, modal, dropdown, accordion, search, navbar (mobile).
+ * Theme, toast, settings, tabs, modal, dropdown, accordion, search, navbar (mobile), copy-to-clipboard.
  * Load this script after the DOM (e.g. before </body>).
  */
 (function () {
@@ -282,6 +282,82 @@
     }
     loadSettings();
     window.openSettings = openSettings;
+  }
+
+  // --- Copy to clipboard: .copy-to-clipboard [data-copy-value] or [data-copy] with value ---
+  function initCopyToClipboard() {
+    function setupButton(btn) {
+      if (btn.getAttribute('data-copy-inited') === 'true') return;
+      btn.setAttribute('data-copy-inited', 'true');
+      var host = btn.closest('.tooltip-host');
+      var defaultTooltip = (host && host.getAttribute('data-tooltip')) || 'Copy to clipboard';
+      if (host) host.setAttribute('data-copy-default-tooltip', defaultTooltip);
+      var defaultAria = btn.getAttribute('aria-label') || 'Copy to clipboard';
+      var getValue = function () { return btn.getAttribute('data-copy-value') || btn.getAttribute('value') || ''; };
+      var getFormat = function () { return btn.getAttribute('data-copy-format') || ''; };
+      var copyIcon = btn.querySelector('.copy-to-clipboard__icon--copy');
+      var checkIcon = btn.querySelector('.copy-to-clipboard__icon--check');
+      var feedback = btn.querySelector('.copy-to-clipboard__feedback');
+      var textSpan = btn.querySelector('.copy-to-clipboard__text');
+      function doCopy() {
+        var value = getValue();
+        if (!value && textSpan) value = textSpan.textContent || '';
+        if (!value) return;
+        function showSuccess() {
+          if (copyIcon) copyIcon.classList.add('copy-to-clipboard__icon--hidden');
+          if (checkIcon) checkIcon.classList.remove('copy-to-clipboard__icon--hidden');
+          if (feedback) feedback.textContent = getFormat() ? 'Copied ' + getFormat() + '!' : 'Copied!';
+          if (host) host.setAttribute('data-tooltip', getFormat() ? 'Copied ' + getFormat() + '!' : 'Copied!');
+          btn.setAttribute('aria-label', getFormat() ? 'Copied ' + getFormat() + '!' : 'Copied!');
+          var labelEl = btn.querySelector('.copy-trigger__text');
+          var previousLabel = labelEl ? labelEl.textContent : '';
+          if (labelEl) labelEl.textContent = 'Copied!';
+          setTimeout(function () {
+            if (copyIcon) copyIcon.classList.remove('copy-to-clipboard__icon--hidden');
+            if (checkIcon) checkIcon.classList.add('copy-to-clipboard__icon--hidden');
+            if (feedback) feedback.textContent = '';
+            if (host) host.setAttribute('data-tooltip', host.getAttribute('data-copy-default-tooltip') || defaultTooltip);
+            btn.setAttribute('aria-label', defaultAria);
+            if (labelEl) labelEl.textContent = previousLabel || 'Copy';
+          }, 2000);
+        }
+        if (typeof navigator.clipboard !== 'undefined' && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(value).then(showSuccess).catch(function () {
+            try {
+              var ta = document.createElement('textarea');
+              ta.value = value;
+              ta.style.position = 'fixed';
+              ta.style.left = '-9999px';
+              document.body.appendChild(ta);
+              ta.focus();
+              ta.select();
+              document.execCommand('copy');
+              document.body.removeChild(ta);
+              showSuccess();
+            } catch (e) {
+              if (window.showToast) window.showToast('Failed to copy', { variant: 'warning' });
+            }
+          });
+        } else {
+          try {
+            var ta = document.createElement('textarea');
+            ta.value = value;
+            ta.style.position = 'fixed';
+            ta.style.left = '-9999px';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showSuccess();
+          } catch (e) {
+            if (window.showToast) window.showToast('Failed to copy', { variant: 'warning' });
+          }
+        }
+      }
+      btn.addEventListener('click', doCopy);
+    }
+    document.querySelectorAll('.copy-to-clipboard[data-copy-value], .copy-to-clipboard[data-copy], [data-copy]').forEach(setupButton);
   }
 
   // --- Tabs: init all [data-tabs] ---
@@ -801,6 +877,7 @@
   function run() {
     initTheme();
     initSettings();
+    initCopyToClipboard();
     initTabs();
     initModals();
     initDropdowns();
