@@ -4,19 +4,14 @@
  * Requires: pnpm build (run automatically by test:a11y script).
  * Lock theme to avoid contrast variance from system preference (CI often uses light).
  *
- * What these tests cover:
- * - Pages: All routes in DOCS_A11Y_ROUTES (homepage, getting-started, components, colors, design-system,
- *   accessibility, theming, and selected component pages: modal, theme-switcher, button, dropdown, tabs, accordion, search, settings, navbar).
- * - Rules: WCAG 2.0 Level A & AA (wcag2a, wcag2aa) and WCAG 2.1 Level A & AA (wcag21a, wcag21aa).
- *   Includes color-contrast, link-in-text-block, scrollable-region-focusable, aria-hidden-focus, labels, roles, etc.
- * - Impact: Only critical and serious violations fail the build; minor/moderate are reported but do not fail.
- * - Theme: Each page is loaded then theme is locked to github-dark-classic so contrast and results are deterministic.
- * - Not covered: Manual keyboard nav, screen reader testing, or other pages (add more test() blocks as needed).
+ * Coverage: entire main site — homepage, all docs (getting-started, foundations, components overview),
+ * every component page (Astro, Vanilla, Svelte), and all theme preview pages.
+ * Rules: WCAG 2.0/2.1 Level A & AA. Only critical/serious violations fail the build.
  */
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 
-/** Lock theme to github-dark-classic so contrast and results are deterministic. */
+/** Lock theme so contrast and results are deterministic. */
 async function lockTheme(page) {
   await page.evaluate(() => {
     document.documentElement.setAttribute('data-theme', 'github-dark-classic');
@@ -35,30 +30,48 @@ async function runA11yOnPage(page, path) {
   return criticalOrSerious;
 }
 
-/** All docs routes to run axe against. Expand as needed. */
-const DOCS_A11Y_ROUTES = [
+// —— Route lists (keep in sync with src/pages and docs nav) ——
+
+const FOUNDATION_ROUTES = [
   '/',
   '/docs/getting-started',
   '/docs/components',
-  '/docs/colors',
   '/docs/design-system',
-  '/docs/accessibility',
   '/docs/theming',
-  '/docs/components/modal',
-  '/docs/components/theme-switcher',
-  '/docs/components/button',
-  '/docs/components/dropdown',
-  '/docs/components/tabs',
-  '/docs/components/accordion',
-  '/docs/components/search',
-  '/docs/components/settings',
-  '/docs/components/navbar',
+  '/docs/accessibility',
+  '/docs/colors',
+];
+
+const COMPONENT_SLUGS = [
+  'accordion', 'alert', 'avatar', 'badge', 'breadcrumb', 'button', 'cards',
+  'copy-to-clipboard', 'divider', 'dropdown', 'forms', 'icons', 'modal',
+  'navbar', 'pagination', 'progress-bar', 'search', 'settings', 'spinner',
+  'table', 'tabs', 'theme-switcher', 'toast', 'tooltip',
+];
+
+const THEME_SLUGS = [
+  'github-dark-classic', 'shades-of-purple', 'sandstorm-classic', 'rocky-blood-orange',
+  'minimal-dark-neon-yellow', 'hack-the-box', 'pink-cat-boo',
+  'github-light', 'red-velvet-cupcake', 'orangy-one-light', 'sunflower',
+  'green-breeze-light', 'cute-pink', 'semi-light-purple',
+];
+
+const DOCS_A11Y_ROUTES = [
+  ...FOUNDATION_ROUTES,
+  ...COMPONENT_SLUGS.map((s) => `/docs/components/${s}`),
+  '/docs/vanilla',
+  '/docs/vanilla/components',
+  ...COMPONENT_SLUGS.map((s) => `/docs/vanilla/components/${s}`),
+  '/docs/svelte',
+  '/docs/svelte/components',
+  ...COMPONENT_SLUGS.map((s) => `/docs/svelte/components/${s}`),
+  ...THEME_SLUGS.map((s) => `/docs/themes/${s}`),
 ];
 
 test.describe('Docs site accessibility (axe)', () => {
   for (const route of DOCS_A11Y_ROUTES) {
     const name = route || 'homepage';
-    test(`${name || 'homepage'} has no critical or serious axe violations`, async ({ page }) => {
+    test(`${name} has no critical or serious axe violations`, async ({ page }) => {
       const criticalOrSerious = await runA11yOnPage(page, route || '/');
       expect(criticalOrSerious, formatViolations(criticalOrSerious)).toEqual([]);
     });

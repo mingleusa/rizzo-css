@@ -6,7 +6,7 @@ Use this checklist for manual keyboard and screen reader testing. The [Accessibi
 
 The following are implemented and run in `pnpm test:a11y`:
 
-- **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: 16 docs routes, theme locked to `github-dark-classic`, WCAG 2/2.1 A & AA; critical/serious only. See [What is tested](#what-is-tested) below.
+- **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: entire main site (homepage, all docs, every component page for Astro/Vanilla/Svelte, all theme pages), theme locked to `github-dark-classic`, WCAG 2/2.1 A & AA; critical/serious only. See [What is tested](#what-is-tested) below.
 - **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape closes, focus returns; focus in dialog), dropdown (Escape closes menu), tabs (arrow keys), search (trigger focusable, Escape closes overlay).
 - **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal (dialog, aria-modal, aria-labelledby), dropdown (menu/menuitem, aria-expanded), tabs (tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio).
 
@@ -32,7 +32,7 @@ The repo includes **free, automated** a11y tests using [axe-core](https://github
 pnpm test:a11y
 ```
 
-This builds the site (`pnpm build`), starts the preview server, and runs the a11y test suite in `tests/a11y/`. Tests cover 16 docs routes (see [What is tested](#what-is-tested)) plus keyboard and ARIA specs.
+This builds the site (`pnpm build`), starts the preview server, and runs the a11y test suite in `tests/a11y/`. Tests cover the full docs site (see [What is tested](#what-is-tested)) plus keyboard and ARIA specs.
 
 ### Run in CI
 
@@ -50,14 +50,14 @@ Installs Chromium for Playwright (e.g. in GitHub Actions) then runs the same tes
 
 ### What is tested
 
-- **Pages (16):** Homepage (`/`), Getting started (`/docs/getting-started`), Components (`/docs/components`), Colors, Design system, Accessibility, Theming, and component pages: modal, theme-switcher, button, dropdown, tabs, accordion, search, settings, navbar. Each is loaded, theme is set to `github-dark-classic`, then axe runs.
-- **Rules:** WCAG 2.0 and 2.1 Level A and AA (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`). This includes (among others): color-contrast, link-in-text-block (links distinguishable without color alone), scrollable-region-focusable (keyboard access to scroll areas), aria-hidden-focus (no focusable elements in hidden/inert regions), labels, roles, and other axe rules under those tags.
+- **Pages (full site):** Homepage (`/`), Getting started, Components overview, Design system, Theming, Accessibility, Colors; every component page under `/docs/components/<slug>` (accordion, alert, avatar, badge, breadcrumb, button, cards, copy-to-clipboard, divider, dropdown, forms, icons, modal, navbar, pagination, progress-bar, search, settings, spinner, table, tabs, theme-switcher, toast, tooltip); Vanilla docs index and every `/docs/vanilla/components/<slug>`; Svelte docs index and every `/docs/svelte/components/<slug>`; all 14 theme preview pages (`/docs/themes/<id>`). Each page is loaded, theme is set to `github-dark-classic`, then axe runs.
+- **Rules:** WCAG 2.0 and 2.1 Level A and AA (`wcag2a`, `wcag2aa`, `wcag21a`, `wcag21aa`). This includes (among others): color-contrast, link-in-text-block (links distinguishable without color alone), scrollable-region-focusable (keyboard access to scroll areas; code block `<pre>` has `tabindex="0"`), aria-hidden-focus (no focusable elements in hidden/inert regions; modals use `inert` when closed), labels, roles, and other axe rules under those tags.
 - **Impact:** Only **critical** and **serious** violations fail the build; **minor** and **moderate** are reported but do not fail (you can tighten this in `tests/a11y/*.spec.mjs` if needed).
 - **Also in this suite:** `keyboard.spec.mjs` (keyboard behavior) and `aria.spec.mjs` (ARIA/roles). For full screen reader output, use manual testing (Priority 1–3 below).
 
 ### Adding more pages
 
-Add a new `test(...)` in `tests/a11y/docs.spec.mjs` that `page.goto('/docs/...')` and runs `AxeBuilder` with the same tags. To scan only part of the page, use `.include(selector)`.
+The axe route list is built from `FOUNDATION_ROUTES`, `COMPONENT_SLUGS`, `THEME_SLUGS` in `tests/a11y/docs.spec.mjs`. To add a new route, extend the appropriate array or add a one-off entry to `DOCS_A11Y_ROUTES`. To scan only part of a page, use `.include(selector)`.
 
 Automated tests **do not** replace manual keyboard and screen-reader testing (see Priority 1–3 below). They catch many WCAG violations (labels, contrast, roles) and help prevent regressions.
 
@@ -65,7 +65,7 @@ If tests fail, the output lists each violation (rule id, impact, help URL). Fix 
 
 **Current status:** The docs site a11y suite (`pnpm test:a11y`) includes:
 
-- **Axe (WCAG):** `tests/a11y/docs.spec.mjs` — Runs axe on 16 docs routes (homepage, getting-started, components, colors, design-system, accessibility, theming, and component pages: modal, theme-switcher, button, dropdown, tabs, accordion, search, settings, navbar). Only critical/serious violations fail.
+- **Axe (WCAG):** `tests/a11y/docs.spec.mjs` — Runs axe on the entire main site: homepage, all foundation docs (getting-started, components, design-system, theming, accessibility, colors), every component page (Astro, Vanilla, Svelte), and all 14 theme pages. Only critical/serious violations fail.
 - **Keyboard:** `tests/a11y/keyboard.spec.mjs` — Modal (Escape closes, focus returns; focus moves into dialog), dropdown (Escape closes menu), tabs (arrow keys change selection), search (trigger focusable, Escape closes overlay).
 - **ARIA / roles:** `tests/a11y/aria.spec.mjs` — Checks markup that screen readers rely on: modal (role=dialog, aria-modal, aria-labelledby), dropdown (aria-haspopup, aria-expanded, role=menu/menuitem), tabs (role=tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio options).
 

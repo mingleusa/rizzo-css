@@ -45,7 +45,7 @@
   role="progressbar"
   aria-valuemin={0}
   aria-valuemax={safeMax}
-  aria-label={label ?? (indeterminate ? 'Loading' : undefined)}
+  aria-label={label ?? (indeterminate ? 'Loading' : 'Progress')}
   aria-valuetext={indeterminate ? 'Loading' : undefined}
   aria-valuenow={indeterminate ? undefined : clampedValue}
 >

@@ -37,9 +37,10 @@ Components include proper ARIA attributes:
 ### Focus Management
 
 - Visible focus indicators using `--accent` or `--accent-fg` (links, outlines)
-- Focus trapping in modals
+- **Modals use `inert` when closed** — Astro and Svelte modals set the `inert` attribute on the overlay and dialog when closed so focusable content is not in the tab order or accessibility tree (satisfies axe aria-hidden-focus).
+- Focus trapping in modals when open
 - Focus restoration after interactions: when closing overlays (Search, Modal, Dropdown), focus returns to the element that opened them; Search restores focus as soon as the overlay closes
-- Scrollable regions (e.g. code block `<pre>`) are focusable for keyboard access
+- Scrollable regions (e.g. code block `<pre>` with `tabindex="0"`) are focusable for keyboard access (scrollable-region-focusable)
 - Skip links for main content
 - Links use underlines so they are distinguishable without relying on color alone (WCAG link-in-text-block)
 
@@ -184,7 +185,7 @@ Components (Astro and Svelte) use semantic theme variables so every theme can gu
 |-----|-----------|------------|
 | Page and UI surface | `--background`, `--background-alt` | Body, cards, modals, dropdowns, inputs |
 | Primary text | `--text` | Body, headings, list text |
-| Secondary text | `--text-dim` | Descriptions, placeholders, labels |
+| Secondary text | `--text-dim` | Descriptions, placeholders, labels (use `--text` where 4.5:1 is required, e.g. docs description, framework switcher label) |
 | Icons | `--icon`, `--icon-dim` | Navbar, dropdown, accordion, table, breadcrumb (SVG `currentColor`) |
 | Links and primary actions | `--accent-fg`, `--accent-fg-hover` (links, outlines); `--accent`, `--accent-hover` (solid buttons) | Links use `--accent-fg`; buttons use `--accent` + `--accent-text` |
 | Text on accent | `--accent-text` | Buttons (primary), badges (primary), active segment, skip link |
@@ -245,7 +246,7 @@ Components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion) are covered
 
 ### ARIA usage
 
-- **Dialogs** — `role="dialog"`, `aria-modal="true"`, `aria-labelledby` (or `aria-label`) so screen readers announce purpose and scope.
+- **Dialogs** — `role="dialog"`, `aria-modal="true"`, `aria-labelledby` (or `aria-label`) so screen readers announce purpose and scope. When closed, overlay and dialog use `inert` so focusable descendants are not exposed (aria-hidden-focus).
 - **Menus** — Trigger has `aria-haspopup="menu"` and `aria-expanded`; menu has `role="menu"`, items `role="menuitem"` (or `menuitemradio` for single-select like theme switcher).
 - **Tabs** — `role="tablist"`, `role="tab"`, `aria-selected`, `aria-controls` linking to panel `id`; panels have `role="tabpanel"` and `aria-labelledby` to tab.
 - **Accordions** — Headers have `aria-expanded` and `aria-controls`; panels are hidden with `hidden` or `aria-hidden` when collapsed.
@@ -262,14 +263,14 @@ ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader ou
 
 1. **Keyboard-only** — Unplug the mouse; Tab, Shift+Tab, Enter, Space, arrows, Escape. Confirm all actions are possible and focus never gets stuck.
 2. **Screen reader** — NVDA (Windows), VoiceOver (macOS: Cmd+F5). Navigate by headings, landmarks, and form controls; open/close modals and menus and confirm labels and state (e.g. “dialog”, “menu open”, “tab selected”).
-3. **Automated** — Run `pnpm test:a11y` (axe on 16 docs routes, keyboard and ARIA specs). Fix any reported violations before release.
+3. **Automated** — Run `pnpm test:a11y` (axe on entire main site, keyboard and ARIA specs). Fix any reported violations before release.
 4. **Optional** — axe DevTools or Lighthouse accessibility audit for one-off checks.
 
 ## Testing
 
 ### Automated (recommended first)
 
-Run the full a11y suite: `pnpm test:a11y`. This runs axe on 16 docs routes, plus keyboard and ARIA specs. See [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) for details.
+Run the full a11y suite: `pnpm test:a11y`. This runs axe on the entire main site (all docs and component pages), plus keyboard and ARIA specs. See [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) for details.
 
 ### Keyboard testing (manual)
 

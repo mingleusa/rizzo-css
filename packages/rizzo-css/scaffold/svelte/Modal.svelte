@@ -113,6 +113,11 @@
     }
   });
 
+  $effect(() => {
+    if (overlayEl) overlayEl.inert = !open;
+    if (modalEl) modalEl.inert = !open;
+  });
+
   function handleOverlayClick(e: MouseEvent) {
     if (closeOnOverlayClick && e.target === overlayEl) close();
   }
@@ -123,6 +128,7 @@
   class="modal__overlay"
   data-modal-overlay
   aria-hidden={!open}
+  inert={!open ? true : undefined}
   id="{modalId}-overlay"
   onclick={handleOverlayClick}
   role="presentation"
@@ -135,6 +141,7 @@
   aria-modal="true"
   aria-labelledby="{modalId}-title"
   aria-hidden={!open}
+  inert={!open ? true : undefined}
   id={modalId}
   data-modal
   data-open={open || undefined}

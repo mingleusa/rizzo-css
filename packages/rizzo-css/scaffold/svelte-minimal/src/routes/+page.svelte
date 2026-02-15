@@ -1,5 +1,47 @@
+<script lang="ts">
+  const DOCS_BASE = 'https://rizzo-css.vercel.app';
+</script>
+
 <a href="#main-content" class="skip-link">Skip to main content</a>
-<main id="main-content" class="layout__container" style="padding: var(--spacing-12) var(--spacing-4); min-height: 100vh;">
-  <h1>Hello, Rizzo CSS</h1>
-  <p>Edit <code>src/routes/+page.svelte</code> and add your content. Docs: <a href="https://rizzo-css.vercel.app">rizzo-css.vercel.app</a></p>
+<main id="main-content" class="home">
+  <div class="home__container">
+    <header class="home__hero">
+      <h1 class="home__title">Rizzo CSS</h1>
+      <p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization. Start here then make it your own.</p>
+      <div class="home__hero-ctas">
+        <a href={DOCS_BASE + '/docs/getting-started'} class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started</a>
+        <a href={DOCS_BASE + '/docs/components'} class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components</a>
+      </div>
+    </header>
+
+    <section class="home__docs">
+      <h2 class="home__section-title">Documentation</h2>
+      <div class="home__docs-grid">
+        <a href={DOCS_BASE + '/docs/getting-started'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Getting Started</h3>
+          <p>Installation, project structure, and quick start guide</p>
+        </a>
+        <a href={DOCS_BASE + '/docs/components'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Components</h3>
+          <p>Component library with usage examples and live demos</p>
+        </a>
+        <a href={DOCS_BASE + '/docs/theming'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Theming</h3>
+          <p>Theme system, custom themes, and color format guide</p>
+        </a>
+        <a href={DOCS_BASE + '/docs/design-system'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Design System</h3>
+          <p>Semantic variables, typography, and design principles</p>
+        </a>
+        <a href={DOCS_BASE + '/docs/accessibility'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Accessibility</h3>
+          <p>Accessibility guidelines, utilities, and best practices</p>
+        </a>
+        <a href={DOCS_BASE + '/docs/colors'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Colors</h3>
+          <p>Interactive color reference with multiple format options</p>
+        </a>
+      </div>
+    </section>
+  </div>
 </main>

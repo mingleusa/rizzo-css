@@ -30,6 +30,7 @@ const classes = `modal ${sizeClass} ${className}`.trim();
   class="modal__overlay"
   data-modal-overlay
   aria-hidden={open ? 'false' : 'true'}
+  {...(!open && { inert: true })}
   id={`${modalId}-overlay`}
 ></div>
 
@@ -39,6 +40,7 @@ const classes = `modal ${sizeClass} ${className}`.trim();
   aria-modal="true"
   aria-labelledby={`${modalId}-title`}
   aria-hidden={open ? 'false' : 'true'}
+  {...(!open && { inert: true })}
   id={modalId}
   data-modal
 >
@@ -132,6 +134,8 @@ const classes = `modal ${sizeClass} ${className}`.trim();
       // Open modal
       const openModal = () => {
         previousActiveElement = document.activeElement;
+        modal.removeAttribute('inert');
+        overlay.removeAttribute('inert');
         modal.setAttribute('aria-hidden', 'false');
         overlay.setAttribute('aria-hidden', 'false');
         modal.setAttribute('data-open', 'true');
@@ -185,6 +189,8 @@ const classes = `modal ${sizeClass} ${className}`.trim();
       // Close modal
       const closeModal = () => {
         setFocusablesInert(modal);
+        modal.setAttribute('inert', '');
+        overlay.setAttribute('inert', '');
         modal.setAttribute('aria-hidden', 'true');
         overlay.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('data-open');

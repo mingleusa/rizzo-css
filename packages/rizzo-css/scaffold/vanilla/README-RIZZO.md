@@ -13,13 +13,13 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.34`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.35`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
 ## Editing the cloned site
 
-- **Home** — `index.html` (hero, links to component showcase and docs). Edit the main content or add your own.
+- **Home** — `index.html` (hero and documentation cards with links to the main docs site). Edit the main content or add your own. Component showcase at `components/index.html`.
 - **Component showcase** — `components/index.html` lists all components; `components/<name>.html` (e.g. `button.html`) each has a "Read the full docs" link to the main site. Edit or add HTML files; keep the same header/footer if you want the theme switcher and settings on every page.
 - **CSS** — The CLI copies `css/rizzo.min.css`; the link uses `{{LINK_HREF}}` (replaced at init). To use a CDN, replace that with the CDN URL.
 - **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion, search (overlay), navbar mobile menu, and copy-to-clipboard. Customize or extend as needed.

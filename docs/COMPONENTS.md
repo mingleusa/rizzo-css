@@ -219,12 +219,12 @@ import ProgressBar from '../components/ProgressBar.astro';
 - `size` (string, optional) - `sm`, `md`, `lg` (default: md)
 - `showLabel` (boolean, optional) - Show percentage label (default: false)
 - `indeterminate` (boolean, optional) - Animated loading state (default: false)
-- `label` (string, optional) - Accessible label (aria-label)
+- `label` (string, optional) - Accessible label (aria-label). When omitted, determinate bars use a default "Progress" and indeterminate use "Loading" for screen readers.
 - `class` (string, optional) - Additional CSS classes
 
 ### Features
 
-- **Semantic** - `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`; indeterminate uses `aria-valuetext="Loading"`
+- **Semantic** - `role="progressbar"` with `aria-valuenow`, `aria-valuemin`, `aria-valuemax`; indeterminate uses `aria-valuetext="Loading"`. Default `aria-label` for determinate is "Progress" when no label is provided.
 - **Variants** - Primary, success, warning, error, info using theme variables
 - **Sizes** - sm, md, lg bar heights
 - **Reduced motion** - Indeterminate animation disabled when user prefers reduced motion
@@ -482,6 +482,8 @@ See [Settings Documentation](/docs/components/settings) for complete details.
 
 An accessible dropdown for switching themes, used in the Settings panel and standalone on doc pages. All 14 themes are in the CSS; the switcher sets `data-theme` on `<html>` and persists the choice in `localStorage`. The preview panel (when the menu is open, on viewports >480px) shows the current theme by default and the hovered theme on hover; only the word “Preview” is fixed. To build your own switcher, use the theme utilities (`applyTheme`, `getThemeLabel`, etc.) and see [Theme Switcher](/docs/components/theme-switcher) and [Theming – Building your own theme switcher](/docs/theming#building-your-own-theme-switcher).
 
+**Svelte:** Optional `idPrefix` prop (e.g. `idPrefix="doc"`) avoids duplicate IDs when multiple ThemeSwitchers exist on the same page (e.g. layout + doc demo). Menu and trigger IDs become `theme-switcher-{idPrefix}-menu` and `theme-switcher-{idPrefix}-trigger`.
+
 ### Features
 
 - **Preference + Dark/Light groups** — Preference (System), Dark themes, and Light themes with section labels; on mobile, bold labels with underlines. Each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush).
@@ -563,6 +565,7 @@ Accessible modal/dialog component with focus trapping and keyboard navigation.
 ### Features
 
 - Focus trapping and keyboard navigation
+- **Inert when closed** — Overlay and dialog use the `inert` attribute when closed so focusable content is not in the tab order or accessibility tree (WCAG aria-hidden-focus). Astro and Svelte modals set/remove `inert` on open/close.
 - Backdrop overlay with blur effect
 - **Three sizes**: `sm` (24rem), `md` (32rem, default), `lg` (48rem)
 - Programmatic control via global functions
@@ -864,7 +867,7 @@ A code block component with integrated copy-to-clipboard functionality. Used thr
 - **Responsive labels** - Language text appears next to icons on large screens (≥768px), hidden on mobile for screen readers only
 - **Vertically centered alignment** - Icons and copy button are properly aligned on both desktop and mobile
 - **Theme-aware styling** - Matches current theme with proper contrast
-- **Accessible** - Proper ARIA labels, keyboard support, and screen reader text
+- **Accessible** - Proper ARIA labels, keyboard support, screen reader text; scrollable `<pre>` has `tabindex="0"` for keyboard access (WCAG scrollable-region-focusable)
 
 ### Supported Languages
 

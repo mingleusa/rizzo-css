@@ -111,7 +111,8 @@ const { framework } = getFrameworkFromPath(currentPath);
 	
 	.docs__description {
 		font-size: var(--font-size-lg);
-		color: var(--text-dim);
+		/* Use --text for WCAG AA contrast (--text-dim can fail on some themes) */
+		color: var(--text);
 		margin: 0;
 		line-height: var(--line-height-relaxed);
 	}

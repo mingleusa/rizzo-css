@@ -120,7 +120,7 @@
       </button>
     </span>
   </div>
-  <pre><code>{code}</code></pre>
+  <pre tabindex="0"><code>{code}</code></pre>
 </div>
 
 <style>

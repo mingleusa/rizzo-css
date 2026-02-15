@@ -1196,7 +1196,9 @@ div.navbar__sublink {
 .framework-switcher__label {
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-semibold);
-  color: var(--text-dim);
+
+  /* Use --text for WCAG AA contrast (--text-dim can fail on some themes) */
+  color: var(--text);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -1501,6 +1503,19 @@ div.navbar__sublink {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-3);
+}
+
+/* Theme switcher inside settings: full width of container (avoids overflow in high contrast / narrow panel) */
+.settings__control .theme-switcher {
+  width: 100%;
+  max-width: 100%;
+}
+
+.settings__control .theme-switcher__menu {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .settings__label {

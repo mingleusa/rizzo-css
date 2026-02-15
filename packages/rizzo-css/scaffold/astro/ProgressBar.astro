@@ -43,7 +43,7 @@ const ariaAttrs = indeterminate
       'aria-valuenow': clampedValue,
       'aria-valuemin': 0,
       'aria-valuemax': safeMax,
-      'aria-label': label ?? undefined,
+      'aria-label': label ?? 'Progress',
     };
 
 const barStyle = indeterminate ? {} : { width: `${percentage}%` };

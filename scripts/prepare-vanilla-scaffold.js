@@ -47,24 +47,48 @@ function main() {
   const beforeMain = full.slice(0, mainStart);
   const afterMain = full.slice(mainEnd);
 
-  // Update root index: add "Component showcase" link (local) and keep one "Get started" to docs site.
-  const rootMainContent = `<span class="badge badge--primary badge--sm mb-4">Vanilla JS + Rizzo CSS</span>
-    <h1 style="font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 800; line-height: 1.1; margin: 0 0 var(--spacing-4) 0; color: var(--text);">Build something great</h1>
-    <p style="font-size: var(--font-size-xl); color: var(--text-dim); max-width: 42ch; margin: 0 0 var(--spacing-8) 0; line-height: var(--line-height-relaxed);">Same design system as Astro and Svelte — 14 themes, 29 components, full keyboard and screen reader support.</p>
-    <div class="flex flex-wrap justify-center gap-4 mb-12">
-      <a href="components/index.html" class="btn btn-primary">Component showcase</a>
-      <a href="${DOCS_BASE}/docs/getting-started" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Get started (docs)</a>
-      <button type="button" class="btn btn-outline" onclick="window.showToast && window.showToast('Hello from Rizzo!', { variant: 'success' });">Show toast</button>
-    </div>
-    <div class="flex flex-wrap justify-center gap-3 mb-16">
-      <span class="badge badge--info">14 themes</span>
-      <span class="badge badge--info">29 components</span>
-      <span class="badge badge--info">WCAG AA</span>
-    </div>
-    <footer style="margin-top: auto; padding-top: var(--spacing-8); color: var(--text-dim); font-size: var(--font-size-sm);">
-      <a href="${DOCS_BASE}" style="color: var(--accent);">Rizzo CSS</a> — design system for the web. <a href="${DOCS_BASE}/docs" target="_blank" rel="noopener noreferrer">Full docs</a>.
-    </footer>`;
-  writeFileSync(indexPath, beforeMain + '\n  <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">\n    ' + rootMainContent + '\n  </main>\n' + afterMain);
+  // Landing: hero + documentation cards (external links to docs). Same structure as main site home, two sections only.
+  const rootMainContent = `
+    <div class="home__container">
+      <header class="home__hero">
+        <h1 class="home__title">Rizzo CSS</h1>
+        <p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization. Start here then make it your own.</p>
+        <div class="home__hero-ctas">
+          <a href="${DOCS_BASE}/docs/getting-started" class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started</a>
+          <a href="${DOCS_BASE}/docs/components" class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components</a>
+        </div>
+      </header>
+      <section class="home__docs">
+        <h2 class="home__section-title">Documentation</h2>
+        <div class="home__docs-grid">
+          <a href="${DOCS_BASE}/docs/getting-started" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Getting Started</h3>
+            <p>Installation, project structure, and quick start guide</p>
+          </a>
+          <a href="${DOCS_BASE}/docs/components" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Components</h3>
+            <p>Component library with usage examples and live demos</p>
+          </a>
+          <a href="${DOCS_BASE}/docs/theming" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Theming</h3>
+            <p>Theme system, custom themes, and color format guide</p>
+          </a>
+          <a href="${DOCS_BASE}/docs/design-system" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Design System</h3>
+            <p>Semantic variables, typography, and design principles</p>
+          </a>
+          <a href="${DOCS_BASE}/docs/accessibility" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Accessibility</h3>
+            <p>Accessibility guidelines, utilities, and best practices</p>
+          </a>
+          <a href="${DOCS_BASE}/docs/colors" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+            <h3>Colors</h3>
+            <p>Interactive color reference with multiple format options</p>
+          </a>
+        </div>
+      </section>
+    </div>`;
+  writeFileSync(indexPath, beforeMain + '\n  <main id="main-content" class="home">' + rootMainContent + '\n  </main>\n' + afterMain);
 
   const componentsDir = join(scaffoldVanilla, 'components');
   mkdirSync(componentsDir, { recursive: true });

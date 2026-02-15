@@ -10,6 +10,12 @@
     THEME_SYSTEM,
   } from './theme';
 
+  interface Props {
+    /** Optional prefix for trigger/menu IDs to avoid duplicates when multiple ThemeSwitchers exist (e.g. idPrefix="doc" → theme-switcher-doc-trigger, theme-switcher-doc-menu). */
+    idPrefix?: string;
+  }
+  let { idPrefix = '' }: Props = $props();
+
   const DEFAULT_THEME_DARK = 'github-dark-classic';
   const DEFAULT_THEME_LIGHT = 'github-light';
 
@@ -53,8 +59,8 @@
   let menuEl: HTMLElement | null = $state(null);
   let triggerEl: HTMLElement | null = $state(null);
 
-  const menuId = 'theme-switcher-menu';
-  const triggerId = 'theme-switcher-trigger';
+  const menuId = idPrefix ? `theme-switcher-${idPrefix}-menu` : 'theme-switcher-menu';
+  const triggerId = idPrefix ? `theme-switcher-${idPrefix}-trigger` : 'theme-switcher-trigger';
 
   function getStored(): string {
     if (typeof localStorage === 'undefined') return DEFAULT_THEME_DARK;

@@ -14,7 +14,7 @@
   <div class="example">
     <div class="example-title">Live Example</div>
     <p>Try switching themes using the theme switcher below (Svelte component):</p>
-    <ThemeSwitcher />
+    <ThemeSwitcher idPrefix="doc" />
   </div>
 
   <h3>Features</h3>
