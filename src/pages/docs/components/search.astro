@@ -48,15 +48,15 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import Search from '../components/rizzo/Search.astro';
 ---
 
-<Search />
+<Search id="search-main" />
 
 <!-- With Algolia: useAlgolia={true} algoliaAppId="..." algoliaApiKey="..." algoliaIndexName="..." -->`}
 			svelte={`<script>
   import { Search } from '$lib/rizzo';
 </script>
 
-<Search />`}
-			vanilla={`<!-- Shipped Navbar includes Search in the bar. Standalone Search: same structure as scaffold Search.astro. -->
+<Search id="search-main" />`}
+			vanilla={`<!-- Shipped Navbar includes Search; standalone below. Include js/main.js for open/close, focus trap, click-outside. -->
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
     <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-panel">
@@ -66,10 +66,19 @@ import Search from '../components/rizzo/Search.astro';
   <div class="search__overlay" id="search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
     <div class="search__panel">
       <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+      <div class="search__results" role="listbox" aria-label="Search results">
+        <div class="search__empty">
+          <p class="search__empty-text">Start typing to search…</p>
+        </div>
+        <div class="search__results-list" role="group" aria-label="Sample results">
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<!-- Include js/main.js for search script; Ctrl+K/Cmd+K opens panel. -->`}
+</div>`}
 		/>
 	</section>
 	

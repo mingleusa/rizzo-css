@@ -42,7 +42,7 @@ const VANILLA_MINIMAL_README = `# Vanilla + Rizzo CSS (minimal)
 Minimal starter: HTML + CSS + js/main.js + recommended component pages. Scaffolded with \`npx rizzo-css init --framework vanilla --template minimal\`.
 
 - Open \`index.html\` in a browser or serve the folder. Edit \`index.html\` and add your content. CSS: \`css/rizzo.min.css\`. Script: \`js/main.js\` (already linked).
-- \`components/\` contains HTML pages for the recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown). Open \`components/index.html\` to browse them.
+- \`components/\` contains HTML pages for the recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard). Open \`components/index.html\` to browse them.
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
 - For the full component showcase and icons, use template **Full** or copy from a Full scaffold.
 
@@ -109,13 +109,14 @@ const ASTRO_COMPONENTS = [
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 
-// Recommended subset for Full/Minimal (same for Astro, Svelte, Vanilla)
+// Recommended subset for Full/Minimal (same for Astro, Svelte, Vanilla). Includes all interactive components.
 const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Modal', 'Tabs', 'ThemeSwitcher', 'FormGroup', 'Alert', 'Toast', 'Dropdown',
+  'Navbar', 'Search', 'Settings', 'Accordion', 'CopyToClipboard',
 ];
 
-// Vanilla components that need js/main.js for interactivity (modal, dropdown, tabs, toast, search, navbar mobile, copy-to-clipboard, theme switcher).
-const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher'];
+// Vanilla components that need js/main.js for interactivity.
+const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher', 'Search', 'Accordion', 'CopyToClipboard', 'Navbar', 'Settings'];
 
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
 // Manual users can run: npx rizzo-css help components
@@ -983,7 +984,7 @@ async function promptComponentChoice(componentList, framework, initialSelection)
   const choice = await selectMenu(
     [
       { value: 'none', label: 'CSS only — no components' },
-      { value: 'recommended', label: 'Recommended set (' + recommended.length + ' components: Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown)' },
+      { value: 'recommended', label: 'Recommended set (' + recommended.length + ' components: Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard)' },
       { value: 'all', label: 'All components (' + componentList.length + ')' },
       { value: 'pick', label: 'Pick components (choose each one)' },
     ],

@@ -65,7 +65,7 @@ When the user chooses **Full, Minimal, or Manual**:
 
 Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (from scaffold); Astro/Svelte also include package.json and .env.example. With `init --yes`, default template is **minimal** for vanilla and **full** for Astro/Svelte; use `--template` to override.
 
-**Full** = all components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Minimal** = recommended set; any component in that set that requires others gets them automatically. **Manual** = component picker; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
+**Full** = all components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Minimal** = recommended set (Button, Badge, Card, Modal, Tabs, ThemeSwitcher, FormGroup, Alert, Toast, Dropdown, Navbar, Search, Settings, Accordion, CopyToClipboard); any component in that set that requires others gets them automatically. **Manual** = component picker; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
 
 ---
 

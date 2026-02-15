@@ -68,7 +68,7 @@ import Settings from '../components/rizzo/Settings.astro';
 
 <!-- window.openSettings(); window.closeSettings(); -->`}
 			vanilla={`<!-- Include Settings panel HTML from package scaffold (theme switcher, font size, a11y toggles). -->
-<!-- Script runs on DOMContentLoaded; window.openSettings() / closeSettings() then work. -->
+<!-- js/main.js runs on DOMContentLoaded: window.openSettings(), close on overlay click or Escape, focus trap in panel. -->
 <!-- Trigger: <button onclick="window.openSettings()">Settings</button> -->`}
 		/>
 		

@@ -4,50 +4,31 @@ import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import SearchComponent from '../../../../components/Search.astro';
 
-const copyableHtml = `<div class="search" data-search>
+const copyableHtml = `<!-- Scaffold/minimal Search: trigger + overlay + input + sample results. Include js/main.js for open/close, focus trap, click-outside. -->
+<div class="search" data-search>
   <div class="search__trigger-wrapper">
-    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-results" data-search-trigger>
-      <span class="search__icon" aria-hidden="true"><!-- Search SVG --></span>
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-panel">
       <span class="search__trigger-text">Search</span>
-      <kbd class="search__kbd" aria-hidden="true">
-        <span class="search__kbd-modifier"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg></span>
-        <kbd>K</kbd>
-      </kbd>
     </button>
   </div>
-  <div class="search__overlay" data-search-overlay aria-hidden="true">
-    <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby="search-title" id="search-results" tabindex="-1">
-      <h2 id="search-title" class="sr-only">Search documentation</h2>
-      <div class="search__header">
-        <div class="search__input-wrapper">
-          <input type="search" class="search__input" id="search-input" placeholder="Search..." aria-label="Search" data-search-input />
-          <button type="button" class="search__close-btn" aria-label="Close search" data-search-close>×</button>
+  <div class="search__overlay" id="search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
+    <div class="search__panel">
+      <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+      <div class="search__results" role="listbox" aria-label="Search results">
+        <div class="search__empty">
+          <p class="search__empty-text">Start typing to search…</p>
         </div>
-      </div>
-      <div class="search__results" id="search-results-list" role="listbox" aria-label="Search results">
-        <!-- Results; wire with Algolia or client-side index via JS -->
+        <div class="search__results-list" role="group" aria-label="Sample results">
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
+          <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
+        </div>
       </div>
     </div>
   </div>
 </div>`;
 
-const copyableJs = `// Minimal: open/close on trigger and overlay, Cmd+K
-(function() {
-  var search = document.querySelector('[data-search]');
-  var trigger = document.querySelector('[data-search-trigger]');
-  var overlay = document.querySelector('[data-search-overlay]');
-  var closeBtn = document.querySelector('[data-search-close]');
-  if (!search || !trigger || !overlay) return;
-  function open() { overlay.setAttribute('aria-hidden', 'false'); trigger.setAttribute('aria-expanded', 'true'); }
-  function close() { overlay.setAttribute('aria-hidden', 'true'); trigger.setAttribute('aria-expanded', 'false'); }
-  trigger.addEventListener('click', open);
-  overlay.addEventListener('click', function(e) { if (e.target === overlay) close(); });
-  if (closeBtn) closeBtn.addEventListener('click', close);
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'k' && (e.metaKey || e.ctrlKey)) { e.preventDefault(); overlay.getAttribute('aria-hidden') === 'true' ? open() : close(); }
-    if (e.key === 'Escape') close();
-  });
-})();`;
+const copyableJs = `// Scaffold uses js/main.js: open/close on trigger, click overlay to close, Escape, focus trap in panel.`;
 ---
 
 <DocsLayout title="Search — Vanilla" description="Search with vanilla HTML or use the same Astro component. Live example and copyable code.">
@@ -65,7 +46,7 @@ const copyableJs = `// Minimal: open/close on trigger and overlay, Cmd+K
     </div>
 
     <h3>HTML (structure)</h3>
-    <p>Copy the markup below. Ensure Rizzo CSS is loaded. Wire <code>data-search-trigger</code>, <code>data-search-close</code>, <code>data-search-overlay</code>, and <code>data-search-input</code> with your own search logic (or use the JS snippet).</p>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded and <code>js/main.js</code> is included (from the minimal scaffold). It wires the trigger, overlay click-to-close, Escape, and focus trap inside the panel.</p>
     <CodeBlock code={copyableHtml} language="html" />
 
     <h3>JavaScript (open/close + Cmd+K)</h3>

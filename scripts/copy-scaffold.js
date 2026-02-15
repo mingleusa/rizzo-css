@@ -74,11 +74,22 @@ const { siteName = 'Site', logo } = Astro.props;
       var toggle = document.getElementById('navbar-toggle');
       var menu = navbar.querySelector('.navbar__menu');
       if (!toggle || !menu) return;
+      var outsideClickHandler = null;
       function setMenuOpen(open) {
         menu.classList.toggle('navbar__menu--open', open);
         navbar.classList.toggle('navbar--menu-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if (outsideClickHandler) {
+          document.removeEventListener('click', outsideClickHandler);
+          outsideClickHandler = null;
+        }
+        if (open) {
+          outsideClickHandler = function (e) {
+            if (e.target && !navbar.contains(e.target)) setMenuOpen(false);
+          };
+          setTimeout(function () { document.addEventListener('click', outsideClickHandler); }, 0);
+        }
       }
       toggle.addEventListener('click', function () {
         setMenuOpen(!menu.classList.contains('navbar__menu--open'));
@@ -87,11 +98,7 @@ const { siteName = 'Site', logo } = Astro.props;
         link.addEventListener('click', function () { setMenuOpen(false); });
       });
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape') {
-          if (menu.classList.contains('navbar__menu--open')) {
-            setMenuOpen(false);
-          }
-        }
+        if (e.key === 'Escape' && menu.classList.contains('navbar__menu--open')) setMenuOpen(false);
       });
     }
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
@@ -114,28 +121,64 @@ const { id = 'search-main' } = Astro.props;
   <div class="search__overlay" id="{id}-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
     <div class="search__panel">
       <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+      <div class="search__results" role="listbox" aria-label="Search results">
+        <div class="search__empty">
+          <p class="search__empty-text">Start typing to search…</p>
+        </div>
+        <div class="search__results-list" role="group" aria-label="Sample results">
+          <a href="#" class="search__result-item" tabindex="-1" data-search-result-item><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
+          <a href="#" class="search__result-item" tabindex="-1" data-search-result-item><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
+          <a href="#" class="search__result-item" tabindex="-1" data-search-result-item><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
   (function initSearch() {
+    var focusableSel = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+    function getFocusable(container) {
+      return Array.prototype.slice.call(container.querySelectorAll(focusableSel));
+    }
     function init() {
       document.querySelectorAll('[data-search]').forEach(function (search) {
         if (search.__searchInited) return;
         search.__searchInited = true;
         var trigger = search.querySelector('.search__trigger');
         var overlay = search.querySelector('[data-search-overlay]');
+        var panel = search.querySelector('.search__panel');
         var input = search.querySelector('.search__input');
+        var resultItems = search.querySelectorAll('.search__result-item, [data-search-result-item]');
         if (!trigger || !overlay || !input) return;
         var previousActive = null;
+        var focusTrapHandler = null;
         function openSearch() {
           previousActive = document.activeElement;
           overlay.setAttribute('aria-hidden', 'false');
           trigger.setAttribute('aria-expanded', 'true');
+          for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '0');
           input.focus();
+          focusTrapHandler = function (e) {
+            if (overlay.getAttribute('aria-hidden') === 'true') return;
+            if (e.key === 'Escape') { e.preventDefault(); closeSearch(); return; }
+            if (e.key === 'Tab' && panel) {
+              var els = getFocusable(panel);
+              if (els.length === 0) return;
+              var first = els[0], last = els[els.length - 1], active = document.activeElement;
+              if (e.shiftKey) {
+                if (active === first || !panel.contains(active)) { e.preventDefault(); last.focus(); }
+              } else {
+                if (active === last || !panel.contains(active)) { e.preventDefault(); first.focus(); }
+              }
+            }
+          };
+          document.addEventListener('keydown', focusTrapHandler);
         }
         function closeSearch() {
+          document.removeEventListener('keydown', focusTrapHandler);
+          focusTrapHandler = null;
+          for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
           overlay.setAttribute('aria-hidden', 'true');
           trigger.setAttribute('aria-expanded', 'false');
           if (previousActive && previousActive.focus) previousActive.focus();

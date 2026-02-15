@@ -56,7 +56,7 @@ import Settings from '../components/rizzo/Settings.astro';
 <main>
   <!-- page content -->
 </main>`}
-			vanilla={`<!-- From scaffold: Navbar includes Search + Settings button. Include js/main.js for mobile menu, search, and settings. -->
+			vanilla={`<!-- From scaffold: Navbar includes Search + Settings button. Include js/main.js for mobile menu (click-outside, Escape), search (focus trap, click-outside), and settings. -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
@@ -72,6 +72,14 @@ import Settings from '../components/rizzo/Settings.astro';
         <div class="search__overlay" id="navbar-search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
           <div class="search__panel">
             <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
+            <div class="search__results" role="listbox" aria-label="Search results">
+              <div class="search__empty"><p class="search__empty-text">Start typing to search…</p></div>
+              <div class="search__results-list" role="group" aria-label="Sample results">
+                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
+                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
+                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -87,7 +95,7 @@ import Settings from '../components/rizzo/Settings.astro';
     </div>
   </div>
 </nav>
-<!-- Include Settings panel HTML from scaffold; include js/main.js for mobile menu, search, and settings. -->`}
+<!-- Include Settings panel HTML from scaffold; js/main.js wires openSettings, overlay click, Escape, focus trap. -->`}
 		/>
 		
 		<h3>Props</h3>

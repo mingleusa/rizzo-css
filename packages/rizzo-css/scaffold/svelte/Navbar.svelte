@@ -9,6 +9,25 @@
   }
   let { siteName = 'Site', logo }: Props = $props();
   let menuOpen = $state(false);
+
+  // Click outside and Escape to close mobile menu
+  $effect(() => {
+    if (!menuOpen) return;
+    const onEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') menuOpen = false;
+    };
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as Node;
+      if (target && !(target as Element).closest?.('.navbar')) menuOpen = false;
+    };
+    document.addEventListener('keydown', onEscape);
+    const t = setTimeout(() => document.addEventListener('click', onClick), 0);
+    return () => {
+      document.removeEventListener('keydown', onEscape);
+      document.removeEventListener('click', onClick);
+      clearTimeout(t);
+    };
+  });
 </script>
 
 <nav class="navbar" role="navigation" aria-label="Main navigation">

@@ -16,10 +16,12 @@ Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 gu
 
 All interactive components support full keyboard navigation:
 
-- Tab navigation
-- Arrow keys for menus
+- Tab navigation (focus trap in modals, Search overlay, and Settings panel)
+- Arrow keys for menus (dropdown, tabs, accordion)
 - Enter/Space for activation
-- Escape to close/dismiss
+- Escape to close/dismiss (Search, Settings, Navbar mobile menu, Modal, Dropdown)
+
+Overlays (Search, Settings, Modal) and the Navbar mobile menu also close when clicking outside (backdrop/overlay click) in addition to Escape and their close controls.
 
 ### ARIA Attributes
 

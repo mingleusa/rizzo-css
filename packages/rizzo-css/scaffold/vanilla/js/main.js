@@ -807,8 +807,12 @@
     document.querySelectorAll('[data-accordion]').forEach(initOne);
   }
 
-  // --- Search: [data-search] — trigger opens overlay, overlay click or Escape closes
+  // --- Search: [data-search] — trigger opens overlay, overlay click or Escape closes, focus trap when open
   function initSearch() {
+    var focusableSel = 'button:not([disabled]),a[href],input:not([disabled]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+    function getFocusable(container) {
+      return Array.prototype.slice.call(container.querySelectorAll(focusableSel));
+    }
     document.querySelectorAll('[data-search]').forEach(function (search) {
       if (search.getAttribute('data-search-inited') === 'true') return;
       search.setAttribute('data-search-inited', 'true');
@@ -816,15 +820,36 @@
       var overlay = search.querySelector('[data-search-overlay]');
       var panel = search.querySelector('.search__panel');
       var input = search.querySelector('.search__input');
+      var resultItems = search.querySelectorAll('.search__result-item');
       if (!trigger || !overlay || !panel || !input) return;
       var previousActive = null;
+      var focusTrapHandler = null;
       function openSearch() {
         previousActive = document.activeElement;
         overlay.setAttribute('aria-hidden', 'false');
         trigger.setAttribute('aria-expanded', 'true');
+        for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '0');
         input.focus();
+        focusTrapHandler = function (e) {
+          if (overlay.getAttribute('aria-hidden') === 'true') return;
+          if (e.key === 'Escape') { e.preventDefault(); closeSearch(); return; }
+          if (e.key === 'Tab') {
+            var els = getFocusable(panel);
+            if (els.length === 0) return;
+            var first = els[0], last = els[els.length - 1], active = document.activeElement;
+            if (e.shiftKey) {
+              if (active === first || !panel.contains(active)) { e.preventDefault(); last.focus(); }
+            } else {
+              if (active === last || !panel.contains(active)) { e.preventDefault(); first.focus(); }
+            }
+          }
+        };
+        document.addEventListener('keydown', focusTrapHandler);
       }
       function closeSearch() {
+        document.removeEventListener('keydown', focusTrapHandler);
+        focusTrapHandler = null;
+        for (var i = 0; i < resultItems.length; i++) resultItems[i].setAttribute('tabindex', '-1');
         overlay.setAttribute('aria-hidden', 'true');
         trigger.setAttribute('aria-expanded', 'false');
         if (previousActive && typeof previousActive.focus === 'function') previousActive.focus();
@@ -847,11 +872,22 @@
       var toggle = navbar.querySelector('.navbar__toggle');
       var menu = navbar.querySelector('.navbar__menu');
       if (!toggle || !menu) return;
+      var outsideClickHandler = null;
       function setMenuOpen(open) {
         menu.classList.toggle('navbar__menu--open', open);
         navbar.classList.toggle('navbar--menu-open', open);
         toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         menu.setAttribute('aria-hidden', open ? 'false' : 'true');
+        if (outsideClickHandler) {
+          document.removeEventListener('click', outsideClickHandler);
+          outsideClickHandler = null;
+        }
+        if (open) {
+          outsideClickHandler = function (e) {
+            if (e.target && !navbar.contains(e.target)) setMenuOpen(false);
+          };
+          setTimeout(function () { document.addEventListener('click', outsideClickHandler); }, 0);
+        }
       }
       toggle.addEventListener('click', function () {
         setMenuOpen(!menu.classList.contains('navbar__menu--open'));
@@ -859,18 +895,9 @@
       menu.querySelectorAll('.navbar__link').forEach(function (link) {
         link.addEventListener('click', function () { setMenuOpen(false); });
       });
-    });
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape') {
-        document.querySelectorAll('.navbar__menu.navbar__menu--open').forEach(function (menu) {
-          var navbar = menu.closest('.navbar');
-          var toggle = navbar && navbar.querySelector('.navbar__toggle');
-          menu.classList.remove('navbar__menu--open');
-          navbar.classList.remove('navbar--menu-open');
-          if (toggle) toggle.setAttribute('aria-expanded', 'false');
-          menu.setAttribute('aria-hidden', 'true');
-        });
-      }
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && menu.classList.contains('navbar__menu--open')) setMenuOpen(false);
+      });
     });
   }
 
