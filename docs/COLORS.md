@@ -2,6 +2,8 @@
 
 Rizzo CSS uses a semantic color system with CSS custom properties that adapt to the selected theme. All colors are available in multiple formats for easy copying and use. The color reference supports **all 14 themes** (7 dark, 7 light).
 
+**Features:** OKLCH theme map for all 14 themes; semantic color variables (see below); interactive color reference on the docs site with live swatches, format tabs (OKLCH, Hex, RGB, HSL, CSS variable), and copy-to-clipboard.
+
 ## Color Reference Page
 
 Visit the [Colors Documentation Page](/docs/colors) on the docs site for an interactive color reference with:

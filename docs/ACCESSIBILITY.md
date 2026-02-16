@@ -6,6 +6,7 @@ Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 gu
 
 ### Implemented Features
 
+- **Best practices doc** — [Best practices](#best-practices) in this doc: keyboard patterns, ARIA usage, focus order, and how to test. Automated coverage (axe, keyboard spec, ARIA/roles) is in [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated).
 - **Keyboard navigation** — Full keyboard support across all interactive components (Tab, arrows, Enter/Space, Escape).
 - **ARIA attributes** — Components use appropriate ARIA (aria-label, aria-expanded, aria-controls, roles, etc.).
 - **Focus management** — Visible focus indicators (`--accent` / `--accent-fg` where used as foreground), focus trapping in modals, scrollable regions (e.g. code blocks) focusable via `tabindex="0"`.

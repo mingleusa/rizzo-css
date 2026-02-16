@@ -2,6 +2,8 @@
 
 Thanks for your interest in contributing. This doc covers how to run the project, where to add or change code, code style, and the PR process.
 
+**Community features:** This repo provides a contributing guide (this doc), [GitHub issue templates](.github/ISSUE_TEMPLATE/) (bug report, feature request, question), a [PR template](.github/PULL_REQUEST_TEMPLATE.md), and branch protection for `main`. Repo admins: see [.github/MANUAL_SETUP_STEPS.md](.github/MANUAL_SETUP_STEPS.md) for setup.
+
 ## Development setup
 
 - **Node:** 18+

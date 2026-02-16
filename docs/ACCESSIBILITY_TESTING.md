@@ -2,7 +2,7 @@
 
 Use this checklist for manual keyboard and screen reader testing. The [Accessibility best practices](./ACCESSIBILITY.md#best-practices) section is in place (keyboard patterns, ARIA usage, focus order, how to test). Automated axe, keyboard, and ARIA tests run via `pnpm test:a11y`.
 
-## Completed (automated)
+## Features (automated coverage)
 
 The following are implemented and run in `pnpm test:a11y`:
 
