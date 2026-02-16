@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-minimal, svelte-minimal, plus `scaffold/astro/`, `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (29 components including ThemeSwitcher). **Create new** → **Full** (29 components), **Minimal** (all 29 interactive components as base), or **Manual** (same base; component picker with all 29 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (29 components including ThemeSwitcher). **Create new** → **Core** (all 29 components) or **Manual** (component picker with all 29 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -76,7 +76,7 @@ Every component has documentation and examples for **Astro**, **Svelte**, and **
 |-----------|------------------|--------------|
 | **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage with **Astro | Svelte | Vanilla** code tabs (complete, copy-paste examples per framework), live demos, and props. |
 | **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
-| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML; interactive behavior (modal, dropdown, tabs, accordion, toast, search, copy-to-clipboard, etc.) is wired by `js/main.js` when using Full or Minimal scaffold. Copyable code blocks and live demos. Same BEM as Astro/Svelte. Tooltips use CSS only (:hover and :focus-within). |
+| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML; interactive behavior (modal, dropdown, tabs, accordion, toast, search, copy-to-clipboard, etc.) is wired by `js/main.js` when using the Core scaffold. Copyable code blocks and live demos. Same BEM as Astro/Svelte. Tooltips use CSS only (:hover and :focus-within). |
 
 Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top of any component or theme page to switch between framework docs.
 
@@ -446,6 +446,7 @@ window.openSettings();
 
 - **Theme Switcher** - Integrated ThemeSwitcher with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme icons, and active state (theme background + accent bar). Persists in localStorage as `theme` (theme id or `system`).
 - **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable). Persists in localStorage as `fontSizeScale`
+- **Font (font pair)** - Dropdown to choose a sans + mono pair: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro. Sets `--font-family` and `--font-family-mono` on `html`. Persists in localStorage as `fontPair` (e.g. `geist`, `inter-jetbrains`, `ibm-plex`, `source`).
 - **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
 - **Scrollbar Style** - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to `html` element (`scrollbar-thick` or `scrollbar-hidden`). Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
@@ -464,7 +465,8 @@ window.openSettings();
 
 1. **Theme** - Theme switcher dropdown
 2. **Font Size** - Slider with live preview (75% - 150%)
-3. **Accessibility** - Reduce motion, high contrast, and scrollbar style options
+3. **Font** - Font pair dropdown (sans + mono: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro)
+4. **Accessibility** - Reduce motion, high contrast, and scrollbar style options
 
 ### Settings Persistence
 
@@ -472,6 +474,7 @@ All settings options automatically persist to localStorage and are restored when
 
 - `theme` - Selected theme name (e.g., `github-dark-classic`, `github-light`)
 - `fontSizeScale` - Font size multiplier (e.g., `1.0` for 100%, `1.25` for 125%)
+- `fontPair` - Font pair id (`geist`, `inter-jetbrains`, `ibm-plex`, `source`); sets both `--font-family` and `--font-family-mono` on load
 - `reducedMotion` - Boolean string (`true` or `false`)
 - `highContrast` - Boolean string (`true` or `false`)
 - `scrollbarStyle` - Scrollbar style preference (`thin`, `thick`, or `hidden`)

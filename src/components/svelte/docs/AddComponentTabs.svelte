@@ -34,7 +34,7 @@
   const commands: Record<string, string> = {
     npm: 'npx rizzo-css add' + addSuffix,
     pnpm: 'pnpm dlx rizzo-css add' + addSuffix,
-    yarn: 'yarn dlx rizzo-css add' + addSuffix,
+    yarn: 'npx rizzo-css add' + addSuffix,
     bun: 'bunx rizzo-css add' + addSuffix,
   };
 </script>

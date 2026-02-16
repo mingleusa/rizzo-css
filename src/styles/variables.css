@@ -2,10 +2,18 @@
   --primary-color: oklch(45.2% 0.198 250.1deg);
   --secondary-color: oklch(25.1% 0 0deg);
 
-  /* Typography - Font Families */
-  --font-family-sans: 'Geist Sans', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  /* Typography - Font Families (pair-based: sans for body/UI, mono for code) */
+  --font-family-geist-sans: 'Geist Sans', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --font-family-geist-mono: 'Geist Mono', 'SF Mono', monaco, 'Cascadia Code', 'Roboto Mono', consolas, 'Courier New', monospace;
+  --font-family-inter: 'Inter', system-ui, -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial, sans-serif;
+  --font-family-jetbrains-mono: 'JetBrains Mono', 'SF Mono', monaco, 'Cascadia Code', 'Roboto Mono', consolas, 'Courier New', monospace;
+  --font-family-ibm-plex-sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  --font-family-ibm-plex-mono: 'IBM Plex Mono', 'SF Mono', monaco, consolas, 'Courier New', monospace;
+  --font-family-source-sans-3: 'Source Sans 3', system-ui, -apple-system, sans-serif;
+  --font-family-source-code-pro: 'Source Code Pro', 'SF Mono', monaco, consolas, 'Courier New', monospace;
+  --font-family-sans: var(--font-family-geist-sans);
   --font-family-serif: georgia, 'Times New Roman', times, serif;
-  --font-family-mono: 'SF Mono', monaco, 'Cascadia Code', 'Roboto Mono', consolas, 'Courier New', monospace;
+  --font-family-mono: var(--font-family-geist-mono);
   --font-family: var(--font-family-sans);
 
   /* Typography - Font Weights */

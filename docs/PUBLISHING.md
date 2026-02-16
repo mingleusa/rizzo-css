@@ -1,13 +1,13 @@
 # Publishing the npm package
 
-The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme` / `doctor` / `help`), and scaffolds (vanilla, astro-minimal, svelte-minimal, plus astro/ and svelte/ component templates). Init: framework → existing (CSS + hand-pick) or new (template or no template + hand-pick). [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
+The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme` / `doctor` / `help`), and scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). Init: framework → existing (CSS + hand-pick) or new (template or no template + hand-pick). [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
 
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`. [Versioning strategy](#versioning-strategy) below.
 - **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.39/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
-- **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, and under `scaffold/`: `astro/`, `utils/` (theme for ThemeSwitcher), `svelte/`, `vanilla/`, `astro-minimal/`, `svelte-minimal/`). PrepublishOnly runs (from repo root): `lint:css:fix`, `build:css`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`.
-- **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Create new = **Full** | **Minimal** (all 29 interactive) | **Manual** (all 29 pre-selected); Add to existing = CSS + hand-pick components.
+- **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, and under `scaffold/`: `astro/`, `utils/` (theme for ThemeSwitcher), `svelte/`, `vanilla/`, `astro-core/`, `svelte-core/`). PrepublishOnly runs (from repo root): `lint:css:fix`, `build:css`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`.
+- **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Create new = **Core** | **Manual** (all 29 pre-selected); Add to existing = CSS + hand-pick components.
 - **Pre-publish** — [Pre-publish checklist](#pre-publish-checklist): version bump, build, publish, push, CDN verify.
 - **CLI / Svelte / framework** — [CLI Planning](./CLI_PLANNING.md); [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md); [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md); [GETTING_STARTED – JS utilities](./GETTING_STARTED.md#javascript-utilities).
 
@@ -17,7 +17,7 @@ The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` /
 
 So:
 
-- **New files that appear right after you run publish** — During `pnpm publish:package`, npm runs `prepublishOnly` first: `build:css`, then `copy-scaffold.js` (writes `scaffold/astro/`, `scaffold/utils/` (theme for ThemeSwitcher), `scaffold/svelte/`, `scaffold/vanilla/icons`), then `prepare-vanilla-scaffold.js` (populates `scaffold/vanilla/components/`). **Then** npm packs only the listed `files`: scaffold/astro, scaffold/utils, svelte, vanilla, astro-minimal, svelte-minimal. So those “new” files you see in the scaffold folder after the command finishes **were included in the tarball**. The published npm package is up to date with them. Your working tree now has those files on disk; if they’re not committed, GitHub won’t have them until you commit and push (so commit and push to keep the repo in sync with what’s on npm).
+- **New files that appear right after you run publish** — During `pnpm publish:package`, npm runs `prepublishOnly` first: `build:css`, then `copy-scaffold.js` (writes `scaffold/astro/`, `scaffold/utils/` (theme for ThemeSwitcher), `scaffold/svelte/`, `scaffold/vanilla/icons`), then `prepare-vanilla-scaffold.js` (populates `scaffold/vanilla/components/`). **Then** npm packs only the listed `files`: scaffold/astro, scaffold/utils, svelte, vanilla, astro-core, svelte-core. So those “new” files you see in the scaffold folder after the command finishes **were included in the tarball**. The published npm package is up to date with them. Your working tree now has those files on disk; if they’re not committed, GitHub won’t have them until you commit and push (so commit and push to keep the repo in sync with what’s on npm).
 - **Changes you make after the publish command has finished** — Any edits or new files you add *after* `pnpm publish:package` completes are **not** in the tarball you just published. To get them on npm, bump the version and publish again.
 - **Recommended order:** (1) Commit all source and scaffold changes. (2) Bump version. (3) Run `pnpm publish:package`. (4) Commit any scaffold updates that prepublishOnly wrote, then push.
 
@@ -33,7 +33,7 @@ So:
 
 Before publishing to npm:
 
-1. **Commit all changes** — Everything that should be in this release: `scaffold/vanilla/`, `scaffold/astro-minimal/`, `scaffold/svelte-minimal/`, `scaffold/astro/`, `scaffold/svelte/`, `src/components/`, `src/components/svelte/`, CSS, CLI, docs. The pack step uses the repo state at publish time (see [Keeping npm and GitHub in sync](#keeping-npm-and-github-in-sync)).
+1. **Commit all changes** — Everything that should be in this release: `scaffold/vanilla/`, `scaffold/astro-core/`, `scaffold/svelte-core/`, `scaffold/astro/`, `scaffold/svelte/`, `src/components/`, `src/components/svelte/`, CSS, CLI, docs. The pack step uses the repo state at publish time (see [Keeping npm and GitHub in sync](#keeping-npm-and-github-in-sync)).
 2. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Update the npm badge in the main `README.md` so the version in the badge matches (e.g. `badge/npm-0.0.39-CB3837`). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
 3. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
 4. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
@@ -75,7 +75,7 @@ Only what’s listed in `packages/rizzo-css/package.json` under `"files"`:
 
 - `dist/` (contains `rizzo.min.css`)
 - `bin/` (CLI: `rizzo-css` → `bin/rizzo-css.js`)
-- `scaffold/astro`, `scaffold/utils` (theme utilities for ThemeSwitcher), `scaffold/svelte`, `scaffold/vanilla`, `scaffold/astro-minimal`, `scaffold/svelte-minimal`
+- `scaffold/astro`, `scaffold/utils` (theme utilities for ThemeSwitcher), `scaffold/svelte`, `scaffold/vanilla`, `scaffold/astro-core`, `scaffold/svelte-core`
 - `README.md`
 - `LICENSE` (MIT)
 - `.env.example` (optional; for projects that add search, e.g. Algolia)

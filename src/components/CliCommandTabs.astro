@@ -19,7 +19,7 @@ const fullCommand = `rizzo-css ${command}${componentArg ? ' ' + componentArg : '
 const commands = {
   npm: `npx ${fullCommand}`,
   pnpm: `pnpm dlx ${fullCommand}`,
-  yarn: `yarn dlx ${fullCommand}`,
+  yarn: `npx ${fullCommand}`,
   bun: `bunx ${fullCommand}`,
 };
 

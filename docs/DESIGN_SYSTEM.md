@@ -70,13 +70,23 @@ Utility classes: `bg-{scale}-{step}`, `text-{scale}-{step}`, `border-{scale}-{st
 
 ### Typography System
 
-Rizzo CSS includes a comprehensive typography system:
+Rizzo CSS includes a comprehensive typography system with **font pairs** (sans + mono). The Settings panel lets users choose a pair; each option sets both body/UI font and code font.
 
-**Font Families:**
-- `--font-family-sans` - System sans-serif stack
+**Font family variables (pair-based):**
+- `--font-family-geist-sans` - Geist Sans (default sans)
+- `--font-family-geist-mono` - Geist Mono (default mono; used for `code`, `pre`, `kbd`)
+- `--font-family-inter` - Inter
+- `--font-family-jetbrains-mono` - JetBrains Mono
+- `--font-family-ibm-plex-sans` - IBM Plex Sans
+- `--font-family-ibm-plex-mono` - IBM Plex Mono
+- `--font-family-source-sans-3` - Source Sans 3
+- `--font-family-source-code-pro` - Source Code Pro
+- `--font-family-sans` - Current sans stack (default: Geist Sans)
 - `--font-family-serif` - System serif stack
-- `--font-family-mono` - System monospace stack
-- `--font-family` - Default font family (sans-serif)
+- `--font-family-mono` - Current mono stack (default: Geist Mono)
+- `--font-family` - Default font family (used for body/UI; equals current sans)
+
+**Font pairs in Settings:** `geist` (Geist Sans + Geist Mono, default), `inter-jetbrains` (Inter + JetBrains Mono), `ibm-plex` (IBM Plex Sans + Mono), `source` (Source Sans 3 + Source Code Pro). Persisted as `fontPair` in localStorage; applied on load so the choice is active before first paint.
 
 **Font Weights:**
 - `--font-weight-light` (300)

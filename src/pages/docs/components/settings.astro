@@ -6,15 +6,16 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
-<DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size adjustment, and accessibility options">
+<DocsLayout title="Settings Component — Astro" description="Comprehensive settings panel for theme switching, font size, font pair, and accessibility options">
 	<section>
 		<h2>Settings Component</h2>
-		<p>A comprehensive settings panel for theme switching, font size adjustment, and accessibility options.</p>
+		<p>A comprehensive settings panel for theme switching, font size, font pair (sans + mono), and accessibility options.</p>
 		<AddComponentTabs componentName="Settings" />
 		<h3>Features</h3>
 		<ul>
 			<li><strong>Theme Switcher</strong> - Integrated ThemeSwitcher component with theme icons (persists in localStorage as <code>theme</code>)</li>
 			<li><strong>Font Size Slider</strong> - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with <code>--slider-progress</code> variable). Persists in localStorage as <code>fontSizeScale</code></li>
+			<li><strong>Font (font pair)</strong> - Dropdown to choose a sans + mono pair: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro. Sets <code>--font-family</code> and <code>--font-family-mono</code> on <code>html</code>. Persists in localStorage as <code>fontPair</code> (<code>geist</code>, <code>inter-jetbrains</code>, <code>ibm-plex</code>, <code>source</code>)</li>
 			<li><strong>Reduce Motion Toggle</strong> - Applies <code>.reduced-motion</code> class to document root. Persists in localStorage as <code>reducedMotion</code></li>
 			<li><strong>High Contrast Toggle</strong> - Applies <code>.high-contrast</code> class to document root. Persists in localStorage as <code>highContrast</code></li>
 			<li><strong>Scrollbar Style</strong> - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to <code>html</code> element (<code>.scrollbar-thick</code> or <code>.scrollbar-hidden</code>). Persists in localStorage as <code>scrollbarStyle</code> (values: <code>thin</code>, <code>thick</code>, <code>hidden</code>)</li>
@@ -34,6 +35,7 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 		<ul>
 			<li><code>theme</code> - Selected theme name (e.g., <code>github-dark-classic</code>, <code>github-light</code>)</li>
 			<li><code>fontSizeScale</code> - Font size multiplier (e.g., <code>1.0</code> for 100%, <code>1.25</code> for 125%)</li>
+			<li><code>fontPair</code> - Font pair id (<code>geist</code>, <code>inter-jetbrains</code>, <code>ibm-plex</code>, <code>source</code>); applies both <code>--font-family</code> and <code>--font-family-mono</code> on load</li>
 			<li><code>reducedMotion</code> - Boolean string (<code>true</code> or <code>false</code>)</li>
 			<li><code>highContrast</code> - Boolean string (<code>true</code> or <code>false</code>)</li>
 			<li><code>scrollbarStyle</code> - Scrollbar style preference (<code>thin</code>, <code>thick</code>, or <code>hidden</code>)</li>

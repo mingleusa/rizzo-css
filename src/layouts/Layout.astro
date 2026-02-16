@@ -1,17 +1,22 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Settings from '../components/Settings.astro';
+import { FONT_PAIRS } from '../config/fonts';
 import '../styles/main.css';
+
+const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 ---
 
 <!doctype html>
-<html lang="en" data-theme="github-dark-classic">
+<html lang="en" data-theme="github-dark-classic" data-font-pairs={fontPairsAttr}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
+		<link rel="preload" href="/assets/fonts/GeistSans/GeistVF.woff2" as="font" type="font/woff2" crossorigin />
+		<link rel="preload" href="/assets/fonts/GeistMono/GeistMonoVF.woff2" as="font" type="font/woff2" crossorigin />
 		<script is:inline>
 			// Prevent theme flash on page load
 			(function() {
@@ -34,6 +39,22 @@ import '../styles/main.css';
 					const savedFontScale = localStorage.getItem('fontSizeScale');
 					if (savedFontScale) {
 						document.documentElement.style.setProperty('--font-size-scale', savedFontScale);
+					}
+
+					// Load font pair (sans + mono)
+					var fontPairId = localStorage.getItem('fontPair') || 'geist';
+					var fontPairsRaw = document.documentElement.getAttribute('data-font-pairs');
+					if (fontPairsRaw && fontPairId) {
+						try {
+							var fontPairs = JSON.parse(fontPairsRaw.replace(/&quot;/g, '"').replace(/&amp;/g, '&'));
+							for (var f = 0; f < fontPairs.length; f++) {
+								if (fontPairs[f].value === fontPairId) {
+									document.documentElement.style.setProperty('--font-family', fontPairs[f].sans);
+									document.documentElement.style.setProperty('--font-family-mono', fontPairs[f].mono);
+									break;
+								}
+							}
+						} catch (err) {}
 					}
 					
 					// Load accessibility settings

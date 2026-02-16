@@ -7,3 +7,67 @@
   font-style: normal;
   font-display: swap;
 }
+
+/* Geist Mono (variable) - code blocks, pre, kbd, terminal-style UI */
+@font-face {
+  font-family: 'Geist Mono';
+  src: url('../assets/fonts/GeistMono/GeistMonoVF.woff2') format('woff2'),
+       url('../assets/fonts/GeistMono/GeistMonoVF.woff') format('woff');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Inter (variable) - filename has comma, encoded as %2C in URL */
+@font-face {
+  font-family: Inter;
+  src: url('../assets/fonts/Inter/Inter-VariableFont_opsz%2Cwght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* JetBrains Mono (variable) - filename has brackets, encoded as %5B %5D in URL */
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/JetBrainsMono/JetBrainsMono%5Bwght%5D.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Sans (variable) - comma in filename encoded as %2C */
+@font-face {
+  font-family: 'IBM Plex Sans';
+  src: url('../assets/fonts/IBMPlexSans/IBMPlexSans-VariableFont_wdth%2Cwght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* IBM Plex Mono (static Regular) */
+@font-face {
+  font-family: 'IBM Plex Mono';
+  src: url('../assets/fonts/IBMPlexMono/IBMPlexMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Source Sans 3 (variable) */
+@font-face {
+  font-family: 'Source Sans 3';
+  src: url('../assets/fonts/SourceSans3/SourceSans3-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Source Code Pro (variable) */
+@font-face {
+  font-family: 'Source Code Pro';
+  src: url('../assets/fonts/SourceCodePro/SourceCodePro-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}

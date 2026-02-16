@@ -428,6 +428,11 @@ function copyAstro() {
   if (existsSync(join(configDir, 'themes.ts'))) {
     copyFileSync(join(configDir, 'themes.ts'), join(astroDest, 'themes.ts'));
   }
+  const scaffoldConfigDir = join(scaffoldDir, 'config');
+  if (existsSync(join(configDir, 'fonts.ts'))) {
+    mkdirSync(scaffoldConfigDir, { recursive: true });
+    copyFileSync(join(configDir, 'fonts.ts'), join(scaffoldConfigDir, 'fonts.ts'));
+  }
   // ThemeSwitcher.astro imports from '../utils/theme' — add scaffold/utils/theme.ts so package build resolves
   const utilsDir = join(scaffoldDir, 'utils');
   const themeSrc = join(rootDir, 'src', 'utils', 'theme.ts');

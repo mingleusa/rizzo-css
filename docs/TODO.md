@@ -2,7 +2,7 @@
 
 A focused list of **remaining** tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.40) with CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. For feature summaries and what’s already done, see: [CONTRIBUTING.md](../CONTRIBUTING.md) (community), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features) (a11y features), [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#features-automated-coverage) (automated tests), [COLORS.md](./COLORS.md) (theming). Full product state: [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
+**Current state:** Single package **rizzo-css** (v0.0.41) with CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. For feature summaries and what’s already done, see: [CONTRIBUTING.md](../CONTRIBUTING.md) (community), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features) (a11y features), [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#features-automated-coverage) (automated tests), [COLORS.md](./COLORS.md) (theming). Full product state: [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
 
 ---
 

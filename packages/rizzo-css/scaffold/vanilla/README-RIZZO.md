@@ -66,7 +66,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-minimal/` — Astro app (Full or Minimal template); optional components from `scaffold/astro/` (see README-RIZZO.md).
-- **Svelte:** `scaffold/svelte-minimal/` — SvelteKit app (Full or Minimal template); optional components from `scaffold/svelte/` (see README-RIZZO.md).
+- **Astro:** `scaffold/astro-core/` — Astro app (Full or Manual template); optional components from `scaffold/astro/` (see README-RIZZO.md).
+- **Svelte:** `scaffold/svelte-core/` — SvelteKit app (Full or Manual template); optional components from `scaffold/svelte/` (see README-RIZZO.md).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

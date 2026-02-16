@@ -1,4 +1,4 @@
-# Astro + Rizzo CSS
+# SvelteKit + Rizzo CSS
 
 ```
       /\___/\   
@@ -14,7 +14,7 @@
       Design system · Vanilla · Astro · Svelte
 ```
 
-Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework astro --template full`, **minimal**, or **manual**. When you choose **Full** or **Minimal**, the CLI copies all interactive Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **Manual** lets you pick which of those to include (all are pre-selected by default).
+SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full` or **manual**. When you choose **Full**, the CLI copies all 29 Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **Manual** lets you pick which of those to include (all are pre-selected by default).
 
 ## Setup
 
@@ -36,12 +36,12 @@ Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework as
 
 ## Project structure
 
-- `.gitignore` — Astro default values (same as `create-astro`): dist/, .astro/, node_modules/, .env, logs, .DS_Store, .idea/
-- `astro.config.mjs` — Astro configuration
-- `src/layouts/Layout.astro` — Layout with Rizzo CSS and theme (edit `data-theme` for default)
-- `src/pages/index.astro` — Home page
-- `public/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI; font URLs point to `/assets/fonts/`)
-- `public/assets/fonts/` — Rizzo font files (added by CLI)
+- `svelte.config.js` — SvelteKit configuration
+- `src/app.html` — HTML shell with Rizzo CSS and theme (edit `data-theme` for default)
+- `src/routes/+layout.svelte` — Root layout
+- `src/routes/+page.svelte` — Home page
+- `static/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI; font URLs point to `/assets/fonts/`)
+- `static/assets/fonts/` — Rizzo font files (added by CLI)
 - `README-RIZZO.md` — This file (scaffold docs; does not replace your project README)
 - `LICENSE-RIZZO` — Rizzo CSS license (does not replace your project LICENSE)
 

@@ -165,6 +165,7 @@
     var closeBtn = settings.querySelector('[data-settings-close]');
     var fontSizeSlider = settings.querySelector('[data-font-size-slider]');
     var fontSizeValue = settings.querySelector('[data-font-size-value]');
+    var fontPairSelect = settings.querySelector('[data-font-pair]');
     var reducedMotion = settings.querySelector('[data-reduced-motion]');
     var highContrast = settings.querySelector('[data-high-contrast]');
     var scrollbarStyleRadios = settings.querySelectorAll('[data-scrollbar-style]');
@@ -190,6 +191,15 @@
         applyFontSize(parseFloat(saved));
       }
       if (fontSizeSlider) updateSliderProgress(fontSizeSlider);
+      var savedFontPair = localStorage.getItem('fontPair') || 'geist';
+      if (fontPairSelect) {
+        fontPairSelect.value = savedFontPair;
+        var opt = fontPairSelect.options[fontPairSelect.selectedIndex];
+        if (opt && opt.dataset.sans && opt.dataset.mono) {
+          html.style.setProperty('--font-family', opt.dataset.sans);
+          html.style.setProperty('--font-family-mono', opt.dataset.mono);
+        }
+      }
       if (reducedMotion) {
         reducedMotion.checked = localStorage.getItem('reducedMotion') === 'true';
         html.classList.toggle('reduced-motion', reducedMotion.checked);
@@ -258,6 +268,16 @@
         applyFontSize(scale);
         updateSliderProgress(this);
         localStorage.setItem('fontSizeScale', scale);
+      });
+    }
+    if (fontPairSelect) {
+      fontPairSelect.addEventListener('change', function () {
+        var opt = this.options[this.selectedIndex];
+        if (opt && opt.dataset.sans && opt.dataset.mono) {
+          html.style.setProperty('--font-family', opt.dataset.sans);
+          html.style.setProperty('--font-family-mono', opt.dataset.mono);
+          localStorage.setItem('fontPair', opt.value);
+        }
       });
     }
     if (reducedMotion) {
