@@ -38,6 +38,8 @@ See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETT
 
 When adding a new component, add it to the Astro scaffold list in `scripts/copy-scaffold.js` (`ASTRO_SCAFFOLD`) and to the CLI component lists in `packages/rizzo-css/bin/rizzo-css.js` (`SVELTE_COMPONENTS`, `ASTRO_COMPONENTS`, `VANILLA_COMPONENT_SLUGS` if it has a vanilla slug). Then run `pnpm build:package` and update docs as needed.
 
+**Adding a new icon:** Create a component for each framework and add it to every framework’s icons docs page with the same copy-to-clipboard behavior. (1) **Astro:** Add `src/components/icons/` or `src/components/icons/devicons/YourIcon.astro`. (2) **Svelte:** Add `src/components/svelte/icons/` or `src/components/svelte/icons/devicons/YourIcon.svelte` (same SVG, Svelte 5 `$props()` for width/height/class). (3) **Vanilla:** Run `pnpm build:package` (or `node scripts/copy-scaffold.js`); the script extracts SVG from Astro icons into `packages/rizzo-css/scaffold/vanilla/icons/`. (4) **Icons docs:** Add the icon to the devicons (or regularIcons) array and import on all three icons pages: `src/pages/docs/components/icons.astro` (Astro), `src/pages/docs/vanilla/components/icons.astro` (Vanilla), and `src/components/svelte/docs/pages/IconsDoc.svelte` (Svelte). Each entry needs `name`, `component`, and `svg` (full SVG string for copy-to-clipboard). Keep the same copy-to-clipboard behavior and card layout on all three pages.
+
 ## Code style
 
 - **Components:** BEM-style class names; semantic HTML and ARIA where appropriate (see [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md)).

@@ -2,6 +2,8 @@
 interface Tab {
   id: string;
   label: string;
+  /** Optional icon URL (e.g. /icons/bun.svg) shown before the label */
+  icon?: string;
   content?: string;
 }
 
@@ -49,6 +51,7 @@ const classes = `tabs ${variantClass} ${className}`.trim();
           data-tab-id={tab.id}
           data-tab-index={index}
         >
+          {tab.icon ? <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" /> : null}
           {tab.label}
         </span>
       );

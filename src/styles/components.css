@@ -3816,6 +3816,12 @@ div.navbar__sublink {
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: var(--spacing-2);
+}
+
+.tabs__tab-icon {
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .tabs__tab:hover:not(.tabs__tab--active) {
