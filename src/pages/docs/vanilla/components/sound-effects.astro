@@ -1,0 +1,38 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import SoundEffectsComponent from '../../../../components/SoundEffects.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<label class="settings__checkbox-label">
+  <input type="checkbox" class="settings__checkbox" data-sound-effects aria-label="Play sound on click" />
+  <span>Play sound on click</span>
+</label>
+<p class="settings__help-text">Short click sound when you interact with buttons and links. Off by default.</p>`;
+---
+
+<DocsLayout title="Sound Effects — Vanilla" description="Toggle for play sound on click with vanilla HTML + JS.">
+  <section>
+    <h2>Sound Effects</h2>
+    <p>Checkbox that toggles “Play sound on click”. Persists in <code>localStorage</code> (key <code>soundEffects</code>). The actual click sound is played by a global script in the layout (see <a href="/docs/components/sound-effects">Astro doc</a>).</p>
+    <AddComponentTabs componentName="Sound Effects" />
+    <h3>Live example</h3>
+    <p>The toggle below is a working example (same Astro component). Enable it and click any button or link on the page.</p>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <SoundEffectsComponent />
+    </div>
+
+    <h3>HTML</h3>
+    <p>Copy the markup below. Wire the checkbox with a script that reads/writes <code>localStorage.soundEffects</code>. Include the layout sound script for the click sound to play.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><a href="/docs/components/sound-effects">Astro Sound Effects</a> · <a href="/docs/svelte/components/sound-effects">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

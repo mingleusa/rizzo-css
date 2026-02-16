@@ -4,7 +4,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add`): drop in CSS + hand-pick components. **New:** **Core** or **Manual** (per framework) → package manager (npm, pnpm, yarn, bun; detected suggested). **rizzo-css.json** (targetDir, framework, packageManager) always written for new and existing projects. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte` and `--template core|manual`, `--install`, `--no-install`. See [CLI.md](./CLI.md).
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte) → existing or new. **Existing** (or `add`): drop in CSS + hand-pick components. **New:** **Core** or **Manual** (per framework) → package manager (npm, pnpm, yarn, bun; detected suggested). **rizzo-css.json** (targetDir, framework, packageManager, theme) written only when the project does not already have a config file. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte` and `--template core|manual`, `--install`, `--no-install`. See [CLI.md](./CLI.md).
 
 **Docs site:** The [Getting Started](/docs/getting-started) page and the home page include a **package manager tabbed selector** (npm, pnpm, yarn, bun): users click a tab to select their manager, then use the copy button to copy the CLI command. Each tab shows the appropriate command (e.g. `npx rizzo-css init`, `pnpm dlx rizzo-css init`). The **yarn** tab shows `npx` so it works with Yarn 1 and 2+ (Yarn 1 has no `dlx`).
 
@@ -63,7 +63,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 
 - [ ] `init` for React/Vue (e.g. Vite + Rizzo CSS + minimal setup).
 - [ ] `upgrade` (or `update`): check latest version, suggest or apply update for the CSS/package reference).
-- [x] Config file (`rizzo-css.json`) for targetDir, framework, packageManager; always written (new and existing); read in add/init.
+- [x] Config file (`rizzo-css.json`) for targetDir, framework, packageManager, theme; written only when no existing config; read in add/init.
 
 ---
 

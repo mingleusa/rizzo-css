@@ -1,0 +1,52 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import FontSwitcherComponent from '../../../../components/FontSwitcher.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../../../../config/fonts';
+
+const defaultLabel = FONT_PAIRS.find((p) => p.value === FONT_PAIR_DEFAULT)?.label ?? FONT_PAIRS[0]?.label ?? 'Font';
+const copyableHtml = `<div class="font-switcher" data-font-switcher>
+  <button type="button" class="font-switcher__trigger" aria-expanded="false" aria-haspopup="true" aria-controls="font-pair-menu" aria-label="Select font pair" id="font-pair-trigger">
+    <span class="font-switcher__label" data-font-pair-label>${defaultLabel}</span>
+    <svg class="font-switcher__icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <div class="font-switcher__menu" id="font-pair-menu" role="menu" aria-labelledby="font-pair-trigger" aria-label="Font pair selection" aria-orientation="vertical" aria-hidden="true" tabindex="-1">
+    <div class="font-switcher__menu-options">
+${FONT_PAIRS.map((pair) => `      <div class="font-switcher__option" role="menuitemradio" aria-checked="false" tabindex="-1" data-font-pair-value="${pair.value}" data-font-pair-sans="${pair.sans}" data-font-pair-mono="${pair.mono}" data-font-pair-label="${pair.label}">${pair.label}</div>`).join('\n')}
+    </div>
+    <div class="font-switcher__preview" data-font-preview aria-hidden="true">
+      <div class="font-switcher__preview-title">Preview</div>
+      <div class="font-switcher__preview-sample" data-font-preview-sample>Aa Bb Cc 012</div>
+      <div class="font-switcher__preview-mono" data-font-preview-mono>code</div>
+    </div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Font Switcher — Vanilla" description="Font pair (sans + mono) switcher with vanilla HTML + JS. Live example and copyable markup.">
+  <section>
+    <h2>Font Switcher</h2>
+    <p>Font pair dropdown with preview and keyboard navigation. Same BEM structure and behavior as the <a href="/docs/components/font-switcher">Astro FontSwitcher</a>: sets <code>--font-family</code> and <code>--font-family-mono</code> on <code>&lt;html&gt;</code>, persists in <code>localStorage</code> (key <code>fontPair</code>).</p>
+    <AddComponentTabs componentName="Font Switcher" />
+    <h3>Live example</h3>
+    <p>The switcher below is a working example (same Astro component so it runs on this page). In a vanilla-only project use the same HTML and the FontSwitcher script from the package or wire option clicks to set CSS variables and <code>localStorage.fontPair</code>.</p>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <FontSwitcherComponent idPrefix="vanilla-doc" />
+    </div>
+
+    <h3>HTML (structure)</h3>
+    <p>Copy the markup below. Ensure Rizzo CSS is loaded. The Astro FontSwitcher script initializes every <code>[data-font-switcher]</code>; or wire trigger/menu and option clicks yourself.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><a href="/docs/components/font-switcher">View <strong>Font Switcher</strong> on the Astro docs</a> for usage and keyboard behavior.</p>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/font-switcher">Astro</a> · <a href="/docs/svelte/components/font-switcher">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

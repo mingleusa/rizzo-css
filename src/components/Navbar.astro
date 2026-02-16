@@ -39,7 +39,7 @@ interface NavLink {
   docsMenu?: {
     groups: Array<{ label: string; links: Array<{ href: string; label: string }> }>;
   };
-  /** Components dropdown: overview full width, then two columns of links */
+  /** Components dropdown: overview full width, then three columns of links */
   componentsMenu?: {
     overview: { href: string; label: string };
     links: Array<{ href: string; label: string }>;
@@ -75,9 +75,11 @@ const navLinks: NavLink[] = [
         { href: componentHref('/docs/components/breadcrumb'), label: 'Breadcrumb' },
         { href: componentHref('/docs/components/button'), label: 'Button' },
         { href: componentHref('/docs/components/cards'), label: 'Cards' },
+        { href: componentHref('/docs/components/docs-sidebar'), label: 'Docs Sidebar' },
         { href: componentHref('/docs/components/copy-to-clipboard'), label: 'CopyToClipboard' },
         { href: componentHref('/docs/components/divider'), label: 'Divider' },
         { href: componentHref('/docs/components/dropdown'), label: 'Dropdown' },
+        { href: componentHref('/docs/components/font-switcher'), label: 'Font Switcher' },
         { href: componentHref('/docs/components/forms'), label: 'Forms' },
         { href: componentHref('/docs/components/icons'), label: 'Icons' },
         { href: componentHref('/docs/components/modal'), label: 'Modal' },
@@ -86,6 +88,7 @@ const navLinks: NavLink[] = [
         { href: componentHref('/docs/components/progress-bar'), label: 'Progress Bar' },
         { href: componentHref('/docs/components/search'), label: 'Search' },
         { href: componentHref('/docs/components/settings'), label: 'Settings' },
+        { href: componentHref('/docs/components/sound-effects'), label: 'Sound Effects' },
         { href: componentHref('/docs/components/spinner'), label: 'Spinner' },
         { href: componentHref('/docs/components/table'), label: 'Table' },
         { href: componentHref('/docs/components/tabs'), label: 'Tabs' },
@@ -222,40 +225,32 @@ const navLinks: NavLink[] = [
                   </div>
                 </li>
                 <li class="navbar__submenu-components-grid" role="none">
-                  <div class="navbar__submenu-column">
-                    {link.componentsMenu.links.slice(0, Math.ceil(link.componentsMenu.links.length / 2)).map((subLink) => {
-                      const isSubActive = currentPath === subLink.href;
-                      return (
-                        <div
-                          class="navbar__sublink"
-                          role="menuitem"
-                          tabindex={-1}
-                          aria-label={subLink.label}
-                          aria-current={isSubActive ? 'page' : undefined}
-                          data-nav-href={subLink.href}
-                        >
-                          {subLink.label}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div class="navbar__submenu-column">
-                    {link.componentsMenu.links.slice(Math.ceil(link.componentsMenu.links.length / 2)).map((subLink) => {
-                      const isSubActive = currentPath === subLink.href;
-                      return (
-                        <div
-                          class="navbar__sublink"
-                          role="menuitem"
-                          tabindex={-1}
-                          aria-label={subLink.label}
-                          aria-current={isSubActive ? 'page' : undefined}
-                          data-nav-href={subLink.href}
-                        >
-                          {subLink.label}
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {[0, 1, 2].map((colIndex) => {
+                    const total = link.componentsMenu.links.length;
+                    const perCol = Math.ceil(total / 3);
+                    const start = colIndex * perCol;
+                    const end = Math.min(start + perCol, total);
+                    const colLinks = link.componentsMenu.links.slice(start, end);
+                    return (
+                      <div class="navbar__submenu-column">
+                        {colLinks.map((subLink) => {
+                          const isSubActive = currentPath === subLink.href;
+                          return (
+                            <div
+                              class="navbar__sublink"
+                              role="menuitem"
+                              tabindex={-1}
+                              aria-label={subLink.label}
+                              aria-current={isSubActive ? 'page' : undefined}
+                              data-nav-href={subLink.href}
+                            >
+                              {subLink.label}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    );
+                  })}
                 </li>
               </ul>
             ) : hasSubLinks && link.subLinks ? (

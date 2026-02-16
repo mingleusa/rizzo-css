@@ -1,0 +1,47 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import SoundEffects from '../../../components/SoundEffects.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Sound Effects Component — Astro" description="Toggle for play sound on click (Web Audio); off by default for accessibility.">
+	<section>
+		<h2>Sound Effects Component</h2>
+		<p>The SoundEffects component is a checkbox that toggles “Play sound on click”. When enabled, a short click sound (Web Audio API) plays on links, buttons, and other interactive elements. <strong>Off by default</strong> for accessibility. The preference is stored in <code>localStorage</code> (key <code>soundEffects</code>). The actual sound is played by a global script in the layout (e.g. <code>Layout.astro</code>); include that script on your site for the sound to work.</p>
+		<AddComponentTabs componentName="Sound Effects" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Enable the toggle below, then click any button or link on the page to hear the click sound:</p>
+			<SoundEffects />
+		</div>
+		
+		<h3>Usage</h3>
+		<p>Use the component standalone or inside Settings. The component script initializes every <code>[data-sound-effects]</code> checkbox (load/save <code>localStorage.soundEffects</code>).</p>
+		<FrameworkCodeTabs
+			astro={`---
+import SoundEffects from '../components/rizzo/SoundEffects.astro';
+---
+
+<SoundEffects />
+<!-- Optional: hide help text -->
+<SoundEffects showHelp={false} />`}
+			svelte={`<script>
+  import { SoundEffects } from '$lib/rizzo';
+</script>
+
+<SoundEffects />`}
+			vanilla={`<!-- Checkbox with data-sound-effects; script runs on DOMContentLoaded. -->
+<!-- Include the layout sound script so clicks play the sound when soundEffects === 'true'. -->`}
+		/>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Checkbox “Play sound on click” with optional help text.</li>
+			<li>Persists in <code>localStorage</code> (key <code>soundEffects</code>: <code>true</code> or <code>false</code>). Default: off (no key or <code>false</code>).</li>
+			<li>The click sound is played by a <strong>global script</strong> in the layout that listens for clicks on buttons, links, and other interactive elements. Include that script (see Layout.astro) for the sound to play when the user has enabled it.</li>
+		</ul>
+
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/vanilla/components/sound-effects">Vanilla</a></p>
+	</section>
+</DocsLayout>

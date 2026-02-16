@@ -4,6 +4,8 @@
 
   const DISPLAY_TO_CLI: Record<string, string> = {
     'Theme Switcher': 'ThemeSwitcher',
+    'Font Switcher': 'FontSwitcher',
+    'Sound Effects': 'SoundEffects',
     'Copy to Clipboard': 'CopyToClipboard',
     'Progress Bar': 'ProgressBar',
   };
@@ -11,7 +13,7 @@
     'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
     'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
     'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-    'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+    'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
     'Navbar', 'Settings', 'Search', 'Icons',
   ]);
 

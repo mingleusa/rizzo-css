@@ -11,6 +11,7 @@
   let fontSizeLabel = $state('100%');
   let fontSizeSlider = $state(1);
   let fontPairValue = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('fontPair') || FONT_PAIR_DEFAULT : FONT_PAIR_DEFAULT);
+  let soundEffects = $state(typeof localStorage !== 'undefined' && localStorage.getItem('soundEffects') === 'true');
   let reducedMotion = $state(typeof localStorage !== 'undefined' && localStorage.getItem('reducedMotion') === 'true');
   let highContrast = $state(typeof localStorage !== 'undefined' && localStorage.getItem('highContrast') === 'true');
   let scrollbarStyle = $state((typeof localStorage !== 'undefined' ? localStorage.getItem('scrollbarStyle') || 'thin' : 'thin') as 'thin' | 'thick' | 'hidden');
@@ -60,11 +61,18 @@
       fontSizeLabel = `${Math.round(scale * 100)}%`;
       const savedPair = localStorage?.getItem('fontPair') || FONT_PAIR_DEFAULT;
       fontPairValue = savedPair;
+      soundEffects = localStorage?.getItem('soundEffects') === 'true';
       reducedMotion = localStorage?.getItem('reducedMotion') === 'true';
       highContrast = localStorage?.getItem('highContrast') === 'true';
       scrollbarStyle = (localStorage?.getItem('scrollbarStyle') || 'thin') as 'thin' | 'thick' | 'hidden';
     }
   });
+
+  function onSoundEffectsChange(e: Event) {
+    const checked = (e.target as HTMLInputElement).checked;
+    soundEffects = checked;
+    localStorage?.setItem('soundEffects', checked ? 'true' : 'false');
+  }
 
   function close() {
     openInternal = false;
@@ -164,6 +172,16 @@
             {/each}
           </select>
           <p class="settings__help-text">Body text and code blocks use the selected pair.</p>
+        </div>
+      </section>
+      <section class="settings__section">
+        <h3 class="settings__section-title">Sound</h3>
+        <div class="settings__control">
+          <label class="settings__checkbox-label">
+            <input type="checkbox" class="settings__checkbox" aria-label="Play sound on click" checked={soundEffects} onchange={onSoundEffectsChange} />
+            <span>Play sound on click</span>
+          </label>
+          <p class="settings__help-text">Short click sound when you interact with buttons and links. Off by default.</p>
         </div>
       </section>
       <section class="settings__section">

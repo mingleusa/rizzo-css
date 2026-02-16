@@ -14,7 +14,7 @@
       Design system · Vanilla · Astro · Svelte
 ```
 
-SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full` or **manual**. When you choose **Full**, the CLI copies all 29 Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **Manual** lets you pick which of those to include (all are pre-selected by default).
+SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init --framework svelte --template full` or **manual**. When you choose **Full**, the CLI copies all 31 Rizzo components (Button, Modal, Navbar, Search, Settings, ThemeSwitcher, etc.) into this project so they work together; **Manual** lets you pick which of those to include (all are pre-selected by default).
 
 ## Setup
 

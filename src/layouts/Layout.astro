@@ -328,6 +328,59 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 				window.removeAllToasts = removeAllToasts;
 			})();
 		</script>
+		<script is:inline>
+			// Sound effects: play on click when user has enabled in Settings. Default: off (no localStorage key).
+			(function() {
+				var SOUND_KEY = 'soundEffects';
+				var clickableSelector = 'a[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], select, [role="button"], [role="menuitem"], [role="menuitemradio"], [role="tab"]';
+				var audioContext = null;
+				function getContext() {
+					if (!audioContext && typeof window.AudioContext !== 'undefined') {
+						audioContext = new window.AudioContext();
+					}
+					return audioContext;
+				}
+				function playClickSound() {
+					try {
+						if (localStorage.getItem(SOUND_KEY) !== 'true') return;
+						var ctx = getContext();
+						if (!ctx) return;
+						ctx.resume().then(function() {
+							var now = ctx.currentTime;
+							var osc = ctx.createOscillator();
+							var gain = ctx.createGain();
+							osc.connect(gain);
+							gain.connect(ctx.destination);
+							osc.frequency.setValueAtTime(800, now);
+							osc.frequency.exponentialRampToValueAtTime(200, now + 0.04);
+							osc.type = 'sine';
+							gain.gain.setValueAtTime(0.08, now);
+							gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+							osc.start(now);
+							osc.stop(now + 0.04);
+						}).catch(function() {});
+					} catch (e) {}
+				}
+				function isClickable(el) {
+					if (!el || !el.closest) return false;
+					var clickable = el.closest(clickableSelector);
+					if (!clickable) return false;
+					if (clickable.disabled === true || clickable.getAttribute('aria-disabled') === 'true') return false;
+					return true;
+				}
+				function onDocumentClick(e) {
+					if (!isClickable(e.target)) return;
+					playClickSound();
+				}
+				if (document.readyState === 'loading') {
+					document.addEventListener('DOMContentLoaded', function() {
+						document.addEventListener('click', onDocumentClick, true);
+					});
+				} else {
+					document.addEventListener('click', onDocumentClick, true);
+				}
+			})();
+		</script>
 		<title>Rizzo CSS</title>
 	</head>
 	<body>

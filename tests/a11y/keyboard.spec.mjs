@@ -98,3 +98,24 @@ test.describe('Keyboard accessibility (search)', () => {
     await expect(panel).toHaveAttribute('aria-hidden', 'true');
   });
 });
+
+test.describe('Keyboard accessibility (font switcher)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/font-switcher');
+    await lockTheme(page);
+  });
+
+  test('font switcher: Escape closes menu and focus returns to trigger', async ({ page }) => {
+    const main = page.getByRole('main');
+    const fontSwitcher = main.locator('[data-font-switcher]').first();
+    const trigger = fontSwitcher.getByRole('button', { name: 'Select font pair' });
+    const menu = fontSwitcher.locator('[role="menu"]');
+    await trigger.click();
+    await page.waitForTimeout(200);
+    await expect(menu).toBeVisible({ timeout: 3000 });
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(100);
+    await expect(menu).toHaveAttribute('aria-hidden', 'true');
+    await expect(trigger).toBeFocused({ timeout: 3000 });
+  });
+});

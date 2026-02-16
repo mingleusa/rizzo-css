@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (29 components including ThemeSwitcher). **Create new** → **Core** (all 29 components) or **Manual** (component picker with all 29 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (31 components including ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Core** (all 31 components) or **Manual** (component picker with all 31 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -15,7 +15,10 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
 - [Settings](/docs/components/settings) - Comprehensive settings panel
+- [Docs Sidebar](/docs/components/docs-sidebar) - Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state; used in docs layout with optional toggle and overlay on mobile
+- [Font Switcher](/docs/components/font-switcher) - Font pair (sans + mono) dropdown with preview and keyboard navigation; used in Settings and standalone
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
+- [Sound Effects](/docs/components/sound-effects) - Toggle for “Play sound on click” (Web Audio); off by default for accessibility; persists in localStorage
 - [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
 - [Button](/docs/components/button) - Semantic button component
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
@@ -48,11 +51,11 @@ All of the following components are implemented with dedicated documentation pag
 **Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
-**Theme & settings:** Theme Switcher, Theme Icon, Settings  
+**Theme & settings:** Theme Switcher, Theme Icon, Font Switcher, Sound Effects, Settings  
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
-(24 component doc pages on the site; the CLI/scaffold offers 29 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
+(27 component doc pages on the site; the CLI/scaffold offers 31 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
 
 ## Component Features
 
@@ -70,15 +73,28 @@ All components in Rizzo CSS share these core features:
 
 Every component has documentation and examples for **Astro**, **Svelte**, and **Vanilla** (HTML + same BEM). Each component page includes **Astro | Svelte | Vanilla** code tabs with complete, copy-paste examples so you can use the block that matches your project. Some pages use multiple code blocks (e.g. setup + usage) where needed.
 
-**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all three frameworks.
+**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, FontSwitcher, SoundEffects, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all three frameworks.
 
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
 | **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage with **Astro | Svelte | Vanilla** code tabs (complete, copy-paste examples per framework), live demos, and props. |
-| **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
+| **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, Font Switcher, Sound Effects, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
 | **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML; interactive behavior (modal, dropdown, tabs, accordion, toast, search, copy-to-clipboard, etc.) is wired by `js/main.js` when using the Core scaffold. Copyable code blocks and live demos. Same BEM as Astro/Svelte. Tooltips use CSS only (:hover and :focus-within). |
 
 Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top of any component or theme page to switch between framework docs.
+
+### Adding new components
+
+To add a new component to the docs site and (optionally) the CLI/scaffold:
+
+1. **Navbar** — Add an entry to `componentsMenu.links` in `src/components/Navbar.astro` (e.g. `{ href: componentHref('/docs/components/my-component'), label: 'My Component' }`). The Components dropdown is 3 columns; new links are distributed automatically.
+2. **Astro doc page** — Create `src/pages/docs/components/<slug>.astro` with the same structure as existing pages (title, description, AddComponentTabs, Features, Usage, FrameworkCodeTabs, Props). Use the same BEM classes and patterns as other components.
+3. **COMPONENTS.md** — Add a bullet to the Component Pages list and to the appropriate category under "Implemented Components".
+4. **CLI / scaffold (if shipping)** — Register the component in `packages/rizzo-css/bin/rizzo-css.js` (e.g. component list, copy paths, dependencies). Add scaffold files under `packages/rizzo-css/scaffold/vanilla/components/<slug>.html`, `scaffold/astro/`, and `scaffold/svelte/` as needed. Run `npx rizzo-css help components` to confirm.
+5. **Svelte / Vanilla docs (optional)** — Add a Svelte doc page under `src/components/svelte/docs/pages/` and route in `src/pages/docs/svelte/[...slug].astro`; add or update Vanilla page under `src/pages/docs/vanilla/components/<slug>.astro`.
+6. **Search** — Add an entry to the Algolia index or the static search data in `src/components/Search.astro` so the component appears in Cmd+K search.
+
+Keep the Navbar components list, doc pages, COMPONENTS.md, and CLI in sync so the site and package stay consistent.
 
 ## Accordion
 
@@ -403,7 +419,7 @@ import Navbar from '../components/Navbar.astro';
 
 - **Desktop**: Search and settings on far right, dropdown menus with smart alignment
   - **Docs dropdown** - Introduction and Foundations only (Getting Started, Design System, Theming, Accessibility, Colors). Theming is under Docs; there is no separate Themes item in the main nav.
-  - **Components dropdown** - Full-width Overview link at the top, then two columns of component links
+  - **Components dropdown** - Full-width Overview link at the top, then three columns of component links
   - Smart dropdown positioning - Automatically adjusts to prevent overflow
 - **Mobile**: 
   - Mobile menu toggle positioned on the left (after logo/brand)
@@ -419,6 +435,10 @@ import Navbar from '../components/Navbar.astro';
 - Sticky positioning at top
 
 See [Navbar Documentation](/docs/components/navbar) for complete details.
+
+## Docs Sidebar
+
+Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state. Used in the docs layout with optional toggle and overlay on mobile. Same BEM classes and structure for Astro, Svelte, and Vanilla. Pass `currentPath` and `pathPrefix` so hrefs and active styling match. See [Docs Sidebar](/docs/components/docs-sidebar).
 
 ## Settings
 
@@ -446,7 +466,8 @@ window.openSettings();
 
 - **Theme Switcher** - Integrated ThemeSwitcher with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme icons, and active state (theme background + accent bar). Persists in localStorage as `theme` (theme id or `system`).
 - **Font Size Slider** - Adjustable from 75% to 150% with filled track indicator (uses CSS gradient with `--slider-progress` variable). Persists in localStorage as `fontSizeScale`
-- **Font (font pair)** - Dropdown to choose a sans + mono pair: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro. Sets `--font-family` and `--font-family-mono` on `html`. Persists in localStorage as `fontPair` (e.g. `geist`, `inter-jetbrains`, `ibm-plex`, `source`).
+- **Font (font pair)** - Same UI pattern as Theme: trigger button with current pair label and chevron, dropdown menu with options (menuitemradio), and preview panel (sample text in sans + mono). Six pairs: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono. Sets `--font-family` and `--font-family-mono` on `html`. Persists in localStorage as `fontPair` (e.g. `geist`, `inter-jetbrains`, `ibm-plex`, `source`, `dm`, `outfit-jetbrains`).
+- **Sound** - Checkbox “Play sound on click”. When enabled, a short click sound (Web Audio API) plays on links, buttons, and other clickable elements. **Off by default** for accessibility; persisted as `soundEffects` in localStorage.
 - **Reduce Motion Toggle** - Applies `.reduced-motion` class to document root. Persists in localStorage as `reducedMotion`
 - **High Contrast Toggle** - Applies `.high-contrast` class to document root. Persists in localStorage as `highContrast`
 - **Scrollbar Style** - Radio button group with three options: Thin (default, 0.5rem/8px), Thick (1.5rem/24px), and Hidden. Applies classes to `html` element (`scrollbar-thick` or `scrollbar-hidden`). Persists in localStorage as `scrollbarStyle` (values: `thin`, `thick`, `hidden`)
@@ -465,8 +486,9 @@ window.openSettings();
 
 1. **Theme** - Theme switcher dropdown
 2. **Font Size** - Slider with live preview (75% - 150%)
-3. **Font** - Font pair dropdown (sans + mono: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro)
-4. **Accessibility** - Reduce motion, high contrast, and scrollbar style options
+3. **Font** - Font pair switcher (same pattern as Theme: trigger + menu + preview; six pairs: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono)
+4. **Sound** - “Play sound on click” toggle (off by default; persists as `soundEffects`)
+5. **Accessibility** - Reduce motion, high contrast, and scrollbar style options
 
 ### Settings Persistence
 
@@ -474,7 +496,8 @@ All settings options automatically persist to localStorage and are restored when
 
 - `theme` - Selected theme name (e.g., `github-dark-classic`, `github-light`)
 - `fontSizeScale` - Font size multiplier (e.g., `1.0` for 100%, `1.25` for 125%)
-- `fontPair` - Font pair id (`geist`, `inter-jetbrains`, `ibm-plex`, `source`); sets both `--font-family` and `--font-family-mono` on load
+- `fontPair` - Font pair id (`geist`, `inter-jetbrains`, `ibm-plex`, `source`, `dm`, `outfit-jetbrains`); sets both `--font-family` and `--font-family-mono` on load
+- `soundEffects` - `'true'` or `'false'`; when `'true'`, a short click sound plays on interactive elements (off by default)
 - `reducedMotion` - Boolean string (`true` or `false`)
 - `highContrast` - Boolean string (`true` or `false`)
 - `scrollbarStyle` - Scrollbar style preference (`thin`, `thick`, or `hidden`)
@@ -496,6 +519,14 @@ An accessible dropdown for switching themes, used in the Settings panel and stan
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End).
 - Accessible ARIA menu pattern.
 - Persists selection in localStorage.
+
+## Font Switcher
+
+Font pair (sans + mono) dropdown used in the Settings panel and standalone. Sets `--font-family` and `--font-family-mono` on `<html>` and persists the choice in `localStorage` (key `fontPair`). Same dropdown pattern as Theme Switcher: trigger button, menu with options (menuitemradio), and preview panel (sample text in sans + mono on hover/focus). Six pairs: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono. Optional `idPrefix` prop when multiple instances exist (e.g. Settings + doc page). Full keyboard navigation (Enter/Space, Arrow keys, Escape). See [Font Switcher](/docs/components/font-switcher).
+
+## Sound Effects
+
+Checkbox that toggles “Play sound on click”. When enabled, a short click sound (Web Audio API) plays on links, buttons, and other interactive elements. **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
 
 ## Button Component
 

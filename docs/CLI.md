@@ -1,6 +1,19 @@
 # CLI: design and implementation
 
-This doc describes the Rizzo CSS CLI: commands, package manager handling, config, templates, and current behavior.
+This doc describes the Rizzo CSS CLI: commands, flows, package manager handling, config, templates, and current behavior.
+
+---
+
+## Flows: Create new vs Add to existing
+
+| Flow | Entry | What gets written |
+|------|--------|-------------------|
+| **Create new** | `npx rizzo-css init` → “Create new project”, or `init --yes` | Scaffold (base + template), CSS, fonts, icons, components, **rizzo-css.json**, **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**. Stylesheet link is already in the scaffold. |
+| **Add to existing** | `npx rizzo-css add` or `init` → “Add to existing” | CSS, fonts, icons, chosen components, **rizzo-css.json**, optionally **RIZZO-SNIPPET.txt** (link + theme). No scaffold, no LICENSE/README/.gitignore. User adds the `<link>` (CLI prints it). |
+
+**Short:** Create new = full scaffold + config + license/readme/gitignore. Add = drop-in CSS + components + config only; you add the stylesheet link yourself.
+
+**Add behavior:** Writes **RIZZO-SNIPPET.txt** by default (copy-paste link + theme); use `--no-snippet` to skip. If CSS already exists at target, prompts to overwrite unless `--force`. Vanilla + interactive components: prompt or `--vanilla-js` to copy `js/main.js`. **Create new in cwd:** If directory is not empty (e.g. package.json, src/, index.html), prompts “Continue? (y/n)”.
 
 ---
 
@@ -64,16 +77,16 @@ When the user chooses **Core or Manual**:
 
 Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (from scaffold); Astro/Svelte also include package.json and .env.example. With `init --yes`, default template is **core**; use `--template core|manual` to override.
 
-**Core** = all 29 components with all required dependencies (e.g. Settings adds ThemeSwitcher + themes). **Manual** = component picker with all 29 pre-selected; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher)"). Run `npx rizzo-css help components` for the full dependency list.
+**Core** = all 31 components with all required dependencies (e.g. Settings adds ThemeSwitcher, FontSwitcher, SoundEffects + themes). **Manual** = component picker with all 31 pre-selected; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"). Run `npx rizzo-css help components` for the full dependency list.
 
 **Components per template:**
 
 | Template | Vanilla | Astro | Svelte |
 |----------|---------|-------|--------|
-| **Core** | 29 | 29 | 29 |
-| **Manual** | 0–29 (user choice) | 0–29 | 0–29 |
+| **Core** | 31 | 31 | 31 |
+| **Manual** | 0–31 (user choice) | 0–31 | 0–31 |
 
-(Core = all 29 scaffold components; Manual = whatever you pick, all 29 pre-selected. Astro/Svelte Core auto-include dependencies so Navbar, Settings, Toast work.)
+(Core = all 31 scaffold components; Manual = whatever you pick, all 31 pre-selected. Astro/Svelte Core auto-include dependencies so Navbar, Settings, Toast work.)
 
 ---
 
@@ -83,15 +96,15 @@ When you add or pick components, the CLI automatically includes everything each 
 
 | Component | Adds automatically (Astro & Svelte) |
 |-----------|-------------------------------------|
-| **Settings** | ThemeSwitcher (and themes.ts) |
+| **Settings** | ThemeSwitcher, FontSwitcher, SoundEffects (and themes.ts), config/fonts.ts (font pairs) |
 | **Toast** | Alert |
 
 **ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. For **Astro**, they also trigger copying of `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (import fixed to `../rizzo/themes`) so ThemeSwitcher’s `../utils/theme` import resolves. Icons are always copied when any component is selected.
 
-- **Every component automatically includes what it needs:** Navbar adds Search and Settings; Settings adds ThemeSwitcher (and themes); Toast adds Alert. The CLI expands these before copying so the navbar search bar and gear button, settings panel, and toasts work without extra steps.
+- **Every component automatically includes what it needs:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects (and themes) and, when added, copies config/fonts.ts so the font-pair switcher works; Toast adds Alert. The CLI expands these before copying so the navbar search bar and gear button, settings panel, and toasts work without extra steps.
 - **Core** template expands the component list with these dependencies before copying, so everything works out of the box.
-- **Manual** (and `add`): the picker shows labels like "Navbar (adds Search, Settings)" and "Settings (adds ThemeSwitcher)"; after you confirm, the CLI copies the expanded set.
-- To see the full list: `npx rizzo-css help components`. It lists every component and which others are added automatically (Navbar → Search, Settings; Settings → ThemeSwitcher; Toast → Alert).
+- **Manual** (and `add`): the picker shows labels like "Navbar (adds Search, Settings)" and "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"; after you confirm, the CLI copies the expanded set.
+- To see the full list: `npx rizzo-css help components`. It lists every component and which others are added automatically (Navbar → Search, Settings; Settings → ThemeSwitcher, FontSwitcher, SoundEffects; Toast → Alert).
 
 ---
 
@@ -109,11 +122,11 @@ When you add or pick components, the CLI automatically includes everything each 
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
 - [x] **Init (new):** Template or no template (hand-pick). Core | Manual (per framework). Manual shows component picker with all interactive components pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - [x] **Add / init (existing):** Drop in CSS + hand-pick components. Detect framework and PM; print correct commands and “To install the package: …”.
-- [x] **Config file:** rizzo-css.json is always written (targetDir, framework, packageManager) for both new and existing projects; read in add and init.
+- [x] **Config file:** rizzo-css.json is written only when the project does not already have one (targetDir, framework, packageManager, theme); read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css') in cwd; `init` runs pm.install **in the project directory** after scaffold (with `--install` or when user confirms). `--no-install` skips.
 - [x] **Project path:** Init supports `--path <dir>` (with `--yes`) and interactive **enter path or project name** (one prompt; empty = current directory). Resolved relative to cwd or absolute; scaffold and install run in that directory. "Next step" shows `cd <relative-path> &&` when project is not cwd.
 - [x] **--yes:** `init --yes` scaffolds new in cwd (or in `--path <dir>`); default template is **core** (all frameworks). Non-empty target directory prompts.
 - [x] **add:** Writes RIZZO-SNIPPET.txt by default; `--no-snippet`, `--readme`, `--force`, `--vanilla-js`. CSS overwrite prompt when file exists. Config includes `theme`.
 - [x] **doctor:** Checks config, CSS path, layout link hint.
 - [x] **Config:** `theme` key supported; unknown keys preserved on write.
-- [x] **Docs:** GETTING_STARTED, CLI_FLOWS; help shows options and `help components` (with copy paths per framework).
+- [x] **Docs:** GETTING_STARTED, this doc (CLI.md); help shows options and `help components` (with copy paths per framework).

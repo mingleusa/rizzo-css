@@ -6,7 +6,10 @@
 export const VANILLA_COMPONENT_SLUGS = [
   'navbar',
   'settings',
+  'docs-sidebar',
+  'font-switcher',
   'theme-switcher',
+  'sound-effects',
   'button',
   'badge',
   'accordion',
@@ -33,7 +36,10 @@ export const VANILLA_COMPONENT_SLUGS = [
 export const VANILLA_COMPONENT_TITLES: Record<string, string> = {
   navbar: 'Navbar',
   settings: 'Settings',
+  'docs-sidebar': 'Docs Sidebar',
+  'font-switcher': 'Font Switcher',
   'theme-switcher': 'Theme Switcher',
+  'sound-effects': 'Sound Effects',
   button: 'Button',
   badge: 'Badge',
   accordion: 'Accordion',

@@ -1,0 +1,49 @@
+---
+/**
+ * Standalone toggle for "Play sound on click". Persists in localStorage (key: soundEffects).
+ * The actual click sound is played by a global script in Layout.astro when soundEffects === 'true'.
+ * Can be used standalone or inside Settings.
+ */
+interface Props {
+  /** Optional class for the wrapper (e.g. settings__control). */
+  class?: string;
+  /** If true, show the help text below the checkbox. */
+  showHelp?: boolean;
+}
+
+const { class: className = '', showHelp = true } = Astro.props;
+---
+
+<div class:list={[className]} data-sound-effects-wrapper>
+  <label class="settings__checkbox-label">
+    <input
+      type="checkbox"
+      class="settings__checkbox"
+      data-sound-effects
+      aria-label="Play sound on click"
+    />
+    <span>Play sound on click</span>
+  </label>
+  {showHelp && (
+    <p class="settings__help-text">Short click sound when you interact with buttons and links. Off by default.</p>
+  )}
+</div>
+
+<script>
+  function initSoundEffects() {
+    document.querySelectorAll<HTMLInputElement>('[data-sound-effects]').forEach((el) => {
+      if (el.hasAttribute('data-sound-effects-inited')) return;
+      el.setAttribute('data-sound-effects-inited', 'true');
+      el.checked = localStorage.getItem('soundEffects') === 'true';
+      el.addEventListener('change', () => {
+        localStorage.setItem('soundEffects', el.checked ? 'true' : 'false');
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSoundEffects);
+  } else {
+    initSoundEffects();
+  }
+  document.addEventListener('astro:page-load', initSoundEffects);
+</script>

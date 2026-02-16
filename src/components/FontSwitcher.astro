@@ -1,0 +1,221 @@
+---
+import ChevronDown from './icons/ChevronDown.astro';
+import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../config/fonts';
+
+interface Props {
+  /** Optional prefix for trigger/menu IDs to avoid duplicates when multiple FontSwitchers exist. */
+  idPrefix?: string;
+}
+
+const { idPrefix = '' } = Astro.props;
+const triggerId = idPrefix ? `font-pair-trigger-${idPrefix}` : 'font-pair-trigger';
+const menuId = idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu';
+---
+
+<div class="font-switcher" data-font-switcher>
+  <button
+    class="font-switcher__trigger"
+    type="button"
+    aria-expanded="false"
+    aria-haspopup="true"
+    aria-controls={menuId}
+    aria-label="Select font pair"
+    id={triggerId}
+  >
+    <span class="font-switcher__label" data-font-pair-label>
+      {FONT_PAIRS.find((p) => p.value === FONT_PAIR_DEFAULT)?.label ?? FONT_PAIRS[0]?.label ?? 'Font'}
+    </span>
+    <ChevronDown class="font-switcher__icon" width={16} height={16} />
+  </button>
+  <div
+    class="font-switcher__menu"
+    id={menuId}
+    role="menu"
+    aria-labelledby={triggerId}
+    aria-label="Font pair selection"
+    aria-orientation="vertical"
+    aria-hidden="true"
+    tabindex="-1"
+  >
+    <div class="font-switcher__menu-options">
+      {FONT_PAIRS.map((pair) => (
+        <div
+          class="font-switcher__option"
+          role="menuitemradio"
+          aria-checked="false"
+          tabindex="-1"
+          data-font-pair-value={pair.value}
+          data-font-pair-sans={pair.sans}
+          data-font-pair-mono={pair.mono}
+          data-font-pair-label={pair.label}
+        >
+          {pair.label}
+        </div>
+      ))}
+    </div>
+    <div class="font-switcher__preview" data-font-preview aria-hidden="true">
+      <div class="font-switcher__preview-title">Preview</div>
+      <div class="font-switcher__preview-sample" data-font-preview-sample>
+        Aa Bb Cc 012
+      </div>
+      <div class="font-switcher__preview-mono" data-font-preview-mono>
+        code
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initFontSwitchers() {
+    const html = document.documentElement;
+    document.querySelectorAll<HTMLElement>('[data-font-switcher]').forEach((root) => {
+      if (root.hasAttribute('data-font-switcher-inited')) return;
+      root.setAttribute('data-font-switcher-inited', 'true');
+
+      const labelEl = root.querySelector('[data-font-pair-label]');
+      const trigger = root.querySelector('.font-switcher__trigger') as HTMLButtonElement | null;
+      const menu = root.querySelector('.font-switcher__menu');
+      const options = root.querySelectorAll('.font-switcher__option');
+      const preview = root.querySelector('[data-font-preview]') as HTMLElement | null;
+      const sample = root.querySelector('[data-font-preview-sample]') as HTMLElement | null;
+      const monoEl = root.querySelector('[data-font-preview-mono]') as HTMLElement | null;
+
+      if (!trigger || !menu || options.length === 0) return;
+
+      const applyPair = (sans: string, mono: string) => {
+        html.style.setProperty('--font-family', sans);
+        html.style.setProperty('--font-family-mono', mono);
+      };
+
+      const saved = localStorage.getItem('fontPair') || 'geist';
+      const activeOpt = Array.from(options).find((o) => o.getAttribute('data-font-pair-value') === saved);
+      if (activeOpt) {
+        const sans = activeOpt.getAttribute('data-font-pair-sans');
+        const mono = activeOpt.getAttribute('data-font-pair-mono');
+        if (sans && mono) {
+          applyPair(sans, mono);
+          if (labelEl) labelEl.textContent = activeOpt.getAttribute('data-font-pair-label') || saved;
+        }
+        options.forEach((o) => {
+          o.setAttribute('aria-checked', (o.getAttribute('data-font-pair-value') === saved).toString());
+          o.classList.toggle('font-switcher__option--active', o.getAttribute('data-font-pair-value') === saved);
+        });
+      }
+
+      const closeMenu = () => {
+        menu.classList.remove('font-switcher__menu--open');
+        trigger.setAttribute('aria-expanded', 'false');
+        menu.setAttribute('aria-hidden', 'true');
+        options.forEach((o) => o.setAttribute('tabindex', '-1'));
+        if (preview) preview.setAttribute('aria-hidden', 'true');
+        if (sample) sample.style.fontFamily = '';
+        if (monoEl) monoEl.style.fontFamily = '';
+      };
+
+      const updatePreview = (option: Element | null) => {
+        if (!preview || !sample || !monoEl) return;
+        if (!option) {
+          preview.setAttribute('aria-hidden', 'true');
+          sample.style.fontFamily = '';
+          monoEl.style.fontFamily = '';
+          return;
+        }
+        const sans = option.getAttribute('data-font-pair-sans') || '';
+        const mono = option.getAttribute('data-font-pair-mono') || '';
+        sample.style.fontFamily = sans;
+        monoEl.style.fontFamily = mono;
+        preview.setAttribute('aria-hidden', 'false');
+      };
+
+      trigger.addEventListener('click', () => {
+        const isOpen = menu.classList.toggle('font-switcher__menu--open');
+        trigger.setAttribute('aria-expanded', isOpen.toString());
+        menu.setAttribute('aria-hidden', (!isOpen).toString());
+        options.forEach((o) => o.setAttribute('tabindex', isOpen ? '0' : '-1'));
+        if (isOpen) {
+          const active = Array.from(options).find((o) => o.classList.contains('font-switcher__option--active'));
+          updatePreview(active || options[0]);
+          setTimeout(() => (options[0] as HTMLElement).focus(), 0);
+          const onOutside = (e: MouseEvent) => {
+            if (e.target && !root.contains(e.target as Node)) {
+              closeMenu();
+              document.removeEventListener('click', onOutside);
+            }
+          };
+          setTimeout(() => document.addEventListener('click', onOutside), 0);
+        }
+      });
+
+      options.forEach((option) => {
+        const el = option as HTMLElement;
+        el.addEventListener('mouseenter', () => updatePreview(option));
+        el.addEventListener('focus', () => updatePreview(option));
+        el.addEventListener('click', () => {
+          const value = option.getAttribute('data-font-pair-value');
+          const sans = option.getAttribute('data-font-pair-sans');
+          const mono = option.getAttribute('data-font-pair-mono');
+          const label = option.getAttribute('data-font-pair-label');
+          if (value && sans && mono) {
+            applyPair(sans, mono);
+            localStorage.setItem('fontPair', value);
+            if (labelEl) labelEl.textContent = label || value;
+            options.forEach((o) => {
+              o.setAttribute('aria-checked', (o.getAttribute('data-font-pair-value') === value).toString());
+              o.classList.toggle('font-switcher__option--active', o.getAttribute('data-font-pair-value') === value);
+            });
+            closeMenu();
+            trigger.focus();
+          }
+        });
+      });
+
+      menu.addEventListener('mouseleave', () => updatePreview(null));
+      menu.addEventListener('keydown', (e: Event) => {
+        const ev = e as KeyboardEvent;
+        const opts = Array.from(options) as HTMLElement[];
+        if (ev.key === 'Escape') {
+          ev.preventDefault();
+          closeMenu();
+          setTimeout(() => trigger.focus(), 0);
+        } else if (ev.key === 'ArrowDown' && opts.length) {
+          ev.preventDefault();
+          const i = opts.indexOf(document.activeElement as HTMLElement);
+          const next = i < opts.length - 1 ? opts[i + 1] : opts[0];
+          next.focus();
+        } else if (ev.key === 'ArrowUp' && opts.length) {
+          ev.preventDefault();
+          const i = opts.indexOf(document.activeElement as HTMLElement);
+          const prev = i <= 0 ? opts[opts.length - 1] : opts[i - 1];
+          prev.focus();
+        } else if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          const target = ev.target as HTMLElement;
+          if (target?.classList.contains('font-switcher__option')) target.click();
+        }
+      });
+
+      trigger.addEventListener('keydown', (e: Event) => {
+        const ev = e as KeyboardEvent;
+        if (ev.key === 'Enter' || ev.key === ' ') {
+          ev.preventDefault();
+          trigger.click();
+        } else if (ev.key === 'Escape' && menu.getAttribute('aria-hidden') === 'false') {
+          ev.preventDefault();
+          closeMenu();
+          setTimeout(() => trigger.focus(), 0);
+        } else if (ev.key === 'ArrowDown' && menu.getAttribute('aria-hidden') === 'true') {
+          ev.preventDefault();
+          trigger.click();
+          setTimeout(() => (options[0] as HTMLElement).focus(), 0);
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFontSwitchers);
+  } else {
+    initFontSwitchers();
+  }
+  document.addEventListener('astro:page-load', initFontSwitchers);
+</script>

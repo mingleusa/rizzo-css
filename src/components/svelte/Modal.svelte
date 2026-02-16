@@ -129,6 +129,7 @@
   data-modal-overlay
   aria-hidden={!open}
   inert={!open ? true : undefined}
+  hidden={open ? undefined : true}
   id="{modalId}-overlay"
   onclick={handleOverlayClick}
   role="presentation"
@@ -142,6 +143,7 @@
   aria-labelledby="{modalId}-title"
   aria-hidden={!open}
   inert={!open ? true : undefined}
+  hidden={open ? undefined : true}
   id={modalId}
   data-modal
   data-open={open || undefined}

@@ -24,8 +24,8 @@ const astroDest = join(scaffoldDir, 'astro');
 // Astro components to scaffold. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
-  'CopyToClipboard', 'Divider', 'Dropdown', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
-  'ProgressBar', 'Radio', 'Search', 'Select', 'Settings', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
+  'CopyToClipboard', 'Divider', 'Dropdown', 'FontSwitcher', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
+  'ProgressBar', 'Radio', 'Search', 'Select', 'Settings', 'SoundEffects', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
 ];
 
 /** Minimal Astro scaffold content for components that depend on docs config in src. Same BEM structure, no docs deps. */

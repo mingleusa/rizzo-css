@@ -11,6 +11,9 @@
   --font-family-ibm-plex-mono: 'IBM Plex Mono', 'SF Mono', monaco, consolas, 'Courier New', monospace;
   --font-family-source-sans-3: 'Source Sans 3', system-ui, -apple-system, sans-serif;
   --font-family-source-code-pro: 'Source Code Pro', 'SF Mono', monaco, consolas, 'Courier New', monospace;
+  --font-family-dm-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-family-dm-mono: 'DM Mono', 'SF Mono', monaco, consolas, 'Courier New', monospace;
+  --font-family-outfit: outfit, system-ui, -apple-system, sans-serif;
   --font-family-sans: var(--font-family-geist-sans);
   --font-family-serif: georgia, 'Times New Roman', times, serif;
   --font-family-mono: var(--font-family-geist-mono);

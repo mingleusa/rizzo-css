@@ -26,6 +26,9 @@
   import SearchDoc from './pages/SearchDoc.svelte';
   import SettingsDoc from './pages/SettingsDoc.svelte';
   import ThemeSwitcherDoc from './pages/ThemeSwitcherDoc.svelte';
+  import FontSwitcherDoc from './pages/FontSwitcherDoc.svelte';
+  import SoundEffectsDoc from './pages/SoundEffectsDoc.svelte';
+  import DocsSidebarDoc from './pages/DocsSidebarDoc.svelte';
 
   interface Props {
     /** Slug from URL (e.g. "components/badge"). Pass string so SSR and client hydrate the same. */
@@ -93,6 +96,12 @@
     <SettingsDoc />
   {:else if first === 'components' && second === 'theme-switcher'}
     <ThemeSwitcherDoc />
+  {:else if first === 'components' && second === 'font-switcher'}
+    <FontSwitcherDoc />
+  {:else if first === 'components' && second === 'sound-effects'}
+    <SoundEffectsDoc />
+  {:else if first === 'components' && second === 'docs-sidebar'}
+    <DocsSidebarDoc />
   {:else}
     <ComingSoon title={second ? second.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : first} />
   {/if}

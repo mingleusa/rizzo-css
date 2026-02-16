@@ -297,12 +297,12 @@ div.navbar__sublink {
   white-space: nowrap;
 }
 
-/* 2-column layout for Components dropdown - Desktop only */
+/* 3-column layout for Components dropdown - Desktop only */
 @media (width > 1023px) {
   .navbar__submenu--components {
-    min-width: var(--spacing-96);
-    max-width: var(--spacing-96);
-    width: var(--spacing-96);
+    min-width: var(--spacing-105);
+    max-width: var(--spacing-105);
+    width: var(--spacing-105);
     padding: var(--spacing-3);
     display: block;
     white-space: normal;
@@ -329,7 +329,7 @@ div.navbar__sublink {
 
   .navbar__submenu--components .navbar__submenu-components-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 0 var(--spacing-2);
     min-width: 0;
   }
@@ -776,7 +776,7 @@ div.navbar__sublink {
     grid-template-columns: none !important;
   }
   
-  /* Components dropdown on mobile: stack Overview, then two columns */
+  /* Components dropdown on mobile: stack Overview, then columns as single list */
   .navbar__submenu--components .navbar__submenu-components-grid {
     display: block !important;
   }
@@ -1358,6 +1358,216 @@ div.navbar__sublink {
     right: auto;
     left: 0;
   }
+}
+
+/* Font Switcher (same pattern as Theme Switcher) */
+.font-switcher {
+  position: relative;
+  display: inline-block;
+  width: var(--theme-switcher-width);
+}
+
+.font-switcher__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  width: 100%;
+  padding: var(--spacing-3) var(--spacing-4);
+  min-width: 0;
+  background-color: var(--background-alt);
+  color: var(--text);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  transition: background-color var(--transition-base), border-color var(--transition-base);
+}
+
+.font-switcher__label {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font-switcher__trigger:hover {
+  background-color: var(--background);
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.font-switcher__trigger:focus-visible {
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+.font-switcher__trigger[aria-expanded="true"] .font-switcher__icon {
+  transform: rotate(180deg);
+}
+
+.font-switcher__icon {
+  transition: transform var(--transition-base), color var(--transition-base);
+  flex-shrink: 0;
+  color: var(--icon);
+}
+
+.font-switcher__menu {
+  position: absolute;
+  top: calc(100% + var(--spacing-2));
+  left: 0;
+  width: var(--theme-switcher-width);
+  min-width: var(--theme-switcher-width);
+  max-height: var(--spacing-100);
+  overflow-y: auto;
+  background-color: var(--background-alt);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(calc(-1 * var(--spacing-2)));
+  transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+  z-index: var(--z-dropdown);
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+}
+
+.font-switcher__menu--open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.font-switcher__menu-options {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow-y: auto;
+}
+
+.font-switcher__preview {
+  flex: 0 0 auto;
+  width: var(--spacing-32);
+  min-width: var(--spacing-32);
+  padding: var(--spacing-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+  justify-content: flex-start;
+  pointer-events: none;
+  background-color: var(--background);
+}
+
+.font-switcher__preview-title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  line-height: 1.2;
+  margin: 0 0 var(--spacing-1) 0;
+  padding: 0;
+}
+
+.font-switcher__preview-sample {
+  font-size: var(--font-size-lg);
+  line-height: 1.3;
+  color: var(--text);
+  margin: 0;
+}
+
+.font-switcher__preview-mono {
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-mono);
+  color: var(--text-dim);
+  margin: 0;
+}
+
+@media (width <= 480px) {
+  .font-switcher__preview {
+    display: none;
+  }
+}
+
+@media (width >= 481px) {
+  .font-switcher__menu-options {
+    border-right: var(--border-width) solid var(--border);
+  }
+}
+
+.font-switcher__option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-4);
+  font: inherit;
+  text-align: left;
+  background-color: transparent;
+  border: none;
+  color: var(--text);
+  cursor: pointer;
+  appearance: none;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  position: relative;
+  user-select: none;
+}
+
+.font-switcher__option:hover,
+.font-switcher__option:focus-visible {
+  background-color: var(--background);
+  color: var(--text);
+  outline: none;
+}
+
+.font-switcher__option:focus-visible {
+  box-shadow: inset 0 0 0 var(--outline-width) var(--accent);
+}
+
+.font-switcher__option--active,
+.font-switcher__option--active:hover,
+.font-switcher__option--active:focus-visible {
+  background-color: var(--background);
+  color: var(--text);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius);
+  border-left: var(--border-width-accent) solid var(--accent);
+  padding-left: calc(var(--spacing-4) - var(--border-width-accent));
+}
+
+.font-switcher__option--active:focus-visible {
+  box-shadow: inset 0 0 0 var(--outline-width) var(--accent);
+}
+
+@media (width <= 768px) {
+  .font-switcher {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .font-switcher__menu {
+    right: auto;
+    left: 0;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+.settings__control .font-switcher {
+  width: 100%;
+  max-width: 100%;
+}
+
+.settings__control .font-switcher__menu {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Settings Panel */

@@ -2,10 +2,6 @@
  * Font pairs (sans + mono) for the Settings font changer.
  * Each option sets both --font-family (body/UI) and --font-family-mono (code blocks, pre, kbd).
  * Used by Settings components and layout flash scripts to apply and persist the chosen pair.
- *
- * Optional future pairs (add @font-face + vars in variables.css, then add to FONT_PAIRS):
- * - dm: DM Sans + DM Mono (OFL; Google Fonts; geometric, friendly)
- * - outfit-jetbrains: Outfit + JetBrains Mono (OFL; geometric sans + coding mono)
  */
 
 export interface FontPairEntry {
@@ -43,6 +39,18 @@ export const FONT_PAIRS: FontPairEntry[] = [
     label: 'Source Sans 3 + Source Code Pro',
     sans: 'var(--font-family-source-sans-3)',
     mono: 'var(--font-family-source-code-pro)',
+  },
+  {
+    value: 'dm',
+    label: 'DM Sans + DM Mono',
+    sans: 'var(--font-family-dm-sans)',
+    mono: 'var(--font-family-dm-mono)',
+  },
+  {
+    value: 'outfit-jetbrains',
+    label: 'Outfit + JetBrains Mono',
+    sans: 'var(--font-family-outfit)',
+    mono: 'var(--font-family-jetbrains-mono)',
   },
 ];
 

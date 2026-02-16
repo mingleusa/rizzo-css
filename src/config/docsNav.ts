@@ -36,6 +36,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
     label: 'Components',
     links: [
       { href: 'components', label: 'Overview', frameworkOnly: true },
+      { href: 'components/docs-sidebar', label: 'Docs Sidebar', frameworkOnly: true },
       { href: 'components/accordion', label: 'Accordion', frameworkOnly: true },
       { href: 'components/alert', label: 'Alert', frameworkOnly: true },
       { href: 'components/avatar', label: 'Avatar', frameworkOnly: true },
@@ -46,6 +47,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/copy-to-clipboard', label: 'CopyToClipboard', frameworkOnly: true },
       { href: 'components/divider', label: 'Divider', frameworkOnly: true },
       { href: 'components/dropdown', label: 'Dropdown', frameworkOnly: true },
+      { href: 'components/font-switcher', label: 'Font Switcher', frameworkOnly: true },
       { href: 'components/forms', label: 'Forms', frameworkOnly: true },
       { href: 'components/icons', label: 'Icons', frameworkOnly: true },
       { href: 'components/modal', label: 'Modal', frameworkOnly: true },
@@ -54,6 +56,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/progress-bar', label: 'Progress Bar', frameworkOnly: true },
       { href: 'components/search', label: 'Search', frameworkOnly: true },
       { href: 'components/settings', label: 'Settings', frameworkOnly: true },
+      { href: 'components/sound-effects', label: 'Sound Effects', frameworkOnly: true },
       { href: 'components/spinner', label: 'Spinner', frameworkOnly: true },
       { href: 'components/table', label: 'Table', frameworkOnly: true },
       { href: 'components/tabs', label: 'Tabs', frameworkOnly: true },

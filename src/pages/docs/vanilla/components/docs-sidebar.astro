@@ -1,0 +1,59 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import DocsSidebar from '../../../../components/DocsSidebar.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { getFrameworkFromPath } from '../../../../config/frameworks';
+
+const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+
+const copyableHtml = `<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation" tabindex="0">
+  <nav class="docs-sidebar__nav">
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Introduction</h2>
+      <ul class="docs-sidebar__list">
+        <li class="docs-sidebar__item">
+          <a href="/docs/getting-started" class="docs-sidebar__link">Getting Started</a>
+        </li>
+      </ul>
+    </div>
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Foundations</h2>
+      <ul class="docs-sidebar__list">
+        <li class="docs-sidebar__item"><a href="/docs/design-system" class="docs-sidebar__link">Design System</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/theming" class="docs-sidebar__link">Theming</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/accessibility" class="docs-sidebar__link">Accessibility</a></li>
+      </ul>
+    </div>
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Components</h2>
+      <ul class="docs-sidebar__list">
+        <li class="docs-sidebar__item"><a href="/docs/components" class="docs-sidebar__link">Overview</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/components/button" class="docs-sidebar__link">Button</a></li>
+      </ul>
+    </div>
+  </nav>
+</aside>`;
+---
+
+<DocsLayout title="Docs Sidebar — Vanilla" description="Documentation sidebar navigation with vanilla HTML. Same BEM as Astro/Svelte.">
+  <section>
+    <h2>Docs Sidebar</h2>
+    <p>Sidebar navigation for documentation sites: grouped links with active state. Same BEM classes and structure as the <a href="/docs/components/docs-sidebar">Astro Docs Sidebar</a>. Populate links from your own nav config; add <code>docs-sidebar__link--active</code> to the current page link.</p>
+    <AddComponentTabs componentName="Docs Sidebar" />
+    <h3>Live example</h3>
+    <p>The sidebar on the left is the same component. Below is a scrollable box with the same sidebar for reference.</p>
+    <div class="example" style="max-height: 18rem; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--spacing-4);">
+      <DocsSidebar currentPath={currentPath} framework={framework} />
+    </div>
+
+    <h3>HTML (structure)</h3>
+    <p>Use the BEM classes below. Replace hrefs and labels with your nav data; set <code>docs-sidebar__link--active</code> on the link that matches the current path.</p>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><a href="/docs/components/docs-sidebar">View <strong>Docs Sidebar</strong> on the Astro docs</a> for props and layout (toggle + overlay on mobile).</p>
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/docs-sidebar">Astro</a> · <a href="/docs/svelte/components/docs-sidebar">Svelte</a></p>
+    <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
+  </section>
+</DocsLayout>

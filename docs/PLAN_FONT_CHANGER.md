@@ -1,6 +1,6 @@
 # Plan: Fonts + Font Changer in Settings
 
-**Status: Implemented.** The design system has **font pairs** (sans + mono) and a **font changer** in Settings. Each option applies two faces: one for body/UI (sans) and one for code (mono). Current pairs: **Geist** (default), **Inter + JetBrains Mono**, **IBM Plex Sans + Mono**, **Source Sans 3 + Source Code Pro**. See [Design System – Typography](./DESIGN_SYSTEM.md#typography-system) and [COMPONENTS – Settings](./COMPONENTS.md#settings).
+**Status: Implemented.** The design system has **font pairs** (sans + mono) and a **font changer** in Settings. Each option applies two faces: one for body/UI (sans) and one for code (mono). **Six pairs:** Geist (default), Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, **DM Sans + DM Mono**, **Outfit + JetBrains Mono** (JetBrains Mono reused). See [Design System – Typography](./DESIGN_SYSTEM.md#typography-system) and [COMPONENTS – Settings](./COMPONENTS.md#settings).
 
 ---
 
@@ -9,8 +9,8 @@
 - **Font variables** (`src/styles/variables.css`):  
   `--font-family-sans` (Geist Sans + system fallbacks), `--font-family-serif` (system), `--font-family-mono` (system).  
   `--font-family` = `var(--font-family-sans)` (body/UI); code uses `--font-family-mono`.
-- **Loaded webfonts**: All pair faces via `@font-face` in `src/styles/fonts.css` (Geist Sans/Mono, Inter, JetBrains Mono, IBM Plex Sans/Mono, Source Sans 3, Source Code Pro). Variables in `variables.css`; default pair Geist.
-- **Settings**: Theme (ThemeSwitcher), Font Size (slider → `--font-size-scale`, persisted as `fontSizeScale`), Accessibility. All apply to `document.documentElement` and persist in localStorage.
+- **Loaded webfonts**: All pair faces via `@font-face` in `src/styles/fonts.css` (Geist Sans/Mono, Inter, JetBrains Mono, IBM Plex Sans/Mono, Source Sans 3, Source Code Pro, DM Sans, DM Mono, Outfit). Variables in `variables.css`; default pair Geist.
+- **Settings**: Theme (ThemeSwitcher), Font Size (slider → `--font-size-scale`, persisted as `fontSizeScale`), Font (font pair dropdown — same UI pattern as Theme: trigger button, menu with options, preview panel; persisted as `fontPair`), Accessibility. All apply to `document.documentElement` and persist in localStorage.
 - **Persistence pattern**: One localStorage key per setting; restore on load (layout / vanilla flash script) and on change in Settings.
 
 ---
@@ -31,21 +31,16 @@ On change, set **both** variables on `html` so the whole app gets a consistent s
 
 Suggested pairs (all open license, self-hostable, good for UI + code):
 
-| Pair id       | Sans (body/UI) | Mono (code)     | Notes |
+| Pair id       | Sans (body/UI) | Mono (code)     | Status |
 |---------------|----------------|-----------------|--------|
-| `geist`       | Geist Sans     | Geist Mono      | In repo; same family, modern. Default. |
-| `inter-jetbrains` | Inter       | JetBrains Mono  | **Implemented.** OFL; neutral, readable. |
-| `ibm-plex`    | IBM Plex Sans  | IBM Plex Mono   | Designed together; OFL; slightly technical. |
-| `source`      | Source Sans 3  | Source Code Pro | Adobe; OFL; classic, legible. |
+| `geist`       | Geist Sans     | Geist Mono      | **Shipped** (default). |
+| `inter-jetbrains` | Inter       | JetBrains Mono  | **Shipped.** OFL; neutral, readable. |
+| `ibm-plex`    | IBM Plex Sans  | IBM Plex Mono   | **Shipped.** OFL; designed as a family. |
+| `source`      | Source Sans 3  | Source Code Pro | **Shipped.** Adobe OFL; classic, legible. |
+| `dm`          | DM Sans        | DM Mono         | **Shipped.** OFL; Google Fonts; geometric, friendly. |
+| `outfit-jetbrains` | Outfit   | JetBrains Mono  | **Shipped.** OFL; geometric sans; mono reused from repo. |
 
-**Recommended next pairs (priority order):**
-
-1. **IBM Plex Sans + IBM Plex Mono** (`ibm-plex`) — OFL. Designed as a family; slightly technical. Add `--font-family-ibm-plex-sans`, `--font-family-ibm-plex-mono`.
-2. **Source Sans 3 + Source Code Pro** (`source`) — OFL. Adobe; classic, legible. Add `--font-family-source-sans-3`, `--font-family-source-code-pro`.
-3. **DM Sans + DM Mono** (`dm`) — OFL. Google Fonts; geometric, friendly. Add `--font-family-dm-sans`, `--font-family-dm-mono`.
-4. **Outfit + JetBrains Mono** (`outfit-jetbrains`) — OFL. Geometric sans + coding mono; distinct look.
-
-Alternates: **Plus Jakarta Sans + Fira Code**, **Manrope + JetBrains Mono**.
+Optional future pairs: **Plus Jakarta Sans + Fira Code**, **Manrope + JetBrains Mono**.
 
 **1.2 Where fonts live**
 
@@ -115,7 +110,7 @@ Alternates: **Plus Jakarta Sans + Fira Code**, **Manrope + JetBrains Mono**.
 
 ## Open decisions (before coding)
 
-- **Which pairs to ship first?** Geist (default) + one other (e.g. Inter + JetBrains) vs. 3–4 pairs from the table.
+- **Which pairs to ship first?** Resolved: we ship 6 pairs (Geist, Inter + JetBrains Mono, IBM Plex, Source, DM Sans + DM Mono, Outfit + JetBrains Mono).
 - **Naming:** localStorage key `fontPair` vs. `fontFamily`; value = pair id (e.g. `"geist"`, `"inter-jetbrains"`).
 - **Default:** If no saved choice, use Geist pair (current behavior).
 - **Scope:** One selection applies both sans (body/UI) and mono (code) site-wide.

@@ -38,6 +38,12 @@
         } else if (savedFontPair === 'source') {
           document.documentElement.style.setProperty('--font-family', 'var(--font-family-source-sans-3)');
           document.documentElement.style.setProperty('--font-family-mono', 'var(--font-family-source-code-pro)');
+        } else if (savedFontPair === 'dm') {
+          document.documentElement.style.setProperty('--font-family', 'var(--font-family-dm-sans)');
+          document.documentElement.style.setProperty('--font-family-mono', 'var(--font-family-dm-mono)');
+        } else if (savedFontPair === 'outfit-jetbrains') {
+          document.documentElement.style.setProperty('--font-family', 'var(--font-family-outfit)');
+          document.documentElement.style.setProperty('--font-family-mono', 'var(--font-family-jetbrains-mono)');
         }
         if (localStorage.getItem('reducedMotion') === 'true') {
           document.documentElement.classList.add('reduced-motion');
@@ -185,6 +191,8 @@
               <option value="inter-jetbrains" data-sans="var(--font-family-inter)" data-mono="var(--font-family-jetbrains-mono)">Inter + JetBrains Mono</option>
               <option value="ibm-plex" data-sans="var(--font-family-ibm-plex-sans)" data-mono="var(--font-family-ibm-plex-mono)">IBM Plex Sans + Mono</option>
               <option value="source" data-sans="var(--font-family-source-sans-3)" data-mono="var(--font-family-source-code-pro)">Source Sans 3 + Source Code Pro</option>
+              <option value="dm" data-sans="var(--font-family-dm-sans)" data-mono="var(--font-family-dm-mono)">DM Sans + DM Mono</option>
+              <option value="outfit-jetbrains" data-sans="var(--font-family-outfit)" data-mono="var(--font-family-jetbrains-mono)">Outfit + JetBrains Mono</option>
             </select>
             <p class="settings__help-text">Body text and code blocks use the selected pair.</p>
           </div>
@@ -351,6 +359,15 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">
     <h1 style="font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-6) 0; color: var(--text);">Component showcase</h1>
     <p style="color: var(--text-dim); margin-bottom: var(--spacing-6);">Each page links to the full docs on the main site.</p>
@@ -382,6 +399,15 @@
     </ul>
     <p style="margin-top: var(--spacing-8);"><a href="../index.html" class="btn btn-outline">← Home</a></p>
   </main>
+
+
+
+
+
+
+
+
+
 
 
 

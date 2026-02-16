@@ -81,12 +81,15 @@ Rizzo CSS includes a comprehensive typography system with **font pairs** (sans +
 - `--font-family-ibm-plex-mono` - IBM Plex Mono
 - `--font-family-source-sans-3` - Source Sans 3
 - `--font-family-source-code-pro` - Source Code Pro
+- `--font-family-dm-sans` - DM Sans
+- `--font-family-dm-mono` - DM Mono
+- `--font-family-outfit` - Outfit
 - `--font-family-sans` - Current sans stack (default: Geist Sans)
 - `--font-family-serif` - System serif stack
 - `--font-family-mono` - Current mono stack (default: Geist Mono)
 - `--font-family` - Default font family (used for body/UI; equals current sans)
 
-**Font pairs in Settings:** `geist` (Geist Sans + Geist Mono, default), `inter-jetbrains` (Inter + JetBrains Mono), `ibm-plex` (IBM Plex Sans + Mono), `source` (Source Sans 3 + Source Code Pro). Persisted as `fontPair` in localStorage; applied on load so the choice is active before first paint.
+**Font pairs in Settings:** Same UI pattern as Theme (trigger button, dropdown menu, preview panel). **Six pairs:** `geist` (Geist Sans + Geist Mono, default), `inter-jetbrains` (Inter + JetBrains Mono), `ibm-plex` (IBM Plex Sans + Mono), `source` (Source Sans 3 + Source Code Pro), `dm` (DM Sans + DM Mono), `outfit-jetbrains` (Outfit + JetBrains Mono). Persisted as `fontPair` in localStorage; applied on load so the choice is active before first paint.
 
 **Font Weights:**
 - `--font-weight-light` (300)

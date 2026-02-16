@@ -10,7 +10,7 @@
 
   <h3>Features</h3>
   <ul>
-    <li><strong>Desktop:</strong> Brand, nav links with dropdowns (e.g. Components, Themes), search trigger, settings button. Dropdowns can use a 2-column layout with vertical divider.</li>
+    <li><strong>Desktop:</strong> Brand, nav links with dropdowns (e.g. Components, Themes), search trigger, settings button. Components dropdown uses a 3-column layout; Themes uses Dark | Light columns.</li>
     <li><strong>Mobile (≤1024px):</strong> Menu toggle (hamburger) on the left; search and settings (icon-only) on the right. Full-width overlay menu when open; mutually exclusive with search.</li>
     <li>Sticky top, full-width border, smooth open/close transitions.</li>
     <li>Full keyboard navigation for dropdowns (Arrow keys, Enter, Space, Escape, Home, End) and ARIA.</li>

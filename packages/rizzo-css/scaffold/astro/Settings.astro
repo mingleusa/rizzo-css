@@ -1,7 +1,8 @@
 ---
 import ThemeSwitcher from './ThemeSwitcher.astro';
+import FontSwitcher from './FontSwitcher.astro';
+import SoundEffects from './SoundEffects.astro';
 import Close from './icons/Close.astro';
-import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../config/fonts';
 
 interface Props {
   open?: boolean;
@@ -63,31 +64,20 @@ const { open = false } = Astro.props;
         </div>
       </section>
 
-      <!-- Font (pair: sans + mono) Section -->
+      <!-- Font (pair: sans + mono) Section — dropdown like Theme -->
       <section class="settings__section">
         <h3 class="settings__section-title">Font</h3>
         <div class="settings__control">
-          <label for="font-pair-select" class="settings__label">
-            <span class="settings__label-text">Font pair (sans + mono)</span>
-          </label>
-          <select
-            id="font-pair-select"
-            class="form-control"
-            aria-label="Font pair"
-            data-font-pair
-            style="width: 100%;"
-          >
-            {FONT_PAIRS.map((pair) => (
-              <option
-                value={pair.value}
-                data-sans={pair.sans}
-                data-mono={pair.mono}
-              >
-                {pair.label}
-              </option>
-            ))}
-          </select>
+          <FontSwitcher idPrefix="settings" />
           <p class="settings__help-text">Body text and code blocks use the selected pair.</p>
+        </div>
+      </section>
+
+      <!-- Sound Section -->
+      <section class="settings__section">
+        <h3 class="settings__section-title">Sound</h3>
+        <div class="settings__control">
+          <SoundEffects />
         </div>
       </section>
 
@@ -178,7 +168,6 @@ const { open = false } = Astro.props;
     const closeBtn = settings.querySelector('[data-settings-close]');
     const fontSizeSlider = settings.querySelector('[data-font-size-slider]');
     const fontSizeValue = settings.querySelector('[data-font-size-value]');
-    const fontPairSelect = settings.querySelector('[data-font-pair]') as HTMLSelectElement | null;
     const reducedMotion = settings.querySelector('[data-reduced-motion]');
     const highContrast = settings.querySelector('[data-high-contrast]');
     const scrollbarStyleRadios = settings.querySelectorAll('[data-scrollbar-style]');
@@ -195,12 +184,6 @@ const { open = false } = Astro.props;
       slider.style.setProperty('--slider-progress', `${progress}%`);
     };
 
-    // Apply font pair (sans + mono) to document
-    const applyFontPair = (sans: string, mono: string) => {
-      html.style.setProperty('--font-family', sans);
-      html.style.setProperty('--font-family-mono', mono);
-    };
-
     // Load saved settings
     const loadSettings = () => {
       const savedFontScale = localStorage.getItem('fontSizeScale');
@@ -212,15 +195,6 @@ const { open = false } = Astro.props;
       } else if (fontSizeSlider) {
         // Initialize with default value
         updateSliderProgress(fontSizeSlider);
-      }
-
-      const savedFontPair = localStorage.getItem('fontPair') || 'geist';
-      if (fontPairSelect) {
-        fontPairSelect.value = savedFontPair;
-        const opt = fontPairSelect.options[fontPairSelect.selectedIndex];
-        if (opt && opt.dataset.sans && opt.dataset.mono) {
-          applyFontPair(opt.dataset.sans, opt.dataset.mono);
-        }
       }
 
       const savedReducedMotion = localStorage.getItem('reducedMotion') === 'true';
@@ -366,17 +340,6 @@ const { open = false } = Astro.props;
           applyFontSize(scale);
           updateSliderProgress(target);
           localStorage.setItem('fontSizeScale', scale.toString());
-        }
-      });
-    }
-
-    // Font pair
-    if (fontPairSelect) {
-      fontPairSelect.addEventListener('change', () => {
-        const opt = fontPairSelect.options[fontPairSelect.selectedIndex];
-        if (opt && opt.dataset.sans && opt.dataset.mono) {
-          applyFontPair(opt.dataset.sans, opt.dataset.mono);
-          localStorage.setItem('fontPair', opt.value);
         }
       });
     }

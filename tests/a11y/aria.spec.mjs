@@ -2,7 +2,7 @@
  * ARIA and role checks for screen reader–related markup.
  * Run: pnpm test:a11y
  * These assertions verify the markup that screen readers rely on (roles, labels, expanded state).
- * They do not run a real screen reader; for that, use manual testing per ACCESSIBILITY_TESTING.md.
+ * They do not run a real screen reader; for that, use manual testing per docs/ACCESSIBILITY.md#manual-accessibility-testing.
  */
 import { test, expect } from '@playwright/test';
 
@@ -92,6 +92,25 @@ test.describe('ARIA and roles (theme switcher)', () => {
     await trigger.click();
     await page.waitForTimeout(200);
     const menu = page.locator('.theme-switcher__menu--open').first();
+    await expect(menu).toBeVisible({ timeout: 3000 });
+    const option = menu.locator('[role="menuitemradio"]').first();
+    await expect(option).toBeVisible();
+  });
+});
+
+test.describe('ARIA and roles (font switcher)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/font-switcher');
+    await lockTheme(page);
+  });
+
+  test('font switcher has accessible trigger and menuitemradio options', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: 'Select font pair' }).first();
+    await expect(trigger).toBeVisible();
+    await expect(trigger).toHaveAttribute('aria-haspopup', 'true');
+    await trigger.click();
+    await page.waitForTimeout(200);
+    const menu = page.locator('.font-switcher__menu--open').first();
     await expect(menu).toBeVisible({ timeout: 3000 });
     const option = menu.locator('[role="menuitemradio"]').first();
     await expect(option).toBeVisible();

@@ -96,14 +96,14 @@ const SVELTE_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 const ASTRO_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 
@@ -112,7 +112,7 @@ const RECOMMENDED_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
-  'Modal', 'Toast', 'Table', 'ThemeSwitcher',
+  'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Search', 'Settings', 'Icons',
 ];
 
@@ -122,8 +122,8 @@ const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitc
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
 // Manual users can run: npx rizzo-css help components
 const COMPONENT_DEPS = {
-  astro: { Settings: ['ThemeSwitcher'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
-  svelte: { Settings: ['ThemeSwitcher'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
+  astro: { Settings: ['ThemeSwitcher', 'FontSwitcher', 'SoundEffects'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
+  svelte: { Settings: ['ThemeSwitcher', 'FontSwitcher', 'SoundEffects'], Toast: ['Alert'], Navbar: ['Search', 'Settings'] },
 };
 
 function getComponentDeps(framework, componentName) {
@@ -465,6 +465,27 @@ async function confirmRunInstall(pm) {
   return answer === '' || /^y(es)?$/i.test(answer);
 }
 
+/** Prompt yes/no; default yes. Returns true to initialize git repo, false to skip. */
+async function confirmGitInit() {
+  const answer = await question('\nInitialize a git repository? (Y/n) ');
+  return answer === '' || /^y(es)?$/i.test(answer);
+}
+
+/** Run git init in projectDir if .git does not already exist. Returns true if init ran (or already a repo), false on failure. */
+function runGitInit(projectDir) {
+  const gitDir = join(projectDir, '.git');
+  if (existsSync(gitDir)) {
+    return true;
+  }
+  const code = runInDir(projectDir, 'git init');
+  if (code === 0) {
+    console.log('  ✓ Git repository initialized.');
+    return true;
+  }
+  console.error('  ✗ git init failed (exit ' + code + '). You can run "git init" manually in the project directory.');
+  return false;
+}
+
 /** Ask user to copy js/main.js for vanilla interactive components. */
 async function confirmCopyVanillaJs() {
   const answer = await question('\nCopy js/main.js for modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher? (Y/n) ');
@@ -778,7 +799,7 @@ rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 Available commands: init, add, theme, doctor, help
 
 Flags summary:
-  init   --yes  --path <dir>  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install
+  init   --yes  --path <dir>  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install  --no-git
   add    --path <dir>  --framework <fw>  ...  --no-snippet  --readme  --force  --vanilla-js
   theme  (no flags)
   doctor Check config, CSS file, and optional layout link
@@ -804,7 +825,8 @@ Options (init):
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
   --install         After scaffolding, run package manager install in project directory (no prompt)
   --no-install      Do not run install and do not prompt
-  (Install always runs in the project directory. rizzo-css.json is written for new and existing projects; interactive run prompts "Run install now? (Y/n)" for Astro/Svelte.)
+  --no-git          With --yes, skip initializing a git repository (default with --yes is to run git init)
+  (Git: only init offers or runs git init. Interactive init: "Initialize a git repository? (Y/n)" for all frameworks. With --yes, git init runs unless --no-git. Add (CSS + components) does not prompt for git. Astro/Svelte then get "Run install now? (Y/n)"; Vanilla has no package manager. rizzo-css.json is written only when the project does not already have one.)
 
 Options (add):
   --path <dir>      Target directory for rizzo.min.css (overrides config and framework default)
@@ -878,7 +900,7 @@ Available to pick (Astro & Svelte; same list):
 
 Dependencies (when you pick the component on the left, the right is added automatically):
   Navbar    →  Search, Settings (navbar includes search bar; Settings so gear button works)
-  Settings  →  ThemeSwitcher (and themes.ts)
+  Settings  →  ThemeSwitcher, FontSwitcher, SoundEffects (and themes.ts)
   Toast     →  Alert
 
 ThemeSwitcher and ThemeIcon: when selected, themes.ts (and Svelte theme.ts) is copied so they work.
@@ -890,7 +912,7 @@ Where components are copied:
   Vanilla → components/ (HTML)     (for interactivity add js/main.js; use --vanilla-js on add)
 
   Core   = all components above; dependencies are included so everything works.
-  Manual = you pick; the picker shows e.g. "Settings (adds ThemeSwitcher)". Required deps are added when you confirm.
+  Manual = you pick; the picker shows e.g. "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)". Required deps are added when you confirm.
 
 To see this again: npx rizzo-css help components
 `);
@@ -1508,7 +1530,11 @@ async function runAddToExisting(frameworkOverride, options) {
       : resolvePackageManager(cwd);
   const cliExample = pm.dlx('rizzo-css theme');
   const configTargetDir = framework === 'astro' ? 'public/css' : framework === 'svelte' ? 'static/css' : targetDirRaw;
-  writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent, theme });
+  const configPath = join(cwd, RIZZO_CONFIG_FILE);
+  const hadConfig = existsSync(configPath);
+  if (!hadConfig) {
+    writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent, theme });
+  }
   const writeSnippet = options.writeSnippet !== false;
   if (writeSnippet) {
     const where = framework === 'svelte' ? 'Root layout (e.g. src/app.html)' : framework === 'astro' ? 'Layout (e.g. src/layouts/Layout.astro)' : 'HTML or layout';
@@ -1530,7 +1556,7 @@ async function runAddToExisting(frameworkOverride, options) {
   }
   console.log('\n✓ Rizzo CSS added to your existing project');
   console.log('  - ' + cssTarget);
-  console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
+  if (!hadConfig) console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
   if (writeSnippet) console.log('  - Wrote ' + RIZZO_SNIPPET_FILE + ' (copy-paste link + theme)');
   if (options.writeReadme) console.log('  - Wrote ' + SCAFFOLD_README_FILENAME);
   console.log('\nYou must add the stylesheet link yourself — it is not added automatically.');
@@ -1894,11 +1920,25 @@ async function cmdInit(argv) {
   const runPrefix = projectDir !== cwd ? 'cd ' + pathRelative(cwd, projectDir) + ' && ' : '';
   const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase;
 
-  // Always write rizzo-css.json for new projects (targetDir, framework, packageManager).
+  // Write rizzo-css.json only when one doesn't exist (don't overwrite existing config).
   const pathsForConfig = getFrameworkCssPaths(framework);
-  writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm, theme });
-  console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
+  const initConfigPath = join(projectDir, RIZZO_CONFIG_FILE);
+  if (!existsSync(initConfigPath)) {
+    writeRizzoConfig(projectDir, { targetDir: pathsForConfig.targetDir, framework, packageManager: selectedPm, theme });
+    console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
+  }
 
+  // Git init: in every scenario — prompt when interactive, run when --yes (unless --no-git)
+  if (!yes) {
+    const shouldGitInit = await confirmGitInit();
+    if (shouldGitInit) {
+      runGitInit(projectDir);
+    }
+  } else if (!hasFlag(argv, '--no-git')) {
+    runGitInit(projectDir);
+  }
+
+  // Package manager install: only for Astro/Svelte (Vanilla has no package.json)
   if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
     const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' (current directory)';
     console.log('\nRunning install' + dirLabel + ': ' + pm.install);
@@ -1910,7 +1950,7 @@ async function cmdInit(argv) {
     const shouldRun = await confirmRunInstall(pm);
     if (shouldRun) {
       const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' here';
-      console.log('\nChanging to project directory and running install' + dirLabel + ': ' + pm.install);
+      console.log('\nRunning install' + dirLabel + ': ' + pm.install);
       const code = runInDir(projectDir, pm.install);
       if (code !== 0) {
         console.error('\nInstall failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);

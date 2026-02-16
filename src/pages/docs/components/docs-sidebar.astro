@@ -1,0 +1,56 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import DocsSidebar from '../../../components/DocsSidebar.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import { getFrameworkFromPath } from '../../../config/frameworks';
+
+const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+---
+
+<DocsLayout title="Docs Sidebar Component — Astro" description="Documentation sidebar navigation with grouped links and active state">
+	<section>
+		<h2>Docs Sidebar Component</h2>
+		<p>A sidebar navigation component for documentation sites. Renders grouped links (e.g. Introduction, Foundations, Components) with active-state styling. Used in the docs layout with a toggle and overlay on mobile.</p>
+		<AddComponentTabs componentName="Docs Sidebar" />
+		<h3>Live example</h3>
+		<p>The sidebar on the left of this page is the Docs Sidebar. Below is a standalone instance with the same nav data (scrollable in a box).</p>
+		<div class="example" style="max-height: 20rem; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--spacing-4);">
+			<DocsSidebar currentPath={currentPath} framework={framework} />
+		</div>
+
+		<h3>Usage</h3>
+		<p>Pass <code>currentPath</code> (current URL pathname) and <code>framework</code> (or path prefix) so links and active state match the docs framework (Astro, Svelte, Vanilla). The sidebar uses <code>DOCS_NAV</code> from config; you can provide a custom nav structure via a prop if you extend the component.</p>
+		<FrameworkCodeTabs
+			astro={`---
+import DocsSidebar from '../components/DocsSidebar.astro';
+import { getFrameworkFromPath } from '../config/frameworks';
+
+const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+---
+
+<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation">
+  <DocsSidebar currentPath={currentPath} framework={framework} />
+</aside>`}
+			svelte={`<script>
+  import { DocsSidebar } from '$lib/rizzo';
+</script>
+
+<DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs" />`}
+			vanilla={`<!-- Same BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__group-label, docs-sidebar__list, docs-sidebar__item, docs-sidebar__link, docs-sidebar__link--active. Populate from your nav config; set --active on the current link. -->`}
+		/>
+
+		<h3>Props (Astro)</h3>
+		<ul>
+			<li><code>currentPath</code> (string) — Current URL pathname (e.g. <code>Astro.url.pathname</code>)</li>
+			<li><code>framework</code> (Framework) — <code>{'{ framework: { pathPrefix } }'}</code> so hrefs use the correct prefix (<code>/docs</code>, <code>/docs/svelte</code>, <code>/docs/vanilla</code>)</li>
+		</ul>
+
+		<h3>BEM classes</h3>
+		<p><code>docs-sidebar</code>, <code>docs-sidebar__nav</code>, <code>docs-sidebar__group</code>, <code>docs-sidebar__group-label</code>, <code>docs-sidebar__list</code>, <code>docs-sidebar__item</code>, <code>docs-sidebar__link</code>, <code>docs-sidebar__link--active</code>. Sidebar layout and mobile behavior (toggle, overlay) are in the docs layout; see <code>DocsLayout.astro</code> and <code>pages.css</code>.</p>
+
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/docs-sidebar">Svelte</a> · <a href="/docs/vanilla/components/docs-sidebar">Vanilla</a></p>
+	</section>
+</DocsLayout>

@@ -30,7 +30,7 @@ const classes = `modal ${sizeClass} ${className}`.trim();
   class="modal__overlay"
   data-modal-overlay
   aria-hidden={open ? 'false' : 'true'}
-  {...(!open && { inert: true })}
+  {...(!open && { inert: true, hidden: true })}
   id={`${modalId}-overlay`}
 ></div>
 
@@ -40,7 +40,7 @@ const classes = `modal ${sizeClass} ${className}`.trim();
   aria-modal="true"
   aria-labelledby={`${modalId}-title`}
   aria-hidden={open ? 'false' : 'true'}
-  {...(!open && { inert: true })}
+  {...(!open && { inert: true, hidden: true })}
   id={modalId}
   data-modal
 >
@@ -87,10 +87,12 @@ const classes = `modal ${sizeClass} ${className}`.trim();
 
       if (!overlay || !closeBtn) return;
       
-      // Ensure modal starts closed unless explicitly opened
+      // Ensure modal starts closed unless explicitly opened (hidden removes from a11y tree for axe aria-hidden-focus)
       if (!open) {
-        modal.setAttribute('aria-hidden', 'true');
         overlay.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
+        modal.setAttribute('hidden', '');
         modal.removeAttribute('data-open');
       }
 
@@ -134,10 +136,12 @@ const classes = `modal ${sizeClass} ${className}`.trim();
       // Open modal
       const openModal = () => {
         previousActiveElement = document.activeElement;
-        modal.removeAttribute('inert');
         overlay.removeAttribute('inert');
-        modal.setAttribute('aria-hidden', 'false');
+        overlay.removeAttribute('hidden');
         overlay.setAttribute('aria-hidden', 'false');
+        modal.removeAttribute('inert');
+        modal.removeAttribute('hidden');
+        modal.setAttribute('aria-hidden', 'false');
         modal.setAttribute('data-open', 'true');
         restoreFocusables(modal);
 
@@ -189,10 +193,12 @@ const classes = `modal ${sizeClass} ${className}`.trim();
       // Close modal
       const closeModal = () => {
         setFocusablesInert(modal);
-        modal.setAttribute('inert', '');
         overlay.setAttribute('inert', '');
-        modal.setAttribute('aria-hidden', 'true');
+        overlay.setAttribute('hidden', '');
         overlay.setAttribute('aria-hidden', 'true');
+        modal.setAttribute('inert', '');
+        modal.setAttribute('hidden', '');
+        modal.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('data-open');
 
         // Remove focus trap

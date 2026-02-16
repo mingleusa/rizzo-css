@@ -30,6 +30,9 @@ export function getStaticPaths() {
     { params: { slug: 'components/search' } },
     { params: { slug: 'components/settings' } },
     { params: { slug: 'components/theme-switcher' } },
+    { params: { slug: 'components/font-switcher' } },
+    { params: { slug: 'components/sound-effects' } },
+    { params: { slug: 'components/docs-sidebar' } },
   ];
   return paths;
 }
@@ -64,6 +67,9 @@ function getMeta() {
     search: 'Search',
     settings: 'Settings',
     'theme-switcher': 'Theme Switcher',
+    'font-switcher': 'Font Switcher',
+    'sound-effects': 'Sound Effects',
+    'docs-sidebar': 'Docs Sidebar',
   };
   const name = path[1] ? titles[path[1]] ?? path[1].replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'Components';
   return { title: path[1] ? `${name} — Svelte` : name, description: `${name} component — Svelte.` };

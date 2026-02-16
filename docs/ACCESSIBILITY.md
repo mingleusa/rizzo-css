@@ -1,12 +1,12 @@
 # Accessibility
 
-Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 guidelines. For a **testing checklist** (keyboard, screen reader, tools) run before documenting best practices, see [Accessibility testing](./ACCESSIBILITY_TESTING.md).
+Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 guidelines. This doc covers features, utility classes, best practices, and **manual accessibility testing** (keyboard, screen reader, tools). Automated axe, keyboard, and ARIA tests run via `pnpm test:a11y`; see [Automated accessibility tests](#automated-accessibility-tests) and [Manual accessibility testing](#manual-accessibility-testing) below.
 
 ## Accessibility Features
 
 ### Implemented Features
 
-- **Best practices doc** — [Best practices](#best-practices) in this doc: keyboard patterns, ARIA usage, focus order, and how to test. Automated coverage (axe, keyboard spec, ARIA/roles) is in [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#completed-automated).
+- **Best practices** — [Best practices](#best-practices) in this doc: keyboard patterns, ARIA usage, focus order, and how to test. Automated coverage (axe, keyboard spec, ARIA/roles) and a manual testing checklist are in [Automated accessibility tests](#automated-accessibility-tests) and [Manual accessibility testing](#manual-accessibility-testing).
 - **Keyboard navigation** — Full keyboard support across all interactive components (Tab, arrows, Enter/Space, Escape).
 - **ARIA attributes** — Components use appropriate ARIA (aria-label, aria-expanded, aria-controls, roles, etc.).
 - **Focus management** — Visible focus indicators (`--accent` / `--accent-fg` where used as foreground), focus trapping in modals, scrollable regions (e.g. code blocks) focusable via `tabindex="0"`.
@@ -267,27 +267,62 @@ ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader ou
 3. **Automated** — Run `pnpm test:a11y` (axe on entire main site, keyboard and ARIA specs). Fix any reported violations before release.
 4. **Optional** — axe DevTools or Lighthouse accessibility audit for one-off checks.
 
-## Testing
+## Automated accessibility tests
 
-### Automated (recommended first)
+Run the full a11y suite: `pnpm test:a11y` (or `pnpm test:a11y:ci` in CI). This builds the site, starts the preview server, and runs:
 
-Run the full a11y suite: `pnpm test:a11y`. This runs axe on the entire main site (all docs and component pages), plus keyboard and ARIA specs. See [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) for details.
+- **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: entire main site (home, docs, every component page for Astro/Vanilla/Svelte, all theme pages). WCAG 2/2.1 A & AA; critical/serious only. Route list is built from `FOUNDATION_ROUTES`, `COMPONENT_SLUGS`, `THEME_SLUGS` in that spec; add new routes there as needed.
+- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape).
+- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal (dialog, aria-modal, aria-labelledby), dropdown (menu/menuitem, aria-expanded), tabs (tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio).
 
-### Keyboard testing (manual)
+Automated tests do **not** replace manual keyboard and screen reader testing; use the checklist below for that.
 
-- Tab through all interactive elements; confirm logical order.
-- Use arrow keys in menus and tabs; Enter/Space to activate; Escape to close.
-- Verify focus indicators are visible and focus returns to trigger after closing overlays.
+## Manual accessibility testing
 
-### Screen reader testing (manual)
+Use this checklist for manual keyboard and screen reader testing. Run automated tests first (`pnpm test:a11y`), then work through the priorities below. Log issues (component, check, result, notes) and fix before release; update [Best practices](#best-practices) if you discover new patterns.
 
-- Test with NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS (Windows).
-- Verify all content is announced, modal/dialog and menu states are clear, and labels are correct.
+### Priority 1 — High interaction (test first)
 
-### Other tools (optional)
+| Component | What to test |
+|-----------|--------------|
+| **Modal** | Focus moves into modal when opened; focus trapped inside (Tab/Shift+Tab); Escape closes and focus returns to trigger; ARIA: role=dialog, aria-modal, aria-labelledby; screen reader announces purpose. |
+| **Dropdown / Navbar dropdowns** | Trigger opens menu; arrow keys move; Enter/Space activates and closes; Escape closes and returns focus; nested submenus if any; ARIA: aria-expanded, role=menu/menuitem; screen reader announces menu and items. |
+| **Theme Switcher** | Same as Dropdown; selected theme announced; ARIA: expanded, selected, menuitemradio. |
+| **Font Switcher** | Same as Dropdown (in Settings or standalone); arrow keys, Enter to select pair; Escape closes; preview and label announced. |
+| **Tabs** | Tab reaches tab list; arrows change tab; Enter/Space activates; panel updates and is announced; ARIA: tablist, tab, tabpanel, aria-selected, aria-controls. |
+| **Search (Cmd+K)** | Open with keyboard; focus in input; Escape closes and returns focus; results keyboard navigable and announced. |
+| **Settings** | Open/close with trigger; focus trap when open; Escape closes; theme, font size, font pair, sound effects, and other toggles keyboard operable and announced. |
+| **Accordion** | Headers focusable; Enter/Space toggles; ARIA: aria-expanded, aria-controls; screen reader announces expanded/collapsed. |
 
-- axe DevTools (browser extension) for one-off page scans.
-- WAVE or Lighthouse accessibility audit for additional checks.
+### Priority 2 — Forms and feedback
+
+| Component | What to test |
+|-----------|--------------|
+| **Forms** | All inputs reachable by Tab; labels associated (for/id or aria-label); error/required announced; ARIA: aria-required, aria-invalid, aria-describedby. |
+| **Tooltip** | Trigger focus shows tooltip; keyboard user can read it; no focus trap. |
+| **Toast** | New toasts announced (live region); dismiss focusable and keyboard operable. |
+| **CopyToClipboard** | Button has accessible name; success feedback announced. |
+
+### Priority 3 — Navigation and layout
+
+| Component | What to test |
+|-----------|--------------|
+| **Navbar** | Skip link or main content first; nav items and dropdowns keyboard accessible; mobile menu open/close and focus trap. |
+| **Pagination, Breadcrumb, Buttons, Badge, Card, Table** | Links/buttons focusable with clear names; table headers associated if sortable. |
+
+### Tools
+
+- **Keyboard-only** — No mouse. Tab, Shift+Tab, Enter, Space, arrows, Escape. Confirm all actions possible and no focus traps (except intentional in modal/search/settings).
+- **Screen reader** — NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS. Check announcements (labels, state changes, live regions).
+- **axe DevTools** — Browser extension for one-off page scans; fixes then re-scan.
+- **Lighthouse** — Chrome DevTools → Lighthouse → Accessibility for periodic checks.
+
+### Suggested order
+
+1. Keyboard-only pass on Priority 1 (Modal, Dropdown, Theme Switcher, Font Switcher, Settings, Tabs, Search, Accordion). Fix focus and traps.
+2. Screen reader pass on the same. Fix labels and announcements.
+3. axe DevTools on those pages. Fix reported issues.
+4. Repeat for Priority 2 and 3; update [Best practices](#best-practices) if you find new patterns.
 
 ## Resources
 

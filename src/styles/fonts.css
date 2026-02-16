@@ -18,28 +18,28 @@
   font-display: swap;
 }
 
-/* Inter (variable) - filename has comma, encoded as %2C in URL */
+/* Inter (variable) - filename has comma; use quoted url so Vite resolves at build */
 @font-face {
   font-family: Inter;
-  src: url('../assets/fonts/Inter/Inter-VariableFont_opsz%2Cwght.ttf') format('truetype');
+  src: url("../assets/fonts/Inter/Inter-VariableFont_opsz,wght.ttf") format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* JetBrains Mono (variable) - filename has brackets, encoded as %5B %5D in URL */
+/* JetBrains Mono (variable) - filename has brackets; use quoted url so Vite resolves at build */
 @font-face {
   font-family: 'JetBrains Mono';
-  src: url('../assets/fonts/JetBrainsMono/JetBrainsMono%5Bwght%5D.ttf') format('truetype');
+  src: url("../assets/fonts/JetBrainsMono/JetBrainsMono[wght].ttf") format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
 }
 
-/* IBM Plex Sans (variable) - comma in filename encoded as %2C */
+/* IBM Plex Sans (variable) - filename has comma; use quoted url so Vite resolves at build */
 @font-face {
   font-family: 'IBM Plex Sans';
-  src: url('../assets/fonts/IBMPlexSans/IBMPlexSans-VariableFont_wdth%2Cwght.ttf') format('truetype');
+  src: url("../assets/fonts/IBMPlexSans/IBMPlexSans-VariableFont_wdth,wght.ttf") format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -67,6 +67,33 @@
 @font-face {
   font-family: 'Source Code Pro';
   src: url('../assets/fonts/SourceCodePro/SourceCodePro-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Sans (variable) - filename has comma; use quoted url so Vite resolves at build */
+@font-face {
+  font-family: 'DM Sans';
+  src: url("../assets/fonts/DMSans/DMSans-VariableFont_opsz,wght.ttf") format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* DM Mono (static Regular) */
+@font-face {
+  font-family: 'DM Mono';
+  src: url('../assets/fonts/DMMono/DMMono-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Outfit (variable) */
+@font-face {
+  font-family: Outfit;
+  src: url('../assets/fonts/Outfit/Outfit-VariableFont_wght.ttf') format('truetype');
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;

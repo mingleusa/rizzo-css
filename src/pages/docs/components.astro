@@ -7,7 +7,7 @@ import Card from '../../components/Card.astro';
 	<section>
 		<h2>Component Library</h2>
 		<p>Rizzo CSS includes a comprehensive set of accessible, theme-aware components. Each component is built with semantic variables, follows BEM naming conventions, and includes full keyboard navigation and ARIA support.</p>
-		<p><strong>Documentation for every framework:</strong> Each component has an <strong>Astro</strong> page below (live demos + usage), a <strong>Svelte</strong> page at <a href="/docs/svelte/components">/docs/svelte/components</a>, and <strong>Vanilla</strong> at <a href="/docs/vanilla/components">/docs/vanilla/components</a> with copyable HTML and interactive examples. Every component page includes <strong>Astro | Svelte | Vanilla</strong> code tabs with complete, copy-paste examples. Interactive components (Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, Copy to clipboard, etc.) run their scripts after the DOM is ready, so they work when you import or copy them. Use the framework switcher to toggle. This site has 24 component doc pages; the CLI and package offer 29 copyable components (Core = 29; Manual = pick which to include, all pre-selected).</p>
+		<p><strong>Documentation for every framework:</strong> Each component has an <strong>Astro</strong> page below (live demos + usage), a <strong>Svelte</strong> page at <a href="/docs/svelte/components">/docs/svelte/components</a>, and <strong>Vanilla</strong> at <a href="/docs/vanilla/components">/docs/vanilla/components</a> with copyable HTML and interactive examples. Every component page includes <strong>Astro | Svelte | Vanilla</strong> code tabs with complete, copy-paste examples. Interactive components (Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, Copy to clipboard, etc.) run their scripts after the DOM is ready, so they work when you import or copy them. Use the framework switcher to toggle. This site has 27 component doc pages; the CLI and package offer 31 copyable components (Core = 31; Manual = pick which to include, all pre-selected).</p>
 	</section>
 	
 	<section>
@@ -31,11 +31,38 @@ import Card from '../../components/Card.astro';
 				</Card>
 			</a>
 			
+			<a href="/docs/components/docs-sidebar" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 var(--spacing-2) 0;">Docs Sidebar</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Documentation sidebar navigation with grouped links and active state</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/font-switcher" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 var(--spacing-2) 0;">Font Switcher</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Font pair (sans + mono) dropdown with preview and keyboard navigation</p>
+					</div>
+				</Card>
+			</a>
+			
 			<a href="/docs/components/theme-switcher" class="component-card-link">
 				<Card variant="elevated">
 					<div class="card__body">
 						<h3 style="margin: 0 0 var(--spacing-2) 0;">Theme Switcher</h3>
 						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Accessible theme switcher with theme icons and keyboard navigation</p>
+					</div>
+				</Card>
+			</a>
+			
+			<a href="/docs/components/sound-effects" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 var(--spacing-2) 0;">Sound Effects</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Toggle for play sound on click (Web Audio); off by default</p>
 					</div>
 				</Card>
 			</a>

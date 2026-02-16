@@ -2,13 +2,17 @@
 
 A focused list of **remaining** tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.41) with CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. For feature summaries and what’s already done, see: [CONTRIBUTING.md](../CONTRIBUTING.md) (community), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features) (a11y features), [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md#features-automated-coverage) (automated tests), [COLORS.md](./COLORS.md) (theming). Full product state: [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md), [CLI_FLOWS](./CLI_FLOWS.md).
+**Current state:** Single package **rizzo-css** (v0.0.42) with CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. For feature summaries and what’s already done, see: [CONTRIBUTING.md](../CONTRIBUTING.md) (community), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features) (a11y features and testing), [COLORS.md](./COLORS.md) (theming). Full product state: [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md).
+
+**Recently completed:** Font changer in Settings with theme-style UI (trigger + menu + preview); **six font pairs** (Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono) across docs and all scaffolds; font config shipped with package and copied by CLI when adding Settings; Vite font path fix (literal filenames in `url()` for build-time resolution); **sound effects** (Web Audio click on interactive elements, Settings toggle, off by default); **Navbar Components dropdown** 3-column layout; docs and package version bump to 0.0.42.
+
+**Font pairs (current state):** **6 pairs** — Geist (default), Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono (JetBrains Mono reused for outfit pair). See [PLAN_FONT_CHANGER](./PLAN_FONT_CHANGER.md).
 
 ---
 
 ## ▶️ Next task (recommended)
 
-**Manual a11y testing** — Automated axe, keyboard, and ARIA tests are in place (`pnpm test:a11y`). Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion) per [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md); log and fix any issues.
+**Manual a11y testing** — Automated axe, keyboard, and ARIA tests are in place (`pnpm test:a11y`). Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, **Settings**, Search, Accordion) per [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing); log and fix any issues.
 
 ---
 
@@ -34,7 +38,7 @@ A focused list of **remaining** tasks for the Rizzo CSS design system, **ordered
 
 ## 3. Accessibility
 
-- [ ] **Manual screen reader testing** — [ACCESSIBILITY_TESTING.md](./ACCESSIBILITY_TESTING.md) checklist: NVDA/VoiceOver/JAWS on Modal, Dropdown, Tabs, ThemeSwitcher, Search, Accordion; fix any announced-label or focus issues.
+- [ ] **Manual screen reader testing** — [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing) checklist: NVDA/VoiceOver/JAWS on Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, Settings, Search, Accordion; fix any announced-label or focus issues.
 - [ ] **Focus** — Focus trap utilities, focus restoration, skip links (already in place for Modal/Search/Settings).
 - [ ] **Contrast** — Themes use `--accent-fg` / `--accent-text` etc.; verify all themes meet WCAG AA.
 

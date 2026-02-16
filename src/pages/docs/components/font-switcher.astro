@@ -1,0 +1,60 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import FontSwitcher from '../../../components/FontSwitcher.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Font Switcher Component — Astro" description="Accessible font pair (sans + mono) switcher with preview and keyboard navigation">
+	<section>
+		<h2>Font Switcher Component</h2>
+		<p>The FontSwitcher is integrated into the Settings panel but can also be used standalone. It sets <code>--font-family</code> and <code>--font-family-mono</code> on <code>&lt;html&gt;</code> and persists the choice in <code>localStorage</code> (key <code>fontPair</code>).</p>
+		<AddComponentTabs componentName="Font Switcher" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Try switching font pairs below:</p>
+			<FontSwitcher idPrefix="doc" />
+		</div>
+		
+		<h3>Usage</h3>
+		<p>FontSwitcher script runs after DOM ready and initializes every <code>[data-font-switcher]</code> on the page. Use it inside Settings or standalone.</p>
+		<FrameworkCodeTabs
+			astro={`---
+import FontSwitcher from '../components/rizzo/FontSwitcher.astro';
+---
+
+<FontSwitcher />
+<!-- Optional: use idPrefix when multiple instances exist on the same page -->
+<FontSwitcher idPrefix="settings" />`}
+			svelte={`<script>
+  import { FontSwitcher } from '$lib/rizzo';
+</script>
+
+<FontSwitcher />`}
+			vanilla={`<!-- Font switcher HTML from package scaffold; script runs on DOMContentLoaded. -->
+<!-- Include [data-font-switcher] markup; persist with localStorage key "fontPair". -->`}
+		/>
+		
+		<h3>Features</h3>
+		<ul>
+			<li>Dropdown lists all font pairs (sans + mono). Body text uses the sans font; code blocks use the mono font.</li>
+			<li><strong>Preview panel</strong> — When the menu is open, hover or focus an option to see a preview of that pair (sample + mono).</li>
+			<li>Persists selection in <code>localStorage</code> (key <code>fontPair</code>).</li>
+			<li>Full keyboard navigation: Enter/Space to open/close, Arrow keys to move, Enter/Space to select, Escape to close.</li>
+			<li>Optional <code>idPrefix</code> prop to avoid duplicate IDs when multiple FontSwitchers exist (e.g. in Settings and on the page).</li>
+		</ul>
+		
+		<h3>Keyboard Navigation</h3>
+		<ul>
+			<li><code>Enter</code> or <code>Space</code> — Open/close menu</li>
+			<li><code>ArrowDown</code> — Open menu and focus first option</li>
+			<li><code>ArrowUp</code> / <code>ArrowDown</code> — Navigate options</li>
+			<li><code>Enter</code> or <code>Space</code> — Select font pair</li>
+			<li><code>Escape</code> — Close menu</li>
+		</ul>
+
+		<h3>Font pairs</h3>
+		<p>Font pairs are defined in config (<code>FONT_PAIRS</code>, <code>FONT_PAIR_DEFAULT</code>). When you add Settings via the CLI, it copies <code>fonts.ts</code> (Astro: <code>src/components/config/fonts.ts</code>; Svelte: <code>src/lib/config/fonts.ts</code>). Each pair sets <code>--font-family</code> (sans) and <code>--font-family-mono</code> (mono) on the document. The layout flash script applies the stored pair on load before the component script runs.</p>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/font-switcher">Svelte</a> (live Svelte component) · <a href="/docs/vanilla/components/font-switcher">Vanilla</a> (live example + copyable HTML).</p>
+	</section>
+</DocsLayout>
