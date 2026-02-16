@@ -1,0 +1,56 @@
+---
+interface FooterLink {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  /** Site or product name shown in copyright */
+  siteName?: string;
+  /** Copyright year (default: current year) */
+  year?: number;
+  /** Optional list of footer links (e.g. Privacy, Terms, Docs) */
+  links?: FooterLink[];
+  /** Optional class for the root element */
+  class?: string;
+}
+
+const {
+  siteName = '',
+  year = new Date().getFullYear(),
+  links = [],
+  class: className = '',
+} = Astro.props;
+
+const classes = `footer ${className}`.trim();
+---
+
+<footer class={classes} role="contentinfo">
+  <div class="footer__container">
+    <div class="footer__inner">
+      <p class="footer__copyright">
+        {siteName ? (
+          <>
+            <span class="footer__site-name">{siteName}</span>
+            {' · '}
+          </>
+        ) : null}
+        <span class="footer__year">© {year}</span>
+      </p>
+      {links.length > 0 ? (
+        <nav class="footer__nav" aria-label="Footer">
+          <ul class="footer__links">
+            {links.map((link) => (
+              <li class="footer__link-item">
+                <a class="footer__link" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      ) : null}
+      <slot />
+    </div>
+  </div>
+</footer>

@@ -44,9 +44,9 @@ const FOUNDATION_ROUTES = [
 
 const COMPONENT_SLUGS = [
   'accordion', 'alert', 'avatar', 'badge', 'breadcrumb', 'button', 'cards',
-  'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'font-switcher',
-  'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar', 'search',
-  'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher',
+  'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer',
+  'font-switcher', 'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar',
+  'search', 'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher',
   'toast', 'tooltip',
 ];
 

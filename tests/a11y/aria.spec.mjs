@@ -116,3 +116,15 @@ test.describe('ARIA and roles (font switcher)', () => {
     await expect(option).toBeVisible();
   });
 });
+
+test.describe('ARIA and roles (footer)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/footer');
+    await lockTheme(page);
+  });
+
+  test('footer has contentinfo landmark', async ({ page }) => {
+    const contentinfo = page.getByRole('contentinfo').first();
+    await expect(contentinfo).toBeVisible();
+  });
+});

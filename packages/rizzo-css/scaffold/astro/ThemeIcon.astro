@@ -1,6 +1,7 @@
 ---
 import type { ThemeIconKey } from './themes';
 import { ALL_THEMES } from './themes';
+import Gear from './icons/Gear.astro';
 import Owl from './icons/Owl.astro';
 import Palette from './icons/Palette.astro';
 import Flame from './icons/Flame.astro';
@@ -17,7 +18,7 @@ import Cherry from './icons/Cherry.astro';
 import Brush from './icons/Brush.astro';
 
 const iconMap: Record<ThemeIconKey, typeof Owl> = {
-  gear: Owl, // fallback; theme pages don't use 'gear'
+  gear: Gear,
   owl: Owl,
   palette: Palette,
   flame: Flame,

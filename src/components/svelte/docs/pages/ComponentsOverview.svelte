@@ -1,7 +1,7 @@
 <script lang="ts">
   import Card from '../../Card.svelte';
 
-  /* Order matches Astro Navbar components dropdown (alphabetical) */
+  /* Order matches Astro nav/sidebar: alphabetical by title */
   const items: { href: string; title: string; desc: string }[] = [
     { href: '/docs/svelte/components/accordion', title: 'Accordion', desc: 'Expandable panels with single or multiple open' },
     { href: '/docs/svelte/components/alert', title: 'Alert', desc: 'Alert with variants, dismissible and auto-dismiss' },
@@ -11,9 +11,10 @@
     { href: '/docs/svelte/components/button', title: 'Button', desc: 'Semantic button with variants using theme variables' },
     { href: '/docs/svelte/components/cards', title: 'Cards', desc: 'Flexible card with variants and sections' },
     { href: '/docs/svelte/components/copy-to-clipboard', title: 'Copy to Clipboard', desc: 'Copy text with visual feedback' },
+    { href: '/docs/svelte/components/docs-sidebar', title: 'Docs Sidebar', desc: 'Sidebar nav with grouped links and active state' },
     { href: '/docs/svelte/components/divider', title: 'Divider', desc: 'Horizontal or vertical divider with optional label' },
     { href: '/docs/svelte/components/dropdown', title: 'Dropdown', desc: 'Menu with items, links, submenus, and actions' },
-    { href: '/docs/svelte/components/docs-sidebar', title: 'Docs Sidebar', desc: 'Sidebar nav with grouped links and active state' },
+    { href: '/docs/svelte/components/footer', title: 'Footer', desc: 'Site footer with copyright, optional site name, and optional link list' },
     { href: '/docs/svelte/components/font-switcher', title: 'Font Switcher', desc: 'Font pair (sans + mono) dropdown with preview' },
     { href: '/docs/svelte/components/forms', title: 'Forms', desc: 'FormGroup, Input, Checkbox, Textarea, Select, Radio' },
     { href: '/docs/svelte/components/icons', title: 'Icons', desc: 'Reusable SVG icon components (Tabler, Devicons); Astro reference, same CSS in Svelte' },

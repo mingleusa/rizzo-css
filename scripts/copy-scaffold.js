@@ -24,7 +24,7 @@ const astroDest = join(scaffoldDir, 'astro');
 // Astro components to scaffold. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'Avatar', 'Badge', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
-  'CopyToClipboard', 'Divider', 'Dropdown', 'FontSwitcher', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
+  'CopyToClipboard', 'Divider', 'Dropdown', 'Footer', 'FontSwitcher', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
   'ProgressBar', 'Radio', 'Search', 'Select', 'Settings', 'SoundEffects', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
 ];
 

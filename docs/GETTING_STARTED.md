@@ -8,8 +8,8 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 31 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.42/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
-- **Svelte** — `/docs/svelte` (27 component pages). Scaffold ships 31 components (Core or Manual). React/Vue later.
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.43/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Svelte** — `/docs/svelte` (28 component pages). Scaffold ships 31 components (Core or Manual). React/Vue later.
 
 ---
 
@@ -106,7 +106,7 @@ Import the CSS **once** in your app (root layout or main entry):
   import { Button, Badge, Card, Modal, Tabs, /* ... */ } from '$lib/rizzo';
   ```
 - **Scaffold:** The Svelte scaffold `app.html` includes **theme flash prevention** and **toast** (`showToast`, `removeToast`, `removeAllToasts`). The package includes **Navbar**, **Search**, and **Settings** in `scaffold/svelte/` (minimal versions: Search has header with icons, input, close button, sample results; Navbar/Search click-outside and Escape; Settings via `window.openSettings`, overlay click and Escape). Add them via the CLI when hand-picking components or copy the full versions from this repo for full parity.
-- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 27 component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page to switch views.
+- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 28 component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page to switch views.
 - **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Persist with `localStorage` key `theme`; use `system` for OS preference. Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
 ### React and Vue (planned)

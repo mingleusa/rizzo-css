@@ -13,9 +13,9 @@
   <p>Sidebar navigation for documentation sites. Same BEM and behavior as the <a href="/docs/components/docs-sidebar">Astro Docs Sidebar</a>: grouped links (Introduction, Foundations, Components) with active state. Pass <code>currentPath</code> and <code>pathPrefix</code> so hrefs and active styling match.</p>
   <AddComponentTabs componentName="Docs Sidebar" />
   <h3>Live example</h3>
-  <p>The sidebar on the left of this page is the docs layout sidebar. Below is a standalone instance.</p>
-  <div class="example" style="max-height: 18rem; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--spacing-4);">
-    <DocsSidebar currentPath={currentPath} pathPrefix={pathPrefix} />
+  <p>The sidebar on the left of this page is the docs layout sidebar. Below is a compact demo.</p>
+  <div class="docs-sidebar-demo">
+    <DocsSidebar currentPath={currentPath} pathPrefix={pathPrefix} omitId />
   </div>
   <h3>Usage</h3>
   <CodeBlock

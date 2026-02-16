@@ -308,7 +308,10 @@ Use this checklist for manual keyboard and screen reader testing. Run automated 
 | Component | What to test |
 |-----------|--------------|
 | **Navbar** | Skip link or main content first; nav items and dropdowns keyboard accessible; mobile menu open/close and focus trap. |
+| **Docs Sidebar** | Nav landmark; group labels and links focusable in order; current page indicated (e.g. aria-current or visible active state); collapse/expand if present. |
+| **Footer** | Landmark (role="contentinfo" or semantic footer); links focusable with clear names; no interactive traps. |
 | **Pagination, Breadcrumb, Buttons, Badge, Card, Table** | Links/buttons focusable with clear names; table headers associated if sortable. |
+| **Sound Effects** | When used standalone: checkbox focusable, label “Play sound on click” and help text announced; state change announced. (When in Settings, covered by Settings.) |
 
 ### Tools
 

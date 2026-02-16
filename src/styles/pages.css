@@ -206,11 +206,46 @@
   margin: 0;
 }
 
+.home__features {
+  margin-bottom: var(--spacing-16);
+}
+
+.home__features-intro {
+  font-size: var(--font-size-lg);
+  color: var(--text-dim);
+  max-width: var(--spacing-125);
+  margin: 0 auto var(--spacing-10) auto;
+  text-align: center;
+  line-height: var(--line-height-relaxed);
+}
+
+.home__features-featured {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--spacing-80)), 1fr));
+  gap: var(--spacing-6);
+  margin-bottom: var(--spacing-8);
+}
+
+.home__features-supporting-label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--text-dim);
+  margin: 0 0 var(--spacing-4) 0;
+  text-align: center;
+}
+
 .home__grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(var(--spacing-75), 1fr));
   gap: var(--spacing-6);
   margin-bottom: var(--spacing-16);
+}
+
+.home__grid--supporting {
+  margin-bottom: 0;
+  gap: var(--spacing-5);
 }
 
 .home__card {
@@ -219,6 +254,53 @@
   border-radius: var(--radius-lg);
   padding: var(--spacing-6);
   color: var(--text);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.home__card:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.home__card--featured {
+  padding: var(--spacing-8);
+  border-color: var(--border);
+  border-top: 3px solid oklch(from var(--accent) l c h / 24%);
+}
+
+.home__card--featured:hover {
+  border-color: oklch(from var(--accent) l c h / 28%);
+  border-top-color: oklch(from var(--accent) l c h / 40%);
+  box-shadow: var(--shadow-md);
+}
+
+.home__card--supporting {
+  padding: var(--spacing-5);
+  min-height: var(--spacing-32);
+  display: flex;
+  flex-direction: column;
+}
+
+.home__card--supporting h3 {
+  font-size: var(--font-size-base);
+  margin-bottom: var(--spacing-2);
+}
+
+.home__card--supporting p {
+  font-size: var(--font-size-sm);
+}
+
+.home__card-icon {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-bold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wider);
+  color: var(--accent-fg);
+  background-color: oklch(from var(--accent) l c h / 14%);
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-3);
 }
 
 .home__card h3 {
@@ -226,6 +308,11 @@
   font-weight: var(--font-weight-semibold);
   color: var(--text);
   margin: 0 0 var(--spacing-3) 0;
+}
+
+.home__card--featured h3 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-4);
 }
 
 .home__card p {
@@ -335,6 +422,18 @@
 
   .home__install-grid {
     grid-template-columns: 1fr;
+  }
+
+  .home__features-intro {
+    font-size: var(--font-size-base);
+  }
+
+  .home__features-featured {
+    grid-template-columns: 1fr;
+  }
+
+  .home__card--supporting {
+    min-height: 0;
   }
 
   .home__grid,
@@ -540,6 +639,41 @@
 .docs-sidebar__link--active:hover {
   color: var(--accent-fg-hover);
   background-color: oklch(from var(--accent-fg) l c h / 16%);
+}
+
+/* Compact demo for component page: same structure as site sidebar, scaled down */
+.docs-sidebar-demo {
+  max-height: 18rem;
+  overflow: auto;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-3);
+  background-color: var(--background);
+}
+
+.docs-sidebar-demo .docs-sidebar {
+  width: 11rem;
+  padding: 0 var(--spacing-2) var(--spacing-4) 0;
+  border-right: none;
+  position: static;
+  max-height: none;
+}
+
+.docs-sidebar-demo .docs-sidebar__nav {
+  gap: var(--spacing-4);
+}
+
+.docs-sidebar-demo .docs-sidebar__group-label,
+.docs-sidebar-demo h2.docs-sidebar__group-label {
+  font-size: 0.625rem;
+  font-weight: var(--font-weight-semibold);
+  padding: var(--spacing-1) var(--spacing-2) var(--spacing-1);
+  margin-bottom: var(--spacing-1);
+}
+
+.docs-sidebar-demo .docs-sidebar__link {
+  font-size: 0.75rem;
+  padding: var(--spacing-1) var(--spacing-2);
 }
 
 /* Theme page header (icon + title) */

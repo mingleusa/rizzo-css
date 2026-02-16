@@ -33,6 +33,7 @@ export function getStaticPaths() {
     { params: { slug: 'components/font-switcher' } },
     { params: { slug: 'components/sound-effects' } },
     { params: { slug: 'components/docs-sidebar' } },
+    { params: { slug: 'components/footer' } },
   ];
   return paths;
 }
@@ -70,6 +71,7 @@ function getMeta() {
     'font-switcher': 'Font Switcher',
     'sound-effects': 'Sound Effects',
     'docs-sidebar': 'Docs Sidebar',
+    footer: 'Footer',
   };
   const name = path[1] ? titles[path[1]] ?? path[1].replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'Components';
   return { title: path[1] ? `${name} — Svelte` : name, description: `${name} component — Svelte.` };

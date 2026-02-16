@@ -93,14 +93,14 @@ const LIGHT_THEMES = [
 const THEMES = [...DARK_THEMES, ...LIGHT_THEMES];
 // Components available for scaffold (must match scaffold/svelte and scaffold/astro)
 const SVELTE_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 const ASTRO_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
@@ -109,7 +109,7 @@ const ASTRO_COMPONENTS = [
 
 // Base set for Manual: all interactive components we ship (so manual has a full working set). Full includes everything (same list).
 const RECOMMENDED_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
   'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
@@ -174,14 +174,15 @@ function logAddedDeps(selected, expanded, framework) {
   if (byRequirement.length) console.log('\n  Also adding: ' + byRequirement.join('; '));
 }
 
-// Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug. Navbar, Settings, Search, Icons are vanilla-only.
+// Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug.
 const VANILLA_COMPONENT_SLUGS = {
-  Button: 'button', Badge: 'badge', Card: 'cards', Divider: 'divider', Spinner: 'spinner', ProgressBar: 'progress-bar',
-  Avatar: 'avatar', Alert: 'alert', Breadcrumb: 'breadcrumb', FormGroup: 'forms', Input: 'forms', Checkbox: 'forms',
-  Textarea: 'forms', Select: 'forms', Radio: 'forms', CopyToClipboard: 'copy-to-clipboard', Tooltip: 'tooltip',
-  Pagination: 'pagination', Tabs: 'tabs', Accordion: 'accordion', Dropdown: 'dropdown', Modal: 'modal',
-  Toast: 'toast', Table: 'table', ThemeSwitcher: 'theme-switcher',
-  Navbar: 'navbar', Settings: 'settings', Search: 'search', Icons: 'icons',
+  Accordion: 'accordion', Alert: 'alert', Avatar: 'avatar', Badge: 'badge', Breadcrumb: 'breadcrumb', Button: 'button',
+  Card: 'cards', Checkbox: 'forms', CopyToClipboard: 'copy-to-clipboard', Divider: 'divider', Dropdown: 'dropdown',
+  Footer: 'footer', FormGroup: 'forms', Input: 'forms', Modal: 'modal', Pagination: 'pagination', ProgressBar: 'progress-bar',
+  Radio: 'forms', Search: 'search', Select: 'forms', Settings: 'settings', Spinner: 'spinner', Table: 'table',
+  Tabs: 'tabs', Textarea: 'forms', ThemeSwitcher: 'theme-switcher', Toast: 'toast', Tooltip: 'tooltip',
+  FontSwitcher: 'font-switcher', SoundEffects: 'sound-effects',
+  Navbar: 'navbar', Icons: 'icons',
 };
 
 // ANSI colors for CLI (framework logo colors)

@@ -13,15 +13,20 @@ const rootDir = resolve(__dirname, '..');
 const scaffoldVanilla = join(rootDir, 'packages', 'rizzo-css', 'scaffold', 'vanilla');
 const DOCS_BASE = 'https://rizzo-css.vercel.app';
 
+/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS. */
 const COMPONENT_SLUGS = [
-  'navbar', 'settings', 'theme-switcher', 'button', 'badge', 'accordion', 'breadcrumb', 'pagination',
-  'progress-bar', 'spinner', 'avatar', 'divider', 'table', 'icons', 'copy-to-clipboard', 'forms',
-  'cards', 'modal', 'alert', 'toast', 'search', 'tooltip', 'dropdown', 'tabs',
+  'accordion', 'alert', 'avatar', 'badge', 'breadcrumb', 'button', 'cards',
+  'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer', 'font-switcher',
+  'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar', 'search',
+  'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher', 'toast', 'tooltip',
 ];
 
 const COMPONENT_TITLES = {
   'copy-to-clipboard': 'Copy to Clipboard',
+  'docs-sidebar': 'Docs Sidebar',
+  'font-switcher': 'Font Switcher',
   'progress-bar': 'Progress Bar',
+  'sound-effects': 'Sound Effects',
   'theme-switcher': 'Theme Switcher',
 };
 
@@ -47,17 +52,57 @@ function main() {
   const beforeMain = full.slice(0, mainStart);
   const afterMain = full.slice(mainEnd);
 
-  // Landing: hero + documentation cards (external links to docs). Same structure as main site home, two sections only.
+  // Landing: hero + features + documentation cards (full home page for package distributions).
   const rootMainContent = `
     <div class="home__container">
       <header class="home__hero">
         <h1 class="home__title">Rizzo CSS</h1>
-        <p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization. Start here then make it your own.</p>
+        <p class="home__subtitle">A modern CSS design system with semantic theming, accessibility-first components, and one CLI for Vanilla, Astro, and Svelte. Start here then make it your own.</p>
         <div class="home__hero-ctas">
           <a href="${DOCS_BASE}/docs/getting-started" class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started</a>
           <a href="${DOCS_BASE}/docs/components" class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components</a>
         </div>
       </header>
+      <section class="home__features" aria-labelledby="home-features-heading">
+        <h2 id="home-features-heading" class="home__section-title">Features</h2>
+        <p class="home__features-intro">A complete design system that works across Vanilla, Astro, and Svelte — same CSS, same components, zero lock-in.</p>
+        <div class="home__features-featured">
+          <div class="home__card home__card--featured">
+            <span class="home__card-icon" aria-hidden="true">Themes</span>
+            <h3>14 beautiful themes</h3>
+            <p>7 dark and 7 light with OKLCH for perceptual uniformity. System preference, persistence, and a unique icon per theme.</p>
+          </div>
+          <div class="home__card home__card--featured">
+            <span class="home__card-icon" aria-hidden="true">A11y</span>
+            <h3>Accessibility first</h3>
+            <p>WCAG AA compliant with full keyboard navigation, ARIA, focus management, and screen reader support.</p>
+          </div>
+          <div class="home__card home__card--featured">
+            <span class="home__card-icon" aria-hidden="true">Components</span>
+            <h3>31 ready components</h3>
+            <p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, and more — all accessible and themeable.</p>
+          </div>
+        </div>
+        <h3 class="home__features-supporting-label">And more</h3>
+        <div class="home__grid home__grid--supporting">
+          <div class="home__card home__card--supporting">
+            <h3>Semantic variables</h3>
+            <p>CSS variables that adapt to themes. No hardcoded colors; override once, update everywhere.</p>
+          </div>
+          <div class="home__card home__card--supporting">
+            <h3>PostCSS powered</h3>
+            <p>Imports, autoprefixing, and production minification. Fits into any build pipeline.</p>
+          </div>
+          <div class="home__card home__card--supporting">
+            <h3>Typography & spacing</h3>
+            <p>Scaling font sizes, weights, line heights, and a consistent spacing scale (0–24).</p>
+          </div>
+          <div class="home__card home__card--supporting">
+            <h3>Responsive & utilities</h3>
+            <p>Mobile-first breakpoints and utility classes for layout, display, and flexbox.</p>
+          </div>
+        </div>
+      </section>
       <section class="home__docs">
         <h2 class="home__section-title">Documentation</h2>
         <div class="home__docs-grid">

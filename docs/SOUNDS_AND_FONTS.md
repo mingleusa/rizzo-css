@@ -2,12 +2,12 @@
 
 ## Where assets live
 
-- **Docs site (this repo):** `src/assets/fonts/` (webfonts). Built CSS and fonts are copied to `public/css/` and `public/assets/fonts/` by `pnpm build:css`. **Sound effects** on the docs site are generated via the Web Audio API (no asset files); a short click plays when the user has enabled “Play sound on click” in Settings.
+- **Docs site (this repo):** `src/assets/fonts/` (webfonts). Built CSS and fonts are copied to `public/css/` and `public/assets/fonts/` by `pnpm build:css`. **Sound effects:** When "Play sound on click" is enabled in Settings, the layout script tries `public/sfx/click.mp3` or `public/sfx/click.wav` (add your own file to `public/sfx/`); if none are found, a short Web Audio tone plays. Sound is off by default. “Play sound on click” in Settings.
 - **Published package:** The npm package ships **fonts** with the CSS. The `build:css` script copies `src/assets/fonts/` to `packages/rizzo-css/dist/fonts/` and rewrites font URLs in `dist/rizzo.min.css` to `./fonts/...`. The CLI copies CSS and fonts into **framework-appropriate locations** (see [GETTING_STARTED – Where the CLI puts CSS and assets](./GETTING_STARTED.md#where-the-cli-puts-css-and-assets-per-framework)). Sounds are not yet shipped in the package.
 
 ## Sound effects (docs site)
 
-- **Behavior:** When “Play sound on click” is enabled in Settings, a short, low-volume click sound plays on interactive elements (links, buttons, form controls, menu items, tabs). Sound is **off by default** (no localStorage key on first load) so there is no unexpected audio.
+- **Behavior:** When “Play sound on click” is enabled in Settings, a short, low-volume click sound plays on interactive elements (links, buttons, form controls, menu items, tabs, options, switches, summary). The script tries `public/sfx/click.mp3` then `public/sfx/click.wav`; if neither is present, a Web Audio tone is used. Sound is **off by default** (no localStorage key on first load) so there is no unexpected audio.
 - **Accessibility:** Default is off; the user opts in via the Settings toggle. The sound is purely decorative; no information is conveyed by sound alone. The toggle is labeled “Play sound on click” with help text “Short click sound when you interact with buttons and links. Off by default.”
 - **Persistence:** The choice is stored in localStorage as `soundEffects` (`'true'` or `'false'`). Restored when the panel opens and when the page loads (script reads the key before playing).
 

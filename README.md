@@ -18,7 +18,7 @@
 
 *Run `npx rizzo-css help` to see this in the CLI.*
 
-[![npm](https://img.shields.io/badge/npm-0.0.42-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.43-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -42,7 +42,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 31 accessible, themeable components (27 doc pages; Astro reference + Svelte examples)
+- 📦 **Comprehensive Components** - 31 accessible, themeable components (28 doc pages; Astro reference + Svelte examples)
 - 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte | Vanilla). Svelte docs at [/docs/svelte](/docs/svelte); Vanilla docs at [/docs/vanilla/components](/docs/vanilla/components) with copy-paste HTML, optional JS, and live demos
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation

@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import DocsSidebar from '../../../components/DocsSidebar.astro';
+import DocsSidebarComponent from '../../../components/DocsSidebar.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import { getFrameworkFromPath } from '../../../config/frameworks';
@@ -15,9 +15,9 @@ const { framework } = getFrameworkFromPath(currentPath);
 		<p>A sidebar navigation component for documentation sites. Renders grouped links (e.g. Introduction, Foundations, Components) with active-state styling. Used in the docs layout with a toggle and overlay on mobile.</p>
 		<AddComponentTabs componentName="Docs Sidebar" />
 		<h3>Live example</h3>
-		<p>The sidebar on the left of this page is the Docs Sidebar. Below is a standalone instance with the same nav data (scrollable in a box).</p>
-		<div class="example" style="max-height: 20rem; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--spacing-4);">
-			<DocsSidebar currentPath={currentPath} framework={framework} />
+		<p>The sidebar on the left of this page is the Docs Sidebar. Below is a compact demo with the same nav data (scrollable).</p>
+		<div class="docs-sidebar-demo">
+			<DocsSidebarComponent currentPath={currentPath} framework={framework} omitId />
 		</div>
 
 		<h3>Usage</h3>

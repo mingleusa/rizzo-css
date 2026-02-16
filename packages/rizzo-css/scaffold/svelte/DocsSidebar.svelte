@@ -6,8 +6,10 @@
     currentPath: string;
     /** Path prefix for framework-specific links (e.g. /docs, /docs/svelte, /docs/vanilla). */
     pathPrefix?: string;
+    /** When true, omit the aside id to avoid duplicate ids when used inside a demo box. */
+    omitId?: boolean;
   }
-  let { currentPath, pathPrefix = '/docs' }: Props = $props();
+  let { currentPath, pathPrefix = '/docs', omitId = false }: Props = $props();
 
   function fullHref(link: { href: string; frameworkOnly?: boolean }): string {
     const base = link.frameworkOnly ? pathPrefix : '/docs';
@@ -21,7 +23,7 @@
   }
 </script>
 
-<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation" tabindex="0">
+<aside id={omitId ? undefined : 'docs-sidebar'} class="docs-sidebar" aria-label="Documentation navigation" tabindex="0">
   <nav class="docs-sidebar__nav">
     {#each DOCS_NAV as group}
       <div class="docs-sidebar__group">

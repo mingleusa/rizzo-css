@@ -12,34 +12,37 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 
 ## Component Pages
 
+All components are listed in alphabetical order (sidebar, nav menu, and components page use the same order).
+
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
-- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
-- [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Docs Sidebar](/docs/components/docs-sidebar) - Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state; used in docs layout with optional toggle and overlay on mobile
-- [Font Switcher](/docs/components/font-switcher) - Font pair (sans + mono) dropdown with preview and keyboard navigation; used in Settings and standalone
-- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
-- [Sound Effects](/docs/components/sound-effects) - Toggle for “Play sound on click” (Web Audio); off by default for accessibility; persists in localStorage
-- [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
-- [Button](/docs/components/button) - Semantic button component
+- [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
+- [Avatar](/docs/components/avatar) - User avatar with image or initials fallback, sizes and shapes
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
-- [Icons](/docs/components/icons) - Reusable SVG icon components
-- [CopyToClipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
-- [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
+- [Button](/docs/components/button) - Semantic button component
 - [Cards](/docs/components/cards) - Flexible card component
+- [Copy to Clipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
+- [Docs Sidebar](/docs/components/docs-sidebar) - Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state; used in docs layout with optional toggle and overlay on mobile
+- [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
+- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
+- [Footer](/docs/components/footer) - Site footer with copyright, optional site name, and optional link list (role="contentinfo")
+- [Font Switcher](/docs/components/font-switcher) - Font pair (sans + mono) dropdown with preview and keyboard navigation; used in Settings and standalone
+- [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
+- [Icons](/docs/components/icons) - Reusable SVG icon components
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
+- [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
 - [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, ellipsis
 - [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, label, and indeterminate state
-- [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
-- [Avatar](/docs/components/avatar) - User avatar with image or initials fallback, sizes and shapes
-- [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
-- [Table](/docs/components/table) - Data table with sorting and optional filtering
-- [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
-- [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Search](/docs/components/search) - Search component with Algolia integration on the docs site; scaffold Search (package) has full overlay UI: header with search icon, input, close button, and example result links for users to edit. Trigger shows search icon (and Cmd+K on docs). Keyboard and click-outside to close.
-- [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
-- [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
+- [Settings](/docs/components/settings) - Comprehensive settings panel
+- [Sound Effects](/docs/components/sound-effects) - Toggle for "Play sound on click" (Web Audio); off by default for accessibility; persists in localStorage
+- [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
+- [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
+- [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
+- [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
+- [Toast](/docs/components/toast) - Fixed position toast notifications
+- [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 
 ## Features
 
@@ -47,7 +50,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 
 All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
 
-**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Table  
+**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Footer, Table  
 **Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
@@ -55,7 +58,7 @@ All of the following components are implemented with dedicated documentation pag
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
-(27 component doc pages on the site; the CLI/scaffold offers 31 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
+(28 component doc pages on the site; the CLI/scaffold offers 31 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
 
 ## Component Features
 

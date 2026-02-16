@@ -1,6 +1,7 @@
 ---
 import Navbar from '../components/Navbar.astro';
 import Settings from '../components/Settings.astro';
+import Footer from '../components/Footer.astro';
 import { FONT_PAIRS } from '../config/fonts';
 import '../styles/main.css';
 
@@ -329,20 +330,22 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 			})();
 		</script>
 		<script is:inline>
-			// Sound effects: play on click when user has enabled in Settings. Default: off (no localStorage key).
+			// Sound effects: play on click when user has enabled in Settings. Uses /sfx/click.mp3 or /sfx/click.wav if present (add to public/sfx/), else Web Audio fallback.
 			(function() {
 				var SOUND_KEY = 'soundEffects';
-				var clickableSelector = 'a[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], select, [role="button"], [role="menuitem"], [role="menuitemradio"], [role="tab"]';
+				var clickableSelector = 'a[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"]';
 				var audioContext = null;
+				var soundUrls = ['/sfx/click.mp3', '/sfx/click.wav'];
+				var cachedAudio = null;
+				var soundLoadTried = false;
 				function getContext() {
 					if (!audioContext && typeof window.AudioContext !== 'undefined') {
 						audioContext = new window.AudioContext();
 					}
 					return audioContext;
 				}
-				function playClickSound() {
+				function playFallbackTone() {
 					try {
-						if (localStorage.getItem(SOUND_KEY) !== 'true') return;
 						var ctx = getContext();
 						if (!ctx) return;
 						ctx.resume().then(function() {
@@ -359,6 +362,35 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 							osc.start(now);
 							osc.stop(now + 0.04);
 						}).catch(function() {});
+					} catch (e) {}
+				}
+				function tryLoadAssetSound() {
+					if (soundLoadTried || cachedAudio) return;
+					soundLoadTried = true;
+					var idx = 0;
+					function tryNext() {
+						if (idx >= soundUrls.length) return;
+						var a = new window.Audio(soundUrls[idx]);
+						a.volume = 0.4;
+						a.addEventListener('canplaythrough', function() { cachedAudio = a; }, { once: true });
+						a.addEventListener('error', function() { idx++; tryNext(); }, { once: true });
+						a.load();
+					}
+					tryNext();
+				}
+				function playClickSound() {
+					try {
+						if (localStorage.getItem(SOUND_KEY) !== 'true') return;
+						tryLoadAssetSound();
+						if (cachedAudio) {
+							try {
+								cachedAudio.currentTime = 0;
+								cachedAudio.volume = 0.4;
+								cachedAudio.play().catch(function() {});
+							} catch (e) {}
+							return;
+						}
+						playFallbackTone();
 					} catch (e) {}
 				}
 				function isClickable(el) {
@@ -392,6 +424,15 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 				<slot />
 			</div>
 		</main>
+		<Footer
+			siteName="Rizzo CSS"
+			links={[
+				{ href: '/docs/getting-started', label: 'Getting Started' },
+				{ href: '/docs/components', label: 'Components' },
+				{ href: '/docs/theming', label: 'Theming' },
+				{ href: '/docs/accessibility', label: 'Accessibility' },
+			]}
+		/>
 		<script is:inline>
 			(function initTooltips() {
 				function run() {

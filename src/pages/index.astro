@@ -35,40 +35,43 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 				</div>
 			</section>
 			
-			<section class="home__features">
-				<h2 class="home__section-title">Features</h2>
-				<div class="home__grid">
-					<div class="home__card">
-						<h3>🎨 14 Beautiful Themes</h3>
-						<p>7 dark and 7 light themes with OKLCH color format for better color manipulation and perceptual uniformity.</p>
+			<section class="home__features" aria-labelledby="home-features-heading">
+				<h2 id="home-features-heading" class="home__section-title">Features</h2>
+				<p class="home__features-intro">A complete design system that works across Vanilla, Astro, and Svelte — same CSS, same components, zero lock-in.</p>
+				<div class="home__features-featured">
+					<div class="home__card home__card--featured">
+						<span class="home__card-icon" aria-hidden="true">Themes</span>
+						<h3>14 beautiful themes</h3>
+						<p>7 dark and 7 light with OKLCH for perceptual uniformity. System preference, persistence, and a unique icon per theme.</p>
 					</div>
-					<div class="home__card">
-						<h3>♿ Accessibility First</h3>
-						<p>WCAG AA compliant with keyboard navigation, ARIA attributes, and screen reader support built-in.</p>
+					<div class="home__card home__card--featured">
+						<span class="home__card-icon" aria-hidden="true">A11y</span>
+						<h3>Accessibility first</h3>
+						<p>WCAG AA compliant with full keyboard navigation, ARIA, focus management, and screen reader support.</p>
 					</div>
-					<div class="home__card">
-						<h3>🎯 Semantic Variables</h3>
-						<p>Use semantic CSS variables that automatically adapt to themes. No hardcoded colors.</p>
+					<div class="home__card home__card--featured">
+						<span class="home__card-icon" aria-hidden="true">Components</span>
+						<h3>31 ready components</h3>
+						<p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, and more — all accessible and themeable.</p>
 					</div>
-					<div class="home__card">
-						<h3>📦 Ready Components</h3>
-						<p>Navbar (with Search and Settings), Theme Switcher, Buttons, Accordion, Breadcrumb, Pagination, Progress Bar, Spinner, Avatar, Divider, Table, Cards, Modal, Alert, Toast, Dropdown, Tabs, Search, Copy to clipboard, and more — all accessible and themeable.</p>
+				</div>
+				<h3 class="home__features-supporting-label">And more</h3>
+				<div class="home__grid home__grid--supporting">
+					<div class="home__card home__card--supporting">
+						<h3>Semantic variables</h3>
+						<p>CSS variables that adapt to themes. No hardcoded colors; override once, update everywhere.</p>
 					</div>
-					<div class="home__card">
-						<h3>🔧 PostCSS Powered</h3>
-						<p>SCSS/SASS-like imports, autoprefixing, and production minification with cssnano.</p>
+					<div class="home__card home__card--supporting">
+						<h3>PostCSS powered</h3>
+						<p>Imports, autoprefixing, and production minification. Fits into any build pipeline.</p>
 					</div>
-					<div class="home__card">
-						<h3>📐 Typography System</h3>
-						<p>Comprehensive typography with scalable font sizes, weights, line heights, and utilities.</p>
+					<div class="home__card home__card--supporting">
+						<h3>Typography & spacing</h3>
+						<p>Scaling font sizes, weights, line heights, and a consistent spacing scale (0–24).</p>
 					</div>
-					<div class="home__card">
-						<h3>📏 Spacing Utilities</h3>
-						<p>Complete margin and padding utility classes with consistent spacing scale (0-24).</p>
-					</div>
-					<div class="home__card">
-						<h3>📱 Responsive Design</h3>
-						<p>Mobile-first approach with media queries for breakpoints from 640px to 1536px.</p>
+					<div class="home__card home__card--supporting">
+						<h3>Responsive & utilities</h3>
+						<p>Mobile-first breakpoints and utility classes for layout, display, and flexbox.</p>
 					</div>
 				</div>
 			</section>

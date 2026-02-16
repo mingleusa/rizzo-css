@@ -1,0 +1,86 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Footer from '../../../components/Footer.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Footer Component — Astro" description="Accessible site footer with copyright and optional links">
+	<section>
+		<h2>Footer Component</h2>
+		<p>A simple footer with <code>role="contentinfo"</code>, optional site name, copyright year, and an optional list of links (e.g. Privacy, Terms, Docs). Uses semantic CSS variables and BEM classes.</p>
+
+		<AddComponentTabs componentName="Footer" />
+
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Footer
+				siteName="Rizzo CSS"
+				links={[
+					{ href: '/docs/getting-started', label: 'Getting Started' },
+					{ href: '/docs/components', label: 'Components' },
+					{ href: '/docs/theming', label: 'Theming' },
+				]}
+			/>
+		</div>
+
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Footer from '../components/rizzo/Footer.astro';
+---
+
+<Footer siteName="My Site" />
+
+<!-- With links -->
+<Footer
+  siteName="My Site"
+  links={[
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/terms', label: 'Terms' },
+  ]}
+/>
+
+<!-- Custom year -->
+<Footer siteName="My Site" year={2025} />`}
+			svelte={`<script>
+  import { Footer } from '$lib/rizzo';
+</script>
+
+<Footer siteName="My Site" />
+
+<Footer
+  siteName="My Site"
+  links={[
+    { href: '/privacy', label: 'Privacy' },
+    { href: '/terms', label: 'Terms' },
+  ]}
+/>`}
+			vanilla={`<footer class="footer" role="contentinfo">
+  <div class="footer__container">
+    <div class="footer__inner">
+      <p class="footer__copyright">
+        <span class="footer__site-name">My Site</span> · <span class="footer__year">© 2025</span>
+      </p>
+      <nav class="footer__nav" aria-label="Footer">
+        <ul class="footer__links">
+          <li class="footer__link-item"><a class="footer__link" href="/privacy">Privacy</a></li>
+          <li class="footer__link-item"><a class="footer__link" href="/terms">Terms</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</footer>`}
+		/>
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>siteName</code> (string, optional) — Name shown before the copyright (e.g. "My Site · © 2025")</li>
+			<li><code>year</code> (number, optional) — Copyright year (default: current year)</li>
+			<li><code>links</code> (array, optional) — List of <code>{'{ href, label }'}</code> for footer nav links</li>
+			<li><code>class</code> (string, optional) — Additional CSS classes on the root</li>
+		</ul>
+
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/footer">Svelte</a> (live component) · <a href="/docs/vanilla/components/footer">Vanilla</a> (copyable HTML).</p>
+	</section>
+</DocsLayout>
