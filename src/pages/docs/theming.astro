@@ -26,7 +26,7 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 
 <DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
 	<section>
-		<h2>Available Themes</h2>
+		<h2 id="available-themes">Available Themes</h2>
 		<p>Rizzo CSS includes 14 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
 		
 		<div class="example">
@@ -36,7 +36,7 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 	</section>
 	
 	<section>
-		<h2>Dark Themes</h2>
+		<h2 id="dark-themes">Dark Themes</h2>
 		<div class="theming-page__grid">
 			{THEMES_DARK.map((theme) => {
 				const content = themeCardContent[theme.value];
@@ -58,7 +58,7 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 	</section>
 
 	<section>
-		<h2>Light Themes</h2>
+		<h2 id="light-themes">Light Themes</h2>
 		<div class="theming-page__grid">
 			{THEMES_LIGHT.map((theme) => {
 				const content = themeCardContent[theme.value];
@@ -80,9 +80,9 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 	</section>
 	
 	<section>
-		<h2>Using Themes</h2>
+		<h2 id="using-themes">Using Themes</h2>
 		
-		<h3>Setting Theme</h3>
+		<h3 id="setting-theme">Setting Theme</h3>
 		<p>Set the theme via the <code>data-theme</code> attribute on the HTML element:</p>
 		<CodeBlock code={`<html lang="en" data-theme="github-dark-classic">`} language="html" />
 		
@@ -107,7 +107,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 	</section>
 	
 	<section>
-		<h2>Theme File Structure</h2>
+		<h2 id="theme-file-structure">Theme File Structure</h2>
 		<p>Themes are organized in <code>src/styles/themes/</code>:</p>
 		<CodeBlock code={`themes/
 ├── dark/
@@ -129,7 +129,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 	</section>
 	
 	<section>
-		<h2>Creating Custom Themes</h2>
+		<h2 id="creating-custom-themes">Creating Custom Themes</h2>
 		<ol>
 			<li>Create a new theme file in <code>src/styles/themes/dark/</code> or <code>src/styles/themes/light/</code></li>
 			<li>Use the <code>[data-theme="your-theme-name"]</code> selector</li>
@@ -181,7 +181,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 	</section>
 	
 	<section>
-		<h2>Color Format</h2>
+		<h2 id="color-format">Color Format</h2>
 		<p>All themes use <strong>OKLCH</strong> format with percentages and degrees:</p>
 		<CodeBlock code={`--bg: oklch(15% 0.015 270.5deg);`} language="css" />
 		<p>Format: <code>oklch(lightness% chroma hue)</code></p>
@@ -202,7 +202,7 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 	</section>
 	
 	<section>
-		<h2>Theme Persistence</h2>
+		<h2 id="theme-persistence">Theme Persistence</h2>
 		<p>The theme switcher automatically saves the selected theme to <code>localStorage</code> and restores it on page load. An inline script in <code>Layout.astro</code> prevents theme flash by setting the theme immediately before the page renders.</p>
 	</section>
 </DocsLayout>

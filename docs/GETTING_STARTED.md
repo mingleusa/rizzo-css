@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 31 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.46/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.47/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (28 component pages). Scaffold ships 31 components (Core or Manual). React/Vue later.
 - **Icons** — 52 total: 30 regular (Tabler) and 22 devicons (brand icons); same set for Astro, Svelte, and Vanilla. See [Components – Icons](./COMPONENTS.md#icons).
 
@@ -145,9 +145,9 @@ When you run `init` or `add`, the CLI copies the built CSS and static assets (fo
 |-----------|----------|----------------|-------------|
 | **Astro** | `public/css/rizzo.min.css` | `public/assets/fonts/` (sounds: `public/assets/sfx/`) | `public/` |
 | **Svelte** | `static/css/rizzo.min.css` | `static/assets/fonts/` (sounds: `static/assets/sfx/`) | `static/` |
-| **Vanilla** | `css/rizzo.min.css` | `css/fonts/` | project root |
+| **Vanilla** | `css/rizzo.min.css` | `css/fonts/` (sounds: `assets/sfx/`) | project root |
 
-For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` → `/assets/sfx/click.mp3`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts go under **`static/assets/fonts/`** with the same URL rewrite to `/assets/fonts/...` as Astro. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve. When we ship other assets (e.g. sounds, images), they follow the same pattern per framework.
+For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` → `/assets/sfx/click.mp3`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts and sounds go under **`static/assets/fonts/`** and **`static/assets/sfx/`** with the same URL rewrite for fonts. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve; sounds go to **`assets/sfx/`** when you use **Core** or add **Settings** or **SoundEffects**, and the sound script uses a relative path so it works with a local server or `file://`.
 
 ### Summary
 

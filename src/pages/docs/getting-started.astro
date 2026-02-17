@@ -7,7 +7,7 @@ import PackageInstallTabs from '../../components/PackageInstallTabs.astro';
 
 <DocsLayout title="Getting Started" description="Installation, project structure, and quick start guide">
 	<section>
-		<h2>Installation</h2>
+		<h2 id="installation">Installation</h2>
 		<p>You can <strong>run the CLI</strong> or <strong>install the npm package</strong>; both support npm, pnpm, yarn, and bun. Use the tabs below: click a tab to select your package manager, then copy the command. For the CLI: choose <strong>framework</strong> (Vanilla, Astro, or Svelte), then <strong>add to existing</strong> or <strong>create new project</strong>. <strong>Add to existing</strong> (or <code>npx rizzo-css add</code>): drop in CSS + hand-pick components; you must add the <code>&lt;link&gt;</code> yourself (CLI prints the exact tag). <strong>Create new</strong>: choose project location (current directory or enter path/project name), then <strong>Core</strong> (everything) or <strong>Manual</strong> (component picker with all 31 pre-selected), then your package manager (npm, pnpm, yarn, bun). Install runs in the project directory. The package includes <code>dist/rizzo.min.css</code>, the CLI (<code>init</code> / <code>add</code> / <code>theme</code> / <code>doctor</code> / <code>help</code>), and scaffolds plus 31 components (Core = all 31; Manual = pick which to include, all pre-selected). Scaffolds add <strong>README-RIZZO.md</strong>, <strong>LICENSE-RIZZO</strong>, and <strong>.gitignore</strong>. Component dependencies: Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. <code>add</code> writes <strong>RIZZO-SNIPPET.txt</strong> unless <code>--no-snippet</code>; other add flags: <code>--readme</code>, <code>--force</code>, <code>--vanilla-js</code>. Optional <strong>rizzo-css.json</strong> and init flags: <code>--yes --framework</code>, <code>--template full|manual</code>, <code>--install</code>, <code>--no-install</code>; <code>add --install-package</code>. See the <a href="https://www.npmjs.com/package/rizzo-css">npm package</a> and project README for CLI details.</p>
 
 		<h3 class="docs-cli-heading">Run the CLI</h3>
@@ -38,7 +38,7 @@ pnpm install`} language="bash" />
 	</style>
 	
 	<section>
-		<h2>Project Structure</h2>
+		<h2 id="project-structure">Project Structure</h2>
 		<CodeBlock code={`rizzo-css/
 ├── src/
 │   ├── components/      # Astro components
@@ -140,14 +140,14 @@ pnpm install`} language="bash" />
 	</section>
 	
 	<section>
-		<h2>Development</h2>
+		<h2 id="development">Development</h2>
 		<p>Start the development server:</p>
 		<CodeBlock code={`pnpm dev`} language="bash" />
 		<p>The site will be available at <code>http://localhost:4321</code></p>
 	</section>
 	
 	<section>
-		<h2>Building</h2>
+		<h2 id="building">Building</h2>
 		<p>Build for production:</p>
 		<CodeBlock code={`pnpm build`} language="bash" />
 		<p>This will:</p>
@@ -158,7 +158,7 @@ pnpm install`} language="bash" />
 	</section>
 	
 	<section>
-		<h2>Using Components</h2>
+		<h2 id="using-components">Using Components</h2>
 		<p>Rizzo CSS includes a comprehensive set of accessible components. Each component has its own dedicated documentation page with live examples, usage instructions, and API details. Every component page includes <strong>Astro | Svelte | Vanilla</strong> code tabs with complete, copy-paste examples. Interactive components (Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, etc.) run their scripts after the DOM is ready, so they work when you import or copy them into your project. Search, Settings, and the Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all three frameworks.</p>
 		
 		<h3>Component Documentation</h3>
@@ -197,16 +197,16 @@ pnpm install`} language="bash" />
 	</section>
 	
 	<section>
-		<h2>Using Themes</h2>
+		<h2 id="using-themes">Using Themes</h2>
 		<p>Rizzo CSS includes 14 built-in themes (7 dark, 7 light). Themes are applied via the <code>data-theme</code> attribute on the HTML element:</p>
 		<CodeBlock code={`<html lang="en" data-theme="github-dark-classic">`} language="html" />
 		<p>See <a href="/docs/theming">Theming Documentation</a> for more details.</p>
 	</section>
 	
 	<section>
-		<h2>CSS Architecture</h2>
+		<h2 id="css-architecture">CSS Architecture</h2>
 		
-		<h3>File Organization</h3>
+		<h3 id="file-organization">File Organization</h3>
 		<p>CSS is organized into logical files:</p>
 		<ul>
 			<li><code>variables.css</code> - Default theme variables and typography system</li>

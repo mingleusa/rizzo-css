@@ -531,6 +531,11 @@
    Docs layout (sidebar + main)
    ============================================ */
 
+/* Smooth scroll when using sidebar section links (#anchor) */
+html:has([data-docs]) {
+  scroll-behavior: smooth;
+}
+
 .docs {
   display: flex;
   flex-direction: row;
@@ -688,6 +693,43 @@
   background-color: oklch(from var(--accent-fg) l c h / 16%);
 }
 
+.docs-sidebar__sublist {
+  list-style: none;
+  margin: 0 0 0 var(--spacing-2);
+  padding: 0;
+  border-left: 2px solid var(--border);
+}
+
+.docs-sidebar__subitem {
+  margin: 0;
+}
+
+.docs-sidebar__sublink {
+  display: block;
+  padding: var(--spacing-1) var(--spacing-2) var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-xs);
+  color: var(--text-dim);
+  text-decoration: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  transition: color var(--transition-base), background-color var(--transition-base);
+}
+
+.docs-sidebar__sublink:hover {
+  color: var(--text);
+  background-color: var(--background-alt);
+}
+
+.docs-sidebar__sublink--active {
+  color: var(--accent-fg);
+  font-weight: var(--font-weight-medium);
+  background-color: oklch(from var(--accent-fg) l c h / 12%);
+}
+
+.docs-sidebar__sublink--active:hover {
+  color: var(--accent-fg-hover);
+  background-color: oklch(from var(--accent-fg) l c h / 16%);
+}
+
 /* Compact demo for component page: same structure as site sidebar, scaled down */
 .docs-sidebar-demo {
   max-height: 18rem;
@@ -721,6 +763,15 @@
 .docs-sidebar-demo .docs-sidebar__link {
   font-size: 0.75rem;
   padding: var(--spacing-1) var(--spacing-2);
+}
+
+.docs-sidebar-demo .docs-sidebar__sublist {
+  margin-left: var(--spacing-1);
+}
+
+.docs-sidebar-demo .docs-sidebar__sublink {
+  font-size: 0.625rem;
+  padding: var(--spacing-0-5) var(--spacing-1) var(--spacing-0-5) var(--spacing-2);
 }
 
 /* Theme page header (icon + title) */

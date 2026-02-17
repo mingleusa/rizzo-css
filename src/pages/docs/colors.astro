@@ -22,7 +22,7 @@ function textColorForStep(step: number): string {
 <DocsLayout title="Colors" description="Complete color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)">
 	<div class="colors-doc">
 	<section>
-		<h2>Color Reference</h2>
+		<h2 id="color-reference">Color Reference</h2>
 		<p>All colors in Rizzo CSS use semantic variables that adapt to the selected theme. Switch themes to see how colors change. Select a format tab to view and copy colors in that format.</p>
 		<p>All color formats (OKLCH, Hex, RGB, HSL, and CSS Variable) are automatically converted and displayed. Click any copy button to copy the color value in the selected format to your clipboard.</p>
 		
@@ -42,7 +42,7 @@ function textColorForStep(step: number): string {
 		</div>
 
 		<div id="color-format-panel" role="tabpanel" aria-labelledby="oklch-tab">
-		<h2>Core Colors</h2>
+		<h2 id="core-colors">Core Colors</h2>
 		<div class="colors-grid">
 			<div class="color-card" style="--color-card-bg: var(--background);">
 				<Card variant="elevated">
@@ -163,7 +163,7 @@ function textColorForStep(step: number): string {
 	</section>
 	
 	<section>
-		<h2>Accent Colors</h2>
+		<h2 id="accent-colors">Accent Colors</h2>
 		<div class="colors-grid">
 			<div class="color-card" style="--color-card-bg: var(--accent);">
 				<Card variant="elevated">
@@ -240,7 +240,7 @@ function textColorForStep(step: number): string {
 	</section>
 	
 	<section>
-		<h2>Semantic Colors</h2>
+		<h2 id="semantic-colors">Semantic Colors</h2>
 		<div class="colors-grid">
 			<div class="color-card" style="--color-card-bg: var(--success);">
 				<Card variant="elevated">
@@ -357,7 +357,7 @@ function textColorForStep(step: number): string {
 	</section>
 	
 	<section>
-		<h2>Text on solid (buttons, badges)</h2>
+		<h2 id="text-on-solid">Text on solid (buttons, badges)</h2>
 		<p>Contrast-aware text for solid semantic backgrounds. Themes may override for WCAG AA.</p>
 		<div class="colors-grid">
 			<div class="color-card" style="--color-card-bg: var(--success);">
@@ -416,7 +416,7 @@ function textColorForStep(step: number): string {
 	</section>
 
 	<section class="color-scales-section">
-		<h2>Color scales (design tokens)</h2>
+		<h2 id="color-scales">Color scales (design tokens)</h2>
 		<p>Stepped shades (50–950) for each scale. Step 500 is the theme base for accent, success, warning, error, and info. Neutral is a fixed gray scale. All values respect the format tabs above and support copy to clipboard.</p>
 		{COLOR_SCALES.map((scale) => (
 			<div class="color-scales-section__block">

@@ -5,7 +5,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 
 <DocsLayout title="Design System" description="Core design principles and semantic variables">
 	<section>
-		<h2>Semantic Variables</h2>
+		<h2 id="semantic-variables">Semantic Variables</h2>
 		<p>Rizzo CSS uses a semantic theming system with CSS custom properties (variables) that adapt to the selected theme.</p>
 		
 		<h3>Core Variables</h3>
@@ -46,7 +46,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Typography System</h2>
+		<h2 id="typography-system">Typography System</h2>
 		<p>Rizzo CSS includes a comprehensive typography system:</p>
 		
 		<h3>Font Families</h3>
@@ -85,7 +85,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Shadow and Overlay Variables</h2>
+		<h2 id="shadow-and-overlay-variables">Shadow and Overlay Variables</h2>
 		<ul>
 			<li><code>--shadow-color</code> - Base shadow color (black: <code>oklch(0% 0 0deg)</code>)</li>
 			<li><code>--shadow-sm</code>, <code>--shadow</code>, <code>--shadow-md</code>, <code>--shadow-lg</code>, <code>--shadow-xl</code> - Shadow presets with varying opacity</li>
@@ -94,14 +94,14 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Selection Color</h2>
+		<h2 id="selection-color">Selection Color</h2>
 		<ul>
 			<li><code>--selection</code> - Text selection background color (default: <code>oklch(70% 0.15 250deg)</code>)</li>
 		</ul>
 	</section>
 	
 	<section>
-		<h2>Color Format</h2>
+		<h2 id="color-format">Color Format</h2>
 		<p>All colors use <strong>OKLCH</strong> format for better perceptual uniformity:</p>
 		<CodeBlock code={`--accent: oklch(65% 0.25 290deg);`} language="css" />
 		<p>OKLCH format uses:</p>
@@ -119,9 +119,9 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Using Variables</h2>
+		<h2 id="using-variables">Using Variables</h2>
 		
-		<h3>In CSS</h3>
+		<h3 id="in-css">In CSS</h3>
 		<CodeBlock code={`.my-component {
   background-color: var(--background);
   color: var(--text);
@@ -149,7 +149,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Naming Convention</h2>
+		<h2 id="naming-convention">Naming Convention</h2>
 		<p>All component classes use <strong>BEM (Block Element Modifier)</strong> naming:</p>
 		<ul>
 			<li><strong>Block</strong>: <code>.navbar</code>, <code>.theme-switcher</code></li>
@@ -165,7 +165,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Spacing Utilities</h2>
+		<h2 id="spacing-utilities">Spacing Utilities</h2>
 		<p>Rizzo CSS includes comprehensive spacing utilities for margins and padding using a consistent scale:</p>
 		
 		<h3>Spacing Scale</h3>
@@ -235,7 +235,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Container Utilities</h2>
+		<h2 id="container-utilities">Container Utilities</h2>
 		<p>Container utilities provide responsive containers with automatic centering and padding:</p>
 		
 		<h3>Container Sizes</h3>
@@ -282,7 +282,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Max-Width Utilities</h2>
+		<h2 id="max-width-utilities">Max-Width Utilities</h2>
 		<p>Max-width utilities constrain element width without centering or padding:</p>
 		
 		<h3>Size-Based Max-Width</h3>
@@ -335,7 +335,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Sizing Utilities</h2>
+		<h2 id="sizing-utilities">Sizing Utilities</h2>
 		<p>Rizzo CSS includes comprehensive sizing utilities for width, height, and min/max dimensions:</p>
 		
 		<h3>Width Utilities</h3>
@@ -408,7 +408,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Media Queries</h2>
+		<h2 id="media-queries">Media Queries</h2>
 		<p>Rizzo CSS includes a dedicated <code>media-queries.css</code> file with responsive breakpoints:</p>
 		
 		<h3>Breakpoints</h3>
@@ -439,7 +439,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Display Utilities</h2>
+		<h2 id="display-utilities">Display Utilities</h2>
 		<p>Display utilities control how elements are displayed:</p>
 		
 		<h3>Display Types</h3>
@@ -471,7 +471,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Position Utilities</h2>
+		<h2 id="position-utilities">Position Utilities</h2>
 		<p>Position utilities control element positioning:</p>
 		
 		<h3>Position Types</h3>
@@ -498,7 +498,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Border Utilities</h2>
+		<h2 id="border-utilities">Border Utilities</h2>
 		<p>Border utilities provide comprehensive border styling:</p>
 		
 		<h3>Border Radius</h3>
@@ -530,7 +530,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Flexbox Utilities</h2>
+		<h2 id="flexbox-utilities">Flexbox Utilities</h2>
 		<p>Comprehensive flexbox utilities for flexible layouts:</p>
 		
 		<h3>Flex Direction</h3>
@@ -559,7 +559,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Grid Utilities</h2>
+		<h2 id="grid-utilities">Grid Utilities</h2>
 		<p>CSS Grid utilities for complex layouts:</p>
 		
 		<h3>Grid Template Columns</h3>
@@ -588,7 +588,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Gap Utilities</h2>
+		<h2 id="gap-utilities">Gap Utilities</h2>
 		<p>Gap utilities for flexbox and grid layouts using the spacing scale:</p>
 		
 		<h3>Gap Classes</h3>
@@ -607,7 +607,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Animation & Transition Utilities</h2>
+		<h2 id="animation-transition-utilities">Animation & Transition Utilities</h2>
 		<p>Transition utilities that respect <code>prefers-reduced-motion</code>:</p>
 		
 		<h3>Transition Properties</h3>
@@ -634,7 +634,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 	
 	<section>
-		<h2>Best Practices</h2>
+		<h2 id="best-practices">Best Practices</h2>
 		<ol>
 			<li><strong>Always use semantic variables</strong> - Never hardcode colors</li>
 			<li><strong>Use contrast-aware text colors</strong> - Use <code>--accent-text</code>, <code>--success-text</code>, etc. when using colored backgrounds</li>

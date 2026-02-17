@@ -1,6 +1,7 @@
 ---
 import { DOCS_NAV } from '../config/docsNav';
 import type { Framework } from '../config/frameworks';
+import type { DocsNavLink } from '../config/docsNav';
 
 interface Props {
   currentPath: string;
@@ -18,11 +19,12 @@ function fullHref(link: { href: string; frameworkOnly?: boolean }) {
 }
 
 /** Active only when the current path exactly matches this link (no parent/child). */
-function isActive(link: { href: string; frameworkOnly?: boolean }): boolean {
+function isActive(link: DocsNavLink): boolean {
   const path = currentPath.replace(/\/$/, '');
   const href = fullHref(link);
   return path === href;
 }
+
 ---
 
 <aside {...(omitId ? {} : { id: 'docs-sidebar' })} class="docs-sidebar" aria-label="Documentation navigation" tabindex="0">
@@ -34,14 +36,32 @@ function isActive(link: { href: string; frameworkOnly?: boolean }): boolean {
           {group.links.map((link) => {
             const href = fullHref(link);
             const active = isActive(link);
+            const sections = link.sections ?? [];
             return (
               <li class="docs-sidebar__item">
                 <a
                   href={href}
-                  class={`docs-sidebar__link ${active ? 'docs-sidebar__link--active' : ''}`}
+                  class={`docs-sidebar__link ${active && !sections.length ? 'docs-sidebar__link--active' : ''}`}
+                  data-docs-page={sections.length ? link.href : undefined}
                 >
                   {link.label}
                 </a>
+                {sections.length > 0 && (
+                  <ul class="docs-sidebar__sublist" aria-label={`Sections in ${link.label}`}>
+                    {sections.map((section) => (
+                      <li class="docs-sidebar__subitem">
+                        <a
+                          href={`${href}#${section.id}`}
+                          class="docs-sidebar__sublink"
+                          data-docs-section={section.id}
+                          data-docs-page={link.href}
+                        >
+                          {section.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </li>
             );
           })}
@@ -50,3 +70,77 @@ function isActive(link: { href: string; frameworkOnly?: boolean }): boolean {
     ))}
   </nav>
 </aside>
+<script is:inline>
+  (function () {
+    var path = window.location.pathname.replace(/\/$/, '');
+    function setActiveFromHash() {
+      var hash = window.location.hash.slice(1);
+      var p = window.location.pathname.replace(/\/$/, '');
+      document.querySelectorAll('.docs-sidebar__link').forEach(function (a) {
+        a.classList.remove('docs-sidebar__link--active');
+        a.removeAttribute('aria-current');
+      });
+      document.querySelectorAll('.docs-sidebar__sublink').forEach(function (a) {
+        a.classList.remove('docs-sidebar__sublink--active');
+        a.removeAttribute('aria-current');
+      });
+      if (hash) {
+        var sublinks = document.querySelectorAll('.docs-sidebar__sublink[data-docs-section="' + hash + '"]');
+        for (var i = 0; i < sublinks.length; i++) {
+          var a = sublinks[i];
+          if (a.getAttribute('href').split('#')[0] === p) {
+            a.classList.add('docs-sidebar__sublink--active');
+            a.setAttribute('aria-current', 'location');
+            break;
+          }
+        }
+      } else {
+        var pageLinks = document.querySelectorAll('.docs-sidebar__link[href]');
+        for (var j = 0; j < pageLinks.length; j++) {
+          var link = pageLinks[j];
+          if (link.getAttribute('href').split('#')[0] === p) {
+            link.classList.add('docs-sidebar__link--active');
+            link.setAttribute('aria-current', 'page');
+            break;
+          }
+        }
+      }
+    }
+    setActiveFromHash();
+    window.addEventListener('hashchange', setActiveFromHash);
+    var content = document.querySelector('.docs__content');
+    if (content) {
+      var headings = content.querySelectorAll('h2[id]');
+      if (headings.length) {
+        var io = new IntersectionObserver(
+          function (entries) {
+            for (var k = 0; k < entries.length; k++) {
+              if (!entries[k].isIntersecting) continue;
+              var id = entries[k].target.id;
+              if (!id) continue;
+              var sublinks = document.querySelectorAll('.docs-sidebar__sublink[data-docs-section="' + id + '"]');
+              for (var m = 0; m < sublinks.length; m++) {
+                if (sublinks[m].getAttribute('href').split('#')[0] === path) {
+                  document.querySelectorAll('.docs-sidebar__link').forEach(function (a) {
+                    a.classList.remove('docs-sidebar__link--active');
+                    a.removeAttribute('aria-current');
+                  });
+                  document.querySelectorAll('.docs-sidebar__sublink').forEach(function (a) {
+                    a.classList.remove('docs-sidebar__sublink--active');
+                    a.removeAttribute('aria-current');
+                  });
+                  sublinks[m].classList.add('docs-sidebar__sublink--active');
+                  sublinks[m].setAttribute('aria-current', 'location');
+                  break;
+                }
+              }
+              break;
+            }
+          },
+          { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+        );
+        headings.forEach(function (h) { io.observe(h); });
+      }
+    }
+  })();
+</script>

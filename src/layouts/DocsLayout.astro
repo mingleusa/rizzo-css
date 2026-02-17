@@ -121,6 +121,12 @@ const { framework } = getFrameworkFromPath(currentPath);
 		color: var(--text);
 		line-height: var(--line-height-relaxed);
 	}
+
+	/* Scroll targets: leave space so anchored headings aren't hidden under sticky header */
+	.docs__content :global(h2),
+	.docs__content :global(h3) {
+		scroll-margin-top: 5.5rem;
+	}
 	
 	/* Documentation typography */
 	.docs__content :global(h2) {

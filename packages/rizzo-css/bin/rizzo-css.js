@@ -1551,7 +1551,14 @@ async function runAddToExisting(frameworkOverride, options) {
         mkdirSync(join(cwd, 'js'), { recursive: true });
         let mainJs = readFileSync(vanillaJsSrc, 'utf8');
         const addSound = selectedComponents.includes('Settings') || selectedComponents.includes('SoundEffects');
-        const soundScript = addSound ? (() => { const p = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js'); return existsSync(p) ? '\n' + readFileSync(p, 'utf8') : ''; })() : '';
+        let soundScript = '';
+        if (addSound) {
+          const p = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
+          if (existsSync(p)) {
+            soundScript = readFileSync(p, 'utf8').replace("var soundBase = '/assets/sfx';", "var soundBase = 'assets/sfx';");
+            soundScript = '\n' + soundScript;
+          }
+        }
         mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight).replace(/\{\{RIZZO_SOUND_SCRIPT\}\}/g, soundScript);
         writeFileSync(vanillaJsPath, mainJs, 'utf8');
         console.log('  - Wrote js/main.js (for modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher)');
@@ -1772,16 +1779,20 @@ async function cmdInit(argv) {
     logAddedDeps(selectedComponents, componentsToCopy, framework);
   }
   let vanillaSoundScript = '';
-  if (framework === 'vanilla' && (componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects'))) {
+  if (framework === 'vanilla' && (useVanillaCore || componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects'))) {
     const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
-    if (existsSync(soundPath)) vanillaSoundScript = '\n' + readFileSync(soundPath, 'utf8');
+    if (existsSync(soundPath)) {
+      let script = readFileSync(soundPath, 'utf8');
+      script = script.replace("var soundBase = '/assets/sfx';", "var soundBase = 'assets/sfx';");
+      vanillaSoundScript = '\n' + script;
+    }
   }
 
   // Astro layout: inject Navbar and Settings when those components are selected so the settings menu works.
   if ((framework === 'astro') && (useHandpickAstro || useAstroBase)) {
     const hasNavbar = componentsToCopy.includes('Navbar');
     const hasSettings = componentsToCopy.includes('Settings');
-    const hasSound = hasSettings || componentsToCopy.includes('SoundEffects');
+    const hasSound = useAstroBase || hasSettings || componentsToCopy.includes('SoundEffects');
     const layoutImports = [];
     if (hasNavbar) layoutImports.push("import Navbar from '../components/rizzo/Navbar.astro';");
     if (hasSettings) layoutImports.push("import Settings from '../components/rizzo/Settings.astro';");
@@ -1802,7 +1813,7 @@ async function cmdInit(argv) {
 
   // Svelte app.html: inject sound script when Settings or SoundEffects is included (identical behavior to Astro).
   if ((framework === 'svelte') && (useHandpickSvelte || useSvelteBase)) {
-    const hasSound = componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects');
+    const hasSound = useSvelteBase || componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects');
     if (hasSound) {
       const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
       if (existsSync(soundPath)) {
