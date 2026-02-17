@@ -1263,6 +1263,40 @@ div.navbar__sublink {
   background-color: oklch(from var(--text) l c h / 10%);
 }
 
+/* Mobile: full-width segments, larger tap targets, label above */
+@media (width <= 640px) {
+  .framework-switcher {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-2);
+    padding: var(--spacing-2) 0;
+    margin-bottom: var(--spacing-4);
+  }
+
+  .framework-switcher__label {
+    padding-bottom: var(--spacing-1);
+  }
+
+  .framework-switcher__segmented {
+    display: flex;
+    width: 100%;
+    padding: var(--spacing-0-5);
+  }
+
+  .framework-switcher__segment {
+    flex: 1;
+    min-width: 0;
+    min-height: var(--touch-target-min);
+    padding: var(--spacing-3) var(--spacing-2);
+    font-size: var(--font-size-base);
+  }
+
+  .framework-switcher__segment--first,
+  .framework-switcher__segment--last {
+    border-radius: var(--radius-md);
+  }
+}
+
 .theme-switcher__group {
   padding: var(--spacing-3) 0;
 }

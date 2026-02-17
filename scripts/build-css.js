@@ -96,6 +96,8 @@ postcss([
       minifySelectors: false, // Preserves pseudo-element syntax (::before, ::after)
       normalizeWhitespace: true, // Still minifies whitespace
       discardComments: { removeAll: true }, // Remove comments in production
+      // Keep quotes in url() so package font path rewrite produces valid CSS (normalizeUrl strips them and broke @font-face)
+      normalizeUrl: false,
     }],
   }),
 ])
@@ -130,7 +132,9 @@ postcss([
     writeFileSync(outputPublic, fullCss);
 
     // Package CSS: rewrite font URLs so they resolve from dist/rizzo.min.css to dist/fonts/
-    const packageCss = fullCss.replace(/url\(['"]?\.\.\/assets\/fonts\//g, "url('./fonts/");
+    let packageCss = fullCss.replace(/url\(['"]?\.\.\/assets\/fonts\//g, "url('./fonts/");
+    // cssnano can strip closing quotes from url(); ensure font url() are properly quoted for package
+    packageCss = packageCss.replace(/url\('\.\/fonts\/(.+?)\)\s*format/g, "url('./fonts/$1') format");
     writeFileSync(outputPackage, packageCss);
   })
   .catch((error) => {

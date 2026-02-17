@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.44",
+  "version": "0.0.45",
   "license": "MIT",
   "scripts": {
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",

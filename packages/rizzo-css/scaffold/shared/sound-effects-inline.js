@@ -1,4 +1,4 @@
-// Sound effects: play on click when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3, else Web Audio fallback. Same script for docs and all shipped scaffolds.
+// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3, else Web Audio fallback. Same script for docs and all shipped scaffolds. Supports touch (touchend) so mobile plays like desktop.
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;
@@ -8,6 +8,8 @@
 	var cachedAudio = null;
 	var soundLoadTried = false;
 	var lastPlayedAt = 0;
+	var lastTouchSoundTarget = null;
+	var lastTouchSoundTime = 0;
 	function getContext() {
 		if (!audioContext && typeof window.AudioContext !== 'undefined') {
 			audioContext = new window.AudioContext();
@@ -66,20 +68,33 @@
 			playFallbackTone();
 		} catch (e) {}
 	}
-	function isClickable(el) {
-		if (!el || !el.closest) return false;
+	function getClickable(el) {
+		if (!el || !el.closest) return null;
 		var clickable = el.closest(clickableSelector);
-		if (!clickable) return false;
-		if (clickable.disabled === true || clickable.getAttribute('aria-disabled') === 'true') return false;
-		return true;
+		if (!clickable) return null;
+		if (clickable.disabled === true || clickable.getAttribute('aria-disabled') === 'true') return null;
+		return clickable;
 	}
 	function onDocumentClick(e) {
 		if (e.button !== 0) return;
-		if (!isClickable(e.target)) return;
+		var clickable = getClickable(e.target);
+		if (!clickable) return;
+		if (lastTouchSoundTarget === clickable && (Date.now() - lastTouchSoundTime) < 400) return;
 		playClickSound();
+	}
+	function onDocumentTouchend(e) {
+		var clickable = getClickable(e.target);
+		if (!clickable) return;
+		lastTouchSoundTarget = clickable;
+		lastTouchSoundTime = Date.now();
+		playClickSound();
+		setTimeout(function() { lastTouchSoundTarget = null; }, 450);
 	}
 	function initSound() {
 		document.addEventListener('click', onDocumentClick, true);
+		if ('ontouchstart' in window || (navigator && navigator.maxTouchPoints > 0)) {
+			document.addEventListener('touchend', onDocumentTouchend, true);
+		}
 		if (localStorage.getItem(SOUND_KEY) === 'true') tryLoadAssetSound();
 	}
 	if (document.readyState === 'loading') {
