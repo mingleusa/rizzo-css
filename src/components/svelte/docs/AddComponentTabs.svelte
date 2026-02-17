@@ -22,23 +22,23 @@
   }
   let { componentName }: Props = $props();
 
-  const cliName = DISPLAY_TO_CLI[componentName] ?? componentName;
-  const componentArg = CLI_COMPONENT_NAMES.has(cliName) ? cliName : '';
-  const addSuffix = componentArg ? ' ' + componentArg : '';
+  const cliName = $derived(DISPLAY_TO_CLI[componentName] ?? componentName);
+  const componentArg = $derived(CLI_COMPONENT_NAMES.has(cliName) ? cliName : '');
+  const addSuffix = $derived(componentArg ? ' ' + componentArg : '');
 
   const tabs = [
-    { id: 'npm', label: 'npm' },
-    { id: 'pnpm', label: 'pnpm' },
-    { id: 'yarn', label: 'yarn' },
-    { id: 'bun', label: 'bun' },
+    { id: 'npm', label: 'npm', icon: '/icons/devicons/Npm.svg' },
+    { id: 'pnpm', label: 'pnpm', icon: '/icons/devicons/Pnpm.svg' },
+    { id: 'yarn', label: 'yarn', icon: '/icons/devicons/Yarn.svg' },
+    { id: 'bun', label: 'bun', icon: '/icons/devicons/Bun.svg' },
   ];
 
-  const commands: Record<string, string> = {
+  const commands = $derived({
     npm: 'npx rizzo-css add' + addSuffix,
     pnpm: 'pnpm dlx rizzo-css add' + addSuffix,
     yarn: 'npx rizzo-css add' + addSuffix,
     bun: 'bunx rizzo-css add' + addSuffix,
-  };
+  });
 </script>
 
 <div class="add-component-tabs">

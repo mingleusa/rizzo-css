@@ -59,8 +59,8 @@
   let menuEl: HTMLElement | null = $state(null);
   let triggerEl: HTMLElement | null = $state(null);
 
-  const menuId = idPrefix ? `theme-switcher-${idPrefix}-menu` : 'theme-switcher-menu';
-  const triggerId = idPrefix ? `theme-switcher-${idPrefix}-trigger` : 'theme-switcher-trigger';
+  const menuId = $derived(idPrefix ? `theme-switcher-${idPrefix}-menu` : 'theme-switcher-menu');
+  const triggerId = $derived(idPrefix ? `theme-switcher-${idPrefix}-trigger` : 'theme-switcher-trigger');
 
   function getStored(): string {
     if (typeof localStorage === 'undefined') return DEFAULT_THEME_DARK;

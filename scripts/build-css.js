@@ -2,7 +2,7 @@ import postcss from 'postcss';
 import postcssImport from 'postcss-import';
 import autoprefixer from 'autoprefixer';
 import cssnano from 'cssnano';
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync, existsSync, statSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync, existsSync, statSync, rmSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
@@ -14,6 +14,10 @@ const inputFile = join(rootDir, 'src/styles/main.css');
 const outputPublic = join(rootDir, 'public/css/main.min.css');
 const outputPackage = join(rootDir, 'packages/rizzo-css/dist/rizzo.min.css');
 const fontsSrc = join(rootDir, 'src/assets/fonts');
+const sfxSrc = join(rootDir, 'src/assets/sfx');
+const sfxDest = join(rootDir, 'public/assets/sfx');
+const iconsSrc = join(rootDir, 'src/components/icons');
+const iconsDest = join(rootDir, 'public/icons');
 
 /** Copy a directory recursively (files and subdirs) to dest. */
 function copyDirRecursive(src, dest) {
@@ -27,6 +31,59 @@ function copyDirRecursive(src, dest) {
       copyFileSync(srcPath, destPath);
     }
   }
+}
+
+/** Extract raw SVG from an Astro icon file (same logic as copy-scaffold). */
+function extractSvgFromAstro(astroPath) {
+  const raw = readFileSync(astroPath, 'utf8');
+  const parts = raw.split('---');
+  const template = parts.length >= 3 ? parts.slice(2).join('---').trim() : raw;
+  const match = template.match(/<svg[\s\S]*?<\/svg>/);
+  if (!match) return null;
+  let svg = match[0]
+    .replace(/\s*width=\{[^}]+\}/, ' width="24"')
+    .replace(/\s*height=\{[^}]+\}/, ' height="24"')
+    .replace(/\s*class=\{[^}]+\}/, '')
+    .replace(/\s*class=\{[\s\S]*?\.trim\(\)\}/, '')
+    .replace(/\s*class=\{[^}]+\}/, '')
+    .replace(/\bid=\{gradientId1\}/g, 'id="grad-1"')
+    .replace(/\bid=\{gradientId2\}/g, 'id="grad-2"')
+    .replace(/\bfill=\{`url\(#\$\{gradientId1\}\)`\}/g, 'fill="url(#grad-1)"')
+    .replace(/\bfill=\{`url\(#\$\{gradientId2\}\)`\}/g, 'fill="url(#grad-2)"')
+    .replace(/"`\.trim\(\)\}/g, '"')
+    .replace(/`\.trim\(\)\}/g, '');
+  return svg;
+}
+
+/** Copy all icon SVGs from src/components/icons to public/icons. Single source of truth: clears public/icons then writes from Astro icons (no duplicates). */
+function copyIconsToPublic(astroIconsDir, publicIconsDir) {
+  if (!existsSync(astroIconsDir)) return 0;
+  if (existsSync(publicIconsDir)) {
+    rmSync(publicIconsDir, { recursive: true });
+  }
+  mkdirSync(publicIconsDir, { recursive: true });
+  let count = 0;
+  function walk(dir, rel = '') {
+    const entries = readdirSync(dir, { withFileTypes: true });
+    for (const e of entries) {
+      const srcPath = join(dir, e.name);
+      const destRel = rel ? join(rel, e.name) : e.name;
+      if (e.isDirectory()) {
+        mkdirSync(join(publicIconsDir, destRel), { recursive: true });
+        walk(srcPath, destRel);
+      } else if (e.name.endsWith('.astro')) {
+        const svg = extractSvgFromAstro(srcPath);
+        if (svg) {
+          const outPath = join(publicIconsDir, destRel.replace(/\.astro$/, '.svg'));
+          mkdirSync(dirname(outPath), { recursive: true });
+          writeFileSync(outPath, svg);
+          count++;
+        }
+      }
+    }
+  }
+  walk(astroIconsDir);
+  return count;
 }
 
 const css = readFileSync(inputFile, 'utf8');
@@ -55,6 +112,19 @@ postcss([
       copyDirRecursive(fontsSrc, publicFonts);
       copyDirRecursive(fontsSrc, packageFonts);
     }
+
+    // Copy sound effects from src/assets/sfx to public/assets/sfx
+    if (existsSync(sfxSrc)) {
+      mkdirSync(sfxDest, { recursive: true });
+      for (const name of readdirSync(sfxSrc)) {
+        if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg')) {
+          copyFileSync(join(sfxSrc, name), join(sfxDest, name));
+        }
+      }
+    }
+
+    // Copy all icon SVGs from src/components/icons to public/icons (single source of truth; no duplicates)
+    copyIconsToPublic(iconsSrc, iconsDest);
 
     // Public CSS: keep original URLs (../assets/fonts/ for docs site)
     writeFileSync(outputPublic, fullCss);

@@ -230,8 +230,10 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   const cssDir = join(projectDir, 'public', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
   const fontsDest = join(projectDir, 'public', 'assets', 'fonts');
+  const sfxDest = join(projectDir, 'public', 'assets', 'sfx');
   mkdirSync(cssDir, { recursive: true });
   mkdirSync(fontsDest, { recursive: true });
+  mkdirSync(sfxDest, { recursive: true });
   copyFileSync(cssSource, cssTarget);
   let css = readFileSync(cssTarget, 'utf8');
   css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
@@ -253,8 +255,10 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   const cssDir = join(projectDir, 'static', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
   const fontsDest = join(projectDir, 'static', 'assets', 'fonts');
+  const sfxDest = join(projectDir, 'static', 'assets', 'sfx');
   mkdirSync(cssDir, { recursive: true });
   mkdirSync(fontsDest, { recursive: true });
+  mkdirSync(sfxDest, { recursive: true });
   copyFileSync(cssSource, cssTarget);
   let css = readFileSync(cssTarget, 'utf8');
   css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
@@ -1513,7 +1517,9 @@ async function runAddToExisting(frameworkOverride, options) {
       if (existsSync(vanillaJsSrc)) {
         mkdirSync(join(cwd, 'js'), { recursive: true });
         let mainJs = readFileSync(vanillaJsSrc, 'utf8');
-        mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+        const addSound = selectedComponents.includes('Settings') || selectedComponents.includes('SoundEffects');
+        const soundScript = addSound ? (() => { const p = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js'); return existsSync(p) ? '\n' + readFileSync(p, 'utf8') : ''; })() : '';
+        mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight).replace(/\{\{RIZZO_SOUND_SCRIPT\}\}/g, soundScript);
         writeFileSync(vanillaJsPath, mainJs, 'utf8');
         console.log('  - Wrote js/main.js (for modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher)');
       }
@@ -1714,6 +1720,7 @@ async function cmdInit(argv) {
     '{{THEME_LIST_COMMENT}}': themeComment,
     '{{TITLE}}': name || 'App',
     '{{PROJECT_NAME}}': projectNamePkg,
+    '{{RIZZO_SOUND_SCRIPT}}': '',
   };
 
   const astroCoreDir = getScaffoldAstroCoreDir();
@@ -1731,21 +1738,44 @@ async function cmdInit(argv) {
     componentsToCopy = expandWithDeps(framework, selectedComponents);
     logAddedDeps(selectedComponents, componentsToCopy, framework);
   }
+  let vanillaSoundScript = '';
+  if (framework === 'vanilla' && (componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects'))) {
+    const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
+    if (existsSync(soundPath)) vanillaSoundScript = '\n' + readFileSync(soundPath, 'utf8');
+  }
 
   // Astro layout: inject Navbar and Settings when those components are selected so the settings menu works.
   if ((framework === 'astro') && (useHandpickAstro || useAstroBase)) {
     const hasNavbar = componentsToCopy.includes('Navbar');
     const hasSettings = componentsToCopy.includes('Settings');
+    const hasSound = hasSettings || componentsToCopy.includes('SoundEffects');
     const layoutImports = [];
     if (hasNavbar) layoutImports.push("import Navbar from '../components/rizzo/Navbar.astro';");
     if (hasSettings) layoutImports.push("import Settings from '../components/rizzo/Settings.astro';");
     replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = layoutImports.length ? '\n' + layoutImports.join('\n') + '\n' : '\n';
     replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = hasNavbar ? '\n    <Navbar />' : '';
     replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = hasSettings ? '\n    <Settings />' : '';
+    if (hasSound) {
+      const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
+      if (existsSync(soundPath)) {
+        replacements['{{RIZZO_SOUND_SCRIPT}}'] = '\n    <script is:inline>\n' + readFileSync(soundPath, 'utf8') + '\n    </script>';
+      }
+    }
   } else {
     replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = '\n';
     replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = '';
     replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = '';
+  }
+
+  // Svelte app.html: inject sound script when Settings or SoundEffects is included (identical behavior to Astro).
+  if ((framework === 'svelte') && (useHandpickSvelte || useSvelteBase)) {
+    const hasSound = componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects');
+    if (hasSound) {
+      const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
+      if (existsSync(soundPath)) {
+        replacements['{{RIZZO_SOUND_SCRIPT}}'] = '\n    <script>\n' + readFileSync(soundPath, 'utf8') + '\n    </script>';
+      }
+    }
   }
 
   let cssTarget;
@@ -1852,7 +1882,7 @@ async function cmdInit(argv) {
     if (existsSync(vanillaJs)) {
       mkdirSync(join(projectDir, 'js'), { recursive: true });
       let mainJs = readFileSync(vanillaJs, 'utf8');
-      mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+      mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight).replace(/\{\{RIZZO_SOUND_SCRIPT\}\}/g, vanillaSoundScript);
       writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
     }
     const vanillaCoreRepl = { ...replacements, '{{LINK_HREF}}': linkHref };
@@ -1881,7 +1911,7 @@ async function cmdInit(argv) {
         const vanillaJs = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
         if (existsSync(vanillaJs)) {
           let mainJs = readFileSync(vanillaJs, 'utf8');
-          mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight);
+          mainJs = mainJs.replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark).replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight).replace(/\{\{RIZZO_SOUND_SCRIPT\}\}/g, vanillaSoundScript);
           writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
         }
         const vanillaRepl = { ...replacements, '{{LINK_HREF}}': 'css/rizzo.min.css' };

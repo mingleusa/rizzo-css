@@ -91,7 +91,7 @@ Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top 
 To add a new component to the docs site and (optionally) the CLI/scaffold:
 
 1. **Navbar** — Add an entry to `componentsMenu.links` in `src/components/Navbar.astro` (e.g. `{ href: componentHref('/docs/components/my-component'), label: 'My Component' }`). The Components dropdown is 3 columns; new links are distributed automatically.
-2. **Astro doc page** — Create `src/pages/docs/components/<slug>.astro` with the same structure as existing pages (title, description, AddComponentTabs, Features, Usage, FrameworkCodeTabs, Props). Use the same BEM classes and patterns as other components.
+2. **Astro doc page** — Create `src/pages/docs/components/<slug>.astro` with the same structure as existing pages (title, description, AddComponentTabs, Features, Usage, FrameworkCodeTabs, Props). Use the same BEM classes and patterns as other components. **AddComponentTabs** and **Usage** (FrameworkCodeTabs) share the same box styling; Usage tabs use the existing theme-aware icon components (Astro, Svelte, JavaScript for Vanilla)—no custom SVG assets.
 3. **COMPONENTS.md** — Add a bullet to the Component Pages list and to the appropriate category under "Implemented Components".
 4. **CLI / scaffold (if shipping)** — Register the component in `packages/rizzo-css/bin/rizzo-css.js` (e.g. component list, copy paths, dependencies). Add scaffold files under `packages/rizzo-css/scaffold/vanilla/components/<slug>.html`, `scaffold/astro/`, and `scaffold/svelte/` as needed. Run `npx rizzo-css help components` to confirm.
 5. **Svelte / Vanilla docs (optional)** — Add a Svelte doc page under `src/components/svelte/docs/pages/` and route in `src/pages/docs/svelte/[...slug].astro`; add or update Vanilla page under `src/pages/docs/vanilla/components/<slug>.astro`.
@@ -529,7 +529,7 @@ Font pair (sans + mono) dropdown used in the Settings panel and standalone. Sets
 
 ## Sound Effects
 
-Checkbox that toggles “Play sound on click”. When enabled, a short click sound (Web Audio API) plays on links, buttons, and other interactive elements. **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
+Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** only on links, buttons, and other interactive elements (throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script tries `/assets/sfx/click.mp3`, then `.wav`, then `.ogg` from `public/assets/sfx/`; if none are found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
 
 ## Button Component
 
@@ -840,27 +840,27 @@ See [Design System Documentation](./DESIGN_SYSTEM.md) for complete utility refer
 
 Reusable SVG icon components using Tabler Icons (MIT licensed) and Devicons (MIT licensed).
 
-### Regular Icons (Tabler Icons)
+### Regular Icons (30) — Tabler Icons
 
-Gear, Close, ChevronDown, Cmd, Moon, Palette, Owl, Copy, Check, Search, Sort, Filter, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon, Circle, Rainbow, Snowflake
+Gear, Close, ChevronDown, Cmd, Moon, Palette, Owl, Copy, Check, Search, Sort, Filter, Sun, Flame, Heart, Leaf, Shield, Zap, Flower, Cake, Sunset, Cherry, Brush, Lemon, Circle, Rainbow, Snowflake, IceCream, Eye, Cat
 
 All regular icons accept `width`, `height`, and `class` props, use `currentColor` for theming, and automatically adapt to both light and dark themes.
 
-### Devicons (Colored Brand Icons)
+### Devicons (22) — Colored Brand Icons
 
-CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext, Git, Bash, Svelte, React, Vue
+CSS3, HTML5, JavaScript, Node.js, Astro, Plaintext, Git, Bash, Svelte, React, Vue, Sass, TypeScript, Ruby, Python, Rust, Docker, Playwright, Bun, Npm, Pnpm, Yarn.
 
-Devicons use brand colors and are visible on both light and dark themes. They include colored gradients and paths optimized for visibility across all themes.
+Devicons use brand colors. Rust, Playwright, and Docker use theme-aware fills on dark themes (`var(--icon)`) so they stay visible; other devicons keep brand colors on all themes.
 
 ### Icon Documentation
 
 The [Icon Components Documentation](/docs/components/icons) page features:
-- Interactive card-based grid layout (6 cards per row on desktop)
+- Interactive card-based grid layout (4 cards per row on desktop)
 - Click any card to copy the SVG code to clipboard
 - Visual preview of all icons
 - Complete usage examples
 
-All icons are organized in `/src/components/icons/` with devicons in the `devicons/` subfolder for maintainability.
+All icons are organized in `src/components/icons/` with devicons in the `devicons/` subfolder. **Astro** and **Svelte** each have the full set (30 regular, 22 devicons). The **docs site** serves static SVGs at **`/icons/`**: `pnpm build:css` (or `pnpm build`) clears `public/icons/` then writes SVG from each Astro icon (single source of truth; no duplicates). Package-manager tabs use `/icons/devicons/Npm.svg`, `/icons/devicons/Pnpm.svg`, etc. The **package scaffold** does not ship duplicate icon assets: `pnpm build:package` (or prepublish) runs `copy-scaffold.js`, which copies Astro icons to `packages/rizzo-css/scaffold/astro/icons/`, Svelte icons to `scaffold/svelte/icons/`, and exports vanilla SVGs to `scaffold/vanilla/icons/` (same 52 icons: 30 regular + 22 devicons).
 
 ## Form Components
 
@@ -904,7 +904,7 @@ A code block component with integrated copy-to-clipboard functionality. Used thr
 - **Responsive labels** - Language text appears next to icons on large screens (≥768px), hidden on mobile for screen readers only
 - **Vertically centered alignment** - Icons and copy button are properly aligned on both desktop and mobile
 - **Theme-aware styling** - Matches current theme with proper contrast
-- **Accessible** - Proper ARIA labels, keyboard support, screen reader text; scrollable `<pre>` has `tabindex="0"` for keyboard access (WCAG scrollable-region-focusable)
+- **Accessible** - Proper ARIA labels, keyboard support, screen reader text; scrollable `<pre>` has `tabindex="0"` so the region is focusable for keyboard users (scrollable-region-focusable)
 
 ### Supported Languages
 
@@ -920,6 +920,12 @@ The CodeBlock component displays 20px colored brand icons (Devicons) for:
 - **Svelte** - Svelte brand icon
 - **React / JSX / TSX** - React brand icon
 - **Vue** - Vue brand icon
+- **Playwright** - Playwright brand icon
+- **Sass / SCSS** - Sass brand icon
+- **Ruby** - Ruby brand icon
+- **Python** - Python brand icon
+- **Rust** - Rust brand icon (theme-aware on dark themes)
+- **Docker** - Docker brand icon (theme-aware on dark themes)
 
 For unsupported languages, the component falls back to text labels. All icons are displayed at 20px size for better visibility and are vertically centered with the copy button.
 
@@ -938,7 +944,7 @@ import CodeBlock from '../components/CodeBlock.astro';
 ### Props
 
 - `code` (string, required) - The code content to display
-- `language` (string, optional) - Language identifier (e.g., "javascript", "nodejs", "astro", "css", "html", "plaintext", "git", "bash", "shell", "sh")
+- `language` (string, optional) - Language identifier (e.g., "javascript", "nodejs", "astro", "css", "html", "plaintext", "git", "bash", "shell", "sh", "playwright", "sass", "scss", "ruby", "python", "rust", "docker")
 - `class` (string, optional) - Additional CSS classes
 
 **Note**: All code examples throughout the documentation use this component, ensuring consistent styling and easy copying. Language icons are automatically displayed for supported languages.

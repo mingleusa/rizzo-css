@@ -18,7 +18,7 @@
 
 *Run `npx rizzo-css help` to see this in the CLI.*
 
-[![npm](https://img.shields.io/badge/npm-0.0.43-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.44-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -159,7 +159,7 @@ Accessible, themeable components:
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. All theme switchers (Settings, docs) use the same full-width trigger and dropdown.
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla; includes Cat logo and Cmd icon for keyboard shortcuts; 20+ regular icons plus brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more)
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla): 30 regular icons (Tabler) and 22 devicons (brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more; includes Cat logo and Cmd icon for keyboard shortcuts)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg

@@ -26,7 +26,7 @@ import PackageInstallTabs from '../../components/PackageInstallTabs.astro';
 git clone <repository-url>
 cd rizzo-css`} language="bash" />
 		<CodeBlock code={`# Install dependencies
-pnpm install`} language="nodejs" />
+pnpm install`} language="bash" />
 	</section>
 
 	<style>
@@ -142,14 +142,14 @@ pnpm install`} language="nodejs" />
 	<section>
 		<h2>Development</h2>
 		<p>Start the development server:</p>
-		<CodeBlock code={`pnpm dev`} language="nodejs" />
+		<CodeBlock code={`pnpm dev`} language="bash" />
 		<p>The site will be available at <code>http://localhost:4321</code></p>
 	</section>
 	
 	<section>
 		<h2>Building</h2>
 		<p>Build for production:</p>
-		<CodeBlock code={`pnpm build`} language="nodejs" />
+		<CodeBlock code={`pnpm build`} language="bash" />
 		<p>This will:</p>
 		<ol>
 			<li>Build and minify CSS to <code>public/css/main.min.css</code></li>

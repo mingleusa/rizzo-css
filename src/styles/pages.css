@@ -64,6 +64,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  max-width: 100%;
+  min-width: 0;
 }
 
 .home__install-grid {
@@ -73,12 +75,13 @@
   max-width: var(--spacing-150);
   margin: 0 auto;
   gap: 0;
+  min-width: 0;
 }
 
 @media (width >= 768px) {
   .home__install-grid {
     grid-template-columns: 1fr auto 1fr;
-    max-width: none;
+    max-width: 100%;
   }
 }
 
@@ -88,6 +91,8 @@
   justify-content: center;
   align-items: stretch;
   min-height: var(--spacing-24);
+  min-width: 0;
+  overflow: hidden;
   background-color: var(--background-alt);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
@@ -202,8 +207,11 @@
   padding: var(--spacing-2);
 }
 
-.home__cli-tabs .cli-command-tabs__panel .code-block {
+.home__cli-tabs .cli-command-tabs__panel .code-block,
+.home__cli-tabs .package-install-tabs__panel .code-block {
   margin: 0;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .home__features {
@@ -364,6 +372,45 @@
 
 .home__theme-demo .theme-switcher__menu {
   z-index: var(--z-dropdown);
+}
+
+/* Distributed home only: single "add component" command block (no full install section) */
+.home__add-command {
+  margin-bottom: var(--spacing-16);
+}
+
+.home__add-command-block {
+  display: flex;
+  align-items: stretch;
+  gap: var(--spacing-2);
+  max-width: 100%;
+  min-width: 0;
+  background-color: var(--background-alt);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.home__add-command-block pre {
+  margin: 0;
+  padding: var(--spacing-4);
+  overflow-x: auto;
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--text);
+}
+
+.home__add-command-block code {
+  white-space: pre;
+}
+
+.home__add-command-copy {
+  flex-shrink: 0;
+  align-self: center;
+  margin-right: var(--spacing-2);
 }
 
 .home__docs {

@@ -9,8 +9,8 @@
   }
   let { idPrefix = '' }: Props = $props();
 
-  const triggerId = idPrefix ? `font-pair-trigger-${idPrefix}` : 'font-pair-trigger';
-  const menuId = idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu';
+  const triggerId = $derived(idPrefix ? `font-pair-trigger-${idPrefix}` : 'font-pair-trigger');
+  const menuId = $derived(idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu');
 
   let open = $state(false);
   let selectedValue = $state(FONT_PAIR_DEFAULT);

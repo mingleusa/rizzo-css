@@ -1,8 +1,11 @@
 ---
 import Tabs from './Tabs.astro';
 import CodeBlock from './CodeBlock.astro';
+import AstroIcon from './icons/devicons/Astro.astro';
+import SvelteIcon from './icons/devicons/Svelte.astro';
+import Javascript from './icons/devicons/Javascript.astro';
 
-/** Full code examples per framework for the Usage section. Show Astro | Svelte | Vanilla tabs with complete, runnable examples. */
+/** Full code examples per framework for the Usage section. Show Astro | Svelte | Vanilla tabs using existing theme-aware icon components. */
 interface Props {
   astro?: string;
   svelte?: string;
@@ -14,16 +17,17 @@ interface Props {
 
 const { astro = '', svelte = '', vanilla = '', defaultTab = 'astro', class: className = '' } = Astro.props;
 
-const tabs: { id: string; label: string }[] = [];
-if (astro) tabs.push({ id: 'astro', label: 'Astro' });
-if (svelte) tabs.push({ id: 'svelte', label: 'Svelte' });
-if (vanilla) tabs.push({ id: 'vanilla', label: 'Vanilla' });
+const tabs: { id: string; label: string; iconComponent: any }[] = [];
+if (astro) tabs.push({ id: 'astro', label: 'Astro', iconComponent: AstroIcon });
+if (svelte) tabs.push({ id: 'svelte', label: 'Svelte', iconComponent: SvelteIcon });
+if (vanilla) tabs.push({ id: 'vanilla', label: 'Vanilla', iconComponent: Javascript });
 const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : tabs[0]?.id ?? 'astro';
 ---
 
-<div class={`framework-code-tabs ${className}`.trim()}>
-  <p class="framework-code-tabs__hint">Full example for each framework. Copy the block that matches your project.</p>
-  <Tabs tabs={tabs} defaultTab={effectiveDefault} id="framework-code-tabs" class="framework-code-tabs__tabs">
+<div class={`usage-tabs framework-code-tabs ${className}`.trim()}>
+  <h3 class="usage-tabs__title">Usage</h3>
+  <p class="usage-tabs__hint">Full example for each framework. Copy the block that matches your project.</p>
+  <Tabs tabs={tabs} defaultTab={effectiveDefault} id="framework-code-tabs" class="framework-code-tabs__tabs usage-tabs__tabs">
     {astro && (
       <div class="framework-code-tabs__panel">
         <CodeBlock code={astro.trim()} language="astro" />
@@ -43,13 +47,37 @@ const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : ta
 </div>
 
 <style>
-  .framework-code-tabs {
-    margin: var(--spacing-4) 0;
+  /* Same box styling as AddComponentTabs so Usage and Add this component sections match */
+  .usage-tabs {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-4);
+    background: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
   }
-  .framework-code-tabs__hint {
+  .usage-tabs__title {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 var(--spacing-2) 0;
+  }
+  .usage-tabs__hint {
     font-size: var(--font-size-sm);
     color: var(--text-dim);
+    margin: 0 0 var(--spacing-3) 0;
+    line-height: var(--line-height-relaxed);
+  }
+  .usage-tabs__tabs {
+    margin-top: 0;
+  }
+  .usage-tabs :global(.tabs__list) {
+    overflow-x: visible;
+    overflow-y: visible;
+    flex-wrap: nowrap;
+    scrollbar-width: none;
     margin-bottom: var(--spacing-2);
+  }
+  .usage-tabs :global(.tabs__list)::-webkit-scrollbar {
+    display: none;
   }
   .framework-code-tabs :global(.tabs__panel) {
     padding: 0;

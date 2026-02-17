@@ -967,3 +967,4 @@
     run();
   }
 })();
+{{RIZZO_SOUND_SCRIPT}}

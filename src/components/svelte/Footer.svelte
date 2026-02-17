@@ -23,7 +23,7 @@
   const classes = $derived(['footer', className].filter(Boolean).join(' ').trim());
 </script>
 
-<footer class={classes} role="contentinfo">
+<footer class={classes}>
   <div class="footer__container">
     <div class="footer__inner">
       <p class="footer__copyright">

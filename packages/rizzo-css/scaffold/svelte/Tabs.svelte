@@ -4,6 +4,8 @@
   export interface Tab {
     id: string;
     label: string;
+    /** Optional icon URL (e.g. /icons/devicons/Npm.svg) shown before the label */
+    icon?: string;
     content?: string;
   }
 
@@ -89,6 +91,9 @@
         onclick={() => activateTab(index)}
         onkeydown={(e) => handleKeydown(e, index)}
       >
+        {#if tab.icon}
+          <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" />
+        {/if}
         {tab.label}
       </span>
     {/each}

@@ -1253,14 +1253,14 @@ div.navbar__sublink {
 }
 
 .framework-switcher__segment--current {
-  color: var(--accent-text);
-  background-color: var(--accent);
+  color: var(--text);
+  background-color: oklch(from var(--text) l c h / 10%);
   box-shadow: var(--shadow-sm);
 }
 
 .framework-switcher__segment--current:hover {
-  color: var(--accent-text);
-  background-color: var(--accent-hover);
+  color: var(--text);
+  background-color: oklch(from var(--text) l c h / 10%);
 }
 
 .theme-switcher__group {
@@ -2745,7 +2745,7 @@ div.navbar__sublink {
 
 @media (width >= 1024px) {
   .icons-grid {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -2809,11 +2809,13 @@ div.navbar__sublink {
 
 .icon-card__content {
   width: 100%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
+  padding-inline: var(--spacing-2);
 }
 
 .icon-card__name {
@@ -2823,6 +2825,8 @@ div.navbar__sublink {
   color: var(--text);
   line-height: var(--line-height-tight);
   text-align: center;
+  overflow-wrap: break-word;
+  max-width: 100%;
 }
 
 .icon-card__hint {
@@ -2837,6 +2841,42 @@ div.navbar__sublink {
 .icon-card__hint--copied {
   color: var(--accent);
   font-weight: var(--font-weight-medium);
+}
+
+/* Devicon theme overrides: single-color or dark-fill icons use theme-aware colors so they remain visible on light and dark themes. Light themes use brand colors; dark themes use --icon. */
+.devicon--rust .devicon__path {
+  fill: #ce422b;
+}
+
+/* Dark themes: use --icon so devicons stay visible on dark backgrounds (Rust, Playwright dark paths, Docker dark path). */
+[data-theme="github-dark-classic"] .devicon--rust .devicon__path,
+[data-theme="shades-of-purple"] .devicon--rust .devicon__path,
+[data-theme="hack-the-box"] .devicon--rust .devicon__path,
+[data-theme="minimal-dark-neon-yellow"] .devicon--rust .devicon__path,
+[data-theme="rocky-blood-orange"] .devicon--rust .devicon__path,
+[data-theme="sandstorm-classic"] .devicon--rust .devicon__path,
+[data-theme="pink-cat-boo"] .devicon--rust .devicon__path {
+  fill: var(--icon);
+}
+
+[data-theme="github-dark-classic"] .devicon--playwright .devicon__path--dark,
+[data-theme="shades-of-purple"] .devicon--playwright .devicon__path--dark,
+[data-theme="hack-the-box"] .devicon--playwright .devicon__path--dark,
+[data-theme="minimal-dark-neon-yellow"] .devicon--playwright .devicon__path--dark,
+[data-theme="rocky-blood-orange"] .devicon--playwright .devicon__path--dark,
+[data-theme="sandstorm-classic"] .devicon--playwright .devicon__path--dark,
+[data-theme="pink-cat-boo"] .devicon--playwright .devicon__path--dark {
+  fill: var(--icon);
+}
+
+[data-theme="github-dark-classic"] .devicon--docker .devicon__path--dark,
+[data-theme="shades-of-purple"] .devicon--docker .devicon__path--dark,
+[data-theme="hack-the-box"] .devicon--docker .devicon__path--dark,
+[data-theme="minimal-dark-neon-yellow"] .devicon--docker .devicon__path--dark,
+[data-theme="rocky-blood-orange"] .devicon--docker .devicon__path--dark,
+[data-theme="sandstorm-classic"] .devicon--docker .devicon__path--dark,
+[data-theme="pink-cat-boo"] .devicon--docker .devicon__path--dark {
+  fill: var(--icon);
 }
 
 @media (width <= 640px) {

@@ -10,7 +10,14 @@ import Plaintext from './icons/devicons/Plaintext.astro';
 import Git from './icons/devicons/Git.astro';
 import Bash from './icons/devicons/Bash.astro';
 import Svelte from './icons/devicons/Svelte.astro';
+import TypeScript from './icons/devicons/TypeScript.astro';
 import React from './icons/devicons/React.astro';
+import Sass from './icons/devicons/Sass.astro';
+import Ruby from './icons/devicons/Ruby.astro';
+import Python from './icons/devicons/Python.astro';
+import Rust from './icons/devicons/Rust.astro';
+import Docker from './icons/devicons/Docker.astro';
+import Playwright from './icons/devicons/Playwright.astro';
 import Vue from './icons/devicons/Vue.astro';
 
 interface Props {
@@ -84,6 +91,12 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
+        {(languageLower === 'typescript' || languageLower === 'ts') && (
+          <>
+            <TypeScript width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
         {(languageLower === 'react' || languageLower === 'jsx' || languageLower === 'tsx') && (
           <>
             <React width={20} height={20} class="code-block__language-icon" />
@@ -96,13 +109,49 @@ const copyButtonId = `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
+        {(languageLower === 'sass' || languageLower === 'scss') && (
+          <>
+            <Sass width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'ruby' && (
+          <>
+            <Ruby width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'python' && (
+          <>
+            <Python width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'rust' && (
+          <>
+            <Rust width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'docker' && (
+          <>
+            <Docker width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
+        {languageLower === 'playwright' && (
+          <>
+            <Playwright width={20} height={20} class="code-block__language-icon" />
+            <span class="code-block__language-text">{languageLabel}</span>
+          </>
+        )}
         {(languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh') && (
           <>
             <Bash width={20} height={20} class="code-block__language-icon" />
             <span class="code-block__language-text">{languageLabel}</span>
           </>
         )}
-        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'svelte', 'react', 'jsx', 'tsx', 'vue', 'bash', 'shell', 'sh'].includes(languageLower) && (
+        {!['css', 'html', 'javascript', 'nodejs', 'astro', 'plaintext', 'git', 'svelte', 'typescript', 'ts', 'react', 'jsx', 'tsx', 'vue', 'sass', 'scss', 'ruby', 'python', 'rust', 'docker', 'playwright', 'bash', 'shell', 'sh'].includes(languageLower) && (
           <span class="code-block__language-text">{language}</span>
         )}
         <span class="sr-only">{languageLabel}</span>

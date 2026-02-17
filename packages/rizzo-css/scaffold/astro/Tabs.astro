@@ -2,8 +2,10 @@
 interface Tab {
   id: string;
   label: string;
-  /** Optional icon URL (e.g. /icons/bun.svg) shown before the label */
+  /** Optional icon URL (e.g. /icons/devicons/Bun.svg) shown before the label */
   icon?: string;
+  /** Optional Astro icon component (theme-aware); used when present instead of icon URL */
+  iconComponent?: any;
   content?: string;
 }
 
@@ -51,7 +53,7 @@ const classes = `tabs ${variantClass} ${className}`.trim();
           data-tab-id={tab.id}
           data-tab-index={index}
         >
-          {tab.icon ? <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" /> : null}
+          {tab.iconComponent ? <tab.iconComponent width={20} height={20} class="tabs__tab-icon" /> : tab.icon ? <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" /> : null}
           {tab.label}
         </span>
       );

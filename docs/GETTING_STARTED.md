@@ -8,8 +8,9 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 31 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.43/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.44/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (28 component pages). Scaffold ships 31 components (Core or Manual). React/Vue later.
+- **Icons** — 52 total: 30 regular (Tabler) and 22 devicons (brand icons); same set for Astro, Svelte, and Vanilla. See [Components – Icons](./COMPONENTS.md#icons).
 
 ---
 
@@ -136,15 +137,17 @@ Import from `src/utils` (barrel) or from the specific file, e.g. `import { apply
 
 ### Where the CLI puts CSS and assets (per framework)
 
-When you run `init` or `add`, the CLI copies the built CSS and static assets (fonts, and later sounds/images) into **framework-appropriate locations** so each framework’s conventions and build are respected:
+**Docs site matches what we ship:** The main site uses the same asset paths and behavior we document. `pnpm build:css` copies fonts to `public/assets/fonts/`, sound files from `src/assets/sfx/` to `public/assets/sfx/`, and extracts all icon SVGs from `src/components/icons/` to `public/icons/` so `/assets/sfx/click.mp3` and `/icons/*.svg` work.
+
+When you run `init` or `add`, the CLI copies the built CSS and static assets (fonts, and optionally sounds) into **framework-appropriate locations** so each framework’s conventions and build are respected:
 
 | Framework | CSS file | Fonts / assets | Static root |
 |-----------|----------|----------------|-------------|
-| **Astro** | `public/css/rizzo.min.css` | `public/assets/fonts/` (sounds: `public/assets/sounds/`) | `public/` |
-| **Svelte** | `static/css/rizzo.min.css` | `static/assets/fonts/` (sounds: `static/assets/sounds/`) | `static/` |
+| **Astro** | `public/css/rizzo.min.css` | `public/assets/fonts/` (sounds: `public/assets/sfx/`) | `public/` |
+| **Svelte** | `static/css/rizzo.min.css` | `static/assets/fonts/` (sounds: `static/assets/sfx/`) | `static/` |
 | **Vanilla** | `css/rizzo.min.css` | `css/fonts/` | project root |
 
-For **Astro**, fonts and sounds go under **`public/assets/`**; the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts go under **`static/assets/fonts/`** with the same URL rewrite to `/assets/fonts/...` as Astro. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve. When we ship other assets (e.g. images), they will follow the same pattern per framework.
+For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` → `/assets/sfx/click.mp3`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts go under **`static/assets/fonts/`** with the same URL rewrite to `/assets/fonts/...` as Astro. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve. When we ship other assets (e.g. sounds, images), they follow the same pattern per framework.
 
 ### Summary
 

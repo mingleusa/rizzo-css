@@ -103,6 +103,14 @@ function main() {
           </div>
         </div>
       </section>
+      <section class="home__add-command" aria-labelledby="home-add-command-heading">
+        <h2 id="home-add-command-heading" class="home__section-title">Add a component</h2>
+        <p class="home__features-intro" style="margin-bottom: var(--spacing-4);">Add any component from the CLI:</p>
+        <div class="home__add-command-block">
+          <pre><code>npx rizzo-css add &lt;ComponentName&gt;</code></pre>
+          <button type="button" class="btn btn-outline home__add-command-copy" data-copy-command="npx rizzo-css add <ComponentName>" aria-label="Copy command">Copy</button>
+        </div>
+      </section>
       <section class="home__docs">
         <h2 class="home__section-title">Documentation</h2>
         <div class="home__docs-grid">
@@ -132,7 +140,10 @@ function main() {
           </a>
         </div>
       </section>
-    </div>`;
+    </div>
+    <script>
+    (function(){ document.addEventListener('DOMContentLoaded',function(){ document.querySelectorAll('[data-copy-command]').forEach(function(btn){ btn.addEventListener('click',function(){ var c=btn.getAttribute('data-copy-command'); if(c&&navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(c); btn.setAttribute('aria-label','Copied'); var t=setTimeout(function(){ btn.setAttribute('aria-label','Copy command'); },2000); } }); }); }); })();
+    </script>`;
   writeFileSync(indexPath, beforeMain + '\n  <main id="main-content" class="home">' + rootMainContent + '\n  </main>\n' + afterMain);
 
   const componentsDir = join(scaffoldVanilla, 'components');

@@ -4,6 +4,7 @@ import Settings from '../components/Settings.astro';
 import Footer from '../components/Footer.astro';
 import { FONT_PAIRS } from '../config/fonts';
 import '../styles/main.css';
+import soundEffectsScript from '../../packages/rizzo-css/scaffold/shared/sound-effects-inline.js?raw';
 
 const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 ---
@@ -329,90 +330,7 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 				window.removeAllToasts = removeAllToasts;
 			})();
 		</script>
-		<script is:inline>
-			// Sound effects: play on click when user has enabled in Settings. Uses /sfx/click.mp3 or /sfx/click.wav if present (add to public/sfx/), else Web Audio fallback.
-			(function() {
-				var SOUND_KEY = 'soundEffects';
-				var clickableSelector = 'a[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"]';
-				var audioContext = null;
-				var soundUrls = ['/sfx/click.mp3', '/sfx/click.wav'];
-				var cachedAudio = null;
-				var soundLoadTried = false;
-				function getContext() {
-					if (!audioContext && typeof window.AudioContext !== 'undefined') {
-						audioContext = new window.AudioContext();
-					}
-					return audioContext;
-				}
-				function playFallbackTone() {
-					try {
-						var ctx = getContext();
-						if (!ctx) return;
-						ctx.resume().then(function() {
-							var now = ctx.currentTime;
-							var osc = ctx.createOscillator();
-							var gain = ctx.createGain();
-							osc.connect(gain);
-							gain.connect(ctx.destination);
-							osc.frequency.setValueAtTime(800, now);
-							osc.frequency.exponentialRampToValueAtTime(200, now + 0.04);
-							osc.type = 'sine';
-							gain.gain.setValueAtTime(0.08, now);
-							gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
-							osc.start(now);
-							osc.stop(now + 0.04);
-						}).catch(function() {});
-					} catch (e) {}
-				}
-				function tryLoadAssetSound() {
-					if (soundLoadTried || cachedAudio) return;
-					soundLoadTried = true;
-					var idx = 0;
-					function tryNext() {
-						if (idx >= soundUrls.length) return;
-						var a = new window.Audio(soundUrls[idx]);
-						a.volume = 0.4;
-						a.addEventListener('canplaythrough', function() { cachedAudio = a; }, { once: true });
-						a.addEventListener('error', function() { idx++; tryNext(); }, { once: true });
-						a.load();
-					}
-					tryNext();
-				}
-				function playClickSound() {
-					try {
-						if (localStorage.getItem(SOUND_KEY) !== 'true') return;
-						tryLoadAssetSound();
-						if (cachedAudio) {
-							try {
-								cachedAudio.currentTime = 0;
-								cachedAudio.volume = 0.4;
-								cachedAudio.play().catch(function() {});
-							} catch (e) {}
-							return;
-						}
-						playFallbackTone();
-					} catch (e) {}
-				}
-				function isClickable(el) {
-					if (!el || !el.closest) return false;
-					var clickable = el.closest(clickableSelector);
-					if (!clickable) return false;
-					if (clickable.disabled === true || clickable.getAttribute('aria-disabled') === 'true') return false;
-					return true;
-				}
-				function onDocumentClick(e) {
-					if (!isClickable(e.target)) return;
-					playClickSound();
-				}
-				if (document.readyState === 'loading') {
-					document.addEventListener('DOMContentLoaded', function() {
-						document.addEventListener('click', onDocumentClick, true);
-					});
-				} else {
-					document.addEventListener('click', onDocumentClick, true);
-				}
-			})();
-		</script>
+		<script is:inline set:html={soundEffectsScript} />
 		<title>Rizzo CSS</title>
 	</head>
 	<body>

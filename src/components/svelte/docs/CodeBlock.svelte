@@ -9,9 +9,16 @@
   import Plaintext from '../icons/devicons/Plaintext.svelte';
   import Git from '../icons/devicons/Git.svelte';
   import SvelteIcon from '../icons/devicons/SvelteIcon.svelte';
+  import TypeScript from '../icons/devicons/TypeScript.svelte';
   import React from '../icons/devicons/React.svelte';
   import Vue from '../icons/devicons/Vue.svelte';
   import Bash from '../icons/devicons/Bash.svelte';
+  import Sass from '../icons/devicons/Sass.svelte';
+  import Ruby from '../icons/devicons/Ruby.svelte';
+  import Python from '../icons/devicons/Python.svelte';
+  import Rust from '../icons/devicons/Rust.svelte';
+  import Docker from '../icons/devicons/Docker.svelte';
+  import Playwright from '../icons/devicons/Playwright.svelte';
 
   interface Props {
     code: string;
@@ -84,6 +91,10 @@
           <span class="code-block__language-icon" aria-hidden="true">
             <SvelteIcon width={20} height={20} />
           </span>
+        {:else if languageLower === 'typescript' || languageLower === 'ts'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <TypeScript width={20} height={20} />
+          </span>
         {:else if languageLower === 'react' || languageLower === 'jsx' || languageLower === 'tsx'}
           <span class="code-block__language-icon" aria-hidden="true">
             <React width={20} height={20} />
@@ -91,6 +102,30 @@
         {:else if languageLower === 'vue'}
           <span class="code-block__language-icon" aria-hidden="true">
             <Vue width={20} height={20} />
+          </span>
+        {:else if languageLower === 'sass' || languageLower === 'scss'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Sass width={20} height={20} />
+          </span>
+        {:else if languageLower === 'ruby'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Ruby width={20} height={20} />
+          </span>
+        {:else if languageLower === 'python'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Python width={20} height={20} />
+          </span>
+        {:else if languageLower === 'rust'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Rust width={20} height={20} />
+          </span>
+        {:else if languageLower === 'docker'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Docker width={20} height={20} />
+          </span>
+        {:else if languageLower === 'playwright'}
+          <span class="code-block__language-icon" aria-hidden="true">
+            <Playwright width={20} height={20} />
           </span>
         {:else if languageLower === 'bash' || languageLower === 'shell' || languageLower === 'sh'}
           <span class="code-block__language-icon" aria-hidden="true">

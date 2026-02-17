@@ -1,7 +1,9 @@
 # Sound effects (source assets)
 
-Add your click sound here (e.g. `click.mp3` or `click.wav`) if you want it bundled with the site.
+Add your click sound here so the site uses it instead of the Web Audio fallback tone.
 
-**Easier option:** Put the file in **`public/sfx/`** instead. The layout script automatically tries `public/sfx/click.mp3` and `public/sfx/click.wav` — no code changes needed.
+- **Add** `click.mp3`, `click.wav`, or `click.ogg` to this folder (`src/assets/sfx/`).
+- **Build** copies these into **`public/assets/sfx/`** when you run `pnpm build` or `pnpm build:css`.
+- The layout script tries **`/assets/sfx/click.mp3`**, then `/assets/sfx/click.wav`, then `/assets/sfx/click.ogg`. The first file that loads is used for “Play sound on click” in Settings.
 
-To use a file from this folder you must import it in `Layout.astro` and pass the resolved URL to the sound script (e.g. via a data attribute).
+**Alternative:** Put the file directly in **`public/assets/sfx/`** (e.g. `public/assets/sfx/click.mp3`). No build step needed; the layout will use it at `/assets/sfx/click.mp3`.

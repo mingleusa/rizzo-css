@@ -23,7 +23,7 @@
   }
 </script>
 
-<aside id={omitId ? undefined : 'docs-sidebar'} class="docs-sidebar" aria-label="Documentation navigation" tabindex="0">
+<aside id={omitId ? undefined : 'docs-sidebar'} class="docs-sidebar" aria-label="Documentation navigation">
   <nav class="docs-sidebar__nav">
     {#each DOCS_NAV as group}
       <div class="docs-sidebar__group">
