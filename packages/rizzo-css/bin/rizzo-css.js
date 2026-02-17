@@ -225,7 +225,21 @@ function copyRizzoFonts(cssTargetDir) {
   }
 }
 
-/** Astro only: copy rizzo.min.css to public/css with font URLs rewritten to /assets/fonts/, and copy fonts to public/assets/fonts. */
+/** Copy package dist/sfx (click.mp3 etc.) into projectDir/assets/sfx so sound-effects-inline.js can play /assets/sfx/click.mp3. Used for Vanilla init and add. */
+function copyRizzoSfx(projectDir) {
+  const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
+  if (!existsSync(sfxSrc)) return;
+  const dest = join(projectDir, 'assets', 'sfx');
+  mkdirSync(dest, { recursive: true });
+  const entries = readdirSync(sfxSrc, { withFileTypes: true });
+  for (const e of entries) {
+    if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+      copyFileSync(join(sfxSrc, e.name), join(dest, e.name));
+    }
+  }
+}
+
+/** Astro only: copy rizzo.min.css to public/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to public/assets/fonts. */
 function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   const cssDir = join(projectDir, 'public', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
@@ -236,7 +250,7 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   mkdirSync(sfxDest, { recursive: true });
   copyFileSync(cssSource, cssTarget);
   let css = readFileSync(cssTarget, 'utf8');
-  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
+  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('../assets/fonts/");
   writeFileSync(cssTarget, css, 'utf8');
   const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
   if (existsSync(fontsSrc)) {
@@ -248,9 +262,18 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
       else copyFileSync(srcPath, destPath);
     }
   }
+  const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
+  if (existsSync(sfxSrc)) {
+    const entries = readdirSync(sfxSrc, { withFileTypes: true });
+    for (const e of entries) {
+      if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+        copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
+      }
+    }
+  }
 }
 
-/** SvelteKit only: copy rizzo.min.css to static/css with font URLs rewritten to /assets/fonts/, and copy fonts to static/assets/fonts. */
+/** SvelteKit only: copy rizzo.min.css to static/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to static/assets/fonts. */
 function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   const cssDir = join(projectDir, 'static', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
@@ -261,7 +284,7 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   mkdirSync(sfxDest, { recursive: true });
   copyFileSync(cssSource, cssTarget);
   let css = readFileSync(cssTarget, 'utf8');
-  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('/assets/fonts/");
+  css = css.replace(/url\(['"]?\.\/fonts\//g, "url('../assets/fonts/");
   writeFileSync(cssTarget, css, 'utf8');
   const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
   if (existsSync(fontsSrc)) {
@@ -271,6 +294,15 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
       const destPath = join(fontsDest, e.name);
       if (e.isDirectory()) copyDirRecursive(srcPath, destPath);
       else copyFileSync(srcPath, destPath);
+    }
+  }
+  const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
+  if (existsSync(sfxSrc)) {
+    const entries = readdirSync(sfxSrc, { withFileTypes: true });
+    for (const e of entries) {
+      if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+        copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
+      }
     }
   }
 }
@@ -1494,6 +1526,7 @@ async function runAddToExisting(frameworkOverride, options) {
       mkdirSync(targetDir, { recursive: true });
       copyFileSync(cssSource, cssTarget);
       copyRizzoFonts(dirname(cssTarget));
+      if (framework === 'vanilla') copyRizzoSfx(cwd);
     }
   }
 
@@ -1859,6 +1892,7 @@ async function cmdInit(argv) {
     mkdirSync(cssDir, { recursive: true });
     copyFileSync(cssSource, cssTarget);
     copyRizzoFonts(dirname(cssTarget));
+    copyRizzoSfx(projectDir);
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
@@ -1899,6 +1933,7 @@ async function cmdInit(argv) {
       mkdirSync(cssDir, { recursive: true });
       copyFileSync(cssSource, cssTarget);
       copyRizzoFonts(dirname(cssTarget));
+      if (framework === 'vanilla') copyRizzoSfx(projectDir);
     }
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');

@@ -115,12 +115,15 @@ postcss([
       copyDirRecursive(fontsSrc, packageFonts);
     }
 
-    // Copy sound effects from src/assets/sfx to public/assets/sfx
+    // Copy sound effects from src/assets/sfx to public/assets/sfx (docs) and package dist/sfx (CLI scaffolds)
     if (existsSync(sfxSrc)) {
       mkdirSync(sfxDest, { recursive: true });
+      const packageSfx = join(rootDir, 'packages/rizzo-css/dist/sfx');
+      mkdirSync(packageSfx, { recursive: true });
       for (const name of readdirSync(sfxSrc)) {
         if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg')) {
           copyFileSync(join(sfxSrc, name), join(sfxDest, name));
+          copyFileSync(join(sfxSrc, name), join(packageSfx, name));
         }
       }
     }
@@ -133,8 +136,11 @@ postcss([
 
     // Package CSS: rewrite font URLs so they resolve from dist/rizzo.min.css to dist/fonts/
     let packageCss = fullCss.replace(/url\(['"]?\.\.\/assets\/fonts\//g, "url('./fonts/");
-    // cssnano can strip closing quotes from url(); ensure font url() are properly quoted for package
-    packageCss = packageCss.replace(/url\('\.\/fonts\/(.+?)\)\s*format/g, "url('./fonts/$1') format");
+    // Normalize font url() closing quotes (cssnano may output " or ' or none); ensure path has no trailing quote
+    packageCss = packageCss.replace(/url\(['"]?\.\/fonts\/(.+?)["']?\)\s*format/g, (_, path) => {
+      const clean = path.replace(/["']+$/, '');
+      return "url('./fonts/" + clean + "') format";
+    });
     writeFileSync(outputPackage, packageCss);
   })
   .catch((error) => {
