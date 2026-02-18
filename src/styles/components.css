@@ -2152,6 +2152,27 @@ div.navbar__sublink {
   border-width: 0;
 }
 
+/* Icon-only variant (e.g. code block copy button) */
+.copy-to-clipboard--icon-only {
+  padding: var(--spacing-2);
+}
+
+.copy-to-clipboard--icon-only .copy-to-clipboard__text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.copy-to-clipboard--icon-only .copy-to-clipboard__icon--check {
+  right: var(--spacing-2);
+}
+
 /* Alert Component — darker backgrounds that follow theme (--alert-bg, --alert-*-bg) */
 .alert {
   position: relative;

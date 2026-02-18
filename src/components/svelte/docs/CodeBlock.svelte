@@ -1,6 +1,5 @@
 <script lang="ts">
-  import Copy from '../icons/Copy.svelte';
-  import Check from '../icons/Check.svelte';
+  import CopyToClipboard from '../CopyToClipboard.svelte';
   import Css3 from '../icons/devicons/Css3.svelte';
   import Html5 from '../icons/devicons/Html5.svelte';
   import Javascript from '../icons/devicons/Javascript.svelte';
@@ -26,33 +25,8 @@
     class?: string;
   }
   let { code, language = '', class: className = '' }: Props = $props();
-  let copied = $state(false);
   const languageLabel = $derived(language || '');
   const languageLower = $derived(language.toLowerCase());
-
-  async function copyCode() {
-    try {
-      await navigator.clipboard.writeText(code);
-      copied = true;
-      setTimeout(() => (copied = false), 2000);
-    } catch {
-      const ta = document.createElement('textarea');
-      ta.value = code;
-      ta.style.position = 'fixed';
-      ta.style.left = '-999999px';
-      document.body.appendChild(ta);
-      ta.focus();
-      ta.select();
-      try {
-        document.execCommand('copy');
-        copied = true;
-        setTimeout(() => (copied = false), 2000);
-      } finally {
-        document.body.removeChild(ta);
-      }
-    }
-  }
-
 </script>
 
 <div class={`code-block ${className}`.trim()}>
@@ -136,23 +110,15 @@
         <span class="sr-only">{languageLabel}</span>
       </span>
     {/if}
-    <span class="tooltip-host" data-tooltip={copied ? 'Copied!' : 'Copy code'}>
-      <button
-        type="button"
-        class="code-block__copy-btn"
-        aria-label={copied ? 'Copied!' : 'Copy code'}
-        onclick={copyCode}
-      >
-        {#if copied}
-          <span class="code-block__copy-icon code-block__copy-icon--check" aria-hidden="true">
-            <Check width={20} height={20} />
-          </span>
-        {:else}
-          <span class="code-block__copy-icon code-block__copy-icon--copy" aria-hidden="true">
-            <Copy width={20} height={20} />
-          </span>
-        {/if}
-      </button>
+    <span class="code-block__copy-wrap">
+      <CopyToClipboard
+        value={code}
+        iconOnly
+        buttonLabel="Copy code"
+        format="code"
+        label="Copy code to clipboard"
+        class="code-block__copy"
+      />
     </span>
   </div>
   <pre tabindex="0"><code>{code}</code></pre>
@@ -221,29 +187,17 @@
       display: inline;
     }
   }
-  .code-block__copy-btn {
+  .code-block__copy-wrap {
+    margin-left: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    padding: var(--spacing-2);
+  }
+  .code-block__copy-wrap :global(.copy-to-clipboard--icon-only) {
     min-width: var(--spacing-8);
     height: var(--spacing-8);
-    margin-left: auto;
-    background-color: var(--background-alt);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    color: var(--text);
-    cursor: pointer;
-    transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
-  }
-  .code-block__copy-btn:hover {
-    background-color: var(--background);
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .code-block__copy-btn:focus-visible {
-    outline: var(--outline-width) solid var(--accent);
-    outline-offset: var(--outline-offset);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
   .code-block pre {
     margin: 0;

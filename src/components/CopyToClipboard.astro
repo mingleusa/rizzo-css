@@ -6,6 +6,10 @@ interface Props {
   value: string;
   label?: string;
   format?: string;
+  /** When true, only the copy/check icons are shown (e.g. in code blocks). */
+  iconOnly?: boolean;
+  /** For icon-only: accessible label for the hidden text (e.g. "Copy code"). */
+  buttonLabel?: string;
   class?: string;
   id?: string;
 }
@@ -14,24 +18,31 @@ const {
   value,
   label,
   format,
+  iconOnly = false,
+  buttonLabel,
   class: className = '',
   id,
 } = Astro.props;
 
 const buttonId = id || `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
-const defaultTooltip = label || 'Copy to clipboard';
+const defaultTooltip = label || (iconOnly ? (buttonLabel || 'Copy') : 'Copy to clipboard');
+const ariaLabel = label || (iconOnly ? (buttonLabel || 'Copy to clipboard') : `Copy ${value} to clipboard`);
+const displayText = iconOnly ? (buttonLabel || 'Copy') : value;
+const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-only' : '', className].filter(Boolean).join(' ').trim();
 ---
 
 <span class="tooltip-host" data-tooltip={defaultTooltip}>
   <button
     type="button"
-    class={`copy-to-clipboard ${className}`.trim()}
+    class={buttonClass}
     data-copy-value={value}
     data-copy-format={format}
-    aria-label={label || `Copy ${value} to clipboard`}
+    aria-label={ariaLabel}
     id={buttonId}
+    data-copy-icon-only={iconOnly ? 'true' : undefined}
+    data-copy-button-label={iconOnly ? (buttonLabel || 'Copy') : undefined}
   >
-    <span class="copy-to-clipboard__text">{value}</span>
+    <span class="copy-to-clipboard__text">{displayText}</span>
     <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true">
       <Copy width={16} height={16} />
     </span>
@@ -67,8 +78,12 @@ const defaultTooltip = label || 'Copy to clipboard';
         const checkIcon = button.querySelector('.copy-to-clipboard__icon--check');
         const textSpan = button.querySelector('.copy-to-clipboard__text');
         
-        // Update text span with current value
+        // Update text span with current value (or fixed label when icon-only)
         const updateDisplay = () => {
+          if (button.hasAttribute('data-copy-icon-only')) {
+            if (textSpan) textSpan.textContent = button.getAttribute('data-copy-button-label') || 'Copy';
+            return;
+          }
           const value = getValue();
           if (textSpan) {
             textSpan.textContent = value || '';

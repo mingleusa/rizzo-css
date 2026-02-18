@@ -3,16 +3,23 @@
     value: string;
     label?: string;
     format?: string;
+    /** When true, only the copy/check icons are shown (e.g. in code blocks). */
+    iconOnly?: boolean;
+    /** For icon-only: accessible label for the hidden text (e.g. "Copy code"). */
+    buttonLabel?: string;
     class?: string;
     id?: string;
   }
-  let { value, label, format, class: className = '', id }: Props = $props();
+  let { value, label, format, iconOnly = false, buttonLabel, class: className = '', id }: Props = $props();
 
   let copied = $state(false);
   let feedbackText = $state('');
   const fallbackId = `copy-btn-${Math.random().toString(36).slice(2, 11)}`;
   const buttonId = $derived(id ?? fallbackId);
-  const classes = $derived(['copy-to-clipboard', className].filter(Boolean).join(' ').trim());
+  const displayText = $derived(iconOnly ? (buttonLabel ?? 'Copy') : value);
+  const classes = $derived(['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-only' : '', className].filter(Boolean).join(' ').trim());
+  const ariaLabel = $derived(copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? (iconOnly ? (buttonLabel ?? 'Copy to clipboard') : `Copy ${value} to clipboard`)));
+  const tooltipText = $derived(copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? (iconOnly ? (buttonLabel ?? 'Copy') : 'Copy to clipboard')));
 
   async function copy() {
     if (!value) return;
@@ -48,11 +55,11 @@
   }
 </script>
 
-<span class="tooltip-host" data-tooltip={copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? 'Copy to clipboard')}>
+<span class="tooltip-host" data-tooltip={tooltipText}>
   <button
     type="button"
     class={classes}
-    aria-label={copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? `Copy ${value} to clipboard`)}
+    aria-label={ariaLabel}
     id={buttonId}
     onclick={copy}
     onkeydown={(e) => {
@@ -62,7 +69,7 @@
       }
     }}
   >
-    <span class="copy-to-clipboard__text">{value}</span>
+    <span class="copy-to-clipboard__text">{displayText}</span>
     <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" class:copy-to-clipboard__icon--hidden={copied} aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
