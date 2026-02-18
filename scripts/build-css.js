@@ -86,6 +86,55 @@ function copyIconsToPublic(astroIconsDir, publicIconsDir) {
   return count;
 }
 
+/** Create a minimal WAV file (mono, 8-bit, 22050 Hz) for a short click. Used when no sfx files exist so the package always ships a working sound. */
+function createMinimalClickWav() {
+  const sampleRate = 22050;
+  const durationSec = 0.04;
+  const numSamples = Math.round(sampleRate * durationSec);
+  const dataLen = numSamples;
+  const headerLen = 44;
+  const fileLen = headerLen + dataLen;
+  const buf = Buffer.alloc(headerLen + dataLen);
+  let o = 0;
+  function write(data, len) {
+    for (let i = 0; i < len; i++) buf[o++] = data[i];
+  }
+  function writeU32LE(n) {
+    buf[o++] = n & 0xff;
+    buf[o++] = (n >> 8) & 0xff;
+    buf[o++] = (n >> 16) & 0xff;
+    buf[o++] = (n >> 24) & 0xff;
+  }
+  function writeU16LE(n) {
+    buf[o++] = n & 0xff;
+    buf[o++] = (n >> 8) & 0xff;
+  }
+  write([0x52, 0x49, 0x46, 0x46], 4); // RIFF
+  writeU32LE(fileLen - 8);
+  write([0x57, 0x41, 0x56, 0x45], 4); // WAVE
+  write([0x66, 0x6d, 0x74, 0x20], 4); // fmt 
+  writeU32LE(16);
+  writeU16LE(1); // PCM
+  writeU16LE(1); // mono
+  writeU32LE(sampleRate);
+  writeU32LE(sampleRate);
+  writeU16LE(1);
+  writeU16LE(8);
+  write([0x64, 0x61, 0x74, 0x61], 4); // data
+  writeU32LE(dataLen);
+  // 8-bit: 128 = silence. Short click = small burst then decay.
+  for (let i = 0; i < numSamples; i++) {
+    if (i < 8) {
+      buf[o++] = 128 + Math.round(100 * (1 - i / 8));
+    } else if (i < 30) {
+      buf[o++] = 128 + Math.round(60 * Math.exp(-(i - 8) / 8));
+    } else {
+      buf[o++] = 128;
+    }
+  }
+  return buf;
+}
+
 const css = readFileSync(inputFile, 'utf8');
 
 postcss([
@@ -115,16 +164,26 @@ postcss([
       copyDirRecursive(fontsSrc, packageFonts);
     }
 
-    // Copy sound effects from src/assets/sfx to public/assets/sfx (docs) and package dist/sfx (CLI scaffolds)
-    if (existsSync(sfxSrc)) {
-      mkdirSync(sfxDest, { recursive: true });
-      const packageSfx = join(rootDir, 'packages/rizzo-css/dist/sfx');
-      mkdirSync(packageSfx, { recursive: true });
-      for (const name of readdirSync(sfxSrc)) {
-        if (name.endsWith('.mp3') || name.endsWith('.wav') || name.endsWith('.ogg')) {
-          copyFileSync(join(sfxSrc, name), join(sfxDest, name));
-          copyFileSync(join(sfxSrc, name), join(packageSfx, name));
-        }
+    // Copy sound effects: we only ship/load click.mp3. Copy from src or use package default.
+    const packageSfx = join(rootDir, 'packages/rizzo-css/dist/sfx');
+    mkdirSync(packageSfx, { recursive: true });
+    mkdirSync(sfxDest, { recursive: true });
+    let anySfxCopied = false;
+    const srcMp3 = existsSync(sfxSrc) ? join(sfxSrc, 'click.mp3') : null;
+    if (srcMp3 && existsSync(srcMp3)) {
+      copyFileSync(srcMp3, join(sfxDest, 'click.mp3'));
+      copyFileSync(srcMp3, join(packageSfx, 'click.mp3'));
+      anySfxCopied = true;
+    }
+    if (!anySfxCopied) {
+      const defaultMp3 = join(rootDir, 'packages/rizzo-css/scaffold/shared/click.mp3');
+      if (existsSync(defaultMp3)) {
+        copyFileSync(defaultMp3, join(packageSfx, 'click.mp3'));
+        copyFileSync(defaultMp3, join(sfxDest, 'click.mp3'));
+      } else {
+        const fallbackWav = createMinimalClickWav();
+        writeFileSync(join(packageSfx, 'click.wav'), fallbackWav);
+        writeFileSync(join(sfxDest, 'click.wav'), fallbackWav);
       }
     }
 
