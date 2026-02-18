@@ -403,6 +403,8 @@
   
   
   
+  
+  
   <main id="main-content" class="home">
     <div class="home__container">
       <header class="home__hero">
@@ -495,6 +497,8 @@
     (function(){ document.addEventListener('DOMContentLoaded',function(){ document.querySelectorAll('[data-copy-command]').forEach(function(btn){ btn.addEventListener('click',function(){ var c=btn.getAttribute('data-copy-command'); if(c&&navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(c); btn.setAttribute('aria-label','Copied'); var t=setTimeout(function(){ btn.setAttribute('aria-label','Copy command'); },2000); } }); }); }); })();
     </script>
   </main>
+
+
 
 
 
