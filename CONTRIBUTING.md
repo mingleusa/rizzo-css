@@ -36,7 +36,7 @@ See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETT
 - **Vanilla:** Component HTML lives in the docs at `src/pages/docs/vanilla/components/`. The package scaffold uses `scaffold/vanilla/` (icons from copy-scaffold; component pages from `scripts/prepare-vanilla-scaffold.js`). Interactive behavior is in `packages/rizzo-css/scaffold/vanilla/js/main.js`.
 - **CSS:** `src/styles/` — variables, base, components, pages, themes. All UI colors and spacing use semantic variables (see [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)).
 - **CLI:** `packages/rizzo-css/bin/rizzo-css.js` — commands, component list, scaffold copy logic.
-- **Docs content:** `src/pages/docs/`, `docs/*.md`.
+- **Docs content:** `src/pages/docs/` (site pages), `docs/` (markdown; index in [docs/README.md](docs/README.md)).
 
 When adding a new component, add it to the Astro scaffold list in `scripts/copy-scaffold.js` (`ASTRO_SCAFFOLD`) and to the CLI component lists in `packages/rizzo-css/bin/rizzo-css.js` (`SVELTE_COMPONENTS`, `ASTRO_COMPONENTS`, `VANILLA_COMPONENT_SLUGS` if it has a vanilla slug). Then run `pnpm build:package` and update docs as needed.
 
@@ -52,7 +52,7 @@ When adding a new component, add it to the Astro scaffold list in `scripts/copy-
 
 1. **Branch** from `main` and make changes. Keep PRs focused (one feature or fix).
 2. **Tests:** Ensure `pnpm build` and `pnpm test:a11y` pass.
-3. **Docs:** Update [docs/](docs/) or component docs if you changed behavior or added options.
+3. **Docs:** Update [docs/](docs/) (see [docs/README.md](docs/README.md) for doc index) or component docs if you changed behavior or added options.
 4. **Submit** the PR with a clear title and description. Link any related issue. The [PR template](.github/PULL_REQUEST_TEMPLATE.md) (build, a11y, docs checklist) is applied automatically.
 5. **Review:** Address feedback; maintainers will merge when ready.
 
@@ -70,5 +70,5 @@ You can also open a blank issue or use the contact links on the New issue page (
 
 ## Questions
 
-- **Docs:** [GETTING_STARTED](docs/GETTING_STARTED.md), [CLI](docs/CLI.md), [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md), [ACCESSIBILITY](docs/ACCESSIBILITY.md).
+- **Docs:** [docs/README.md](docs/README.md) (index), [GETTING_STARTED](docs/GETTING_STARTED.md), [CLI](docs/CLI.md), [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md), [ACCESSIBILITY](docs/ACCESSIBILITY.md).
 - **Site:** https://rizzo-css.vercel.app

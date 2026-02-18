@@ -11,7 +11,14 @@ Rizzo CSS keeps each framework’s implementation **separate but integrated** in
 - **Scaffold docs** — Each scaffold folder ships **README-RIZZO.md** and **LICENSE-RIZZO** (no overwrite of project README/LICENSE). Main and package READMEs reference them. Markdown docs (GETTING_STARTED, FRAMEWORK_STRUCTURE, COMPONENTS, MULTI_FRAMEWORK, PUBLISHING, DESIGN_SYSTEM) are aligned with npm/CLI and what ships.
 - **Adding React/Vue** — Same pattern: add to `frameworks.ts`, create `src/components/<framework>/` and `src/pages/docs/<framework>/`. See [Adding a new framework](#adding-a-new-framework) below.
 
-## Folder layout
+## Repository layout (high level)
+
+- **`docs/`** — Markdown documentation. User-facing guides (GETTING_STARTED, DESIGN_SYSTEM, THEMING, etc.) and reference (COMPONENTS, CLI) at top level; internal planning in **`docs/planning/`** (CLI_PLANNING, PLAN_FONT_CHANGER, SCAFFOLD_REPLICA_PLAN). See [docs/README.md](./README.md) for the full index.
+- **`src/`** — Astro docs site and reference components (see below).
+- **`packages/rizzo-css/`** — Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla, astro-core, svelte-core, astro/, svelte/, config/, shared/, utils/).
+- **`scripts/`** — Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js`.
+
+## Folder layout (src)
 
 ```
 src/

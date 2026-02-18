@@ -112,6 +112,13 @@ const menuId = idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu';
         if (monoEl) monoEl.style.fontFamily = '';
       };
 
+      /** Resolve var(--font-family-xxx) to the actual font stack from :root so preview shows the correct font. */
+      const resolveFontVar = (cssValue: string): string => {
+        const m = cssValue.match(/^var\((--[a-zA-Z0-9-]+)\)$/);
+        if (!m) return cssValue;
+        const resolved = getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim();
+        return resolved || cssValue;
+      };
       const updatePreview = (option: Element | null) => {
         if (!preview || !sample || !monoEl) return;
         if (!option) {
@@ -122,8 +129,8 @@ const menuId = idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu';
         }
         const sans = option.getAttribute('data-font-pair-sans') || '';
         const mono = option.getAttribute('data-font-pair-mono') || '';
-        sample.style.fontFamily = sans;
-        monoEl.style.fontFamily = mono;
+        sample.style.fontFamily = resolveFontVar(sans);
+        monoEl.style.fontFamily = resolveFontVar(mono);
         preview.setAttribute('aria-hidden', 'false');
       };
 

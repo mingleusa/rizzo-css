@@ -1,6 +1,6 @@
 # Scaffolds: What Ships
 
-**Internal planning.** For user-facing setup see [GETTING_STARTED](./GETTING_STARTED.md).
+**Internal planning.** For user-facing setup see [GETTING_STARTED](../GETTING_STARTED.md).
 
 ## What the package ships
 
@@ -20,7 +20,7 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 - **copy-scaffold.js** — Run from repo root. Copies `src/components/` (Astro) and `src/components/svelte/` (Svelte) into `packages/rizzo-css/scaffold/astro/` and `scaffold/svelte/`; writes `scaffold/utils/theme.ts` (from `src/utils/theme.ts`, import fixed to `../astro/themes`) for ThemeSwitcher; copies vanilla base and icons into `scaffold/vanilla/`.
 - **prepare-vanilla-scaffold.js** — Run from repo root. Builds `scaffold/vanilla/components/` (index + per-component HTML) and updates vanilla `index.html` with hero + documentation cards (external links to docs site).
 
-Both run in package `prepublishOnly` (with `lint:css:fix` and `build:css`). Root `pnpm build:package` runs `copy-scaffold` and `prepare:vanilla-scaffold` only. See [PUBLISHING](./PUBLISHING.md).
+Both run in package `prepublishOnly` (with `lint:css:fix` and `build:css`). Root `pnpm build:package` runs `copy-scaffold` and `prepare:vanilla-scaffold` only. See [PUBLISHING](../PUBLISHING.md).
 
 ## Vanilla file layout (shipped)
 

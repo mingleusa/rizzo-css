@@ -38,8 +38,24 @@
     triggerEl?.focus();
   }
 
+  /** Resolve var(--font-family-xxx) to the actual font stack from :root so preview shows the correct primary and code fonts. */
+  function resolveFontVar(cssValue: string): string {
+    if (typeof document === 'undefined') return cssValue;
+    const m = cssValue.match(/^var\((--[a-zA-Z0-9-]+)\)$/);
+    if (!m) return cssValue;
+    const resolved = getComputedStyle(document.documentElement).getPropertyValue(m[1]).trim();
+    return resolved || cssValue;
+  }
+
   function setPreview(option: { sans: string; mono: string } | null) {
-    previewOption = option;
+    if (!option) {
+      previewOption = null;
+      return;
+    }
+    previewOption = {
+      sans: resolveFontVar(option.sans),
+      mono: resolveFontVar(option.mono),
+    };
   }
 
   function addClickOutsideListener() {

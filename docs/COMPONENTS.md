@@ -643,7 +643,7 @@ A powerful search component with Algolia integration and live filtering. The tri
 
 ### Algolia setup (optional)
 
-For production search: create an Algolia app, get Application ID and Search-Only API Key, then index your content (e.g. run `node scripts/index-docs.js` with `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME`). Pass credentials to the Search component via props: `algoliaAppId`, `algoliaApiKey`, `algoliaIndexName`. Use environment variables (e.g. `PUBLIC_ALGOLIA_APP_ID`) and never commit the Admin API key. See [Algolia docs](https://www.algolia.com/doc/) and the repo’s `ALGOLIA_SETUP.md` if you use this repo’s indexing script.
+For production search: create an Algolia app, get Application ID and Search-Only API Key, then index your content (e.g. run `node scripts/index-docs.js` with `ALGOLIA_APP_ID`, `ALGOLIA_API_KEY`, `ALGOLIA_INDEX_NAME`). Pass credentials to the Search component via props: `algoliaAppId`, `algoliaApiKey`, `algoliaIndexName`. Use environment variables (e.g. `PUBLIC_ALGOLIA_APP_ID`) and never commit the Admin API key. See [Algolia docs](https://www.algolia.com/doc/) and the repo’s [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) if you use this repo’s indexing script.
 
 ### Customization
 

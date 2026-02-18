@@ -233,7 +233,7 @@ function copyRizzoSfx(projectDir) {
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(sfxSrc, { withFileTypes: true });
   for (const e of entries) {
-    if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+    if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
       copyFileSync(join(sfxSrc, e.name), join(dest, e.name));
     }
   }
@@ -266,7 +266,7 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   if (existsSync(sfxSrc)) {
     const entries = readdirSync(sfxSrc, { withFileTypes: true });
     for (const e of entries) {
-      if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+      if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
         copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
       }
     }
@@ -300,7 +300,7 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   if (existsSync(sfxSrc)) {
     const entries = readdirSync(sfxSrc, { withFileTypes: true });
     for (const e of entries) {
-      if (!e.isDirectory() && /\.(mp3|wav|ogg)$/i.test(e.name)) {
+      if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
         copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
       }
     }

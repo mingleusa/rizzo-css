@@ -1,6 +1,6 @@
 # Plan: Fonts + Font Changer in Settings
 
-**Status: Implemented.** The design system has **font pairs** (sans + mono) and a **font changer** in Settings. Each option applies two faces: one for body/UI (sans) and one for code (mono). **Six pairs:** Geist (default), Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, **DM Sans + DM Mono**, **Outfit + JetBrains Mono** (JetBrains Mono reused). See [Design System – Typography](./DESIGN_SYSTEM.md#typography-system) and [COMPONENTS – Settings](./COMPONENTS.md#settings).
+**Status: Implemented.** The design system has **font pairs** (sans + mono) and a **font changer** in Settings. Each option applies two faces: one for body/UI (sans) and one for code (mono). **Six pairs:** Geist (default), Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, **DM Sans + DM Mono**, **Outfit + JetBrains Mono** (JetBrains Mono reused). See [Design System – Typography](../DESIGN_SYSTEM.md#typography-system) and [COMPONENTS – Settings](../COMPONENTS.md#settings).
 
 ---
 

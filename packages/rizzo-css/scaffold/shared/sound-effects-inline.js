@@ -1,4 +1,4 @@
-// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3, else Web Audio fallback. Same script for docs and all shipped scaffolds. Supports touch (touchend) so mobile plays like desktop.
+// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3 (or relative assets/sfx for Vanilla), else Web Audio fallback. Single source for main site (Layout.astro) and all shipped scaffolds (Astro, Svelte, Vanilla); keep behavior in sync. Supports touch (touchend) so mobile plays like desktop.
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;

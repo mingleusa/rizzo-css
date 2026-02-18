@@ -8,7 +8,7 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 <DocsLayout title="Sound Effects Component — Astro" description="Toggle for play sound on click (Web Audio); off by default for accessibility.">
 	<section>
 		<h2>Sound Effects Component</h2>
-		<p>The SoundEffects component is a checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on <strong>primary (left) clicks</strong> only on links, buttons, tabs, dropdowns, and other interactive elements (with a short throttle so one interaction doesn’t play twice). <strong>Off by default</strong> for accessibility. The preference is stored in <code>localStorage</code> (key <code>soundEffects</code>). The layout script tries <code>/assets/sfx/click.mp3</code>, then <code>click.wav</code>, then <code>click.ogg</code> (add your file to <code>public/assets/sfx/</code>, or to <code>src/assets/sfx/</code> and run <code>pnpm build:css</code>); if none are found, a built-in Web Audio tone is used.</p>
+		<p>The SoundEffects component is a checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on <strong>primary (left) clicks</strong> only on links, buttons, tabs, dropdowns, and other interactive elements (with a short throttle so one interaction doesn’t play twice). <strong>Off by default</strong> for accessibility. The preference is stored in <code>localStorage</code> (key <code>soundEffects</code>). The layout script loads <code>/assets/sfx/click.mp3</code> (add your file to <code>public/assets/sfx/</code>, or to <code>src/assets/sfx/</code> and run <code>pnpm build:css</code>); if not found, a built-in Web Audio tone is used.</p>
 		<AddComponentTabs componentName="Sound Effects" />
 		<div class="example">
 			<div class="example-title">Live Example</div>
@@ -39,7 +39,7 @@ import SoundEffects from '../components/rizzo/SoundEffects.astro';
 		<ul>
 			<li>Checkbox “Play sound on click” with optional help text.</li>
 			<li>Persists in <code>localStorage</code> (key <code>soundEffects</code>: <code>true</code> or <code>false</code>). Default: off (no key or <code>false</code>).</li>
-			<li>The click sound is played by a <strong>global script</strong> in the layout that listens for primary clicks on buttons, links, tabs, options, and other interactive elements (throttled). The script tries <code>/assets/sfx/click.mp3</code>, then <code>click.wav</code>, then <code>click.ogg</code> (add files to <code>public/assets/sfx/</code>); if none are found, a Web Audio tone is used. Include that script (see Layout.astro) for the sound to play when the user has enabled it.</li>
+			<li>The click sound is played by a <strong>global script</strong> in the layout that listens for primary clicks on buttons, links, tabs, options, and other interactive elements (throttled). The script loads <code>/assets/sfx/click.mp3</code> (add to <code>public/assets/sfx/</code>); if not found, a Web Audio tone is used. Include that script (see Layout.astro) for the sound to play when the user has enabled it.</li>
 		</ul>
 
 		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/vanilla/components/sound-effects">Vanilla</a></p>

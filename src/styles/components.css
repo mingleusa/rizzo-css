@@ -1510,6 +1510,7 @@ div.navbar__sublink {
   margin: 0;
 }
 
+/* Inline style from FontSwitcher sets font-family per pair; default below when preview closed */
 .font-switcher__preview-mono {
   font-size: var(--font-size-sm);
   font-family: var(--font-family-mono);
