@@ -409,6 +409,11 @@
   
   
   
+  
+  
+  
+  
+  
   <main id="main-content" class="home">
     <div class="home__container">
       <header class="home__hero">
@@ -464,7 +469,14 @@
         <p class="home__features-intro" style="margin-bottom: var(--spacing-4);">Add any component from the CLI:</p>
         <div class="home__add-command-block">
           <pre><code>npx rizzo-css add &lt;ComponentName&gt;</code></pre>
-          <button type="button" class="btn btn-outline home__add-command-copy" data-copy-command="npx rizzo-css add <ComponentName>" aria-label="Copy command">Copy</button>
+          <span class="tooltip-host" data-tooltip="Copy command">
+            <button type="button" class="copy-to-clipboard copy-to-clipboard--icon-only home__add-command-copy" data-copy-value="npx rizzo-css add &lt;ComponentName&gt;" data-copy-format="command" data-copy-icon-only="true" data-copy-button-label="Copy" aria-label="Copy command">
+              <span class="copy-to-clipboard__text">Copy</span>
+              <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2"/></svg></span>
+              <span class="copy-to-clipboard__icon copy-to-clipboard__icon--check" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></span>
+              <span class="copy-to-clipboard__feedback" aria-live="polite"></span>
+            </button>
+          </span>
         </div>
       </section>
       <section class="home__docs">
@@ -497,10 +509,12 @@
         </div>
       </section>
     </div>
-    <script>
-    (function(){ document.addEventListener('DOMContentLoaded',function(){ document.querySelectorAll('[data-copy-command]').forEach(function(btn){ btn.addEventListener('click',function(){ var c=btn.getAttribute('data-copy-command'); if(c&&navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(c); btn.setAttribute('aria-label','Copied'); var t=setTimeout(function(){ btn.setAttribute('aria-label','Copy command'); },2000); } }); }); }); })();
-    </script>
   </main>
+
+
+
+
+
 
 
 

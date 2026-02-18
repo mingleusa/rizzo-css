@@ -35,6 +35,7 @@ See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETT
 - **Svelte components:** `src/components/svelte/*.svelte` — same BEM and design system; copied into `packages/rizzo-css/scaffold/svelte/` by copy-scaffold. Export new components in `src/components/svelte/index.ts`.
 - **Vanilla:** Component HTML lives in the docs at `src/pages/docs/vanilla/components/`. The package scaffold uses `scaffold/vanilla/` (icons from copy-scaffold; component pages from `scripts/prepare-vanilla-scaffold.js`). Interactive behavior is in `packages/rizzo-css/scaffold/vanilla/js/main.js`.
 - **CSS:** `src/styles/` — variables, base, components, pages, themes. All UI colors and spacing use semantic variables (see [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)).
+- **Shared types:** `src/types/` — re-exports config and utils types; defines component props and data shapes (Tab, MenuItem, ButtonProps, etc.). Use when adding or extending component APIs.
 - **CLI:** `packages/rizzo-css/bin/rizzo-css.js` — commands, component list, scaffold copy logic.
 - **Docs content:** `src/pages/docs/` (site pages), `docs/` (markdown; index in [docs/README.md](docs/README.md)).
 

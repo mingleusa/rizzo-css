@@ -164,22 +164,32 @@ postcss([
       copyDirRecursive(fontsSrc, packageFonts);
     }
 
-    // Copy sound effects: we only ship/load click.mp3. Copy from src or use package default.
+    // Copy sound effects: script loads click.mp3 then click.wav. Copy from src or use package default.
     const packageSfx = join(rootDir, 'packages/rizzo-css/dist/sfx');
+    const scaffoldShared = join(rootDir, 'packages/rizzo-css/scaffold/shared');
     mkdirSync(packageSfx, { recursive: true });
     mkdirSync(sfxDest, { recursive: true });
-    let anySfxCopied = false;
-    const srcMp3 = existsSync(sfxSrc) ? join(sfxSrc, 'click.mp3') : null;
-    if (srcMp3 && existsSync(srcMp3)) {
-      copyFileSync(srcMp3, join(sfxDest, 'click.mp3'));
-      copyFileSync(srcMp3, join(packageSfx, 'click.mp3'));
-      anySfxCopied = true;
+    if (existsSync(sfxSrc)) {
+      for (const name of ['click.mp3', 'click.wav']) {
+        const srcFile = join(sfxSrc, name);
+        if (existsSync(srcFile)) {
+          copyFileSync(srcFile, join(sfxDest, name));
+          copyFileSync(srcFile, join(packageSfx, name));
+        }
+      }
     }
-    if (!anySfxCopied) {
-      const defaultMp3 = join(rootDir, 'packages/rizzo-css/scaffold/shared/click.mp3');
+    if (!existsSync(join(packageSfx, 'click.mp3'))) {
+      const defaultMp3 = join(scaffoldShared, 'click.mp3');
       if (existsSync(defaultMp3)) {
         copyFileSync(defaultMp3, join(packageSfx, 'click.mp3'));
         copyFileSync(defaultMp3, join(sfxDest, 'click.mp3'));
+      }
+    }
+    if (!existsSync(join(packageSfx, 'click.wav'))) {
+      const defaultWav = join(scaffoldShared, 'click.wav');
+      if (existsSync(defaultWav)) {
+        copyFileSync(defaultWav, join(packageSfx, 'click.wav'));
+        copyFileSync(defaultWav, join(sfxDest, 'click.wav'));
       } else {
         const fallbackWav = createMinimalClickWav();
         writeFileSync(join(packageSfx, 'click.wav'), fallbackWav);

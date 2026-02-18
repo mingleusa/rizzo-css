@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 31 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.50/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.51/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (28 component pages). Scaffold ships 31 components (Core or Manual). React/Vue later.
 - **Icons** — 52 total: 30 regular (Tabler) and 22 devicons (brand icons); same set for Astro, Svelte, and Vanilla. See [Components – Icons](./COMPONENTS.md#icons).
 
@@ -88,6 +88,31 @@ Import the CSS **once** in your app (root layout or main entry):
 - **If you used npm but have no bundler (plain HTML):** Use a CDN: `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />` or the jsDelivr equivalent. Or copy the built file from `node_modules/rizzo-css/dist/rizzo.min.css` into your `public/` or `static/` folder and link to that path.
 - **If you cloned and built:** Add a `<link>` or `import` to `public/css/main.min.css` (docs site) or `packages/rizzo-css/dist/rizzo.min.css` (package).
 
+### Installation by framework
+
+Follow the steps below for your chosen framework. Each path assumes you have the CSS (via [Step 1](#step-1-get-the-css) and [Step 2](#step-2-import-the-css)); the CLI prints the exact `<link>` tag when you run `init` or `add`.
+
+#### Vanilla JS
+
+1. **New project:** Run `npx rizzo-css init`, choose **Vanilla JS**, then **Core** (full showcase + `js/main.js` + icons + 31 component pages) or **Manual** (pick components; all interactive pre-selected). The CLI creates the project in the current directory or a path you enter.
+2. **Add to existing:** Run `npx rizzo-css add` in your project root (or `npx rizzo-css add --path public/css`). Add the printed `<link>` to your HTML.
+3. **CSS location:** CLI writes `css/rizzo.min.css`. Link it in your HTML, or switch to a CDN (see **README-RIZZO.md** in the scaffold). Pin version: `.../rizzo-css@0.0.51/dist/rizzo.min.css`.
+4. **Components:** Use the same BEM classes and markup as [Components](/docs/components). Core includes `js/main.js` for overlays, modals, dropdowns, etc. For copy-paste HTML and demos, see [Vanilla component pages](/docs/vanilla/components). Manual with no components: add JS later from those docs or copy `js/main.js` from a Core scaffold.
+
+#### Astro
+
+1. **New project:** Run `npx rizzo-css init`, choose **Astro**, then **Core** (full app + 31 components) or **Manual** (hand-pick; all pre-selected). Choose package manager; install runs in the project directory.
+2. **Add to existing:** In an existing Astro app, run `npx rizzo-css add`. Or create then add: `npm create astro@latest my-app && cd my-app && npx rizzo-css add`. Add the printed `<link>` to your root layout (e.g. `src/layouts/Layout.astro`).
+3. **CSS location:** CLI writes `public/css/rizzo.min.css`. In your layout: `<link rel="stylesheet" href="/css/rizzo.min.css" />`. Or install the package and `import 'rizzo-css'` in the layout.
+4. **Components:** Astro components are copied to your project (e.g. `src/components/rizzo/`). Use the same BEM classes and structure as [Components](/docs/components). Layout includes theme flash prevention and toast; add Navbar, Search, Settings via CLI or copy from this repo.
+
+#### Svelte (SvelteKit)
+
+1. **New project:** Run `npx rizzo-css init`, choose **Svelte**, then **Core** (full app + 31 components) or **Manual** (hand-pick; all pre-selected). Choose package manager; install runs in the project directory.
+2. **Add to existing:** In an existing SvelteKit app, run `npx rizzo-css add`. Or create then add: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add`. Add the printed `<link>` to `app.html`.
+3. **CSS location:** CLI writes `static/css/rizzo.min.css`. In `app.html`: `<link rel="stylesheet" href="/css/rizzo.min.css" />`. Or install the package and import the CSS in your entry.
+4. **Components:** Svelte components live in `src/lib/rizzo/`. Import e.g. `import { Button, Badge, Card, Modal, Tabs } from '$lib/rizzo'`. Same BEM and behavior as Astro; see [Svelte docs](/docs/svelte) and component pages (Astro | Svelte | Vanilla tabs).
+
 ### Step 3: Use components (Vanilla JS)
 
 - **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** with **Core** (showcase + js + icons) or **Manual** (same base; component picker opens with all interactive components pre-selected — add/remove then confirm, or pick none). If you chose **Manual** with no components and want JS later, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` and `icons/` from a Core scaffold. The CLI copies the built CSS into your project as `css/rizzo.min.css`; you can switch the `<link>` to a CDN URL (see **README-RIZZO.md**). Theme is stored in `localStorage` under key `theme`; use value `system` for OS light/dark.
@@ -131,13 +156,13 @@ The repo provides small JS utilities used by the Astro/Svelte components; you ca
 | **Clipboard** (`src/utils/clipboard.ts`) | `copyToClipboard(text): Promise<boolean>` (Clipboard API with fallback). |
 | **Toast** (`src/utils/toast.ts`) | `showToast(message, options?)`, `removeToast(id)`, `removeAllToasts()`, and `ToastOptions` for programmatic toasts. |
 
-Import from `src/utils` (barrel) or from the specific file, e.g. `import { applyTheme, getThemeLabel } from '../utils/theme'` in Astro, or from your copied `utils` folder in a Svelte app. **When using the package:** ThemeSwitcher in `scaffold/astro/` imports from `scaffold/utils/theme` (included in the package); paths are set so the Astro package build resolves correctly. **When adding via the CLI:** If you add ThemeSwitcher or ThemeIcon to an Astro project, the CLI also copies `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (with the themes import fixed to `../rizzo/themes`) so the project build finds it.
+Import from `src/utils` (barrel) or from the specific file, e.g. `import { applyTheme, getThemeLabel } from '../utils/theme'` in Astro, or from your copied `utils` folder in a Svelte app. **Shared TypeScript types** (theme, toast, config, component props and data shapes) live in `src/types/`; use `import type { ... } from '../types'` when building on this repo. **When using the package:** ThemeSwitcher in `scaffold/astro/` imports from `scaffold/utils/theme` (included in the package); paths are set so the Astro package build resolves correctly. **When adding via the CLI:** If you add ThemeSwitcher or ThemeIcon to an Astro project, the CLI also copies `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (with the themes import fixed to `../rizzo/themes`) so the project build finds it.
 
 **Scaffolds:** The **Vanilla** scaffold ships with inline theme flash, toast, and a full Settings panel (`openSettings()`). The **Astro** and **Svelte** scaffold layouts include theme flash and toast scripts so `showToast`, `removeToast`, and `removeAllToasts` are available globally; Navbar, Search, and Settings are in the package scaffolds (minimal versions)—add them via the CLI or copy from this repo for the full experience.
 
 ### Where the CLI puts CSS and assets (per framework)
 
-**Docs site matches what we ship:** The main site uses the same asset paths and behavior we document. `pnpm build:css` copies fonts to `public/assets/fonts/`, sound files from `src/assets/sfx/` to `public/assets/sfx/`, and extracts all icon SVGs from `src/components/icons/` to `public/icons/` so `/assets/sfx/click.mp3` and `/icons/*.svg` work.
+**Docs site matches what we ship:** The main site uses the same asset paths and behavior we document. `pnpm build:css` copies fonts to `public/assets/fonts/`, sound files from `src/assets/sfx/` to `public/assets/sfx/`, and extracts all icon SVGs from `src/components/icons/` to `public/icons/` so `/assets/sfx/click.mp3` or `click.wav` and `/icons/*.svg` work.
 
 When you run `init` or `add`, the CLI copies the built CSS and static assets (fonts, and optionally sounds) into **framework-appropriate locations** so each framework’s conventions and build are respected:
 
@@ -147,7 +172,7 @@ When you run `init` or `add`, the CLI copies the built CSS and static assets (fo
 | **Svelte** | `static/css/rizzo.min.css` | `static/assets/fonts/` (sounds: `static/assets/sfx/`) | `static/` |
 | **Vanilla** | `css/rizzo.min.css` | `css/fonts/` (sounds: `assets/sfx/`) | project root |
 
-For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` → `/assets/sfx/click.mp3`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts and sounds go under **`static/assets/fonts/`** and **`static/assets/sfx/`** with the same URL rewrite for fonts. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve; sounds go to **`assets/sfx/`** when you use **Core** or add **Settings** or **SoundEffects**, and the sound script uses a relative path so it works with a local server or `file://`.
+For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` or `click.wav` → `/assets/sfx/click.mp3` or `click.wav`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts and sounds go under **`static/assets/fonts/`** and **`static/assets/sfx/`** with the same URL rewrite for fonts. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve; sounds go to **`assets/sfx/`** when you use **Core** or add **Settings** or **SoundEffects**, and the sound script uses a relative path so it works with a local server or `file://`.
 
 ### Summary
 
@@ -173,6 +198,8 @@ cd rizzo-css
 # Install dependencies (all are devDependencies; no production runtime deps for the docs site)
 pnpm install
 ```
+
+**Building the package distribution:** From repo root, `pnpm build:package` runs **lint:css:fix** → **build:css** (outputs `public/css/main.min.css` and `packages/rizzo-css/dist/rizzo.min.css`, `dist/fonts/`, `dist/sfx/`) → **copy-scaffold** (copies `src/components` and `src/components/svelte` into `packages/rizzo-css/scaffold/astro` and `scaffold/svelte`, plus config, utils, and vanilla icons) → **prepare-vanilla-scaffold** (populates `scaffold/vanilla/components/`). The CLI and published package use this `dist/` and `scaffold/` output. See [PUBLISHING](./PUBLISHING.md).
 
 ## Project Structure
 
@@ -247,6 +274,9 @@ rizzo-css/
 │   │       ├── Badge.svelte
 │   │       └── ...
 │   ├── utils/           # JS utilities (theme, storage, clipboard, toast)
+│   ├── types/           # Shared TypeScript types (config, utils, component props/data)
+│   │   ├── index.ts
+│   │   └── components.ts
 │   ├── layouts/         # Page layouts
 │   │   ├── Layout.astro
 │   │   └── DocsLayout.astro

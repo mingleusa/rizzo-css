@@ -529,7 +529,7 @@ Font pair (sans + mono) dropdown used in the Settings panel and standalone. Sets
 
 ## Sound Effects
 
-Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** only on links, buttons, and other interactive elements (throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script loads `/assets/sfx/click.mp3`; if not found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
+Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** only on links, buttons, and other interactive elements (throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script loads `/assets/sfx/click.mp3` then `/assets/sfx/click.wav`; if neither is found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
 
 ## Button Component
 

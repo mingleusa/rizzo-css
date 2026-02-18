@@ -155,7 +155,7 @@ function setupToastDismiss(toast: HTMLElement, autoDismiss: number): void {
     const closeBtn = toast.querySelector('[data-alert-close]');
     if (closeBtn) {
       closeBtn.addEventListener('click', dismissWithCleanup);
-      closeBtn.addEventListener('keydown', (e) => {
+      closeBtn.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           dismissWithCleanup();
@@ -167,7 +167,7 @@ function setupToastDismiss(toast: HTMLElement, autoDismiss: number): void {
     const closeBtn = toast.querySelector('[data-alert-close]');
     if (closeBtn) {
       closeBtn.addEventListener('click', dismissToast);
-      closeBtn.addEventListener('keydown', (e) => {
+      closeBtn.addEventListener('keydown', (e: KeyboardEvent) => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           dismissToast();
@@ -212,9 +212,9 @@ export function removeAllToasts(): void {
   });
 }
 
-// Expose globally for easy access
+// Expose globally for easy access (types in src/global.d.ts)
 if (typeof window !== 'undefined') {
-  (window as any).showToast = showToast;
-  (window as any).removeToast = removeToast;
-  (window as any).removeAllToasts = removeAllToasts;
+  window.showToast = showToast;
+  window.removeToast = removeToast;
+  window.removeAllToasts = removeAllToasts;
 }

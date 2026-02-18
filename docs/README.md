@@ -15,6 +15,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | [ACCESSIBILITY.md](./ACCESSIBILITY.md) | A11y features, testing, manual checklist |
 | [MULTI_FRAMEWORK.md](./MULTI_FRAMEWORK.md) | Vanilla, Astro, Svelte; same CSS and components |
 | [SOUNDS_AND_FONTS.md](./SOUNDS_AND_FONTS.md) | Sound effects and font pairs (where they live, behavior) |
+| [BEST_PRACTICES.md](./BEST_PRACTICES.md) | Component composition patterns, performance optimization tips |
 
 ### Reference
 
@@ -48,7 +49,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 |------|---------|
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
-| **src/** | Astro docs site: `pages/`, `components/`, `layouts/`, `styles/`, `config/`, `assets/` |
+| **src/** | Astro docs site: `pages/`, `components/`, `layouts/`, `styles/`, `config/`, `types/`, `utils/`, `assets/` |
 | **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla, astro-core, svelte-core, astro/, svelte/, config/, shared/, utils/) |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
 | **tests/** | Playwright a11y tests |

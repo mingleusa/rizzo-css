@@ -18,4 +18,5 @@ export {
 
 export { getItem, setItem, removeItem } from './storage';
 export { copyToClipboard } from './clipboard';
-export { showToast, hideToast, type ToastOptions } from './toast';
+export { showToast, removeToast, removeAllToasts } from './toast';
+export type { ToastOptions } from './toast';

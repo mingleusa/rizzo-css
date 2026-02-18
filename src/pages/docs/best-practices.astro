@@ -1,0 +1,78 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Best Practices" description="Component composition patterns and performance optimization tips">
+	<section>
+		<h2 id="component-composition-patterns">Component composition patterns</h2>
+		<p>Rizzo components are designed to be composed in layouts and with each other. Follow these patterns so behavior and styling stay consistent across Vanilla, Astro, and Svelte.</p>
+
+		<h3>Container and slot patterns</h3>
+		<p>Many components act as <strong>containers</strong> that wrap arbitrary content:</p>
+		<ul>
+			<li><strong>Card</strong> — Single root with optional variant; put content inside (e.g. <code>card__body</code> or your own structure).</li>
+			<li><strong>Modal</strong> — Trigger opens a dialog; slot or prop for body content.</li>
+			<li><strong>Tabs</strong> — Pass an array of <code>{'{'} id, label, content? {'}'}</code> or use slot panels.</li>
+			<li><strong>Accordion</strong> — Pass <code>items</code> (id, title, content) or use slot children.</li>
+		</ul>
+		<p>Preserve the root BEM block and expected child classes (e.g. <code>card__body</code>, <code>tabs__panel</code>, <code>accordion__panel</code>) so Rizzo CSS applies correctly.</p>
+
+		<h3>Data-driven components</h3>
+		<p>Use the <strong>shared data shapes</strong> so markup stays consistent and TypeScript types apply:</p>
+		<ul>
+			<li><strong>Tabs</strong> — <code>Tab[]</code>: <code>id</code>, <code>label</code>, optional <code>content</code>, optional <code>icon</code>.</li>
+			<li><strong>Dropdown</strong> — <code>MenuItem[]</code>: <code>label</code>, <code>value</code>, <code>href</code>, <code>onClick</code>, <code>disabled</code>, <code>separator</code>, <code>submenu</code>.</li>
+			<li><strong>Breadcrumb</strong> — <code>BreadcrumbItem[]</code>: <code>label</code>, optional <code>href</code>.</li>
+			<li><strong>Table</strong> — <code>TableColumn[]</code>: <code>key</code>, <code>label</code>, optional <code>sortable</code>.</li>
+			<li><strong>Accordion</strong> — <code>AccordionItem[]</code>: <code>id</code>, <code>title</code>, <code>content</code>.</li>
+			<li><strong>Footer</strong> — <code>FooterLink[]</code>: <code>label</code>, <code>href</code>.</li>
+		</ul>
+		<p>These types are in <code>src/types/components.ts</code> and re-exported from <code>src/types</code>. Use them in Astro props or Svelte so the same structures work across frameworks.</p>
+
+		<h3>Component dependency chains</h3>
+		<p>When adding components via the CLI or by hand, respect <strong>dependencies</strong>:</p>
+		<ul>
+			<li><strong>Navbar</strong> — Adds Search and Settings (so the navbar can show search trigger and settings button).</li>
+			<li><strong>Settings</strong> — Adds ThemeSwitcher, FontSwitcher, SoundEffects (and <code>scaffold/config/fonts.ts</code> when added via CLI).</li>
+			<li><strong>Toast</strong> — Uses Alert (toast uses alert styles and close behavior).</li>
+		</ul>
+		<p>If you add Navbar, include Search and Settings so the layout doesn’t have missing pieces. The CLI auto-includes dependencies.</p>
+
+		<h3>Composing Navbar, Search, and Settings</h3>
+		<p>Place Search and Settings in the desktop actions area (<code>navbar__actions-desktop</code>). On mobile, search/settings are often icon-only in the header. Use the same BEM structure as the <a href="/docs/components/navbar">Navbar component</a>; the scaffold uses <code>window.openSettings()</code> for the settings button. The layout must include the Settings panel and the script that registers <code>openSettings</code>. See the scaffold layouts (Vanilla, Astro, Svelte) for full examples.</p>
+
+		<h3>Modifiers and shared types</h3>
+		<p>Use <strong>BEM modifiers</strong> for variants (e.g. <code>btn--primary</code>, <code>card--elevated</code>, <code>tabs--pills</code>) and semantic props where supported. When extending or wrapping Rizzo components, import types from <code>../types</code> (Astro) or the same in Svelte so APIs stay consistent.</p>
+	</section>
+
+	<section>
+		<h2 id="performance-optimization-tips">Performance optimization tips</h2>
+
+		<h3>CSS loading</h3>
+		<ul>
+			<li><strong>Single import</strong> — Import Rizzo CSS once in your root layout or main entry. Avoid loading it multiple times.</li>
+			<li><strong>CDN</strong> — Pin the version (e.g. <code>rizzo-css@0.0.51</code>) so cache hits are reliable. Verify with <code>curl -I &lt;url&gt;</code> (200).</li>
+			<li><strong>No duplicate CSS</strong> — Use either the npm package or a copied file in <code>public/</code> or <code>static/</code>, not both.</li>
+		</ul>
+
+		<h3>Theme and font flash prevention</h3>
+		<p>Apply the user’s stored theme (or system preference) <strong>before</strong> first paint. The scaffold layouts include an inline script in <code>&lt;head&gt;</code> that runs immediately: reads <code>localStorage.getItem('theme')</code> and sets <code>data-theme</code> on <code>&lt;html&gt;</code>. Keep this script small and synchronous. For custom font pairs, consider preloading key font files so text doesn’t swap visibly.</p>
+
+		<h3>Bundle and assets</h3>
+		<ul>
+			<li>Rizzo ships a single minified CSS file; no tree-shaking. Load it once.</li>
+			<li>Reuse the same icon and sound assets across the app to avoid duplicate payloads.</li>
+			<li>Sound effects are optional and loaded on demand by the Settings script.</li>
+		</ul>
+
+		<h3>Critical CSS and lazy loading (optional)</h3>
+		<p>If above-the-fold content is blocked by Rizzo CSS, you can experiment with critical CSS (inline above-the-fold rules, full stylesheet async). Themes are combined into one file; lazy-loading themes is possible but not default. Use your framework’s code-splitting for routes or heavy components.</p>
+
+		<h3>Measuring</h3>
+		<p>Use the Network and Performance panels to confirm CSS loads once and is cached, and that the theme script runs early enough to avoid a visible flash. Run Lighthouse for performance and accessibility.</p>
+	</section>
+
+	<section>
+		<p><strong>Summary:</strong> Use container/slot and data-driven patterns; respect component dependencies; use shared types from <code>src/types</code>. Load Rizzo CSS once; pin CDN version; prevent theme flash with early scripts. For design-system rules (variables, BEM, contrast, accessibility), see <a href="/docs/design-system#best-practices">Design System – Best Practices</a> and <a href="/docs/accessibility">Accessibility</a>.</p>
+	</section>
+</DocsLayout>

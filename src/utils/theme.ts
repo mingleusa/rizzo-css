@@ -4,6 +4,12 @@
  */
 import { ALL_THEMES } from '../config/themes';
 
+/** Detail payload for the 'rizzo-theme-change' custom event. */
+export interface RizzoThemeChangeDetail {
+  themeValue: string;
+  effective: string;
+}
+
 export const THEME_SYSTEM = 'system';
 export const DEFAULT_THEME_DARK = 'github-dark-classic';
 export const DEFAULT_THEME_LIGHT = 'github-light';
@@ -33,8 +39,14 @@ export function getResolvedTheme(): string {
   return stored;
 }
 
+/** Theme display info returned by getThemeInfo. */
+export interface ThemeInfo {
+  value: string;
+  label: string;
+}
+
 /** Get { value, label } for a theme (for UI display). */
-export function getThemeInfo(themeValue: string): { value: string; label: string } {
+export function getThemeInfo(themeValue: string): ThemeInfo {
   if (themeValue === THEME_SYSTEM) return { value: THEME_SYSTEM, label: 'System' };
   const entry = ALL_THEMES.find((t) => t.value === themeValue);
   return entry ? { value: entry.value, label: entry.label } : { value: themeValue, label: 'Theme' };
@@ -60,6 +72,8 @@ export function applyTheme(themeValue: string): void {
   }
   // Allow listeners to sync UI (e.g. ThemeSwitcher)
   try {
-    window.dispatchEvent(new CustomEvent('rizzo-theme-change', { detail: { themeValue, effective } }));
+    window.dispatchEvent(
+      new CustomEvent<RizzoThemeChangeDetail>('rizzo-theme-change', { detail: { themeValue, effective } })
+    );
   } catch (_) {}
 }

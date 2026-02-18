@@ -2,69 +2,75 @@
 
 A focused list of **remaining** tasks for the Rizzo CSS design system, **ordered by priority** (top = do first).
 
-**Current state:** Single package **rizzo-css** (v0.0.50) with CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. For feature summaries and what’s already done, see: [CONTRIBUTING.md](../CONTRIBUTING.md) (community), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features) (a11y features and testing), [COLORS.md](./COLORS.md) (theming). Full product state: [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md).
+---
 
-**Recently completed:** Font changer in Settings with theme-style UI (trigger + menu + preview); **six font pairs** (Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono) across docs and all scaffolds; font config shipped with package and copied by CLI when adding Settings; Vite font path fix (literal filenames in `url()` for build-time resolution); **sound effects** (Web Audio click on interactive elements, Settings toggle, off by default); **Navbar Components dropdown** 3-column layout; docs and package version bump to 0.0.47; **sound MP3-only, scaffold/shared in package, version 0.0.48**; components alphabetical (nav, sidebar, components page); ThemeIcon gear fix; sound uses click.mp3 only (Web Audio fallback if missing); throttle and primary-click only; **sound shipped in package** (dist/sfx) and CLI copies sfx for Astro, Svelte, and Vanilla; **docs sidebar** Introduction and Foundations broken into section links with smooth scroll and active-state tracking (IDs on headings, sublinks in sidebar); **version bump to 0.0.50**.
+## Current state
 
-**Font pairs (current state):** **6 pairs** — Geist (default), Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono (JetBrains Mono reused for outfit pair). See [PLAN_FONT_CHANGER](./planning/PLAN_FONT_CHANGER.md).
+- **Package:** Single **rizzo-css** (v0.0.51) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte.
+- **Docs:** [GETTING_STARTED.md](./GETTING_STARTED.md), [CLI](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md), [ACCESSIBILITY.md](./ACCESSIBILITY.md#accessibility-features), [COLORS.md](./COLORS.md).
+
+**Ready to ship:** Sound effects support click.wav; build and CLI copy both .mp3 and .wav; docs and site updated.
+
+**Distribution build:** From repo root, `pnpm build:package` runs: **lint:css:fix** → **build:css** (writes `public/css/main.min.css`, `packages/rizzo-css/dist/rizzo.min.css`, `dist/fonts/`, `dist/sfx/`) → **copy-scaffold** (src/components → scaffold/astro, src/components/svelte → scaffold/svelte, src/config → scaffold/config, scaffold/utils/theme, scaffold/vanilla/icons from Astro icons) → **prepare-vanilla-scaffold** (scaffold/vanilla/components/ from template). Scaffolds **astro-core** and **svelte-core** are static in the package; the CLI copies **dist/** (CSS, fonts, sfx) and **scaffold/** content into the user’s project. See [PUBLISHING.md](./PUBLISHING.md) and [GETTING_STARTED.md – Where the CLI puts CSS and assets](./GETTING_STARTED.md#where-the-cli-puts-css-and-assets-per-framework).
 
 ---
 
-## ▶️ Next task (recommended)
+## Recently completed
 
-**Manual a11y testing** — Automated axe, keyboard, and ARIA tests are in place (`pnpm test:a11y`). Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, **Settings**, Search, Accordion) per [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing); log and fix any issues.
+- **Sound effects (click.wav + distribution)** — Click sound now supports **click.wav** alongside click.mp3. Build and CLI copy both formats; sound script tries mp3 then wav. Sound on nav links and logo (Core scaffolds). Docs, READMEs, and site pages updated. See [SOUNDS_AND_FONTS.md](./SOUNDS_AND_FONTS.md).
+- **Best practices** — [BEST_PRACTICES.md](./BEST_PRACTICES.md) and [/docs/best-practices](/docs/best-practices): component composition patterns and performance optimization tips.
+- **Installation guide** — Per-framework steps (Vanilla, Astro, Svelte) in GETTING_STARTED.md and docs getting-started page.
+- **TypeScript** — Central types in `src/types/` (config, utils, component props/data); theme and toast types; global `Window` types for scaffold scripts.
+- Font changer (Settings), six font pairs, sound effects, Navbar Components dropdown, docs sidebar, scaffold nav, home copy button, version 0.0.51. See [CONTRIBUTING.md](../CONTRIBUTING.md) and [SOUNDS_AND_FONTS.md](./SOUNDS_AND_FONTS.md).
+
+**Font pairs (current):** Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono. [PLAN_FONT_CHANGER](./planning/PLAN_FONT_CHANGER.md).
 
 ---
 
-## After that (priority order)
+## Next task (recommended)
 
-1. **TypeScript** — Type definitions and props interfaces for components and utils.
-2. **Component composition patterns** (doc) → **automated testing** (component + a11y) → **focus/contrast** (deepen a11y) → **performance** → **React/Vue** when ready.
+**Manual a11y testing** — Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, Settings, Search, Accordion) per [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing). Automated tests: `pnpm test:a11y`.
 
 ---
 
-## 1. Documentation
+## Roadmap (priority order)
 
-- [ ] **Best practices**
-  - [ ] Component composition patterns
-  - [ ] Performance optimization tips
+1. **Manual a11y** (see above) → **Automated testing** (component + a11y) → **Focus/contrast** (deepen a11y) → **Performance** → **React/Vue** when ready.
 
-## 2. Developer Experience
+---
 
-- [ ] **TypeScript** — Type definitions and props interfaces for components and utils.
+## Remaining tasks by area
+
+### Documentation
+- [x] Best practices — [BEST_PRACTICES.md](./BEST_PRACTICES.md) (composition + performance).
+
+### Developer experience
+- [x] TypeScript — Types in `src/types/`, utils and theme/toast types.
 - [ ] **Testing** — Component, accessibility, and (optionally) visual regression tests.
 - [ ] **Build** — Bundle size, tree-shaking, critical CSS (if needed).
 - [ ] **Storybook** *(optional)* — Interactive playground and design system showcase.
 
-## 3. Accessibility
-
-- [ ] **Manual screen reader testing** — [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing) checklist: NVDA/VoiceOver/JAWS on Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, Settings, Search, Accordion; fix any announced-label or focus issues.
+### Accessibility
+- [ ] **Manual screen reader testing** — [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing) checklist; fix any announced-label or focus issues.
 - [ ] **Focus** — Focus trap utilities, focus restoration, skip links (already in place for Modal/Search/Settings).
-- [ ] **Contrast** — Themes use `--accent-fg` / `--accent-text` etc.; verify all themes meet WCAG AA.
+- [ ] **Contrast** — Verify all themes meet WCAG AA.
 
-## 4. Package distribution
+### Package distribution
+- [ ] **Multi-framework** — React components; Vue components (in-repo or separate later).
+- [ ] **In-repo framework routes** — Svelte done; React/Vue same pattern. [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md).
 
-- [ ] **Multi-framework**
-  - [ ] React components (in-repo or separate later)
-  - [ ] Vue components (in-repo or separate later)
-- [ ] **In-repo framework routes** — Svelte done; React/Vue same pattern. See [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md). Doc index: [docs/README.md](./README.md).
-
-## 5. Performance
-
+### Performance
 - [ ] **Optimization** — Bundle analysis, unused CSS removal, critical CSS, load strategy.
 - [ ] **Lazy loading** *(optional)* — Themes or component CSS on demand.
 
-## 6. CSS variables & design system (as needed)
-
+### CSS & design system (as needed)
 - [ ] Additional spacing/transform/animation variables if discovered during porting.
 
-## 7. Browser support
-
+### Browser support
 - [ ] **Polyfills** — OKLCH fallbacks; modern CSS feature detection.
 - [ ] **Testing** — Cross-browser, mobile, accessibility tooling.
 
-## 8. Examples & demos
-
+### Examples & demos
 - [ ] Example pages — Component/theme showcase; form and layout examples.
 - [ ] Templates — Landing, dashboard, or docs-site starter (optional).
 

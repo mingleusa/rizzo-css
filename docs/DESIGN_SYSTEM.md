@@ -677,6 +677,8 @@ This ensures:
 
 ## Best Practices
 
+For **component composition patterns** (container/slot, data shapes, dependency chains, Navbar+Search+Settings) and **performance optimization tips** (CSS loading, theme flash prevention), see [BEST_PRACTICES.md](./BEST_PRACTICES.md) and the [Best Practices](/docs/best-practices) docs page.
+
 1. **Design System as Source of Truth** - Always use CSS variables and utility classes from the design system. Never hardcode values (colors, spacing, sizes, transitions, etc.). This ensures consistency and makes framework porting easier. **All styling must use design system variables for easy portability to Vue, React, and Svelte.**
 2. **Always use semantic variables** - Never hardcode colors, spacing, sizes, or other values. Use `var(--spacing-*)`, `var(--radius-*)`, `var(--transition-*)`, etc.
 3. **Use contrast-aware text colors** - Use `--accent-text` for accent; use `--success-text-on-solid`, `--warning-text-on-solid`, `--error-text-on-solid`, `--info-text-on-solid` for buttons and badges with solid semantic backgrounds

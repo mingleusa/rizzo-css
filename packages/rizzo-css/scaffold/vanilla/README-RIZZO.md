@@ -27,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.50`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.51`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -53,7 +53,7 @@ The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}
   - **Navbar** — Mobile menu: `.navbar__toggle` toggles `.navbar__menu`; Escape closes.
   - **Copy to clipboard** — Buttons with `.copy-to-clipboard` and `data-copy-value`, or `[data-copy]` with `value` or `data-copy-value`; click copies text and shows feedback (icons/aria-label). Optional `data-copy-format` for “Copied {format}!”.
   - **Tooltips** — Use `.tooltip-wrapper` with a `.tooltip` child, or `[data-tooltip]` on the trigger; no JS required (CSS :hover and :focus-within).
-  - **Sound effects** — When "Play sound on click" is enabled in Settings, a short click sound plays on interactive elements. The script is injected by the CLI when **Core** or when **Settings**/**SoundEffects** are included; sound files are in **`assets/sfx/`** (e.g. `click.mp3`). Off by default; persists as `soundEffects` in localStorage.
+  - **Sound effects** — When "Play sound on click" is enabled in Settings, a short click sound plays on interactive elements. The script is injected by the CLI when **Core** or when **Settings**/**SoundEffects** are included; sound files are in **`assets/sfx/`** (e.g. `click.mp3` or `click.wav`). Off by default; persists as `soundEffects` in localStorage.
 
 ## Commands
 

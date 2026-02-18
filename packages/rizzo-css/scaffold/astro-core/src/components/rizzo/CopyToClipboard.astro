@@ -1,0 +1,157 @@
+---
+import Copy from './icons/Copy.astro';
+import Check from './icons/Check.astro';
+
+interface Props {
+  value: string;
+  label?: string;
+  format?: string;
+  /** When true, only the copy/check icons are shown (e.g. in code blocks). */
+  iconOnly?: boolean;
+  /** For icon-only: accessible label for the hidden text (e.g. "Copy code"). */
+  buttonLabel?: string;
+  class?: string;
+  id?: string;
+}
+
+const {
+  value,
+  label,
+  format,
+  iconOnly = false,
+  buttonLabel,
+  class: className = '',
+  id,
+} = Astro.props;
+
+const buttonId = id || `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
+const defaultTooltip = label || (iconOnly ? (buttonLabel || 'Copy') : 'Copy to clipboard');
+const ariaLabel = label || (iconOnly ? (buttonLabel || 'Copy to clipboard') : `Copy ${value} to clipboard`);
+const displayText = iconOnly ? (buttonLabel || 'Copy') : value;
+const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-only' : '', className].filter(Boolean).join(' ').trim();
+---
+
+<span class="tooltip-host" data-tooltip={defaultTooltip}>
+  <button
+    type="button"
+    class={buttonClass}
+    data-copy-value={value}
+    data-copy-format={format}
+    aria-label={ariaLabel}
+    id={buttonId}
+    data-copy-icon-only={iconOnly ? 'true' : undefined}
+    data-copy-button-label={iconOnly ? (buttonLabel || 'Copy') : undefined}
+  >
+    <span class="copy-to-clipboard__text">{displayText}</span>
+    <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true">
+      <Copy width={16} height={16} />
+    </span>
+    <span class="copy-to-clipboard__icon copy-to-clipboard__icon--check" aria-hidden="true">
+      <Check width={16} height={16} />
+    </span>
+    <span class="copy-to-clipboard__feedback" aria-live="polite"></span>
+  </button>
+</span>
+
+<script>
+  (function initCopyToClipboard() {
+    const init = () => {
+      const buttons = document.querySelectorAll('.copy-to-clipboard');
+      buttons.forEach((button) => {
+        if (button.hasAttribute('data-copy-initialized')) return;
+        button.setAttribute('data-copy-initialized', 'true');
+        const tooltipHost = button.closest('.tooltip-host');
+        const defaultTooltip = tooltipHost ? (tooltipHost.getAttribute('data-tooltip') || 'Copy to clipboard') : 'Copy to clipboard';
+        const defaultAriaLabel = button.getAttribute('aria-label') || 'Copy to clipboard';
+        if (tooltipHost) tooltipHost.setAttribute('data-tooltip', defaultTooltip);
+        button.setAttribute('data-copy-aria-label', defaultAriaLabel);
+        if (tooltipHost) tooltipHost.setAttribute('data-copy-default-tooltip', defaultTooltip);
+        const getValue = () => button.getAttribute('data-copy-value') || '';
+        const getFormat = () => button.getAttribute('data-copy-format') || '';
+        const feedback = button.querySelector('.copy-to-clipboard__feedback');
+        const copyIcon = button.querySelector('.copy-to-clipboard__icon--copy');
+        const checkIcon = button.querySelector('.copy-to-clipboard__icon--check');
+        const textSpan = button.querySelector('.copy-to-clipboard__text');
+        const updateDisplay = () => {
+          if (button.hasAttribute('data-copy-icon-only')) {
+            if (textSpan) textSpan.textContent = button.getAttribute('data-copy-button-label') || 'Copy';
+            return;
+          }
+          const value = getValue();
+          if (textSpan) textSpan.textContent = value || '';
+        };
+        updateDisplay();
+        const observer = new MutationObserver((mutations) => {
+          let shouldUpdate = false;
+          mutations.forEach((mutation) => {
+            if (mutation.type === 'attributes' && (mutation.attributeName === 'data-copy-value' || mutation.attributeName === 'data-copy-format')) shouldUpdate = true;
+          });
+          if (shouldUpdate) requestAnimationFrame(updateDisplay);
+        });
+        observer.observe(button, { attributes: true, attributeFilter: ['data-copy-value', 'data-copy-format'], attributeOldValue: false });
+        button.addEventListener('value-updated', () => updateDisplay());
+        let lastValue = getValue();
+        const intervalId = setInterval(() => {
+          const currentValue = getValue();
+          if (currentValue !== lastValue) { lastValue = currentValue; updateDisplay(); }
+        }, 300);
+        button.setAttribute('data-copy-interval-id', intervalId.toString());
+        const copyToClipboard = async () => {
+          let value = getValue();
+          const format = getFormat();
+          if (!value && textSpan) value = textSpan.textContent || '';
+          if (!value) return;
+          try {
+            await navigator.clipboard.writeText(value);
+            if (copyIcon) copyIcon.classList.add('copy-to-clipboard__icon--hidden');
+            if (checkIcon) checkIcon.classList.remove('copy-to-clipboard__icon--hidden');
+            if (feedback) feedback.textContent = format ? `Copied ${format}!` : 'Copied!';
+            const th = button.closest('.tooltip-host');
+            if (th) th.setAttribute('data-tooltip', format ? `Copied ${format}!` : 'Copied!');
+            button.setAttribute('aria-label', format ? `Copied ${format}!` : 'Copied!');
+            setTimeout(() => {
+              if (copyIcon) copyIcon.classList.remove('copy-to-clipboard__icon--hidden');
+              if (checkIcon) checkIcon.classList.add('copy-to-clipboard__icon--hidden');
+              if (feedback) feedback.textContent = '';
+              if (th) th.setAttribute('data-tooltip', th.getAttribute('data-copy-default-tooltip') || defaultTooltip);
+              button.setAttribute('aria-label', defaultAriaLabel);
+            }, 2000);
+          } catch (err) {
+            const textArea = document.createElement('textarea');
+            textArea.value = value;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-999999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+              document.execCommand('copy');
+              if (copyIcon) copyIcon.classList.add('copy-to-clipboard__icon--hidden');
+              if (checkIcon) checkIcon.classList.remove('copy-to-clipboard__icon--hidden');
+              if (feedback) feedback.textContent = format ? `Copied ${format}!` : 'Copied!';
+              const thf = button.closest('.tooltip-host');
+              if (thf) thf.setAttribute('data-tooltip', format ? `Copied ${format}!` : 'Copied!');
+              button.setAttribute('aria-label', format ? `Copied ${format}!` : 'Copied!');
+              setTimeout(() => {
+                if (copyIcon) copyIcon.classList.remove('copy-to-clipboard__icon--hidden');
+                if (checkIcon) checkIcon.classList.add('copy-to-clipboard__icon--hidden');
+                if (feedback) feedback.textContent = '';
+                if (thf) thf.setAttribute('data-tooltip', thf.getAttribute('data-copy-default-tooltip') || defaultTooltip);
+                button.setAttribute('aria-label', defaultAriaLabel);
+              }, 2000);
+            } catch (fallbackErr) {
+              if (feedback) feedback.textContent = 'Failed to copy';
+            }
+            document.body.removeChild(textArea);
+          }
+        };
+        button.addEventListener('click', copyToClipboard);
+        button.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyToClipboard(); }
+        });
+      });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

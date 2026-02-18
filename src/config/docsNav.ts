@@ -115,6 +115,14 @@ export const DOCS_NAV: DocsNavGroup[] = [
           { id: 'color-scales', label: 'Color scales' },
         ],
       },
+      {
+        href: 'best-practices',
+        label: 'Best Practices',
+        sections: [
+          { id: 'component-composition-patterns', label: 'Component Composition Patterns' },
+          { id: 'performance-optimization-tips', label: 'Performance Optimization Tips' },
+        ],
+      },
     ],
   },
   {

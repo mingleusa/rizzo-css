@@ -1,11 +1,11 @@
-// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3 (or relative assets/sfx for Vanilla), else Web Audio fallback. Single source for main site (Layout.astro) and all shipped scaffolds (Astro, Svelte, Vanilla); keep behavior in sync. Supports touch (touchend) so mobile plays like desktop.
+// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3 (or relative assets/sfx for Vanilla), then click.wav fallback, else Web Audio fallback. Single source for main site (Layout.astro) and all shipped scaffolds (Astro, Svelte, Vanilla); keep behavior in sync. Includes nav links and logo (a[href], .navbar__link, .navbar__brand-link). Supports touch (touchend) so mobile plays like desktop.
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;
-	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, [data-copy-btn]';
+	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, [data-copy-btn], [data-sound-on-click]';
 	var audioContext = null;
 	var soundBase = '/assets/sfx';
-	var soundUrls = [soundBase + '/click.mp3'];
+	var soundUrls = [soundBase + '/click.mp3', soundBase + '/click.wav'];
 	var cachedAudio = null;
 	var soundLoadTried = false;
 	var lastPlayedAt = 0;

@@ -1,14 +1,7 @@
 <script lang="ts">
+  import CopyToClipboard from '$lib/rizzo/CopyToClipboard.svelte';
   const DOCS_BASE = 'https://rizzo-css.vercel.app';
   const ADD_COMMAND = 'npx rizzo-css add <ComponentName>';
-
-  async function copyAddCommand() {
-    try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(ADD_COMMAND);
-      }
-    } catch (_) {}
-  }
 </script>
 
 <a href="#main-content" class="skip-link">Skip to main content</a>
@@ -69,7 +62,7 @@
       <p class="home__features-intro" style="margin-bottom: var(--spacing-4);">Add any component from the CLI:</p>
       <div class="home__add-command-block">
         <pre><code>npx rizzo-css add &lt;ComponentName&gt;</code></pre>
-        <button type="button" class="btn btn-outline home__add-command-copy" aria-label="Copy command" onclick={copyAddCommand}>Copy</button>
+        <CopyToClipboard value={ADD_COMMAND} iconOnly buttonLabel="Copy" format="command" label="Copy command" class="home__add-command-copy" />
       </div>
     </section>
 

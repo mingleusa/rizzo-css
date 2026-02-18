@@ -225,7 +225,7 @@ function copyRizzoFonts(cssTargetDir) {
   }
 }
 
-/** Copy package dist/sfx (click.mp3 etc.) into projectDir/assets/sfx so sound-effects-inline.js can play /assets/sfx/click.mp3. Used for Vanilla init and add. */
+/** Copy package dist/sfx (click.mp3 or click.wav) into projectDir/assets/sfx so sound-effects-inline.js can play the click sound. Used for Vanilla init and add. */
 function copyRizzoSfx(projectDir) {
   const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
   if (!existsSync(sfxSrc)) return;
@@ -233,7 +233,7 @@ function copyRizzoSfx(projectDir) {
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(sfxSrc, { withFileTypes: true });
   for (const e of entries) {
-    if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
+    if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name))) {
       copyFileSync(join(sfxSrc, e.name), join(dest, e.name));
     }
   }
@@ -266,7 +266,7 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   if (existsSync(sfxSrc)) {
     const entries = readdirSync(sfxSrc, { withFileTypes: true });
     for (const e of entries) {
-      if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
+      if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name))) {
         copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
       }
     }
@@ -300,7 +300,7 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   if (existsSync(sfxSrc)) {
     const entries = readdirSync(sfxSrc, { withFileTypes: true });
     for (const e of entries) {
-      if (!e.isDirectory() && /\.mp3$/i.test(e.name)) {
+      if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name))) {
         copyFileSync(join(sfxSrc, e.name), join(sfxDest, e.name));
       }
     }
