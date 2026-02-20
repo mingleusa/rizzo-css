@@ -1740,6 +1740,14 @@ div.navbar__sublink {
   scrollbar-gutter: stable;
 }
 
+/* Desktop: cap height so the panel content scrolls clearly and is easy to scroll */
+@media (width >= 641px) {
+  .settings__content {
+    max-height: calc(100dvh - 4.5rem);
+    max-height: calc(100vh - 4.5rem);
+  }
+}
+
 .settings__section {
   display: flex;
   flex-direction: column;

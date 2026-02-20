@@ -12,8 +12,8 @@ const ADD_COMMAND = 'npx rizzo-css add <ComponentName>';
         <h1 class="home__title">Rizzo CSS</h1>
         <p class="home__subtitle">A modern CSS design system with semantic theming, accessibility-first components, and one CLI for Vanilla, Astro, and Svelte. Start here then make it your own.</p>
         <div class="home__hero-ctas">
-          <a href={`${DOCS_BASE}/docs/getting-started`} class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started</a>
-          <a href={`${DOCS_BASE}/docs/components`} class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components</a>
+          <a href={`${DOCS_BASE}/docs/getting-started`} class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started<span class="sr-only"> (opens in new tab)</span></a>
+          <a href={`${DOCS_BASE}/docs/components`} class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components<span class="sr-only"> (opens in new tab)</span></a>
         </div>
       </header>
 
@@ -33,7 +33,7 @@ const ADD_COMMAND = 'npx rizzo-css add <ComponentName>';
           </div>
           <div class="home__card home__card--featured">
             <span class="home__card-icon" aria-hidden="true">Components</span>
-            <h3>31 ready components</h3>
+            <h3>34 ready components</h3>
             <p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, and more — all accessible and themeable.</p>
           </div>
         </div>
@@ -73,26 +73,32 @@ const ADD_COMMAND = 'npx rizzo-css add <ComponentName>';
           <a href={`${DOCS_BASE}/docs/getting-started`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Getting Started</h3>
             <p>Installation, project structure, and quick start guide</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
           <a href={`${DOCS_BASE}/docs/components`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Components</h3>
             <p>Component library with usage examples and live demos</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
           <a href={`${DOCS_BASE}/docs/theming`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Theming</h3>
             <p>Theme system, custom themes, and color format guide</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
           <a href={`${DOCS_BASE}/docs/design-system`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Design System</h3>
             <p>Semantic variables, typography, and design principles</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
           <a href={`${DOCS_BASE}/docs/accessibility`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Accessibility</h3>
             <p>Accessibility guidelines, utilities, and best practices</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
           <a href={`${DOCS_BASE}/docs/colors`} class="home__doc-card" target="_blank" rel="noopener noreferrer">
             <h3>Colors</h3>
             <p>Interactive color reference with multiple format options</p>
+            <span class="sr-only"> (opens in new tab)</span>
           </a>
         </div>
       </section>

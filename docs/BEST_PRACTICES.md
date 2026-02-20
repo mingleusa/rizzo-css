@@ -73,7 +73,7 @@ This makes it easier to keep component APIs consistent and to add React/Vue late
 ### CSS loading
 
 - **Single import** — Import Rizzo CSS once in your root layout or main entry (e.g. `import 'rizzo-css'` or `<link rel="stylesheet" href="/css/rizzo.min.css" />`). Avoid loading it multiple times or in multiple chunks.
-- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.52`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
+- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.53`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
 - **No duplicate CSS** — If you use the npm package and also copy `rizzo.min.css` into `public/` or `static/`, use one or the other, not both.
 
 ### Bundle size

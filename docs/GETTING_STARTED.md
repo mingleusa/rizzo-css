@@ -8,7 +8,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
 - **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 33 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.52/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.53/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Svelte** — `/docs/svelte` (29 component pages). Scaffold ships 33 components (Core or Manual). React/Vue later.
 - **Icons** — 52 total: 30 regular (Tabler) and 22 devicons (brand icons); same set for Astro, Svelte, and Vanilla. See [Components – Icons](./COMPONENTS.md#icons).
 
@@ -96,7 +96,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 1. **New project:** Run `npx rizzo-css init`, choose **Vanilla JS**, then **Core** (full showcase + `js/main.js` + icons + 33 component pages) or **Manual** (pick components; all interactive pre-selected). The CLI creates the project in the current directory or a path you enter.
 2. **Add to existing:** Run `npx rizzo-css add` in your project root (or `npx rizzo-css add --path public/css`). Add the printed `<link>` to your HTML.
-3. **CSS location:** CLI writes `css/rizzo.min.css`. Link it in your HTML, or switch to a CDN (see **README-RIZZO.md** in the scaffold). Pin version: `.../rizzo-css@0.0.52/dist/rizzo.min.css`.
+3. **CSS location:** CLI writes `css/rizzo.min.css`. Link it in your HTML, or switch to a CDN (see **README-RIZZO.md** in the scaffold). Pin version: `.../rizzo-css@0.0.53/dist/rizzo.min.css`.
 4. **Components:** Use the same BEM classes and markup as [Components](/docs/components). Core includes `js/main.js` for overlays, modals, dropdowns, etc. For copy-paste HTML and demos, see [Vanilla component pages](/docs/vanilla/components). Manual with no components: add JS later from those docs or copy `js/main.js` from a Core scaffold.
 
 #### Astro

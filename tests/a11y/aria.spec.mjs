@@ -128,3 +128,68 @@ test.describe('ARIA and roles (footer)', () => {
     await expect(contentinfo).toBeVisible();
   });
 });
+
+test.describe('ARIA and roles (settings)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/settings');
+    await lockTheme(page);
+  });
+
+  test('settings panel has role="dialog", aria-modal="true", and aria-labelledby', async ({ page }) => {
+    await page.getByRole('button', { name: /open settings/i }).first().click();
+    await page.waitForTimeout(300);
+    const panel = page.locator('.settings__panel').first();
+    await expect(panel).toHaveAttribute('role', 'dialog');
+    await expect(panel).toHaveAttribute('aria-modal', 'true');
+    await expect(panel).toHaveAttribute('aria-labelledby', 'settings-title');
+  });
+});
+
+test.describe('ARIA and roles (search)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/search');
+    await lockTheme(page);
+  });
+
+  test('search panel has role="dialog", aria-modal, and aria-labelledby', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /open search|search/i }).first();
+    await trigger.click();
+    await page.waitForTimeout(300);
+    const panel = page.locator('.search__panel[role="dialog"]').first();
+    await expect(panel).toBeVisible({ timeout: 3000 });
+    await expect(panel).toHaveAttribute('aria-modal', 'true');
+    await expect(panel).toHaveAttribute('aria-labelledby');
+  });
+});
+
+test.describe('ARIA and roles (back to top)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/back-to-top');
+    await lockTheme(page);
+  });
+
+  test('back to top button has accessible label', async ({ page }) => {
+    // Back to Top only becomes visible after scrolling past threshold (default 400px)
+    await page.evaluate(() => window.scrollTo(0, 500));
+    await page.waitForTimeout(150);
+    const main = page.getByRole('main');
+    const btn = main.getByRole('button', { name: /back to top/i }).first();
+    await expect(btn).toBeVisible();
+  });
+});
+
+test.describe('ARIA and roles (tooltip)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/tooltip');
+    await lockTheme(page);
+  });
+
+  test('tooltip trigger has aria-describedby and tooltip has role="tooltip" with matching id', async ({ page }) => {
+    const wrapper = page.locator('.tooltip-wrapper').first();
+    await expect(wrapper).toHaveAttribute('aria-describedby');
+    const describedBy = await wrapper.getAttribute('aria-describedby');
+    expect(describedBy).toBeTruthy();
+    const tooltip = page.locator(`#${describedBy}[role="tooltip"]`);
+    await expect(tooltip).toHaveCount(1);
+  });
+});

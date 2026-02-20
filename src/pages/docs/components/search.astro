@@ -9,7 +9,7 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 <DocsLayout title="Search Component — Astro" description="Search component with Algolia integration and live filtering">
 	<section>
 		<h2>Search Component</h2>
-		<p>An accessible search component with Algolia integration for fast, relevant search results. Includes live filtering, keyboard navigation, and a client-side fallback. The <strong>package scaffold</strong> (when you add Search via the CLI) ships a minimal version: overlay with header (search icon, input, close button), focus trap, click-outside and Escape to close, and example result links you can edit.</p>
+		<p>An accessible search component that ships <strong>local search by default</strong> (client-side index, no backend). You can optionally hook up <strong>Algolia</strong> for hosted search, analytics, and better relevance; when Algolia is configured, the component uses it first and falls back to local search on network errors or if Algolia is unavailable. The <strong>package scaffold</strong> (when you add Search via the CLI) ships local/static search only: overlay with header (search icon, input, close button), focus trap, click-outside and Escape to close, and example result links you can edit.</p>
 		<AddComponentTabs componentName="Search" />
 	</section>
 	
@@ -17,7 +17,7 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 		<h2>Features</h2>
 		<ul>
 			<li><strong>Full-screen overlay</strong> - When open, the overlay covers the viewport; the search modal is centered inside it both horizontally and vertically</li>
-			<li>Algolia integration with client-side fallback</li>
+			<li>Optional Algolia with local search fallback (search and click analytics when Algolia is enabled)</li>
 			<li>Keyboard shortcut - <kbd>Ctrl+K</kbd> / <kbd>Cmd+K</kbd> to open</li>
 			<li>Close button on desktop (X icon with screen reader label)</li>
 			<li>Close button on mobile with text label</li>
@@ -104,26 +104,44 @@ import Search from '../components/rizzo/Search.astro';
 	</section>
 	
 	<section>
-		<h2>Algolia Setup</h2>
-		<p>To use Algolia search in production:</p>
-		<ol>
-			<li>Create an account at <a href="https://www.algolia.com/" target="_blank" rel="noopener noreferrer">algolia.com</a></li>
-			<li>Create a new application and get your credentials</li>
-			<li>Index your documentation using the indexing script:
-				<CodeBlock code={`# Install Algolia client
+		<h2>Optional: Hook up Algolia</h2>
+		<p>By default, Search uses a <strong>local client-side index</strong> (no API keys, works offline). To use Algolia for hosted search, analytics, and better relevance, follow these steps. When Algolia is configured, Search uses it first and automatically falls back to local search on errors or if the network fails.</p>
+		
+		<h3>1. Create an Algolia application</h3>
+		<ul>
+			<li>Sign up at <a href="https://www.algolia.com/" target="_blank" rel="noopener noreferrer">algolia.com<span class="sr-only"> (opens in new tab)</span></a></li>
+			<li>Create a new application and note your <strong>Application ID</strong></li>
+			<li>In API Keys: copy your <strong>Search-Only API Key</strong> (for the frontend) and your <strong>Admin API Key</strong> (for indexing only; never expose in the browser)</li>
+		</ul>
+		
+		<h3>2. Index your content</h3>
+		<p>Build a script or use the docs site’s approach: a script that outputs records (title, url, category, content) and uploads them to Algolia. Example for a docs site:</p>
+		<CodeBlock code={`# Install the Algolia client (for the indexing script only)
 pnpm add algoliasearch
 
-# Set environment variables
+# Set credentials (use Admin API Key for indexing; never commit)
 export ALGOLIA_APP_ID="your-app-id"
-export ALGOLIA_API_KEY="your-admin-api-key"
-export ALGOLIA_INDEX_NAME="rizzo-css-docs"
+export ALGOLIA_ADMIN_KEY="your-admin-api-key"
+export ALGOLIA_INDEX_NAME="your-index-name"
 
-# Run indexing script
+# Run your indexing script (e.g. node scripts/index-docs.js)
 node scripts/index-docs.js`} language="bash" />
-			</li>
-			<li>Configure your Search component with the credentials</li>
-		</ol>
-		<p>See <a href="/docs/search">Search Documentation</a> for complete setup instructions.</p>
+		<p>Each record should have at least <code>objectID</code>, <code>title</code>, <code>url</code>, <code>category</code>, and <code>content</code> so the Search component can display and link results. Run the script after content changes (e.g. in CI or locally before deploy).</p>
+		
+		<h3>3. Enable Algolia in your app</h3>
+		<p><strong>Astro (this docs site):</strong> Set environment variables so the Search component picks them up. The component reads <code>PUBLIC_ALGOLIA_APP_ID</code>, <code>PUBLIC_ALGOLIA_SEARCH_KEY</code>, and <code>PUBLIC_ALGOLIA_INDEX_NAME</code>. If both App ID and Search Key are set, Algolia is used automatically with local fallback.</p>
+		<CodeBlock code={`# .env (never commit real keys)
+PUBLIC_ALGOLIA_APP_ID=your-app-id
+PUBLIC_ALGOLIA_SEARCH_KEY=your-search-only-api-key
+PUBLIC_ALGOLIA_INDEX_NAME=your-index-name
+
+# Optional: force-enable even if you want to rely on env elsewhere
+# PUBLIC_ALGOLIA_ENABLED=true`} language="bash" />
+		<p><strong>Or pass props:</strong> You can pass <code>useAlgolia={true}</code>, <code>algoliaAppId</code>, <code>algoliaApiKey</code>, and <code>algoliaIndexName</code> to the Search component instead of using env vars.</p>
+		<p><strong>Svelte / Vanilla:</strong> The scaffold ships local search only. To add Algolia, include the Algolia client (or use a small backend that proxies search), maintain a search index (e.g. the same record shape), and either call Algolia from your existing search UI logic or adapt the docs site’s Search.astro client script pattern (Algolia first, local fallback on error).</p>
+		
+		<h3>4. Analytics</h3>
+		<p>When Algolia is enabled, the Search component sends <strong>click analytics</strong> (which result was clicked after which query) so you can see popular queries and results in the Algolia dashboard. Search requests use <code>clickAnalytics: true</code> so Algolia can track and improve relevance.</p>
 	</section>
 	
 	<section>

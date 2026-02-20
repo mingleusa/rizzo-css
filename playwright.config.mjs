@@ -22,6 +22,31 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
       testMatch: /a11y\/.*\.spec\.m?js/,
     },
+    {
+      name: 'a11y-firefox',
+      use: { ...devices['Desktop Firefox'] },
+      testMatch: /a11y\/.*\.spec\.m?js/,
+    },
+    {
+      name: 'a11y-webkit',
+      use: { ...devices['Desktop Safari'] },
+      testMatch: /a11y\/.*\.spec\.m?js/,
+    },
+    {
+      name: 'a11y-edge',
+      use: { ...devices['Desktop Chrome'], channel: 'msedge' },
+      testMatch: /a11y\/.*\.spec\.m?js/,
+    },
+    {
+      name: 'a11y-mobile-chrome',
+      use: { ...devices['Pixel 5'] },
+      testMatch: /a11y\/.*\.spec\.m?js/,
+    },
+    {
+      name: 'a11y-mobile-safari',
+      use: { ...devices['iPhone 12'] },
+      testMatch: /a11y\/.*\.spec\.m?js/,
+    },
   ],
   webServer: {
     command: 'pnpm preview',

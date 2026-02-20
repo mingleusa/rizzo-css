@@ -132,6 +132,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/accordion', label: 'Accordion', frameworkOnly: true },
       { href: 'components/alert', label: 'Alert', frameworkOnly: true },
       { href: 'components/avatar', label: 'Avatar', frameworkOnly: true },
+      { href: 'components/back-to-top', label: 'Back to Top', frameworkOnly: true },
       { href: 'components/badge', label: 'Badge', frameworkOnly: true },
       { href: 'components/breadcrumb', label: 'Breadcrumb', frameworkOnly: true },
       { href: 'components/button', label: 'Button', frameworkOnly: true },

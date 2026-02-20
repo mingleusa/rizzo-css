@@ -28,7 +28,8 @@ export function getSearchConfig(): SearchConfig {
   const algoliaAppId = import.meta.env.PUBLIC_ALGOLIA_APP_ID || '';
   const algoliaApiKey = import.meta.env.PUBLIC_ALGOLIA_SEARCH_KEY || '';
   const algoliaIndexName = import.meta.env.PUBLIC_ALGOLIA_INDEX_NAME || 'rizzo-css-docs';
-  const hitsPerPage = parseInt(import.meta.env.PUBLIC_ALGOLIA_HITS_PER_PAGE || '10', 10);
+  const hitsPerPageRaw = import.meta.env.PUBLIC_ALGOLIA_HITS_PER_PAGE || import.meta.env.ALGOLIA_HITS_PER_PAGE || '10';
+  const hitsPerPage = parseInt(hitsPerPageRaw, 10);
 
   // Auto-enable Algolia if credentials are provided
   const shouldUseAlgolia = useAlgolia || (algoliaAppId && algoliaApiKey);

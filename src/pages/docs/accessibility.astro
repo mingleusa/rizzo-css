@@ -5,8 +5,13 @@ import CodeBlock from '../../components/CodeBlock.astro';
 
 <DocsLayout title="Accessibility" description="Accessibility guidelines, utilities, and best practices">
 	<section>
+		<h2 id="checklist-alignment">WCAG 2.2 checklist alignment</h2>
+		<p>Rizzo aligns with the <strong>Web Accessibility Checklist</strong> (WCAG 2.2). Every checklist item (HTML, keyboard, forms, content, links, contrast, headings, images, media, ARIA, testing) is implemented or documented. Full mapping: <strong>docs/accessibility-checklist/CHECKLIST_COMPARISON.md</strong>; full prose and patterns: <strong>docs/ACCESSIBILITY.md</strong> (in repo). The key areas below are summarized on this page.</p>
+	</section>
+
+	<section>
 		<h2 id="accessibility-features">Accessibility Features</h2>
-		<p>Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 guidelines.</p>
+		<p>Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1/2.2 guidelines.</p>
 		
 		<h3>Keyboard Navigation</h3>
 		<p>All interactive components support full keyboard navigation:</p>
@@ -116,6 +121,19 @@ import CodeBlock from '../../components/CodeBlock.astro';
 			<li><code>--info-text</code> - Contrast-appropriate text for info backgrounds</li>
 		</ul>
 		<p>All buttons and components using colored backgrounds automatically use these contrast-aware variables to ensure accessibility.</p>
+		<h3>Text over images and AAA</h3>
+		<p>When text sits on images or gradients, ensure at least 4.5:1 (normal) or 3:1 (large) contrast. Use the Settings <strong>High contrast</strong> toggle for enhanced contrast (helps toward AAA 7:1).</p>
+	</section>
+
+	<section>
+		<h2 id="content-links-images">Content, links, and images</h2>
+		<p>Apply these when authoring content or adding links/images:</p>
+		<ul>
+			<li><strong>Language changes</strong> — Use <code>lang</code> on phrases in another language (e.g. <code>lang="fr"</code>).</li>
+			<li><strong>Links that open in a new window</strong> — Add text like “(opens in new tab)” or an icon with <code>aria-label</code> so users know before activating.</li>
+			<li><strong>Images</strong> — Meaningful images need descriptive <code>alt</code>; use <code>alt=""</code> for decorative. Complex images need a description nearby or a link. Avoid images of text; use live text.</li>
+			<li><strong>Media</strong> — No autoplay with sound; provide captions/transcripts; ensure custom players have ARIA and keyboard support.</li>
+		</ul>
 	</section>
 	
 	<section>
@@ -156,7 +174,8 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	
 	<section>
 		<h2 id="testing">Testing</h2>
-		
+		<p>We use <strong>axe (WCAG 2/2.1 A &amp; AA)</strong> in CI as the primary automated check (<code>pnpm test:a11y</code>). Manual checks below complete coverage.</p>
+
 		<h3>Keyboard Testing</h3>
 		<ul>
 			<li>Tab through all interactive elements</li>
@@ -172,9 +191,15 @@ import CodeBlock from '../../components/CodeBlock.astro';
 			<li>Test with VoiceOver (macOS/iOS)</li>
 			<li>Verify all content is announced</li>
 		</ul>
+
+		<h3>Zoom and vision</h3>
+		<ul>
+			<li><strong>200% zoom</strong> — Test at 200% browser zoom; content should reflow without horizontal scroll.</li>
+			<li><strong>Font size</strong> — Use the Settings font-size slider or OS settings.</li>
+			<li><strong>Color blindness / blurry vision</strong> — Use DevTools (e.g. Emulate vision deficiencies) to ensure info isn’t conveyed by color alone.</li>
+		</ul>
 		
-		<h3>Automated Testing</h3>
-		<p>Use tools like:</p>
+		<h3>Automated and one-off tools</h3>
 		<ul>
 			<li>axe DevTools</li>
 			<li>WAVE</li>
@@ -186,10 +211,10 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	<section>
 		<h2 id="resources">Resources</h2>
 		<ul>
-			<li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">WCAG 2.1 Guidelines</a></li>
-			<li><a href="https://webaim.org/" target="_blank" rel="noopener">WebAIM</a></li>
-			<li><a href="https://www.a11yproject.com/" target="_blank" rel="noopener">A11y Project</a></li>
-			<li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank" rel="noopener">MDN Accessibility</a></li>
+			<li><a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">WCAG 2.1 Guidelines<span class="sr-only"> (opens in new tab)</span></a></li>
+			<li><a href="https://webaim.org/" target="_blank" rel="noopener">WebAIM<span class="sr-only"> (opens in new tab)</span></a></li>
+			<li><a href="https://www.a11yproject.com/" target="_blank" rel="noopener">A11y Project<span class="sr-only"> (opens in new tab)</span></a></li>
+			<li><a href="https://developer.mozilla.org/en-US/docs/Web/Accessibility" target="_blank" rel="noopener">MDN Accessibility<span class="sr-only"> (opens in new tab)</span></a></li>
 		</ul>
 	</section>
 </DocsLayout>

@@ -6,7 +6,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.52) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Package:** Single **rizzo-css** (v0.0.53) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
 - **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast), focus-trap utility, bundle size reporting, performance and browser-support docs. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
 
 ---
@@ -30,13 +30,13 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 - **In-repo framework routes** — React/Vue doc routes (same pattern as Svelte).
 
 ### Performance
-- **Lazy loading** *(optional)* — Themes or component CSS on demand.
+- **Lazy loading** *(optional)* — Documented in [BEST_PRACTICES.md – Lazy loading](./BEST_PRACTICES.md#lazy-loading-optional). Single-bundle approach is default; optional theme/component lazy-load only if you have a measured need.
 
 ### CSS & design system (as needed)
 - Additional spacing/transform/animation variables if discovered during porting.
 
 ### Browser support
-- **Cross-browser / mobile testing** — Run `pnpm test:a11y` in Firefox/Safari or on devices as needed.
+- **Cross-browser testing** — Playwright projects: Chromium (default), Firefox, WebKit, Edge, Mobile Chrome (Pixel 5), Mobile Safari (iPhone 12). Run `pnpm test:a11y` for Chromium; see [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) for all projects. Manual testing on real devices as needed.
 
 ### Examples & demos
 - Example pages (component/theme showcase, form/layout examples).

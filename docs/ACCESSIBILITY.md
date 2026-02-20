@@ -149,12 +149,62 @@ Always use labels with form inputs. Labels must:
 <span class="success-message">Form submitted successfully</span>
 ```
 
+## Content, links, and copy
+
+These practices apply to content and any custom links you add; components already use descriptive labels and correct elements.
+
+### Language changes (WCAG 2.2 AA)
+
+When content includes phrases in a different language, mark them so screen readers use the correct pronunciation:
+
+```html
+<p>Welcome to our site. <span lang="fr">Bonjour</span> and <span lang="es">hola</span>.</p>
+```
+
+Set `lang` on the phrase (or parent) to the appropriate language code (e.g. `lang="fr"` for French). The page `<html lang="...">` should match the primary language.
+
+### Links that open in a new window (WCAG 2.2 AA)
+
+If a link opens in a new tab or window, make that clear so users can decide before activating. Options:
+
+- **Text:** e.g. “Document (opens in new tab)”.
+- **Icon + aria-label:** Use an icon and `aria-label="Opens in new tab"` (or similar) on the link, and ensure the icon is not the only indicator (visible text or sr-only text is best).
+
+Rizzo components do not add `target="_blank"` by default; when you do, add one of the above.
+
+### Sensory characteristics and descriptive labels
+
+- Avoid referring to **sensory characteristics alone** (e.g. “click the red button”). Use position, name, or label as well.
+- Use **unique, descriptive link and button text** (e.g. “View invoice” instead of “click here” or “read more” without context).
+- **Abbreviations (AAA):** Expand on first use (e.g. “World Wide Web Consortium (W3C)”) or link to a definition.
+
 ## Responsive Design
 
 - Mobile-first approach
-- Touch-friendly targets (minimum 44x44px)
+- Touch-friendly targets (minimum 44x44px; Rizzo uses `--touch-target-min: 3rem` / 48px)
 - Responsive typography
 - Flexible layouts
+
+## Images and media
+
+Rizzo does not ship image or video components; these guidelines apply to content and any custom media you add.
+
+### Images
+
+- **Alt text (A):** Every meaningful image needs descriptive `alt` text. Use `alt=""` for purely decorative images (or `aria-hidden="true"` for decorative inline SVG).
+- **Complex images (A):** For charts, graphs, or diagrams, provide a short description near the image or a link to a full description. Use `aria-describedby` if the description is in the page.
+- **Image text (A):** If an image contains text, include that text in the `alt` attribute (or provide an equivalent).
+- **Avoid images of text (AA):** Prefer live text (and Rizzo’s typography) instead of images of text so users can resize and reflow.
+
+### Text over images (AA)
+
+If you place text over background images, ensure contrast is sufficient (4.5:1 for normal text, 3:1 for large). Use a scrim/overlay or crop the image so text remains readable. Test with `pnpm check:contrast` and manual checks where text sits on photos or gradients.
+
+### Media (audio and video)
+
+- **No autoplay (A):** Do not autoplay audio or video with sound; if autoplay is used, ensure it can be paused and the sound can be muted.
+- **Captions and transcripts (A):** Provide captions for video and transcripts for audio. Custom players need appropriate ARIA roles and keyboard support.
+- **No seizure triggers (A):** Avoid content that flashes more than three times per second.
 
 ## Color Contrast
 
@@ -194,6 +244,11 @@ Components (Astro and Svelte) use semantic theme variables so every theme can gu
 | Focus and overlays | `--accent` / `--accent-fg` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
 
 Themes must set each `-text` variable to a color that meets at least 4.5:1 contrast on its paired background (e.g. `--accent-text` on `--accent`). The design system does not use hardcoded hex/rgb for UI colors; all interactive and text colors come from these variables. Run `pnpm check:contrast` to verify every theme meets WCAG AA.
+
+### Text over images and AAA
+
+- **Text over images:** When text is placed on top of images or gradients, ensure at least 4.5:1 (normal) or 3:1 (large). Use overlays or cropping if needed; see [Images and media](#images-and-media).
+- **Enhanced contrast (AAA, 7:1):** Rizzo themes target AA (4.5:1). For AAA (7:1 normal text, 4.5:1 large), enable the Settings **High contrast** toggle (`.high-contrast`), which strengthens borders and contrast across components and can be combined with high-contrast themes.
 
 ## Reduced Motion
 
@@ -270,11 +325,36 @@ ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader ou
 Run the full a11y suite: `pnpm test:a11y` (or `pnpm test:a11y:ci` in CI). This builds the site, starts the preview server, and runs:
 
 - **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: entire main site (home, docs, every component page for Astro/Vanilla/Svelte, all theme pages). WCAG 2/2.1 A & AA; critical/serious only. Route list is built from `FOUNDATION_ROUTES`, `COMPONENT_SLUGS`, `THEME_SLUGS` in that spec; add new routes there as needed.
-- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape), font switcher (Escape, focus return), accordion (Enter toggles), theme switcher (Escape, focus return), settings (trigger, Escape).
-- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal (dialog, aria-modal, aria-labelledby), dropdown (menu/menuitem, aria-expanded), tabs (tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio).
+- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape), font switcher (Escape, focus return), accordion (Enter toggles), theme switcher (Escape, focus return), settings (trigger, Escape, focus return to trigger).
+- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal, dropdown, tabs, accordion, theme switcher, font switcher, footer, **settings** (dialog, aria-modal, aria-labelledby), **search** (dialog, aria-modal, aria-labelledby), **back to top** (button label), **tooltip** (trigger aria-describedby, tooltip role and id).
 - **Theme contrast** — `pnpm check:contrast`: verifies all themes meet WCAG AA (text/background and accent-text/accent ≥ 4.5:1). Run when adding or changing theme colors.
+- **Lint in build** — We use axe (WCAG 2/2.1 A & AA) in CI as the primary automated accessibility check. There is no eslint-plugin-jsx-a11y for Astro/Svelte in this repo; axe covers markup and roles. Add component-level a11y linting in your app if your stack supports it.
 
 Automated tests do **not** replace manual keyboard and screen reader testing; use the checklist below for that.
+
+## Component accessibility checklist (all frameworks)
+
+When implementing or porting a component (Astro, Svelte, or Vanilla), ensure it meets the following so behavior and screen reader support are consistent. The same ARIA, keyboard, and focus behavior must be present in each framework’s version.
+
+| Component | ARIA / semantics | Keyboard | Focus |
+|-----------|------------------|----------|--------|
+| **Modal** | `role="dialog"`, `aria-modal="true"`, `aria-labelledby` (title id); overlay/dialog `inert` when closed | Enter/Space on trigger opens; Escape closes | Focus into dialog on open (first focusable); trap inside; return to trigger on close |
+| **Dropdown / menus** | Trigger `aria-haspopup="true"`, `aria-expanded`; menu `role="menu"`, items `role="menuitem"` (or `menuitemradio`) | Arrows move; Enter/Space activate; Escape closes | Focus first item on open; return to trigger on close |
+| **Theme Switcher** | Same as dropdown; options `role="menuitemradio"`, `aria-checked` | Same as dropdown | Same as dropdown |
+| **Font Switcher** | Same as Theme Switcher | Same as dropdown | Same as dropdown |
+| **Tabs** | `role="tablist"`, `role="tab"`, `aria-selected`, `aria-controls`; panels `role="tabpanel"`, `aria-labelledby` | Arrows change tab; Enter/Space activate | Tab reaches tablist; focus follows selection |
+| **Accordion** | Headers `aria-expanded`, `aria-controls`; panel id matches | Enter/Space toggle | Headers focusable; no trap |
+| **Search (overlay)** | Panel `role="dialog"`, `aria-modal="true"`, `aria-labelledby`; input `aria-label`; results `role="listbox"` | Enter on trigger opens; Escape closes | Focus in input on open; trap in panel; return to trigger on close |
+| **Settings (panel)** | Panel `role="dialog"`, `aria-modal="true"`, `aria-labelledby="settings-title"`; content region `aria-label="Settings options"` | Escape closes | Focus in panel on open; trap; return to trigger on close |
+| **Alert / Toast** | `role="alert"`, `aria-live="polite"`, `aria-atomic="true"`, `aria-label` by variant; dismiss button `aria-label="Dismiss"` | Dismiss button focusable | — |
+| **Tooltip** | Trigger has `aria-describedby="{id}"`; tooltip element `id`, `role="tooltip"` | Focus on trigger shows tooltip (CSS or script) | No trap; tooltip is descriptive only |
+| **Pagination** | `<nav aria-label="Pagination">`; current page `aria-current="page"`; links `aria-label="Page N"`, "First", "Previous", "Next", "Last" | All links/buttons in tab order | — |
+| **Back to top** | Button `aria-label` (e.g. "Back to top"); wrapper `aria-hidden` when not visible | Button in tab order when visible | — |
+| **CopyToClipboard** | Button `aria-label`; optional `aria-live` region for “Copied” feedback | Button focusable | — |
+| **Footer** | Landmark: `role="contentinfo"` or semantic `<footer>` | Links in tab order | — |
+| **Forms (Input, Checkbox, etc.)** | Label with `for`/`id` or `aria-label`; `aria-required`, `aria-invalid`, `aria-describedby` for errors | All controls in tab order | — |
+
+Use this table when adding a new component or porting to another framework so Astro, Svelte, and Vanilla stay in sync.
 
 ## Manual accessibility testing
 
@@ -316,6 +396,9 @@ Use this checklist for manual keyboard and screen reader testing. Run automated 
 
 - **Keyboard-only** — No mouse. Tab, Shift+Tab, Enter, Space, arrows, Escape. Confirm all actions possible and no focus traps (except intentional in modal/search/settings).
 - **Screen reader** — NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS. Check announcements (labels, state changes, live regions).
+- **200% zoom** — Test at 200% browser zoom (or 200% text scaling). Content should reflow without horizontal scrolling; viewport meta and rem-based layout support this. Manually verify key flows (nav, modals, forms).
+- **Increased font size** — Use the Settings font-size slider or OS font-size settings; Rizzo uses `--font-size-scale` so text scales with your choice.
+- **Color blindness and blurry vision** — Use browser DevTools (e.g. Chrome Rendering → Emulate vision deficiencies) or simulators to check that information is not conveyed by color alone and that focus/buttons remain visible. Test with blur or low-vision simulators if available.
 - **axe DevTools** — Browser extension for one-off page scans; fixes then re-scan.
 - **Lighthouse** — Chrome DevTools → Lighthouse → Accessibility for periodic checks.
 

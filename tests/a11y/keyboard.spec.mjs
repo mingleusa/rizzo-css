@@ -174,4 +174,17 @@ test.describe('Keyboard accessibility (settings)', () => {
     const overlay = page.locator('[data-settings]').first();
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
   });
+
+  test('settings: focus returns to trigger after Escape', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /open settings/i }).first();
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(300);
+    const panel = page.locator('.settings__panel').first();
+    await expect(panel).toBeVisible({ timeout: 3000 });
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(300);
+    await expect(trigger).toBeFocused();
+  });
 });
