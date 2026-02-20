@@ -3,6 +3,7 @@ import CliCommandTabs from './CliCommandTabs.astro';
 
 /** Display name -> CLI component name (for add command). Only entries that differ. */
 const DISPLAY_TO_CLI: Record<string, string> = {
+  'Back to Top': 'BackToTop',
   'Theme Switcher': 'ThemeSwitcher',
   'Font Switcher': 'FontSwitcher',
   'Sound Effects': 'SoundEffects',
@@ -12,7 +13,7 @@ const DISPLAY_TO_CLI: Record<string, string> = {
 /** Component names the CLI accepts (so we only add to command when installable). */
 const CLI_COMPONENT_NAMES = new Set([
   'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'BackToTop', 'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',

@@ -130,7 +130,7 @@
       <h2 id="settings-title" class="settings__title">Settings</h2>
       <button type="button" class="settings__close" data-settings-close aria-label="Close settings" onclick={close}>×</button>
     </div>
-    <div class="settings__content">
+    <div class="settings__content" tabindex="-1" aria-label="Settings options">
       <section class="settings__section">
         <h3 class="settings__section-title">Font Size</h3>
         <div class="settings__control">

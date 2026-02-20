@@ -3,6 +3,7 @@
   import ComponentsOverview from './pages/ComponentsOverview.svelte';
   import ComingSoon from './pages/ComingSoon.svelte';
   import ButtonDoc from './pages/ButtonDoc.svelte';
+  import BackToTopDoc from './pages/BackToTopDoc.svelte';
   import BadgeDoc from './pages/BadgeDoc.svelte';
   import CardsDoc from './pages/CardsDoc.svelte';
   import DividerDoc from './pages/DividerDoc.svelte';
@@ -51,6 +52,8 @@
     <ComponentsOverview />
   {:else if first === 'components' && second === 'button'}
     <ButtonDoc />
+  {:else if first === 'components' && second === 'back-to-top'}
+    <BackToTopDoc />
   {:else if first === 'components' && second === 'badge'}
     <BadgeDoc />
   {:else if first === 'components' && second === 'cards'}

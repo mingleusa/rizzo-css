@@ -949,6 +949,24 @@
     });
   }
 
+  function initBackToTop() {
+    var wrapper = document.querySelector('[data-back-to-top]');
+    var btn = wrapper && wrapper.querySelector('[data-back-to-top-btn]');
+    if (!wrapper || !btn) return;
+    var threshold = Number(wrapper.getAttribute('data-threshold')) || 400;
+    function updateVisibility() {
+      var visible = window.scrollY > threshold;
+      wrapper.setAttribute('data-visible', visible ? 'true' : 'false');
+      wrapper.setAttribute('aria-hidden', visible ? 'false' : 'true');
+    }
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    window.addEventListener('scroll', updateVisibility, { passive: true });
+    btn.addEventListener('click', scrollToTop);
+    updateVisibility();
+  }
+
   function run() {
     initTheme();
     initSettings();
@@ -959,6 +977,7 @@
     initAccordions();
     initSearch();
     initNavbarMobile();
+    initBackToTop();
   }
 
   if (document.readyState === 'loading') {

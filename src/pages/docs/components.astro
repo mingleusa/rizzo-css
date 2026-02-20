@@ -7,7 +7,7 @@ import Card from '../../components/Card.astro';
 	<section>
 		<h2>Component Library</h2>
 		<p>Rizzo CSS includes a comprehensive set of accessible, theme-aware components. Each component is built with semantic variables, follows BEM naming conventions, and includes full keyboard navigation and ARIA support.</p>
-		<p><strong>Documentation for every framework:</strong> Each component has an <strong>Astro</strong> page below (live demos + usage), a <strong>Svelte</strong> page at <a href="/docs/svelte/components">/docs/svelte/components</a>, and <strong>Vanilla</strong> at <a href="/docs/vanilla/components">/docs/vanilla/components</a> with copyable HTML and interactive examples. Every component page includes <strong>Astro | Svelte | Vanilla</strong> code tabs with complete, copy-paste examples. Interactive components (Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, Copy to clipboard, etc.) run their scripts after the DOM is ready, so they work when you import or copy them. Use the framework switcher to toggle. This site has 28 component doc pages; the CLI and package offer 31 copyable components (Core = 31; Manual = pick which to include, all pre-selected).</p>
+		<p><strong>Documentation for every framework:</strong> Each component has an <strong>Astro</strong> page below (live demos + usage), a <strong>Svelte</strong> page at <a href="/docs/svelte/components">/docs/svelte/components</a>, and <strong>Vanilla</strong> at <a href="/docs/vanilla/components">/docs/vanilla/components</a> with copyable HTML and interactive examples. Every component page includes <strong>Astro | Svelte | Vanilla</strong> code tabs with complete, copy-paste examples. Interactive components (Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, Copy to clipboard, etc.) run their scripts after the DOM is ready, so they work when you import or copy them. Use the framework switcher to toggle. This site has 29 component doc pages; the CLI and package offer 32 copyable components (Core = 32; Manual = pick which to include, all pre-selected).</p>
 	</section>
 	
 	<section>
@@ -34,6 +34,14 @@ import Card from '../../components/Card.astro';
 					<div class="card__body">
 						<h3 style="margin: 0 0 var(--spacing-2) 0;">Avatar</h3>
 						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">User avatar with image or initials fallback, sizes and circle/square shape</p>
+					</div>
+				</Card>
+			</a>
+			<a href="/docs/components/back-to-top" class="component-card-link">
+				<Card variant="elevated">
+					<div class="card__body">
+						<h3 style="margin: 0 0 var(--spacing-2) 0;">Back to Top</h3>
+						<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Fixed button that appears on scroll and smoothly scrolls the page back to top</p>
 					</div>
 				</Card>
 			</a>

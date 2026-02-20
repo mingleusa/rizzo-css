@@ -24,6 +24,8 @@ pnpm install
 | **Lint CSS** | `pnpm lint:css` or `pnpm lint:css:fix` |
 | **Package (scaffolds)** | `pnpm build:package` — build CSS, run copy-scaffold + prepare-vanilla-scaffold |
 | **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA) |
+| **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
+| **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
 
 **First time running a11y tests:** Playwright needs a browser. Run `pnpm exec playwright install chromium` once (or `playwright install` for all browsers). If you see "Executable doesn't exist at ... ms-playwright", that means the browser isn't installed yet.
 

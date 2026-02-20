@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (31 components including ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Core** (all 31 components) or **Manual** (component picker with all 31 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (33 components including BackToTop, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Core** (all 33 components) or **Manual** (component picker with all 33 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -50,7 +50,7 @@ All components are listed in alphabetical order (sidebar, nav menu, and componen
 
 All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
 
-**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Footer, Table  
+**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Footer, Table, Back to Top  
 **Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
 **Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
 **Display:** Button, Badge, Cards, Avatar, Icons  
@@ -58,7 +58,7 @@ All of the following components are implemented with dedicated documentation pag
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
-(28 component doc pages on the site; the CLI/scaffold offers 31 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
+(29 component doc pages on the site; the CLI/scaffold offers 33 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
 
 ## Component Features
 
@@ -76,7 +76,7 @@ All components in Rizzo CSS share these core features:
 
 Every component has documentation and examples for **Astro**, **Svelte**, and **Vanilla** (HTML + same BEM). Each component page includes **Astro | Svelte | Vanilla** code tabs with complete, copy-paste examples so you can use the block that matches your project. Some pages use multiple code blocks (e.g. setup + usage) where needed.
 
-**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, FontSwitcher, SoundEffects, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all three frameworks.
+**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, FontSwitcher, SoundEffects, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, BackToTop, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all three frameworks.
 
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
@@ -530,6 +530,10 @@ Font pair (sans + mono) dropdown used in the Settings panel and standalone. Sets
 ## Sound Effects
 
 Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** only on links, buttons, and other interactive elements (throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script loads `/assets/sfx/click.mp3` then `/assets/sfx/click.wav`; if neither is found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
+
+## Back to Top
+
+Fixed button that appears after the user scrolls past a threshold (default 400px) and scrolls the page back to the top on click. Uses smooth scrolling; keyboard accessible. Optional `threshold` and `label` props. See [Back to Top](/docs/components/back-to-top).
 
 ## Button Component
 

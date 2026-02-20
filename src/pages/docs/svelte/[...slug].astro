@@ -7,6 +7,7 @@ export function getStaticPaths() {
   const paths: { params: { slug: string } }[] = [
     { params: { slug: 'components' } },
     { params: { slug: 'components/button' } },
+    { params: { slug: 'components/back-to-top' } },
     { params: { slug: 'components/badge' } },
     { params: { slug: 'components/cards' } },
     { params: { slug: 'components/divider' } },
@@ -45,6 +46,7 @@ function getMeta() {
   if (path[0] === 'components' && !path[1]) return { title: 'Components — Svelte', description: 'Svelte component library.' };
   const titles: Record<string, string> = {
     button: 'Button',
+    'back-to-top': 'Back to Top',
     badge: 'Badge',
     cards: 'Cards',
     divider: 'Divider',

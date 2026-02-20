@@ -119,3 +119,59 @@ test.describe('Keyboard accessibility (font switcher)', () => {
     await expect(trigger).toBeFocused({ timeout: 3000 });
   });
 });
+
+test.describe('Keyboard accessibility (accordion)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/accordion');
+    await lockTheme(page);
+  });
+
+  test('accordion: headers focusable, Enter toggles expanded state', async ({ page }) => {
+    const firstTrigger = page.locator('[aria-expanded]').first();
+    await firstTrigger.focus();
+    await expect(firstTrigger).toBeFocused();
+    const expandedBefore = await firstTrigger.getAttribute('aria-expanded');
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(150);
+    const expandedAfter = await firstTrigger.getAttribute('aria-expanded');
+    expect(expandedAfter).toBe(expandedBefore === 'true' ? 'false' : 'true');
+  });
+});
+
+test.describe('Keyboard accessibility (theme switcher)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/theme-switcher');
+    await lockTheme(page);
+  });
+
+  test('theme switcher: Escape closes menu and focus returns to trigger', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: 'Select theme' }).first();
+    await trigger.click();
+    await page.waitForTimeout(200);
+    const menu = page.locator('.theme-switcher__menu--open').first();
+    await expect(menu).toBeVisible({ timeout: 3000 });
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(200);
+    await expect(menu).not.toBeVisible();
+    await expect(trigger).toBeFocused({ timeout: 3000 });
+  });
+});
+
+test.describe('Keyboard accessibility (settings)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/settings');
+    await lockTheme(page);
+  });
+
+  test('settings: trigger opens panel, Escape closes', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /open settings/i }).first();
+    await trigger.click();
+    await page.waitForTimeout(300);
+    const panel = page.locator('.settings__panel').first();
+    await expect(panel).toBeVisible({ timeout: 3000 });
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(300);
+    const overlay = page.locator('[data-settings]').first();
+    await expect(overlay).toHaveAttribute('aria-hidden', 'true');
+  });
+});

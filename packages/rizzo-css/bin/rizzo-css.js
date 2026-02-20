@@ -93,15 +93,15 @@ const LIGHT_THEMES = [
 const THEMES = [...DARK_THEMES, ...LIGHT_THEMES];
 // Components available for scaffold (must match scaffold/svelte and scaffold/astro)
 const SVELTE_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'Button', 'Badge', 'Card', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'BackToTop', 'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',
 ];
 const ASTRO_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'Button', 'Badge', 'Card', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'BackToTop', 'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons',
@@ -109,15 +109,15 @@ const ASTRO_COMPONENTS = [
 
 // Base set for Manual: all interactive components we ship (so manual has a full working set). Full includes everything (same list).
 const RECOMMENDED_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Divider', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'Button', 'Badge', 'Card', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'BackToTop', 'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Search', 'Settings', 'Icons',
 ];
 
 // Vanilla components that need js/main.js for interactivity.
-const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher', 'Search', 'Accordion', 'CopyToClipboard', 'Navbar', 'Settings'];
+const VANILLA_JS_COMPONENTS = ['Modal', 'Dropdown', 'Tabs', 'Toast', 'ThemeSwitcher', 'Search', 'Accordion', 'CopyToClipboard', 'Navbar', 'Settings', 'BackToTop'];
 
 // Component dependencies per framework: when user selects a component, these are copied automatically so it works.
 // Manual users can run: npx rizzo-css help components
@@ -176,8 +176,8 @@ function logAddedDeps(selected, expanded, framework) {
 
 // Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug.
 const VANILLA_COMPONENT_SLUGS = {
-  Accordion: 'accordion', Alert: 'alert', Avatar: 'avatar', Badge: 'badge', Breadcrumb: 'breadcrumb', Button: 'button',
-  Card: 'cards', Checkbox: 'forms', CopyToClipboard: 'copy-to-clipboard', Divider: 'divider', Dropdown: 'dropdown',
+  Accordion: 'accordion', Alert: 'alert', Avatar: 'avatar', BackToTop: 'back-to-top', Badge: 'badge', Breadcrumb: 'breadcrumb', Button: 'button',
+  Card: 'cards', Checkbox: 'forms', CopyToClipboard: 'copy-to-clipboard', Divider: 'divider', DocsSidebar: 'docs-sidebar', Dropdown: 'dropdown',
   Footer: 'footer', FormGroup: 'forms', Input: 'forms', Modal: 'modal', Pagination: 'pagination', ProgressBar: 'progress-bar',
   Radio: 'forms', Search: 'search', Select: 'forms', Settings: 'settings', Spinner: 'spinner', Table: 'table',
   Tabs: 'tabs', Textarea: 'forms', ThemeSwitcher: 'theme-switcher', Toast: 'toast', Tooltip: 'tooltip',

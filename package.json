@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.51",
+  "version": "0.0.52",
   "license": "MIT",
   "scripts": {
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
@@ -19,7 +19,9 @@
     "index:algolia": "node scripts/index-docs.js",
     "setup:algolia": "echo 'Copy .env.example to .env and add your Algolia credentials'",
     "test:a11y": "pnpm build && playwright test --project=a11y",
-    "test:a11y:ci": "playwright install --with-deps chromium && pnpm test:a11y"
+    "test:a11y:ci": "playwright install --with-deps chromium && pnpm test:a11y",
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "size": "node scripts/bundle-size.mjs"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
@@ -41,7 +43,8 @@
     "stylelint": "^17.0.0",
     "stylelint-config-standard": "^40.0.0",
     "@playwright/test": "^1.49.0",
-    "@axe-core/playwright": "^4.10.0"
+    "@axe-core/playwright": "^4.10.0",
+    "culori": "^4.0.0"
   },
   "author": "mingleusa"
 }

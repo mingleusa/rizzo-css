@@ -21,8 +21,9 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 
 | Doc | Description |
 |-----|-------------|
-| [COMPONENTS.md](./COMPONENTS.md) | All 31 components, usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All 33 components, usage, BEM, framework tabs |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
+| [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 
 ### Maintainers & development
 

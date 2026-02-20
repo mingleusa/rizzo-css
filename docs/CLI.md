@@ -77,16 +77,16 @@ When the user chooses **Core or Manual**:
 
 Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (from scaffold); Astro/Svelte also include package.json and .env.example. With `init --yes`, default template is **core**; use `--template core|manual` to override.
 
-**Core** = all 31 components with all required dependencies (e.g. Settings adds ThemeSwitcher, FontSwitcher, SoundEffects + themes). **Manual** = component picker with all 31 pre-selected; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"). Run `npx rizzo-css help components` for the full dependency list.
+**Core** = all 33 components with all required dependencies (e.g. Settings adds ThemeSwitcher, FontSwitcher, SoundEffects + themes). **Manual** = component picker with all 33 pre-selected; the list shows which components add others (e.g. "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"). Run `npx rizzo-css help components` for the full dependency list.
 
 **Components per template:**
 
 | Template | Vanilla | Astro | Svelte |
 |----------|---------|-------|--------|
-| **Core** | 31 | 31 | 31 |
-| **Manual** | 0–31 (user choice) | 0–31 | 0–31 |
+| **Core** | 33 | 33 | 33 |
+| **Manual** | 0–33 (user choice) | 0–33 | 0–33 |
 
-(Core = all 31 scaffold components; Manual = whatever you pick, all 31 pre-selected. Astro/Svelte Core auto-include dependencies so Navbar, Settings, Toast work.)
+(Core = all 33 scaffold components; Manual = whatever you pick, all 33 pre-selected. Astro/Svelte Core auto-include dependencies so Navbar, Settings, Toast work.)
 
 ---
 

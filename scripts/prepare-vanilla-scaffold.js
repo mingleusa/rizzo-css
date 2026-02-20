@@ -15,13 +15,14 @@ const DOCS_BASE = 'https://rizzo-css.vercel.app';
 
 /** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS. */
 const COMPONENT_SLUGS = [
-  'accordion', 'alert', 'avatar', 'badge', 'breadcrumb', 'button', 'cards',
+  'accordion', 'alert', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'cards',
   'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer', 'font-switcher',
   'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar', 'search',
   'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher', 'toast', 'tooltip',
 ];
 
 const COMPONENT_TITLES = {
+  'back-to-top': 'Back to Top',
   'copy-to-clipboard': 'Copy to Clipboard',
   'docs-sidebar': 'Docs Sidebar',
   'font-switcher': 'Font Switcher',

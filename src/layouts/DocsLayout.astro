@@ -2,6 +2,7 @@
 import Layout from './Layout.astro';
 import FrameworkSwitcher from '../components/FrameworkSwitcher.astro';
 import DocsSidebar from '../components/DocsSidebar.astro';
+import BackToTop from '../components/BackToTop.astro';
 import { getFrameworkFromPath } from '../config/frameworks';
 
 interface Props {
@@ -53,6 +54,7 @@ const { framework } = getFrameworkFromPath(currentPath);
 			</div>
 		</div>
 	</div>
+	<BackToTop threshold={300} />
 	<script>
 		(function () {
 			const container = document.getElementById('docs-sidebar-container');

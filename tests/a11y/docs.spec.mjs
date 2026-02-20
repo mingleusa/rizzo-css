@@ -39,11 +39,12 @@ const FOUNDATION_ROUTES = [
   '/docs/design-system',
   '/docs/theming',
   '/docs/accessibility',
+  '/docs/best-practices',
   '/docs/colors',
 ];
 
 const COMPONENT_SLUGS = [
-  'accordion', 'alert', 'avatar', 'badge', 'breadcrumb', 'button', 'cards',
+  'accordion', 'alert', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'cards',
   'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer',
   'font-switcher', 'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar',
   'search', 'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher',

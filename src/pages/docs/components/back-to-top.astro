@@ -1,0 +1,54 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import BackToTop from '../../../components/BackToTop.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Back to Top Component — Astro" description="Fixed button that appears on scroll and scrolls the page back to top.">
+	<section>
+		<h2>Back to Top Component</h2>
+		<p>A fixed button that appears after the user scrolls down and scrolls the page back to the top on click. Uses smooth scrolling and is keyboard accessible. Optional <code>threshold</code> (pixels) and <code>label</code> props.</p>
+		<AddComponentTabs componentName="Back to Top" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Scroll down this page to see the button appear in the bottom-right corner, then click it to scroll back to top.</p>
+			<BackToTop threshold={200} />
+		</div>
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>threshold</code> (number, optional) — Pixels scrolled before the button appears (default: 400)</li>
+			<li><code>label</code> (string, optional) — Accessible label for the button (default: "Back to top")</li>
+			<li><code>class</code> (string, optional) — Additional CSS classes on the wrapper</li>
+		</ul>
+
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import BackToTop from '../components/rizzo/BackToTop.astro';
+---
+
+<BackToTop />
+
+<BackToTop threshold={300} label="Scroll to top" />`}
+			svelte={`<script>
+  import { BackToTop } from '$lib/rizzo';
+</script>
+
+<BackToTop />
+
+<BackToTop threshold={300} label="Scroll to top" />`}
+			vanilla={`<!-- Include Rizzo CSS, then add the markup. The script runs on DOMContentLoaded. -->
+<div class="back-to-top" data-back-to-top data-threshold="400" aria-hidden="true">
+  <button type="button" class="back-to-top__btn" aria-label="Back to top" data-back-to-top-btn>
+    <span class="back-to-top__icon" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+    </span>
+  </button>
+</div>
+<!-- Include the Back to Top init script (see Vanilla docs). -->`}
+		/>
+		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/back-to-top">Svelte</a> · <a href="/docs/vanilla/components/back-to-top">Vanilla</a></p>
+	</section>
+</DocsLayout>

@@ -1,0 +1,59 @@
+---
+import ChevronUp from './icons/ChevronUp.astro';
+
+interface Props {
+  /** Scroll threshold in pixels before the button appears (default: 400). */
+  threshold?: number;
+  /** Accessible label for the button (default: "Back to top"). */
+  label?: string;
+  class?: string;
+}
+
+const { threshold = 400, label = 'Back to top', class: className = '' } = Astro.props;
+const wrapperClass = ['back-to-top', className].filter(Boolean).join(' ').trim();
+---
+
+<div class={wrapperClass} data-back-to-top data-threshold={threshold} aria-hidden="true">
+  <button
+    type="button"
+    class="back-to-top__btn"
+    aria-label={label}
+    data-back-to-top-btn
+  >
+    <span class="back-to-top__icon" aria-hidden="true">
+      <ChevronUp width={24} height={24} />
+    </span>
+  </button>
+</div>
+
+<script>
+  (function initBackToTop() {
+    const init = () => {
+      const wrapper = document.querySelector('[data-back-to-top]');
+      const btn = wrapper?.querySelector('[data-back-to-top-btn]');
+      if (!wrapper || !btn) return;
+
+      const threshold = Number(wrapper.getAttribute('data-threshold')) || 400;
+
+      const updateVisibility = () => {
+        const visible = window.scrollY > threshold;
+        wrapper.setAttribute('data-visible', visible ? 'true' : 'false');
+        wrapper.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      };
+
+      const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+
+      window.addEventListener('scroll', updateVisibility, { passive: true });
+      btn.addEventListener('click', scrollToTop);
+      updateVisibility();
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+  })();
+</script>

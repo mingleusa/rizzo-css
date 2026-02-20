@@ -5,9 +5,9 @@ The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` /
 ## Features
 
 - **NPM** — Package at `packages/rizzo-css/`; `pnpm build:css` → `dist/rizzo.min.css`. [Versioning strategy](#versioning-strategy) below.
-- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.51/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **CDN** — unpkg and jsDelivr; root URL serves CSS. Pin: `.../rizzo-css@0.0.52/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
 - **Package contents** — Tarball includes `dist/`, `README.md`, `LICENSE`, `.env.example`, `bin/`, and under `scaffold/`: `astro/`, `astro-core/`, `config/` (font pairs), `shared/` (sound script and default click.mp3/click.wav), `svelte/`, `svelte-core/`, `utils/` (theme for ThemeSwitcher), `vanilla/`). PrepublishOnly runs (from repo root): `lint:css:fix`, `build:css`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`.
-- **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Create new = **Core** | **Manual** (all 31 pre-selected); Add to existing = CSS + hand-pick components.
+- **Single package** — One **rizzo-css** (CSS, CLI, scaffolds). Create new = **Core** | **Manual** (all 33 pre-selected); Add to existing = CSS + hand-pick components.
 - **Pre-publish** — [Pre-publish checklist](#pre-publish-checklist): version bump, build, publish, push, CDN verify.
 - **CLI / Svelte / framework** — [CLI Planning](./planning/CLI_PLANNING.md); [MULTI_FRAMEWORK](./MULTI_FRAMEWORK.md); [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md); [GETTING_STARTED – JS utilities](./GETTING_STARTED.md#javascript-utilities).
 
@@ -34,8 +34,8 @@ So:
 Before publishing to npm:
 
 1. **Commit all changes** — Everything that should be in this release: `scaffold/vanilla/`, `scaffold/astro-core/`, `scaffold/svelte-core/`, `scaffold/astro/`, `scaffold/svelte/`, `scaffold/config/`, `scaffold/shared/`, `src/components/`, `src/components/svelte/`, CSS, CLI, docs (`docs/*.md`, `docs/planning/*.md`), and site pages (`src/pages/docs/`). The pack step uses the repo state at publish time (see [Keeping npm and GitHub in sync](#keeping-npm-and-github-in-sync)).
-2. **Docs and site match current state** — Ensure all markdown docs (`docs/*.md`, `docs/planning/*.md`, `README.md`, `CONTRIBUTING.md`, `packages/rizzo-css/README.md`) and site content reflect the current project: version, component count (31), doc page count (28), icon counts (30 regular, 22 devicons, 52 total), CLI behavior, and scaffold contents. Run `pnpm build` and `pnpm test:a11y` to confirm the site builds and a11y tests pass.
-3. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Update the npm badge in the main `README.md` so the version in the badge matches (e.g. `badge/npm-0.0.51-CB3837`). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
+2. **Docs and site match current state** — Ensure all markdown docs (`docs/*.md`, `docs/planning/*.md`, `README.md`, `CONTRIBUTING.md`, `packages/rizzo-css/README.md`) and site content reflect the current project: version, component count (33), doc page count (29), icon counts (30 regular, 22 devicons, 52 total), CLI behavior, and scaffold contents. Run `pnpm build` and `pnpm test:a11y` to confirm the site builds and a11y tests pass.
+3. **Version** — Bump `version` in `packages/rizzo-css/package.json` (and root `package.json` if you keep them in sync). Update the npm badge in the main `README.md` so the version in the badge matches (e.g. `badge/npm-0.0.52-CB3837`). Use [semver](https://semver.org/): patch for fixes/docs, minor for new features.
 4. **Build** — From repo root run `pnpm build:css` (and optionally `pnpm build`) to confirm the CSS and site build.
 5. **Publish** — From repo root run `pnpm publish:package` (see Steps below).
 6. **Push** — `git push` (and `git push --tags` if you tag releases). This does not update npm; it keeps GitHub in sync with what you published.
@@ -49,9 +49,9 @@ Before publishing to npm:
 ## Steps
 
 1. **Update version** (in both places if you keep them in sync):
-   - `packages/rizzo-css/package.json` → `"version": "0.0.51"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
+   - `packages/rizzo-css/package.json` → `"version": "0.0.52"` (or next semver: patch/minor/major per [Versioning strategy](#versioning-strategy))
    - Optionally `package.json` at repo root (for the docs site)
-   - Main `README.md` — update the npm badge so the version in the URL matches (e.g. `badge/npm-0.0.51-CB3837`)
+   - Main `README.md` — update the npm badge so the version in the URL matches (e.g. `badge/npm-0.0.52-CB3837`)
 
 2. **Build and publish from repo root:**
    ```bash

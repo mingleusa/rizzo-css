@@ -4,14 +4,14 @@ Rizzo CSS is built with accessibility as a core principle, following WCAG 2.1 gu
 
 ## Accessibility Features
 
-### Implemented Features
+### Implemented
 
-- **Best practices** — [Best practices](#best-practices) in this doc: keyboard patterns, ARIA usage, focus order, and how to test. Automated coverage (axe, keyboard spec, ARIA/roles) and a manual testing checklist are in [Automated accessibility tests](#automated-accessibility-tests) and [Manual accessibility testing](#manual-accessibility-testing).
-- **Keyboard navigation** — Full keyboard support across all interactive components (Tab, arrows, Enter/Space, Escape).
-- **ARIA attributes** — Components use appropriate ARIA (aria-label, aria-expanded, aria-controls, roles, etc.).
-- **Focus management** — Visible focus indicators (`--accent` / `--accent-fg` where used as foreground), focus trapping in modals, scrollable regions (e.g. code blocks) focusable via `tabindex="0"`.
-- **High contrast mode** — Implemented via Settings “High contrast” toggle; applies `.high-contrast` to the document root (see [High Contrast Mode](#high-contrast-mode)). Works with any theme; persists in localStorage.
-- **Reduce motion** — Settings “Reduce motion” toggle and `prefers-reduced-motion` media query support.
+- **Keyboard** — Full support: Tab, arrows, Enter/Space, Escape on all interactive components.
+- **ARIA** — Appropriate roles and attributes (aria-label, aria-expanded, aria-controls, etc.) on dialogs, menus, tabs, accordions.
+- **Focus** — Visible focus indicators (`--accent` / `--accent-fg`). Focus trap in Modal, Search, Settings (Tab cycles inside; Escape closes and restores focus to trigger). Reusable utility: `src/utils/focus-trap.js` (`getFocusableElements`, `createFocusTrap`, `setFocusablesInert`, `restoreFocusables`). Skip link (`.skip-link`) in layout and scaffolds; scrollable regions use `tabindex="0"`.
+- **Modals** — Overlay and dialog use `inert` when closed so focusable content is not in the tab order (axe aria-hidden-focus).
+- **Theme contrast** — All themes meet WCAG AA; run `pnpm check:contrast` when adding or changing theme colors (see [Automated accessibility tests](#automated-accessibility-tests)).
+- **High contrast & reduce motion** — Settings toggles (`.high-contrast`, reduce motion); `prefers-reduced-motion` supported (see [High Contrast Mode](#high-contrast-mode)).
 
 ### Keyboard Navigation
 
@@ -35,15 +35,13 @@ Components include proper ARIA attributes:
 - `aria-haspopup` - Indicates elements with popup menus
 - `role` - Semantic roles (menu, menuitem, dialog, etc.)
 
-### Focus Management
+### Focus (details)
 
-- Visible focus indicators using `--accent` or `--accent-fg` (links, outlines)
-- **Modals use `inert` when closed** — Astro and Svelte modals set the `inert` attribute on the overlay and dialog when closed so focusable content is not in the tab order or accessibility tree (satisfies axe aria-hidden-focus).
-- Focus trapping in modals when open
-- Focus restoration after interactions: when closing overlays (Search, Modal, Dropdown), focus returns to the element that opened them; Search restores focus as soon as the overlay closes
-- Scrollable regions (e.g. code block `<pre>` with `tabindex="0"`) are focusable for keyboard access (scrollable-region-focusable)
-- Skip links for main content
-- Links use underlines so they are distinguishable without relying on color alone (WCAG link-in-text-block)
+- **Indicators** — `--accent` or `--accent-fg` for links and outlines.
+- **Trap & restore** — Modal, Search, Settings: focus moves to first focusable on open; Tab/Shift+Tab cycle inside; Escape closes and restores focus to trigger. Use `src/utils/focus-trap.js` for custom overlays.
+- **Skip link** — `.skip-link` in layout and scaffolds; visible when focused.
+- **Scrollable regions** — `<pre>` and code blocks use `tabindex="0"` for keyboard access.
+- **Links** — Underlined so they are distinguishable without color alone (WCAG).
 
 ## Utility Classes
 
@@ -195,7 +193,7 @@ Components (Astro and Svelte) use semantic theme variables so every theme can gu
 | Borders and dividers | `--border` | Inputs, cards, dropdowns |
 | Focus and overlays | `--accent` / `--accent-fg` (outline), `--overlay`, `--shadow-color` | Focus ring, modal backdrop, shadows |
 
-Themes must set each `-text` variable to a color that meets at least 4.5:1 contrast on its paired background (e.g. `--accent-text` on `--accent`). The design system does not use hardcoded hex/rgb for UI colors; all interactive and text colors come from these variables.
+Themes must set each `-text` variable to a color that meets at least 4.5:1 contrast on its paired background (e.g. `--accent-text` on `--accent`). The design system does not use hardcoded hex/rgb for UI colors; all interactive and text colors come from these variables. Run `pnpm check:contrast` to verify every theme meets WCAG AA.
 
 ## Reduced Motion
 
@@ -272,8 +270,9 @@ ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader ou
 Run the full a11y suite: `pnpm test:a11y` (or `pnpm test:a11y:ci` in CI). This builds the site, starts the preview server, and runs:
 
 - **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: entire main site (home, docs, every component page for Astro/Vanilla/Svelte, all theme pages). WCAG 2/2.1 A & AA; critical/serious only. Route list is built from `FOUNDATION_ROUTES`, `COMPONENT_SLUGS`, `THEME_SLUGS` in that spec; add new routes there as needed.
-- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape).
+- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape), font switcher (Escape, focus return), accordion (Enter toggles), theme switcher (Escape, focus return), settings (trigger, Escape).
 - **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal (dialog, aria-modal, aria-labelledby), dropdown (menu/menuitem, aria-expanded), tabs (tablist/tab, aria-selected, aria-controls), accordion (aria-expanded, aria-controls), theme switcher (menuitemradio).
+- **Theme contrast** — `pnpm check:contrast`: verifies all themes meet WCAG AA (text/background and accent-text/accent ≥ 4.5:1). Run when adding or changing theme colors.
 
 Automated tests do **not** replace manual keyboard and screen reader testing; use the checklist below for that.
 

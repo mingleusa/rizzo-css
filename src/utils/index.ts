@@ -17,6 +17,12 @@ export {
 } from './theme';
 
 export { getItem, setItem, removeItem } from './storage';
+export {
+  getFocusableElements,
+  setFocusablesInert,
+  restoreFocusables,
+  createFocusTrap,
+} from './focus-trap.js';
 export { copyToClipboard } from './clipboard';
 export { showToast, removeToast, removeAllToasts } from './toast';
 export type { ToastOptions } from './toast';

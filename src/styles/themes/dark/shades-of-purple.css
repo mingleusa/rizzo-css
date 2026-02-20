@@ -14,7 +14,7 @@
   --selection: oklch(30% 0.12 290deg);
   --fg: oklch(95% 0.01 300deg);
   --fg-dim: oklch(75% 0.05 300deg);
-  --comment: oklch(55.% 0.08 280deg);
+  --comment: oklch(55% 0.08 280deg);
 
   /* Accent Colors - Vibrant purples and complementary colors */
   --cyan: oklch(75% 0.15 220deg);
@@ -33,8 +33,10 @@
   --icon: var(--fg);
   --icon-dim: oklch(80% 0.05 300deg);
   --border: var(--current-line);
-  --accent: var(--purple);
-  --accent-hover: var(--pink);
+
+  /* Accent darkened so white text meets WCAG AA 4.5:1 (--purple 65% L is too light) */
+  --accent: oklch(48% 0.25 290deg);
+  --accent-hover: oklch(55% 0.22 290deg);
   --accent-text: oklch(100% 0 0deg); /* White text on accent for contrast */
   --accent-text-on-hover: oklch(22% 0.03 300deg);
   --success: var(--green);

@@ -434,6 +434,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         } else if (e.key === 'Escape') {
           e.preventDefault();
           closeMenu();
+          setTimeout(() => trigger.focus(), 0); // Restore focus after close (trigger or menu may have had keydown)
         }
       });
 
@@ -443,8 +444,8 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         if (e.key === 'Escape') {
           e.preventDefault();
           closeMenu();
-          trigger.focus();
           currentIndex = -1;
+          setTimeout(() => trigger.focus(), 0); // Defer so focus runs after menu closes and tabindex changes
         } else if (e.key === 'ArrowDown') {
           e.preventDefault();
           currentIndex = (currentIndex + 1) % visibleOptions.length;

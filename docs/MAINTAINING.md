@@ -1,6 +1,6 @@
 # Maintainer guide
 
-Notes for maintainers of the Rizzo CSS repo. For contributing, see [CONTRIBUTING.md](../CONTRIBUTING.md).
+Notes for maintainers of the Rizzo CSS repo. For day-to-day commands (build, test, lint, contrast, bundle size), see [CONTRIBUTING.md](../CONTRIBUTING.md). For contributing and PRs, see the same doc.
 
 ## Branch protection (main)
 
