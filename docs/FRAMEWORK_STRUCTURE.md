@@ -15,7 +15,7 @@ Rizzo CSS keeps each framework’s implementation **separate but integrated** in
 
 - **`docs/`** — Markdown documentation. User-facing guides (GETTING_STARTED, DESIGN_SYSTEM, THEMING, etc.) and reference (COMPONENTS, CLI) at top level; internal planning in **`docs/planning/`** (CLI_PLANNING, PLAN_FONT_CHANGER, SCAFFOLD_REPLICA_PLAN). See [docs/README.md](./README.md) for the full index.
 - **`src/`** — Astro docs site and reference components (see below).
-- **`packages/rizzo-css/`** — Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla, astro-core, svelte-core, astro/, svelte/, config/, shared/, utils/).
+- **`packages/rizzo-css/`** — Published npm package: `bin/`, `dist/`, `scaffold/` (minimal/, starter/, vanilla/, astro-core/, svelte-core/, astro/, svelte/, config/, shared/, utils/).
 - **`scripts/`** — Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js`.
 
 ## Folder layout (src)

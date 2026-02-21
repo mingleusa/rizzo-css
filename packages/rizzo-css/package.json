@@ -1,6 +1,7 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.53",
+  "version": "0.0.54",
+  "engines": { "node": ">=18" },
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },
@@ -27,12 +28,12 @@
     "dist",
     "scaffold/astro",
     "scaffold/astro-core",
-    "scaffold/config",
+    "scaffold/minimal","scaffold/config",
     "scaffold/shared",
     "scaffold/svelte",
     "scaffold/svelte-core",
     "scaffold/utils",
-    "scaffold/vanilla"
+    "scaffold/starter","scaffold/vanilla"
   ],
   "keywords": [
     "css",

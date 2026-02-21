@@ -6,10 +6,10 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 - **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro or Svelte components. React/Vue: same CSS; wrappers planned later. See [Using Rizzo in your project](#using-rizzo-in-your-project).
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance) below.
-- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Core** (everything) or **Manual** (pick which components; all interactive pre-selected). **Add to existing** (or `add` command) → drop in CSS + hand-pick components; writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
-- **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Core** = index + all 33 component pages in `components/` + js + icons (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Core scaffold. CDN link optional.
-- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.53/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
-- **Svelte** — `/docs/svelte` (29 component pages). Scaffold ships 33 components (Core or Manual). React/Vue later.
+- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). **Create new** → **Minimal** (CSS + RIZZO-SETUP.md), **Starter** (same + minimal index/layout only if missing), or **Full** (all or pick 34 components; we never overwrite — snippets in RIZZO-SETUP.md). **Add to existing** (or `add` command) → same template choice (Minimal | Starter | Full); **Full** writes **RIZZO-SNIPPET.txt** in addition to RIZZO-SETUP.md unless `--no-snippet`. Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore** (does not overwrite project files); Astro/Svelte include package.json and .env.example.
+- **Vanilla scaffold** — No node_modules; CLI copies `css/rizzo.min.css`, **README-RIZZO.md**, **.gitignore**, and (depending on template) `js/main.js`, icons, and component HTML pages. **Full** = index + all 34 component pages in `components/` + js + icons (full showcase). **Minimal** / **Starter** = CSS, fonts, icons, sfx + RIZZO-SETUP.md (Starter adds minimal index only if missing). Add component JS later via [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from a Full scaffold. CDN link optional.
+- **CDN** — unpkg and jsDelivr; pin with `.../rizzo-css@0.0.54/dist/rizzo.min.css`. Verify: `curl -I <url>` (200).
+- **Svelte** — `/docs/svelte` (29 component pages). Scaffold ships 34 components (Full template). React/Vue later.
 - **Icons** — 52 total: 30 regular (Tabler) and 22 devicons (brand icons); same set for Astro, Svelte, and Vanilla. See [Components – Icons](./COMPONENTS.md#icons).
 
 ---
@@ -18,16 +18,16 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | Framework → add to existing or create new. **Existing** → CSS + components (add `<link>` yourself; CLI prints it). **New** → project location (**current directory** or **enter path or project name**; one prompt), then **Core** or **Manual**, then package manager. Install runs in the project directory. **--yes --path &lt;dir&gt;** scaffolds into that directory; **--yes** defaults to **core** template. Non-empty target directory prompts to continue. |
-| `npx rizzo-css add` | Same as init → existing. Writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. `--readme`, `--force` (overwrite CSS), `--vanilla-js` (copy js/main.js for Vanilla). |
+| `npx rizzo-css init` | Framework → add to existing or create new. **Existing** → same template choice (Minimal | Starter | Full), then CSS + components for Full. **New** → project location (**current directory** or **enter path or project name**; one prompt), then **Minimal**, **Starter**, or **Full**, then package manager. Install runs in the project directory. **--yes --path &lt;dir&gt;** scaffolds into that directory; **--yes** defaults to **full** template. Non-empty target directory prompts to continue. |
+| `npx rizzo-css add` | Same as init → existing: choose **Minimal**, **Starter**, or **Full**. Full = CSS + component picker; writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. All templates write **RIZZO-SETUP.md**. `--readme`, `--force` (overwrite CSS), `--vanilla-js` (copy js/main.js for Vanilla). |
 | `npx rizzo-css theme` | List 14 theme IDs for `data-theme` on `<html>`. |
 | `npx rizzo-css doctor` | Check config, CSS path, and layout link. |
 
 **Run by package manager:** npm and yarn → `npx rizzo-css <command>` (yarn tab shows npx so it works with Yarn 1 and 2+); pnpm → `pnpm dlx rizzo-css <command>`; bun → `bunx rizzo-css <command>`. Use the docs site tabs to copy the command for your manager.
 
-**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Core = everything; Manual = same base, pick which components to include (all pre-selected). `npx rizzo-css help components` lists components and copy paths.
+**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template minimal|starter|full**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--template minimal|starter|full**, **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Minimal = CSS + RIZZO-SETUP.md; Starter = same + minimal index/layout only if missing; Full = all or pick 34 components (all pre-selected in picker). `npx rizzo-css help components` lists components and copy paths.
 
-**Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. Core includes these automatically; Manual shows e.g. "Navbar (adds Search, Settings)" in the picker. When you add **Settings** via the CLI (Astro or Svelte), the CLI also copies **scaffold/config/fonts.ts** into your project (Astro: `src/components/config/fonts.ts`; Svelte: `src/lib/config/fonts.ts`) so the font-pair dropdown works. List: `npx rizzo-css help components`. **Component counts:** Core = 33 components (all frameworks); Manual = 0–33 (all pre-selected by default; add/remove then confirm).
+**Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. Full includes these automatically; picker shows e.g. "Navbar (adds Search, Settings)". When you add **Settings** via the CLI (Astro or Svelte), the CLI also copies **scaffold/config/fonts.ts** into your project (Astro: `src/components/config/fonts.ts`; Svelte: `src/lib/config/fonts.ts`) so the font-pair dropdown works. List: `npx rizzo-css help components`. **Component counts:** Full = all 34 or pick (all frameworks).
 
 **Tip:** Use the **package manager tabs** on the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page (npm, pnpm, yarn, bun): click a tab to select your manager, then copy the command. **Yarn users:** the yarn tab shows `npx` so the command works with Yarn 1 and 2+ (Yarn 1 has no `dlx`). **Create new:** CLI prompts for package manager so the printed "install && dev" command matches. **Add to existing** or `add`: CLI prints the exact `<link>` tag; it does not edit your layout. To use the official create command plus Rizzo: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or Astro/pnpm/yarn/bun equivalents). 
 ---
@@ -46,7 +46,7 @@ On the [docs site](https://rizzo-css.vercel.app/docs/getting-started), use the *
 npx rizzo-css init
 ```
 
-**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** (or `add` command) → drop in CSS + hand-pick components; you must add the stylesheet `<link>` yourself (CLI prints the exact tag for your framework). **New** → project location (current directory or enter path/project name), then **Core** or **Manual**. Then package manager. **Add to existing** = CSS + hand-pick components. To only add CSS (with hand-pick flow):
+**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** (or `add` command) → choose **Minimal**, **Starter**, or **Full** (Full = CSS + component picker); you must add the stylesheet `<link>` yourself (CLI prints the exact tag). **New** → project location (current directory or enter path/project name), then **Minimal**, **Starter**, or **Full**. Then package manager. **Add to existing** = same template choice; Minimal/Starter = CSS + RIZZO-SETUP.md only. To add with component picker:
 
 ```bash
 npx rizzo-css add
@@ -94,35 +94,35 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 #### Vanilla JS
 
-1. **New project:** Run `npx rizzo-css init`, choose **Vanilla JS**, then **Core** (full showcase + `js/main.js` + icons + 33 component pages) or **Manual** (pick components; all interactive pre-selected). The CLI creates the project in the current directory or a path you enter.
-2. **Add to existing:** Run `npx rizzo-css add` in your project root (or `npx rizzo-css add --path public/css`). Add the printed `<link>` to your HTML.
-3. **CSS location:** CLI writes `css/rizzo.min.css`. Link it in your HTML, or switch to a CDN (see **README-RIZZO.md** in the scaffold). Pin version: `.../rizzo-css@0.0.53/dist/rizzo.min.css`.
-4. **Components:** Use the same BEM classes and markup as [Components](/docs/components). Core includes `js/main.js` for overlays, modals, dropdowns, etc. For copy-paste HTML and demos, see [Vanilla component pages](/docs/vanilla/components). Manual with no components: add JS later from those docs or copy `js/main.js` from a Core scaffold.
+1. **New project:** Run `npx rizzo-css init`, choose **Vanilla JS**, then **Minimal** (CSS + RIZZO-SETUP.md), **Starter** (same + minimal index if missing), or **Full** (full showcase + `js/main.js` + icons + 34 component pages; we never overwrite — snippets in RIZZO-SETUP.md). The CLI creates the project in the current directory or a path you enter.
+2. **Add to existing:** Run `npx rizzo-css add` in your project root; choose **Minimal**, **Starter**, or **Full** (Full = component picker). Add the printed `<link>` to your HTML. Or `npx rizzo-css add --path public/css`.
+3. **CSS location:** CLI writes `css/rizzo.min.css`. Link it in your HTML, or switch to a CDN (see **README-RIZZO.md** in the scaffold). Pin version: `.../rizzo-css@0.0.54/dist/rizzo.min.css`.
+4. **Components:** Use the same BEM classes and markup as [Components](/docs/components). Full includes `js/main.js` for overlays, modals, dropdowns, etc. For copy-paste HTML and demos, see [Vanilla component pages](/docs/vanilla/components). Minimal/Starter: add JS later from those docs or copy `js/main.js` from a Full scaffold.
 
 #### Astro
 
-1. **New project:** Run `npx rizzo-css init`, choose **Astro**, then **Core** (full app + 33 components) or **Manual** (hand-pick; all pre-selected). Choose package manager; install runs in the project directory.
+1. **New project:** Run `npx rizzo-css init`, choose **Astro**, then **Minimal** / **Starter** / **Full** (Full = full app + all or pick 34 components). Choose package manager; install runs in the project directory.
 2. **Add to existing:** In an existing Astro app, run `npx rizzo-css add`. Or create then add: `npm create astro@latest my-app && cd my-app && npx rizzo-css add`. Add the printed `<link>` to your root layout (e.g. `src/layouts/Layout.astro`).
 3. **CSS location:** CLI writes `public/css/rizzo.min.css`. In your layout: `<link rel="stylesheet" href="/css/rizzo.min.css" />`. Or install the package and `import 'rizzo-css'` in the layout.
 4. **Components:** Astro components are copied to your project (e.g. `src/components/rizzo/`). Use the same BEM classes and structure as [Components](/docs/components). Layout includes theme flash prevention and toast; add Navbar, Search, Settings via CLI or copy from this repo.
 
 #### Svelte (SvelteKit)
 
-1. **New project:** Run `npx rizzo-css init`, choose **Svelte**, then **Core** (full app + 33 components) or **Manual** (hand-pick; all pre-selected). Choose package manager; install runs in the project directory.
+1. **New project:** Run `npx rizzo-css init`, choose **Svelte**, then **Minimal** / **Starter** / **Full** (Full = full app + all or pick 34 components). Choose package manager; install runs in the project directory.
 2. **Add to existing:** In an existing SvelteKit app, run `npx rizzo-css add`. Or create then add: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add`. Add the printed `<link>` to `app.html`.
 3. **CSS location:** CLI writes `static/css/rizzo.min.css`. In `app.html`: `<link rel="stylesheet" href="/css/rizzo.min.css" />`. Or install the package and import the CSS in your entry.
 4. **Components:** Svelte components live in `src/lib/rizzo/`. Import e.g. `import { Button, Badge, Card, Modal, Tabs } from '$lib/rizzo'`. Same BEM and behavior as Astro; see [Svelte docs](/docs/svelte) and component pages (Astro | Svelte | Vanilla tabs).
 
 ### Step 3: Use components (Vanilla JS)
 
-- **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** with **Core** (showcase + js + icons) or **Manual** (same base; component picker opens with all interactive components pre-selected — add/remove then confirm, or pick none). If you chose **Manual** with no components and want JS later, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` and `icons/` from a Core scaffold. The CLI copies the built CSS into your project as `css/rizzo.min.css`; you can switch the `<link>` to a CDN URL (see **README-RIZZO.md**). Theme is stored in `localStorage` under key `theme`; use value `system` for OS light/dark.
-- **Class names and structure:** Use the same BEM classes and HTML structure as in the [Components documentation](/docs/components) (e.g. `btn`, `btn--primary`, `card`, `card__body`). For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components). Interactive components (Modal, Dropdown, Tabs, Search, Navbar, Settings, Copy to clipboard, etc.) are wired by `js/main.js` when you use the Core scaffold; they work when you copy the component from the package or docs. Tooltips use CSS only (:hover and :focus-within); no script required. **Search** and **Dropdown** Vanilla pages use the same Astro component for their live examples so behavior matches Astro and Svelte; Search trigger uses the Cmd icon (same size as the search icon).
+- **Same CSS and styles:** Vanilla JS gets the **same CSS and component styles** as Astro and Svelte. Run `npx rizzo-css init` and choose **Vanilla JS** with **Minimal**, **Starter**, or **Full** (Full = showcase + js + icons + 34 component pages; component picker opens with all pre-selected — add/remove then confirm, or pick none). If you chose Minimal/Starter or Full with no components and want JS later, use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` and `icons/` from a Full scaffold. The CLI copies the built CSS into your project as `css/rizzo.min.css`; you can switch the `<link>` to a CDN URL (see **README-RIZZO.md**). Theme is stored in `localStorage` under key `theme`; use value `system` for OS light/dark.
+- **Class names and structure:** Use the same BEM classes and HTML structure as in the [Components documentation](/docs/components) (e.g. `btn`, `btn--primary`, `card`, `card__body`). For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components). Interactive components (Modal, Dropdown, Tabs, Search, Navbar, Settings, Copy to clipboard, etc.) are wired by `js/main.js` when you use the Full scaffold; they work when you copy the component from the package or docs. Tooltips use CSS only (:hover and :focus-within); no script required. **Search** and **Dropdown** Vanilla pages use the same Astro component for their live examples so behavior matches Astro and Svelte; Search trigger uses the Cmd icon (same size as the search icon).
 - **Keyboard and click-outside:** All overlays and menus are keyboard-navigable (Tab, Escape, arrows where applicable) and close when you click outside: **Search** overlay (click backdrop or Escape; focus trap inside panel), **Settings** panel (click overlay or Escape; focus trap), **Navbar** mobile menu (click outside or Escape). Same behavior in Astro and Svelte scaffolds.
 
 ### Step 4: Use components (Astro)
 
 - **Reference implementation:** This repo is an Astro app. Use the Astro components from `src/components/` directly if your project is Astro, or copy the markup and class names from the component source or the [component docs](/docs/components).
-- **Scaffold:** The Astro scaffold layout includes **theme flash prevention** (persisted theme, font size, font pair, accessibility) and **toast** (`showToast`, `removeToast`, `removeAllToasts`). The package includes **Navbar**, **Search**, and **Settings** in `scaffold/astro/` (minimal versions: Navbar mobile menu + click-outside; Search with header, input, search/close icons, focus trap, and sample results to edit; Settings overlay + Escape). Add them via the CLI when hand-picking components or copy the full versions from this repo for full parity with the docs site.
+- **Scaffold:** The Astro scaffold layout includes **theme flash prevention** (persisted theme, font size, font pair, accessibility) and **toast** (`showToast`, `removeToast`, `removeAllToasts`). The package includes **Navbar**, **Search**, and **Settings** in `scaffold/astro/` (minimal versions: Navbar mobile menu + click-outside; Search with header, input, search/close icons, focus trap, and sample results to edit; Settings overlay + Escape). Add them via the CLI when choosing **Full** (component picker) or copy the full versions from this repo for full parity with the docs site.
 - **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn--primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components). **Interactive components run their scripts after DOM ready**, so Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, etc. work when imported without extra setup. **Keyboard and click-outside:** Search, Settings, and the Navbar mobile menu all close on Escape and when clicking outside (backdrop/overlay); Search and Settings use focus trapping inside the panel. Each component doc page has **Astro | Svelte | Vanilla** code tabs with complete, copy-paste examples.
 
 ### Step 5: Use components (Svelte)
@@ -131,7 +131,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
   ```js
   import { Button, Badge, Card, Modal, Tabs, /* ... */ } from '$lib/rizzo';
   ```
-- **Scaffold:** The Svelte scaffold `app.html` includes **theme flash prevention** and **toast** (`showToast`, `removeToast`, `removeAllToasts`). The package includes **Navbar**, **Search**, and **Settings** in `scaffold/svelte/` (minimal versions: Search has header with icons, input, close button, sample results; Navbar/Search click-outside and Escape; Settings via `window.openSettings`, overlay click and Escape). Add them via the CLI when hand-picking components or copy the full versions from this repo for full parity.
+- **Scaffold:** The Svelte scaffold `app.html` includes **theme flash prevention** and **toast** (`showToast`, `removeToast`, `removeAllToasts`). The package includes **Navbar**, **Search**, and **Settings** in `scaffold/svelte/` (minimal versions: Search has header with icons, input, close button, sample results; Navbar/Search click-outside and Escape; Settings via `window.openSettings`, overlay click and Escape). Add them via the CLI when choosing **Full** (component picker) or copy the full versions from this repo for full parity.
 - **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with 29 component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page to switch views.
 - **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Persist with `localStorage` key `theme`; use `system` for OS preference. Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
@@ -172,16 +172,16 @@ When you run `init` or `add`, the CLI copies the built CSS and static assets (fo
 | **Svelte** | `static/css/rizzo.min.css` | `static/assets/fonts/` (sounds: `static/assets/sfx/`) | `static/` |
 | **Vanilla** | `css/rizzo.min.css` | `css/fonts/` (sounds: `assets/sfx/`) | project root |
 
-For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` or `click.wav` → `/assets/sfx/click.mp3` or `click.wav`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts and sounds go under **`static/assets/fonts/`** and **`static/assets/sfx/`** with the same URL rewrite for fonts. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve; sounds go to **`assets/sfx/`** when you use **Core** or add **Settings** or **SoundEffects**, and the sound script uses a relative path so it works with a local server or `file://`.
+For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/assets/sfx/click.mp3` or `click.wav` → `/assets/sfx/click.mp3` or `click.wav`); the CLI rewrites font URLs in the copied CSS to `/assets/fonts/...`. For **Svelte**, fonts and sounds go under **`static/assets/fonts/`** and **`static/assets/sfx/`** with the same URL rewrite for fonts. For **Vanilla**, fonts sit next to the CSS (`css/fonts/`) so the package’s relative `./fonts/` URLs resolve; sounds go to **`assets/sfx/`** when you use **Full** (all components) or add **Settings** or **SoundEffects**, and the sound script uses a relative path so it works with a local server or `file://`.
 
 ### Summary
 
 | You're using | Get CSS | Use components |
 |--------------|---------|-----------------|
-| **Any**      | `npx rizzo-css init` (template or hand-pick) or `npx rizzo-css add` (CSS + hand-pick), or `pnpm add rizzo-css` + `import 'rizzo-css'` | Same BEM classes and markup for all; see [Components](/docs/components). |
-| **Vanilla JS** | Same | Run `npx rizzo-css init` and choose Vanilla JS — **Core** or **Manual**. Core includes theme (with System), Settings panel, toast, and samples. Use [Vanilla component pages](/docs/vanilla/components) for copy-paste HTML and live demos. |
-| **Astro**    | Same | Run `npx rizzo-css init` and choose Astro — **Core** (app + all components) or **Manual** (hand-pick; all pre-selected). Or `npx rizzo-css add` in an existing Astro project. [Docs](/docs/components). |
-| **Svelte**   | Same | Run `npx rizzo-css init` and choose Svelte — **Core** (app + all components) or **Manual** (hand-pick; all pre-selected). Or `npx rizzo-css add` in an existing Svelte project. [Docs](/docs/svelte). Every component has Astro, Svelte, and Vanilla doc pages. |
+| **Any**      | `npx rizzo-css init` or `npx rizzo-css add` (same template: Minimal | Starter | Full), or `pnpm add rizzo-css` + `import 'rizzo-css'` | Same BEM classes and markup for all; see [Components](/docs/components). |
+| **Vanilla JS** | Same | Run `npx rizzo-css init` and choose Vanilla JS — **Minimal**, **Starter**, or **Full**. Full includes theme (with System), Settings panel, toast, and samples. Use [Vanilla component pages](/docs/vanilla/components) for copy-paste HTML and live demos. |
+| **Astro**    | Same | Run `npx rizzo-css init` and choose Astro — **Minimal** / **Starter** / **Full** (Full = app + all or pick components). Or `npx rizzo-css add` in an existing Astro project. [Docs](/docs/components). |
+| **Svelte**   | Same | Run `npx rizzo-css init` and choose Svelte — **Minimal** / **Starter** / **Full** (Full = app + all or pick components). Or `npx rizzo-css add` in an existing Svelte project. [Docs](/docs/svelte). Every component has Astro, Svelte, and Vanilla doc pages. |
 | **React / Vue** | Same: install and import CSS | Same BEM and markup; build your own wrappers. React/Vue components planned later. |
 
 ---
@@ -335,11 +335,11 @@ rizzo-css/
 │       ├── bin/
 │       │   └── rizzo-css.js   # CLI: init, add, theme
 │       └── scaffold/          # CLI scaffolds (shipped in npm package)
-│           ├── vanilla/      # Vanilla (Core / Manual: index, js, icons, components, README-RIZZO.md; no package.json)
+│           ├── vanilla/      # Vanilla (Minimal / Starter / Full: index, js, icons, components, README-RIZZO.md; no package.json)
 │           ├── astro-core/     # Astro base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example)
 │           ├── svelte-core/     # SvelteKit base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .env.example)
-│           ├── astro/        # Astro components + icons (for hand-pick when adding to existing)
-│           ├── svelte/       # Svelte 5 components + icons (for hand-pick when adding to existing)
+│           ├── astro/        # Astro components + icons (for Full template when adding to existing)
+│           ├── svelte/       # Svelte 5 components + icons (for Full template when adding to existing)
 │           ├── config/       # fonts.ts (font pairs for Settings); copied when adding Settings via CLI
 │           └── utils/        # theme.ts (for ThemeSwitcher); copied when adding ThemeSwitcher via CLI
 ├── public/              # Static assets
@@ -384,7 +384,7 @@ This will build and minify CSS (to `public/css/main.min.css` and `packages/rizzo
 
 ## Using Components
 
-See the [Components documentation](/docs/components) for the full list of 33 components (including ThemeSwitcher, FontSwitcher, SoundEffects), usage examples, and API details. Each component has a dedicated doc page with live examples.
+See the [Components documentation](/docs/components) for the full list of 34 components (including ThemeSwitcher, FontSwitcher, SoundEffects), usage examples, and API details. Each component has a dedicated doc page with live examples.
 
 ## Using Themes
 

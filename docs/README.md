@@ -21,7 +21,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 
 | Doc | Description |
 |-----|-------------|
-| [COMPONENTS.md](./COMPONENTS.md) | All 33 components, usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All 34 components, usage, BEM, framework tabs |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 
@@ -32,7 +32,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | [PUBLISHING.md](./PUBLISHING.md) | Versioning, prepublish, npm publish, CDN |
 | [MAINTAINING.md](./MAINTAINING.md) | Maintenance notes and links |
 | [FRAMEWORK_STRUCTURE.md](./FRAMEWORK_STRUCTURE.md) | Repo layout: src/, scaffolds, frameworks |
-| [TEMPLATES.md](./TEMPLATES.md) | Core vs Manual templates per framework |
+| [TEMPLATES.md](./TEMPLATES.md) | Minimal, Starter, Full templates (init and add) |
 | [TODO.md](./TODO.md) | Current tasks and roadmap |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Algolia search setup for the docs site |
 
@@ -51,7 +51,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
 | **src/** | Astro docs site: `pages/`, `components/`, `layouts/`, `styles/`, `config/`, `types/`, `utils/`, `assets/` |
-| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla, astro-core, svelte-core, astro/, svelte/, config/, shared/, utils/) |
+| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (minimal/, starter/, vanilla/, astro-core/, svelte-core/, astro/, svelte/, config/, shared/, utils/) |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
 | **tests/** | Playwright a11y tests |
 

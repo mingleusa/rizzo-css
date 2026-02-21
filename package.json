@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.53",
+  "version": "0.0.54",
   "license": "MIT",
   "scripts": {
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
@@ -11,7 +11,7 @@
     "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && pnpm prepare:vanilla-scaffold",
     "copy-scaffold": "node scripts/copy-scaffold.js",
     "prepare:vanilla-scaffold": "node scripts/prepare-vanilla-scaffold.js",
-    "publish:package": "pnpm build:package && cd packages/rizzo-css && npm publish",
+    "publish:package": "cd packages/rizzo-css && npm publish",
     "preview": "astro preview",
     "astro": "astro",
     "lint:css": "stylelint \"src/**/*.css\"",

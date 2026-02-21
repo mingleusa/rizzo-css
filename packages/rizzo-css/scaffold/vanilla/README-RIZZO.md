@@ -14,7 +14,7 @@
       Design system · Vanilla · Astro · Svelte
 ```
 
-This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Core** or **Manual**. **Core** = index + all 33 component pages, js, icons, and Settings/toast/sound (full showcase). **Manual** = index + CSS; component picker with all interactive components pre-selected. **Add to existing project** (or `npx rizzo-css add`) only adds the CSS and optional files (you must add the stylesheet `<link>` yourself; the CLI prints the exact tag).
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Minimal**, **Starter**, or **Full**. **Full** = index + all 34 component pages, js, icons, and Settings/toast/sound (full showcase). **Minimal** / **Starter** = CSS, fonts, icons, sfx + RIZZO-SETUP.md (Starter adds minimal index only if missing). **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice** — Minimal, Starter, or Full; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
 
 ## First-time setup
 
@@ -27,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.53`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.54`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -54,7 +54,7 @@ The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}
   - **Copy to clipboard** — Buttons with `.copy-to-clipboard` and `data-copy-value`, or `[data-copy]` with `value` or `data-copy-value`; click copies text and shows feedback (icons/aria-label). Optional `data-copy-format` for “Copied {format}!”.
   - **Back to top** — Any `[data-back-to-top]` with `[data-back-to-top-btn]`; shows after scrolling past `data-threshold` (default 400px), click scrolls to top smoothly.
   - **Tooltips** — Use `.tooltip-wrapper` with a `.tooltip` child, or `[data-tooltip]` on the trigger; no JS required (CSS :hover and :focus-within).
-  - **Sound effects** — When "Play sound on click" is enabled in Settings, a short click sound plays on interactive elements. The script is injected by the CLI when **Core** or when **Settings**/**SoundEffects** are included; sound files are in **`assets/sfx/`** (e.g. `click.mp3` or `click.wav`). Off by default; persists as `soundEffects` in localStorage.
+  - **Sound effects** — When "Play sound on click" is enabled in Settings, a short click sound plays on interactive elements. The script is injected by the CLI when **Full** (all components) or when **Settings**/**SoundEffects** are included; sound files are in **`assets/sfx/`** (e.g. `click.mp3` or `click.wav`). Off by default; persists as `soundEffects` in localStorage.
 
 ## Commands
 
@@ -68,7 +68,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-core/` — Astro app (Core or Manual template); optional components from `scaffold/astro/` (see README-RIZZO.md).
-- **Svelte:** `scaffold/svelte-core/` — SvelteKit app (Core or Manual template); optional components from `scaffold/svelte/` (see README-RIZZO.md).
+- **Astro:** `scaffold/astro-core/` — Astro app (Minimal, Starter, or Full template); Full adds components from `scaffold/astro/` (see README-RIZZO.md).
+- **Svelte:** `scaffold/svelte-core/` — SvelteKit app (Minimal, Starter, or Full template); Full adds components from `scaffold/svelte/` (see README-RIZZO.md).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

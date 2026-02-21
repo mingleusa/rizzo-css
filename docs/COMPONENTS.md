@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (33 components including BackToTop, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Core** (all 33 components) or **Manual** (component picker with all 33 pre-selected; list shows which add others, e.g. "Navbar (adds Search, Settings)", "Settings (adds ThemeSwitcher, FontSwitcher, SoundEffects)"); **Add to existing** → CSS + hand-pick components. Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (34 components including BackToTop, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Minimal** (CSS + RIZZO-SETUP.md), **Starter** (same + minimal index/layout only if missing), or **Full** (all or pick 34 components; we never overwrite — snippets in RIZZO-SETUP.md). **Add to existing** → same template choice (Minimal | Starter | Full); Full = CSS + component picker (all 34 or pick). Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -58,7 +58,7 @@ All of the following components are implemented with dedicated documentation pag
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
-(29 component doc pages on the site; the CLI/scaffold offers 33 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
+(29 component doc pages on the site; the CLI/scaffold offers 34 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
 
 ## Component Features
 
@@ -82,7 +82,7 @@ Every component has documentation and examples for **Astro**, **Svelte**, and **
 |-----------|------------------|--------------|
 | **Astro** | [/docs/components/&lt;name&gt;](/docs/components) (e.g. [/docs/components/button](/docs/components/button)) | Full Astro usage with **Astro | Svelte | Vanilla** code tabs (complete, copy-paste examples per framework), live demos, and props. |
 | **Svelte** | [/docs/svelte/components/&lt;name&gt;](/docs/svelte/components) (e.g. [/docs/svelte/components/button](/docs/svelte/components/button)) | Svelte usage and live examples. Search, Navbar, Settings, Theme Switcher, Font Switcher, Sound Effects, and Icons pages include the same live standalone example as Astro (e.g. full Search component on the Search doc page). |
-| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML; interactive behavior (modal, dropdown, tabs, accordion, toast, search, copy-to-clipboard, etc.) is wired by `js/main.js` when using the Core scaffold. Copyable code blocks and live demos. Same BEM as Astro/Svelte. Tooltips use CSS only (:hover and :focus-within). |
+| **Vanilla** | [/docs/vanilla/components/&lt;name&gt;](/docs/vanilla/components) (e.g. [/docs/vanilla/components/button](/docs/vanilla/components/button)) | One static `.astro` page per component with real HTML; interactive behavior (modal, dropdown, tabs, accordion, toast, search, copy-to-clipboard, etc.) is wired by `js/main.js` when using the Full scaffold. Copyable code blocks and live demos. Same BEM as Astro/Svelte. Tooltips use CSS only (:hover and :focus-within). |
 
 Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top of any component or theme page to switch between framework docs.
 
