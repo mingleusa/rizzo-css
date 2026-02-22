@@ -1,0 +1,22 @@
+---
+/**
+ * Enforces an aspect ratio on the child (e.g. 16/9, 1/1). Matches shadcn-svelte Aspect Ratio.
+ */
+interface Props {
+	/** Ratio as width/height, e.g. 16/9, 1/1, 4/3 */
+	ratio?: number;
+	class?: string;
+}
+
+const { ratio = 16 / 9, class: className = '' } = Astro.props;
+const paddingPercent = (1 / ratio) * 100;
+---
+
+<div
+	class={`aspect-ratio ${className}`.trim()}
+	style={`--aspect-ratio: ${ratio}; --aspect-ratio-padding: ${paddingPercent}%;`}
+>
+	<div class="aspect-ratio__inner">
+		<slot />
+	</div>
+</div>

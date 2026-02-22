@@ -1,0 +1,20 @@
+---
+/**
+ * A single pane in a ResizablePaneGroup. Use defaultSize (0–100) for initial size %.
+ */
+interface Props {
+	defaultSize?: number;
+	class?: string;
+}
+
+const { defaultSize = 50, class: className = '' } = Astro.props;
+const size = Math.min(100, Math.max(0, defaultSize));
+---
+
+<div
+	class={`resizable__pane ${className}`.trim()}
+	data-resizable-pane
+	style={`flex: 1 1 ${size}%`}
+>
+	<slot />
+</div>

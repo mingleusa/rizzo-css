@@ -1,0 +1,71 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import DashboardComponent from '../../../../components/Dashboard.astro';
+---
+
+<DocsLayout title="Dashboard — Vanilla" description="Dashboard layout with vanilla HTML. Sidebar + main content. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Dashboard component</h2>
+    <p>Two-column layout: a sidebar (for navigation) and a main content area. Uses BEM classes: <code>dashboard</code>, <code>dashboard__sidebar</code>, <code>dashboard__main</code>, <code>dashboard__nav</code>, <code>dashboard__nav-link</code>. On small screens the layout stacks vertically. No JavaScript required for the layout.</p>
+    <AddComponentTabs componentName="Dashboard" />
+
+    <h3>BEM classes</h3>
+    <ul>
+      <li><code>dashboard</code> — Root flex container (column on mobile).</li>
+      <li><code>dashboard__sidebar</code> — Sidebar column; use <code>aria-label</code> for the sidebar (e.g. "App navigation").</li>
+      <li><code>dashboard__nav</code> — Nav container inside sidebar.</li>
+      <li><code>dashboard__nav-link</code> — Nav link; use <code>dashboard__nav-link--active</code> for current page and <code>aria-current="page"</code>.</li>
+      <li><code>dashboard__main</code> — Main content area (use <code>id="main-content"</code> for skip-link target).</li>
+    </ul>
+
+    <h3>Live example</h3>
+    <p>Below is the same structure as the Astro/Svelte Dashboard; in Vanilla you use the HTML directly.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="dashboard-demo-wrap">
+        <DashboardComponent sidebarLabel="Dashboard navigation">
+          <nav slot="sidebar" class="dashboard__nav">
+            <a href="/docs/vanilla/components/dashboard" class="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
+            <a href="#" class="dashboard__nav-link">Items</a>
+            <a href="#" class="dashboard__nav-link">Settings</a>
+          </nav>
+          <div>
+            <h3 style="margin: 0 0 var(--spacing-2);">Main content</h3>
+            <p style="margin: 0;">Put your page content here. Combine with Card, Table, and other Rizzo components.</p>
+          </div>
+        </DashboardComponent>
+      </div>
+    </div>
+
+    <h3>Copyable HTML</h3>
+    <CodeBlock code={`<div class="dashboard">
+  <aside class="dashboard__sidebar" aria-label="App navigation">
+    <nav class="dashboard__nav">
+      <a href="/dashboard" class="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
+      <a href="/items" class="dashboard__nav-link">Items</a>
+      <a href="/settings" class="dashboard__nav-link">Settings</a>
+    </nav>
+  </aside>
+  <main id="main-content" class="dashboard__main">
+    <h1>Dashboard</h1>
+    <p>Your content here.</p>
+  </main>
+</div>`} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/dashboard">Astro</a> · <a href="/docs/svelte/components/dashboard">Svelte</a></p>
+    <p>See the <a href="/blocks/dashboard-01">Dashboard with sidebar</a> block for a full example with stat cards and a table.</p>
+  </section>
+</DocsLayout>
+
+<style>
+  .dashboard-demo-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    min-height: 14rem;
+  }
+  .dashboard-demo-wrap :global(.dashboard) {
+    min-height: 14rem;
+  }
+</style>

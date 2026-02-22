@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="separator separator--horizontal" role="separator" aria-orientation="horizontal"></div>
+
+<!-- Vertical (inside flex): -->
+<div style="display: flex; align-items: center; gap: var(--spacing-3); min-height: 2rem;">
+  <span>Left</span>
+  <div class="separator separator--vertical" role="separator" aria-orientation="vertical"></div>
+  <span>Right</span>
+</div>`;
+---
+
+<DocsLayout title="Separator — Vanilla" description="Thin separator line with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Separator</h2>
+    <p>Minimal line; use <a href="/docs/vanilla/components/divider">Divider</a> when you need a label (e.g. "OR"). Classes: <code>separator</code>, <code>separator--horizontal</code> (default), <code>separator--vertical</code>.</p>
+    <AddComponentTabs componentName="Separator" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div>Above</div>
+      <div class="separator separator--horizontal" role="separator" aria-orientation="horizontal"></div>
+      <div>Below</div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/separator">Astro</a> · <a href="/docs/svelte/components/separator">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

@@ -1,0 +1,32 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<label class="label" for="input-id">Email</label>
+<input id="input-id" type="email" />
+
+<label class="label label--required" for="req-id">Required field</label>
+<input id="req-id" type="text" required />`;
+---
+
+<DocsLayout title="Label — Vanilla" description="Form label with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Label</h2>
+    <p>Standalone form label. Use <code>for</code> and matching <code>id</code> on the input. Add <code>label--required</code> when the field is required.</p>
+    <AddComponentTabs componentName="Label" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <label class="label" for="label-demo-id">Email</label>
+      <input id="label-demo-id" type="email" class="input" style="display: block; margin-top: var(--spacing-1);" />
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/label">Astro</a> · <a href="/docs/svelte/components/label">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

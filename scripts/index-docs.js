@@ -70,6 +70,7 @@ const docsPages = [
   { title: 'Theming', url: '/docs/theming', file: 'docs/THEMING.md', category: 'Documentation' },
   { title: 'Colors', url: '/docs/colors', file: 'docs/COLORS.md', category: 'Documentation' },
   { title: 'Components', url: '/docs/components', file: 'docs/COMPONENTS.md', category: 'Components' },
+  { title: 'Blocks', url: '/blocks', file: null, category: 'Blocks', content: 'Pre-built layouts and patterns: Dashboard with sidebar, Docs layout with sidebar. Building blocks for the web using Rizzo components.' },
   { title: 'Accessibility', url: '/docs/accessibility', file: 'docs/ACCESSIBILITY.md', category: 'Documentation' },
 ];
 
@@ -79,7 +80,7 @@ const componentPages = [
     title: 'Navbar', 
     url: '/docs/components/navbar', 
     category: 'Components',
-    description: 'Responsive, accessible navigation bar with integrated settings button, dropdown menus, mobile menu, and full keyboard navigation'
+    description: 'Responsive, accessible navigation bar with integrated settings button, flat nav links (Docs, Components, Blocks, Themes, Colors), mobile menu, and full keyboard navigation'
   },
   { 
     title: 'Settings', 
@@ -136,6 +137,12 @@ const componentPages = [
     description: 'Copy to clipboard component with visual feedback, icon change (copy to checkmark), and accessible ARIA labels'
   },
   { 
+    title: 'Dashboard', 
+    url: '/docs/components/dashboard', 
+    category: 'Components',
+    description: 'Layout component with sidebar and main content area for app dashboards. Uses Rizzo tokens and BEM classes. See Blocks for full dashboard pattern.'
+  },
+  { 
     title: 'Icons', 
     url: '/docs/components/icons', 
     category: 'Components',
@@ -171,6 +178,11 @@ const componentPages = [
     category: 'Components',
     description: 'Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via window.showToast() with six position options'
   },
+];
+
+const blockPages = [
+  { title: 'Dashboard with sidebar', url: '/blocks/dashboard-01', category: 'Blocks', description: 'App dashboard with sidebar navigation, stat cards, and data table. Built with Dashboard, Card, and Table components. Scaffold with npx rizzo-css init --template dashboard.' },
+  { title: 'Docs layout with sidebar', url: '/blocks/docs-layout', category: 'Blocks', description: 'Documentation layout with collapsible sidebar and main content area. Same pattern as the Rizzo docs site. Scaffold with npx rizzo-css init --template docs.' },
 ];
 
 const themePages = [
@@ -219,7 +231,7 @@ function buildRecords() {
 
   // Add documentation pages
   docsPages.forEach((page) => {
-    const content = readMarkdownFile(page.file);
+    const content = page.file ? readMarkdownFile(page.file) : (page.content || '');
     
     // For design-system, truncate more aggressively to stay under 10KB limit
     // The record size includes metadata (objectID, title, url, category, type, hierarchy)
@@ -285,6 +297,37 @@ function buildRecords() {
         lvl0: page.category,
         lvl1: page.title,
       },
+    });
+  });
+
+  // Add block pages
+  blockPages.forEach((page) => {
+    const astroPath = `src/pages${page.url}.astro`;
+    let content = page.description || '';
+    try {
+      const fullPath = join(rootDir, astroPath);
+      if (existsSync(fullPath)) {
+        const astroContent = readFileSync(fullPath, 'utf-8');
+        let extracted = astroContent
+          .replace(/^---[\s\S]*?---/g, '')
+          .replace(/<script[\s\S]*?<\/script>/gi, '')
+          .replace(/<style[\s\S]*?<\/style>/gi, '')
+          .replace(/<[^>]+>/g, ' ')
+          .replace(/```[\s\S]*?```/g, '')
+          .replace(/`[^`]+`/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        if (extracted.length > 50) content = `${page.description} ${extracted.substring(0, 500)}`;
+      }
+    } catch (e) { /* use description */ }
+    records.push({
+      objectID: page.url.replace(/\//g, '_').replace(/^_/, ''),
+      title: page.title,
+      url: page.url,
+      category: page.category,
+      content: content.substring(0, 10000),
+      type: 'block',
+      hierarchy: { lvl0: page.category, lvl1: page.title },
     });
   });
 

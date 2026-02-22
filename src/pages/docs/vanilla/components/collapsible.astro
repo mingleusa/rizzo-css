@@ -1,0 +1,41 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="collapsible" data-collapsible>
+  <button type="button" class="collapsible__trigger" aria-expanded="false" aria-controls="panel-id" data-collapsible-trigger>
+    <span class="collapsible__trigger-label">Toggle</span>
+  </button>
+  <div class="collapsible__panel" id="panel-id" role="region" hidden data-collapsible-panel>
+    <div class="collapsible__panel-inner">Content here. Wire click on trigger to toggle hidden/aria-expanded.</div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Collapsible — Vanilla" description="Expand/collapse section with vanilla HTML. Ensure Rizzo CSS and init script are loaded.">
+  <section>
+    <h2>Collapsible</h2>
+    <p>Single expand/collapse. Use <code>collapsible__trigger</code> and <code>collapsible__panel</code> with <code>data-collapsible-trigger</code> / <code>data-collapsible-panel</code>. Wire toggle behavior in JS (e.g. full scaffold <code>js/main.js</code> or your own).</p>
+    <AddComponentTabs componentName="Collapsible" />
+    <div class="example">
+      <div class="example-title">Live example (structure only; JS toggles open/closed)</div>
+      <div class="collapsible" data-collapsible>
+        <button type="button" class="collapsible__trigger" aria-expanded="false" aria-controls="collapsible-vanilla-panel" data-collapsible-trigger>
+          <span class="collapsible__trigger-label">Toggle</span>
+        </button>
+        <div class="collapsible__panel" id="collapsible-vanilla-panel" role="region" hidden data-collapsible-panel>
+          <div class="collapsible__panel-inner">Panel content.</div>
+        </div>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/collapsible">Astro</a> · <a href="/docs/svelte/components/collapsible">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

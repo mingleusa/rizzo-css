@@ -1,0 +1,24 @@
+---
+/**
+ * Standalone label for form controls. Use with `for` to associate with an input id.
+ * Matches shadcn-svelte Label / Field label pattern.
+ */
+interface Props {
+	for?: string;
+	required?: boolean;
+	class?: string;
+}
+
+const { for: forId, required = false, class: className = '' } = Astro.props;
+const classes = ['label', required ? 'label--required' : '', className].filter(Boolean).join(' ');
+---
+
+{forId ? (
+	<label for={forId} class={classes}>
+		<slot />
+	</label>
+) : (
+	<span class={classes}>
+		<slot />
+	</span>
+)}

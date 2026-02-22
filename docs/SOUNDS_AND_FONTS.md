@@ -7,7 +7,7 @@
 
 ## Sound effects (docs site)
 
-- **Behavior:** When “Play sound on click” is enabled in Settings, a short, low-volume click sound plays on **primary (left) clicks** only on interactive elements (links, buttons, form controls, menu items, tabs, options, switches, summary). The script loads **`/assets/sfx/click.mp3`**, then **`/assets/sfx/click.wav`**; if neither is present, a Web Audio tone is used. Playback is **throttled** (120 ms) so one interaction doesn’t trigger multiple sounds. Sound is **off by default** (no localStorage key on first load) so there is no unexpected audio.
+- **Behavior:** When “Play sound on click” is enabled in Settings, a short, low-volume click sound plays on **primary (left) clicks** only on interactive elements: links, buttons, form controls, menu items, tabs, copy-to-clipboard, sidebar toggle, component/block cards, and other clickable UI (use `[data-sound-on-click]` for custom elements). The script loads **`/assets/sfx/click.mp3`**, then **`/assets/sfx/click.wav`**; if neither is present, a Web Audio tone is used. Playback is **throttled** (120 ms) so one interaction doesn’t trigger multiple sounds. Sound is **off by default** (no localStorage key on first load) so there is no unexpected audio.
 - **Accessibility:** Default is off; the user opts in via the Settings toggle. The sound is purely decorative; no information is conveyed by sound alone. The toggle is labeled “Play sound on click” with help text “Short click sound when you interact with buttons and links. Off by default.”
 - **Persistence:** The choice is stored in localStorage as `soundEffects` (`'true'` or `'false'`). Restored when the panel opens and when the page loads (script reads the key before playing).
 

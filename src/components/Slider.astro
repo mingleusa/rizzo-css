@@ -1,0 +1,75 @@
+---
+/**
+ * Range slider input. Matches shadcn-svelte Slider.
+ */
+interface Props {
+	id?: string;
+	name?: string;
+	min?: number;
+	max?: number;
+	step?: number;
+	value?: number;
+	disabled?: boolean;
+	/** Accessible name for the range input (required for axe / WCAG). */
+	ariaLabel?: string;
+	class?: string;
+}
+
+const {
+	id,
+	name,
+	min = 0,
+	max = 100,
+	step = 1,
+	value = min,
+	disabled = false,
+	ariaLabel,
+	class: className = '',
+} = Astro.props;
+const sliderId = id || `slider-${Math.random().toString(36).slice(2, 9)}`;
+const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
+---
+
+<div class={`slider ${className}`.trim()} data-slider>
+	<input
+		type="range"
+		id={sliderId}
+		name={name}
+		class="slider__input"
+		min={min}
+		max={max}
+		step={step}
+		value={value}
+		disabled={disabled}
+		aria-valuemin={min}
+		aria-valuemax={max}
+		aria-valuenow={value}
+		aria-label={ariaLabel}
+		data-slider-input
+	/>
+	<div class="slider__track" aria-hidden="true">
+		<div class="slider__fill" data-slider-fill style={`width: ${pct}%`} />
+	</div>
+</div>
+
+<script is:inline define:vars={{ sliderId, min, max }}>
+(function () {
+	function init() {
+		const root = document.getElementById(sliderId);
+		if (!root) return;
+		const input = root.querySelector('[data-slider-input]');
+		const fill = root.querySelector('[data-slider-fill]');
+		if (!input || !fill) return;
+		function updateFill() {
+			const val = parseFloat(input.value);
+			const pct = Math.min(100, Math.max(0, ((val - min) / (max - min)) * 100));
+			fill.style.width = pct + '%';
+			input.setAttribute('aria-valuenow', String(val));
+		}
+		input.addEventListener('input', updateFill);
+		input.addEventListener('change', updateFill);
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

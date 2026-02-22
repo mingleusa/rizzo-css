@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="empty">
+  <h3 class="empty__title">No items yet</h3>
+  <p class="empty__description">Get started by adding your first item.</p>
+  <div class="empty__action">
+    <button type="button" class="btn btn-primary">Add item</button>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Empty — Vanilla" description="Empty state with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Empty</h2>
+    <p>Empty state for no results or empty lists. Use <code>empty__title</code>, <code>empty__description</code>, optional <code>empty__action</code>. Optional slot for icon above title.</p>
+    <AddComponentTabs componentName="Empty" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="empty">
+        <h3 class="empty__title">No items yet</h3>
+        <p class="empty__description">Get started by adding your first item.</p>
+        <div class="empty__action">
+          <button type="button" class="btn btn-primary">Add item</button>
+        </div>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/empty">Astro</a> · <a href="/docs/svelte/components/empty">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

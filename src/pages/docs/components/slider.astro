@@ -1,0 +1,17 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Slider from '../../../components/Slider.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Slider" description="Range slider input with themed track and fill. Matches shadcn-svelte Slider.">
+	<section>
+		<h2>Slider</h2>
+		<p>Accessible range input with visible track and fill. Props: <code>min</code>, <code>max</code>, <code>step</code>, <code>value</code>, <code>disabled</code>.</p>
+		<AddComponentTabs componentName="Slider" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Slider ariaLabel="Volume" min={0} max={100} value={50} />
+		</div>
+	</section>
+</DocsLayout>

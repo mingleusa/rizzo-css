@@ -1,0 +1,23 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import AspectRatio from '../../../components/AspectRatio.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Aspect Ratio" description="Enforces an aspect ratio on content (e.g. 16/9, 1/1). Matches shadcn-svelte Aspect Ratio.">
+	<section>
+		<h2>Aspect Ratio</h2>
+		<p>Wrapper that keeps a fixed aspect ratio. Put a single child (e.g. <code>img</code> or <code>video</code>) in the default slot.</p>
+		<AddComponentTabs componentName="AspectRatio" />
+		<h3>Props</h3>
+		<ul>
+			<li><code>ratio</code> (number, optional) - Width/height, e.g. 16/9, 1/1 (default: 16/9)</li>
+		</ul>
+		<div class="example">
+			<div class="example-title">Live Example (16:9)</div>
+			<AspectRatio ratio={16/9}>
+				<div style="background: var(--background-alt); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-dim);">16:9</div>
+			</AspectRatio>
+		</div>
+	</section>
+</DocsLayout>

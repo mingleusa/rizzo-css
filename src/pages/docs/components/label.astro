@@ -1,0 +1,50 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Label from '../../../components/Label.astro';
+import Input from '../../../components/Input.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Label Component" description="Standalone form label; use with for/id to associate with inputs. Matches shadcn-svelte Label.">
+	<section>
+		<h2>Label</h2>
+		<p>A standalone label for form controls. Use the <code>for</code> prop to associate with an input's <code>id</code>. For full form layout with help text and error use <a href="/docs/components/forms">FormGroup</a>.</p>
+
+		<AddComponentTabs componentName="Label" />
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>for</code> (string, optional) - <code>id</code> of the associated form control</li>
+			<li><code>required</code> (boolean, optional) - Shows required indicator (asterisk) after the label</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Example</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div class="form-group">
+				<Label for="label-demo-input" required>Email</Label>
+				<Input id="label-demo-input" type="email" placeholder="you@example.com" />
+			</div>
+		</div>
+
+		<FrameworkCodeTabs
+			astro={`---
+import Label from '../components/rizzo/Label.astro';
+import Input from '../components/rizzo/Input.astro';
+---
+
+<Label for="email" required>Email</Label>
+<Input id="email" type="email" />`}
+			svelte={`<script>
+  import { Label, Input } from '$lib/rizzo';
+</script>
+
+<Label for="email" required>Email</Label>
+<Input id="email" type="email" />`}
+			vanilla={`<label class="label label--required" for="email">Email</label>
+<input id="email" type="email" class="form-input" />`}
+		/>
+	</section>
+</DocsLayout>

@@ -1,0 +1,58 @@
+---
+/**
+ * Right-click menu. Matches shadcn-svelte Context Menu.
+ */
+interface Props {
+	id?: string;
+	class?: string;
+}
+
+const { id, class: className = '' } = Astro.props;
+const ctxId = id || `context-menu-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class={`context-menu ${className}`.trim()} data-context-menu id={ctxId}>
+	<slot name="trigger" />
+	<div
+		class="context-menu__content"
+		role="menu"
+		aria-hidden="true"
+		hidden
+		data-context-menu-content
+		id={`${ctxId}-content`}
+	>
+		<slot />
+	</div>
+</div>
+
+<script is:inline define:vars={{ ctxId }}>
+(function () {
+	function init() {
+		const root = document.getElementById(ctxId);
+		if (!root) return;
+		const trigger = root.querySelector('[data-context-menu-trigger]');
+		const content = root.querySelector('[data-context-menu-content]');
+		if (!trigger || !content) return;
+		const close = () => {
+			content.classList.remove('context-menu__content--open');
+			content.hidden = true;
+			content.setAttribute('aria-hidden', 'true');
+			document.removeEventListener('click', close);
+		};
+		trigger.addEventListener('contextmenu', function (e) {
+			e.preventDefault();
+			content.hidden = false;
+			content.classList.add('context-menu__content--open');
+			content.setAttribute('aria-hidden', 'false');
+			content.style.left = e.clientX + 'px';
+			content.style.top = e.clientY + 'px';
+			requestAnimationFrame(() => document.addEventListener('click', close));
+		});
+		content.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') close();
+		});
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

@@ -53,7 +53,7 @@ const classes = `tabs ${variantClass} ${className}`.trim();
           data-tab-id={tab.id}
           data-tab-index={index}
         >
-          {tab.iconComponent ? <tab.iconComponent width={20} height={20} class="tabs__tab-icon" /> : tab.icon ? <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" /> : null}
+          {tab.iconComponent ? <tab.iconComponent width={20} height={20} class="tabs__tab-icon" /> : tab.icon ? <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" loading="lazy" aria-hidden="true" /> : null}
           {tab.label}
         </span>
       );

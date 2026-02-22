@@ -1,0 +1,24 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ContextMenu from '../../../components/ContextMenu.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Context Menu" description="Right-click menu. Matches shadcn-svelte Context Menu.">
+	<section>
+		<h2>Context Menu</h2>
+		<p>Trigger must have <code>data-context-menu-trigger</code>. Right-click to open the menu at cursor. Use <code>context-menu__item</code> and <code>context-menu__separator</code> for content.</p>
+		<AddComponentTabs componentName="ContextMenu" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ContextMenu>
+				<div slot="trigger" data-context-menu-trigger style="display: flex; align-items: center; justify-content: center; height: 150px; width: 300px; border: var(--border-width) dashed var(--border); border-radius: var(--radius-md); font-size: var(--font-size-sm); cursor: context-menu;">Right click here</div>
+				<button type="button" class="context-menu__item">Profile</button>
+				<button type="button" class="context-menu__item">Billing</button>
+				<button type="button" class="context-menu__item">Team</button>
+				<div class="context-menu__separator"></div>
+				<button type="button" class="context-menu__item">Subscription</button>
+			</ContextMenu>
+		</div>
+	</section>
+</DocsLayout>

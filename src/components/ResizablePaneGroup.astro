@@ -1,0 +1,84 @@
+---
+/**
+ * Group of resizable panes with handles. Use with ResizablePane and ResizableHandle.
+ * Matches shadcn-svelte Resizable.
+ */
+interface Props {
+	id?: string;
+	direction?: 'horizontal' | 'vertical';
+	class?: string;
+}
+
+const { id, direction = 'horizontal', class: className = '' } = Astro.props;
+const groupId = id || `resizable-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+	class={`resizable__pane-group resizable__pane-group--${direction} ${className}`.trim()}
+	id={groupId}
+	data-resizable-group
+	data-direction={direction}
+>
+	<slot />
+</div>
+
+<script is:inline define:vars={{ groupId }}>
+(function () {
+	function init() {
+		const root = document.getElementById(groupId);
+		if (!root) return;
+		const direction = root.dataset.direction === 'vertical' ? 'vertical' : 'horizontal';
+		const panes = Array.from(root.querySelectorAll('[data-resizable-pane]'));
+		const handles = Array.from(root.querySelectorAll('[data-resizable-handle]'));
+		if (panes.length < 2 || handles.length !== panes.length - 1) return;
+		function getSize(el) {
+			const style = getComputedStyle(el);
+			const basis = style.flexBasis;
+			if (basis && basis.endsWith('%')) return parseFloat(basis);
+			const rect = el.getBoundingClientRect();
+			const parent = el.parentElement;
+			if (!parent) return 50;
+			const parentRect = parent.getBoundingClientRect();
+			const pct = direction === 'horizontal' ? (rect.width / parentRect.width) * 100 : (rect.height / parentRect.height) * 100;
+			return pct;
+		}
+		function setSizes(pct1, pct2, idx) {
+			panes[idx].style.flex = '1 1 ' + pct1 + '%';
+			panes[idx + 1].style.flex = '1 1 ' + pct2 + '%';
+		}
+		handles.forEach(function (handle, i) {
+			let startX, startY, startPct1, startPct2;
+			function onMove(e) {
+				const parent = root.getBoundingClientRect();
+				let delta;
+				if (direction === 'horizontal') {
+					delta = ((e.clientX - startX) / parent.width) * 100;
+				} else {
+					delta = ((e.clientY - startY) / parent.height) * 100;
+				}
+				let p1 = startPct1 + delta;
+				let p2 = startPct2 - delta;
+				const min = 10;
+				if (p1 < min) { p1 = min; p2 = 100 - min; }
+				if (p2 < min) { p2 = min; p1 = 100 - min; }
+				setSizes(p1, p2, i);
+			}
+			function onUp() {
+				document.removeEventListener('mousemove', onMove);
+				document.removeEventListener('mouseup', onUp);
+			}
+			handle.addEventListener('mousedown', function (e) {
+				e.preventDefault();
+				startX = e.clientX;
+				startY = e.clientY;
+				startPct1 = getSize(panes[i]);
+				startPct2 = getSize(panes[i + 1]);
+				document.addEventListener('mousemove', onMove);
+				document.addEventListener('mouseup', onUp);
+			});
+		});
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

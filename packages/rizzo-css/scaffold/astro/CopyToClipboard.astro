@@ -12,6 +12,8 @@ interface Props {
   buttonLabel?: string;
   class?: string;
   id?: string;
+  /** When true, add data-color-copy so the colors page script can find and update this button. */
+  dataColorCopy?: boolean;
 }
 
 const {
@@ -22,6 +24,7 @@ const {
   buttonLabel,
   class: className = '',
   id,
+  dataColorCopy = false,
 } = Astro.props;
 
 const buttonId = id || `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
@@ -41,6 +44,7 @@ const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-on
     id={buttonId}
     data-copy-icon-only={iconOnly ? 'true' : undefined}
     data-copy-button-label={iconOnly ? (buttonLabel || 'Copy') : undefined}
+    data-color-copy={dataColorCopy ? 'true' : undefined}
   >
     <span class="copy-to-clipboard__text">{displayText}</span>
     <span class="copy-to-clipboard__icon copy-to-clipboard__icon--copy" aria-hidden="true">

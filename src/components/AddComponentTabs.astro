@@ -9,6 +9,12 @@ const DISPLAY_TO_CLI: Record<string, string> = {
   'Sound Effects': 'SoundEffects',
   'Copy to Clipboard': 'CopyToClipboard',
   'Progress Bar': 'ProgressBar',
+  'Alert Dialog': 'AlertDialog',
+  'Aspect Ratio': 'AspectRatio',
+  'Button Group': 'ButtonGroup',
+  'Scroll Area': 'ScrollArea',
+  'Hover Card': 'HoverCard',
+  'Context Menu': 'ContextMenu',
 };
 /** Component names the CLI accepts (so we only add to command when installable). */
 const CLI_COMPONENT_NAMES = new Set([
@@ -16,7 +22,9 @@ const CLI_COMPONENT_NAMES = new Set([
   'BackToTop', 'Breadcrumb', 'FormGroup', 'Input', 'Checkbox', 'Textarea', 'Select', 'Radio',
   'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
-  'Navbar', 'Settings', 'Search', 'Icons',
+  'Navbar', 'Settings', 'Search', 'Icons', 'Dashboard',
+  'Label', 'Kbd', 'Collapsible', 'AlertDialog', 'AspectRatio', 'ButtonGroup', 'Empty', 'Separator',
+  'Slider', 'Sheet', 'Popover', 'Toggle', 'ToggleGroup', 'ScrollArea', 'HoverCard', 'ContextMenu', 'ResizablePaneGroup', 'ResizablePane', 'ResizableHandle',
 ]);
 
 interface Props {

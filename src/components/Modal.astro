@@ -136,6 +136,15 @@ const classes = `modal ${sizeClass} ${className}`.trim();
       // Open modal
       const openModal = () => {
         previousActiveElement = document.activeElement;
+
+        if (overlay.parentNode !== document.body) {
+          document.body.appendChild(overlay);
+          document.body.appendChild(modal);
+        }
+        const layoutContent = document.querySelector('[data-layout-content]');
+        if (layoutContent) layoutContent.setAttribute('inert', '');
+        document.body.style.overflow = 'hidden';
+
         overlay.removeAttribute('inert');
         overlay.removeAttribute('hidden');
         overlay.setAttribute('aria-hidden', 'false');
@@ -145,11 +154,13 @@ const classes = `modal ${sizeClass} ${className}`.trim();
         modal.setAttribute('data-open', 'true');
         restoreFocusables(modal);
 
-        // Focus first focusable element or close button
+        // Focus first focusable element or close button (after rAF so restored tabindex is applied)
         const focusableElements = getFocusableElements(modal);
         const firstFocusable = focusableElements.length > 0 ? focusableElements[0] : closeBtn;
         if (firstFocusable) {
-          setTimeout(() => firstFocusable.focus(), 0);
+          requestAnimationFrame(() => {
+            firstFocusable.focus();
+          });
         }
 
         // Add focus trap
@@ -200,6 +211,10 @@ const classes = `modal ${sizeClass} ${className}`.trim();
         modal.setAttribute('hidden', '');
         modal.setAttribute('aria-hidden', 'true');
         modal.removeAttribute('data-open');
+
+        const layoutContent = document.querySelector('[data-layout-content]');
+        if (layoutContent) layoutContent.removeAttribute('inert');
+        document.body.style.overflow = '';
 
         // Remove focus trap
         if (focusTrapHandler) {

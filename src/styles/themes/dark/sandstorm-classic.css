@@ -53,4 +53,66 @@
   --info-hover: oklch(74% 0.1 220deg);
   --info-text: oklch(100% 0 0deg);
   --info-text-on-solid: oklch(22% 0.03 220deg);
+
+}
+
+@supports (color: oklch(from red l c h)) {
+  [data-theme="sandstorm-classic"] {
+  /* Color scales – always defined per theme (derived from semantic vars) */
+  --color-accent-50: oklch(from var(--accent) 0.97deg 0.03 h);
+  --color-accent-100: oklch(from var(--accent) 0.93deg 0.06 h);
+  --color-accent-200: oklch(from var(--accent) 0.88deg 0.1 h);
+  --color-accent-300: oklch(from var(--accent) 0.78deg 0.14 h);
+  --color-accent-400: oklch(from var(--accent) 0.65deg 0.16 h);
+  --color-accent-500: var(--accent);
+  --color-accent-600: oklch(from var(--accent) 0.45deg 0.18 h);
+  --color-accent-700: oklch(from var(--accent) 0.38deg 0.16 h);
+  --color-accent-800: oklch(from var(--accent) 0.3deg 0.12 h);
+  --color-accent-900: oklch(from var(--accent) 0.22deg 0.08 h);
+  --color-accent-950: oklch(from var(--accent) 0.15deg 0.05 h);
+  --color-success-50: oklch(from var(--success) 0.97deg 0.03 h);
+  --color-success-100: oklch(from var(--success) 0.93deg 0.06 h);
+  --color-success-200: oklch(from var(--success) 0.88deg 0.1 h);
+  --color-success-300: oklch(from var(--success) 0.78deg 0.14 h);
+  --color-success-400: oklch(from var(--success) 0.65deg 0.16 h);
+  --color-success-500: var(--success);
+  --color-success-600: oklch(from var(--success) 0.45deg 0.18 h);
+  --color-success-700: oklch(from var(--success) 0.38deg 0.16 h);
+  --color-success-800: oklch(from var(--success) 0.3deg 0.12 h);
+  --color-success-900: oklch(from var(--success) 0.22deg 0.08 h);
+  --color-success-950: oklch(from var(--success) 0.15deg 0.05 h);
+  --color-warning-50: oklch(from var(--warning) 0.97deg 0.03 h);
+  --color-warning-100: oklch(from var(--warning) 0.93deg 0.06 h);
+  --color-warning-200: oklch(from var(--warning) 0.88deg 0.1 h);
+  --color-warning-300: oklch(from var(--warning) 0.82deg 0.12 h);
+  --color-warning-400: oklch(from var(--warning) 0.75deg 0.14 h);
+  --color-warning-500: var(--warning);
+  --color-warning-600: oklch(from var(--warning) 0.55deg 0.14 h);
+  --color-warning-700: oklch(from var(--warning) 0.45deg 0.12 h);
+  --color-warning-800: oklch(from var(--warning) 0.35deg 0.1 h);
+  --color-warning-900: oklch(from var(--warning) 0.25deg 0.06 h);
+  --color-warning-950: oklch(from var(--warning) 0.18deg 0.04 h);
+  --color-error-50: oklch(from var(--error) 0.97deg 0.03 h);
+  --color-error-100: oklch(from var(--error) 0.93deg 0.06 h);
+  --color-error-200: oklch(from var(--error) 0.88deg 0.1 h);
+  --color-error-300: oklch(from var(--error) 0.78deg 0.14 h);
+  --color-error-400: oklch(from var(--error) 0.65deg 0.18 h);
+  --color-error-500: var(--error);
+  --color-error-600: oklch(from var(--error) 0.45deg 0.2 h);
+  --color-error-700: oklch(from var(--error) 0.38deg 0.18 h);
+  --color-error-800: oklch(from var(--error) 0.3deg 0.14 h);
+  --color-error-900: oklch(from var(--error) 0.22deg 0.1 h);
+  --color-error-950: oklch(from var(--error) 0.15deg 0.06 h);
+  --color-info-50: oklch(from var(--info) 0.97deg 0.03 h);
+  --color-info-100: oklch(from var(--info) 0.93deg 0.06 h);
+  --color-info-200: oklch(from var(--info) 0.88deg 0.08 h);
+  --color-info-300: oklch(from var(--info) 0.78deg 0.1 h);
+  --color-info-400: oklch(from var(--info) 0.65deg 0.12 h);
+  --color-info-500: var(--info);
+  --color-info-600: oklch(from var(--info) 0.45deg 0.12 h);
+  --color-info-700: oklch(from var(--info) 0.38deg 0.1 h);
+  --color-info-800: oklch(from var(--info) 0.3deg 0.08 h);
+  --color-info-900: oklch(from var(--info) 0.22deg 0.06 h);
+  --color-info-950: oklch(from var(--info) 0.15deg 0.04 h);
+  }
 }

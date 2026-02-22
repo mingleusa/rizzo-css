@@ -13,7 +13,7 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<p>Try switching themes using the theme switcher below:</p>
-			<ThemeSwitcher />
+			<ThemeSwitcher idPrefix="page" />
 		</div>
 		
 		<h3>Usage</h3>
@@ -23,12 +23,12 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import ThemeSwitcher from '../components/rizzo/ThemeSwitcher.astro';
 ---
 
-<ThemeSwitcher />`}
+<ThemeSwitcher idPrefix="page" />`}
 			svelte={`<script>
   import { ThemeSwitcher } from '$lib/rizzo';
 </script>
 
-<ThemeSwitcher />`}
+<ThemeSwitcher idPrefix="page" />`}
 			vanilla={`<!-- Theme switcher HTML from package scaffold; script runs on DOMContentLoaded. -->
 <!-- Include theme list + [data-theme-switcher] markup; persist with applyTheme() and localStorage key "theme". -->`}
 		/>

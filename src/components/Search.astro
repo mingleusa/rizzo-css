@@ -161,6 +161,8 @@ const resultsId = `${searchId}-results`;
       }
 
       let previousActiveElement = null;
+      let overlayPortalParent = null;
+      let overlayPortalNext = null;
       let searchTimeout = null;
       let currentResults = [];
       let selectedIndex = -1;
@@ -175,10 +177,13 @@ const resultsId = `${searchId}-results`;
       const searchIndex = [
         { title: 'Getting Started', url: '/docs/getting-started', category: 'Documentation', content: 'Installation, project structure, and quick start guide' },
         { title: 'Design System', url: '/docs/design-system', category: 'Documentation', content: 'Core design principles, semantic variables, spacing, typography, and utilities' },
+        { title: 'Themes', url: '/themes', category: 'Themes', content: 'Pick a theme. Live preview of all Rizzo themes with copy-paste data-theme snippet.' },
         { title: 'Theming', url: '/docs/theming', category: 'Documentation', content: 'Theme system documentation and custom theme creation' },
         { title: 'Colors', url: '/docs/colors', category: 'Documentation', content: 'Color reference with multiple format options (OKLCH, Hex, RGB, HSL, CSS Variable)' },
         { title: 'Accessibility', url: '/docs/accessibility', category: 'Documentation', content: 'Accessibility guidelines and utility classes' },
+        { title: 'Best Practices', url: '/docs/best-practices', category: 'Documentation', content: 'Component composition, performance, and usage best practices' },
         { title: 'Components Overview', url: '/docs/components', category: 'Components', content: 'Component library with usage examples and live demos' },
+        { title: 'Dashboard', url: '/docs/components/dashboard', category: 'Components', content: 'Layout component with sidebar and main content for app dashboards. See Blocks for full dashboard pattern.' },
         { title: 'Accordion', url: '/docs/components/accordion', category: 'Components', content: 'Collapsible sections with single/multiple open and keyboard navigation' },
         { title: 'Alert', url: '/docs/components/alert', category: 'Components', content: 'Accessible alert component with variants and dismissible functionality' },
         { title: 'Avatar', url: '/docs/components/avatar', category: 'Components', content: 'User avatar with image or initials fallback, sizes and shapes' },
@@ -196,7 +201,7 @@ const resultsId = `${searchId}-results`;
         { title: 'Forms', url: '/docs/components/forms', category: 'Components', content: 'Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)' },
         { title: 'Icons', url: '/docs/components/icons', category: 'Components', content: 'Reusable SVG icon components using Tabler Icons and Devicons with interactive card grid and copy functionality' },
         { title: 'Modal', url: '/docs/components/modal', category: 'Components', content: 'Accessible modal/dialog component with focus trapping and keyboard navigation' },
-        { title: 'Navbar', url: '/docs/components/navbar', category: 'Components', content: 'Responsive, accessible navigation bar' },
+        { title: 'Navbar', url: '/docs/components/navbar', category: 'Components', content: 'Responsive, accessible navigation bar with flat nav links (Docs, Components, Blocks, Themes, Colors), mobile menu, and full keyboard navigation' },
         { title: 'Pagination', url: '/docs/components/pagination', category: 'Components', content: 'Accessible pagination with prev/next, page numbers, ellipsis' },
         { title: 'Progress Bar', url: '/docs/components/progress-bar', category: 'Components', content: 'Progress bar with variants, sizes, optional label, indeterminate state' },
         { title: 'Search', url: '/docs/components/search', category: 'Components', content: 'Search component with Algolia integration and live filtering' },
@@ -208,6 +213,27 @@ const resultsId = `${searchId}-results`;
         { title: 'Theme Switcher', url: '/docs/components/theme-switcher', category: 'Components', content: 'Accessible theme switcher with theme icons and keyboard navigation' },
         { title: 'Toast', url: '/docs/components/toast', category: 'Components', content: 'Fixed position toast notifications with auto-dismiss and programmatic control' },
         { title: 'Tooltip', url: '/docs/components/tooltip', category: 'Components', content: 'Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling' },
+        { title: 'Alert Dialog', url: '/docs/components/alert-dialog', category: 'Components', content: 'Confirm/cancel dialog for destructive or important actions with focus trapping and Escape to close' },
+        { title: 'Button Group', url: '/docs/components/button-group', category: 'Components', content: 'Group of buttons attached together (horizontal or vertical)' },
+        { title: 'Collapsible', url: '/docs/components/collapsible', category: 'Components', content: 'Single expand/collapse section (one trigger, one panel)' },
+        { title: 'Context Menu', url: '/docs/components/context-menu', category: 'Components', content: 'Right-click menu with items and separators' },
+        { title: 'Empty', url: '/docs/components/empty', category: 'Components', content: 'Empty state with optional icon, title, description, and action' },
+        { title: 'Hover Card', url: '/docs/components/hover-card', category: 'Components', content: 'Floating panel that opens on hover' },
+        { title: 'Kbd', url: '/docs/components/kbd', category: 'Components', content: 'Keyboard key styling for shortcuts (e.g. Ctrl+K)' },
+        { title: 'Label', url: '/docs/components/label', category: 'Components', content: 'Standalone form label; use with for/id to associate with inputs' },
+        { title: 'Popover', url: '/docs/components/popover', category: 'Components', content: 'Floating panel triggered by a button' },
+        { title: 'Resizable', url: '/docs/components/resizable', category: 'Components', content: 'Resizable panel groups with drag handles (horizontal or vertical)' },
+        { title: 'Scroll Area', url: '/docs/components/scroll-area', category: 'Components', content: 'Scrollable area with themed scrollbar (vertical or horizontal)' },
+        { title: 'Separator', url: '/docs/components/separator', category: 'Components', content: 'Thin separator line (horizontal or vertical)' },
+        { title: 'Sheet', url: '/docs/components/sheet', category: 'Components', content: 'Slide-out panel (drawer) from top, right, bottom, or left' },
+        { title: 'Skeleton', url: '/docs/components/skeleton', category: 'Components', content: 'Loading placeholder with shimmer animation; respects reduced motion' },
+        { title: 'Slider', url: '/docs/components/slider', category: 'Components', content: 'Range slider input with themed track and fill' },
+        { title: 'Switch', url: '/docs/components/switch', category: 'Components', content: 'Accessible on/off toggle with role="switch" and keyboard support' },
+        { title: 'Toggle', url: '/docs/components/toggle', category: 'Components', content: 'Toggle button with pressed/unpressed state' },
+        { title: 'Toggle Group', url: '/docs/components/toggle-group', category: 'Components', content: 'Group of toggle buttons (single or multiple selection)' },
+        { title: 'Blocks', url: '/blocks', category: 'Blocks', content: 'Pre-built layouts and patterns: Dashboard with sidebar, Docs layout with sidebar. Building blocks for the web using Rizzo components.' },
+        { title: 'Dashboard with sidebar', url: '/blocks/dashboard-01', category: 'Blocks', content: 'App dashboard with sidebar navigation, stat cards, and data table. Built with Dashboard, Card, and Table components.' },
+        { title: 'Docs layout with sidebar', url: '/blocks/docs-layout', category: 'Blocks', content: 'Documentation layout with collapsible sidebar and main content area. Same pattern as the Rizzo docs site.' },
         { title: 'GitHub Dark Classic', url: '/docs/themes/github-dark-classic', category: 'Themes', content: 'Dark theme - Official GitHub dark theme for VS Code' },
         { title: 'Shades of Purple', url: '/docs/themes/shades-of-purple', category: 'Themes', content: 'Dark theme - Professional theme with bold purple shades' },
         { title: 'Hack The Box', url: '/docs/themes/hack-the-box', category: 'Themes', content: 'Dark theme - Dark blue with lime green accent, built for hackers' },
@@ -778,6 +804,15 @@ const resultsId = `${searchId}-results`;
       // Open search
       let openSearch = () => {
         previousActiveElement = document.activeElement;
+
+        // Portal overlay to body so layout-content inert doesn't affect it
+        if (overlay && overlay.parentNode !== document.body) {
+          overlayPortalParent = overlay.parentNode;
+          overlayPortalNext = overlay.nextSibling;
+          document.body.appendChild(overlay);
+        }
+        const layoutContent = document.querySelector('[data-layout-content]');
+        if (layoutContent) layoutContent.setAttribute('inert', '');
         
         // On mobile, close mobile menu if it's open
         const isMobile = window.innerWidth <= 1023;
@@ -854,9 +889,16 @@ const resultsId = `${searchId}-results`;
         }
 
         setTimeout(() => {
-          // Restore body scroll
+          // Restore body scroll and layout inert
           document.body.style.overflow = '';
-          
+          const layoutContent = document.querySelector('[data-layout-content]');
+          if (layoutContent) layoutContent.removeAttribute('inert');
+          if (overlayPortalParent && overlay) {
+            overlayPortalParent.insertBefore(overlay, overlayPortalNext);
+            overlayPortalParent = null;
+            overlayPortalNext = null;
+          }
+
           // Remove class from navbar to show bottom border again
           const navbar = document.querySelector('.navbar');
           if (navbar) {

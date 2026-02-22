@@ -39,8 +39,8 @@
   /* Add tablet-and-down styles here */
 }
 
-/* Large devices and down (max-width: 1023px) */
-@media (width <= 1023px) {
+/* Large devices and down (max-width: 1024px) - matches docs/navbar mobile cutoff */
+@media (width <= 1024px) {
   /* Add desktop-and-down styles here */
 }
 

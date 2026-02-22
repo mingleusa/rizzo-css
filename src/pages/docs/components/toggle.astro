@@ -1,0 +1,17 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Toggle from '../../../components/Toggle.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Toggle" description="Toggle button with pressed/unpressed state. Matches shadcn-svelte Toggle.">
+	<section>
+		<h2>Toggle</h2>
+		<p>Button with <code>aria-pressed</code>. Use <code>pressed</code> prop for controlled state.</p>
+		<AddComponentTabs componentName="Toggle" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Toggle ariaLabel="Toggle bold">Bold</Toggle>
+		</div>
+	</section>
+</DocsLayout>

@@ -106,7 +106,7 @@ import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 <script is:inline>
   window.handleAction = function(value) {
-    console.log('Dropdown action:', value);
+    if (typeof value !== 'undefined') { /* demo: action selected */ }
   };
 </script>
 

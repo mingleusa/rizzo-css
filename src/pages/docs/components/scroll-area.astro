@@ -1,0 +1,27 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ScrollArea from '../../../components/ScrollArea.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+
+const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
+---
+
+<DocsLayout title="Scroll Area" description="Scrollable area with themed scrollbar. Matches shadcn-svelte Scroll Area.">
+	<section>
+		<h2>Scroll Area</h2>
+		<p>Use a fixed height (or width for horizontal) so content scrolls. Optional <code>orientation="horizontal"</code> for horizontal scrolling.</p>
+		<AddComponentTabs componentName="ScrollArea" />
+		<h3>Vertical</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ScrollArea class="rounded-md border" style="height: 18rem; width: 12rem; border-radius: var(--radius-md); border: var(--border-width) solid var(--border);">
+				<div style="padding: var(--spacing-4);">
+					<h4 style="margin: 0 0 var(--spacing-4) 0; font-size: var(--font-size-sm); font-weight: 600;">Tags</h4>
+					{tags.map((tag) => (
+						<div style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-2);">{tag}</div>
+					))}
+				</div>
+			</ScrollArea>
+		</div>
+	</section>
+</DocsLayout>

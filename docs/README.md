@@ -21,8 +21,9 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 
 | Doc | Description |
 |-----|-------------|
-| [COMPONENTS.md](./COMPONENTS.md) | All 34 components, usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All components (56 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
+| [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 
 ### Maintainers & development
@@ -32,7 +33,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | [PUBLISHING.md](./PUBLISHING.md) | Versioning, prepublish, npm publish, CDN |
 | [MAINTAINING.md](./MAINTAINING.md) | Maintenance notes and links |
 | [FRAMEWORK_STRUCTURE.md](./FRAMEWORK_STRUCTURE.md) | Repo layout: src/, scaffolds, frameworks |
-| [TEMPLATES.md](./TEMPLATES.md) | Minimal, Starter, Full templates (init and add) |
+| [TEMPLATES.md](./TEMPLATES.md) | Landing, Docs, Dashboard, Full templates (init and add) |
 | [TODO.md](./TODO.md) | Current tasks and roadmap |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Algolia search setup for the docs site |
 
@@ -50,9 +51,9 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 |------|---------|
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
-| **src/** | Astro docs site: `pages/`, `components/`, `layouts/`, `styles/`, `config/`, `types/`, `utils/`, `assets/` |
-| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (minimal/, starter/, vanilla/, astro-core/, svelte-core/, astro/, svelte/, config/, shared/, utils/) |
+| **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
+| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (minimal/, starter/, vanilla/, astro/, svelte/, config/, shared/, utils/) — astro and svelte include base/ and variants/ |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
 | **tests/** | Playwright a11y tests |
 
-Site doc pages (Astro) live under `src/pages/docs/` (e.g. `getting-started.astro`, `components/*.astro`, `svelte/`, `vanilla/`). They render the live site; the markdown here is the source of truth for maintainers and contributors.
+Site pages (Astro) live under `src/pages/`: docs (`docs/`), blocks (`blocks/` with BlocksLayout), themes, colors. The navbar uses flat links: Docs | Components | Blocks | Themes | Colors. Markdown in `docs/` is the source of truth for maintainers and contributors.

@@ -24,5 +24,13 @@
     "declaration-block-no-duplicate-properties": null,
     "declaration-block-no-redundant-longhand-properties": null,
     "shorthand-property-no-redundant-values": null
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/color-format-tokens.css"],
+      "rules": {
+        "custom-property-pattern": null
+      }
+    }
+  ]
 }

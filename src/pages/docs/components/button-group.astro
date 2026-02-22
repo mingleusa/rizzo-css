@@ -1,0 +1,21 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ButtonGroup from '../../../components/ButtonGroup.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Button Group" description="Group of buttons attached together. Matches shadcn-svelte Button Group.">
+	<section>
+		<h2>Button Group</h2>
+		<p>Buttons with no gap; first/last get rounded corners. Use <code>orientation="vertical"</code> for a vertical group.</p>
+		<AddComponentTabs componentName="ButtonGroup" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ButtonGroup>
+				<button type="button" class="btn">One</button>
+				<button type="button" class="btn">Two</button>
+				<button type="button" class="btn">Three</button>
+			</ButtonGroup>
+		</div>
+	</section>
+</DocsLayout>

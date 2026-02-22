@@ -21,11 +21,13 @@ const svelteDest = join(scaffoldDir, 'svelte');
 const astroSrc = resolve(rootDir, 'src', 'components');
 const astroDest = join(scaffoldDir, 'astro');
 
-// Astro components to scaffold. Navbar, Search, Settings use minimal scaffold content (no docs config).
+// Astro components to scaffold. Must match CLI ASTRO_COMPONENTS + ThemeIcon. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
-  'Accordion', 'Alert', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'Card', 'Checkbox',
-  'CopyToClipboard', 'Divider', 'DocsSidebar', 'Dropdown', 'Footer', 'FontSwitcher', 'FormGroup', 'Input', 'Modal', 'Navbar', 'Pagination',
-  'ProgressBar', 'Radio', 'Search', 'Select', 'Settings', 'SoundEffects', 'Spinner', 'Table', 'Tabs', 'Textarea', 'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Tooltip',
+  'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox',
+  'Collapsible', 'ContextMenu', 'CopyToClipboard', 'Dashboard', 'Divider', 'DocsSidebar', 'Dropdown', 'Empty', 'Footer', 'FontSwitcher', 'FormGroup',
+  'HoverCard', 'Icons', 'Input', 'Kbd', 'Label', 'Modal', 'Navbar', 'Pagination', 'Popover', 'ProgressBar', 'Radio', 'ResizableHandle', 'ResizablePane', 'ResizablePaneGroup',
+  'ScrollArea', 'Search', 'Select', 'Separator', 'Settings', 'Sheet', 'Skeleton', 'Slider', 'SoundEffects', 'Spinner', 'Switch', 'Table', 'Tabs', 'Textarea',
+  'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Toggle', 'ToggleGroup', 'Tooltip',
 ];
 
 /** Minimal Astro scaffold content for components that depend on docs config in src. Same BEM structure, no docs deps. */

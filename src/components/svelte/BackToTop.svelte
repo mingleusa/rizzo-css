@@ -45,6 +45,7 @@
         stroke-linecap="round"
         stroke-linejoin="round"
         class="icon"
+        aria-hidden="true"
       >
         <path d="m18 15-6-6-6 6" />
       </svg>

@@ -1,0 +1,33 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Popover: trigger with data-popover-trigger, content with data-popover-content; toggle/close via JS -->
+<div class="popover" data-popover id="my-popover">
+  <button type="button" class="btn" data-popover-trigger>Open popover</button>
+  <div class="popover__content" role="dialog" aria-hidden="true" hidden data-popover-content>
+    Popover content here.
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Popover — Vanilla" description="Floating panel with vanilla HTML. Toggle and click-outside via JS.">
+  <section>
+    <h2>Popover</h2>
+    <p>Trigger must have <code>data-popover-trigger</code>; content uses <code>popover__content</code> and <code>data-popover-content</code>. Wire click-to-toggle and click-outside/Escape to close in JS.</p>
+    <AddComponentTabs componentName="Popover" />
+    <div class="example">
+      <div class="example-title">Structure (toggle via JS)</div>
+      <p>Use Astro or Svelte component for full behavior.</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/popover">Astro</a> · <a href="/docs/svelte/components/popover">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

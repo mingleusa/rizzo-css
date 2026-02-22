@@ -125,7 +125,7 @@ const copyableJs = `document.querySelectorAll('[data-alert-close]').forEach(func
       closeBtn.type = 'button';
       closeBtn.className = 'alert__close';
       closeBtn.setAttribute('aria-label', 'Dismiss alert');
-      closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
+      closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
       closeBtn.style.color = 'inherit';
       closeBtn.style.opacity = '0.8';
       alertEl.appendChild(closeBtn);

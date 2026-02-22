@@ -1,0 +1,24 @@
+---
+/**
+ * Group of toggle buttons (single or multiple selection). Matches shadcn-svelte Toggle Group.
+ */
+interface Props {
+	type?: 'single' | 'multiple';
+	orientation?: 'horizontal' | 'vertical';
+	class?: string;
+}
+
+const { type = 'single', orientation = 'horizontal', class: className = '' } = Astro.props;
+const orientationClass = orientation === 'vertical' ? 'toggle-group--vertical' : '';
+const role = type === 'single' ? 'radiogroup' : 'group';
+---
+
+<div
+	class={`toggle-group ${orientationClass} ${className}`.trim()}
+	role={role}
+	aria-label="Toggle group"
+	data-toggle-group
+	data-toggle-type={type}
+>
+	<slot />
+</div>

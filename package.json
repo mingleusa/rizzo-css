@@ -1,27 +1,36 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "license": "MIT",
   "scripts": {
-    "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
     "dev": "astro dev --open",
-    "build": "pnpm lint:css:fix && pnpm build:css && astro build",
-    "build:css": "node scripts/build-css.js",
-    "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && pnpm prepare:vanilla-scaffold",
-    "copy-scaffold": "node scripts/copy-scaffold.js",
-    "prepare:vanilla-scaffold": "node scripts/prepare-vanilla-scaffold.js",
-    "publish:package": "cd packages/rizzo-css && npm publish",
     "preview": "astro preview",
     "astro": "astro",
+
+    "clean": "node -e \"const fs=require('fs');['dist','.astro','node_modules/.vite'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true});console.log('Removed',d)}catch(e){}})\"",
+    "build": "pnpm generate:color-formats && pnpm lint:css:fix && pnpm build:css && astro build",
+    "build:css": "node scripts/build-css.js",
+    "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && pnpm prepare:vanilla-scaffold",
+
+    "generate:color-formats": "node scripts/generate-color-formats.mjs",
+    "copy-scaffold": "node scripts/copy-scaffold.js",
+    "prepare:vanilla-scaffold": "node scripts/prepare-vanilla-scaffold.js",
+
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
-    "index:algolia": "node scripts/index-docs.js",
-    "setup:algolia": "echo 'Copy .env.example to .env and add your Algolia credentials'",
+
     "test:a11y": "pnpm build && playwright test --project=a11y",
     "test:a11y:ci": "playwright install --with-deps chromium && pnpm test:a11y",
+
+    "index:algolia": "node scripts/index-docs.js",
+    "setup:algolia": "echo 'Copy .env.example to .env and add your Algolia credentials'",
+
     "check:contrast": "node scripts/check-contrast.mjs",
-    "size": "node scripts/bundle-size.mjs"
+    "size": "node scripts/bundle-size.mjs",
+
+    "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
+    "publish:package": "cd packages/rizzo-css && npm publish"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
@@ -30,9 +39,9 @@
     "sharp": "^0.34.5",
     "svelte": "^5.50.0",
     "@sveltejs/adapter-auto": "^7.0.0",
-		"@sveltejs/kit": "^2.50.2",
-		"@sveltejs/vite-plugin-svelte": "^6.2.4",
-		"svelte-check": "^4.3.6",
+    "@sveltejs/kit": "^2.50.2",
+    "@sveltejs/vite-plugin-svelte": "^6.2.4",
+    "svelte-check": "^4.3.6",
     "typescript": "^5.9.3",
     "autoprefixer": "^10.4.23",
     "cssnano": "^7.1.2",

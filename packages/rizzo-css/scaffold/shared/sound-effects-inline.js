@@ -2,7 +2,7 @@
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;
-	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, [data-copy-btn], [data-sound-on-click]';
+	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, .copy-to-clipboard, [data-copy-btn], .docs-sidebar__link, .docs-sidebar__sublink, .docs__sidebar-toggle, .home__announcement, .home__example-pill, .block-card-link, .component-card-link, .home__doc-card, .skip-link, [data-sound-on-click]';
 	var audioContext = null;
 	var soundBase = '/assets/sfx';
 	var soundUrls = [soundBase + '/click.mp3', soundBase + '/click.wav'];
@@ -98,9 +98,14 @@
 		}
 		if (localStorage.getItem(SOUND_KEY) === 'true') tryLoadAssetSound();
 	}
+	// When user turns sound on (e.g. in Settings), preload so next click plays immediately
+	function onSoundEffectsChange() {
+		if (localStorage.getItem(SOUND_KEY) === 'true') tryLoadAssetSound();
+	}
 	if (document.readyState === 'loading') {
 		document.addEventListener('DOMContentLoaded', initSound);
 	} else {
 		initSound();
 	}
+	window.addEventListener('rizzo-sound-effects-change', onSoundEffectsChange);
 })();

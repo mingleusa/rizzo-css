@@ -1,0 +1,20 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Popover from '../../../components/Popover.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Popover" description="Floating panel triggered by a button. Matches shadcn-svelte Popover.">
+	<section>
+		<h2>Popover</h2>
+		<p>Trigger must have <code>data-popover-trigger</code>. Content appears below; click outside or Escape to close.</p>
+		<AddComponentTabs componentName="Popover" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Popover>
+				<button type="button" class="btn" slot="trigger" data-popover-trigger>Open popover</button>
+				<p style="margin:0;">Popover content here.</p>
+			</Popover>
+		</div>
+	</section>
+</DocsLayout>

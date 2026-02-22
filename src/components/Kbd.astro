@@ -1,0 +1,14 @@
+---
+/**
+ * Keyboard key styling for shortcuts (e.g. Ctrl+K). Matches shadcn-svelte Kbd pattern.
+ */
+interface Props {
+	class?: string;
+}
+
+const { class: className = '' } = Astro.props;
+---
+
+<kbd class={`kbd ${className}`.trim()}>
+	<slot />
+</kbd>

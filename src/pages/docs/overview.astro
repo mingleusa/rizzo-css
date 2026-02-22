@@ -1,0 +1,166 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getFrameworkFromPath } from '../../config/frameworks';
+const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+const prefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
+---
+
+<DocsLayout title="Docs overview" description="Condensed index of Rizzo CSS documentation: getting started, CLI, components by category, theming, and frameworks.">
+  <section class="docs-overview">
+    <p class="docs-overview__intro">Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 56+ accessible BEM components — for <strong>Vanilla JS</strong>, <strong>Astro</strong>, and <strong>Svelte</strong>. Use the framework switcher above to switch doc links.</p>
+
+    <h2 id="overview" class="docs-overview__h2">Overview</h2>
+    <ul class="docs-overview__list">
+      <li><a href={`${prefix}/getting-started`}>Getting Started</a> — Installation, CLI, templates (Landing | Docs | Dashboard | Full)</li>
+      <li><a href={`${prefix}/design-system`}>Design System</a> — Variables, typography, utilities</li>
+      <li><a href={`${prefix}/theming`}>Theming</a> — 14 themes, persistence, custom themes</li>
+      <li><a href={`${prefix}/accessibility`}>Accessibility</a> — WCAG AA, keyboard, ARIA, testing</li>
+      <li><a href={`${prefix}/colors`}>Colors</a> — Color reference and scales</li>
+      <li><a href={`${prefix}/best-practices`}>Best Practices</a> — Composition and performance</li>
+    </ul>
+
+    <h2 id="installation" class="docs-overview__h2">Installation</h2>
+    <ul class="docs-overview__list">
+      <li><strong>Vanilla</strong> — <a href={`${prefix}/vanilla/components`}>Components</a></li>
+      <li><strong>Astro</strong> — <a href={`${prefix}/components`}>Components</a></li>
+      <li><strong>Svelte</strong> — <a href={`${prefix}/svelte/components`}>Components</a></li>
+    </ul>
+
+    <h2 id="components" class="docs-overview__h2">Components</h2>
+    <p class="docs-overview__note">All components in the CLI and scaffold; same BEM/CSS for all frameworks. Each has a doc page with live examples.</p>
+    <div class="docs-overview__grid">
+      <div>
+        <h3 class="docs-overview__h3">Layout &amp; navigation</h3>
+        <ul class="docs-overview__list docs-overview__list--compact">
+          <li><a href={`${prefix}/components/navbar`}>Navbar</a></li>
+          <li><a href={`${prefix}/components/docs-sidebar`}>Docs Sidebar</a></li>
+          <li><a href={`${prefix}/components/dashboard`}>Dashboard</a></li>
+          <li><a href={`${prefix}/components/resizable`}>Resizable</a></li>
+          <li><a href={`${prefix}/components/footer`}>Footer</a></li>
+          <li><a href={`${prefix}/components/breadcrumb`}>Breadcrumb</a></li>
+          <li><a href={`${prefix}/components/back-to-top`}>Back to Top</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="docs-overview__h3">Forms &amp; input</h3>
+        <ul class="docs-overview__list docs-overview__list--compact">
+          <li><a href={`${prefix}/components/button`}>Button</a></li>
+          <li><a href={`${prefix}/components/button-group`}>Button Group</a></li>
+          <li><a href={`${prefix}/components/forms`}>Forms</a></li>
+          <li><a href={`${prefix}/components/switch`}>Switch</a></li>
+          <li><a href={`${prefix}/components/slider`}>Slider</a></li>
+          <li><a href={`${prefix}/components/toggle`}>Toggle</a></li>
+          <li><a href={`${prefix}/components/toggle-group`}>Toggle Group</a></li>
+          <li><a href={`${prefix}/components/divider`}>Divider</a></li>
+          <li><a href={`${prefix}/components/separator`}>Separator</a></li>
+          <li><a href={`${prefix}/components/label`}>Label</a></li>
+          <li><a href={`${prefix}/components/kbd`}>Kbd</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="docs-overview__h3">Data &amp; feedback</h3>
+        <ul class="docs-overview__list docs-overview__list--compact">
+          <li><a href={`${prefix}/components/cards`}>Cards</a></li>
+          <li><a href={`${prefix}/components/table`}>Table</a></li>
+          <li><a href={`${prefix}/components/badge`}>Badge</a></li>
+          <li><a href={`${prefix}/components/pagination`}>Pagination</a></li>
+          <li><a href={`${prefix}/components/aspect-ratio`}>Aspect Ratio</a></li>
+          <li><a href={`${prefix}/components/empty`}>Empty</a></li>
+          <li><a href={`${prefix}/components/scroll-area`}>Scroll Area</a></li>
+          <li><a href={`${prefix}/components/alert`}>Alert</a></li>
+          <li><a href={`${prefix}/components/skeleton`}>Skeleton</a></li>
+          <li><a href={`${prefix}/components/spinner`}>Spinner</a></li>
+          <li><a href={`${prefix}/components/progress-bar`}>Progress Bar</a></li>
+          <li><a href={`${prefix}/components/toast`}>Toast</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="docs-overview__h3">Overlay &amp; other</h3>
+        <ul class="docs-overview__list docs-overview__list--compact">
+          <li><a href={`${prefix}/components/modal`}>Modal</a></li>
+          <li><a href={`${prefix}/components/alert-dialog`}>Alert Dialog</a></li>
+          <li><a href={`${prefix}/components/sheet`}>Sheet</a></li>
+          <li><a href={`${prefix}/components/popover`}>Popover</a></li>
+          <li><a href={`${prefix}/components/hover-card`}>Hover Card</a></li>
+          <li><a href={`${prefix}/components/context-menu`}>Context Menu</a></li>
+          <li><a href={`${prefix}/components/dropdown`}>Dropdown</a></li>
+          <li><a href={`${prefix}/components/tooltip`}>Tooltip</a></li>
+          <li><a href={`${prefix}/components/accordion`}>Accordion</a></li>
+          <li><a href={`${prefix}/components/collapsible`}>Collapsible</a></li>
+          <li><a href={`${prefix}/components/tabs`}>Tabs</a></li>
+          <li><a href={`${prefix}/components/avatar`}>Avatar</a></li>
+          <li><a href={`${prefix}/components/copy-to-clipboard`}>Copy to Clipboard</a></li>
+          <li><a href={`${prefix}/components/theme-switcher`}>Theme Switcher</a></li>
+          <li><a href={`${prefix}/components/font-switcher`}>Font Switcher</a></li>
+          <li><a href={`${prefix}/components/settings`}>Settings</a></li>
+          <li><a href={`${prefix}/components/search`}>Search</a></li>
+          <li><a href={`${prefix}/components/icons`}>Icons</a></li>
+          <li><a href={`${prefix}/components/sound-effects`}>Sound Effects</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <h2 id="blocks" class="docs-overview__h2">Blocks</h2>
+    <ul class="docs-overview__list">
+      <li><a href="/blocks">Blocks overview</a></li>
+      <li><a href="/blocks/dashboard-01">Dashboard with sidebar</a></li>
+      <li><a href="/blocks/docs-layout">Docs layout</a></li>
+    </ul>
+
+    <p class="docs-overview__footer"><a href={`${prefix}/getting-started`}>Getting Started</a> · <a href={`${prefix}/components`}>Components</a> · <a href="/themes">Themes</a> · <a href={`${prefix}/colors`}>Colors</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .docs-overview__intro {
+    margin-bottom: var(--spacing-6);
+    color: var(--text-dim);
+  }
+  .docs-overview__h2 {
+    font-size: var(--font-size-lg);
+    margin: var(--spacing-8) 0 var(--spacing-3);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--border);
+  }
+  .docs-overview__h2:first-of-type {
+    margin-top: 0;
+  }
+  .docs-overview__h3 {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    margin: 0 0 var(--spacing-2);
+  }
+  .docs-overview__list {
+    list-style: disc;
+    padding-left: var(--spacing-6);
+    margin: 0 0 var(--spacing-4);
+  }
+  .docs-overview__list--compact {
+    margin-bottom: var(--spacing-4);
+  }
+  .docs-overview__list--compact li {
+    margin-bottom: var(--spacing-0-5);
+  }
+  .docs-overview__note {
+    margin: 0 0 var(--spacing-4);
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+  }
+  .docs-overview__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+    gap: var(--spacing-6);
+    margin-bottom: var(--spacing-4);
+  }
+  .docs-overview__footer {
+    margin-top: var(--spacing-8);
+    padding-top: var(--spacing-4);
+    border-top: 1px solid var(--border);
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+  }
+  .docs-overview__footer a {
+    margin-right: var(--spacing-3);
+  }
+</style>

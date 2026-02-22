@@ -68,70 +68,7 @@
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to main content</a>
-  <header class="container flex flex-wrap items-center justify-between gap-4" style="padding-top: var(--spacing-4); padding-bottom: var(--spacing-4); border-bottom: 1px solid var(--border);">
-    <a href="#" class="font-semibold" style="font-size: var(--font-size-lg); color: var(--text); text-decoration: none;">{{TITLE}}</a>
-    <div class="flex items-center gap-3 flex-wrap">
-      <div class="search" data-search>
-        <div class="search__trigger-wrapper">
-          <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-header-panel" data-search-trigger>
-            <svg class="search__icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <span class="search__trigger-text">Search</span>
-            <kbd class="search__kbd" aria-hidden="true">
-              <span class="search__kbd-modifier"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 16 16" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd" aria-hidden="true"><path d="M4.5 2a2.5 2.5 0 0 0 0 5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a2.5 2.5 0 0 0 0 5A2.5 2.5 0 0 0 7 11.5v-1a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a2.5 2.5 0 0 0 5 0A2.5 2.5 0 0 0 11.5 9h-1a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h1a2.5 2.5 0 0 0 0-5A2.5 2.5 0 0 0 9 4.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1A2.5 2.5 0 0 0 4.5 2M9 7.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5zm-3-3v1a.5.5 0 0 1-.5.5h-1A1.5 1.5 0 1 1 6 4.5M11.5 6h-1a.5.5 0 0 1-.5-.5v-1A1.5 1.5 0 1 1 11.5 6M6 11.5v-1a.5.5 0 0 0-.5-.5h-1A1.5 1.5 0 1 0 6 11.5m5.5-1.5h-1a.5.5 0 0 0-.5.5v1a1.5 1.5 0 1 0 1.5-1.5"/></svg></span>
-              <kbd>K</kbd>
-            </kbd>
-          </button>
-        </div>
-        <div class="search__overlay" id="search-header-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>
-          <div class="search__panel" role="dialog" aria-modal="true" aria-labelledby="search-header-title" aria-hidden="true" tabindex="-1">
-            <h2 id="search-header-title" class="sr-only">Search</h2>
-            <div class="search__header">
-              <div class="search__input-wrapper">
-                <svg class="search__input-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="search" class="search__input" placeholder="Search…" aria-label="Search" />
-              </div>
-              <button type="button" class="search__close-btn" aria-label="Close search" data-search-close>
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-              </button>
-            </div>
-            <div class="search__results" role="listbox" aria-label="Search results">
-              <div class="search__empty">
-                <p class="search__empty-text">Start typing to search…</p>
-              </div>
-              <div class="search__results-list" role="group" aria-label="Sample results">
-                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
-                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
-                <a href="#" class="search__result-item" tabindex="-1"><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <label for="theme-select" class="sr-only">Theme</label>
-      <select id="theme-select" class="form-control" style="width: auto; min-width: 12rem;" aria-label="Theme">
-        <option value="system">System</option>
-        <optgroup label="Dark themes">
-          <option value="github-dark-classic">GitHub Dark Classic</option>
-          <option value="shades-of-purple">Shades of Purple</option>
-          <option value="sandstorm-classic">Sandstorm Classic</option>
-          <option value="rocky-blood-orange">Rocky Blood Orange</option>
-          <option value="minimal-dark-neon-yellow">Minimal Dark Neon Yellow</option>
-          <option value="hack-the-box">Hack The Box</option>
-          <option value="pink-cat-boo">Pink Cat Boo</option>
-        </optgroup>
-        <optgroup label="Light themes">
-          <option value="github-light">GitHub Light</option>
-          <option value="red-velvet-cupcake">Red Velvet Cupcake</option>
-          <option value="orangy-one-light">Orangy One Light</option>
-          <option value="sunflower">Sunflower</option>
-          <option value="green-breeze-light">Green Breeze Light</option>
-          <option value="cute-pink">Cute Pink</option>
-          <option value="semi-light-purple">Semi Light Purple</option>
-        </optgroup>
-      </select>
-      <button type="button" class="btn btn-outline" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">Settings</button>
-    </div>
-  </header>
+  {{NAVBAR_HTML}}
 
   <!-- Settings panel (same structure as main site; CSS from Rizzo) -->
   <div class="settings" data-settings aria-hidden="true">
@@ -431,42 +368,118 @@
   
   
   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <main id="main-content" class="flex flex-col items-center justify-center text-center min-h-screen" style="padding: var(--spacing-12) var(--spacing-4); min-height: calc(100vh - 4rem);">
     <h1 style="font-size: var(--font-size-3xl); margin: 0 0 var(--spacing-6) 0; color: var(--text);">Component showcase</h1>
     <p style="color: var(--text-dim); margin-bottom: var(--spacing-6);">Each page links to the full docs on the main site.</p>
     <ul style="text-align: left; max-width: 24rem; margin: 0 auto; padding-left: var(--spacing-6);">
       <li style="margin-bottom: var(--spacing-2);"><a href="accordion.html" style="color: var(--accent);">Accordion</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="alert.html" style="color: var(--accent);">Alert</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="alert-dialog.html" style="color: var(--accent);">Alert Dialog</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="aspect-ratio.html" style="color: var(--accent);">Aspect Ratio</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="avatar.html" style="color: var(--accent);">Avatar</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="back-to-top.html" style="color: var(--accent);">Back to Top</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="badge.html" style="color: var(--accent);">Badge</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="breadcrumb.html" style="color: var(--accent);">Breadcrumb</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="button.html" style="color: var(--accent);">Button</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="button-group.html" style="color: var(--accent);">Button Group</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="cards.html" style="color: var(--accent);">Cards</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="collapsible.html" style="color: var(--accent);">Collapsible</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="context-menu.html" style="color: var(--accent);">Context Menu</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="copy-to-clipboard.html" style="color: var(--accent);">Copy to Clipboard</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="dashboard.html" style="color: var(--accent);">Dashboard</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="docs-sidebar.html" style="color: var(--accent);">Docs Sidebar</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="divider.html" style="color: var(--accent);">Divider</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="dropdown.html" style="color: var(--accent);">Dropdown</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="empty.html" style="color: var(--accent);">Empty</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="footer.html" style="color: var(--accent);">Footer</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="font-switcher.html" style="color: var(--accent);">Font Switcher</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="forms.html" style="color: var(--accent);">Forms</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="hover-card.html" style="color: var(--accent);">Hover Card</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="icons.html" style="color: var(--accent);">Icons</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="kbd.html" style="color: var(--accent);">Kbd</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="label.html" style="color: var(--accent);">Label</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="modal.html" style="color: var(--accent);">Modal</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="navbar.html" style="color: var(--accent);">Navbar</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="pagination.html" style="color: var(--accent);">Pagination</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="popover.html" style="color: var(--accent);">Popover</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="progress-bar.html" style="color: var(--accent);">Progress Bar</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="resizable.html" style="color: var(--accent);">Resizable</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="scroll-area.html" style="color: var(--accent);">Scroll Area</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="search.html" style="color: var(--accent);">Search</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="separator.html" style="color: var(--accent);">Separator</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="settings.html" style="color: var(--accent);">Settings</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="sheet.html" style="color: var(--accent);">Sheet</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="skeleton.html" style="color: var(--accent);">Skeleton</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="slider.html" style="color: var(--accent);">Slider</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="sound-effects.html" style="color: var(--accent);">Sound Effects</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="spinner.html" style="color: var(--accent);">Spinner</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="switch.html" style="color: var(--accent);">Switch</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="table.html" style="color: var(--accent);">Table</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="tabs.html" style="color: var(--accent);">Tabs</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="theme-switcher.html" style="color: var(--accent);">Theme Switcher</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="toast.html" style="color: var(--accent);">Toast</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="toggle.html" style="color: var(--accent);">Toggle</a></li>
+      <li style="margin-bottom: var(--spacing-2);"><a href="toggle-group.html" style="color: var(--accent);">Toggle Group</a></li>
       <li style="margin-bottom: var(--spacing-2);"><a href="tooltip.html" style="color: var(--accent);">Tooltip</a></li>
     </ul>
     <p style="margin-top: var(--spacing-8);"><a href="../index.html" class="btn btn-outline">← Home</a></p>
   </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

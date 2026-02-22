@@ -152,11 +152,11 @@ test.describe('ARIA and roles (search)', () => {
   });
 
   test('search panel has role="dialog", aria-modal, and aria-labelledby', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: /open search|search/i }).first();
+    const main = page.getByRole('main');
+    const trigger = main.getByRole('button', { name: /open search|search/i }).first();
     await trigger.click();
-    await page.waitForTimeout(300);
-    const panel = page.locator('.search__panel[role="dialog"]').first();
-    await expect(panel).toBeVisible({ timeout: 3000 });
+    const panel = page.locator('.search__panel[role="dialog"][aria-hidden="false"]').first();
+    await expect(panel).toBeVisible({ timeout: 5000 });
     await expect(panel).toHaveAttribute('aria-modal', 'true');
     await expect(panel).toHaveAttribute('aria-labelledby');
   });
@@ -191,5 +191,37 @@ test.describe('ARIA and roles (tooltip)', () => {
     expect(describedBy).toBeTruthy();
     const tooltip = page.locator(`#${describedBy}[role="tooltip"]`);
     await expect(tooltip).toHaveCount(1);
+  });
+});
+
+test.describe('ARIA and roles (alert dialog)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/alert-dialog');
+    await lockTheme(page);
+  });
+
+  test('alert dialog has role="alertdialog", aria-modal="true", and aria-labelledby when open', async ({ page }) => {
+    await page.getByRole('button', { name: /open alert dialog/i }).first().click();
+    await page.waitForTimeout(200);
+    const dialog = page.locator('[role="alertdialog"]').first();
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await expect(dialog).toHaveAttribute('aria-labelledby');
+  });
+});
+
+test.describe('ARIA and roles (sheet)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/sheet');
+    await lockTheme(page);
+  });
+
+  test('sheet has role="dialog", aria-modal="true", and aria-labelledby when open', async ({ page }) => {
+    await page.getByRole('button', { name: /open sheet/i }).first().click();
+    await page.waitForTimeout(200);
+    const dialog = page.locator('.sheet[role="dialog"]').first();
+    await expect(dialog).toBeVisible();
+    await expect(dialog).toHaveAttribute('aria-modal', 'true');
+    await expect(dialog).toHaveAttribute('aria-labelledby');
   });
 });

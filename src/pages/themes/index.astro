@@ -1,0 +1,780 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ThemeIcon from '../../components/ThemeIcon.astro';
+import Card from '../../components/Card.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+import ChevronDown from '../../components/icons/ChevronDown.astro';
+import { ALL_THEMES, THEMES_DARK, THEMES_LIGHT } from '../../config/themes';
+
+const defaultTheme = ALL_THEMES[0].value;
+const defaultThemeLabel = ALL_THEMES.find((t) => t.value === defaultTheme)?.label ?? defaultTheme;
+const snippet = `<html lang="en" data-theme="${defaultTheme}">`;
+
+const THEMES_PREVIEW_DROPDOWN_ID = 'themes-preview-dropdown';
+const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
+---
+
+<Layout title="Themes — Rizzo CSS">
+	<div class="themes-page">
+		<div class="themes-page__container">
+			<header class="themes-page__hero">
+				<h1 class="themes-page__title">Fourteen themes. One design system.</h1>
+				<p class="themes-page__subtitle">Each theme is built on semantic OKLCH variables — switch instantly, no restyle. Choose a theme and see the live preview update. Copy the snippet at the bottom to use it in your project.</p>
+			</header>
+
+			<div class="themes-page__main">
+				<section class="themes-page__picker" aria-labelledby="theme-picker-heading">
+					<h2 id="theme-picker-heading" class="themes-page__section-title">Choose a theme</h2>
+					<p class="themes-page__section-desc">Click any theme — the preview updates instantly.</p>
+					<div class="themes-page__picker-select-wrapper">
+						<label for="themes-picker-select" class="sr-only">Select theme to preview</label>
+						<select id="themes-picker-select" class="themes-page__picker-select input" aria-label="Select theme to preview">
+							<optgroup label="Dark">
+								{THEMES_DARK.map((theme) => (
+									<option value={theme.value}>{theme.label}</option>
+								))}
+							</optgroup>
+							<optgroup label="Light">
+								{THEMES_LIGHT.map((theme) => (
+									<option value={theme.value}>{theme.label}</option>
+								))}
+							</optgroup>
+						</select>
+					</div>
+					<div class="themes-page__picker-grid">
+						<div class="themes-page__picker-group">
+							<span class="themes-page__picker-group-label">Dark</span>
+							<div class="themes-page__cards" role="group" aria-label="Dark themes">
+								{THEMES_DARK.map((theme) => (
+									<button
+										type="button"
+										class="themes-page__card"
+										data-theme-value={theme.value}
+										aria-pressed={theme.value === defaultTheme}
+										aria-label={`Use theme: ${theme.label}`}
+										title={theme.label}
+									>
+										<span class="themes-page__card-swatch" style={`background: ${theme.bg}; border-color: ${theme.accent}`} aria-hidden="true"></span>
+										<ThemeIcon themeId={theme.value} size={24} class="themes-page__card-icon" />
+										<span class="themes-page__card-label">{theme.label}</span>
+									</button>
+								))}
+							</div>
+						</div>
+						<div class="themes-page__picker-group">
+							<span class="themes-page__picker-group-label">Light</span>
+							<div class="themes-page__cards" role="group" aria-label="Light themes">
+								{THEMES_LIGHT.map((theme) => (
+									<button
+										type="button"
+										class="themes-page__card"
+										data-theme-value={theme.value}
+										aria-pressed={theme.value === defaultTheme}
+										aria-label={`Use theme: ${theme.label}`}
+										title={theme.label}
+									>
+										<span class="themes-page__card-swatch" style={`background: ${theme.bg}; border-color: ${theme.accent}`} aria-hidden="true"></span>
+										<ThemeIcon themeId={theme.value} size={24} class="themes-page__card-icon" />
+										<span class="themes-page__card-label">{theme.label}</span>
+									</button>
+								))}
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<section class="themes-page__preview-section" aria-labelledby="preview-heading">
+					<h2 id="preview-heading" class="themes-page__section-title">Live preview</h2>
+					<p class="themes-page__section-desc">Components update with the selected theme.</p>
+					<div
+						id="themes-preview"
+						class="themes-page__preview"
+						data-theme={defaultTheme}
+						role="region"
+						aria-label="Live theme preview"
+					>
+						<div class="themes-page__preview-inner">
+							<div class="themes-page__preview-dropdown-wrap">
+								<span class="themes-page__preview-dropdown-label">Theme</span>
+								<div class="dropdown themes-page__preview-dropdown" data-dropdown={THEMES_PREVIEW_DROPDOWN_ID}>
+									<button
+										type="button"
+										class="dropdown__trigger"
+										id={`${THEMES_PREVIEW_DROPDOWN_ID}-trigger`}
+										aria-expanded="false"
+										aria-haspopup="true"
+										aria-controls={`${THEMES_PREVIEW_DROPDOWN_ID}-menu`}
+										aria-label="Select theme"
+									>
+										<span class="dropdown__trigger-text">{defaultThemeLabel}</span>
+										<ChevronDown class="dropdown__icon" width={16} height={16} />
+									</button>
+									<div
+										class="dropdown__menu dropdown__menu--left dropdown__menu--start themes-page__preview-dropdown-menu"
+										id={`${THEMES_PREVIEW_DROPDOWN_ID}-menu`}
+										role="menu"
+										aria-labelledby={`${THEMES_PREVIEW_DROPDOWN_ID}-trigger`}
+										aria-label="Theme selection"
+										aria-orientation="vertical"
+										aria-hidden="true"
+										tabindex="-1"
+									>
+										{THEMES_DARK.map((theme, index) => (
+											<div class="dropdown__item-wrapper">
+												<div
+													class="dropdown__item"
+													role="menuitem"
+													id={`${THEMES_PREVIEW_DROPDOWN_ID}-item-${index}`}
+													tabindex="-1"
+													aria-label={theme.label}
+													aria-disabled="false"
+													data-dropdown-value={theme.value}
+													data-dropdown-onclick={THEMES_PREVIEW_DROPDOWN_ONCLICK}
+												>
+													<ThemeIcon themeId={theme.value} size={16} class="themes-page__dropdown-item-icon" />
+													<span>{theme.label}</span>
+												</div>
+											</div>
+										))}
+										<div class="dropdown__separator" role="separator" />
+										{THEMES_LIGHT.map((theme, index) => (
+											<div class="dropdown__item-wrapper">
+												<div
+													class="dropdown__item"
+													role="menuitem"
+													id={`${THEMES_PREVIEW_DROPDOWN_ID}-item-light-${index}`}
+													tabindex="-1"
+													aria-label={theme.label}
+													aria-disabled="false"
+													data-dropdown-value={theme.value}
+													data-dropdown-onclick={THEMES_PREVIEW_DROPDOWN_ONCLICK}
+												>
+													<ThemeIcon themeId={theme.value} size={16} class="themes-page__dropdown-item-icon" />
+													<span>{theme.label}</span>
+												</div>
+											</div>
+										))}
+									</div>
+								</div>
+							</div>
+							<div class="themes-page__preview-cards">
+								<Card variant="elevated">
+									<div class="card__body">
+										<span class="card__label">Revenue</span>
+										<span class="card__value">$12,450</span>
+										<span class="themes-page__preview-meta">+12%</span>
+									</div>
+								</Card>
+								<Card variant="elevated">
+									<div class="card__body">
+										<span class="card__label">Users</span>
+										<span class="card__value">1,847</span>
+										<span class="themes-page__preview-meta">Active</span>
+									</div>
+								</Card>
+								<Card variant="elevated">
+									<div class="card__body">
+										<span class="card__label">Tasks</span>
+										<span class="card__value">94%</span>
+										<span class="themes-page__preview-meta">Complete</span>
+									</div>
+								</Card>
+							</div>
+							<div class="alert alert--info" role="status" aria-live="polite">
+								<div class="alert__content">Theme applied. All components use the same semantic variables.</div>
+							</div>
+							<div class="themes-page__preview-row">
+								<button type="button" class="btn">Default</button>
+								<button type="button" class="btn btn-primary">Primary</button>
+								<button type="button" class="btn btn-outline">Outline</button>
+							</div>
+							<div class="themes-page__preview-row">
+								<span class="badge badge--success">Done</span>
+								<span class="badge badge--warning">Pending</span>
+								<span class="badge badge--error">Failed</span>
+								<span class="badge">Neutral</span>
+							</div>
+							<div class="progress progress--sm progress--primary" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
+								<div class="progress__track">
+									<div class="progress__bar" style="width: 65%"></div>
+								</div>
+								<span class="progress__label" aria-hidden="true">65%</span>
+							</div>
+							<div class="themes-page__preview-form">
+								<label for="themes-demo-name" class="themes-page__preview-label">Name</label>
+								<input id="themes-demo-name" type="text" class="input" placeholder="Your name" />
+								<label class="checkbox-label">
+									<input type="checkbox" />
+									<span>Remember preference</span>
+								</label>
+							</div>
+							<div class="table-wrapper themes-page__preview-table">
+								<table class="table">
+									<caption class="sr-only">Sample data</caption>
+									<thead>
+										<tr class="table__row">
+											<th scope="col" class="table__cell table__cell--header">Item</th>
+											<th scope="col" class="table__cell table__cell--header">Status</th>
+											<th scope="col" class="table__cell table__cell--header">Amount</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr class="table__row">
+											<td class="table__cell">Acme Co</td>
+											<td class="table__cell"><span class="badge badge--success">Done</span></td>
+											<td class="table__cell">$316</td>
+										</tr>
+										<tr class="table__row">
+											<td class="table__cell">Globex</td>
+											<td class="table__cell"><span class="badge badge--warning">Pending</span></td>
+											<td class="table__cell">$242</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<section class="themes-page__copy-section" aria-labelledby="copy-heading">
+				<h2 id="copy-heading" class="themes-page__section-title">Use this theme in your app</h2>
+				<p class="themes-page__copy-desc">Set the theme on your HTML root. For system preference, persistence, and custom themes, see the <a href="/docs/theming">theming docs</a>.</p>
+				<CodeBlock code={snippet} language="html" class="themes-page__code-block" />
+			</section>
+
+			<p class="themes-page__footer-note">
+				<a href="/docs/theming">Theming system</a> — semantic variables, custom themes, and programmatic switching.
+			</p>
+		</div>
+	</div>
+
+	<script define:vars={{ defaultTheme, themeLabelsMap: Object.fromEntries(ALL_THEMES.map((t) => [t.value, t.label])) }}>
+		(function () {
+			const preview = document.getElementById('themes-preview');
+			const codeBlock = document.querySelector('.themes-page__code-block');
+			const selectEl = document.getElementById('themes-picker-select');
+			if (!preview || !codeBlock) return;
+
+			function syncPreviewDropdownLabel(value) {
+				const triggerText = preview.querySelector('.dropdown__trigger-text');
+				if (triggerText && themeLabelsMap && value) {
+					triggerText.textContent = themeLabelsMap[value] || value;
+				}
+			}
+
+			function setTheme(value) {
+				preview.setAttribute('data-theme', value);
+				const snippet = '<html lang="en" data-theme="' + value + '">';
+				const codeEl = codeBlock.querySelector('code');
+				const copyBtn = codeBlock.querySelector('.copy-to-clipboard');
+				if (codeEl) codeEl.textContent = snippet;
+				if (copyBtn) copyBtn.setAttribute('data-copy-value', snippet);
+				document.querySelectorAll('.themes-page__card').forEach((btn) => {
+					btn.setAttribute('aria-pressed', btn.getAttribute('data-theme-value') === value ? 'true' : 'false');
+				});
+				if (selectEl) selectEl.value = value;
+				syncPreviewDropdownLabel(value);
+			}
+
+			window.themesPagePreviewThemeSelect = function (value) {
+				if (value) setTheme(value);
+			};
+
+			document.querySelectorAll('.themes-page__card').forEach((btn) => {
+				btn.addEventListener('click', function () {
+					const value = this.getAttribute('data-theme-value');
+					if (value) setTheme(value);
+				});
+			});
+			if (selectEl) {
+				selectEl.addEventListener('change', function () {
+					setTheme(this.value);
+				});
+			}
+		})();
+	</script>
+</Layout>
+
+<style>
+	.themes-page {
+		padding: var(--spacing-8) 0 var(--spacing-12);
+	}
+	.themes-page__container {
+		width: 100%;
+		max-width: var(--container-default);
+		margin: 0 auto;
+		padding: 0 var(--content-padding-x);
+	}
+	.themes-page__hero {
+		text-align: center;
+		margin-bottom: var(--spacing-10);
+	}
+	.themes-page__title {
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--text);
+		margin: 0 0 var(--spacing-4);
+		line-height: var(--line-height-tight);
+		letter-spacing: var(--letter-spacing-tight);
+	}
+	.themes-page__subtitle {
+		font-size: var(--font-size-lg);
+		color: var(--text-dim);
+		margin: 0;
+		max-width: 42ch;
+		margin-left: auto;
+		margin-right: auto;
+		line-height: var(--line-height-relaxed);
+	}
+	.themes-page__subtitle code {
+		background: var(--background-alt);
+		color: var(--accent-fg);
+		padding: var(--spacing-0-125) var(--spacing-0-375);
+		border-radius: var(--radius);
+		font-size: var(--font-size-sm);
+	}
+	.themes-page__section-title {
+		font-size: var(--font-size-xl);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text);
+		margin: 0 0 var(--spacing-2);
+	}
+	.themes-page__section-desc {
+		font-size: var(--font-size-sm);
+		color: var(--text-dim);
+		margin: 0 0 var(--spacing-4);
+		line-height: var(--line-height-relaxed);
+		max-width: 50ch;
+	}
+	.themes-page__main {
+		display: grid;
+		gap: var(--spacing-8);
+		margin-bottom: var(--spacing-10);
+	}
+	@media (max-width: 63.999rem) {
+		.themes-page__picker {
+			display: none;
+		}
+		.themes-page__preview-inner {
+			padding: var(--spacing-5);
+			gap: var(--spacing-5);
+		}
+		.themes-page__preview-cards {
+			gap: var(--spacing-3);
+		}
+		.themes-page__preview-row {
+			gap: var(--spacing-3);
+		}
+		.themes-page__preview-row :global(.btn) {
+			padding: var(--spacing-2) var(--spacing-4);
+			font-size: var(--font-size-base);
+		}
+		.themes-page__preview-row :global(.badge) {
+			padding: var(--spacing-1) var(--spacing-2);
+			font-size: var(--font-size-sm);
+		}
+		.themes-page__preview-form {
+			margin-top: var(--spacing-0-5);
+		}
+		.themes-page__preview-table :global(.table__cell) {
+			padding: var(--spacing-2) var(--spacing-3);
+		}
+	}
+	@media (min-width: 64rem) {
+		.themes-page__main {
+			grid-template-columns: minmax(0, 20rem) 1fr;
+			align-items: start;
+			gap: var(--spacing-8);
+		}
+		.themes-page__preview-section {
+			position: sticky;
+			top: var(--spacing-4);
+		}
+		.themes-page__preview-dropdown-wrap {
+			display: none !important;
+		}
+	}
+	.themes-page__picker {
+		min-width: 0;
+	}
+	.themes-page__picker-select-wrapper {
+		display: none;
+	}
+	.themes-page__picker-select {
+		width: 100%;
+		max-width: 20rem;
+		padding: var(--spacing-2) var(--spacing-3);
+		font-size: var(--font-size-base);
+	}
+	.themes-page__picker-grid {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-6);
+	}
+	.themes-page__picker-group-label {
+		display: block;
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-semibold);
+		text-transform: uppercase;
+		letter-spacing: var(--letter-spacing-wide);
+		color: var(--text-dim);
+		margin-bottom: var(--spacing-3);
+	}
+	.themes-page__cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr));
+		gap: var(--spacing-3);
+	}
+	.themes-page__card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-4);
+		border: 2px solid var(--border);
+		border-radius: var(--radius-lg);
+		background: var(--background);
+		color: var(--text);
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		text-align: center;
+		cursor: pointer;
+		transition: border-color var(--transition-base), background var(--transition-base), box-shadow var(--transition-base), transform var(--transition-base);
+		min-height: 7.5rem;
+	}
+	.themes-page__card:hover {
+		background: var(--background-alt);
+		border-color: var(--accent-fg);
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-md);
+	}
+	.themes-page__card:focus-visible {
+		outline: var(--outline-width) solid var(--accent);
+		outline-offset: var(--outline-offset);
+	}
+	.themes-page__card[aria-pressed="true"] {
+		border-color: var(--accent-fg);
+		background: var(--background-alt);
+		box-shadow: 0 0 0 2px var(--accent-fg);
+	}
+	.themes-page__card-swatch {
+		width: 2.5rem;
+		height: 2.5rem;
+		border-radius: var(--radius-md);
+		border: 2px solid;
+		flex-shrink: 0;
+	}
+	.themes-page__card-icon {
+		flex-shrink: 0;
+		color: var(--text-dim);
+	}
+	.themes-page__card-label {
+		line-height: var(--line-height-snug);
+		word-break: break-word;
+	}
+	.themes-page__preview-section {
+		min-width: 0;
+	}
+	.themes-page__preview {
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: var(--background);
+		box-shadow: var(--shadow-sm);
+	}
+	.themes-page__preview-inner {
+		padding: var(--spacing-4);
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-4);
+		min-height: 10rem;
+	}
+	.themes-page__preview-dropdown-wrap {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		flex-wrap: wrap;
+	}
+	.themes-page__preview-dropdown-label {
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--text);
+	}
+	/* Preview dropdown: match main site dropdown (trigger + menu) — scoped to themes page only */
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown {
+		position: relative;
+		display: inline-block;
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__trigger {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-2) var(--spacing-4);
+		background-color: var(--background-alt);
+		color: var(--text);
+		border: var(--border-width) solid var(--border);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		font-family: var(--font-family);
+		font-size: var(--font-size-sm);
+		transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__trigger:hover {
+		background-color: var(--background);
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__trigger:focus-visible {
+		outline: var(--outline-width) solid var(--accent);
+		outline-offset: var(--outline-offset);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__trigger[aria-expanded="true"] .dropdown__icon {
+		transform: rotate(180deg);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__menu {
+		position: absolute;
+		top: calc(100% + var(--spacing-2));
+		left: 0;
+		min-width: var(--spacing-64);
+		width: max-content;
+		max-width: calc(100vw - var(--spacing-8));
+		background-color: var(--background-alt);
+		border: var(--border-width) solid var(--border);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(calc(-1 * var(--spacing-2)));
+		transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+		z-index: var(--z-dropdown);
+		padding: var(--spacing-2) 0;
+		margin: 0;
+		list-style: none;
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__menu--open {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item {
+		display: flex;
+		align-items: center;
+		padding: var(--spacing-2) var(--spacing-4);
+		min-height: var(--touch-target-min);
+		color: var(--text);
+		cursor: pointer;
+		transition: background-color var(--transition-base), color var(--transition-base);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:hover:not(.dropdown__item--disabled),
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:focus-visible:not(.dropdown__item--disabled) {
+		background-color: var(--background);
+		color: var(--accent);
+	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__separator {
+		height: var(--border-width);
+		background-color: var(--border);
+		margin: var(--spacing-2) 0;
+	}
+	/* Match global dropdown design (trigger + menu) so themes page dropdown looks like other pages. */
+	.themes-page .dropdown__trigger {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+		padding: var(--spacing-2) var(--spacing-4);
+		background-color: var(--background-alt);
+		color: var(--text);
+		border: var(--border-width) solid var(--border);
+		border-radius: var(--radius-md);
+		cursor: pointer;
+		font-family: var(--font-family);
+		font-size: var(--font-size-sm);
+		transition: background-color var(--transition-base), border-color var(--transition-base), color var(--transition-base);
+	}
+	.themes-page .dropdown__trigger:hover {
+		background-color: var(--background);
+		border-color: var(--accent);
+		color: var(--accent);
+	}
+	.themes-page .dropdown__trigger:focus-visible {
+		outline: var(--outline-width) solid var(--accent);
+		outline-offset: var(--outline-offset);
+	}
+	.themes-page .dropdown__trigger[aria-expanded="true"] .dropdown__icon {
+		transform: rotate(180deg);
+	}
+	.themes-page .dropdown__trigger:hover .dropdown__icon,
+	.themes-page .dropdown__trigger:focus-visible .dropdown__icon {
+		color: var(--accent);
+	}
+	.themes-page .dropdown__trigger-text {
+		flex: 1;
+		text-align: left;
+	}
+	.themes-page .dropdown__icon {
+		transition: transform var(--transition-base), color var(--transition-base);
+		flex-shrink: 0;
+		color: var(--icon);
+	}
+	.themes-page .dropdown__menu {
+		position: absolute;
+		top: calc(100% + var(--spacing-2));
+		min-width: var(--spacing-64);
+		width: max-content;
+		max-width: calc(100vw - var(--spacing-8));
+		overflow: visible !important;
+		background-color: var(--background-alt);
+		border: var(--border-width) solid var(--border);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-md);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(calc(-1 * var(--spacing-2)));
+		transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+		z-index: var(--z-dropdown);
+		padding: var(--spacing-2) 0;
+		margin: 0;
+		list-style: none;
+	}
+	/* Preview dropdown: vertically scrollable menu with icons */
+	.themes-page .themes-page__preview-dropdown-menu {
+		max-height: min(18rem, 60vh);
+		overflow-y: auto;
+		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
+	}
+	.themes-page .themes-page__preview-dropdown-menu .dropdown__item {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-2);
+	}
+	.themes-page__dropdown-item-icon {
+		flex-shrink: 0;
+		color: var(--icon);
+	}
+	.themes-page .dropdown__menu--open {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+	.themes-page .dropdown__item {
+		display: flex;
+		align-items: center;
+		padding: var(--spacing-2) var(--spacing-4);
+		min-height: var(--touch-target-min);
+		color: var(--text);
+		text-decoration: none;
+		cursor: pointer;
+		font-size: var(--font-size-sm);
+		transition: background-color var(--transition-base), color var(--transition-base);
+	}
+	.themes-page .dropdown__item:hover:not(.dropdown__item--disabled),
+	.themes-page .dropdown__item:focus-visible:not(.dropdown__item--disabled) {
+		background-color: var(--background);
+		color: var(--accent);
+	}
+	.themes-page .dropdown__separator {
+		height: var(--border-width);
+		background-color: var(--border);
+		margin: var(--spacing-2) 0;
+	}
+	#themes-preview.themes-page__preview {
+		background: var(--background);
+		color: var(--text);
+	}
+	.themes-page__preview-cards {
+		display: grid;
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+		gap: var(--spacing-2);
+	}
+	.themes-page__preview-cards :global(.card) {
+		min-width: 0;
+	}
+	.themes-page__preview-cards :global(.card__value) {
+		font-size: var(--font-size-lg);
+	}
+	.themes-page__preview-cards :global(.card__body) {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-0-5);
+	}
+	.themes-page__preview-meta {
+		font-size: var(--font-size-sm);
+		color: var(--text-dim);
+	}
+	.themes-page__preview-row {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-2);
+		align-items: center;
+	}
+	.themes-page__preview-form {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-2);
+		max-width: 100%;
+	}
+	.themes-page__preview-table {
+		overflow-x: auto;
+	}
+	.themes-page__preview-table :global(.table) {
+		font-size: var(--font-size-sm);
+	}
+	.themes-page__preview-table :global(.table__cell) {
+		padding: var(--spacing-1) var(--spacing-2);
+	}
+	.themes-page__preview-label {
+		font-size: var(--font-size-sm);
+		font-weight: var(--font-weight-medium);
+		color: var(--text);
+	}
+	.themes-page__copy-section {
+		margin-bottom: var(--spacing-8);
+	}
+	.themes-page__copy-desc {
+		color: var(--text-dim);
+		font-size: var(--font-size-sm);
+		margin: 0 0 var(--spacing-3);
+	}
+	.themes-page__footer-note {
+		font-size: var(--font-size-sm);
+		color: var(--text-dim);
+		margin: 0;
+	}
+	.themes-page__footer-note a {
+		color: var(--accent-fg);
+		text-decoration: underline;
+		text-underline-offset: 0.15em;
+	}
+	@media (width <= 640px) {
+		.themes-page__title {
+			font-size: var(--font-size-3xl);
+		}
+		.themes-page__subtitle {
+			font-size: var(--font-size-base);
+		}
+		.themes-page__section-title {
+			font-size: var(--font-size-lg);
+		}
+		.themes-page__cards {
+			grid-template-columns: repeat(2, 1fr);
+			gap: var(--spacing-2);
+		}
+		.themes-page__card {
+			padding: var(--spacing-3);
+			min-height: 6.5rem;
+		}
+		.themes-page__card-swatch {
+			width: 2rem;
+			height: 2rem;
+		}
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.themes-page__card {
+			transition: none;
+		}
+		.themes-page__card:hover {
+			transform: none;
+		}
+	}
+</style>

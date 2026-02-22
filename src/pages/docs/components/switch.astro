@@ -1,0 +1,63 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Switch from '../../../components/Switch.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Switch Component — Astro" description="Accessible toggle switch with role=switch">
+	<section>
+		<h2>Switch Component</h2>
+		<p>An accessible on/off toggle using <code>role="switch"</code> and <code>aria-checked</code>. Keyboard: Space toggles. Fully themeable.</p>
+		<AddComponentTabs componentName="Switch" />
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code>, <code>name</code> (string, optional) - For form association</li>
+			<li><code>checked</code> (boolean, optional) - Default: false</li>
+			<li><code>disabled</code> (boolean, optional)</li>
+			<li><code>label</code> (string, optional) - Visible label next to the switch</li>
+			<li><code>class</code> (string, optional)</li>
+		</ul>
+
+		<h3>Basic Usage</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Switch label="Enable notifications" />
+		</div>
+		<FrameworkCodeTabs
+			astro={`---
+import Switch from '../components/rizzo/Switch.astro';
+---
+
+<Switch label="Enable notifications" />`}
+			svelte={`<script>
+  import { Switch } from '$lib/rizzo';
+</script>
+
+<Switch label="Enable notifications" />`}
+			vanilla={`<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch" aria-checked="false" />
+  <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+  <span class="switch__label">Enable notifications</span>
+</label>`}
+		/>
+
+		<h3>Checked and Disabled</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div style="display: flex; flex-direction: column; gap: var(--spacing-4);">
+				<Switch label="Checked" checked />
+				<Switch label="Disabled" disabled />
+			</div>
+		</div>
+
+		<h3>Accessibility</h3>
+		<ul>
+			<li><code>role="switch"</code> and <code>aria-checked</code> for correct screen reader announcement</li>
+			<li>Focus visible on the track when the input is focused</li>
+			<li>Space toggles the switch</li>
+		</ul>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/switch">Svelte docs</a> · <a href="/docs/vanilla/components/switch">Vanilla docs</a></p>
+	</section>
+</DocsLayout>

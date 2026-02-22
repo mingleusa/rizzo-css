@@ -1,0 +1,19 @@
+---
+/**
+ * Scrollable area with themed scrollbar. Matches shadcn-svelte Scroll Area.
+ * orientation: 'vertical' (default) or 'horizontal'
+ */
+interface Props {
+	orientation?: 'vertical' | 'horizontal';
+	class?: string;
+}
+
+const { orientation = 'vertical', class: className = '' } = Astro.props;
+const horizontal = orientation === 'horizontal';
+---
+
+<div class={`scroll-area ${horizontal ? 'scroll-area--horizontal' : ''} ${className}`.trim()}>
+	<div class="scroll-area__viewport" tabindex="0">
+		<slot />
+	</div>
+</div>

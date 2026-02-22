@@ -1,0 +1,45 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<label class="switch">
+  <input type="checkbox" class="switch__input" role="switch" aria-checked="false" />
+  <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+  <span class="switch__label">Enable notifications</span>
+</label>`;
+---
+
+<DocsLayout title="Switch — Vanilla" description="Toggle switch with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Switch</h2>
+    <p>On/off toggle. Use <code>role="switch"</code> and <code>aria-checked</code> on the checkbox. No script required for styling; state is driven by the checkbox. Wire <code>change</code> or <code>input</code> if you need to sync state elsewhere.</p>
+    <AddComponentTabs componentName="Switch" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo">
+        <label class="switch">
+          <input type="checkbox" class="switch__input" role="switch" aria-checked="false" />
+          <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+          <span class="switch__label">Enable notifications</span>
+        </label>
+        <label class="switch">
+          <input type="checkbox" class="switch__input" role="switch" aria-checked="true" checked />
+          <span class="switch__track" aria-hidden="true"><span class="switch__thumb"></span></span>
+          <span class="switch__label">Checked</span>
+        </label>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/switch">Astro</a> · <a href="/docs/svelte/components/switch">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: var(--border-width) solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: center; }
+</style>

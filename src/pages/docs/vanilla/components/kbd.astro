@@ -1,0 +1,28 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">K</kbd>
+<span class="kbd">Enter</span>`;
+---
+
+<DocsLayout title="Kbd — Vanilla" description="Keyboard key styling with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Kbd</h2>
+    <p>Use the <code>kbd</code> class on <code>&lt;kbd&gt;</code> or <code>&lt;span&gt;</code> for shortcut styling.</p>
+    <AddComponentTabs componentName="Kbd" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <p style="margin: 0;"><kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">K</kbd> to open search · <kbd class="kbd">Enter</kbd> to submit</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/kbd">Astro</a> · <a href="/docs/svelte/components/kbd">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

@@ -23,6 +23,9 @@
     if (!target) return;
     soundEffects = target.checked;
     localStorage?.setItem('soundEffects', target.checked ? 'true' : 'false');
+    if (target.checked && typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent('rizzo-sound-effects-change'));
+    }
   }
 </script>
 

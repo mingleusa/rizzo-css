@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<span class="skeleton" role="status" aria-label="Loading" aria-busy="true"></span>
+<span class="skeleton skeleton--text" role="status" aria-label="Loading" aria-busy="true"></span>
+<span class="skeleton skeleton--circle" role="status" aria-label="Loading" aria-busy="true" style="width:3rem;height:3rem;"></span>`;
+---
+
+<DocsLayout title="Skeleton — Vanilla" description="Loading placeholder with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Skeleton</h2>
+    <p>Loading placeholder with optional shimmer. Use <code>skeleton--text</code>, <code>skeleton--circle</code>, <code>skeleton--rect</code>. Use <code>role="status"</code> and <code>aria-label="Loading"</code> for screen readers.</p>
+    <AddComponentTabs componentName="Skeleton" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="example-demo" style="flex-direction: column; align-items: flex-start; gap: var(--spacing-4); max-width: 20rem;">
+        <span class="skeleton" role="status" aria-label="Loading" aria-busy="true" style="width:100%;height:2rem;"></span>
+        <span class="skeleton skeleton--text" role="status" aria-label="Loading" aria-busy="true"></span>
+        <span class="skeleton skeleton--circle" role="status" aria-label="Loading" aria-busy="true" style="width:3rem;height:3rem;"></span>
+      </div>
+    </div>
+
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/skeleton">Astro</a> · <a href="/docs/svelte/components/skeleton">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: var(--border-width) solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+</style>

@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ResizablePaneGroup from '../../../components/ResizablePaneGroup.astro';
+import ResizablePane from '../../../components/ResizablePane.astro';
+import ResizableHandle from '../../../components/ResizableHandle.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Resizable" description="Resizable panel groups. Matches shadcn-svelte Resizable.">
+	<section>
+		<h2>Resizable</h2>
+		<p>Use <code>ResizablePaneGroup</code> with <code>direction="horizontal"</code> or <code>vertical</code>, <code>ResizablePane</code> (defaultSize 0–100), and <code>ResizableHandle</code> between panes. Drag the handle to resize.</p>
+		<AddComponentTabs componentName="Resizable" />
+		<h3>Horizontal</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ResizablePaneGroup direction="horizontal" class="max-w-md rounded-lg border" style="max-width: 28rem; border-radius: var(--radius-lg); border: var(--border-width) solid var(--border);">
+				<ResizablePane defaultSize={50}>
+					<div style="display: flex; height: 200px; align-items: center; justify-content: center; padding: var(--spacing-6);"><span style="font-weight: 600;">One</span></div>
+				</ResizablePane>
+				<ResizableHandle />
+				<ResizablePane defaultSize={50}>
+					<div style="display: flex; height: 200px; align-items: center; justify-content: center; padding: var(--spacing-6);"><span style="font-weight: 600;">Two</span></div>
+				</ResizablePane>
+			</ResizablePaneGroup>
+		</div>
+		<h3>Vertical</h3>
+		<div class="example">
+			<ResizablePaneGroup direction="vertical" class="min-h-[200px] max-w-md rounded-lg border" style="min-height: 200px; max-width: 28rem; border-radius: var(--radius-lg); border: var(--border-width) solid var(--border);">
+				<ResizablePane defaultSize={25}>
+					<div style="display: flex; height: 100%; align-items: center; justify-content: center; padding: var(--spacing-6);"><span style="font-weight: 600;">Header</span></div>
+				</ResizablePane>
+				<ResizableHandle />
+				<ResizablePane defaultSize={75}>
+					<div style="display: flex; height: 100%; align-items: center; justify-content: center; padding: var(--spacing-6);"><span style="font-weight: 600;">Content</span></div>
+				</ResizablePane>
+			</ResizablePaneGroup>
+		</div>
+	</section>
+</DocsLayout>

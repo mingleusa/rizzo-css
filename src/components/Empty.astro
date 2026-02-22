@@ -1,0 +1,23 @@
+---
+/**
+ * Empty state: icon + title + optional description and action. Matches shadcn-svelte Empty.
+ */
+interface Props {
+	title?: string;
+	description?: string;
+	class?: string;
+}
+
+const { title = 'No results', description, class: className = '' } = Astro.props;
+---
+
+<div class={`empty ${className}`.trim()}>
+	<div class="empty__icon">
+		<slot name="icon" />
+	</div>
+	<h3 class="empty__title">{title}</h3>
+	{description && <p class="empty__description">{description}</p>}
+	<div class="empty__action">
+		<slot name="action" />
+	</div>
+</div>

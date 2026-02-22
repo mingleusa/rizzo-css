@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import HoverCard from '../../../components/HoverCard.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Hover Card" description="Floating panel that opens on hover. Matches shadcn-svelte Hover Card.">
+	<section>
+		<h2>Hover Card</h2>
+		<p>Trigger must have <code>data-hover-card-trigger</code>. Content appears on hover with optional open/close delay.</p>
+		<AddComponentTabs componentName="HoverCard" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<HoverCard>
+				<span slot="trigger" data-hover-card-trigger style="cursor: pointer; text-decoration: underline;">Hover me</span>
+				<div style="min-width: 16rem;">
+					<p style="margin: 0; font-size: var(--font-size-sm);">SvelteKit — Web development, streamlined.</p>
+				</div>
+			</HoverCard>
+		</div>
+	</section>
+</DocsLayout>

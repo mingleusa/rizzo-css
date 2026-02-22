@@ -1,0 +1,68 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Collapsible from '../../../components/Collapsible.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Collapsible Component" description="Single expand/collapse section (one trigger, one panel). Use Accordion for multiple sections.">
+	<section>
+		<h2>Collapsible</h2>
+		<p>A single disclosure: one trigger button and one content panel. For multiple sections use the <a href="/docs/components/accordion">Accordion</a> component.</p>
+
+		<AddComponentTabs componentName="Collapsible" />
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code> (string, optional) - Unique identifier for the collapsible</li>
+			<li><code>defaultOpen</code> (boolean, optional) - Whether the panel is open by default (default: <code>false</code>)</li>
+			<li><code>triggerLabel</code> (string, optional) - Text for the trigger button (default: "Toggle")</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Basic Usage</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Collapsible triggerLabel="Show more" defaultOpen={false}>
+				<p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>
+			</Collapsible>
+		</div>
+
+		<FrameworkCodeTabs
+			astro={`---
+import Collapsible from '../components/rizzo/Collapsible.astro';
+---
+
+<Collapsible triggerLabel="Show more">
+  <p>Panel content here.</p>
+</Collapsible>`}
+			svelte={`<script>
+  import { Collapsible } from '$lib/rizzo';
+</script>
+
+<Collapsible triggerLabel="Show more">
+  <p>Panel content here.</p>
+</Collapsible>`}
+			vanilla={`<div class="collapsible" data-collapsible id="my-collapsible">
+  <button type="button" class="collapsible__trigger" id="my-collapsible-trigger"
+    aria-expanded="false" aria-controls="my-collapsible-panel" data-collapsible-trigger>
+    <span class="collapsible__trigger-label">Show more</span>
+    <span class="collapsible__icon" aria-hidden="true">▼</span>
+  </button>
+  <div class="collapsible__panel" id="my-collapsible-panel" role="region"
+    aria-labelledby="my-collapsible-trigger" hidden data-collapsible-panel>
+    <div class="collapsible__panel-inner">
+      <p>Panel content here.</p>
+    </div>
+  </div>
+</div>
+<!-- Use the same JS as in the Astro component or your framework. -->`}
+		/>
+
+		<h3>Keyboard</h3>
+		<ul>
+			<li><kbd>Enter</kbd> or <kbd>Space</kbd> — Toggle the panel</li>
+		</ul>
+	</section>
+</DocsLayout>

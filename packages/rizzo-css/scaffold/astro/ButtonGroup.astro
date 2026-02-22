@@ -1,0 +1,16 @@
+---
+/**
+ * Group of buttons attached together (no gap). Matches shadcn-svelte Button Group.
+ */
+interface Props {
+	orientation?: 'horizontal' | 'vertical';
+	class?: string;
+}
+
+const { orientation = 'horizontal', class: className = '' } = Astro.props;
+const orientationClass = orientation === 'vertical' ? 'button-group--vertical' : '';
+---
+
+<div class={`button-group ${orientationClass} ${className}`.trim()} role="group">
+	<slot />
+</div>

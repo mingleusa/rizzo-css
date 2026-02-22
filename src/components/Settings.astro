@@ -32,7 +32,7 @@ const { open = false } = Astro.props;
       <section class="settings__section">
         <h3 class="settings__section-title">Theme</h3>
         <div class="settings__control">
-          <ThemeSwitcher />
+          <ThemeSwitcher idPrefix="settings" />
         </div>
       </section>
 
@@ -246,6 +246,10 @@ const { open = false } = Astro.props;
     // Open settings
     const openSettings = () => {
       previousActiveElement = document.activeElement;
+
+      const layoutContent = document.querySelector('[data-layout-content]');
+      if (layoutContent) layoutContent.setAttribute('inert', '');
+      document.body.style.overflow = 'hidden';
       
       // First, make elements visible but keep panel off-screen
       settings.setAttribute('aria-hidden', 'false');
@@ -280,7 +284,11 @@ const { open = false } = Astro.props;
         settings.setAttribute('aria-hidden', 'true');
         overlay?.setAttribute('aria-hidden', 'true');
         panel.setAttribute('aria-hidden', 'true');
-        
+
+        const layoutContent = document.querySelector('[data-layout-content]');
+        if (layoutContent) layoutContent.removeAttribute('inert');
+        document.body.style.overflow = '';
+
         // Return focus to previous element
         if (previousActiveElement) {
           previousActiveElement.focus();

@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="toggle-group">
+  <button type="button" class="toggle" aria-pressed="false">Left</button>
+  <button type="button" class="toggle toggle--pressed" aria-pressed="true">Center</button>
+  <button type="button" class="toggle" aria-pressed="false">Right</button>
+</div>
+
+<div class="toggle-group toggle-group--vertical" style="margin-top: 1rem;">
+  <button type="button" class="toggle">A</button>
+  <button type="button" class="toggle toggle--pressed" aria-pressed="true">B</button>
+</div>`;
+---
+
+<DocsLayout title="Toggle Group — Vanilla" description="Group of toggle buttons with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Toggle Group</h2>
+    <p>Group of toggles with no gap. Use <code>toggle-group</code>; add <code>toggle-group--vertical</code> for vertical. Wire single/multiple selection in JS if needed.</p>
+    <AddComponentTabs componentName="ToggleGroup" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="toggle-group">
+        <button type="button" class="toggle" aria-pressed="false">Left</button>
+        <button type="button" class="toggle toggle--pressed" aria-pressed="true">Center</button>
+        <button type="button" class="toggle" aria-pressed="false">Right</button>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/toggle-group">Astro</a> · <a href="/docs/svelte/components/toggle-group">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

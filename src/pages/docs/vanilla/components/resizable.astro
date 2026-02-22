@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Resizable: pane group + panes + handle; drag to resize via JS -->
+<div class="resizable__pane-group resizable__pane-group--horizontal" data-resizable-group data-direction="horizontal" style="max-width: 28rem; min-height: 200px; border: 1px solid var(--border); border-radius: var(--radius-lg);">
+  <div class="resizable__pane" data-resizable-pane style="flex: 1 1 50%;">Pane 1</div>
+  <div class="resizable__handle" data-resizable-handle></div>
+  <div class="resizable__pane" data-resizable-pane style="flex: 1 1 50%;">Pane 2</div>
+</div>`;
+---
+
+<DocsLayout title="Resizable — Vanilla" description="Resizable panel groups with vanilla HTML. Drag handle via JS.">
+  <section>
+    <h2>Resizable</h2>
+    <p>Use <code>resizable__pane-group</code> with <code>resizable__pane-group--horizontal</code> or <code>resizable__pane-group--vertical</code>. Children: <code>resizable__pane</code> (with <code>data-resizable-pane</code> and initial <code>flex: 1 1 X%</code>), <code>resizable__handle</code> (with <code>data-resizable-handle</code>). Wire mousedown/mousemove/mouseup on handle to resize.</p>
+    <AddComponentTabs componentName="Resizable" />
+    <div class="example">
+      <div class="example-title">Live example (structure; drag in Astro/Svelte)</div>
+      <div class="resizable__pane-group resizable__pane-group--horizontal" data-resizable-group data-direction="horizontal" style="max-width: 28rem; min-height: 10rem; border: 1px solid var(--border); border-radius: var(--radius-lg);">
+        <div class="resizable__pane" data-resizable-pane style="flex: 1 1 50%; display: flex; align-items: center; justify-content: center;">One</div>
+        <div class="resizable__handle" data-resizable-handle></div>
+        <div class="resizable__pane" data-resizable-pane style="flex: 1 1 50%; display: flex; align-items: center; justify-content: center;">Two</div>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/resizable">Astro</a> · <a href="/docs/svelte/components/resizable">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

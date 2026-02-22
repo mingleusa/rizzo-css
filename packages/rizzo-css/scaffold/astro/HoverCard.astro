@@ -1,0 +1,64 @@
+---
+/**
+ * Floating panel that opens on hover (with delay). Matches shadcn-svelte Hover Card.
+ */
+interface Props {
+	id?: string;
+	openDelay?: number;
+	closeDelay?: number;
+	class?: string;
+}
+
+const { id, openDelay = 200, closeDelay = 100, class: className = '' } = Astro.props;
+const hoverId = id || `hover-card-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class={`hover-card ${className}`.trim()} data-hover-card id={hoverId}>
+	<slot name="trigger" />
+	<div
+		class="hover-card__content"
+		role="dialog"
+		aria-hidden="true"
+		hidden
+		data-hover-card-content
+		id={`${hoverId}-content`}
+	>
+		<slot />
+	</div>
+</div>
+
+<script is:inline define:vars={{ hoverId, openDelay, closeDelay }}>
+(function () {
+	function init() {
+		const root = document.getElementById(hoverId);
+		if (!root) return;
+		const trigger = root.querySelector('[data-hover-card-trigger]');
+		const content = root.querySelector('[data-hover-card-content]');
+		if (!trigger || !content) return;
+		let openT = null;
+		let closeT = null;
+		const open = () => {
+			clearTimeout(closeT);
+			openT = setTimeout(() => {
+				content.hidden = false;
+				content.classList.add('hover-card__content--open');
+				content.setAttribute('aria-hidden', 'false');
+			}, openDelay);
+		};
+		const close = () => {
+			clearTimeout(openT);
+			closeT = setTimeout(() => {
+				content.classList.remove('hover-card__content--open');
+				content.hidden = true;
+				content.setAttribute('aria-hidden', 'true');
+			}, closeDelay);
+		};
+		trigger.addEventListener('mouseenter', open);
+		trigger.addEventListener('mouseleave', close);
+		content.addEventListener('mouseenter', open);
+		content.addEventListener('mouseleave', close);
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

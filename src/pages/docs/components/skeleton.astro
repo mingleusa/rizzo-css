@@ -1,0 +1,61 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Skeleton from '../../../components/Skeleton.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Skeleton Component — Astro" description="Accessible loading placeholder with shimmer animation">
+	<section>
+		<h2>Skeleton Component</h2>
+		<p>A loading placeholder that shows a shimmer animation while content is loading. Uses <code>role="status"</code> and <code>aria-label</code> (default: "Loading") for screen readers. Respects <code>prefers-reduced-motion</code>.</p>
+		<AddComponentTabs componentName="Skeleton" />
+		<h3>Props</h3>
+		<ul>
+			<li><code>variant</code> (string, optional) - <code>text</code>, <code>circle</code>, <code>rect</code>, <code>default</code> (default: default)</li>
+			<li><code>label</code> (string, optional) - Accessible label for screen readers (default: "Loading")</li>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Basic Usage</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Skeleton />
+		</div>
+		<FrameworkCodeTabs
+			astro={`---
+import Skeleton from '../components/rizzo/Skeleton.astro';
+---
+
+<Skeleton />`}
+			svelte={`<script>
+  import { Skeleton } from '$lib/rizzo';
+</script>
+
+<Skeleton />`}
+			vanilla={`<!-- Rizzo CSS -->
+<span class="skeleton" role="status" aria-label="Loading" aria-busy="true"></span>`}
+		/>
+
+		<h3>Variants</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div style="display: flex; flex-direction: column; gap: var(--spacing-4); max-width: 20rem;">
+				<Skeleton variant="text" />
+				<Skeleton variant="circle" style="width: 3rem; height: 3rem;" />
+				<Skeleton variant="rect" style="width: 100%;" />
+			</div>
+		</div>
+		<CodeBlock code={`<Skeleton variant="text" />
+<Skeleton variant="circle" />
+<Skeleton variant="rect" />`} language="astro" />
+
+		<h3>Accessibility</h3>
+		<ul>
+			<li><code>role="status"</code> and <code>aria-label</code> so screen readers announce loading state</li>
+			<li>Shimmer animation disabled when user prefers reduced motion</li>
+		</ul>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/skeleton">Svelte docs</a> · <a href="/docs/vanilla/components/skeleton">Vanilla docs</a></p>
+	</section>
+</DocsLayout>

@@ -1,0 +1,310 @@
+---
+import Layout from './Layout.astro';
+import BackToTop from '../components/BackToTop.astro';
+
+interface Props {
+  /** Page title (document title and h1) */
+  title: string;
+  /** Optional description below the title */
+  description?: string;
+  /** Document title for <title> (default: title + " — Blocks — Rizzo CSS") */
+  documentTitle?: string;
+  class?: string;
+}
+
+const { title, description, documentTitle, class: className = '' } = Astro.props;
+const currentPath = Astro.url.pathname;
+const docsClass = className ? `docs ${className}` : 'docs';
+
+const BLOCKS_NAV = [
+  { href: '/blocks', label: 'Overview' },
+  { href: '/blocks/dashboard-01', label: 'Dashboard with sidebar' },
+  { href: '/blocks/docs-layout', label: 'Docs layout with sidebar' },
+];
+---
+
+<Layout title={documentTitle ?? `${title} — Blocks — Rizzo CSS`} description={description}>
+  <div class={docsClass} data-docs>
+    <script is:inline>
+      (function(){var w=typeof window!=='undefined'?window.innerWidth:1025;if(w<=1024){document.documentElement.classList.add('docs-sidebar-mobile');}else{document.documentElement.classList.add('docs-sidebar-desktop');}})();
+    </script>
+    <div id="docs-sidebar-container">
+      <button
+        type="button"
+        class="docs__sidebar-toggle"
+        aria-label="Open blocks menu"
+        aria-expanded="false"
+        aria-controls="docs-sidebar"
+        data-docs-sidebar-toggle
+      >
+        <span class="docs__sidebar-toggle-icon" aria-hidden="true">
+          <span></span>
+          <span></span>
+          <span></span>
+        </span>
+        <span class="docs__sidebar-toggle-text">Blocks</span>
+      </button>
+      <div class="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true"></div>
+      <aside id="docs-sidebar" class="docs-sidebar" aria-label="Blocks navigation" tabindex="0">
+        <nav class="docs-sidebar__nav">
+          <div class="docs-sidebar__group">
+            <h2 class="docs-sidebar__group-label">Blocks</h2>
+            <ul class="docs-sidebar__list">
+              {BLOCKS_NAV.map((item) => {
+                const isActive = currentPath === item.href || (item.href !== '/blocks' && currentPath.startsWith(item.href));
+                return (
+                  <li class="docs-sidebar__item">
+                    <a
+                      href={item.href}
+                      class={`docs-sidebar__link ${isActive ? 'docs-sidebar__link--active' : ''}`}
+                      aria-current={isActive ? 'page' : undefined}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        </nav>
+      </aside>
+    </div>
+    <div class="docs__main">
+      <div class="docs__container">
+        <header class="docs__header">
+          <h1 class="docs__title">{title}</h1>
+          {description && <p class="docs__description">{description}</p>}
+        </header>
+        <div class="docs__content">
+          <slot />
+        </div>
+      </div>
+    </div>
+  </div>
+  <BackToTop threshold={300} />
+  <script>
+    (function () {
+      const container = document.getElementById('docs-sidebar-container');
+      if (!container) return;
+      const toggle = container.querySelector('[data-docs-sidebar-toggle]');
+      const overlay = container.querySelector('[data-docs-sidebar-overlay]');
+      const docs = document.querySelector('[data-docs]');
+      if (!toggle || !overlay || !docs) return;
+      function open() {
+        docs?.classList.add('docs--sidebar-open');
+        toggle?.setAttribute('aria-expanded', 'true');
+        overlay?.setAttribute('aria-hidden', 'false');
+      }
+      function close() {
+        docs?.classList.remove('docs--sidebar-open');
+        toggle?.setAttribute('aria-expanded', 'false');
+        overlay?.setAttribute('aria-hidden', 'true');
+      }
+      toggle.addEventListener('click', function () {
+        if (docs?.classList.contains('docs--sidebar-open')) close();
+        else open();
+      });
+      overlay.addEventListener('click', close);
+      if (document.documentElement.classList.contains('docs-sidebar-mobile')) {
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', function () { container.remove(); });
+        } else {
+          container.remove();
+        }
+      }
+    })();
+  </script>
+</Layout>
+<style>
+  .docs__container {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: var(--container-default);
+    margin: 0 auto;
+    padding: 0 var(--content-padding-x);
+  }
+
+  .docs__header {
+    margin-bottom: var(--section-spacing-lg);
+    padding-bottom: var(--spacing-8);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs__title {
+    font-size: var(--font-size-5xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--text);
+    margin: 0 0 var(--spacing-4) 0;
+    line-height: var(--line-height-tight);
+  }
+
+  .docs__description {
+    font-size: var(--font-size-xl);
+    color: var(--text);
+    margin: 0;
+    line-height: var(--line-height-relaxed);
+  }
+
+  .docs__content {
+    width: 100%;
+    min-width: 0;
+    color: var(--text);
+    line-height: var(--line-height-relaxed);
+  }
+
+  .docs__content :global(h2),
+  .docs__content :global(h3) {
+    scroll-margin-top: var(--scroll-margin-below-header);
+  }
+
+  .docs__content :global(h2) {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-bold);
+    margin-top: var(--section-spacing-lg);
+    margin-bottom: var(--spacing-6);
+    color: var(--text);
+    padding-bottom: var(--spacing-2);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs__content :global(h3) {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--spacing-8);
+    margin-bottom: var(--spacing-4);
+    color: var(--text);
+  }
+
+  .docs__content :global(h4) {
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    margin-top: var(--spacing-6);
+    margin-bottom: var(--spacing-3);
+    color: var(--text);
+  }
+
+  .docs__content :global(p) {
+    font-size: var(--font-size-base);
+    margin-bottom: var(--spacing-5);
+  }
+
+  .docs__content :global(ul),
+  .docs__content :global(ol) {
+    margin-bottom: var(--spacing-5);
+    padding-left: var(--spacing-8);
+  }
+
+  .docs__content :global(li) {
+    margin-bottom: var(--spacing-2);
+  }
+
+  .docs__content :global(code) {
+    background-color: var(--background-alt);
+    color: var(--accent-fg);
+    padding: var(--spacing-0-125) var(--spacing-0-375);
+    border-radius: var(--radius);
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-sm);
+  }
+
+  .docs__content :global(pre) {
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    overflow-x: auto;
+    margin-bottom: var(--spacing-6);
+    font-size: var(--font-size-sm);
+  }
+
+  .docs__content :global(pre code) {
+    background-color: transparent;
+    color: var(--text);
+    padding: 0;
+    font-size: inherit;
+  }
+
+  .docs__content :global(blockquote) {
+    border-left: var(--spacing-1) solid var(--accent);
+    padding-left: var(--spacing-6);
+    margin: var(--spacing-6) 0;
+    color: var(--text-dim);
+    font-style: italic;
+  }
+
+  .docs__content :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: var(--spacing-6);
+  }
+
+  .docs__content :global(th),
+  .docs__content :global(td) {
+    padding: var(--spacing-3);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .docs__content :global(th) {
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--background-alt);
+  }
+
+  .docs__content :global(a) {
+    color: var(--accent-fg);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    transition: color var(--transition-base);
+  }
+
+  .docs__content :global(a:hover) {
+    color: var(--accent-fg-hover);
+  }
+
+  /* Card-as-link: no underline by default (underline on hover only, see pages.css) */
+  .docs__content :global(.block-card-link),
+  .docs__content :global(.component-card-link) {
+    text-decoration: none;
+  }
+
+  .docs__content :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: var(--spacing-8) 0;
+  }
+
+  .docs__content :global(.example) {
+    background-color: var(--background-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-6);
+    margin: var(--spacing-6) 0;
+  }
+
+  .docs__content :global(.example-title) {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-4);
+  }
+
+  .docs__content :global(section) {
+    margin-bottom: var(--section-spacing-lg);
+  }
+
+  .docs__content :global(section:last-child) {
+    margin-bottom: 0;
+  }
+
+  @media (width <= 640px) {
+    .docs__title {
+      font-size: var(--font-size-4xl);
+    }
+    .docs__description {
+      font-size: var(--font-size-lg);
+    }
+  }
+</style>

@@ -325,8 +325,8 @@ ARIA and roles are asserted in `tests/a11y/aria.spec.mjs`. Real screen reader ou
 Run the full a11y suite: `pnpm test:a11y` (or `pnpm test:a11y:ci` in CI). This builds the site, starts the preview server, and runs:
 
 - **Axe (WCAG)** — `tests/a11y/docs.spec.mjs`: entire main site (home, docs, every component page for Astro/Vanilla/Svelte, all theme pages). WCAG 2/2.1 A & AA; critical/serious only. Route list is built from `FOUNDATION_ROUTES`, `COMPONENT_SLUGS`, `THEME_SLUGS` in that spec; add new routes there as needed.
-- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape), font switcher (Escape, focus return), accordion (Enter toggles), theme switcher (Escape, focus return), settings (trigger, Escape, focus return to trigger).
-- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal, dropdown, tabs, accordion, theme switcher, font switcher, footer, **settings** (dialog, aria-modal, aria-labelledby), **search** (dialog, aria-modal, aria-labelledby), **back to top** (button label), **tooltip** (trigger aria-describedby, tooltip role and id).
+- **Keyboard** — `tests/a11y/keyboard.spec.mjs`: Modal (Escape, focus trap/return), dropdown (Escape), tabs (arrows), search (trigger, Escape), font switcher (Escape, focus return), accordion (Enter toggles), theme switcher (Escape, focus return), settings (trigger, Escape, focus return to trigger), **alert dialog** (Escape closes, focus return to trigger), **sheet** (Escape closes, focus return to trigger).
+- **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal, dropdown, tabs, accordion, theme switcher, font switcher, footer, **settings** (dialog, aria-modal, aria-labelledby), **search** (dialog, aria-modal, aria-labelledby), **back to top** (button label), **tooltip** (trigger aria-describedby, tooltip role and id), **alert dialog** (role=alertdialog, aria-modal, aria-labelledby when open), **sheet** (role=dialog, aria-modal, aria-labelledby when open).
 - **Theme contrast** — `pnpm check:contrast`: verifies all themes meet WCAG AA (text/background and accent-text/accent ≥ 4.5:1). Run when adding or changing theme colors.
 - **Lint in build** — We use axe (WCAG 2/2.1 A & AA) in CI as the primary automated accessibility check. There is no eslint-plugin-jsx-a11y for Astro/Svelte in this repo; axe covers markup and roles. Add component-level a11y linting in your app if your stack supports it.
 
@@ -353,6 +353,10 @@ When implementing or porting a component (Astro, Svelte, or Vanilla), ensure it 
 | **CopyToClipboard** | Button `aria-label`; optional `aria-live` region for “Copied” feedback | Button focusable | — |
 | **Footer** | Landmark: `role="contentinfo"` or semantic `<footer>` | Links in tab order | — |
 | **Forms (Input, Checkbox, etc.)** | Label with `for`/`id` or `aria-label`; `aria-required`, `aria-invalid`, `aria-describedby` for errors | All controls in tab order | — |
+| **Alert Dialog** | `role="alertdialog"`, `aria-modal="true"`, `aria-labelledby` (title id), `aria-describedby` (description id) | Escape closes; actions focusable | Focus into dialog on open; return to trigger on close |
+| **Sheet (drawer)** | `role="dialog"`, `aria-modal="true"`, `aria-labelledby`; overlay inert when closed | Escape closes; close button focusable | Focus into sheet on open; trap; return to trigger on close |
+| **Slider** | `role="slider"` or native `<input type="range">` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow` | Arrows change value; Home/End to min/max | — |
+| **Toggle / Toggle Group** | Button `aria-pressed="true"` or `"false"` | Enter/Space toggles | — |
 
 Use this table when adding a new component or porting to another framework so Astro, Svelte, and Vanilla stay in sync.
 
@@ -386,7 +390,7 @@ Use this checklist for manual keyboard and screen reader testing. Run automated 
 
 | Component | What to test |
 |-----------|--------------|
-| **Navbar** | Skip link or main content first; nav items and dropdowns keyboard accessible; mobile menu open/close and focus trap. |
+| **Navbar** | Skip link or main content first; nav links and mobile menu keyboard accessible; mobile menu open/close and focus trap. |
 | **Docs Sidebar** | Nav landmark; group labels and links focusable in order; current page indicated (e.g. aria-current or visible active state); collapse/expand if present. |
 | **Footer** | Landmark (role="contentinfo" or semantic footer); links focusable with clear names; no interactive traps. |
 | **Pagination, Breadcrumb, Buttons, Badge, Card, Table** | Links/buttons focusable with clear names; table headers associated if sortable. |

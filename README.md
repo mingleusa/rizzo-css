@@ -18,7 +18,7 @@
 
 *Run `npx rizzo-css help` to see this in the CLI.*
 
-[![npm](https://img.shields.io/badge/npm-0.0.54-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.55-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -42,7 +42,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 34 accessible, themeable components (29 doc pages; Astro reference + Svelte examples)
+- 📦 **Comprehensive Components** - 56+ accessible, themeable components (Astro reference + Svelte + Vanilla docs)
 - 🔀 **Multi-framework** - **Vanilla JS**, Astro, and Svelte supported with the same CSS and component styles; CLI offers all three (Vanilla JS = yellow, Astro = orange, Svelte = orange-red). All scaffolds include theme persistence (localStorage key `theme`, System option) and global toast (`showToast`, `removeToast`, `removeAllToasts`); Vanilla scaffold also includes a full Settings panel (`openSettings()`). Framework switcher on docs (View as: Astro | Svelte | Vanilla). Svelte docs at [/docs/svelte](/docs/svelte); Vanilla docs at [/docs/vanilla/components](/docs/vanilla/components) with copy-paste HTML, optional JS, and live demos
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
@@ -66,9 +66,9 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 ## 🚀 Getting Started
 
-**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. Both use the **same template choice**: **Minimal** (CSS + RIZZO-SETUP.md), **Starter** (same + minimal index/layout if missing), or **Full** (34 components or pick). We never overwrite; snippets go in RIZZO-SETUP.md. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte --template minimal|starter|full` or `npx rizzo-css add --template minimal|starter|full`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). To run the CLI: use the [docs site](https://rizzo-css.vercel.app/docs/getting-started) package manager tabs (npm, pnpm, yarn, bun)—the **yarn** tab shows `npx` so it works with Yarn 1 and 2+. Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
+**Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, or Svelte), then **add to existing** or **create new**. Both use the **same template choice**: **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), or **Full** (clone of the docs site). We never overwrite; snippets go in RIZZO-SETUP.md. Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte --template landing|docs|dashboard|full` or `npx rizzo-css add --template landing|docs|dashboard|full`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). To run the CLI: use the [docs site](https://rizzo-css.vercel.app/docs/getting-started) package manager tabs (npm, pnpm, yarn, bun)—the **yarn** tab shows `npx` so it works with Yarn 1 and 2+. Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React/Vue: same CSS; wrappers planned.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla, astro-core, svelte-core, plus astro/ and svelte/ component templates). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **Minimal**, **Starter**, or **Full**. Full = component picker (all 34 or pick); dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all three.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla; astro/base + astro/variants + astro components; svelte/base + svelte/variants + svelte components). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all 56 or pick); Full = site clone. Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all three.
 
 ### Prerequisites
 
@@ -154,7 +154,7 @@ See [Theming Documentation](./docs/THEMING.md) for details.
 ### Components
 
 Accessible, themeable components:
-- **Navbar** - Responsive navigation with dropdown menus, search, and settings button. Default Cat logo in the brand link (optional `logo` prop for custom image). **Docs** dropdown shows Introduction and Foundations (Getting Started, Design System, Theming, Accessibility, Colors). **Components** dropdown has Overview plus three columns of component links. Theming is under Docs (no separate Themes nav item). Mobile: full docs structure in the Docs dropdown; menu toggle, search, and settings with smooth transitions
+- **Navbar** - Responsive navigation with **flat links** (no dropdowns): **Docs** | **Components** | **Blocks** | **Themes** | **Colors**. Logo links to home; Search and Settings in the desktop actions area. Default Cat logo in the brand link (optional `logo` prop for custom image). Mobile: hamburger menu with the same top-level links; menu toggle, search, and settings with smooth transitions
 - **Settings** - Settings panel with theme switcher, font size, font pair switcher (same UI as theme: trigger + menu + preview; six pairs: Geist, Inter + JetBrains Mono, IBM Plex Sans + Mono, Source Sans 3 + Source Code Pro, DM Sans + DM Mono, Outfit + JetBrains Mono), and accessibility options (reduce motion, high contrast, scrollbar style). All settings persist in localStorage. Close button (X) bordered and visible on hover. Opening/closing animations, mobile responsive
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. All theme switchers (Settings, docs) use the same full-width trigger and dropdown.
 - **Button** - Semantic button component with variants using theme variables
@@ -188,11 +188,11 @@ See [Components Documentation](./docs/COMPONENTS.md) for usage examples.
 
 **Live site:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 
-Comprehensive documentation is in the `docs/` directory and on the live site. **Site nav:** Home | Docs (Introduction, Foundations) | Components. Theming is under Docs → Foundations.
+Comprehensive documentation is in the `docs/` directory and on the live site. **Site nav:** **Docs** | **Components** | **Blocks** | **Themes** | **Colors** (flat links; logo links to home). Docs sidebar: Introduction, Foundations, Components. Blocks: pre-built layouts at `/blocks`.
 
 - [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
-- [Components](./docs/COMPONENTS.md) - Component library and usage (34 components)
+- [Components](./docs/COMPONENTS.md) - Component library and usage (56+ components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes (also linked under Docs → Foundations on the site)
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines, utility classes, best practices, and manual accessibility testing (keyboard, screen reader, tools)

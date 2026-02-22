@@ -4,7 +4,18 @@ import ThemeSwitcher from '../../components/ThemeSwitcher.astro';
 import ThemeIcon from '../../components/ThemeIcon.astro';
 import Card from '../../components/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import Dropdown from '../../components/Dropdown.astro';
 import { THEMES_DARK, THEMES_LIGHT } from '../../config/themes';
+
+const THEMING_PAGE_DROPDOWN_ONCLICK = 'themingPageThemeSelect';
+
+const themeDropdownItems = [
+  { label: 'System', value: 'system', onClick: THEMING_PAGE_DROPDOWN_ONCLICK },
+  { label: '', separator: true },
+  ...THEMES_DARK.map((t) => ({ label: t.label, value: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
+  { label: '', separator: true },
+  ...THEMES_LIGHT.map((t) => ({ label: t.label, value: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
+];
 
 const themeCardContent: Record<string, { description: string; author: string }> = {
   'github-dark-classic': { description: 'Official GitHub dark theme for VS Code', author: 'Primer (GitHub)' },
@@ -25,13 +36,25 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 ---
 
 <DocsLayout title="Theming System" description="Theme system, custom themes, and color format guide" class="theming-page">
-	<section>
-		<h2 id="available-themes">Available Themes</h2>
-		<p>Rizzo CSS includes 14 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
+	<section class="theming-page__hero">
+		<h2 id="available-themes" class="theming-page__hero-title">Available Themes</h2>
+		<p class="theming-page__hero-subtitle">Rizzo CSS includes 14 carefully crafted themes organized into light and dark categories. Each theme has its own dedicated page with detailed information, color palettes, and usage examples. Click on any theme card below to learn more about it.</p>
 		
-		<div class="example">
+		<div class="example theming-page__hero-demo">
 			<div class="example-title">Try Themes</div>
-			<ThemeSwitcher />
+			<div class="theming-page__mobile-dropdown">
+				<Dropdown
+					id="theming-page-theme-dropdown"
+					trigger="Theme"
+					items={themeDropdownItems}
+					class="theming-page__mobile-dropdown-inner"
+					position="left"
+					align="start"
+				/>
+			</div>
+			<div class="theming-page__hero-switcher">
+				<ThemeSwitcher idPrefix="page" />
+			</div>
 		</div>
 	</section>
 	
@@ -45,7 +68,7 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 						<div class="card__body">
 							<div class="theming-page__card-header">
 								<ThemeIcon themeId={theme.value} size={24} />
-								<h3 style="margin: 0;"><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
+								<h3><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
 							</div>
 							{content && <p class="theming-page__card-desc">{content.description}</p>}
 							{content && <p class="theming-page__card-meta"><strong>Author:</strong> {content.author}</p>}
@@ -67,7 +90,7 @@ const themeCardContent: Record<string, { description: string; author: string }> 
 						<div class="card__body">
 							<div class="theming-page__card-header">
 								<ThemeIcon themeId={theme.value} size={24} />
-								<h3 style="margin: 0;"><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
+								<h3><a href={`/docs/themes/${theme.value}`}>{theme.label}</a></h3>
 							</div>
 							{content && <p class="theming-page__card-desc">{content.description}</p>}
 							{content && <p class="theming-page__card-meta"><strong>Author:</strong> {content.author}</p>}
@@ -207,30 +230,32 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 	</section>
 </DocsLayout>
 
-<style>
-	.theming-page__grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-		gap: 1.5rem;
-		margin: 2rem 0;
-	}
-	.theming-page__card-header {
-		display: flex;
-		align-items: center;
-		gap: 0.75rem;
-		margin-bottom: 0.75rem;
-	}
-	.theming-page__card-desc {
-		margin: 0 0 var(--spacing-2) 0;
-		color: var(--text-dim);
-		font-size: var(--font-size-sm);
-	}
-	.theming-page__card-meta {
-		margin: 0;
-		font-size: var(--font-size-xs);
-		color: var(--text-dim);
-	}
-	.theming-page__card-meta:last-of-type {
-		margin-top: var(--spacing-1);
-	}
-</style>
+<script>
+  import { applyTheme, getStoredTheme, getThemeLabel, THEME_SYSTEM } from '../../utils/theme';
+
+  function syncThemingPageDropdownLabel() {
+    const triggerText = document.querySelector('.theming-page__mobile-dropdown .dropdown__trigger-text');
+    if (triggerText) {
+      const stored = getStoredTheme();
+      triggerText.textContent = stored === THEME_SYSTEM ? 'System' : getThemeLabel(stored || '');
+    }
+  }
+
+  (window as unknown as { themingPageThemeSelect?: (value: string) => void }).themingPageThemeSelect = (value: string) => {
+    if (value) {
+      applyTheme(value);
+      syncThemingPageDropdownLabel();
+    }
+  };
+
+  function initThemingPageMobileDropdown() {
+    syncThemingPageDropdownLabel();
+    window.addEventListener('rizzo-theme-change', syncThemingPageDropdownLabel);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initThemingPageMobileDropdown);
+  } else {
+    initThemingPageMobileDropdown();
+  }
+</script>

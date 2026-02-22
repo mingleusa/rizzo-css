@@ -1,0 +1,62 @@
+---
+/**
+ * Floating panel triggered by a button. Matches shadcn-svelte Popover.
+ */
+interface Props {
+	id?: string;
+	open?: boolean;
+	class?: string;
+}
+
+const { id, open = false, class: className = '' } = Astro.props;
+const popoverId = id || `popover-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div class={`popover ${className}`.trim()} data-popover id={popoverId}>
+	<slot name="trigger" />
+	<div
+		class={`popover__content ${open ? 'popover__content--open' : ''}`.trim()}
+		role="dialog"
+		aria-modal="false"
+		aria-hidden={!open}
+		hidden={!open}
+		data-popover-content
+		id={`${popoverId}-content`}
+	>
+		<slot />
+	</div>
+</div>
+
+<script is:inline define:vars={{ popoverId, open }}>
+(function () {
+	function init() {
+		const root = document.getElementById(popoverId);
+		if (!root) return;
+		const trigger = root.querySelector('[data-popover-trigger]');
+		const content = root.querySelector('[data-popover-content]');
+		if (!trigger || !content) return;
+		const close = () => {
+			content.classList.remove('popover__content--open');
+			content.hidden = true;
+			content.setAttribute('aria-hidden', 'true');
+		};
+		const toggle = () => {
+			const isOpen = !content.hidden;
+			if (isOpen) close();
+			else {
+				content.hidden = false;
+				content.classList.add('popover__content--open');
+				content.setAttribute('aria-hidden', 'false');
+			}
+		};
+		trigger.addEventListener('click', (e) => { e.preventDefault(); toggle(); });
+		document.addEventListener('click', (e) => {
+			if (!root.contains(e.target)) close();
+		});
+		content.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+		if (open) toggle();
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

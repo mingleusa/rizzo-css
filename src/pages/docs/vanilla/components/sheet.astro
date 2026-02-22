@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Sheet: overlay + content; open/close via JS (e.g. openSheet_id). side: top | right | bottom | left -->
+<div class="sheet" id="my-sheet" data-sheet data-side="right" hidden>
+  <div class="sheet__overlay" data-sheet-overlay></div>
+  <div class="sheet__content">
+    <div class="sheet__header">
+      <h2 class="sheet__title">Title</h2>
+      <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+    </div>
+    <div class="sheet__body">Content</div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Sheet — Vanilla" description="Slide-out panel (drawer) with vanilla HTML. Open/close via JS.">
+  <section>
+    <h2>Sheet</h2>
+    <p>Drawer from top/right/bottom/left. Use <code>sheet__overlay</code>, <code>sheet__content</code>, <code>sheet__header</code>, <code>sheet__title</code>, <code>sheet__close</code>, <code>sheet__body</code>. Set <code>data-side="right"</code> (or top/bottom/left). Wire open/close in JS.</p>
+    <AddComponentTabs componentName="Sheet" />
+    <div class="example">
+      <div class="example-title">Structure (open via JS)</div>
+      <p>Use Astro or Svelte component for full behavior, or wire your own script.</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/sheet">Astro</a> · <a href="/docs/svelte/components/sheet">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

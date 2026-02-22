@@ -1,0 +1,16 @@
+---
+/**
+ * Drag handle between two ResizablePanes. Use withHandle for a visible handle grip.
+ */
+interface Props {
+	withHandle?: boolean;
+	class?: string;
+}
+
+const { withHandle = false, class: className = '' } = Astro.props;
+---
+
+<div
+	class={`resizable__handle ${withHandle ? 'resizable__handle--with-handle' : ''} ${className}`.trim()}
+	data-resizable-handle
+></div>

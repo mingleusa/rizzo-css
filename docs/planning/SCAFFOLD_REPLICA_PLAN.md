@@ -11,11 +11,11 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 - **scaffold/vanilla/** — Full Vanilla HTML + CSS. Built by `copy-scaffold.js` (base + icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`). Includes `index.html`, `js/main.js`, `css/`, `icons/`, README-RIZZO.md, LICENSE-RIZZO, .gitignore. Used when template is **Full**.
 - **scaffold/astro-core/** — Astro base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .gitignore, .env.example). Fonts go in `public/assets/fonts/` (CLI rewrites CSS URLs). Used when template is **Full**.
 - **scaffold/svelte-core/** — SvelteKit base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .gitignore, .env.example). Used when template is **Full**.
-- **scaffold/astro/** — 34 Astro component files (Button, Badge, Card, etc.) for copy into a project.
+- **scaffold/astro/** — 56 Astro component files (Button, Badge, Card, etc.) for copy into a project.
 - **scaffold/utils/** — Theme utilities (`theme.ts`) used by ThemeSwitcher; ThemeSwitcher.astro imports `../utils/theme`. CLI copies this into the project as `src/components/utils/theme.ts` when adding ThemeSwitcher or ThemeIcon.
-- **scaffold/svelte/** — 34 Svelte component files for copy into a project.
+- **scaffold/svelte/** — 56 Svelte component files for copy into a project.
 
-**CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. Init → framework → add to existing or create new (same template choice: Minimal | Starter | Full). Create new → **Minimal**, **Starter**, or **Full** (Full picker has all 34 pre-selected). Add to existing → same template choice. `npx rizzo-css add` = same as add to existing.
+**CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. Init → framework → add to existing or create new (same template choice: Landing | Docs | Dashboard | Full). Create new → **Landing**, **Docs**, **Dashboard**, or **Full** (Full = site clone; Landing/Docs/Dashboard picker has all 56 or pick). Add to existing → same template choice. `npx rizzo-css add` = same as add to existing.
 
 ## Build and publish
 
@@ -33,7 +33,7 @@ scaffold/vanilla/
 │   ├── index.html
 │   ├── accordion.html
 │   ├── button.html
-│   └── ...        # 34 component pages (navbar, settings, theme-switcher, button, etc.)
+│   └── ...        # 56 component pages (navbar, settings, theme-switcher, button, etc.)
 ├── css/
 ├── js/
 │   └── main.js

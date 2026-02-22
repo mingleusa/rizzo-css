@@ -21,7 +21,7 @@ const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main nav
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
     <div class="navbar__menu" id="navbar-menu" role="menu" hidden>
-      <!-- Links and dropdowns; see Astro Navbar for full structure -->
+      <!-- Nav links (Docs, Components, Blocks, Themes, Colors); see Astro Navbar for full structure -->
     </div>
   </div>
 </nav>`;
@@ -30,13 +30,13 @@ const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main nav
 <DocsLayout title="Navbar — Vanilla" description="Navbar structure with vanilla HTML. See Astro docs for full markup.">
   <section>
     <h2>Navbar</h2>
-    <p>Responsive, accessible navigation bar. Use the same BEM classes and structure in your HTML. For full markup and variants (including integrated settings, dropdowns, and mobile menu), copy from the Astro component docs.</p>
+    <p>Responsive, accessible navigation bar. Use the same BEM classes and structure in your HTML. For full markup and variants (including integrated settings and mobile menu), copy from the Astro component docs.</p>
     <AddComponentTabs componentName="Navbar" />
     <h3>HTML (minimal structure)</h3>
     <p>Copy the markup below as a starting point. Ensure Rizzo CSS is loaded. Wire search and settings with your own JS or use <code>window.openSettings()</code> if your layout provides it.</p>
     <CodeBlock code={copyableHtml} language="html" />
 
-    <p><a href="/docs/components/navbar">View <strong>Navbar</strong> on the Astro docs</a> for complete markup, dropdowns, and structure.</p>
+    <p><a href="/docs/components/navbar">View <strong>Navbar</strong> on the Astro docs</a> for complete markup and structure.</p>
     <p><strong>Astro / Svelte:</strong> <a href="/docs/components/navbar">Astro</a> · <a href="/docs/svelte/components/navbar">Svelte</a></p>
     <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
   </section>

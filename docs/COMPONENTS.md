@@ -2,7 +2,7 @@
 
 Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
 
-**Package:** Scaffolds: vanilla, astro-core, svelte-core, plus `scaffold/astro/`, `scaffold/config/` (font pairs for Settings), `scaffold/utils/` (theme for ThemeSwitcher), and `scaffold/svelte/` (34 components including BackToTop, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects). **Create new** → **Minimal** (CSS + RIZZO-SETUP.md), **Starter** (same + minimal index/layout only if missing), or **Full** (all or pick 34 components; we never overwrite — snippets in RIZZO-SETUP.md). **Add to existing** → same template choice (Minimal | Starter | Full); Full = CSS + component picker (all 34 or pick). Dependencies are auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Run `npx rizzo-css help components` for the full list. [GETTING_STARTED](./GETTING_STARTED.md) for setup.
+**Package:** Scaffolds: vanilla; astro/base + variants; svelte/base + variants; plus `scaffold/config/`, `scaffold/utils/`, and **all 56 components** (BackToTop, Dashboard, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects, Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). **Templates:** **Landing** | **Docs** | **Dashboard** | **Full** (Full = site clone; others = all 56 or pick). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). `npx rizzo-css help components` for the list. [GETTING_STARTED](./GETTING_STARTED.md). **Blocks:** [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout); see [Blocks](/blocks).
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
@@ -12,7 +12,7 @@ See [Getting Started](./GETTING_STARTED.md) for full setup.
 
 ## Component Pages
 
-All components are listed in alphabetical order (sidebar, nav menu, and components page use the same order).
+The [Components overview](/docs/components) groups components by category (Layout, Forms & inputs, Data display, Feedback, Overlay, Navigation, Disclosure, Other). The sidebar and nav use the same order. Alphabetical list:
 
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
@@ -22,6 +22,7 @@ All components are listed in alphabetical order (sidebar, nav menu, and componen
 - [Button](/docs/components/button) - Semantic button component
 - [Cards](/docs/components/cards) - Flexible card component
 - [Copy to Clipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
+- [Dashboard](/docs/components/dashboard) - Layout with sidebar and main content area for app dashboards; see [Dashboard block](/blocks/dashboard-01)
 - [Docs Sidebar](/docs/components/docs-sidebar) - Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state; used in docs layout with optional toggle and overlay on mobile
 - [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
@@ -33,10 +34,12 @@ All components are listed in alphabetical order (sidebar, nav menu, and componen
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
 - [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, ellipsis
 - [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, label, and indeterminate state
-- [Search](/docs/components/search) - Search component with Algolia integration on the docs site; scaffold Search (package) has full overlay UI: header with search icon, input, close button, and example result links for users to edit. Trigger shows search icon (and Cmd+K on docs). Keyboard and click-outside to close.
+- [Search](/docs/components/search) - Search component with Algolia on docs site; scaffold has overlay UI, keyboard and click-outside to close.
 - [Settings](/docs/components/settings) - Comprehensive settings panel
-- [Sound Effects](/docs/components/sound-effects) - Toggle for "Play sound on click" (Web Audio); off by default for accessibility; persists in localStorage
+- [Skeleton](/docs/components/skeleton) - Placeholder loading state
+- [Sound Effects](/docs/components/sound-effects) - Toggle for "Play sound on click" (Web Audio); off by default; persists in localStorage
 - [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
+- [Switch](/docs/components/switch) - Toggle control (on/off)
 - [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
 - [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
@@ -50,15 +53,18 @@ All components are listed in alphabetical order (sidebar, nav menu, and componen
 
 All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
 
-**Navigation & layout:** Accordion, Breadcrumb, Navbar, Pagination, Tabs, Divider, Footer, Table, Back to Top  
-**Forms & input:** Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), CopyToClipboard  
-**Feedback & overlay:** Alert, Modal, Toast, Tooltip, Spinner, Progress Bar  
-**Display:** Button, Badge, Cards, Avatar, Icons  
-**Theme & settings:** Theme Switcher, Theme Icon, Font Switcher, Sound Effects, Settings  
+**Layout:** Navbar, Docs Sidebar, Dashboard, Footer  
+**Forms & input:** Button, Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), Divider  
+**Data display:** Cards, Table, Badge, Pagination  
+**Feedback:** Alert, Spinner, Progress Bar, Skeleton, Switch, Toast  
+**Overlay:** Modal, Dropdown, Tooltip  
+**Navigation:** Breadcrumb, Back to Top  
+**Disclosure:** Accordion, Tabs  
+**Other:** Avatar, Copy to Clipboard, Theme Switcher, Font Switcher, Settings, Search, Icons, Sound Effects  
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 
-(29 component doc pages on the site; the CLI/scaffold offers 34 copyable components — form controls like Input, Checkbox, Textarea, Select, Radio are separate component names but share the Forms doc page.)
+(All components in CLI and scaffold; component doc pages — some share a page e.g. Forms.) **Blocks** at [Blocks](/blocks): [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout).
 
 ## Component Features
 
@@ -90,14 +96,15 @@ Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") at the top 
 
 To add a new component to the docs site and (optionally) the CLI/scaffold:
 
-1. **Navbar** — Add an entry to `componentsMenu.links` in `src/components/Navbar.astro` (e.g. `{ href: componentHref('/docs/components/my-component'), label: 'My Component' }`). The Components dropdown is 3 columns; new links are distributed automatically.
+1. **Navbar** — Add an entry to `navLinks` in `src/components/Navbar.astro` (e.g. `{ href: componentHref('/docs/components/my-component'), label: 'My Component' }`). The navbar uses flat links (no dropdowns); new items appear in the main nav and in the mobile menu.
 2. **Astro doc page** — Create `src/pages/docs/components/<slug>.astro` with the same structure as existing pages (title, description, AddComponentTabs, Features, Usage, FrameworkCodeTabs, Props). Use the same BEM classes and patterns as other components. **AddComponentTabs** and **Usage** (FrameworkCodeTabs) share the same box styling; Usage tabs use the existing theme-aware icon components (Astro, Svelte, JavaScript for Vanilla)—no custom SVG assets.
 3. **COMPONENTS.md** — Add a bullet to the Component Pages list and to the appropriate category under "Implemented Components".
 4. **CLI / scaffold (if shipping)** — Register the component in `packages/rizzo-css/bin/rizzo-css.js` (e.g. component list, copy paths, dependencies). Add scaffold files under `packages/rizzo-css/scaffold/vanilla/components/<slug>.html`, `scaffold/astro/`, and `scaffold/svelte/` as needed. Run `npx rizzo-css help components` to confirm.
 5. **Svelte / Vanilla docs (optional)** — Add a Svelte doc page under `src/components/svelte/docs/pages/` and route in `src/pages/docs/svelte/[...slug].astro`; add or update Vanilla page under `src/pages/docs/vanilla/components/<slug>.astro`.
-6. **Search** — Add an entry to the Algolia index or the static search data in `src/components/Search.astro` so the component appears in Cmd+K search.
+6. **Search** — Add an entry to the Algolia index or the static search data in `src/components/Search.astro` so the component appears in Cmd+K search. Run `node scripts/index-docs.js` (with Algolia env vars) to push updates; `componentPages` and `blockPages` in that script drive indexed component/block URLs.
+7. **Tests** — If the component has an Astro doc page, add it to `tests/a11y/docs.spec.mjs`: use `COMPONENT_SLUGS` only if Vanilla and Svelte pages exist too; otherwise add the path to `ASTRO_ONLY_COMPONENT_ROUTES`. For new blocks add to `BLOCK_ROUTES`.
 
-Keep the Navbar components list, doc pages, COMPONENTS.md, and CLI in sync so the site and package stay consistent.
+Keep the Navbar components list, doc pages, COMPONENTS.md, CLI, a11y route lists, and search index in sync so the site and package stay consistent. **Blocks:** Add block pages under `src/pages/blocks/` using `BlocksLayout`; link from the [Blocks overview](/blocks). The Navbar has a single **Blocks** link to `/blocks`; block sub-pages are reached via the Blocks layout sidebar or the overview. Add new block routes to `scripts/index-docs.js` (`blockPages`) and `tests/a11y/docs.spec.mjs` (`BLOCK_ROUTES`).
 
 ## Accordion
 
@@ -152,8 +159,8 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 
 <Breadcrumb
   items={[
-    { label: 'Home', href: '/' },
     { label: 'Docs', href: '/docs' },
+    { label: 'Components', href: '/docs/components' },
     { label: 'Current Page' },
   ]}
 />
@@ -420,19 +427,15 @@ import Navbar from '../components/Navbar.astro';
 
 ### Features
 
-- **Desktop**: Search and settings on far right, dropdown menus with smart alignment
-  - **Docs dropdown** - Introduction and Foundations only (Getting Started, Design System, Theming, Accessibility, Colors). Theming is under Docs; there is no separate Themes item in the main nav.
-  - **Components dropdown** - Full-width Overview link at the top, then three columns of component links
-  - Smart dropdown positioning - Automatically adjusts to prevent overflow
-- **Mobile**: 
+- **Desktop**: Search and settings on far right; **flat nav links** (Docs, Components, Blocks, Themes, Colors). No dropdowns; each item is a direct link to its section.
+- **Mobile**:
   - Mobile menu toggle positioned on the left (after logo/brand)
   - Search and settings on the right: **icon-only** (no labels), same size as menu toggle for a compact, responsive bar
-  - Responsive mobile menu (activates at 1024px and below) with full-width layout; when open, uses **fixed positioning** and stacks **above site content** (z-index)
-  - Increased vertical spacing for better readability, especially in dropdown menus
+  - Responsive mobile menu (activates at 1024px and below) with full-width layout; when open, uses **fixed positioning** and stacks **above site content** (z-index). Menu shows the same top-level links (Docs, Components, Blocks, Themes, Colors).
+  - Increased vertical spacing for link rows
   - Smooth hamburger-to-X animation and menu open/close transitions
-  - Dropdown toggles use **buttons** (not links) for accessibility and valid markup
-- Active link indicator with underline
-- Dropdown menus with sub-links and keyboard navigation
+- Active link indicator (current page)
+- Full keyboard navigation for nav links and mobile menu
 - Full-width border (100% width; avoids horizontal overflow on mobile)
 - Settings button opens Settings panel
 - Sticky positioning at top
@@ -529,7 +532,7 @@ Font pair (sans + mono) dropdown used in the Settings panel and standalone. Sets
 
 ## Sound Effects
 
-Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** only on links, buttons, and other interactive elements (throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script loads `/assets/sfx/click.mp3` then `/assets/sfx/click.wav`; if neither is found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
+Checkbox that toggles “Play sound on click”. When enabled, a short click sound plays on **primary (left) clicks** on every clickable element: links, buttons, tabs, copy-to-clipboard, sidebar toggle, component/block cards, and other interactive UI (add `data-sound-on-click` for custom controls; throttled so one interaction doesn’t play twice). **Off by default** for accessibility. Persists in `localStorage` (key `soundEffects`). The layout script loads `/assets/sfx/click.mp3` then `/assets/sfx/click.wav`; if neither is found, a Web Audio tone is used. The component is a single checkbox with `[data-sound-effects]`; the actual sound is played by a global script in the layout (e.g. `Layout.astro`). Use standalone or inside Settings. See [Sound Effects](/docs/components/sound-effects).
 
 ## Back to Top
 

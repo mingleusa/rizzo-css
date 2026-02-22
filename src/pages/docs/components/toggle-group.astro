@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import ToggleGroup from '../../../components/ToggleGroup.astro';
+import Toggle from '../../../components/Toggle.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Toggle Group" description="Group of toggle buttons (single or multiple selection). Matches shadcn-svelte Toggle Group.">
+	<section>
+		<h2>Toggle Group</h2>
+		<p>Props: <code>type</code> (single|multiple), <code>orientation</code> (horizontal|vertical). Put <code>Toggle</code> components inside.</p>
+		<AddComponentTabs componentName="ToggleGroup" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<ToggleGroup type="single">
+				<Toggle ariaLabel="Left">Left</Toggle>
+				<Toggle pressed ariaLabel="Center">Center</Toggle>
+				<Toggle ariaLabel="Right">Right</Toggle>
+			</ToggleGroup>
+		</div>
+	</section>
+</DocsLayout>

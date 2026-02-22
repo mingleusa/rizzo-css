@@ -1,0 +1,107 @@
+---
+import BlocksLayout from '../../layouts/BlocksLayout.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<BlocksLayout
+	title="Docs layout with sidebar"
+	description="Documentation-style layout with a collapsible sidebar and main content area. Use with the Docs scaffold variation."
+	documentTitle="Docs layout with sidebar — Blocks — Rizzo CSS"
+>
+	<section>
+			<p>This block is the <strong>docs layout</strong> pattern: a sidebar for navigation and a main content area. The Rizzo docs site uses this layout. When you scaffold with the Docs variation, you get the same structure—sidebar, header, and content container—using Rizzo tokens and BEM-style classes (<code>docs__sidebar</code>, <code>docs__main</code>, etc.).</p>
+		</section>
+
+		<section>
+			<h2 id="preview">Structure</h2>
+			<p class="docs-dim">Conceptually, the layout looks like this:</p>
+			<div class="block-preview-wrapper block-preview-wrapper--docs">
+				<div class="docs-layout-demo">
+					<aside class="docs-layout-demo__sidebar" aria-label="Documentation navigation">
+						<nav class="docs-layout-demo__nav">
+							<a href="#" class="docs-layout-demo__nav-link docs-layout-demo__nav-link--active">Introduction</a>
+							<a href="#" class="docs-layout-demo__nav-link">Foundations</a>
+							<a href="#" class="docs-layout-demo__nav-link">Components</a>
+							<a href="/blocks" class="docs-layout-demo__nav-link">Blocks</a>
+						</nav>
+					</aside>
+					<main class="docs-layout-demo__main">
+						<header class="docs-layout-demo__header">
+							<h1 class="docs-layout-demo__title">Page title</h1>
+							<p class="docs-layout-demo__desc">Optional description.</p>
+						</header>
+						<div class="docs-layout-demo__content">
+							<p>Main content goes here. Use Rizzo typography and spacing tokens. On small screens the sidebar can collapse behind a toggle.</p>
+						</div>
+					</main>
+				</div>
+			</div>
+		</section>
+
+		<section>
+			<h2 id="scaffold">Get this block via CLI</h2>
+			<p>Scaffold a new project with the Docs variation (Astro or Svelte):</p>
+			<CodeBlock code="npx rizzo-css init --framework astro --template docs --yes" language="bash" />
+			<p>Or add to an existing project:</p>
+			<CodeBlock code="npx rizzo-css add --framework astro --template docs" language="bash" />
+		</section>
+
+		<section>
+			<h2>What you get</h2>
+			<ul>
+				<li>Sidebar with nav links (and optional subsections)</li>
+				<li>Main content area with header (title + description) and content container</li>
+				<li>Mobile-friendly sidebar toggle and overlay</li>
+				<li>Rizzo design tokens and BEM classes for theming</li>
+			</ul>
+		</section>
+</BlocksLayout>
+
+<style>
+	.block-preview-wrapper {
+		margin: var(--spacing-6) 0;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+	.block-preview-wrapper--docs { min-height: 16rem; }
+	.docs-layout-demo {
+		display: flex;
+		min-height: 16rem;
+	}
+	.docs-layout-demo__sidebar {
+		width: 12rem;
+		flex-shrink: 0;
+		border-right: 1px solid var(--border);
+		padding: var(--spacing-4);
+		background: var(--background-alt);
+	}
+	.docs-layout-demo__nav {
+		display: flex;
+		flex-direction: column;
+		gap: var(--spacing-1);
+	}
+	.docs-layout-demo__nav-link {
+		display: block;
+		padding: var(--spacing-2) var(--spacing-3);
+		border-radius: var(--radius-md);
+		color: var(--text);
+		text-decoration: none;
+		font-size: var(--font-size-sm);
+	}
+	.docs-layout-demo__nav-link:hover { background: var(--background); }
+	.docs-layout-demo__nav-link--active {
+		background: var(--accent);
+		color: var(--accent-text);
+	}
+	.docs-layout-demo__main {
+		flex: 1;
+		padding: var(--spacing-6);
+		overflow: auto;
+	}
+	.docs-layout-demo__header { margin-bottom: var(--spacing-4); }
+	.docs-layout-demo__title { font-size: var(--text-2xl); font-weight: 700; margin: 0 0 var(--spacing-1); }
+	.docs-layout-demo__desc { margin: 0; color: var(--text-dim); }
+	.docs-layout-demo__content { margin-top: var(--spacing-4); }
+	.docs-dim { color: var(--text-dim); font-size: var(--font-size-sm); margin-top: 0; }
+</style>

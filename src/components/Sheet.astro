@@ -1,0 +1,90 @@
+---
+/**
+ * Slide-out panel (drawer) from edge. Matches shadcn-svelte Sheet / Drawer.
+ */
+import Close from './icons/Close.astro';
+
+interface Props {
+	id?: string;
+	title?: string;
+	side?: 'top' | 'right' | 'bottom' | 'left';
+	open?: boolean;
+	class?: string;
+}
+
+const { id, title, side = 'right', open = false, class: className = '' } = Astro.props;
+const sheetId = id || `sheet-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+	class={`sheet__overlay ${open ? 'sheet__overlay--open' : ''}`.trim()}
+	data-sheet-overlay
+	aria-hidden={!open}
+	id={`${sheetId}-overlay`}
+></div>
+<div
+	class={`sheet sheet--${side} ${open ? 'sheet--open' : ''} ${className}`.trim()}
+	role="dialog"
+	aria-modal="true"
+	aria-labelledby={title ? `${sheetId}-title` : undefined}
+	aria-hidden={!open}
+	id={sheetId}
+	data-sheet
+	hidden={!open}
+>
+	<div class="sheet__content">
+		{title && (
+			<div class="sheet__header">
+				<h2 id={`${sheetId}-title`} class="sheet__title">{title}</h2>
+				<button type="button" class="sheet__close" aria-label="Close" data-sheet-close>
+					<Close width={20} height={20} />
+				</button>
+			</div>
+		)}
+		<div class="sheet__body">
+			<slot />
+		</div>
+	</div>
+</div>
+
+<script is:inline define:vars={{ sheetId, open }}>
+(function () {
+	function init() {
+		const sheet = document.getElementById(sheetId);
+		if (!sheet) return;
+		const overlay = document.getElementById(sheetId + '-overlay');
+		if (!overlay) return;
+		let escapeHandler = null;
+		const close = () => {
+			sheet.classList.remove('sheet--open');
+			sheet.setAttribute('aria-hidden', 'true');
+			sheet.hidden = true;
+			overlay.classList.remove('sheet__overlay--open');
+			overlay.setAttribute('aria-hidden', 'true');
+			if (escapeHandler) {
+				document.removeEventListener('keydown', escapeHandler);
+				escapeHandler = null;
+			}
+		};
+		const openSheet = () => {
+			sheet.hidden = false;
+			sheet.classList.add('sheet--open');
+			sheet.setAttribute('aria-hidden', 'false');
+			overlay.classList.add('sheet__overlay--open');
+			overlay.setAttribute('aria-hidden', 'false');
+			if (!escapeHandler) {
+				escapeHandler = (e) => { if (e.key === 'Escape') close(); };
+				document.addEventListener('keydown', escapeHandler);
+			}
+		};
+		sheet.querySelectorAll('[data-sheet-close]').forEach((b) => b.addEventListener('click', close));
+		overlay.addEventListener('click', close);
+		sheet.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+		window['openSheet_' + sheetId.replace(/-/g, '_')] = openSheet;
+		window['closeSheet_' + sheetId.replace(/-/g, '_')] = close;
+		if (open) openSheet();
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

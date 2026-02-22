@@ -14,7 +14,7 @@
       Design system · Vanilla · Astro · Svelte
 ```
 
-This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Minimal**, **Starter**, or **Full**. **Full** = index + all 34 component pages, js, icons, and Settings/toast/sound (full showcase). **Minimal** / **Starter** = CSS, fonts, icons, sfx + RIZZO-SETUP.md (Starter adds minimal index only if missing). **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice** — Minimal, Starter, or Full; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = CSS, fonts, icons, sfx + component picker (all 56 or pick); Landing adds hero/features; Docs adds sidebar + sample doc; Dashboard adds sidebar + stats/table. **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice**; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
 
 ## First-time setup
 
@@ -27,14 +27,15 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.54`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.55`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
 ## Editing the cloned site
 
 - **Home** — `index.html` (hero and documentation cards with links to the main docs site). Edit the main content or add your own. Component showcase at `components/index.html`.
-- **Component showcase** — `components/index.html` lists all components; `components/<name>.html` (e.g. `button.html`) each has a "Read the full docs" link to the main site. Edit or add HTML files; keep the same header/footer if you want the theme switcher and settings on every page.
+- **Navbar** — Every page uses the same navbar (flat links: Docs, Components, Blocks, Themes, Colors; Search; Settings). The CLI injects it from `scaffold/shared/navbar-vanilla.html` when you run init/add.
+- **Component showcase** — `components/index.html` lists all components; `components/<name>.html` (e.g. `button.html`) each has a "Read the full docs" link to the main site. Edit or add HTML files; the same navbar and settings are on every page.
 - **CSS** — The CLI copies `css/rizzo.min.css`; the link uses `{{LINK_HREF}}` (replaced at init). To use a CDN, replace that with the CDN URL.
 - **Scripts** — `js/main.js` provides theme sync, settings panel, toast, tabs, modal, dropdown, accordion, search (overlay), navbar mobile menu, copy-to-clipboard, and back-to-top. Customize or extend as needed.
 
@@ -68,7 +69,7 @@ pnpm dlx serve .
 
 ## Other scaffolds
 
-- **Astro:** `scaffold/astro-core/` — Astro app (Minimal, Starter, or Full template); Full adds components from `scaffold/astro/` (see README-RIZZO.md).
-- **Svelte:** `scaffold/svelte-core/` — SvelteKit app (Minimal, Starter, or Full template); Full adds components from `scaffold/svelte/` (see README-RIZZO.md).
+- **Astro:** `scaffold/astro/base/` + optional `scaffold/astro/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/astro/` (see README-RIZZO.md).
+- **Svelte:** `scaffold/svelte/base/` + optional `scaffold/svelte/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/svelte/` (see README-RIZZO.md).
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

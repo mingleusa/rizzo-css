@@ -8,24 +8,27 @@ main {
   overflow-x: clip;
 }
 
-/* Main content container: same width and padding as navbar for alignment */
+/* Main content container: same max-width as navbar/footer; padding is applied by page-level containers (home__container, docs__container) so content aligns. */
 .layout__container {
   max-width: var(--container-default);
   margin: 0 auto;
-  padding: 0 var(--spacing-4);
+  padding: 0;
   width: 100%;
   box-sizing: border-box;
-  min-width: 0; /* Allow shrink on small screens */
+  min-width: 0;
 }
 
 .container {
   max-width: var(--container-default);
   margin: 0 auto;
-  padding: 0 var(--spacing-4);
+  padding: 0 var(--content-padding-x);
 }
 
-/* Cards */
+/* Cards — fill container width for consistent layout */
 .card {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   background-color: var(--background-alt);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
@@ -78,6 +81,23 @@ main {
 
 .card__body:empty {
   display: none;
+}
+
+.card__body h2,
+.card__body h3,
+.card__body h4 {
+  color: var(--text);
+}
+
+/* Links inside card content: no underline until card (or link) is hovered */
+.card a {
+  text-decoration: none;
+}
+
+.card:hover a,
+.card a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
 }
 
 .card__footer {

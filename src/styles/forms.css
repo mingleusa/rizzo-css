@@ -179,6 +179,21 @@ select {
   font-weight: var(--font-weight-semibold);
 }
 
+/* Standalone Label (shadcn-style; FormGroup uses .form-group__label) */
+.label {
+  display: block;
+  margin-bottom: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--text);
+}
+
+.label--required::after {
+  content: ' *';
+  color: var(--error);
+  font-weight: var(--font-weight-semibold);
+}
+
 .form-group__help {
   display: block;
   margin-top: var(--spacing-0-375);

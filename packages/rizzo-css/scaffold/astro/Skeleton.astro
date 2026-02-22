@@ -1,0 +1,16 @@
+---
+interface Props {
+  /** Shape variant */
+  variant?: 'text' | 'circle' | 'rect' | 'default';
+  /** Accessible label for loading state (announced by screen readers). Omit or empty = decorative (aria-hidden). */
+  label?: string;
+  class?: string;
+}
+
+const { variant = 'default', label = 'Loading', class: className = '' } = Astro.props;
+const variantClass = variant !== 'default' ? `skeleton--${variant}` : '';
+const classes = ['skeleton', variantClass, className].filter(Boolean).join(' ').trim();
+const isDecorative = label === '';
+---
+
+<span class={classes} role={isDecorative ? undefined : 'status'} aria-label={isDecorative ? undefined : label} aria-busy={isDecorative ? undefined : 'true'} aria-hidden={isDecorative ? 'true' : undefined}></span>

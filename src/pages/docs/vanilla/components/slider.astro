@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="slider" data-slider>
+  <input type="range" class="slider__input" min="0" max="100" value="50" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-slider-input />
+  <div class="slider__track" aria-hidden="true">
+    <div class="slider__fill" data-slider-fill style="width: 50%;"></div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Slider — Vanilla" description="Range slider with vanilla HTML. Ensure Rizzo CSS and init script to sync fill width.">
+  <section>
+    <h2>Slider</h2>
+    <p>Range input with themed track and fill. Use <code>slider__input</code>, <code>slider__track</code>, <code>slider__fill</code>. Wire <code>input</code>/<code>change</code> to update <code>slider__fill</code> width and <code>aria-valuenow</code>.</p>
+    <AddComponentTabs componentName="Slider" />
+    <div class="example">
+      <div class="example-title">Live example (structure; sync script in full scaffold)</div>
+      <div class="slider" data-slider>
+        <input type="range" class="slider__input" min="0" max="100" value="50" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-slider-input />
+        <div class="slider__track" aria-hidden="true">
+          <div class="slider__fill" data-slider-fill style="width: 50%;"></div>
+        </div>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/slider">Astro</a> · <a href="/docs/svelte/components/slider">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

@@ -1,0 +1,40 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Kbd from '../../../components/Kbd.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+---
+
+<DocsLayout title="Kbd Component" description="Keyboard key styling for shortcuts (e.g. Ctrl+K). Matches shadcn-svelte Kbd.">
+	<section>
+		<h2>Kbd</h2>
+		<p>Styled <code>&lt;kbd&gt;</code> for showing keyboard shortcuts. Uses design tokens for background, border, and mono font.</p>
+
+		<AddComponentTabs componentName="Kbd" />
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>class</code> (string, optional) - Additional CSS classes</li>
+		</ul>
+
+		<h3>Example</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search. On Mac use <Kbd>⌘</Kbd>+<Kbd>K</Kbd>.</p>
+		</div>
+
+		<FrameworkCodeTabs
+			astro={`---
+import Kbd from '../components/rizzo/Kbd.astro';
+---
+
+<p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>`}
+			svelte={`<script>
+  import { Kbd } from '$lib/rizzo';
+</script>
+
+<p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>`}
+			vanilla={`<p>Press <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">K</kbd> to open search.</p>`}
+		/>
+	</section>
+</DocsLayout>

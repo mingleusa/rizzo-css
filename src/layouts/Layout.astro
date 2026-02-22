@@ -6,6 +6,15 @@ import { FONT_PAIRS } from '../config/fonts';
 import '../styles/main.css';
 import soundEffectsScript from '../../packages/rizzo-css/scaffold/shared/sound-effects-inline.js?raw';
 
+interface Props {
+  /** Page title for <title> (default: Rizzo CSS) */
+  title?: string;
+  /** Meta description for SEO (optional) */
+  description?: string;
+}
+
+const { title = 'Rizzo CSS', description } = Astro.props;
+const metaDescription = description ?? 'A modern CSS design system with semantic theming, 14 themes, and 56+ accessible components. Vanilla JS, Astro, and Svelte.';
 const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
 ---
 
@@ -14,6 +23,7 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="description" content={metaDescription} />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
@@ -170,7 +180,7 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 							closeBtn.type = 'button';
 							closeBtn.className = 'alert__close';
 							closeBtn.setAttribute('aria-label', 'Dismiss toast');
-							closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
+							closeBtn.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="4" x2="12" y2="12"></line><line x1="12" y1="4" x2="4" y2="12"></line></svg>';
 							// Ensure close button is visible
 							closeBtn.style.color = 'inherit';
 							closeBtn.style.opacity = '0.8';
@@ -331,26 +341,29 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 			})();
 		</script>
 		<script is:inline set:html={soundEffectsScript} />
-		<title>Rizzo CSS</title>
+		<title>{title}</title>
 	</head>
 	<body>
-		<a href="#main-content" class="skip-link">Skip to main content</a>
-		<Navbar />
-		<Settings />
-		<main id="main-content">
-			<div class="layout__container">
-				<slot />
-			</div>
-		</main>
-		<Footer
+		<div data-layout-content>
+			<a href="#main-content" class="skip-link">Skip to main content</a>
+			<Navbar />
+			<main id="main-content">
+				<div class="layout__container">
+					<slot />
+				</div>
+			</main>
+			<Footer
 			siteName="Rizzo CSS"
 			links={[
 				{ href: '/docs/getting-started', label: 'Getting Started' },
+				{ href: '/blocks', label: 'Blocks' },
 				{ href: '/docs/components', label: 'Components' },
 				{ href: '/docs/theming', label: 'Theming' },
 				{ href: '/docs/accessibility', label: 'Accessibility' },
 			]}
 		/>
+		</div>
+		<Settings />
 		<script is:inline>
 			(function initTooltips() {
 				function run() {

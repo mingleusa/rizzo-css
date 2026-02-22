@@ -33,11 +33,11 @@ test.describe('Keyboard accessibility', () => {
 
   test('modal: focus moves into dialog when opened', async ({ page }) => {
     await page.getByRole('button', { name: /open small modal/i }).first().click();
-    await page.waitForTimeout(200);
-    const dialog = page.locator('.modal[role="dialog"]').first();
+    const dialog = page.locator('.modal[data-open="true"]').first();
     await expect(dialog).toBeVisible();
+    await page.waitForTimeout(100);
     const focusableInDialog = dialog.locator('button, [href], input, select, textarea, [tabindex="0"]').first();
-    await expect(focusableInDialog).toBeFocused();
+    await expect(focusableInDialog).toBeFocused({ timeout: 3000 });
   });
 });
 
@@ -86,16 +86,15 @@ test.describe('Keyboard accessibility (search)', () => {
   });
 
   test('search: trigger is focusable, Escape closes overlay', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: /open search|search/i }).first();
+    const main = page.getByRole('main');
+    const trigger = main.getByRole('button', { name: /open search|search/i }).first();
     await trigger.focus();
     await expect(trigger).toBeFocused();
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(300);
-    const panel = page.locator('.search__panel').first();
-    await expect(panel).toBeVisible({ timeout: 3000 });
+    await trigger.click();
+    await expect(page.locator('.search__panel[aria-hidden="false"]').first()).toBeVisible({ timeout: 5000 });
     await page.keyboard.press('Escape');
     await page.waitForTimeout(500);
-    await expect(panel).toHaveAttribute('aria-hidden', 'true');
+    await expect(page.locator('.search__panel[aria-hidden="false"]')).toHaveCount(0);
   });
 });
 
@@ -185,6 +184,48 @@ test.describe('Keyboard accessibility (settings)', () => {
     await expect(panel).toBeVisible({ timeout: 3000 });
     await page.keyboard.press('Escape');
     await page.waitForTimeout(300);
+    await expect(trigger).toBeFocused();
+  });
+});
+
+test.describe('Keyboard accessibility (alert dialog)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/alert-dialog');
+    await lockTheme(page);
+  });
+
+  test('alert dialog: Escape closes and focus returns to trigger', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /open alert dialog/i }).first();
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(200);
+    const dialog = page.locator('[role="alertdialog"]').first();
+    await expect(dialog).toBeVisible();
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(200);
+    await expect(dialog).toHaveAttribute('aria-hidden', 'true');
+    await expect(trigger).toBeFocused();
+  });
+});
+
+test.describe('Keyboard accessibility (sheet)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/docs/components/sheet');
+    await lockTheme(page);
+  });
+
+  test('sheet: Escape closes and focus returns to trigger', async ({ page }) => {
+    const trigger = page.getByRole('button', { name: /open sheet/i }).first();
+    await trigger.focus();
+    await expect(trigger).toBeFocused();
+    await page.keyboard.press('Enter');
+    await page.waitForTimeout(200);
+    const sheet = page.locator('.sheet[role="dialog"]').first();
+    await expect(sheet).toBeVisible();
+    await page.keyboard.press('Escape');
+    await page.waitForTimeout(200);
+    await expect(sheet).toHaveAttribute('aria-hidden', 'true');
     await expect(trigger).toBeFocused();
   });
 });

@@ -92,7 +92,7 @@
         onkeydown={(e) => handleKeydown(e, index)}
       >
         {#if tab.icon}
-          <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" />
+          <img src={tab.icon} alt="" class="tabs__tab-icon" width="20" height="20" loading="lazy" aria-hidden="true" />
         {/if}
         {tab.label}
       </span>

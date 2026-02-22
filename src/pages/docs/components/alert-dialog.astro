@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import AlertDialog from '../../../components/AlertDialog.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Alert Dialog" description="Confirm/cancel dialog for destructive or important actions. Matches shadcn-svelte Alert Dialog.">
+	<section>
+		<h2>Alert Dialog</h2>
+		<p>Modal with <code>role="alertdialog"</code> for confirm/cancel flows. Use <code>slot="actions"</code> for buttons. Open/close via <code>openAlertDialog_*</code> / <code>closeAlertDialog_*</code> on window.</p>
+		<AddComponentTabs componentName="AlertDialog" />
+		<h3>Example</h3>
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<AlertDialog id="alert-demo" title="Delete item?" description="This action cannot be undone.">
+				<button type="button" slot="actions" class="btn" data-alert-dialog-close>Cancel</button>
+				<button type="button" slot="actions" class="btn btn-error" data-alert-dialog-close>Delete</button>
+			</AlertDialog>
+			<button type="button" class="btn" onclick="window.openAlertDialog_alert_demo()">Open alert dialog</button>
+		</div>
+	</section>
+</DocsLayout>

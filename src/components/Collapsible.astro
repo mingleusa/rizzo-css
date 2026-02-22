@@ -1,0 +1,69 @@
+---
+/**
+ * Single expand/collapse section (one trigger, one panel). Use Accordion for multiple sections.
+ * Matches shadcn-svelte Collapsible pattern.
+ */
+import ChevronDown from './icons/ChevronDown.astro';
+
+interface Props {
+	id?: string;
+	defaultOpen?: boolean;
+	triggerLabel?: string;
+	class?: string;
+}
+
+const { id, defaultOpen = false, triggerLabel = 'Toggle', class: className = '' } = Astro.props;
+const collapsibleId = id || `collapsible-${Math.random().toString(36).slice(2, 9)}`;
+const triggerId = `${collapsibleId}-trigger`;
+const panelId = `${collapsibleId}-panel`;
+---
+
+<div class={`collapsible ${className}`.trim()} data-collapsible id={collapsibleId}>
+	<button
+		type="button"
+		class={`collapsible__trigger ${defaultOpen ? 'collapsible__trigger--open' : ''}`}
+		id={triggerId}
+		aria-expanded={defaultOpen}
+		aria-controls={panelId}
+		data-collapsible-trigger
+	>
+		<span class="collapsible__trigger-label">{triggerLabel}</span>
+		<ChevronDown class="collapsible__icon" width={16} height={16} aria-hidden="true" />
+	</button>
+	<div
+		class={`collapsible__panel ${defaultOpen ? 'collapsible__panel--open' : ''}`}
+		id={panelId}
+		role="region"
+		aria-labelledby={triggerId}
+		hidden={!defaultOpen}
+		data-collapsible-panel
+	>
+		<div class="collapsible__panel-inner">
+			<slot />
+		</div>
+	</div>
+</div>
+
+<script is:inline>
+function initCollapsible() {
+	document.querySelectorAll('[data-collapsible]').forEach(function (root) {
+		if (root.dataset.collapsibleInit === 'true') return;
+		root.dataset.collapsibleInit = 'true';
+		var trigger = root.querySelector('[data-collapsible-trigger]');
+		var panel = root.querySelector('[data-collapsible-panel]');
+		if (!trigger || !panel) return;
+		trigger.addEventListener('click', function () {
+			var open = trigger.getAttribute('aria-expanded') === 'true';
+			trigger.setAttribute('aria-expanded', String(!open));
+			trigger.classList.toggle('collapsible__trigger--open', !open);
+			panel.classList.toggle('collapsible__panel--open', !open);
+			panel.hidden = open;
+		});
+	});
+}
+if (document.readyState === 'loading') {
+	document.addEventListener('DOMContentLoaded', initCollapsible);
+} else {
+	initCollapsible();
+}
+</script>

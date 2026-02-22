@@ -13,22 +13,28 @@ const rootDir = resolve(__dirname, '..');
 const scaffoldVanilla = join(rootDir, 'packages', 'rizzo-css', 'scaffold', 'vanilla');
 const DOCS_BASE = 'https://rizzo-css.vercel.app';
 
-/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS. */
+/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all components, all frameworks). */
 const COMPONENT_SLUGS = [
-  'accordion', 'alert', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'cards',
-  'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer', 'font-switcher',
-  'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar', 'search',
-  'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher', 'toast', 'tooltip',
+  'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'button-group',
+  'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard', 'docs-sidebar', 'divider', 'dropdown', 'empty',
+  'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover',
+  'progress-bar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
+  'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ];
 
 const COMPONENT_TITLES = {
+  'alert-dialog': 'Alert Dialog',
+  'aspect-ratio': 'Aspect Ratio',
   'back-to-top': 'Back to Top',
+  'button-group': 'Button Group',
   'copy-to-clipboard': 'Copy to Clipboard',
   'docs-sidebar': 'Docs Sidebar',
   'font-switcher': 'Font Switcher',
+  'hover-card': 'Hover Card',
   'progress-bar': 'Progress Bar',
   'sound-effects': 'Sound Effects',
   'theme-switcher': 'Theme Switcher',
+  'toggle-group': 'Toggle Group',
 };
 
 function titleCase(slug) {
@@ -80,8 +86,8 @@ function main() {
           </div>
           <div class="home__card home__card--featured">
             <span class="home__card-icon" aria-hidden="true">Components</span>
-            <h3>31 ready components</h3>
-            <p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, and more — all accessible and themeable.</p>
+            <h3>All components</h3>
+            <p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, Slider, Sheet, and more — all accessible and themeable.</p>
           </div>
         </div>
         <h3 class="home__features-supporting-label">And more</h3>

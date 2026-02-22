@@ -16,6 +16,8 @@ async function lockTheme(page) {
   await page.evaluate(() => {
     document.documentElement.setAttribute('data-theme', 'github-dark-classic');
   });
+  // Allow computed styles to update after theme change (avoids color-contrast false negatives)
+  await page.evaluate(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
 }
 
 async function runA11yOnPage(page, path) {
@@ -34,6 +36,7 @@ async function runA11yOnPage(page, path) {
 
 const FOUNDATION_ROUTES = [
   '/',
+  '/docs/overview',
   '/docs/getting-started',
   '/docs/components',
   '/docs/design-system',
@@ -44,11 +47,19 @@ const FOUNDATION_ROUTES = [
 ];
 
 const COMPONENT_SLUGS = [
-  'accordion', 'alert', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'cards',
-  'copy-to-clipboard', 'docs-sidebar', 'divider', 'dropdown', 'footer',
-  'font-switcher', 'forms', 'icons', 'modal', 'navbar', 'pagination', 'progress-bar',
-  'search', 'settings', 'sound-effects', 'spinner', 'table', 'tabs', 'theme-switcher',
-  'toast', 'tooltip',
+  'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
+  'button', 'button-group', 'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
+  'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
+  'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'progress-bar', 'resizable', 'scroll-area',
+  'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects', 'spinner', 'switch',
+  'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
+];
+
+/** Block pages (pre-built layouts). See src/pages/blocks/ and Navbar Blocks item. */
+const BLOCK_ROUTES = [
+  '/blocks',
+  '/blocks/dashboard-01',
+  '/blocks/docs-layout',
 ];
 
 const THEME_SLUGS = [
@@ -61,6 +72,7 @@ const THEME_SLUGS = [
 const DOCS_A11Y_ROUTES = [
   ...FOUNDATION_ROUTES,
   ...COMPONENT_SLUGS.map((s) => `/docs/components/${s}`),
+  ...BLOCK_ROUTES,
   '/docs/vanilla',
   '/docs/vanilla/components',
   ...COMPONENT_SLUGS.map((s) => `/docs/vanilla/components/${s}`),

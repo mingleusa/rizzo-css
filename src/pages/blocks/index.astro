@@ -1,0 +1,99 @@
+---
+import BlocksLayout from '../../layouts/BlocksLayout.astro';
+import Card from '../../components/Card.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+
+const cliSnippet = `npx rizzo-css init
+# → Choose framework (Astro, Svelte, Vanilla)
+# → Choose variation: Landing | Docs | Dashboard`;
+---
+
+<BlocksLayout
+	title="Blocks"
+	description="Clean, modern building blocks. Works with all Rizzo projects. Copy and paste into your apps. Open source. Free forever."
+	documentTitle="Blocks — Rizzo CSS"
+>
+	<section class="blocks-index__browse">
+		<h2 class="blocks-index__browse-title">Browse blocks</h2>
+		<p class="blocks-index__browse-desc">Pre-built layouts and patterns using Rizzo components and design tokens. Use them as starting points for dashboards, docs sites, and app shells.</p>
+	</section>
+
+	<section>
+		<h2 class="blocks-index__section-label">Featured</h2>
+		<div class="blocks-index__grid">
+				<a href="/blocks/dashboard-01" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Dashboard</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">App dashboard with sidebar, stat cards, and data table. Uses Dashboard, Card, and Table components.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Dashboard · Sidebar · Cards · Table</span>
+						</div>
+					</Card>
+				</a>
+				<a href="/blocks/docs-layout" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Docs layout</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Documentation layout with a sidebar nav and main content area. Same pattern as this docs site.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Docs Sidebar · Layout</span>
+						</div>
+					</Card>
+				</a>
+			</div>
+		</section>
+
+		<section>
+			<h2>Scaffold from CLI</h2>
+			<p>When you create a new project or add to existing, choose a <strong>template</strong>: <strong>Landing</strong>, <strong>Docs</strong>, <strong>Dashboard</strong>, or <strong>Full</strong>. Landing, Docs, and Dashboard give you the same full setup with a different starter layout and content — matching the blocks above. Full clones the entire docs site.</p>
+			<CodeBlock code={cliSnippet} language="bash" />
+		</section>
+</BlocksLayout>
+
+<style>
+	.blocks-index__browse { margin-bottom: var(--section-spacing); }
+	.blocks-index__browse-title { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--spacing-2); color: var(--text); }
+	.blocks-index__browse-desc { margin: 0; color: var(--text-dim); font-size: var(--font-size-sm); }
+	.blocks-index__section-label { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--page-header-margin-bottom); color: var(--text); }
+	.blocks-index__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+		gap: var(--spacing-6);
+		margin: var(--page-header-margin-bottom) 0;
+	}
+	.block-card-link {
+		text-decoration: none;
+		color: inherit;
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		transition: transform var(--transition-base);
+	}
+	.block-card-link :global(.card) {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+		min-height: 0;
+	}
+	.block-card-link :global(.card .card__body) {
+		flex: 1;
+	}
+	.block-card-link:hover {
+		transform: translateY(calc(-1 * var(--spacing-0-125)));
+	}
+	.block-card-link:focus-visible {
+		outline: var(--outline-width) solid var(--accent-fg);
+		outline-offset: var(--outline-offset);
+		border-radius: var(--radius-lg);
+	}
+	.block-card-link :global(.card__body h3) {
+		color: var(--text);
+		transition: color var(--transition-base);
+	}
+	.block-card-link:hover :global(.card__body h3) {
+		color: var(--accent-fg);
+	}
+	@media (prefers-reduced-motion: reduce) {
+		.block-card-link { transition: none; }
+		.block-card-link:hover { transform: none; }
+	}
+</style>

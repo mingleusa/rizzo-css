@@ -1,0 +1,19 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Empty from '../../../components/Empty.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Empty" description="Empty state with optional icon, title, description, and action. Matches shadcn-svelte Empty.">
+	<section>
+		<h2>Empty</h2>
+		<p>Use for no results, empty lists, or empty search. Slots: <code>icon</code>, default (none), <code>action</code>.</p>
+		<AddComponentTabs componentName="Empty" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<Empty title="No items yet" description="Get started by adding your first item.">
+				<button type="button" slot="action" class="btn btn-primary">Add item</button>
+			</Empty>
+		</div>
+	</section>
+</DocsLayout>

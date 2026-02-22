@@ -1,40 +1,56 @@
-# Minimal, Starter, and Full templates (package distribution)
+# Templates (package distribution)
 
-This doc describes the **Minimal**, **Starter**, and **Full** templates used when you run `npx rizzo-css init` (create new) or `npx rizzo-css add` (add to existing). The same three templates are offered for both flows. Implementation lives in `packages/rizzo-css/bin/rizzo-css.js`. **We never overwrite your existing files** — skipped content is written to **RIZZO-SETUP.md** as copy-paste snippets.
+This doc describes how **create new** and **add to existing** work when you run `npx rizzo-css init`. Implementation: `packages/rizzo-css/bin/rizzo-css.js`. **We never overwrite your existing files** — skipped content goes to **RIZZO-SETUP.md**.
+
+## Templates: Landing | Docs | Dashboard | Full
+
+When you **create new** or **add to existing**, you pick a **template**:
+
+| Template    | What you get |
+|-------------|----------------|
+| **Landing** | Full framework base + hero/features page. Component picker: all 56 or pick. |
+| **Docs**    | Same base + **docs** overlay: sidebar, sample doc page. |
+| **Dashboard** | Same base + **dashboard** overlay: sidebar, stats cards, table. |
+| **Full**    | Clone of the Rizzo docs site (no picker). |
+
+Landing, Docs, and Dashboard use the same base + Rizzo CSS, fonts, icons, sfx; only the starter content (layout + pages) differs. **Full** copies the full variant only (site clone).
+
+- **Astro:** Base is `scaffold/astro/base/`; variant overlays are `scaffold/astro/variants/docs` and `scaffold/astro/variants/dashboard`. CLI copies base then overlays the chosen variant.
+- **Svelte:** Base is `scaffold/svelte/base/`; variant overlays (when present) in `scaffold/svelte/variants/docs`, `scaffold/svelte/variants/dashboard`. Same flow: base then overlay.
+- **Vanilla:** Full scaffold at `scaffold/vanilla/` (landing-style); no variant overlays yet.
+
+## Add to existing
+
+Same template choice (Landing | Docs | Dashboard | Full). We **never overwrite** existing or config files; skipped content is in **RIZZO-SETUP.md**. Framework from detection or `rizzo-css.json`.
 
 ## Summary
 
-| Framework | Minimal | Starter | Full |
-|-----------|---------|---------|------|
-| **Vanilla** | CSS, fonts, icons, sfx + **RIZZO-SETUP.md** (instructions and snippets only) | Same as Minimal + minimal `index.html` only if missing; otherwise snippets in RIZZO-SETUP.md | Full app: `index.html` (from scaffold or snippet), theme switcher, `js/main.js`, 34 component pages. Existing files skipped; snippets in RIZZO-SETUP.md. Choose all 34 components or pick which to include. |
-| **Astro** | CSS, fonts, icons, sfx + **RIZZO-SETUP.md** | Same as Minimal + minimal layout/page only if missing; otherwise snippets in RIZZO-SETUP.md | Base from `scaffold/astro-core` + all or picked components (34 total). Existing files skipped; snippets in RIZZO-SETUP.md. |
-| **Svelte** | CSS, fonts, icons, sfx + **RIZZO-SETUP.md** | Same as Minimal + minimal layout/page only if missing; otherwise snippets in RIZZO-SETUP.md | Base from `scaffold/svelte-core` + all or picked components (34 total). Existing files skipped; snippets in RIZZO-SETUP.md. |
+| Flow        | Choice              | Meaning |
+|------------|---------------------|--------|
+| **Create new** | Landing \| Docs \| Dashboard \| Full | Full = site clone; others = full framework + component picker (all 56 or pick). |
+| **Add**        | Same                | Same templates; no-overwrite. |
 
-## Add to existing (`npx rizzo-css add`)
+## Component set
 
-The **add** command offers the **same** template choice (Minimal | Starter | Full) after you choose the framework:
+**Landing / Docs / Dashboard:** All components or pick. Dependencies (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert) expanded automatically. **Full:** No picker (site clone).
 
-- **Minimal** — CSS, fonts, icons, sfx (framework-appropriate) + **RIZZO-SETUP.md**. No component copy.
-- **Starter** — Same as Minimal (same assets + RIZZO-SETUP.md). No component copy.
-- **Full** — CSS, fonts, icons, sfx + **component picker** (all 34 or pick). Writes **RIZZO-SETUP.md** and **RIZZO-SNIPPET.txt** (link + theme). Same no-overwrite behavior: we don’t overwrite your existing files.
+## What the package includes (ship checklist)
 
-## Component set (Full template)
-
-- **Full (all frameworks):** You can choose **all 34 components** or **pick components**. The list is `ASTRO_COMPONENTS` / `SVELTE_COMPONENTS` / `Object.keys(VANILLA_COMPONENT_SLUGS)`. Dependencies (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert) are expanded automatically so everything works.
-- **Minimal / Starter:** No components are copied; you get CSS, fonts, icons, sfx, and RIZZO-SETUP.md so you can add the link and theme yourself.
+The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal**, **scaffold/starter** (snippet sources), **scaffold/astro** (base + variants + all 56 components), **scaffold/svelte** (base + variants + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
 
 ## Scaffold layout in the package
 
-Every template has a corresponding scaffold entry:
+- **Landing:** `scaffold/landing/index.html` (Vanilla); Astro/Svelte use base + landing content.
+- **Docs / Dashboard:** Base + `scaffold/<framework>/variants/docs` or `variants/dashboard`.
+- **Full:** `scaffold/<framework>/variants/full/` only (no base overlay).
+- **Vanilla:** `scaffold/vanilla/`; variants in `scaffold/vanilla/variants/`.
 
-- **Minimal:** `scaffold/minimal/index.html` — same placeholder HTML as Starter (`{{TITLE}}`, `{{DATA_THEME}}`, `{{THEME_LIST_COMMENT}}`, `{{LINK_HREF}}`). The CLI does **not** write this file into the project; it only copies CSS, fonts, icons, sfx and writes **RIZZO-SETUP.md**, and includes the filled-in HTML as an “Example minimal page” snippet in that doc so the content comes from the package.
-- **Starter:** `scaffold/starter/index.html` — same structure. The CLI reads it, applies replacements, and writes it as the project’s index (or `public/index.html` / `static/index.html` for Astro/Svelte) only if that file is missing; otherwise the same content is written to RIZZO-SETUP.md as a snippet.
-- **Full:**  
-  - **Vanilla:** `scaffold/vanilla/` — `index.html` (full showcase), `components/*.html`, `js/main.js`, `icons/`, README-RIZZO.md. Used for Full (all 34 or picked).  
-  - **Astro:** `scaffold/astro-core/` — base app shell; **Full** adds all or picked components from `scaffold/astro/` (34 files).  
-  - **Svelte:** `scaffold/svelte-core/` — base app shell; **Full** adds all or picked components from `scaffold/svelte/` (34 files).
+## Theming
+
+Theme (default dark, default light, initial theme) is only prompted when it matters: **create new** always asks so the scaffold layout has the right `data-theme`; **add to existing** only asks when you selected the **ThemeSwitcher** component (so we can inject theme into layout/config). Otherwise defaults are used and written to RIZZO-SETUP.md.
 
 ## CLI flags
 
-- **init:** `--template minimal|starter|full` (legacy `core` and `manual` map to `full`). `--yes` defaults to `full`.
-- **add:** `--template minimal|starter|full`. Same template names and behavior as init.
+- **init (create new):** `--template landing|docs|dashboard|full`. Default with `--yes` is `landing`. Full = site clone (no component picker).
+- **init (add to existing):** Same template choice; you are prompted for variation (Landing | Docs | Dashboard | Full) unless `--template` is set.
+- **add:** `--template landing|docs|dashboard|full` (same as create new). Full = site clone; others = component picker (all 56 or pick).

@@ -1,0 +1,35 @@
+---
+/**
+ * Toggle button (pressed/unpressed state). Matches shadcn-svelte Toggle.
+ */
+interface Props {
+	pressed?: boolean;
+	disabled?: boolean;
+	type?: 'button' | 'submit' | 'reset';
+	value?: string;
+	ariaLabel?: string;
+	class?: string;
+}
+
+const {
+	pressed = false,
+	disabled = false,
+	type = 'button',
+	value,
+	ariaLabel,
+	class: className = '',
+} = Astro.props;
+const pressedClass = pressed ? 'toggle--pressed' : '';
+---
+
+<button
+	type={type}
+	class={`toggle ${pressedClass} ${className}`.trim()}
+	aria-pressed={pressed}
+	disabled={disabled}
+	value={value}
+	aria-label={ariaLabel}
+	data-toggle
+>
+	<slot />
+</button>

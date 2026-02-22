@@ -37,6 +37,7 @@ const { class: className = '', showHelp = true } = Astro.props;
       el.checked = localStorage.getItem('soundEffects') === 'true';
       el.addEventListener('change', () => {
         localStorage.setItem('soundEffects', el.checked ? 'true' : 'false');
+        if (el.checked) window.dispatchEvent(new CustomEvent('rizzo-sound-effects-change'));
       });
     });
   }

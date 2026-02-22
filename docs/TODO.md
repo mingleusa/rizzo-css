@@ -6,7 +6,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.54) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** Minimal | Starter | Full (same for init and add); 34 components; we never overwrite existing files (snippets in RIZZO-SETUP.md). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Package:** Single **rizzo-css** (v0.0.55) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** Landing | Docs | Dashboard | Full (same for init and add); all components; we never overwrite existing files (snippets in RIZZO-SETUP.md). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
 - **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast), focus-trap utility, bundle size reporting, performance and browser-support docs. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
 
 ---

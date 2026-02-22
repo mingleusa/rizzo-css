@@ -1,11 +1,11 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.54",
+  "version": "0.0.55",
   "engines": { "node": ">=18" },
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },
-  "description": "A modern CSS design system with semantic theming, 14 themes, and accessible components (BEM). Optimized for Vanilla JS, Astro, and Svelte; same CSS and component styles for all.",
+  "description": "A modern CSS design system with semantic theming, 14 themes, accessible components (BEM), and pre-built blocks. Same CSS and components for Vanilla JS, Astro, and Svelte; CLI scaffolds with flat nav (Docs, Components, Blocks, Themes, Colors).",
   "style": "dist/rizzo.min.css",
   "main": "dist/rizzo.min.css",
   "unpkg": "dist/rizzo.min.css",
@@ -27,13 +27,13 @@
     "bin",
     "dist",
     "scaffold/astro",
-    "scaffold/astro-core",
-    "scaffold/minimal","scaffold/config",
+    "scaffold/landing","scaffold/minimal",
+    "scaffold/config",
     "scaffold/shared",
     "scaffold/svelte",
-    "scaffold/svelte-core",
     "scaffold/utils",
-    "scaffold/starter","scaffold/vanilla"
+    "scaffold/starter",
+    "scaffold/vanilla"
   ],
   "keywords": [
     "css",

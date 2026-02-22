@@ -1,0 +1,33 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Hover card: trigger with data-hover-card-trigger, content with data-hover-card-content; open on hover via JS -->
+<div class="hover-card" data-hover-card id="my-hover-card">
+  <span data-hover-card-trigger>Hover me</span>
+  <div class="hover-card__content" role="dialog" aria-hidden="true" hidden data-hover-card-content>
+    Content shown on hover.
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Hover Card — Vanilla" description="Floating panel on hover with vanilla HTML. Open/close via JS.">
+  <section>
+    <h2>Hover Card</h2>
+    <p>Trigger needs <code>data-hover-card-trigger</code>; content uses <code>hover-card__content</code> and <code>data-hover-card-content</code>. Wire mouseenter/mouseleave with delay in JS.</p>
+    <AddComponentTabs componentName="HoverCard" />
+    <div class="example">
+      <div class="example-title">Structure (hover via JS)</div>
+      <p>Use Astro or Svelte component for full behavior.</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/hover-card">Astro</a> · <a href="/docs/svelte/components/hover-card">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

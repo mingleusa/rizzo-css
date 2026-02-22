@@ -4,8 +4,9 @@ Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth
 
 ## Features
 
-- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Create new → **Minimal**, **Starter**, or **Full** (per framework). Add to existing (or `add` command) → same template choice (Minimal | Starter | Full); Full = CSS + component picker (all 34 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
+- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Templates: **Landing** | **Docs** | **Dashboard** | **Full** (Full = site clone; others = all 56 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
 - **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, layout limits (e.g. `--max-height-navbar-submenu`), and component sizing (e.g. `--theme-switcher-width` so the theme switcher trigger and dropdown are the same width everywhere and fit the longest theme name on one line) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
+- **Layout consistency** — All main containers use `--container-default` (max-width) and `--content-padding-x` for horizontal padding so content aligns site-wide. Cards (`.card`), alerts (`.alert`), and table wrappers (`.table__wrapper`) use `width: 100%` and `min-width: 0` so they fill their container and behave correctly in flex/grid layouts.
 
 ## Semantic Variables
 
@@ -374,7 +375,7 @@ Position utilities control element positioning:
 <aside class="sticky top-4">Sticky sidebar</aside>
 ```
 
-The documentation site uses a **sticky** sidebar on desktop (full doc structure); on mobile the sidebar is hidden and the full docs structure appears in the main nav under the Docs dropdown. See [GETTING_STARTED – Documentation layout and site nav](./GETTING_STARTED.md#documentation-layout-and-site-nav).
+The documentation site uses a **sticky** sidebar on desktop (full doc structure); on mobile the sidebar is hidden and the main nav (hamburger menu) shows top-level links (Docs, Components, Blocks, Themes, Colors). Blocks use the same sidebar pattern via BlocksLayout. See [GETTING_STARTED – Documentation layout and site nav](./GETTING_STARTED.md#documentation-layout-and-site-nav).
 
 ### Border Utilities
 
@@ -621,42 +622,22 @@ Component CSS structure:
 
 ### Component Layout Patterns
 
-**Navbar Dropdown Layout:**
-The navbar uses CSS Grid for efficient dropdown layouts. The **Components** dropdown uses a 2-column grid layout on desktop (Docs dropdown shows Introduction + Foundations only; Theming is under Docs, not a separate nav item):
+The navbar uses **flat links** (Docs, Components, Blocks, Themes, Colors). Docs and Blocks use **sidebar layouts** (DocsLayout, BlocksLayout) with the same BEM and layout tokens; see `src/styles/pages.css` (Docs layout, docs-sidebar).
+
+For **multi-column layouts** (e.g. card grids, settings panels), use CSS Grid with design system spacing:
 
 ```css
-/* 2-column dropdown layout using design system variables */
-.navbar__submenu#navbar-submenu-components {
+.my-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0;
-  min-width: var(--spacing-96); /* 24rem / 384px */
-  max-width: var(--spacing-96);
-  width: var(--spacing-96);
-  padding: var(--spacing-2);
-  position: relative;
-}
-
-/* Vertical divider using border color variable */
-.navbar__submenu#navbar-submenu-components::before {
-  content: '';
-  position: absolute;
-  top: var(--spacing-2);
-  bottom: var(--spacing-2);
-  left: 50%;
-  width: 1px;
-  background-color: var(--border);
-  transform: translateX(-50%);
-  z-index: 1;
-  pointer-events: none;
+  grid-template-columns: repeat(auto-fit, minmax(var(--spacing-80), 1fr));
+  gap: var(--spacing-6);
+  padding: var(--spacing-4);
 }
 ```
 
-This pattern demonstrates:
-- Using CSS Grid with design system spacing variables
-- Creating visual dividers with semantic border colors
-- Responsive behavior (single column on mobile)
-- All values use design system variables for portability
+- Use `--spacing-*` for gaps and padding
+- Use semantic border/background variables for dividers and panels
+- All values from the design system for consistency and portability
 
 ## Theme Structure
 
@@ -700,4 +681,4 @@ For **component composition patterns** (container/slot, data shapes, dependency 
 19. **Use transform scale variables** - Use `--scale-*` variables for consistent transform animations
 20. **Use z-index variables** - Use `--z-*` variables for consistent layering
 21. **Use outline variables** - Use `--outline-width` and `--outline-offset` for consistent focus indicators
-22. **Component layout patterns** - Use CSS Grid with design system spacing for multi-column layouts (e.g., navbar Components dropdown)
+22. **Component layout patterns** - Use CSS Grid with design system spacing for multi-column layouts (e.g., card grids, settings panels)

@@ -1,0 +1,19 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Separator from '../../../components/Separator.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+---
+
+<DocsLayout title="Separator" description="Thin separator line (horizontal or vertical). Matches shadcn-svelte Separator.">
+	<section>
+		<h2>Separator</h2>
+		<p>Minimal line; use <a href="/docs/components/divider">Divider</a> when you need a label (e.g. "OR").</p>
+		<AddComponentTabs componentName="Separator" />
+		<div class="example">
+			<div class="example-title">Live Example</div>
+			<div>Above</div>
+			<Separator />
+			<div>Below</div>
+		</div>
+	</section>
+</DocsLayout>

@@ -18,11 +18,10 @@ body {
     border-color var(--theme-transition-duration) ease-out;
 }
 
-/* Links - underline so they are distinguishable without relying on color alone (WCAG link-in-text-block) */
+/* Links - no underline by default */
 a {
   color: var(--accent-fg);
-  text-decoration: underline;
-  text-underline-offset: 0.15em;
+  text-decoration: none;
 }
 
 a:hover {
@@ -36,6 +35,12 @@ a.btn,
 [role="menu"] a,
 [role="tablist"] a {
   text-decoration: none;
+}
+
+/* Active nav links on accent background must use --accent-text for WCAG AA 4.5:1 (override a { color: var(--accent-fg) }) */
+a.dashboard__nav-link--active,
+a.docs-layout-demo__nav-link--active {
+  color: var(--accent-text) !important;
 }
 
 /* Selection */

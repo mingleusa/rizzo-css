@@ -1,0 +1,86 @@
+---
+/**
+ * Alert Dialog: modal for confirm/cancel actions (destructive or important).
+ * Uses role="alertdialog". Matches shadcn-svelte Alert Dialog.
+ */
+import Close from './icons/Close.astro';
+
+interface Props {
+	id?: string;
+	title?: string;
+	description?: string;
+	open?: boolean;
+	class?: string;
+}
+
+const { id, title = 'Are you sure?', description, open = false, class: className = '' } = Astro.props;
+const dialogId = id || `alert-dialog-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<div
+	class={`alert-dialog__overlay ${open ? 'alert-dialog__overlay--open' : ''}`.trim()}
+	data-alert-dialog-overlay
+	aria-hidden={!open}
+	id={`${dialogId}-overlay`}
+></div>
+<div
+	class={`alert-dialog ${className}`.trim()}
+	role="alertdialog"
+	aria-modal="true"
+	aria-labelledby={`${dialogId}-title`}
+	aria-describedby={description ? `${dialogId}-desc` : undefined}
+	aria-hidden={!open}
+	id={dialogId}
+	data-alert-dialog
+	hidden={!open}
+>
+	<div class="alert-dialog__content">
+		<h2 id={`${dialogId}-title`} class="alert-dialog__title">{title}</h2>
+		{description && (
+			<p id={`${dialogId}-desc`} class="alert-dialog__description">{description}</p>
+		)}
+		<div class="alert-dialog__actions">
+			<slot name="actions" />
+		</div>
+	</div>
+</div>
+
+<script is:inline define:vars={{ dialogId, open }}>
+(function () {
+	function init() {
+		const dialog = document.getElementById(dialogId);
+		if (!dialog) return;
+		const overlay = document.getElementById(dialogId + '-overlay');
+		if (!overlay) return;
+		let escapeHandler = null;
+		const close = () => {
+			dialog.setAttribute('aria-hidden', 'true');
+			dialog.hidden = true;
+			overlay.classList.remove('alert-dialog__overlay--open');
+			overlay.setAttribute('aria-hidden', 'true');
+			if (escapeHandler) {
+				document.removeEventListener('keydown', escapeHandler);
+				escapeHandler = null;
+			}
+		};
+		const openDialog = () => {
+			dialog.removeAttribute('hidden');
+			dialog.setAttribute('aria-hidden', 'false');
+			overlay.classList.add('alert-dialog__overlay--open');
+			overlay.setAttribute('aria-hidden', 'false');
+			if (!escapeHandler) {
+				escapeHandler = (e) => { if (e.key === 'Escape') close(); };
+				document.addEventListener('keydown', escapeHandler);
+			}
+		};
+		dialog.querySelectorAll('[data-alert-dialog-close]').forEach((btn) => btn.addEventListener('click', close));
+		overlay.addEventListener('click', close);
+		dialog.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+		window['openAlertDialog_' + dialogId.replace(/-/g, '_')] = openDialog;
+		window['closeAlertDialog_' + dialogId.replace(/-/g, '_')] = close;
+		if (open) openDialog();
+	}
+	if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+	else init();
+})();
+</script>

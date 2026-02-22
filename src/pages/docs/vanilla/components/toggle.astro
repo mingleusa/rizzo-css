@@ -1,0 +1,30 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<button type="button" class="toggle" aria-pressed="false">Off</button>
+<button type="button" class="toggle toggle--pressed" aria-pressed="true">On</button>`;
+---
+
+<DocsLayout title="Toggle — Vanilla" description="Toggle button with vanilla HTML. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Toggle</h2>
+    <p>Button with <code>aria-pressed</code>. Use class <code>toggle</code>; add <code>toggle--pressed</code> when pressed (or <code>aria-pressed="true"</code> is styled).</p>
+    <AddComponentTabs componentName="Toggle" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <button type="button" class="toggle" aria-pressed="false">Off</button>
+      <button type="button" class="toggle toggle--pressed" aria-pressed="true">On</button>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/toggle">Astro</a> · <a href="/docs/svelte/components/toggle">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+  .example button + button { margin-left: var(--spacing-2); }
+</style>

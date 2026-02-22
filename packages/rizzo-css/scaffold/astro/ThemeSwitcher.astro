@@ -41,6 +41,13 @@ const themes = {
   light: THEMES_LIGHT.map((t) => ({ ...t, icon: iconMap[t.iconKey] })),
 };
 
+interface Props {
+  /** Optional prefix for trigger/menu IDs to avoid duplicate ids when multiple ThemeSwitchers exist (e.g. idPrefix="settings"). */
+  idPrefix?: string;
+}
+const { idPrefix = '' } = Astro.props;
+const triggerId = idPrefix ? `theme-trigger-${idPrefix}` : 'theme-trigger';
+const menuId = idPrefix ? `theme-menu-${idPrefix}` : 'theme-menu';
 
 // Get current theme from HTML data attribute or default
 const getCurrentTheme = () => {
@@ -76,9 +83,9 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     type="button"
     aria-expanded="false"
     aria-haspopup="true"
-    aria-controls="theme-menu"
+    aria-controls={menuId}
     aria-label="Select theme"
-    id="theme-trigger"
+    id={triggerId}
   >
     <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
       <span class="theme-switcher__label" data-theme-label>{initialLabel}</span>
@@ -88,9 +95,9 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
   
   <div
     class="theme-switcher__menu"
-    id="theme-menu"
+    id={menuId}
     role="menu"
-    aria-labelledby="theme-trigger"
+    aria-labelledby={triggerId}
     aria-label="Theme selection menu"
     aria-orientation="vertical"
     aria-hidden="true"

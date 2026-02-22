@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import Button from '../components/Button.astro';
 import ThemeSwitcher from '../components/ThemeSwitcher.astro';
 import PackageInstallTabs from '../components/PackageInstallTabs.astro';
 import CliCommandTabs from '../components/CliCommandTabs.astro';
@@ -9,14 +8,46 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 <Layout>
 	<div class="home">
 		<div class="home__container">
+			<a href="/docs/getting-started" class="home__announcement" aria-label="What's new in Rizzo CSS">
+				<span class="home__announcement-label">New</span>
+				<span class="home__announcement-text">Blocks, Dashboard layout, Docs layout, and all components — get started in the docs.</span>
+				<span class="home__announcement-arrow" aria-hidden="true">→</span>
+			</a>
 			<header class="home__hero">
-				<h1 class="home__title">Rizzo CSS</h1>
-				<p class="home__subtitle">A modern CSS design system built on Astro with semantic theming, accessibility-first components, and PostCSS optimization. Start here then make it your own.</p>
+				<h1 class="home__title">One design system. Astro, Svelte, or vanilla.</h1>
+				<p class="home__subtitle">A themeable, accessible component library and CSS foundation. Scaffold with the CLI, drop in components, or ship with just the styles — no runtime lock-in.</p>
 				<div class="home__hero-ctas">
 					<a href="/docs/getting-started" class="btn btn-primary home__hero-cta">Get Started</a>
 					<a href="/docs/components" class="btn btn-outline home__hero-cta">View Components</a>
 				</div>
+				<div class="home__examples-row" aria-label="Example sections">
+					<a href="/blocks/dashboard-01" class="home__example-pill">Dashboard</a>
+					<a href="/blocks" class="home__example-pill">Blocks</a>
+					<a href="/docs/components" class="home__example-pill">Components</a>
+					<a href="/docs/getting-started" class="home__example-pill">Documentation</a>
+				</div>
 			</header>
+
+			<section class="home__showcase" aria-labelledby="home-showcase-heading">
+				<h2 id="home-showcase-heading" class="home__section-title">See it in action</h2>
+				<div class="home__showcase-grid">
+					<div class="home__example">
+						<h3>Buttons</h3>
+						<div class="home__button-group">
+							<button class="btn">Default</button>
+							<button class="btn btn-primary">Primary</button>
+							<button class="btn btn-outline">Outline</button>
+						</div>
+					</div>
+					<div class="home__example">
+						<h3>Theme</h3>
+						<p>Switch themes with the control below or the settings button in the navbar.</p>
+						<div class="home__theme-demo">
+							<ThemeSwitcher idPrefix="page" />
+						</div>
+					</div>
+				</div>
+			</section>
 
 			<section class="home__install">
 				<h2 class="home__section-title">Install</h2>
@@ -51,7 +82,7 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 					</div>
 					<div class="home__card home__card--featured">
 						<span class="home__card-icon" aria-hidden="true">Components</span>
-						<h3>34 ready components</h3>
+						<h3>56 ready components</h3>
 						<p>Navbar, Settings, Theme Switcher, Font Switcher, Modal, Dropdown, Tabs, Forms, and more — all accessible and themeable.</p>
 					</div>
 				</div>
@@ -75,32 +106,7 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 					</div>
 				</div>
 			</section>
-			
-			<section class="home__examples">
-				<h2 class="home__section-title">Quick Examples</h2>
-				
-				<div class="home__example">
-					<h3>Buttons</h3>
-					<div class="home__button-group">
-						<button class="btn">Default</button>
-						<button class="btn btn-primary">Primary</button>
-						<button class="btn btn-success">Success</button>
-						<button class="btn btn-warning">Warning</button>
-						<button class="btn btn-error">Error</button>
-						<button class="btn btn-info">Info</button>
-						<button class="btn btn-outline">Outline</button>
-					</div>
-				</div>
-				
-				<div class="home__example">
-					<h3>Theme Switcher</h3>
-					<p>Try switching themes using the theme switcher below or the settings button in the navbar (gear icon).</p>
-					<div class="home__theme-demo">
-						<ThemeSwitcher />
-					</div>
-				</div>
-			</section>
-			
+
 			<section class="home__docs">
 				<h2 class="home__section-title">Documentation</h2>
 				<div class="home__docs-grid">

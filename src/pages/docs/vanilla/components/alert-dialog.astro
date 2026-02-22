@@ -1,0 +1,38 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Structure only; open/close via JS (e.g. openAlertDialog_id / closeAlertDialog_id) -->
+<div class="alert-dialog" role="alertdialog" aria-modal="true" aria-labelledby="alert-title" aria-describedby="alert-desc" id="my-alert" hidden>
+  <div class="alert-dialog__overlay"></div>
+  <div class="alert-dialog__content">
+    <h2 class="alert-dialog__title" id="alert-title">Delete item?</h2>
+    <p class="alert-dialog__description" id="alert-desc">This action cannot be undone.</p>
+    <div class="alert-dialog__actions">
+      <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
+      <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+    </div>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Alert Dialog — Vanilla" description="Confirm/cancel dialog with vanilla HTML. Open/close via JS.">
+  <section>
+    <h2>Alert Dialog</h2>
+    <p>Modal with <code>role="alertdialog"</code>. Use <code>alert-dialog__overlay</code>, <code>alert-dialog__content</code>, <code>alert-dialog__title</code>, <code>alert-dialog__description</code>, <code>alert-dialog__actions</code>. Wire open/close and focus trap in JS.</p>
+    <AddComponentTabs componentName="AlertDialog" />
+    <div class="example">
+      <div class="example-title">Structure (open via JS)</div>
+      <p>Use Astro or Svelte component for full behavior, or wire your own script to show/hide and focus.</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/alert-dialog">Astro</a> · <a href="/docs/svelte/components/alert-dialog">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

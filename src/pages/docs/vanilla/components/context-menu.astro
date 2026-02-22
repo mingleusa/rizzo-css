@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<!-- Context menu: trigger with data-context-menu-trigger; content positioned on contextmenu via JS -->
+<div class="context-menu" data-context-menu id="my-ctx">
+  <div data-context-menu-trigger>Right click here</div>
+  <div class="context-menu__content" role="menu" aria-hidden="true" hidden data-context-menu-content>
+    <button type="button" class="context-menu__item">Profile</button>
+    <button type="button" class="context-menu__item">Billing</button>
+    <div class="context-menu__separator"></div>
+    <button type="button" class="context-menu__item">Logout</button>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Context Menu — Vanilla" description="Right-click menu with vanilla HTML. Position and close via JS.">
+  <section>
+    <h2>Context Menu</h2>
+    <p>Trigger needs <code>data-context-menu-trigger</code>; content uses <code>context-menu__content</code>. Use <code>context-menu__item</code> for items and <code>context-menu__separator</code> for dividers. Wire contextmenu event to show at cursor and click to close.</p>
+    <AddComponentTabs componentName="ContextMenu" />
+    <div class="example">
+      <div class="example-title">Structure (right-click via JS)</div>
+      <p>Use Astro or Svelte component for full behavior.</p>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Astro / Svelte:</strong> <a href="/docs/components/context-menu">Astro</a> · <a href="/docs/svelte/components/context-menu">Svelte</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

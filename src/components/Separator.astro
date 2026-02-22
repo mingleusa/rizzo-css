@@ -1,0 +1,18 @@
+---
+/**
+ * Thin separator line (horizontal or vertical). Same as Divider without label.
+ * Matches shadcn-svelte Separator.
+ */
+interface Props {
+	orientation?: 'horizontal' | 'vertical';
+	class?: string;
+}
+
+const { orientation = 'horizontal', class: className = '' } = Astro.props;
+---
+
+<div
+	class={`separator separator--${orientation} ${className}`.trim()}
+	role="separator"
+	aria-orientation={orientation}
+></div>
