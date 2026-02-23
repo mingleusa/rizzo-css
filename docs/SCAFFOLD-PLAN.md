@@ -31,8 +31,8 @@ Keep shared pieces that are not framework-specific, and put everything else unde
 
 ### Shared (unchanged)
 
-- `scaffold/minimal/` — snippet for add (minimal)
-- `scaffold/starter/` — snippet / optional index for add (starter)
+- `scaffold/landing/` — landing index source (CLI uses this first, then minimal)
+- `scaffold/minimal/` — fallback snippet for add (minimal)
 - `scaffold/shared/` — sound effects, etc.
 - `scaffold/config/` — rizzo-css.json etc.
 - `scaffold/utils/` — shared build/config utilities if any

@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Separator from '../../../components/Separator.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Separator" description="Thin separator line (horizontal or vertical). Matches shadcn-svelte Separator.">
@@ -15,5 +16,26 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			<Separator />
 			<div>Below</div>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Separator from '../components/rizzo/Separator.astro';
+---
+
+<div>Above</div>
+<Separator />
+<div>Below</div>`}
+			svelte={`<script>
+  import { Separator } from '$lib/rizzo';
+</script>
+
+<div>Above</div>
+<Separator />
+<div>Below</div>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<div>Above</div>
+<div class="separator separator--horizontal" role="separator" aria-orientation="horizontal"></div>
+<div>Below</div>`}
+		/>
 	</section>
 </DocsLayout>

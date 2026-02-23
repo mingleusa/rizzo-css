@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ContextMenu from '../../../components/ContextMenu.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Context Menu" description="Right-click menu. Matches shadcn-svelte Context Menu.">
@@ -20,5 +21,31 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<button type="button" class="context-menu__item">Subscription</button>
 			</ContextMenu>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import ContextMenu from '../components/rizzo/ContextMenu.astro';
+---
+
+<ContextMenu>
+  <div slot="trigger" data-context-menu-trigger>Right click here</div>
+  <button type="button" class="context-menu__item">Profile</button>
+  <button type="button" class="context-menu__item">Billing</button>
+  <div class="context-menu__separator"></div>
+  <button type="button" class="context-menu__item">Settings</button>
+</ContextMenu>`}
+			svelte={`<script>
+  import { ContextMenu } from '$lib/rizzo';
+</script>
+
+<ContextMenu>
+  <div data-context-menu-trigger>Right click here</div>
+  <button type="button" class="context-menu__item">Profile</button>
+  <button type="button" class="context-menu__item">Billing</button>
+  <div class="context-menu__separator"></div>
+  <button type="button" class="context-menu__item">Settings</button>
+</ContextMenu>`}
+			vanilla={`<!-- Rizzo CSS + context-menu script from package/vanilla docs. data-context-menu-trigger on trigger; menu uses context-menu, context-menu__item, context-menu__separator. -->`}
+		/>
 	</section>
 </DocsLayout>

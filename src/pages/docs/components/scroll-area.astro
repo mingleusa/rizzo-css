@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ScrollArea from '../../../components/ScrollArea.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
 const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
 ---
@@ -23,5 +24,40 @@ const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
 				</div>
 			</ScrollArea>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import ScrollArea from '../components/rizzo/ScrollArea.astro';
+---
+
+<ScrollArea style="height: 18rem; width: 12rem;">
+  <div style="padding: var(--spacing-4);">
+    <h4>Tags</h4>
+    <div>Item 1</div>
+    <div>Item 2</div>
+  </div>
+</ScrollArea>`}
+			svelte={`<script>
+  import { ScrollArea } from '$lib/rizzo';
+</script>
+
+<ScrollArea style="height: 18rem; width: 12rem;">
+  <div style="padding: var(--spacing-4);">
+    <h4>Tags</h4>
+    <div>Item 1</div>
+    <div>Item 2</div>
+  </div>
+</ScrollArea>`}
+			vanilla={`<!-- Rizzo CSS. BEM: scroll-area, scroll-area__viewport, scroll-area__scrollbar. Set height/width on wrapper. -->
+<div class="scroll-area" style="height: 18rem; width: 12rem;">
+  <div class="scroll-area__viewport">
+    <div style="padding: var(--spacing-4);">
+      <h4>Tags</h4>
+      <div>Item 1</div>
+      <div>Item 2</div>
+    </div>
+  </div>
+</div>`}
+		/>
 	</section>
 </DocsLayout>

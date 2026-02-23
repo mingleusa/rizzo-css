@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AspectRatio from '../../../components/AspectRatio.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Aspect Ratio" description="Enforces an aspect ratio on content (e.g. 16/9, 1/1). Matches shadcn-svelte Aspect Ratio.">
@@ -19,5 +20,28 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<div style="background: var(--background-alt); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-dim);">16:9</div>
 			</AspectRatio>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import AspectRatio from '../components/rizzo/AspectRatio.astro';
+---
+
+<AspectRatio ratio={16/9}>
+  <img src="/hero.jpg" alt="Hero" />
+</AspectRatio>`}
+			svelte={`<script>
+  import { AspectRatio } from '$lib/rizzo';
+</script>
+
+<AspectRatio ratio={16/9}>
+  <img src="/hero.jpg" alt="Hero" />
+</AspectRatio>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. Use --aspect-ratio (e.g. 16/9) and --aspect-ratio-padding. -->
+<div class="aspect-ratio" style="--aspect-ratio: 16/9;">
+  <div class="aspect-ratio__inner">
+    <img src="/hero.jpg" alt="Hero" />
+  </div>
+</div>`}
+		/>
 	</section>
 </DocsLayout>

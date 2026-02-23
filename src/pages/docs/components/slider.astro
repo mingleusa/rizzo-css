@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Slider from '../../../components/Slider.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Slider" description="Range slider input with themed track and fill. Matches shadcn-svelte Slider.">
@@ -13,5 +14,25 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			<div class="example-title">Live Example</div>
 			<Slider ariaLabel="Volume" min={0} max={100} value={50} />
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Slider from '../components/rizzo/Slider.astro';
+---
+
+<Slider ariaLabel="Volume" min={0} max={100} value={50} />`}
+			svelte={`<script>
+  import { Slider } from '$lib/rizzo';
+</script>
+
+<Slider ariaLabel="Volume" min={0} max={100} value={50} />`}
+			vanilla={`<!-- Rizzo CSS. Use BEM: slider, slider__track, slider__fill; input type="range" inside. -->
+<div class="slider" data-slider>
+  <div class="slider__track">
+    <div class="slider__fill" style="--slider-fill: 50%;"></div>
+    <input type="range" min="0" max="100" value="50" aria-label="Volume" class="slider__input" />
+  </div>
+</div>`}
+		/>
 	</section>
 </DocsLayout>

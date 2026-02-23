@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ButtonGroup from '../../../components/ButtonGroup.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Button Group" description="Group of buttons attached together. Matches shadcn-svelte Button Group.">
@@ -17,5 +18,32 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<button type="button" class="btn">Three</button>
 			</ButtonGroup>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import ButtonGroup from '../components/rizzo/ButtonGroup.astro';
+---
+
+<ButtonGroup>
+  <button type="button" class="btn">One</button>
+  <button type="button" class="btn">Two</button>
+  <button type="button" class="btn">Three</button>
+</ButtonGroup>`}
+			svelte={`<script>
+  import { ButtonGroup } from '$lib/rizzo';
+</script>
+
+<ButtonGroup>
+  <button type="button" class="btn">One</button>
+  <button type="button" class="btn">Two</button>
+  <button type="button" class="btn">Three</button>
+</ButtonGroup>`}
+			vanilla={`<!-- Rizzo CSS. No script needed. -->
+<div class="button-group" role="group">
+  <button type="button" class="btn">One</button>
+  <button type="button" class="btn">Two</button>
+  <button type="button" class="btn">Three</button>
+</div>`}
+		/>
 	</section>
 </DocsLayout>

@@ -52,7 +52,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
-| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (minimal/, starter/, vanilla/, astro/, svelte/, config/, shared/, utils/) — astro and svelte include base/ and variants/ |
+| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, config/, shared/, utils/) — astro and svelte include base/ and variants/ |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
 | **tests/** | Playwright a11y tests |
 

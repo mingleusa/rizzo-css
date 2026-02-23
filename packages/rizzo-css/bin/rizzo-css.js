@@ -40,11 +40,16 @@ const ANSI_RESET = '\x1b[0m';
 /** Evenly spread column bounds (6 chars per color for first 6, rest for 7th). */
 const BANNER_BOUNDS = [0, 6, 12, 18, 24, 30, 36];
 
-/** Returns banner with "RIZZOCSS" block art in rainbow theme colors. No ANSI if stdout is not TTY or FORCE_COLOR=0. */
+/** Cat lines (0–4) use red; RIZZOCSS block (5–9) uses rainbow. No ANSI if stdout is not TTY or FORCE_COLOR=0. */
 function getBanner() {
   const useColor = (process.stdout.isTTY || process.env.FORCE_COLOR === '1') && process.env.FORCE_COLOR !== '0';
   if (!useColor) return CLI_BANNER + '\n';
   const lines = CLI_BANNER.split('\n');
+  const CAT_END = 4;
+  const red = BANNER_RAINBOW[0];
+  for (let i = 0; i <= CAT_END && i < lines.length; i++) {
+    lines[i] = ansiFg(red.r, red.g, red.b) + lines[i] + ANSI_RESET;
+  }
   const RIZZOCSS_START = 5;
   const RIZZOCSS_END = 9;
   for (let i = RIZZOCSS_START; i <= RIZZOCSS_END; i++) {

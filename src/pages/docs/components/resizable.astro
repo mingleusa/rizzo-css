@@ -4,6 +4,7 @@ import ResizablePaneGroup from '../../../components/ResizablePaneGroup.astro';
 import ResizablePane from '../../../components/ResizablePane.astro';
 import ResizableHandle from '../../../components/ResizableHandle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Resizable" description="Resizable panel groups. Matches shadcn-svelte Resizable.">
@@ -36,5 +37,34 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				</ResizablePane>
 			</ResizablePaneGroup>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import ResizablePaneGroup from '../components/rizzo/ResizablePaneGroup.astro';
+import ResizablePane from '../components/rizzo/ResizablePane.astro';
+import ResizableHandle from '../components/rizzo/ResizableHandle.astro';
+---
+
+<ResizablePaneGroup direction="horizontal" style="max-width: 28rem; height: 200px;">
+  <ResizablePane defaultSize={50}><div>One</div></ResizablePane>
+  <ResizableHandle />
+  <ResizablePane defaultSize={50}><div>Two</div></ResizablePane>
+</ResizablePaneGroup>`}
+			svelte={`<script>
+  import { ResizablePaneGroup, ResizablePane, ResizableHandle } from '$lib/rizzo';
+</script>
+
+<ResizablePaneGroup direction="horizontal" style="max-width: 28rem; height: 200px;">
+  <ResizablePane defaultSize={50}><div>One</div></ResizablePane>
+  <ResizableHandle />
+  <ResizablePane defaultSize={50}><div>Two</div></ResizablePane>
+</ResizablePaneGroup>`}
+			vanilla={`<!-- Rizzo CSS + resizable script from package/vanilla docs. BEM: resizable-pane-group, resizable-pane, resizable-handle. -->
+<div class="resizable-pane-group resizable-pane-group--horizontal" data-resizable style="max-width: 28rem; height: 200px;">
+  <div class="resizable-pane" style="flex: 0 0 50%;">One</div>
+  <div class="resizable-handle" data-resizable-handle aria-valuenow="50"></div>
+  <div class="resizable-pane" style="flex: 0 0 50%;">Two</div>
+</div>`}
+		/>
 	</section>
 </DocsLayout>

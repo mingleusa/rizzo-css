@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import HoverCard from '../../../components/HoverCard.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Hover Card" description="Floating panel that opens on hover. Matches shadcn-svelte Hover Card.">
@@ -18,5 +19,25 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				</div>
 			</HoverCard>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import HoverCard from '../components/rizzo/HoverCard.astro';
+---
+
+<HoverCard>
+  <span slot="trigger" data-hover-card-trigger style="cursor: pointer;">Hover me</span>
+  <div style="min-width: 16rem;"><p>Card content here.</p></div>
+</HoverCard>`}
+			svelte={`<script>
+  import { HoverCard } from '$lib/rizzo';
+</script>
+
+<HoverCard>
+  <span data-hover-card-trigger style="cursor: pointer;">Hover me</span>
+  <div style="min-width: 16rem;"><p>Card content here.</p></div>
+</HoverCard>`}
+			vanilla={`<!-- Rizzo CSS + hover-card script from package/vanilla docs. data-hover-card-trigger on trigger; content in hover-card__content. Opens on hover. -->`}
+		/>
 	</section>
 </DocsLayout>

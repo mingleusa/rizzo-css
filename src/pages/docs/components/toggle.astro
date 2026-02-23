@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Toggle from '../../../components/Toggle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Toggle" description="Toggle button with pressed/unpressed state. Matches shadcn-svelte Toggle.">
@@ -13,5 +14,23 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			<div class="example-title">Live Example</div>
 			<Toggle ariaLabel="Toggle bold">Bold</Toggle>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Toggle from '../components/rizzo/Toggle.astro';
+---
+
+<Toggle ariaLabel="Toggle bold">Bold</Toggle>
+<Toggle pressed ariaLabel="On">On</Toggle>`}
+			svelte={`<script>
+  import { Toggle } from '$lib/rizzo';
+</script>
+
+<Toggle ariaLabel="Toggle bold">Bold</Toggle>
+<Toggle pressed ariaLabel="On">On</Toggle>`}
+			vanilla={`<!-- Rizzo CSS. Toggle state via JS (aria-pressed, class toggle--pressed). -->
+<button type="button" class="toggle" aria-pressed="false" aria-label="Toggle bold">Bold</button>
+<button type="button" class="toggle toggle--pressed" aria-pressed="true" aria-label="On">On</button>`}
+		/>
 	</section>
 </DocsLayout>

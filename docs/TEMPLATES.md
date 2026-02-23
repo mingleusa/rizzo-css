@@ -45,7 +45,7 @@ Same template choice (Landing | Docs | Dashboard | Full). We **never overwrite**
 
 ## What the package includes (ship checklist)
 
-The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal**, **scaffold/starter** (snippet sources), **scaffold/astro** (base + variants + all 56 components), **scaffold/svelte** (base + variants + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
+The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal** (snippet sources), **scaffold/astro** (base + variants + all 56 components), **scaffold/svelte** (base + variants + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
 
 ## Scaffold layout in the package
 

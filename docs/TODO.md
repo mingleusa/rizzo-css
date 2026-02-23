@@ -6,7 +6,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.59) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** Landing | Docs | Dashboard | Full (same for init and add); all components; we never overwrite existing files (snippets in RIZZO-SETUP.md). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Package:** Single **rizzo-css** (v0.0.60) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** Landing | Docs | Dashboard | Full (same for init and add); all 56 components; we never overwrite existing files (snippets in RIZZO-SETUP.md). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
 - **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast), focus-trap utility, bundle size reporting, performance and browser-support docs. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
 
 ---
@@ -41,6 +41,44 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 ### Examples & demos
 - Example pages (component/theme showcase, form/layout examples).
 - Templates (landing, dashboard, docs-site starter) *(optional)*.
+
+---
+
+## Future improvements (backlog)
+
+Potential tasks to consider when prioritizing work; not in priority order.
+
+### CLI & tooling
+- **CLI `--dry-run`** — Preview which files would be written without writing; show RIZZO-SETUP.md snippet for skipped files.
+- **CLI `--offline` / cache** — Use cached scaffold/CSS when network is unavailable (e.g. for CI or air-gapped use).
+- **CLI `doctor` enhancements** — Check for outdated rizzo.min.css version, missing fonts/sfx paths, invalid `data-theme` values.
+- **Version check** — Optional prompt or notice when a newer npm version is available.
+
+### CSS & themes
+- **Light/dark-only bundles** *(optional)* — Smaller CSS for projects that only need one mode (document in BEST_PRACTICES).
+- **Additional theme presets** — Community or seasonal themes; keep contrast and a11y in mind.
+- **RTL support** — Document or add RTL-friendly utilities/variables if needed for right-to-left layouts.
+- **CSS custom property docs** — Single page or section listing all design tokens (spacing, colors, typography) for reference.
+
+### Documentation & site
+- **Component changelog** — Per-component or global changelog (e.g. new props, breaking changes) linked from docs.
+- **More copy-paste examples** — Form layouts, dashboard cards, settings panels as full-page snippets.
+- **Search** — Algolia or local search for docs (already referenced in .env.example for some setups).
+- **Docs version selector** — Link to docs for specific package version (e.g. 0.0.60) when multiple versions are documented.
+
+### Accessibility & quality
+- **Cross-browser a11y** — Extend Playwright a11y runs to Firefox and WebKit (see BROWSER_SUPPORT).
+- **Component a11y matrix** — Table of components vs. screen reader / keyboard behavior (tested vs. documented).
+- **Bundle size budget** — CI check that CSS size stays under a threshold; document in PUBLISHING or CONTRIBUTING.
+
+### Frameworks & scaffolds
+- **React components** — In-repo React versions of components (same BEM, same patterns as Svelte); doc route for React.
+- **Vue components** — Same idea as React; optional separate package or in-repo.
+- **Scaffold variations** — Optional “minimal CSS only” scaffold (no components) for users who want just the design tokens.
+
+### General
+- **Stability / maturity** — As the system stabilizes, consider a 1.0 and clearer semver policy (e.g. deprecation windows).
+- **Contributing** — Template for new component PRs (checklist: Astro + Svelte + Vanilla slug + doc page + CLI entry).
 
 ---
 

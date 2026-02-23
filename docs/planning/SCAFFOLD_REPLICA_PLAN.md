@@ -6,9 +6,8 @@
 
 The published **rizzo-css** package includes only these scaffolds (see `packages/rizzo-css/package.json` `"files"`):
 
-- **scaffold/minimal/** — Minimal template entry: `index.html` with placeholders (`{{TITLE}}`, `{{DATA_THEME}}`, `{{THEME_LIST_COMMENT}}`, `{{LINK_HREF}}`). CLI does not write this file into the project; it is used as the source for the “Example minimal page” snippet in RIZZO-SETUP.md.
-- **scaffold/starter/** — Starter template entry: same `index.html` as minimal. CLI reads it, applies replacements, and writes it as the project’s index (or public/static index for Astro/Svelte) only if missing; otherwise the content goes into RIZZO-SETUP.md as a snippet.
-- **scaffold/landing/** — Landing template snippet source (hero/features). Used by CLI for Landing template.
+- **scaffold/landing/** — Landing template source: `index.html` with placeholders. CLI uses this first (then fallback to minimal), applies replacements, and writes the project’s index (or public/static index for Astro/Svelte) when creating new or add; if file exists, content goes into RIZZO-SETUP.md as a snippet.
+- **scaffold/minimal/** — Fallback index source (same content as landing). CLI uses it when landing is missing; also as the “Example minimal page” snippet in RIZZO-SETUP.md.
 - **scaffold/vanilla/** — Full Vanilla HTML + CSS. Built by `copy-scaffold.js` (vanilla icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`, and landing content in `index.html`). Includes `index.html`, `js/main.js`, `components/`, `icons/`, `variants/` (docs, dashboard, full), README-RIZZO.md, LICENSE-RIZZO, .gitignore. Used for all Vanilla templates (Landing, Docs, Dashboard, Full).
 - **scaffold/astro/** — Astro component files (56 + ThemeIcon) plus **base/** (base app: config, one page, README-RIZZO.md, .env.example) and **variants/** (docs, dashboard, full). CLI copies base + variant or full variant; component files are copied to `src/components/rizzo/` when user picks components.
 - **scaffold/svelte/** — Svelte component files (56) plus **base/** (SvelteKit base) and **variants/** (docs, dashboard, full). Same flow as Astro.

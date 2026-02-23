@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Popover from '../../../components/Popover.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Popover" description="Floating panel triggered by a button. Matches shadcn-svelte Popover.">
@@ -16,5 +17,25 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 				<p style="margin:0;">Popover content here.</p>
 			</Popover>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Popover from '../components/rizzo/Popover.astro';
+---
+
+<Popover>
+  <button type="button" class="btn" slot="trigger" data-popover-trigger>Open popover</button>
+  <p>Popover content here.</p>
+</Popover>`}
+			svelte={`<script>
+  import { Popover } from '$lib/rizzo';
+</script>
+
+<Popover>
+  <button type="button" class="btn" data-popover-trigger>Open popover</button>
+  <p>Popover content here.</p>
+</Popover>`}
+			vanilla={`<!-- Rizzo CSS + popover script from package/vanilla docs. data-popover-trigger on trigger; content in popover__content. Click outside or Escape to close. -->`}
+		/>
 	</section>
 </DocsLayout>

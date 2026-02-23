@@ -2,6 +2,7 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Sheet from '../../../components/Sheet.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 ---
 
 <DocsLayout title="Sheet" description="Slide-out panel (drawer) from top, right, bottom, or left. Matches shadcn-svelte Sheet.">
@@ -16,5 +17,36 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 			</Sheet>
 			<button type="button" class="btn" onclick="window.openSheet_sheet_demo()">Open sheet</button>
 		</div>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import Sheet from '../components/rizzo/Sheet.astro';
+---
+
+<Sheet id="sheet-demo" title="Side panel" side="right">
+  <p>Sheet content goes here.</p>
+</Sheet>
+<button type="button" class="btn" onclick="window.openSheet_sheet_demo()">Open sheet</button>`}
+			svelte={`<script>
+  import { Sheet } from '$lib/rizzo';
+</script>
+
+<Sheet id="sheet-demo" title="Side panel" side="right" bind:open>
+  <p>Sheet content goes here.</p>
+</Sheet>
+<button type="button" class="btn" onclick={() => (open = true)}>Open sheet</button>`}
+			vanilla={`<!-- Rizzo CSS + sheet script from package/vanilla docs. Open/close: openSheet_<id>(), closeSheet_<id>(). -->
+<div class="sheet__overlay" data-sheet-overlay id="sheet-demo-overlay" aria-hidden="true"></div>
+<div class="sheet sheet--right" id="sheet-demo" data-sheet aria-hidden="true" hidden>
+  <div class="sheet__content">
+    <div class="sheet__header">
+      <h2 class="sheet__title">Side panel</h2>
+      <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+    </div>
+    <div class="sheet__body"><p>Sheet content goes here.</p></div>
+  </div>
+</div>
+<button type="button" class="btn" onclick="window.openSheet_sheet_demo()">Open sheet</button>`}
+		/>
 	</section>
 </DocsLayout>
