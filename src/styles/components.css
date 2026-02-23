@@ -5182,8 +5182,8 @@ div.navbar__sublink {
   outline-offset: var(--outline-offset);
 }
 
-/* Footer: on mobile, add bottom padding so fixed back-to-top button doesn’t cover content */
-@media (width <= 768px) {
+/* Footer: on mobile and tablet, add bottom padding so fixed back-to-top button doesn’t cover content */
+@media (width <= 1024px) {
   .footer {
     padding-bottom: calc(var(--spacing-6) + var(--spacing-10) + var(--spacing-6));
   }

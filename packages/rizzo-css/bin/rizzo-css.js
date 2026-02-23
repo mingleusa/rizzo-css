@@ -17,6 +17,7 @@ const CLI_BANNER = `      /\\___/\\
 |  _ < | | / /_ / /| |_| | | |___ ___) |__) |
 |_| \\_\\___/____/____\\___/   \\____|____/____/
 
+
   Design system · Vanilla · Astro · Svelte`;
 
 /** Rainbow theme colors for "RIZZOCSS" block (from our themes: red → orange → yellow → green → blue → purple → pink). */
@@ -42,7 +43,7 @@ const BANNER_BOUNDS = [0, 6, 12, 18, 24, 30, 36];
 /** Returns banner with "RIZZOCSS" block art in rainbow theme colors. No ANSI if stdout is not TTY or FORCE_COLOR=0. */
 function getBanner() {
   const useColor = (process.stdout.isTTY || process.env.FORCE_COLOR === '1') && process.env.FORCE_COLOR !== '0';
-  if (!useColor) return CLI_BANNER;
+  if (!useColor) return CLI_BANNER + '\n';
   const lines = CLI_BANNER.split('\n');
   const RIZZOCSS_START = 5;
   const RIZZOCSS_END = 9;
@@ -59,7 +60,7 @@ function getBanner() {
     }
     lines[i] = out;
   }
-  return lines.join('\n');
+  return lines.join('\n') + '\n';
 }
 
 const RIZZO_CONFIG_FILE = 'rizzo-css.json';
