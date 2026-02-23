@@ -9,6 +9,7 @@ Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BE
 ## Overview
 
 - **[Getting Started](./GETTING_STARTED.md)** — Installation, CLI, templates (Landing | Docs | Dashboard | Full), using components.
+- **[Templates](./TEMPLATES.md)** — What each template ships per framework (Vanilla, Astro, Svelte); consistent across all three.
 - **[CLI](./CLI.md)** — `npx rizzo-css init | add | theme | doctor | help`; templates and component picker.
 - **[rizzo-css.json](./CLI.md#config-rizzo-cssjson)** — Optional config: `targetDir`, `framework`, `packageManager`, `theme`.
 - **[Design System](./DESIGN_SYSTEM.md)** — Semantic variables, typography, utilities, naming.

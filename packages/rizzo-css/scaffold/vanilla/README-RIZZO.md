@@ -27,7 +27,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.55`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.56`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 
@@ -67,9 +67,10 @@ npx serve .
 pnpm dlx serve .
 ```
 
-## Other scaffolds
+## Other scaffolds (same four templates for every framework)
 
-- **Astro:** `scaffold/astro/base/` + optional `scaffold/astro/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/astro/` (see README-RIZZO.md).
-- **Svelte:** `scaffold/svelte/base/` + optional `scaffold/svelte/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/svelte/` (see README-RIZZO.md).
+- **Vanilla:** Landing uses `scaffold/vanilla/index.html` or `scaffold/landing/`; Docs/Dashboard use `scaffold/vanilla/variants/docs` and `scaffold/vanilla/variants/dashboard`; Full uses `scaffold/vanilla/variants/full/`. All get component picker (all or pick) except Full.
+- **Astro:** `scaffold/astro/base/` + optional `scaffold/astro/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/astro/`.
+- **Svelte:** `scaffold/svelte/base/` + optional `scaffold/svelte/variants/docs`, `dashboard`, or `full`; same flow.
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

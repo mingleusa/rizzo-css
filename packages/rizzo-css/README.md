@@ -53,7 +53,7 @@ You install **the same package** for every framework: `npm install rizzo-css`. N
 
 With `npx rizzo-css add --path <dir>`, the CLI still suggests the correct href for your framework (e.g. Astro/Svelte get a leading `/` path).
 
-Scaffolds in the package: `scaffold/vanilla/`, `scaffold/astro/base/` and `scaffold/astro/variants/` (docs, dashboard, full), `scaffold/svelte/base/` and `scaffold/svelte/variants/`, plus `scaffold/astro/` and `scaffold/svelte/` (all components), and `scaffold/config/` (font pairs for Settings). **New and existing use the same flow:** choose **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all components or pick). Full = site clone. **We never overwrite your existing files**; skipped content goes in **RIZZO-SETUP.md**. You must add the stylesheet `<link>` yourself (CLI prints the exact tag). Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, and .gitignore; Astro/Svelte include package.json and .env.example.
+Scaffolds in the package: `scaffold/vanilla/` (and `scaffold/vanilla/variants/docs`, `dashboard`, `full`), `scaffold/astro/base/` and `scaffold/astro/variants/` (docs, dashboard, full), `scaffold/svelte/base/` and `scaffold/svelte/variants/`, plus `scaffold/astro/` and `scaffold/svelte/` (all components), and `scaffold/config/` (font pairs for Settings). **Every framework gets the same four templates:** **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all or pick). Full = site clone (all components). **We never overwrite your existing files**; skipped content goes in **RIZZO-SETUP.md**. You must add the stylesheet `<link>` yourself (CLI prints the exact tag). Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, and .gitignore; Astro/Svelte include package.json and .env.example.
 
 ## Use
 
@@ -68,7 +68,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.55 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.56 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->

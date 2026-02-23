@@ -1349,7 +1349,7 @@ function copyVanillaComponents(projectDir, selectedNames, replacements) {
     }
   }
   const indexLinks = slugsToCopy.map((s) => '    <li><a href="' + s + '.html">' + s + '</a></li>').join('\n');
-  const navHtml = replacements['{{NAVBAR_HTML}}'] || '';
+  const navHtml = getNavbarHtmlVanilla(title, '../index.html');
   const indexHtml = `<!DOCTYPE html>
 <html lang="en" data-theme="${replacements['{{DATA_THEME}}'] || 'github-dark-classic'}">
 <head>
@@ -2061,7 +2061,7 @@ async function cmdInit(argv) {
   const useAstroBase = selectedTemplate === 'full' && fullAllComponents && framework === 'astro' && existsSync(astroCoreDir) && !useFullVariant;
   const useSvelteBase = selectedTemplate === 'full' && fullAllComponents && framework === 'svelte' && existsSync(svelteCoreDir) && !useFullVariant;
   const useVanillaCore = selectedTemplate === 'full' && fullAllComponents && framework === 'vanilla' && existsSync(getScaffoldVanillaIndex()) && !useFullVariant && selectedVariation === 'landing';
-  const useVanillaWithOverlay = selectedTemplate === 'full' && fullAllComponents && framework === 'vanilla' && (selectedVariation === 'docs' || selectedVariation === 'dashboard') && getVariantDir('vanilla', selectedVariation);
+  const useVanillaWithOverlay = selectedTemplate === 'full' && framework === 'vanilla' && (selectedVariation === 'docs' || selectedVariation === 'dashboard') && getVariantDir('vanilla', selectedVariation);
 
   // Full gets all required dependencies so everything works; manual gets deps when user picks (see prompt labels).
   let componentsToCopy = selectedComponents;
@@ -2070,7 +2070,7 @@ async function cmdInit(argv) {
     logAddedDeps(selectedComponents, componentsToCopy, framework);
   }
   let vanillaSoundScript = '';
-  if (framework === 'vanilla' && (useVanillaCore || componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects'))) {
+  if (framework === 'vanilla' && (useVanillaCore || useVanillaWithOverlay || componentsToCopy.includes('Settings') || componentsToCopy.includes('SoundEffects'))) {
     const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
     if (existsSync(soundPath)) {
       let script = readFileSync(soundPath, 'utf8');
@@ -2079,17 +2079,20 @@ async function cmdInit(argv) {
     }
   }
 
-  // Astro layout: inject Navbar and Settings when those components are selected so the settings menu works.
-  if ((framework === 'astro') && (useHandpickAstro || useAstroBase)) {
-    const hasNavbar = componentsToCopy.includes('Navbar');
-    const hasSettings = componentsToCopy.includes('Settings');
-    const hasSound = useAstroBase || hasSettings || componentsToCopy.includes('SoundEffects');
+  // Astro layout: inject Navbar, Settings, Footer when Full variant or when those components are selected.
+  const astroFullLayout = (framework === 'astro') && (useFullVariant || useHandpickAstro || useAstroBase);
+  if (astroFullLayout) {
+    const hasNavbar = useFullVariant || componentsToCopy.includes('Navbar');
+    const hasSettings = useFullVariant || componentsToCopy.includes('Settings');
+    const hasFooter = useFullVariant || componentsToCopy.includes('Footer');
+    const hasSound = useFullVariant || useAstroBase || hasSettings || componentsToCopy.includes('SoundEffects');
     const layoutImports = [];
     if (hasNavbar) layoutImports.push("import Navbar from '../components/rizzo/Navbar.astro';");
     if (hasSettings) layoutImports.push("import Settings from '../components/rizzo/Settings.astro';");
+    if (hasFooter) layoutImports.push("import Footer from '../components/rizzo/Footer.astro';");
     replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = layoutImports.length ? '\n' + layoutImports.join('\n') + '\n' : '\n';
     replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = hasNavbar ? '\n    <Navbar />' : '';
-    replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = hasSettings ? '\n    <Settings />' : '';
+    replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = [hasSettings ? '\n    <Settings />' : '', hasFooter ? '\n    <Footer />' : ''].filter(Boolean).join('');
     if (hasSound) {
       const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
       if (existsSync(soundPath)) {
@@ -2100,6 +2103,13 @@ async function cmdInit(argv) {
     replacements['{{RIZZO_LAYOUT_IMPORTS}}'] = '\n';
     replacements['{{RIZZO_LAYOUT_BODY_TOP}}'] = '';
     replacements['{{RIZZO_LAYOUT_BODY_BOTTOM}}'] = '';
+  }
+
+  if (useFullVariant && framework === 'svelte') {
+    const soundPath = join(getPackageRoot(), 'scaffold', 'shared', 'sound-effects-inline.js');
+    if (existsSync(soundPath)) {
+      replacements['{{RIZZO_SOUND_SCRIPT}}'] = '\n    <script>\n' + readFileSync(soundPath, 'utf8') + '\n    </script>';
+    }
   }
 
   // Svelte app.html: inject sound script when Settings or SoundEffects is included (identical behavior to Astro).
@@ -2123,6 +2133,7 @@ async function cmdInit(argv) {
     const fullDir = getVariantDir('astro', 'full');
     copyDirRecursiveWithReplacements(fullDir, projectDir, replacements);
     copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+    copyAstroComponents(projectDir, componentsToCopy);
     cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
     if (existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
@@ -2135,6 +2146,7 @@ async function cmdInit(argv) {
     const fullDir = getVariantDir('svelte', 'full');
     copyDirRecursiveWithReplacements(fullDir, projectDir, replacements);
     copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
+    copySvelteComponents(projectDir, componentsToCopy);
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
     if (existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
@@ -2144,8 +2156,11 @@ async function cmdInit(argv) {
     copyRizzoIcons(projectDir, 'svelte');
   } else if (useFullVariant && framework === 'vanilla') {
     mkdirSync(projectDir, { recursive: true });
+    replacements['{{LINK_HREF}}'] = pathsForScaffold.linkHref || 'css/rizzo.min.css';
+    replacements['{{NAVBAR_HTML}}'] = getNavbarHtmlVanilla(name || 'App', 'index.html');
     const fullDir = getVariantDir('vanilla', 'full');
     copyDirRecursiveWithReplacements(fullDir, projectDir, replacements);
+    copyVanillaComponents(projectDir, Object.keys(VANILLA_COMPONENT_SLUGS), replacements);
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
     mkdirSync(cssDir, { recursive: true });
@@ -2230,7 +2245,7 @@ async function cmdInit(argv) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, componentsToCopy);
     }
-  } else if (useVanillaCore) {
+  } else if (useVanillaCore || useVanillaWithOverlay) {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
     const linkHref = 'css/rizzo.min.css';
@@ -2241,26 +2256,28 @@ async function cmdInit(argv) {
     if (statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
     }
-    const vanillaScaffoldPath = getScaffoldVanillaIndex();
-    indexPath = join(projectDir, 'index.html');
-    let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
-    const navbarForIndex = getNavbarHtmlVanilla(name || 'App', 'index.html');
-    indexHtml = indexHtml
-      .replace(/\{\{DATA_THEME\}\}/g, theme)
-      .replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark)
-      .replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight)
-      .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
-      .replace(/\{\{TITLE\}\}/g, name || 'App')
-      .replace(/\{\{LINK_HREF\}\}/g, linkHref)
-      .replace(/\{\{NAVBAR_HTML\}\}/g, navbarForIndex);
     const vanillaSkipped = [];
-    if (existsSync(indexPath)) {
-      vanillaSkipped.push({ relativePath: 'index.html', content: indexHtml });
-    } else {
-      writeFileSync(indexPath, indexHtml, 'utf8');
-    }
     if (useVanillaWithOverlay) {
       copyVariantOverlay(projectDir, 'vanilla', selectedVariation, { ...replacements, '{{LINK_HREF}}': linkHref, '{{TITLE}}': name || 'App', '{{DATA_THEME}}': theme, '{{THEME_LIST_COMMENT}}': themeComment });
+      indexPath = join(projectDir, 'index.html');
+    } else {
+      const vanillaScaffoldPath = getScaffoldVanillaIndex();
+      indexPath = join(projectDir, 'index.html');
+      let indexHtml = readFileSync(vanillaScaffoldPath, 'utf8');
+      const navbarForIndex = getNavbarHtmlVanilla(name || 'App', 'index.html');
+      indexHtml = indexHtml
+        .replace(/\{\{DATA_THEME\}\}/g, theme)
+        .replace(/\{\{DEFAULT_DARK\}\}/g, defaultDark)
+        .replace(/\{\{DEFAULT_LIGHT\}\}/g, defaultLight)
+        .replace(/\{\{THEME_LIST_COMMENT\}\}/g, themeComment)
+        .replace(/\{\{TITLE\}\}/g, name || 'App')
+        .replace(/\{\{LINK_HREF\}\}/g, linkHref)
+        .replace(/\{\{NAVBAR_HTML\}\}/g, navbarForIndex);
+      if (existsSync(indexPath)) {
+        vanillaSkipped.push({ relativePath: 'index.html', content: indexHtml });
+      } else {
+        writeFileSync(indexPath, indexHtml, 'utf8');
+      }
     }
     copyRizzoIcons(projectDir, 'vanilla');
     const vanillaReadme = join(getPackageRoot(), 'scaffold', 'vanilla', SCAFFOLD_README_FILENAME);
@@ -2275,7 +2292,8 @@ async function cmdInit(argv) {
       writeFileSync(join(projectDir, 'js', 'main.js'), mainJs, 'utf8');
     }
     const vanillaCoreRepl = { ...replacements, '{{LINK_HREF}}': linkHref };
-    copyVanillaComponents(projectDir, Object.keys(VANILLA_COMPONENT_SLUGS), vanillaCoreRepl);
+    const vanillaComponentSet = (useVanillaCore || fullAllComponents) ? Object.keys(VANILLA_COMPONENT_SLUGS) : selectedComponents;
+    copyVanillaComponents(projectDir, vanillaComponentSet, vanillaCoreRepl);
     if (vanillaSkipped.length > 0) {
       writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('vanilla', { linkHref, theme, defaultDark, defaultLight, skippedFiles: vanillaSkipped }), 'utf8');
     }
@@ -2379,8 +2397,8 @@ async function cmdInit(argv) {
   console.log('  - ' + cssTarget);
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
-    if (useVanillaCore) {
-      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME + '.');
+    if (useVanillaCore || useVanillaWithOverlay) {
+      console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME + '.' + (useVanillaWithOverlay ? ' (' + selectedVariation + ' template)' : ''));
     } else if (selectedTemplate === 'landing') {
       console.log('  - ' + RIZZO_SETUP_FILE + ' has instructions and snippets.');
     } else {
