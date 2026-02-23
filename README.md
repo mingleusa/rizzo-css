@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<pre style="font-family: ui-monospace, monospace; font-size: 0.85em; line-height: 1.2;">
+<div style="font-family: ui-monospace, monospace; font-size: 0.85em; line-height: 1.2; white-space: pre;">
       /\___/\   
    __(  o o  )__
      (  =^=  )  
@@ -15,11 +15,11 @@
 <span style="color:#c44536">|_| \_</span><span style="color:#e07c3e">\___/_</span><span style="color:#d4a800">___/__</span><span style="color:#2d9d78">__\___</span><span style="color:#0052bd">/   \_</span><span style="color:#7c3aed">___|__</span><span style="color:#d946ef">__/____/</span>
 
   Design system · Vanilla · Astro · Svelte
-</pre>
+</div>
 
 *Run `npx rizzo-css help` to see this in the CLI (rainbow uses our theme colors).*
 
-[![npm](https://img.shields.io/badge/npm-0.0.57-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.58-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)

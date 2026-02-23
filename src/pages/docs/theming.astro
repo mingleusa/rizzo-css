@@ -10,11 +10,11 @@ import { THEMES_DARK, THEMES_LIGHT } from '../../config/themes';
 const THEMING_PAGE_DROPDOWN_ONCLICK = 'themingPageThemeSelect';
 
 const themeDropdownItems = [
-  { label: 'System', value: 'system', onClick: THEMING_PAGE_DROPDOWN_ONCLICK },
+  { label: 'System', value: 'system', themeId: 'system', onClick: THEMING_PAGE_DROPDOWN_ONCLICK },
   { label: '', separator: true },
-  ...THEMES_DARK.map((t) => ({ label: t.label, value: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
+  ...THEMES_DARK.map((t) => ({ label: t.label, value: t.value, themeId: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
   { label: '', separator: true },
-  ...THEMES_LIGHT.map((t) => ({ label: t.label, value: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
+  ...THEMES_LIGHT.map((t) => ({ label: t.label, value: t.value, themeId: t.value, onClick: THEMING_PAGE_DROPDOWN_ONCLICK })),
 ];
 
 const themeCardContent: Record<string, { description: string; author: string }> = {
@@ -233,11 +233,25 @@ document.documentElement.setAttribute('data-theme', savedTheme);`} language="jav
 <script>
   import { applyTheme, getStoredTheme, getThemeLabel, THEME_SYSTEM } from '../../utils/theme';
 
+  const THEMING_PAGE_ACTIVE_CLASS = 'dropdown__item--active';
+
   function syncThemingPageDropdownLabel() {
-    const triggerText = document.querySelector('.theming-page__mobile-dropdown .dropdown__trigger-text');
+    const wrapper = document.querySelector('.theming-page__mobile-dropdown');
+    const triggerText = wrapper?.querySelector('.dropdown__trigger-text');
     if (triggerText) {
       const stored = getStoredTheme();
       triggerText.textContent = stored === THEME_SYSTEM ? 'System' : getThemeLabel(stored || '');
+    }
+    if (wrapper) {
+      const current = getStoredTheme() ?? THEME_SYSTEM;
+      wrapper.querySelectorAll('.dropdown__item').forEach((el) => {
+        const value = el.getAttribute('data-dropdown-value');
+        if (value === current) {
+          el.classList.add(THEMING_PAGE_ACTIVE_CLASS);
+        } else {
+          el.classList.remove(THEMING_PAGE_ACTIVE_CLASS);
+        }
+      });
     }
   }
 

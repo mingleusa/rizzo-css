@@ -42,8 +42,11 @@ interface Props {
 }
 
 const { themeId, size = 24, class: className = '' } = Astro.props;
-const theme = ALL_THEMES.find((t) => t.value === themeId);
-const IconComponent = theme ? iconMap[theme.iconKey] : null;
+const IconComponent =
+  themeId === 'system' ? Gear : (() => {
+    const theme = ALL_THEMES.find((t) => t.value === themeId);
+    return theme ? iconMap[theme.iconKey] : null;
+  })();
 ---
 
 {IconComponent ? (

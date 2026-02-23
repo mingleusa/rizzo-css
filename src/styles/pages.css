@@ -854,10 +854,59 @@
 @media (width <= 1024px) {
   .theming-page .theming-page__mobile-dropdown {
     display: block !important;
+    max-width: none;
   }
 
   .theming-page .theming-page__hero-switcher {
     display: none !important;
+  }
+
+  /* Try Themes dropdown: full width of container, trigger and menu span 100% */
+  .theming-page .theming-page__mobile-dropdown-inner.dropdown {
+    display: block;
+    width: 100%;
+  }
+
+  .theming-page .theming-page__mobile-dropdown-inner .dropdown__trigger {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .theming-page .theming-page__mobile-dropdown-inner .dropdown__menu {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* Theme dropdown items: icons and consistent hover/active (match ThemeSwitcher) */
+  .theming-page .theming-page__mobile-dropdown .dropdown__item-icon {
+    color: var(--icon);
+  }
+
+  .theming-page .theming-page__mobile-dropdown .dropdown__item:hover:not(.dropdown__item--disabled) .dropdown__item-icon,
+  .theming-page .theming-page__mobile-dropdown .dropdown__item:focus-visible:not(.dropdown__item--disabled) .dropdown__item-icon {
+    color: var(--accent);
+  }
+
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active,
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active:hover,
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active:focus-visible {
+    background-color: var(--background);
+    color: var(--text);
+    font-weight: var(--font-weight-medium);
+    border-radius: var(--radius);
+    border-left: var(--border-width-accent) solid var(--accent);
+    padding-left: calc(var(--spacing-4) - var(--border-width-accent));
+  }
+
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active .dropdown__item-icon,
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active:hover .dropdown__item-icon,
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active:focus-visible .dropdown__item-icon {
+    color: var(--accent);
+  }
+
+  .theming-page .theming-page__mobile-dropdown .dropdown__item--active:focus-visible {
+    box-shadow: inset 0 0 0 var(--outline-width) var(--accent);
   }
 }
 

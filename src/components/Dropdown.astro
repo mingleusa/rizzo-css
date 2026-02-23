@@ -1,5 +1,6 @@
 ---
 import ChevronDown from './icons/ChevronDown.astro';
+import ThemeIcon from './ThemeIcon.astro';
 
 interface MenuItem {
   label: string;
@@ -9,6 +10,8 @@ interface MenuItem {
   disabled?: boolean;
   separator?: boolean;
   submenu?: MenuItem[];
+  /** When set, renders ThemeIcon before the label (e.g. theme picker dropdowns). */
+  themeId?: string;
 }
 
 interface Props {
@@ -289,6 +292,7 @@ const menuId = `${dropdownId}-menu`;
             data-dropdown-onclick={item.onClick || ''}
             data-dropdown-has-submenu={hasSubmenu ? 'true' : undefined}
           >
+            {item.themeId && <ThemeIcon themeId={item.themeId} size={16} class="dropdown__item-icon" />}
             <span>{item.label}</span>
             {hasSubmenu && <ChevronDown class="dropdown__item-arrow" width={12} height={12} />}
           </div>
