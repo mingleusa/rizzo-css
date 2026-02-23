@@ -8,12 +8,13 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 
 - **scaffold/minimal/** — Minimal template entry: `index.html` with placeholders (`{{TITLE}}`, `{{DATA_THEME}}`, `{{THEME_LIST_COMMENT}}`, `{{LINK_HREF}}`). CLI does not write this file into the project; it is used as the source for the “Example minimal page” snippet in RIZZO-SETUP.md.
 - **scaffold/starter/** — Starter template entry: same `index.html` as minimal. CLI reads it, applies replacements, and writes it as the project’s index (or public/static index for Astro/Svelte) only if missing; otherwise the content goes into RIZZO-SETUP.md as a snippet.
-- **scaffold/vanilla/** — Full Vanilla HTML + CSS. Built by `copy-scaffold.js` (base + icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`). Includes `index.html`, `js/main.js`, `css/`, `icons/`, README-RIZZO.md, LICENSE-RIZZO, .gitignore. Used when template is **Full**.
-- **scaffold/astro-core/** — Astro base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .gitignore, .env.example). Fonts go in `public/assets/fonts/` (CLI rewrites CSS URLs). Used when template is **Full**.
-- **scaffold/svelte-core/** — SvelteKit base app (config, one page, README-RIZZO.md, LICENSE-RIZZO, .gitignore, .env.example). Used when template is **Full**.
-- **scaffold/astro/** — 56 Astro component files (Button, Badge, Card, etc.) for copy into a project.
+- **scaffold/landing/** — Landing template snippet source (hero/features). Used by CLI for Landing template.
+- **scaffold/vanilla/** — Full Vanilla HTML + CSS. Built by `copy-scaffold.js` (vanilla icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`, and landing content in `index.html`). Includes `index.html`, `js/main.js`, `components/`, `icons/`, `variants/` (docs, dashboard, full), README-RIZZO.md, LICENSE-RIZZO, .gitignore. Used for all Vanilla templates (Landing, Docs, Dashboard, Full).
+- **scaffold/astro/** — Astro component files (56 + ThemeIcon) plus **base/** (base app: config, one page, README-RIZZO.md, .env.example) and **variants/** (docs, dashboard, full). CLI copies base + variant or full variant; component files are copied to `src/components/rizzo/` when user picks components.
+- **scaffold/svelte/** — Svelte component files (56) plus **base/** (SvelteKit base) and **variants/** (docs, dashboard, full). Same flow as Astro.
+- **scaffold/config/** — `fonts.ts` for FontSwitcher/Settings. CLI copies to project when adding Settings.
+- **scaffold/shared/** — Shared snippets (e.g. navbar-vanilla.html). Used by CLI for Vanilla Full.
 - **scaffold/utils/** — Theme utilities (`theme.ts`) used by ThemeSwitcher; ThemeSwitcher.astro imports `../utils/theme`. CLI copies this into the project as `src/components/utils/theme.ts` when adding ThemeSwitcher or ThemeIcon.
-- **scaffold/svelte/** — 56 Svelte component files for copy into a project.
 
 **CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. Init → framework → add to existing or create new (same template choice: Landing | Docs | Dashboard | Full). Create new → **Landing**, **Docs**, **Dashboard**, or **Full** (Full = site clone; Landing/Docs/Dashboard picker has all 56 or pick). Add to existing → same template choice. `npx rizzo-css add` = same as add to existing.
 

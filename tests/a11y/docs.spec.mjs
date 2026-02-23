@@ -50,7 +50,7 @@ const COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
   'button', 'button-group', 'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
   'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
-  'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'progress-bar', 'resizable', 'scroll-area',
+  'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar', 'resizable', 'scroll-area',
   'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects', 'spinner', 'switch',
   'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ];

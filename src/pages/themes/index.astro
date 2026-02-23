@@ -20,6 +20,11 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 			<header class="themes-page__hero">
 				<h1 class="themes-page__title">Fourteen themes. One design system.</h1>
 				<p class="themes-page__subtitle">Each theme is built on semantic OKLCH variables — switch instantly, no restyle. Choose a theme and see the live preview update. Copy the snippet at the bottom to use it in your project.</p>
+				<div class="themes-page__hero-ctas">
+					<a href="/docs/theming" class="btn btn-primary themes-page__hero-cta">Theming docs</a>
+					<a href="/docs/components/theme-switcher" class="btn btn-outline themes-page__hero-cta">Theme Switcher</a>
+					<a href="/docs/colors" class="btn btn-outline themes-page__hero-cta">Colors</a>
+				</div>
 			</header>
 
 			<div class="themes-page__main">
@@ -106,6 +111,7 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 										aria-controls={`${THEMES_PREVIEW_DROPDOWN_ID}-menu`}
 										aria-label="Select theme"
 									>
+										<ThemeIcon themeId={defaultTheme} size={16} class="themes-page__trigger-icon" />
 										<span class="dropdown__trigger-text">{defaultThemeLabel}</span>
 										<ChevronDown class="dropdown__icon" width={16} height={16} />
 									</button>
@@ -128,6 +134,7 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 													tabindex="-1"
 													aria-label={theme.label}
 													aria-disabled="false"
+													aria-current={theme.value === defaultTheme ? 'true' : undefined}
 													data-dropdown-value={theme.value}
 													data-dropdown-onclick={THEMES_PREVIEW_DROPDOWN_ONCLICK}
 												>
@@ -146,6 +153,7 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 													tabindex="-1"
 													aria-label={theme.label}
 													aria-disabled="false"
+													aria-current={theme.value === defaultTheme ? 'true' : undefined}
 													data-dropdown-value={theme.value}
 													data-dropdown-onclick={THEMES_PREVIEW_DROPDOWN_ONCLICK}
 												>
@@ -249,7 +257,7 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		</div>
 	</div>
 
-	<script define:vars={{ defaultTheme, themeLabelsMap: Object.fromEntries(ALL_THEMES.map((t) => [t.value, t.label])) }}>
+	<script define:vars={{ defaultTheme, themeLabelsMap: Object.fromEntries(ALL_THEMES.map((t) => [t.value, t.label])), themesPreviewDropdownId: THEMES_PREVIEW_DROPDOWN_ID }}>
 		(function () {
 			const preview = document.getElementById('themes-preview');
 			const codeBlock = document.querySelector('.themes-page__code-block');
@@ -257,9 +265,23 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 			if (!preview || !codeBlock) return;
 
 			function syncPreviewDropdownLabel(value) {
-				const triggerText = preview.querySelector('.dropdown__trigger-text');
+				const trigger = preview.querySelector('.dropdown__trigger');
+				if (!trigger) return;
+				const triggerText = trigger.querySelector('.dropdown__trigger-text');
 				if (triggerText && themeLabelsMap && value) {
 					triggerText.textContent = themeLabelsMap[value] || value;
+				}
+				// Update trigger icon to match selected theme (clone icon from menu item)
+				const iconSlot = trigger.querySelector('.themes-page__trigger-icon');
+				const menu = document.getElementById(themesPreviewDropdownId + '-menu');
+				if (iconSlot && menu) {
+					const itemWithTheme = menu.querySelector('.dropdown__item[data-dropdown-value="' + value + '"]');
+					const sourceIcon = itemWithTheme ? itemWithTheme.querySelector('.themes-page__dropdown-item-icon, svg') : null;
+					if (sourceIcon && iconSlot.parentNode) {
+						var clone = sourceIcon.cloneNode(true);
+						if (clone && clone.classList) clone.classList.add('themes-page__trigger-icon');
+						iconSlot.parentNode.replaceChild(clone, iconSlot);
+					}
 				}
 			}
 
@@ -274,12 +296,74 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 					btn.setAttribute('aria-pressed', btn.getAttribute('data-theme-value') === value ? 'true' : 'false');
 				});
 				if (selectEl) selectEl.value = value;
+				// Sync active state in preview dropdown
+				preview.querySelectorAll('.dropdown__item[data-dropdown-value]').forEach((item) => {
+					item.setAttribute('aria-current', item.getAttribute('data-dropdown-value') === value ? 'true' : 'false');
+				});
 				syncPreviewDropdownLabel(value);
 			}
 
 			window.themesPagePreviewThemeSelect = function (value) {
 				if (value) setTheme(value);
 			};
+
+			// Initialize the preview dropdown (toggle, item click, outside click) — no Dropdown.astro on this page
+			(function initThemesPreviewDropdown() {
+				const dropdown = preview.querySelector('[data-dropdown="' + themesPreviewDropdownId + '"]');
+				if (!dropdown) return;
+				const trigger = dropdown.querySelector('.dropdown__trigger');
+				const menu = dropdown.querySelector('.dropdown__menu');
+				const items = dropdown.querySelectorAll('.dropdown__item');
+				if (!trigger || !menu) return;
+
+				function closeMenu() {
+					menu.classList.remove('dropdown__menu--open');
+					trigger.setAttribute('aria-expanded', 'false');
+					menu.setAttribute('aria-hidden', 'true');
+					items.forEach(function (item) { item.setAttribute('tabindex', '-1'); });
+					document.removeEventListener('click', handleOutsideClick);
+				}
+
+				function handleOutsideClick(e) {
+					if (e.target && !dropdown.contains(e.target)) closeMenu();
+				}
+
+				trigger.addEventListener('click', function (e) {
+					e.stopPropagation();
+					const isOpen = menu.classList.contains('dropdown__menu--open');
+					if (isOpen) {
+						closeMenu();
+					} else {
+						menu.classList.add('dropdown__menu--open');
+						trigger.setAttribute('aria-expanded', 'true');
+						menu.setAttribute('aria-hidden', 'false');
+						items.forEach(function (item) { item.setAttribute('tabindex', '0'); });
+						setTimeout(function () { document.addEventListener('click', handleOutsideClick); }, 0);
+					}
+				});
+
+				menu.addEventListener('click', function (e) {
+					const item = e.target.closest('.dropdown__item');
+					if (!item) return;
+					e.preventDefault();
+					e.stopPropagation();
+					if (item.getAttribute('aria-disabled') === 'true') return;
+					const value = item.getAttribute('data-dropdown-value');
+					const onClick = item.getAttribute('data-dropdown-onclick');
+					if (onClick && typeof window[onClick] === 'function' && value) {
+						window[onClick](value);
+					}
+					closeMenu();
+				});
+
+				menu.addEventListener('keydown', function (e) {
+					if (e.key === 'Escape') {
+						e.preventDefault();
+						closeMenu();
+						trigger.focus();
+					}
+				});
+			})();
 
 			document.querySelectorAll('.themes-page__card').forEach((btn) => {
 				btn.addEventListener('click', function () {
@@ -333,6 +417,16 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		padding: var(--spacing-0-125) var(--spacing-0-375);
 		border-radius: var(--radius);
 		font-size: var(--font-size-sm);
+	}
+	.themes-page__hero-ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-4);
+		justify-content: center;
+		margin-top: var(--spacing-6);
+	}
+	.themes-page__hero-cta {
+		text-decoration: none;
 	}
 	.themes-page__section-title {
 		font-size: var(--font-size-xl);
@@ -571,6 +665,12 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		background-color: var(--background);
 		color: var(--accent);
 	}
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:hover:not(.dropdown__item--disabled) :global(.themes-page__dropdown-item-icon),
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:focus-visible:not(.dropdown__item--disabled) :global(.themes-page__dropdown-item-icon),
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:hover:not(.dropdown__item--disabled) span,
+	.themes-page .themes-page__preview-dropdown-wrap .dropdown__item:focus-visible:not(.dropdown__item--disabled) span {
+		color: var(--accent) !important;
+	}
 	.themes-page .themes-page__preview-dropdown-wrap .dropdown__separator {
 		height: var(--border-width);
 		background-color: var(--border);
@@ -611,6 +711,12 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		flex: 1;
 		text-align: left;
 	}
+	.themes-page__trigger-icon {
+		flex-shrink: 0;
+		width: 1rem;
+		height: 1rem;
+		color: var(--icon);
+	}
 	.themes-page .dropdown__icon {
 		transition: transform var(--transition-base), color var(--transition-base);
 		flex-shrink: 0;
@@ -636,11 +742,11 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		margin: 0;
 		list-style: none;
 	}
-	/* Preview dropdown: vertically scrollable menu with icons */
+	/* Preview dropdown: vertically scrollable menu so all themes are visible */
 	.themes-page .themes-page__preview-dropdown-menu {
 		max-height: min(18rem, 60vh);
-		overflow-y: auto;
-		overflow-x: hidden;
+		overflow-y: auto !important;
+		overflow-x: hidden !important;
 		-webkit-overflow-scrolling: touch;
 	}
 	.themes-page .themes-page__preview-dropdown-menu .dropdown__item {
@@ -648,9 +754,29 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 		align-items: center;
 		gap: var(--spacing-2);
 	}
-	.themes-page__dropdown-item-icon {
+	.themes-page :global(.themes-page__dropdown-item-icon) {
 		flex-shrink: 0;
 		color: var(--icon);
+		transition: color var(--transition-base);
+	}
+	/* Hover and focus: icon and text both use accent — :global so ThemeIcon (child component) icons match */
+	:global(#themes-preview .dropdown__item:hover:not(.dropdown__item--disabled) .themes-page__dropdown-item-icon),
+	:global(#themes-preview .dropdown__item:focus-visible:not(.dropdown__item--disabled) .themes-page__dropdown-item-icon),
+	:global(#themes-preview .dropdown__item:hover:not(.dropdown__item--disabled) span),
+	:global(#themes-preview .dropdown__item:focus-visible:not(.dropdown__item--disabled) span) {
+		color: var(--accent) !important;
+	}
+	/* Active (selected) theme item in dropdown — icon and text match hover (accent) */
+	:global(#themes-preview .dropdown__item[aria-current="true"] .themes-page__dropdown-item-icon),
+	:global(#themes-preview .dropdown__item[aria-current="true"] span) {
+		color: var(--accent) !important;
+	}
+	:global(#themes-preview .dropdown__item[aria-current="true"] .themes-page__dropdown-item-icon) {
+		stroke: var(--accent) !important;
+	}
+	.themes-page .dropdown__item[aria-current="true"] {
+		background-color: var(--background);
+		color: var(--accent);
 	}
 	.themes-page .dropdown__menu--open {
 		opacity: 1;
@@ -672,6 +798,15 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 	.themes-page .dropdown__item:focus-visible:not(.dropdown__item--disabled) {
 		background-color: var(--background);
 		color: var(--accent);
+	}
+	.themes-page .dropdown__item:hover:not(.dropdown__item--disabled) :global(.themes-page__dropdown-item-icon),
+	.themes-page .dropdown__item:focus-visible:not(.dropdown__item--disabled) :global(.themes-page__dropdown-item-icon),
+	.themes-page .dropdown__item:hover:not(.dropdown__item--disabled) span,
+	.themes-page .dropdown__item:focus-visible:not(.dropdown__item--disabled) span {
+		color: var(--accent) !important;
+	}
+	.themes-page .dropdown__item[aria-current="true"] span {
+		color: var(--accent) !important;
 	}
 	.themes-page .dropdown__separator {
 		height: var(--border-width);

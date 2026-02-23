@@ -9,7 +9,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte. **Templates:** **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. Add → same templates; Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - **Vanilla** — No node_modules. Same four templates as Astro/Svelte: **Landing** = CSS + RIZZO-SETUP.md (or full index + all components if you choose “all”). **Docs** / **Dashboard** = docs or dashboard overlay + component pages (all or pick) + `js/main.js`, icons, sfx. **Full** = site clone (index + Navbar, Settings, Footer + all component pages + js + icons). Add component JS via [Vanilla docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from Full.
 - **CDN** — unpkg, jsDelivr; pin `.../rizzo-css@<version>/dist/rizzo.min.css`.
-- **Icons** — 52 total (30 Tabler, 22 devicons); same for Astro, Svelte, Vanilla.
+- **Icons** — 53 total (31 Tabler-style, 22 devicons); same for Astro, Svelte, Vanilla.
 
 ---
 

@@ -2,23 +2,24 @@
 
 <div align="center">
 
-```
+<pre style="font-family: ui-monospace, monospace; font-size: 0.85em; line-height: 1.2;">
       /\___/\   
    __(  o o  )__
      (  =^=  )  
     _/   ~   \_ 
    /  \_____/  \
- ____  ___ _____________     ____ ____ ____
-|  _ \|_ _|__  /__  / _ \   / ___/ ___/ ___|
-| |_) || |  / /  / / | | | | |   \___ \___ \
-|  _ < | | / /_ / /| |_| | | |___ ___) |__) |
-|_| \_\___/____/____\___/   \____|____/____/
-      Design system · Vanilla · Astro · Svelte
-```
+<span style="color:#c44536"> ____ </span><span style="color:#e07c3e"> ___ _</span><span style="color:#d4a800">______</span><span style="color:#2d9d78">______</span><span style="color:#0052bd">     _</span><span style="color:#7c3aed">___ __</span><span style="color:#d946ef">__ ____</span>
+<span style="color:#c44536">|  _ \</span><span style="color:#e07c3e">|_ _|_</span><span style="color:#d4a800">_  /__</span><span style="color:#2d9d78">  / _ </span><span style="color:#0052bd">\   / </span><span style="color:#7c3aed">___/ _</span><span style="color:#d946ef">__/ ___|</span>
+<span style="color:#c44536">| |_) </span><span style="color:#e07c3e">|| |  </span><span style="color:#d4a800">/ /  /</span><span style="color:#2d9d78"> / | |</span><span style="color:#0052bd"> | | |</span><span style="color:#7c3aed">   \__</span><span style="color:#d946ef">_ \___ \</span>
+<span style="color:#c44536">|  _ &lt;</span><span style="color:#e07c3e"> | | /</span><span style="color:#d4a800"> /_ / </span><span style="color:#2d9d78">/| |_|</span><span style="color:#0052bd"> | | |</span><span style="color:#7c3aed">___ __</span><span style="color:#d946ef">_) |__) |</span>
+<span style="color:#c44536">|_| \_</span><span style="color:#e07c3e">\___/_</span><span style="color:#d4a800">___/__</span><span style="color:#2d9d78">__\___</span><span style="color:#0052bd">/   \_</span><span style="color:#7c3aed">___|__</span><span style="color:#d946ef">__/____/</span>
 
-*Run `npx rizzo-css help` to see this in the CLI.*
+  Design system · Vanilla · Astro · Svelte
+</pre>
 
-[![npm](https://img.shields.io/badge/npm-0.0.56-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+*Run `npx rizzo-css help` to see this in the CLI (rainbow uses our theme colors).*
+
+[![npm](https://img.shields.io/badge/npm-0.0.57-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)

@@ -16,7 +16,51 @@ const CLI_BANNER = `      /\\___/\\
 | |_) || |  / /  / / | | | | |   \\___ \\___ \\
 |  _ < | | / /_ / /| |_| | | |___ ___) |__) |
 |_| \\_\\___/____/____\\___/   \\____|____/____/
-      Design system · Vanilla · Astro · Svelte`;
+
+  Design system · Vanilla · Astro · Svelte`;
+
+/** Rainbow theme colors for "RIZZOCSS" block (from our themes: red → orange → yellow → green → blue → purple → pink). */
+const BANNER_RAINBOW = [
+  { r: 196, g: 69, b: 54 },   /* red-velvet-cupcake accent */
+  { r: 224, g: 124, b: 62 },  /* rocky-blood-orange / orangy-one-light */
+  { r: 212, g: 168, b: 0 },   /* sunflower / minimal-dark-neon-yellow */
+  { r: 45, g: 157, b: 120 },  /* green-breeze-light / hack-the-box */
+  { r: 0, g: 82, b: 189 },    /* github-light primary */
+  { r: 124, g: 58, b: 237 },  /* shades-of-purple / semi-light-purple */
+  { r: 217, g: 70, b: 239 },  /* cute-pink / pink-cat-boo */
+];
+
+/** ANSI 24-bit foreground; reset with \\x1b[0m */
+function ansiFg(r, g, b) {
+  return '\x1b[38;2;' + r + ';' + g + ';' + b + 'm';
+}
+const ANSI_RESET = '\x1b[0m';
+
+/** Evenly spread column bounds (6 chars per color for first 6, rest for 7th). */
+const BANNER_BOUNDS = [0, 6, 12, 18, 24, 30, 36];
+
+/** Returns banner with "RIZZOCSS" block art in rainbow theme colors. No ANSI if stdout is not TTY or FORCE_COLOR=0. */
+function getBanner() {
+  const useColor = (process.stdout.isTTY || process.env.FORCE_COLOR === '1') && process.env.FORCE_COLOR !== '0';
+  if (!useColor) return CLI_BANNER;
+  const lines = CLI_BANNER.split('\n');
+  const RIZZOCSS_START = 5;
+  const RIZZOCSS_END = 9;
+  for (let i = RIZZOCSS_START; i <= RIZZOCSS_END; i++) {
+    const line = lines[i];
+    let out = '';
+    for (let s = 0; s < BANNER_BOUNDS.length; s++) {
+      const start = BANNER_BOUNDS[s];
+      const end = s === BANNER_BOUNDS.length - 1 ? line.length : BANNER_BOUNDS[s + 1];
+      if (start < line.length) {
+        const col = BANNER_RAINBOW[s % BANNER_RAINBOW.length];
+        out += ansiFg(col.r, col.g, col.b) + line.slice(start, Math.min(end, line.length)) + ANSI_RESET;
+      }
+    }
+    lines[i] = out;
+  }
+  return lines.join('\n');
+}
 
 const RIZZO_CONFIG_FILE = 'rizzo-css.json';
 /** Scaffold README filename; avoids overwriting an existing project README.md. */
@@ -914,7 +958,7 @@ function multiSelectMenu(options, title, initialSelected) {
 }
 
 function printHelp() {
-  console.log(CLI_BANNER);
+  console.log(getBanner());
   console.log(`
 rizzo-css CLI — Add Rizzo CSS to your project (Vanilla, Astro, Svelte)
 
@@ -1053,7 +1097,7 @@ function cmdTheme() {
 function cmdDoctor() {
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
-  console.log(CLI_BANNER);
+  console.log(getBanner());
   console.log('  Doctor — check config, CSS path, and layout link\n');
   let ok = true;
   if (!config) {
@@ -1941,7 +1985,7 @@ async function cmdInit(argv) {
     defaultDark = DARK_THEMES[0];
     defaultLight = LIGHT_THEMES[0];
   } else {
-    console.log(CLI_BANNER);
+    console.log(getBanner());
     framework = await selectMenu(
       [
         { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },

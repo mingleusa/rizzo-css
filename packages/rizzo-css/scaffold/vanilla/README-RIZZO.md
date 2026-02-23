@@ -1,18 +1,19 @@
 # Vanilla JS + Rizzo CSS
 
-```
+<pre style="font-family: ui-monospace, monospace; font-size: 0.85em; line-height: 1.2;">
       /\___/\   
    __(  o o  )__
      (  =^=  )  
     _/   ~   \_ 
    /  \_____/  \
- ____  ___ _____________     ____ ____ ____
-|  _ \|_ _|__  /__  / _ \   / ___/ ___/ ___|
-| |_) || |  / /  / / | | | | |   \___ \___ \
-|  _ < | | / /_ / /| |_| | | |___ ___) |__) |
-|_| \_\___/____/____\___/   \____|____/____/
-      Design system · Vanilla · Astro · Svelte
-```
+<span style="color:#c44536"> ____ </span><span style="color:#e07c3e"> ___ _</span><span style="color:#d4a800">______</span><span style="color:#2d9d78">______</span><span style="color:#0052bd">     _</span><span style="color:#7c3aed">___ __</span><span style="color:#d946ef">__ ____</span>
+<span style="color:#c44536">|  _ \</span><span style="color:#e07c3e">|_ _|_</span><span style="color:#d4a800">_  /__</span><span style="color:#2d9d78">  / _ </span><span style="color:#0052bd">\   / </span><span style="color:#7c3aed">___/ _</span><span style="color:#d946ef">__/ ___|</span>
+<span style="color:#c44536">| |_) </span><span style="color:#e07c3e">|| |  </span><span style="color:#d4a800">/ /  /</span><span style="color:#2d9d78"> / | |</span><span style="color:#0052bd"> | | |</span><span style="color:#7c3aed">   \__</span><span style="color:#d946ef">_ \___ \</span>
+<span style="color:#c44536">|  _ &lt;</span><span style="color:#e07c3e"> | | /</span><span style="color:#d4a800"> /_ / </span><span style="color:#2d9d78">/| |_|</span><span style="color:#0052bd"> | | |</span><span style="color:#7c3aed">___ __</span><span style="color:#d946ef">_) |__) |</span>
+<span style="color:#c44536">|_| \_</span><span style="color:#e07c3e">\___/_</span><span style="color:#d4a800">___/__</span><span style="color:#2d9d78">__\___</span><span style="color:#0052bd">/   \_</span><span style="color:#7c3aed">___|__</span><span style="color:#d946ef">__/____/</span>
+
+  Design system · Vanilla · Astro · Svelte
+</pre>
 
 This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = CSS, fonts, icons, sfx + component picker (all 56 or pick); Landing adds hero/features; Docs adds sidebar + sample doc; Dashboard adds sidebar + stats/table. **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice**; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
 
@@ -27,7 +28,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.56`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.57`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 

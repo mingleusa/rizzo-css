@@ -33,7 +33,7 @@ All components in the CLI and scaffold; same BEM/CSS for Astro, Svelte, and Vani
 
 ### Layout & navigation
 
-- [Navbar](/docs/components/navbar), [Docs Sidebar](/docs/components/docs-sidebar), [Dashboard](/docs/components/dashboard), [Footer](/docs/components/footer)
+- [Navbar](/docs/components/navbar), [Docs Sidebar](/docs/components/docs-sidebar), [Dashboard](/docs/components/dashboard), [Resizable](/docs/components/resizable), [Footer](/docs/components/footer)
 - [Breadcrumb](/docs/components/breadcrumb), [Back to Top](/docs/components/back-to-top)
 
 ### Forms & input

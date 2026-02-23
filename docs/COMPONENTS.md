@@ -16,27 +16,43 @@ The [Components overview](/docs/components) groups components by category (Layou
 
 - [Accordion](/docs/components/accordion) - Collapsible sections with single/multiple open and keyboard navigation
 - [Alert](/docs/components/alert) - Alert/notification component with auto-dismiss
+- [Alert Dialog](/docs/components/alert-dialog) - Confirm/cancel dialog for destructive or important actions
+- [Aspect Ratio](/docs/components/aspect-ratio) - Enforces an aspect ratio on content (e.g. 16/9, 1/1)
 - [Avatar](/docs/components/avatar) - User avatar with image or initials fallback, sizes and shapes
+- [Back to Top](/docs/components/back-to-top) - Fixed button that appears on scroll and scrolls the page back to top
 - [Badge](/docs/components/badge) - Small labels and tags with variants and sizes
 - [Breadcrumb](/docs/components/breadcrumb) - Navigation breadcrumbs with separator customization
 - [Button](/docs/components/button) - Semantic button component
+- [Button Group](/docs/components/button-group) - Group of buttons attached together (horizontal or vertical)
 - [Cards](/docs/components/cards) - Flexible card component
+- [Collapsible](/docs/components/collapsible) - Single expand/collapse section (one trigger, one panel)
+- [Context Menu](/docs/components/context-menu) - Right-click menu with items and separators
 - [Copy to Clipboard](/docs/components/copy-to-clipboard) - Copy to clipboard component
 - [Dashboard](/docs/components/dashboard) - Layout with sidebar and main content area for app dashboards; see [Dashboard block](/blocks/dashboard-01)
 - [Docs Sidebar](/docs/components/docs-sidebar) - Documentation sidebar navigation with grouped links (Introduction, Foundations, Components) and active state; used in docs layout with optional toggle and overlay on mobile
 - [Divider](/docs/components/divider) - Horizontal or vertical divider line with optional label
 - [Dropdown](/docs/components/dropdown) - Accessible dropdown menu with keyboard navigation, nested submenus (up to 3 levels), menu items, separators, and custom click handlers. Svelte and Vanilla docs match Astro in look and behavior (Vanilla live examples use the same Astro Dropdown component).
+- [Empty](/docs/components/empty) - Empty state with optional icon, title, description, and action
 - [Footer](/docs/components/footer) - Site footer with copyright, optional site name, and optional link list (role="contentinfo")
 - [Font Switcher](/docs/components/font-switcher) - Font pair (sans + mono) dropdown with preview and keyboard navigation; used in Settings and standalone
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
-- [Icons](/docs/components/icons) - Reusable SVG icon components
+- [Hover Card](/docs/components/hover-card) - Floating panel that opens on hover
+- [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons)
+- [Kbd](/docs/components/kbd) - Keyboard key styling for shortcuts (e.g. Ctrl+K)
+- [Label](/docs/components/label) - Standalone form label; use with for/id to associate with inputs
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
 - [Navbar](/docs/components/navbar) - Responsive, accessible navigation bar with default Cat logo in the brand link (optional `logo` prop for custom image)
 - [Pagination](/docs/components/pagination) - Pagination navigation with prev/next, page numbers, ellipsis
+- [Popover](/docs/components/popover) - Floating panel triggered by a button
 - [Progress Bar](/docs/components/progress-bar) - Progress bar with variants, sizes, label, and indeterminate state
+- [Resizable](/docs/components/resizable) - Resizable panel groups with drag handles (horizontal or vertical)
+- [Scroll Area](/docs/components/scroll-area) - Scrollable area with themed scrollbar (vertical or horizontal)
 - [Search](/docs/components/search) - Search component with Algolia on docs site; scaffold has overlay UI, keyboard and click-outside to close.
+- [Separator](/docs/components/separator) - Thin separator line (horizontal or vertical)
 - [Settings](/docs/components/settings) - Comprehensive settings panel
+- [Sheet](/docs/components/sheet) - Slide-out panel (drawer) from top, right, bottom, or left
 - [Skeleton](/docs/components/skeleton) - Placeholder loading state
+- [Slider](/docs/components/slider) - Range slider input with themed track and fill
 - [Sound Effects](/docs/components/sound-effects) - Toggle for "Play sound on click" (Web Audio); off by default; persists in localStorage
 - [Spinner](/docs/components/spinner) - Accessible loading spinner with variants and sizes
 - [Switch](/docs/components/switch) - Toggle control (on/off)
@@ -45,6 +61,8 @@ The [Components overview](/docs/components) groups components by category (Layou
 - [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
 - [Toast](/docs/components/toast) - Fixed position toast notifications
+- [Toggle](/docs/components/toggle) - Toggle button with pressed/unpressed state
+- [Toggle Group](/docs/components/toggle-group) - Group of toggle buttons (single or multiple selection)
 - [Tooltip](/docs/components/tooltip) - Accessible tooltip component with positioning options
 
 ## Features
@@ -53,14 +71,15 @@ The [Components overview](/docs/components) groups components by category (Layou
 
 All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
 
-**Layout:** Navbar, Docs Sidebar, Dashboard, Footer  
-**Forms & input:** Button, Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), Divider  
-**Data display:** Cards, Table, Badge, Pagination  
-**Feedback:** Alert, Spinner, Progress Bar, Skeleton, Switch, Toast  
-**Overlay:** Modal, Dropdown, Tooltip  
+**Layout:** Navbar, Docs Sidebar, Dashboard, Resizable, Footer  
+**Forms & input:** Button, Button Group, Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), Switch, Slider, Toggle, Toggle Group, Divider, Separator, Label, Kbd  
+**Data display:** Cards, Table, Badge, Pagination, Aspect Ratio, Empty, Scroll Area  
+**Feedback:** Alert, Skeleton, Spinner, Progress Bar, Toast  
+**Overlay:** Modal, Alert Dialog, Sheet, Popover, Hover Card, Context Menu, Dropdown, Tooltip  
 **Navigation:** Breadcrumb, Back to Top  
-**Disclosure:** Accordion, Tabs  
+**Disclosure:** Accordion, Collapsible, Tabs  
 **Other:** Avatar, Copy to Clipboard, Theme Switcher, Font Switcher, Settings, Search, Icons, Sound Effects  
+
 **Search:** Search (with Algolia integration). Trigger uses Cmd icon and “K” at the same size as the search icon (20px). Astro, Svelte, and Vanilla doc pages all include the same live standalone search example. Search modal UX: bottom padding and list spacer so the last result is fully visible when scrolled; compact padding for empty/loading/no-results state; close button (X) and Settings close button use bordered style and stay visible on hover; theme dropdown larger (trigger, menu, options).  
 **Menus:** Dropdown (keyboard navigation, nested submenus)
 

@@ -2859,6 +2859,16 @@ div.navbar__sublink {
   cursor: pointer;
 }
 
+/* /themes page preview dropdown: force icon to accent on hover/active (override .icon so it’s not white) */
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:hover:not(.dropdown__item--disabled) svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:focus-visible:not(.dropdown__item--disabled) svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"] svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:hover svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:focus-visible svg {
+  color: var(--accent) !important;
+  stroke: var(--accent) !important;
+}
+
 /* Icon card: clickable card wrapping an icon (Icons doc page — Astro, Svelte, Vanilla). Whole card has pointer. */
 .icon-card,
 .icon-card-tooltip-host {
@@ -3085,6 +3095,13 @@ div.navbar__sublink {
 .dropdown__trigger:hover .dropdown__icon,
 .dropdown__trigger:focus-visible .dropdown__icon {
   color: var(--accent);
+}
+
+/* /themes page: trigger (main item) theme icon matches accent on hover/focus */
+#themes-preview .dropdown__trigger:hover .themes-page__trigger-icon,
+#themes-preview .dropdown__trigger:focus-visible .themes-page__trigger-icon {
+  color: var(--accent) !important;
+  stroke: var(--accent) !important;
 }
 
 .dropdown__trigger-text {

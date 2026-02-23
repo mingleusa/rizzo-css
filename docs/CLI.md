@@ -25,7 +25,7 @@ This doc describes the Rizzo CSS CLI: commands, flows, package manager handling,
 | **`add`** | Same as init → existing: template **Landing** \| **Docs** \| **Dashboard** \| **Full**. Full = also RIZZO-SNIPPET.txt; others = CSS + component picker; writes **RIZZO-SETUP.md** (all) and **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. If CSS exists at target, prompts to overwrite (`--force` to skip). Vanilla Full: `--vanilla-js` or prompt to copy `js/main.js`. `--readme` writes README-RIZZO.md. |
 | **`theme`** | List theme IDs for `data-theme` on `<html>`. |
 | **`doctor`** | Check config, CSS file at configured path, and (Astro/Svelte) whether layout includes the stylesheet link. |
-| **`help`** | Usage, runners (npx, pnpm dlx, yarn: npx, bunx), framework examples, options. |
+| **`help`** | Usage, runners (npx, pnpm dlx, yarn: npx, bunx), framework examples, options. Prints the ASCII banner (rainbow theme colors) and centered tagline **Design system · Vanilla · Astro · Svelte**. |
 
 ---
 

@@ -749,14 +749,14 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   min-height: var(--spacing-80);
-  background-color: var(--color-card-bg, var(--background, #64748b)) !important;
+  background-color: var(--color-card-bg, var(--swatch-bg, var(--background))) !important;
 }
 
 .colors-doc .color-card .color-swatch {
   flex: 1 1 auto;
   min-height: var(--spacing-80);
   position: relative;
-  background-color: var(--swatch-bg, var(--background, #64748b)) !important;
+  background-color: var(--swatch-bg, var(--background)) !important;
 }
 
 .colors-doc .color-card .color-swatch .color-swatch__bg {
@@ -765,16 +765,16 @@
   z-index: 0;
   border-radius: inherit;
   pointer-events: none;
-  background-color: var(--swatch-bg, var(--background, #64748b)) !important;
+  background-color: var(--swatch-bg, var(--background)) !important;
 }
 
 .colors-doc .color-card .color-swatch > .color-swatch__info {
   position: relative;
   z-index: 1;
 
-  /* Force 4.5:1+ contrast for .color-swatch__desc in all themes (axe color-contrast) */
-  background-color: #1e293b !important;
-  color: #f1f5f9 !important;
+  /* Use theme surface and text so contrast meets WCAG AA in all themes */
+  background-color: var(--background) !important;
+  color: var(--text) !important;
 }
 
 /* Override global copy-to-clipboard so the color value text always shows (no overflow:hidden/nowrap conflict) */
@@ -793,18 +793,18 @@
   }
 }
 
-/* Theming page hero: same spacing and layout feel as home hero */
+/* Theming page: hero and section spacing */
 .theming-page__hero {
   text-align: center;
-  padding: var(--spacing-14) 0 var(--spacing-16);
-  margin-bottom: var(--section-spacing-lg);
+  padding: var(--spacing-12) 0 var(--spacing-10);
+  margin-bottom: var(--spacing-10);
 }
 
 .theming-page__hero-title {
   font-size: var(--font-size-4xl);
   font-weight: var(--font-weight-extrabold);
   color: var(--text);
-  margin: 0 0 var(--spacing-6) 0;
+  margin: 0 0 var(--spacing-4) 0;
   line-height: var(--line-height-tight);
 }
 
@@ -812,7 +812,7 @@
   font-size: var(--font-size-xl);
   color: var(--text-dim);
   max-width: var(--spacing-175);
-  margin: 0 auto var(--spacing-8) auto;
+  margin: 0 auto var(--spacing-6) auto;
   line-height: var(--line-height-relaxed);
 }
 
@@ -820,7 +820,23 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  margin-top: var(--spacing-6);
+  margin-top: var(--spacing-5);
+}
+
+/* Theming page: sections get consistent spacing */
+.theming-page .docs__content > section {
+  margin-top: 0;
+  margin-bottom: var(--spacing-10);
+}
+
+.theming-page .docs__content > section:last-child {
+  margin-bottom: 0;
+}
+
+.theming-page .docs__content > section > h2 {
+  margin-top: 0;
+  margin-bottom: var(--spacing-5);
+  padding-bottom: var(--spacing-2);
 }
 
 /* Mobile-only theme dropdown on theming page (desktop keeps ThemeSwitcher) */
@@ -874,23 +890,30 @@
   transform: none;
 }
 
-/* Theming page: use design system tokens */
+/* Theming page: full-width cards in a single column, sensible gap */
 .theming-page__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr));
-  gap: var(--spacing-6);
-  margin: var(--section-spacing) 0;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-4);
+  margin: 0;
+}
+
+.theming-page__grid .card {
+  width: 100%;
+  min-width: 0;
 }
 
 .theming-page__card-header {
   display: flex;
   align-items: center;
   gap: var(--spacing-3);
-  margin-bottom: var(--spacing-3);
+  margin-bottom: var(--spacing-2);
 }
 
 .theming-page__card-header h3 {
   margin: 0;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
 }
 
 .theming-page__card-desc {
@@ -1007,7 +1030,7 @@ html:has([data-docs]) {
   display: none;
   position: fixed;
   inset: 0;
-  background-color: oklch(0% 0 0deg / 40%);
+  background-color: var(--overlay);
   z-index: calc(var(--z-settings) - 2);
   opacity: 0;
   visibility: hidden;
@@ -1221,4 +1244,22 @@ html.docs-sidebar-mobile #docs-sidebar-container {
   .docs__sidebar-overlay[aria-hidden="true"] {
     display: none !important;
   }
+}
+
+/* /themes page: preview dropdown — icon and text use accent on hover, focus, and active (menu class so we only hit this dropdown) */
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:hover:not(.dropdown__item--disabled) svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:focus-visible:not(.dropdown__item--disabled) svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"] svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:hover svg,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:focus-visible svg {
+  color: var(--accent) !important;
+  stroke: var(--accent) !important;
+}
+
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:hover:not(.dropdown__item--disabled) span,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item:focus-visible:not(.dropdown__item--disabled) span,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"] span,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:hover span,
+#themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:focus-visible span {
+  color: var(--accent) !important;
 }

@@ -2,7 +2,7 @@
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;
-	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, .copy-to-clipboard, [data-copy-btn], .docs-sidebar__link, .docs-sidebar__sublink, .docs__sidebar-toggle, .home__announcement, .home__example-pill, .block-card-link, .component-card-link, .home__doc-card, .skip-link, [data-sound-on-click]';
+	var clickableSelector = 'a[href], area[href], button, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"], input[type="reset"], select, summary, [role="button"], [role="link"], [role="menuitem"], [role="menuitemradio"], [role="tab"], [role="option"], [role="switch"], .btn, .tabs__tab, .dropdown__trigger, .accordion__trigger, [data-accordion-trigger], .navbar__link, .navbar__brand-link, .navbar__item, .pagination__link, .breadcrumb__link, .search__trigger, .theme-switcher__option, .font-switcher__option, .framework-switcher__segment, .modal__close, .alert__close, .copy-btn, .copy-to-clipboard, [data-copy-btn], .docs-sidebar__link, .docs-sidebar__sublink, .docs__sidebar-toggle, .home__announcement, .home__example-pill, .block-card-link, .component-card-link, .home__doc-card, .skip-link, [data-sound-on-click]';
 	var audioContext = null;
 	var soundBase = '/assets/sfx';
 	var soundUrls = [soundBase + '/click.mp3', soundBase + '/click.wav'];
@@ -69,7 +69,12 @@
 			playFallbackTone();
 		} catch (e) {}
 	}
-	function getClickable(el) {
+	function getEventTargetElement(target) {
+		if (!target) return null;
+		return target.nodeType === 3 ? target.parentElement : target;
+	}
+	function getClickable(target) {
+		var el = getEventTargetElement(target);
 		if (!el || !el.closest) return null;
 		var clickable = el.closest(clickableSelector);
 		if (!clickable) return null;
@@ -91,8 +96,20 @@
 		playClickSound();
 		setTimeout(function() { lastTouchSoundTarget = null; }, 450);
 	}
+	function onDocumentPointerdown(e) {
+		if (e.pointerType === 'mouse' && e.button !== 0) return;
+		if (!e.isPrimary) return;
+		var clickable = getClickable(e.target);
+		if (!clickable) return;
+		if (lastTouchSoundTarget === clickable && (Date.now() - lastTouchSoundTime) < 400) return;
+		lastTouchSoundTarget = clickable;
+		lastTouchSoundTime = Date.now();
+		playClickSound();
+		setTimeout(function() { lastTouchSoundTarget = null; }, 450);
+	}
 	function initSound() {
 		document.addEventListener('click', onDocumentClick, true);
+		document.addEventListener('pointerdown', onDocumentPointerdown, true);
 		if ('ontouchstart' in window || (navigator && navigator.maxTouchPoints > 0)) {
 			document.addEventListener('touchend', onDocumentTouchend, true);
 		}
