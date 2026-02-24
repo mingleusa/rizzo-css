@@ -2,23 +2,25 @@
 
 This doc describes how **create new** and **add to existing** work when you run `npx rizzo-css init`. Implementation: `packages/rizzo-css/bin/rizzo-css.js`. **We never overwrite your existing files** — skipped content goes to **RIZZO-SETUP.md**.
 
-## Templates: Landing | Docs | Dashboard | Full
+## Templates: CSS only | Landing | Docs | Dashboard | Full
 
-When you **create new** or **add to existing**, you pick a **template**. The same four templates exist for **every framework** (Vanilla, Astro, Svelte); each template ships the same *kind* of content per framework, with framework-appropriate structure.
+When you **create new** or **add to existing**, you pick a **template**. The same five options exist for **every framework** (Vanilla, Astro, Svelte); each template ships the same *kind* of content per framework, with framework-appropriate structure.
 
 | Template    | What you get |
 |-------------|----------------|
+| **CSS only** | CSS file, license, README (RIZZO-SETUP.md), .gitignore. No web pages, no components, no icons, no sfx. (Astro/Svelte create-new still copies framework base so the app can run.) |
 | **Landing** | Framework base + hero/features page. Component picker: all or pick. |
 | **Docs**    | Base + **docs** overlay: sidebar, sample doc page. Component picker: all or pick. |
 | **Dashboard** | Base + **dashboard** overlay: sidebar, stats cards, table. Component picker: all or pick. |
 | **Full**    | Clone of the Rizzo docs site (home, docs, components, themes). No picker; all components included. |
 
-Landing, Docs, and Dashboard: same assets (Rizzo CSS, fonts, icons, sfx) and component choice (all or pick); only the starter layout and pages differ. **Full** copies the full variant only (site clone) and always includes all components.
+**CSS only** = stylesheet + minimal project files only; no component picker. Landing, Docs, and Dashboard: same assets (Rizzo CSS, fonts, icons, sfx) and component choice (all or pick); only the starter layout and pages differ. **Full** copies the full variant only (site clone) and always includes all components.
 
 ### What ships per template × framework (consistent across frameworks)
 
 | Template    | Vanilla | Astro | Svelte |
 |-------------|---------|-------|--------|
+| **CSS only** | CSS, fonts, RIZZO-SETUP.md, LICENSE, .gitignore. No web pages, js, icons, sfx, or components. | Base only; CSS in public/css. No components. | Base only; CSS in static/css. No components. |
 | **Landing** | Landing index (`scaffold/landing` or `scaffold/vanilla/index.html`), CSS, fonts, sfx, icons, RIZZO-SETUP.md. If “all”: + `js/main.js`, all component HTML pages, README-RIZZO. | Base (`scaffold/astro/base/`) only. If “all” or pick: + chosen components. | Base (`scaffold/svelte/base/`) only. If “all” or pick: + chosen components. |
 | **Docs**    | Docs overlay (`scaffold/vanilla/variants/docs/`), CSS, fonts, sfx, icons, `js/main.js`, component pages (all or pick), README-RIZZO. | Base + docs overlay (`scaffold/astro/variants/docs/`), chosen components. | Base + docs overlay (`scaffold/svelte/variants/docs/`), chosen components. |
 | **Dashboard** | Dashboard overlay (`scaffold/vanilla/variants/dashboard/`), same as Docs row. | Base + dashboard overlay (`scaffold/astro/variants/dashboard/`), chosen components. | Base + dashboard overlay (`scaffold/svelte/variants/dashboard/`), chosen components. |
@@ -30,18 +32,18 @@ Landing, Docs, and Dashboard: same assets (Rizzo CSS, fonts, icons, sfx) and com
 
 ## Add to existing
 
-Same template choice (Landing | Docs | Dashboard | Full). We **never overwrite** existing or config files; skipped content is in **RIZZO-SETUP.md**. Framework from detection or `rizzo-css.json`.
+Same template choice (CSS only | Landing | Docs | Dashboard | Full). We **never overwrite** existing or config files; skipped content is in **RIZZO-SETUP.md**. Framework from detection or `rizzo-css.json`. **CSS only** add = CSS + fonts + RIZZO-SETUP.md + license only; no base/variant copy for Astro/Svelte, no icons or sfx.
 
 ## Summary
 
 | Flow        | Choice              | Meaning |
 |------------|---------------------|--------|
-| **Create new** | Landing \| Docs \| Dashboard \| Full | Full = site clone; others = full framework + component picker (all 56 or pick). |
+| **Create new** | CSS only \| Landing \| Docs \| Dashboard \| Full | CSS only = no components; Full = site clone; others = full framework + component picker (all 56 or pick). |
 | **Add**        | Same                | Same templates; no-overwrite. |
 
 ## Component set
 
-**Landing / Docs / Dashboard:** All components or pick. Dependencies (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert) expanded automatically. **Full:** No picker (site clone).
+**CSS only:** No components (no picker). **Landing / Docs / Dashboard:** All components or pick. Dependencies (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert) expanded automatically. **Full:** No picker (site clone).
 
 ## What the package includes (ship checklist)
 
@@ -61,6 +63,6 @@ Theme (default dark, default light, initial theme) is only prompted when it matt
 
 ## CLI flags
 
-- **init (create new):** `--template landing|docs|dashboard|full`. Default with `--yes` is `landing`. Full = site clone (no component picker).
-- **init (add to existing):** Same template choice; you are prompted for variation (Landing | Docs | Dashboard | Full) unless `--template` is set.
-- **add:** `--template landing|docs|dashboard|full` (same as create new). Full = site clone; others = component picker (all 56 or pick).
+- **init (create new):** `--template css-only|landing|docs|dashboard|full`. Default with `--yes` is `landing`. CSS only = no components; Full = site clone (no component picker).
+- **init (add to existing):** Same template choice; you are prompted for variation (CSS only | Landing | Docs | Dashboard | Full) unless `--template` is set.
+- **add:** `--template css-only|landing|docs|dashboard|full` (same as create new). CSS only = no components; Full = site clone; others = component picker (all 56 or pick).

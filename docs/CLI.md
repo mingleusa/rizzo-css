@@ -21,8 +21,8 @@ This doc describes the Rizzo CSS CLI: commands, flows, package manager handling,
 
 | Command | Purpose |
 |--------|---------|
-| **`init`** | Add Rizzo to an existing project or create a new one. Framework → existing vs new. **Existing** → template (Landing | Docs | Dashboard | Full). **New** → location (**current directory** or **enter path or project name** — one prompt; relative or absolute), **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. Install runs in the project directory (CLI runs the package manager’s install there). For Vanilla there is no install step; the CLI prints the path so you can `cd` there and open or serve the folder. `--yes --framework vanilla|astro|svelte`; optional `--path <dir>` to scaffold into a specific directory. Optional `--template landing|docs|dashboard|full` (default **landing** with `--yes`), `--install` / `--no-install`. If target directory is not empty, prompts to continue. |
-| **`add`** | Same as init → existing: template **Landing** \| **Docs** \| **Dashboard** \| **Full**. Full = also RIZZO-SNIPPET.txt; others = CSS + component picker; writes **RIZZO-SETUP.md** (all) and **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. If CSS exists at target, prompts to overwrite (`--force` to skip). Vanilla Full: `--vanilla-js` or prompt to copy `js/main.js`. `--readme` writes README-RIZZO.md. |
+| **`init`** | Add Rizzo to an existing project or create a new one. Framework → existing vs new. **Existing** → template (CSS only | Landing | Docs | Dashboard | Full). **New** → location (**current directory** or **enter path or project name** — one prompt; relative or absolute), **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. Install runs in the project directory (CLI runs the package manager’s install there). For Vanilla there is no install step; the CLI prints the path so you can `cd` there and open or serve the folder. `--yes --framework vanilla|astro|svelte`; optional `--path <dir>` to scaffold into a specific directory. Optional `--template css-only|landing|docs|dashboard|full` (default **landing** with `--yes`), `--install` / `--no-install`. If target directory is not empty, prompts to continue. |
+| **`add`** | **For existing projects only.** Run from project root. Add Rizzo CSS (and optionally components): choose template **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**, then select which components to add (or CSS only for stylesheet only). Writes **RIZZO-SETUP.md** (all); Full also **RIZZO-SNIPPET.txt** unless `--no-snippet`. If CSS exists at target, prompts to overwrite (`--force` to skip). Vanilla Full: `--vanilla-js` or prompt to copy `js/main.js`. `--readme` writes README-RIZZO.md. |
 | **`theme`** | List theme IDs for `data-theme` on `<html>`. |
 | **`doctor`** | Check config, CSS file at configured path, and (Astro/Svelte) whether layout includes the stylesheet link. |
 | **`help`** | Usage, runners (npx, pnpm dlx, yarn: npx, bunx), framework examples, options. Prints the ASCII banner (rainbow theme colors) and centered tagline **Design system · Vanilla · Astro · Svelte**. |
@@ -64,24 +64,27 @@ Optional **rizzo-css.json** in the project root. Recognized keys:
 
 ## Templates (create new and add to existing)
 
-Templates: **Landing** | **Docs** | **Dashboard** | **Full** (same for create new and add to existing).
+Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (same for create new and add to existing).
 
 | Framework | Template | Result |
 |-----------|----------|--------|
+| Vanilla | **CSS only** | CSS, fonts, RIZZO-SETUP.md, LICENSE, .gitignore. No web pages, components, icons, or sfx. |
 | Vanilla | **Landing** | CSS, fonts, icons, RIZZO-SETUP.md. |
 | Vanilla | **Docs** | Landing + docs layout overlay (sidebar + sample doc). |
 | Vanilla | **Dashboard** | Landing + dashboard layout overlay. |
 | Vanilla | **Full** | index + js/main.js, icons, all component pages (all or pick). |
+| Astro | **CSS only** | Base only; CSS in public/css. No components. |
 | Astro | **Landing** | Full Astro base + hero/features page; 56 or pick components. |
 | Astro | **Docs** | Base + docs layout + sidebar. |
 | Astro | **Dashboard** | Base + dashboard layout. |
 | Astro | **Full** | Clone of Rizzo docs site (no picker). |
+| Svelte | **CSS only** | Base only; CSS in static/css. No components. |
 | Svelte | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 56 or pick. |
 | Svelte | **Full** | Clone of Rizzo docs site (no picker). |
 
-Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; Astro/Svelte include package.json and .env.example. `init --yes` defaults to **landing**; use `--template landing|docs|dashboard|full`.
+Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; Astro/Svelte include package.json and .env.example. `init --yes` defaults to **landing**; use `--template css-only|landing|docs|dashboard|full`.
 
-**Full** = site clone; no component picker. **Landing** / **Docs** / **Dashboard** = all components or pick (dependencies auto-included). Run `npx rizzo-css help components` for the list.
+**CSS only** = no components. **Full** = site clone; no component picker. **Landing** / **Docs** / **Dashboard** = all components or pick (dependencies auto-included). Run `npx rizzo-css help components` for the list.
 
 ---
 

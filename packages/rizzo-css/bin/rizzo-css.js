@@ -83,8 +83,9 @@ const FRAMEWORKS = ['vanilla', 'astro', 'svelte'];
 /** Supported package managers: detection, install/add commands, and --package-manager override. */
 const VALID_PACKAGE_MANAGERS = ['npm', 'pnpm', 'yarn', 'bun'];
 
-/** Template options for create new and add to existing. All get full framework + Rizzo; template chooses starter content. */
+/** Template options for create new and add to existing. CSS only = no components; others get full framework + Rizzo. */
 const TEMPLATES = [
+  { value: 'css-only', label: 'CSS only — CSS file, license, README (.gitignore). No web pages or components' },
   { value: 'landing', label: 'Landing — Marketing/hero page with features and CTAs' },
   { value: 'docs', label: 'Docs — Documentation site with sidebar and sample doc page' },
   { value: 'dashboard', label: 'Dashboard — App dashboard with sidebar, stat cards, and table' },
@@ -590,9 +591,9 @@ async function promptPackageManager(projectDir) {
   return selectMenu(options, '? Package manager (for install and run commands)');
 }
 
-/** Prompt user to select template (Landing, Docs, Dashboard, Full) for create new or add to existing. Returns 'landing' | 'docs' | 'dashboard' | 'full'. */
+/** Prompt user to select template (CSS only, Landing, Docs, Dashboard, Full) for create new or add to existing. */
 async function promptTemplate() {
-  return selectMenu(TEMPLATES, '? Which template? (all get full framework + Rizzo)');
+  return selectMenu(TEMPLATES, '? Which template?');
 }
 
 /** Path to variant overlay (docs, dashboard, or full). Landing uses base as-is so no overlay. Framework scaffolds live under scaffold/<framework>/variants/<variation>. */
@@ -631,15 +632,17 @@ function question(prompt) {
   });
 }
 
-/** Prompt yes/no; default yes. Returns true to run, false to skip. */
+/** Prompt yes/no; default yes. For init: install project dependencies (uses selected pm: npm, pnpm, yarn, bun). */
 async function confirmRunInstall(pm) {
-  const answer = await question('\nRun ' + pm.install + ' now? (Y/n) ');
+  console.log('\n  Install project dependencies so you can run the dev server.');
+  const answer = await question('  Run ' + pm.install + '? (Y/n) ');
   return answer === '' || /^y(es)?$/i.test(answer);
 }
 
 /** Prompt yes/no; default yes. Returns true to initialize git repo, false to skip. */
 async function confirmGitInit() {
-  const answer = await question('\nInitialize a git repository? (Y/n) ');
+  console.log('\n  Optional: initialize a git repository in the project.');
+  const answer = await question('  Initialize git? (Y/n) ');
   return answer === '' || /^y(es)?$/i.test(answer);
 }
 
@@ -972,7 +975,7 @@ Available commands: init, add, theme, doctor, help
 
 Flags summary:
   init   --yes  --path <dir>  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install  --no-git
-  add    --path <dir>  --framework <fw>  --template landing|docs|dashboard|full  --no-snippet  --readme  --force  --vanilla-js
+  add    --path <dir>  --framework <fw>  --template css-only|landing|docs|dashboard|full  --no-snippet  --readme  --force  --vanilla-js
   theme  (no flags)
   doctor Check config, CSS file, and optional layout link
   help   (no flags)
@@ -984,8 +987,8 @@ Usage (use your package manager):
   bunx rizzo-css <command> [options]
 
 Commands:
-  init    New or existing. Create new → template (Landing | Docs | Dashboard | Full); all get full framework + Rizzo. Then component picker (all 56 or pick; Full = site clone skips picker). We never overwrite; skipped content in RIZZO-SETUP.md.
-  add     Add to existing: same template as create new (Landing | Docs | Dashboard | Full). Never overwrites existing or config files. Framework detected or from rizzo-css.json.
+  init    New or existing. Create new → template (CSS only | Landing | Docs | Dashboard | Full). CSS only = no components; others get full framework + Rizzo and component picker (all or pick; Full = site clone skips picker). We never overwrite; skipped content in RIZZO-SETUP.md.
+  add     For existing projects only. Add Rizzo CSS (and optionally components): choose template (CSS only | Landing | Docs | Dashboard | Full), then select which components to add (or CSS only for stylesheet only). Never overwrites existing or config files. Framework detected or from rizzo-css.json.
   theme   List all available themes (use in init or set data-theme on <html>)
   help    Show this help
 
@@ -993,15 +996,15 @@ Options (init):
   --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: landing)
   --path <dir>      Project directory (relative to cwd or absolute). Scaffold and run install there. With --yes; interactive: "Enter path" option.
   --framework <fw>  vanilla | astro | svelte (with --yes; otherwise first prompt)
-  --template <t>    create new: landing | docs | dashboard | full (default: landing). add: same four options.
+  --template <t>    create new: css-only | landing | docs | dashboard | full (default: landing). add: same options.
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
   --install         After scaffolding, run package manager install in project directory (no prompt)
-  --no-install      Do not run install and do not prompt
+  --no-install      Do not run install; do not prompt (skip "Run <pm> install? (Y/n)")
   --no-git          With --yes, skip initializing a git repository (default with --yes is to run git init)
-  (Git: only init offers or runs git init. Interactive init: "Initialize a git repository? (Y/n)" for all frameworks. With --yes, git init runs unless --no-git. Add (CSS + components) does not prompt for git. Astro/Svelte then get "Run install now? (Y/n)"; Vanilla has no package manager. rizzo-css.json is written only when the project does not already have one.)
+  (Git: only init offers or runs git init. Interactive init: "Initialize git? (Y/n)". With --yes, git init runs unless --no-git. Add does not prompt for git. Init (create new): "Run <pm> install? (Y/n)" uses the package manager you selected (npm, pnpm, yarn, bun). Add: "Run <pm> add rizzo-css? (Y/n)" same. Vanilla has no package manager. rizzo-css.json is written only when the project does not already have one.)
 
-Options (add):
-  --template <t>    landing | docs | dashboard | full (same as init; Full = site clone)
+Options (add) — run from your existing project root; you will choose a template then select components (or CSS only):
+  --template <t>    css-only | landing | docs | dashboard | full (CSS only = stylesheet only; others = component picker)
   --path <dir>      Target directory for rizzo.min.css (overrides config and framework default)
   --framework <fw>   vanilla | astro | svelte (overrides config and detection)
   --package-manager <pm>  npm | pnpm | yarn | bun (override detection for install/print commands)
@@ -1255,7 +1258,7 @@ async function cmdAdd(argv) {
   const explicitFrameworkRaw = getFlagValue(argv, '--framework');
   const explicitFramework = explicitFrameworkRaw && FRAMEWORKS.includes(explicitFrameworkRaw.toLowerCase()) ? explicitFrameworkRaw.toLowerCase() : null;
   const templateRaw = getFlagValue(argv, '--template');
-  const validAddTemplates = ['landing', 'docs', 'dashboard', 'full']; // same four as create new
+  const validAddTemplates = ['css-only', 'landing', 'docs', 'dashboard', 'full'];
   const template = templateRaw && validAddTemplates.includes(templateRaw.toLowerCase()) ? templateRaw.toLowerCase() : undefined;
   const installPackage = hasFlag(argv, '--install-package');
   const noInstall = hasFlag(argv, '--no-install');
@@ -1278,6 +1281,8 @@ async function cmdAdd(argv) {
     writeReadme,
     force,
     copyVanillaJs,
+    installPackage: installPackage || undefined,
+    noInstall: noInstall || undefined,
   };
   await runAddToExisting(explicitFramework, options);
   if (installPackage && !noInstall) {
@@ -1665,6 +1670,7 @@ async function runAddToExisting(frameworkOverride, options) {
   let framework = frameworkOverride || (config && config.framework);
   if (framework == null) {
     const detected = detectFramework(cwd);
+    console.log('\n  Add Rizzo CSS to your existing project. Choose a template, then select which components to add (or CSS only for the stylesheet). Existing files are never overwritten.\n');
     const frameworkOptions = [
       { value: 'vanilla', label: 'Vanilla JS (HTML + CSS)', color: C.vanilla },
       { value: 'astro', label: 'Astro', color: C.astro },
@@ -1677,16 +1683,18 @@ async function runAddToExisting(frameworkOverride, options) {
     framework = await selectMenu(frameworkOptions, frameworkPrompt);
   }
 
-  // Same choice as create new: template (Landing | Docs | Dashboard | Full). --template accepts landing|docs|dashboard|full.
+  // Same choice as create new: template (CSS only | Landing | Docs | Dashboard | Full). --template accepts css-only|landing|docs|dashboard|full.
   let selectedVariation = (options && options.template) || null;
-  if (!selectedVariation || !['landing', 'docs', 'dashboard', 'full'].includes(selectedVariation)) {
+  if (!selectedVariation || !['css-only', 'landing', 'docs', 'dashboard', 'full'].includes(selectedVariation)) {
     selectedVariation = await promptTemplate();
   }
 
   const componentList = framework === 'svelte' ? SVELTE_COMPONENTS : framework === 'astro' ? ASTRO_COMPONENTS : framework === 'vanilla' ? Object.keys(VANILLA_COMPONENT_SLUGS) : [];
   const preselected = options.preselectedComponents && options.preselectedComponents.length > 0 ? options.preselectedComponents : null;
   let selectedComponents;
-  if (preselected && componentList.length > 0) {
+  if (selectedVariation === 'css-only') {
+    selectedComponents = [];
+  } else if (preselected && componentList.length > 0) {
     const valid = preselected.filter((c) => componentList.includes(c));
     const invalid = preselected.filter((c) => !componentList.includes(c));
     if (invalid.length > 0) {
@@ -1772,7 +1780,7 @@ async function runAddToExisting(frameworkOverride, options) {
     const vanillaRepl = { '{{LINK_HREF}}': 'css/rizzo.min.css', '{{TITLE}}': 'App', '{{DATA_THEME}}': theme, '{{THEME_LIST_COMMENT}}': themeCommentAdd };
     const variantResult = copyVariantOverlayNoOverwrite(cwd, 'vanilla', selectedVariation, vanillaRepl);
     if (variantResult && variantResult.skipped) addSkippedFiles = variantResult.skipped;
-  } else if ((framework === 'astro' && existsSync(astroCoreDir)) || (framework === 'svelte' && existsSync(svelteCoreDir))) {
+  } else if (selectedVariation !== 'css-only' && ((framework === 'astro' && existsSync(astroCoreDir)) || (framework === 'svelte' && existsSync(svelteCoreDir)))) {
     const themeComment = themeCommentAdd;
     const replacements = {
       '{{DATA_THEME}}': theme,
@@ -1832,11 +1840,11 @@ async function runAddToExisting(frameworkOverride, options) {
       mkdirSync(targetDir, { recursive: true });
       copyFileSync(cssSource, cssTarget);
       copyRizzoFonts(dirname(cssTarget));
-      if (framework === 'vanilla') copyRizzoSfx(cwd);
+      if (framework === 'vanilla' && selectedVariation !== 'css-only') copyRizzoSfx(cwd);
     }
   }
 
-  copyRizzoIcons(cwd, framework);
+  if (selectedVariation !== 'css-only') copyRizzoIcons(cwd, framework);
   if (framework === 'svelte' && selectedComponents.length > 0) {
     const expanded = expandWithDeps('svelte', selectedComponents);
     logAddedDeps(selectedComponents, expanded, 'svelte');
@@ -1912,10 +1920,11 @@ async function runAddToExisting(frameworkOverride, options) {
     }
   }
   console.log('\n✓ Rizzo CSS added to your existing project');
-  console.log('  - ' + cssTarget + ' (CSS, fonts' + (framework === 'vanilla' ? ', sfx' : '') + ')');
-  console.log('  - Icons and ' + RIZZO_SETUP_FILE);
+  const cssOnlyAdd = selectedVariation === 'css-only';
+  console.log('  - ' + cssTarget + ' (CSS, fonts' + (framework === 'vanilla' && !cssOnlyAdd ? ', sfx' : '') + ')');
+  console.log('  - ' + (cssOnlyAdd ? RIZZO_SETUP_FILE : 'Icons and ' + RIZZO_SETUP_FILE));
   if (selectedVariation && selectedVariation !== 'landing') {
-    console.log('  - Variation: ' + selectedVariation + ' (layout + starter content; existing files not overwritten).');
+    console.log('  - Variation: ' + selectedVariation + (cssOnlyAdd ? ' (CSS only, no components).' : ' (layout + starter content; existing files not overwritten).'));
   }
   if (!hadConfig) console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
   console.log('  - Wrote ' + RIZZO_SETUP_FILE + ' (instructions + link + theme)');
@@ -1944,8 +1953,27 @@ async function runAddToExisting(frameworkOverride, options) {
       console.log('  For interactive components (modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher), add js/main.js — run again with --vanilla-js or copy from a Full scaffold.');
     }
   }
-  console.log('\nTo install the package: ' + pm.add('rizzo-css'));
-  console.log('\nNext: add the link above, then run your dev server. Docs: https://rizzo-css.vercel.app\n');
+  const addCmd = pm.add('rizzo-css');
+  console.log('\n  To add the rizzo-css package to this project (optional): ' + addCmd);
+  const shouldPromptAdd = (framework === 'astro' || framework === 'svelte') && options.noInstall !== true && options.installPackage !== true && process.stdin.isTTY;
+  if (shouldPromptAdd) {
+    console.log('\n  Add rizzo-css to your package.json so you can import components from the package.');
+    const answer = await question('  Run ' + addCmd + '? (Y/n) ');
+    const runAdd = answer === '' || /^y(es)?$/i.test(answer);
+    if (runAdd) {
+      console.log('\n  Running: ' + addCmd);
+      const code = runInDir(cwd, addCmd);
+      if (code !== 0) {
+        console.error('  Add failed (exit ' + code + '). Run manually: ' + addCmd);
+      } else {
+        console.log('  ✓ rizzo-css added to dependencies.');
+      }
+    } else {
+      console.log('\n  Skipped. When ready, run: ' + addCmd);
+    }
+  }
+  console.log('\n  Next: add the link above to your layout, then run your dev server.');
+  console.log('  Docs: https://rizzo-css.vercel.app\n');
 }
 
 async function cmdInit(argv) {
@@ -1973,11 +2001,14 @@ async function cmdInit(argv) {
     initMode = 'new';
     const templateArg = getFlagValue(argv, '--template');
     const defaultTemplate = 'landing';
-    const validTemplates = ['landing', 'docs', 'dashboard', 'full'];
+    const validTemplates = ['css-only', 'landing', 'docs', 'dashboard', 'full'];
     const rawTemplate = (templateArg && validTemplates.includes(templateArg)) ? templateArg : defaultTemplate;
     selectedVariation = rawTemplate;
-    selectedTemplate = 'full'; // all four templates get full framework + Rizzo
-    if (selectedTemplate === 'full') {
+    selectedTemplate = 'full'; // all templates get full framework + Rizzo (css-only gets no components)
+    if (selectedVariation === 'css-only') {
+      fullAllComponents = false;
+      selectedComponents = [];
+    } else if (selectedTemplate === 'full') {
       fullAllComponents = true;
       if (framework === 'svelte') selectedComponents = [...SVELTE_COMPONENTS];
       else if (framework === 'astro') selectedComponents = [...ASTRO_COMPONENTS];
@@ -1992,6 +2023,7 @@ async function cmdInit(argv) {
     defaultLight = LIGHT_THEMES[0];
   } else {
     console.log(getBanner());
+    console.log('  We\'ll ask a few questions to set up your project.\n');
     framework = await selectMenu(
       [
         { value: 'vanilla', label: 'Vanilla JS (HTML + CSS + same styles & components)', color: C.vanilla },
@@ -2014,6 +2046,7 @@ async function cmdInit(argv) {
       return;
     }
 
+    console.log('\n  Choose where to create the project.\n');
     const projectChoice = await selectMenu(
       [
         { value: 'cwd', label: 'Current directory' },
@@ -2031,14 +2064,18 @@ async function cmdInit(argv) {
     }
 
     // Create new: choose template (Landing | Docs | Dashboard | Full)
+    console.log('\n  Choose a starting template (layout + sample content).\n');
     selectedVariation = await promptTemplate();
     selectedTemplate = 'full'; // all templates get full framework + Rizzo
 
-    // Full template = site clone (no component picker); Landing/Docs/Dashboard = choose all or pick components
-    if (selectedVariation === 'full' && hasFullVariant(framework)) {
+    // CSS only = no component picker; Full (site clone) = all components; Landing/Docs/Dashboard = choose all or pick
+    if (selectedVariation === 'css-only') {
+      selectedComponents = [];
+      fullAllComponents = false;
+    } else if (selectedVariation === 'full' && hasFullVariant(framework)) {
       fullAllComponents = true;
       selectedComponents = framework === 'svelte' ? [...SVELTE_COMPONENTS] : framework === 'astro' ? [...ASTRO_COMPONENTS] : Object.keys(VANILLA_COMPONENT_SLUGS);
-    } else if (selectedVariation !== 'full' || !hasFullVariant(framework)) {
+    } else {
       const addChoice = await selectMenu(
         [
           { value: 'all', label: 'All components' },
@@ -2295,6 +2332,50 @@ async function cmdInit(argv) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, componentsToCopy);
     }
+  } else if (selectedVariation === 'css-only') {
+    // CSS only: no components, no web pages — just CSS, fonts, license, README, .gitignore (and framework base for Astro/Svelte)
+    mkdirSync(projectDir, { recursive: true });
+    if (framework === 'vanilla') {
+      const cssDir = join(projectDir, pathsForScaffold.targetDir);
+      cssTarget = join(cssDir, 'rizzo.min.css');
+      mkdirSync(cssDir, { recursive: true });
+      copyFileSync(cssSource, cssTarget);
+      copyRizzoFonts(dirname(cssTarget));
+      writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd(framework, { linkHref: 'css/rizzo.min.css', theme, defaultDark, defaultLight }), 'utf8');
+      copyPackageLicense(projectDir);
+      copyVanillaGitignore(projectDir);
+    } else if (framework === 'astro' && existsSync(astroCoreDir)) {
+      const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(astroCoreDir, projectDir, replacements, projectDir);
+      copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+      if (skipped.length > 0) {
+        writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('astro', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+      }
+      cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+      copyPackageLicense(projectDir);
+      copyAstroGitignore(projectDir);
+    } else if (framework === 'svelte' && existsSync(svelteCoreDir)) {
+      const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(svelteCoreDir, projectDir, replacements, projectDir);
+      copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
+      if (skipped.length > 0) {
+        writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('svelte', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+      }
+      cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
+      copyPackageLicense(projectDir);
+      copySvelteGitignore(projectDir);
+    } else {
+      // fallback: same as vanilla (no index.html)
+      const cssDir = join(projectDir, pathsForScaffold.targetDir);
+      cssTarget = join(cssDir, 'rizzo.min.css');
+      mkdirSync(cssDir, { recursive: true });
+      copyFileSync(cssSource, cssTarget);
+      copyRizzoFonts(dirname(cssTarget));
+      writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd(framework, { linkHref: 'css/rizzo.min.css', theme, defaultDark, defaultLight }), 'utf8');
+      copyPackageLicense(projectDir);
+      copyVanillaGitignore(projectDir);
+    }
+    if (cssTarget && existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
   } else if (useVanillaCore || useVanillaWithOverlay) {
     const cssDir = join(projectDir, pathsForScaffold.targetDir);
     cssTarget = join(cssDir, 'rizzo.min.css');
@@ -2447,13 +2528,17 @@ async function cmdInit(argv) {
   console.log('  - ' + cssTarget);
   if (indexPath) console.log('  - ' + indexPath);
   if (framework === 'vanilla') {
-    if (useVanillaCore || useVanillaWithOverlay) {
+    if (selectedVariation === 'css-only') {
+      console.log('  - CSS only: stylesheet + ' + RIZZO_SETUP_FILE + ', license, .gitignore. No web pages or components.');
+    } else if (useVanillaCore || useVanillaWithOverlay) {
       console.log('  - Vanilla JS (full): theme switcher, js/main.js, icons, component showcase, ' + SCAFFOLD_README_FILENAME + '.' + (useVanillaWithOverlay ? ' (' + selectedVariation + ' template)' : ''));
     } else if (selectedTemplate === 'landing') {
       console.log('  - ' + RIZZO_SETUP_FILE + ' has instructions and snippets.');
     } else {
       console.log('  - Vanilla JS (picked components): index.html + CSS. Add JS from docs or ' + RIZZO_SETUP_FILE + '.');
     }
+  } else if (selectedVariation === 'css-only') {
+    console.log('  - CSS only: stylesheet + base app, no components. Use Rizzo classes in your pages.');
   }
   if (existsSync(join(projectDir, RIZZO_SETUP_FILE))) {
     console.log('  - ' + RIZZO_SETUP_FILE + ' (instructions + snippets for anything we didn\'t overwrite)');
@@ -2461,7 +2546,9 @@ async function cmdInit(argv) {
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
   const runPrefix = projectDir !== cwd ? 'cd ' + pathRelative(cwd, projectDir) + ' && ' : '';
-  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase;
+  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte'));
+
+  console.log('\n  Scaffold complete. Summary above.');
 
   // Write rizzo-css.json only when one doesn't exist (don't overwrite existing config).
   const pathsForConfig = getFrameworkCssPaths(framework);
@@ -2484,20 +2571,26 @@ async function cmdInit(argv) {
   // Package manager install: only for Astro/Svelte (Vanilla has no package.json)
   if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
     const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' (current directory)';
-    console.log('\nRunning install' + dirLabel + ': ' + pm.install);
+    console.log('\n  Running' + dirLabel + ': ' + pm.install);
     const code = runInDir(projectDir, pm.install);
     if (code !== 0) {
-      console.error('\nInstall failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+      console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+    } else {
+      console.log('  ✓ Dependencies installed.');
     }
   } else if (!yes && !noInstall && hasPackageJson) {
     const shouldRun = await confirmRunInstall(pm);
     if (shouldRun) {
       const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' here';
-      console.log('\nRunning install' + dirLabel + ': ' + pm.install);
+      console.log('\n  Running' + dirLabel + ': ' + pm.install);
       const code = runInDir(projectDir, pm.install);
       if (code !== 0) {
-        console.error('\nInstall failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+        console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+      } else {
+        console.log('  ✓ Dependencies installed.');
       }
+    } else {
+      console.log('\n  Skipped. When ready, run: ' + runPrefix + pm.install);
     }
   }
 
@@ -2520,14 +2613,15 @@ async function cmdInit(argv) {
     console.log('  - Variation: ' + selectedVariation + ' (layout + starter content).');
   }
   if (hasPackageJson) {
-    console.log('\nNext: ' + runPrefix + nextStep);
+    console.log('\n  Next: run the dev server with:');
+    console.log('    ' + runPrefix + nextStep);
   } else if (framework === 'vanilla') {
     const vanillaNext = projectDir !== cwd
       ? 'cd ' + pathRelative(cwd, projectDir) + ' then open index.html or serve the folder (e.g. npx serve .)'
       : 'open index.html or serve the folder (e.g. npx serve .)';
-    console.log('\nNext: ' + vanillaNext);
+    console.log('\n  Next: ' + vanillaNext);
   }
-  console.log('\nDocs: https://rizzo-css.vercel.app\n');
+  console.log('\n  Docs: https://rizzo-css.vercel.app\n');
 }
 
 function main() {

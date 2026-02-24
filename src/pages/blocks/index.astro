@@ -5,7 +5,7 @@ import CodeBlock from '../../components/CodeBlock.astro';
 
 const cliSnippet = `npx rizzo-css init
 # → Choose framework (Astro, Svelte, Vanilla)
-# → Choose variation: Landing | Docs | Dashboard`;
+# → Choose variation: CSS only | Landing | Docs | Dashboard`;
 ---
 
 <BlocksLayout
@@ -44,7 +44,7 @@ const cliSnippet = `npx rizzo-css init
 
 		<section>
 			<h2>Scaffold from CLI</h2>
-			<p>When you create a new project or add to existing, choose a <strong>template</strong>: <strong>Landing</strong>, <strong>Docs</strong>, <strong>Dashboard</strong>, or <strong>Full</strong>. Landing, Docs, and Dashboard give you the same full setup with a different starter layout and content — matching the blocks above. Full clones the entire docs site.</p>
+			<p>When you create a new project or add to existing, choose a <strong>template</strong>: <strong>CSS only</strong>, <strong>Landing</strong>, <strong>Docs</strong>, <strong>Dashboard</strong>, or <strong>Full</strong>. CSS only = stylesheet + license, README, .gitignore (no web pages or components). <strong>Add</strong> is for existing projects: run in your project root, then select which components to add (or CSS only). Landing, Docs, and Dashboard give you the same full setup with a different starter layout and content — matching the blocks above. Full clones the entire docs site.</p>
 			<CodeBlock code={cliSnippet} language="bash" />
 		</section>
 </BlocksLayout>

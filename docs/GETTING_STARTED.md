@@ -6,8 +6,8 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 - **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro or Svelte components. React/Vue: same CSS; wrappers planned. See [Using Rizzo in your project](#using-rizzo-in-your-project).
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance).
-- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte. **Templates:** **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. Add → same templates; Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
-- **Vanilla** — No node_modules. Same four templates as Astro/Svelte: **Landing** = CSS + RIZZO-SETUP.md (or full index + all components if you choose “all”). **Docs** / **Dashboard** = docs or dashboard overlay + component pages (all or pick) + `js/main.js`, icons, sfx. **Full** = site clone (index + Navbar, Settings, Footer + all component pages + js + icons). Add component JS via [Vanilla docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from Full.
+- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte. **Templates:** **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). CSS only = no components; Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. **Add** = for existing projects (run in project root, then select components or CSS only). Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
+- **Vanilla** — No node_modules. Same five templates as Astro/Svelte: **CSS only** = CSS + RIZZO-SETUP.md + license + .gitignore (no web pages or components). **Landing** = CSS + RIZZO-SETUP.md (or full index + all components if you choose “all”). **Docs** / **Dashboard** = docs or dashboard overlay + component pages (all or pick) + `js/main.js`, icons, sfx. **Full** = site clone (index + Navbar, Settings, Footer + all component pages + js + icons). Add component JS via [Vanilla docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from Full.
 - **CDN** — unpkg, jsDelivr; pin `.../rizzo-css@<version>/dist/rizzo.min.css`.
 - **Icons** — 53 total (31 Tabler-style, 22 devicons); same for Astro, Svelte, Vanilla.
 
@@ -18,13 +18,13 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 | Command | What it does |
 |--------|----------------|
 | `npx rizzo-css init` | Framework (Vanilla / Astro / Svelte) → add to existing or create new. **New** → location, then template **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. **Full** = site clone (no picker); others = all 56 or pick components. `--yes --path <dir>` non-interactive. |
-| `npx rizzo-css add` | Same template choice (Landing \| Docs \| Dashboard \| Full). CSS + components; writes RIZZO-SETUP.md; Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--readme`, `--force`, `--vanilla-js`. |
+| `npx rizzo-css add` | **For existing projects.** Run in project root. Choose template (CSS only \| Landing \| Docs \| Dashboard \| Full), then select which components to add (or CSS only). Writes RIZZO-SETUP.md; Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--readme`, `--force`, `--vanilla-js`. |
 | `npx rizzo-css theme` | List 14 theme IDs for `data-theme`. |
 | `npx rizzo-css doctor` | Check config, CSS path, layout link. |
 
 **Run by package manager:** npm and yarn → `npx rizzo-css <command>` (yarn tab shows npx so it works with Yarn 1 and 2+); pnpm → `pnpm dlx rizzo-css <command>`; bun → `bunx rizzo-css <command>`. Use the docs site tabs to copy the command for your manager.
 
-**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template landing|docs|dashboard|full**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--template landing|docs|dashboard|full**, **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** Landing = hero/features page; Docs = documentation layout + sidebar; Dashboard = app dashboard layout; Full = clone of the Rizzo docs site (all components). All templates get full framework + Rizzo; Landing/Docs/Dashboard then prompt for all 56 or pick components. `npx rizzo-css help components` lists components and copy paths.
+**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template css-only|landing|docs|dashboard|full**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--template css-only|landing|docs|dashboard|full**, **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** CSS only = stylesheet + license, README, barebones HTML (no components); Landing = hero/features page; Docs = documentation layout + sidebar; Dashboard = app dashboard layout; Full = clone of the Rizzo docs site (all components). CSS only skips component picker; others get full framework + Rizzo; Landing/Docs/Dashboard then prompt for all 56 or pick components. `npx rizzo-css help components` lists components and copy paths.
 
 **Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. Full includes these automatically; picker shows e.g. "Navbar (adds Search, Settings)". When you add **Settings** via the CLI (Astro or Svelte), the CLI also copies **scaffold/config/fonts.ts** into your project (Astro: `src/components/config/fonts.ts`; Svelte: `src/lib/config/fonts.ts`) so the font-pair dropdown works. List: `npx rizzo-css help components`. **Component counts:** Full = site clone; Landing/Docs/Dashboard = all 56 or pick (all frameworks).
 
@@ -45,7 +45,7 @@ On the [docs site](https://rizzo-css.vercel.app/docs/getting-started), use the *
 npx rizzo-css init
 ```
 
-**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** (or `add`) → choose **Landing** \| **Docs** \| **Dashboard** \| **Full**; CLI prints the `<link>` tag. **New** → location, then template (Landing / Docs / Dashboard / Full), then package manager. **Full** = site clone; others = all 56 or pick components.
+**First:** choose framework (Vanilla / Astro / Svelte). **Then:** add to existing or create new. **Existing** (or `add`) → choose **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**; CLI prints the `<link>` tag. **New** → location, then template (CSS only / Landing / Docs / Dashboard / Full), then package manager. **CSS only** = no components; **Full** = site clone; others = all 56 or pick components.
 
 ```bash
 npx rizzo-css add
@@ -93,7 +93,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 #### Vanilla JS
 
-1. **New:** `npx rizzo-css init` → Vanilla → template (Landing | Docs | Dashboard | Full). **Full** = index + components/ + js + icons. **Landing** = CSS + RIZZO-SETUP.md.
+1. **New:** `npx rizzo-css init` → Vanilla → template (CSS only | Landing | Docs | Dashboard | Full). **CSS only** = index + CSS + RIZZO-SETUP.md (no components). **Full** = index + components/ + js + icons. **Landing** = CSS + RIZZO-SETUP.md.
 2. **Add:** `npx rizzo-css add`; add the printed `<link>` to your HTML.
 3. **CSS:** CLI writes `css/rizzo.min.css`. Link in HTML or use CDN (README-RIZZO.md).
 4. **Components:** Same BEM as [Components](/docs/components). Full includes `js/main.js`; see [Vanilla components](/docs/vanilla/components).

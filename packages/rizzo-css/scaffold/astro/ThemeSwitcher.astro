@@ -85,6 +85,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     aria-haspopup="true"
     aria-controls={menuId}
     aria-label="Select theme"
+    title="Select theme"
     id={triggerId}
   >
     <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
@@ -115,6 +116,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
         data-theme-type="system"
         data-theme-bg="oklch(55% 0.02 270deg)"
         data-theme-accent=""
+        title="Use system light/dark preference"
       >
         <Gear width={16} height={16} class="theme-switcher__option-icon" />
         <span class="sr-only">Preference: </span>
@@ -136,6 +138,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
             data-theme-bg={theme.bg}
             data-theme-accent={theme.accent}
             data-theme-label={theme.label}
+            title={`Dark theme: ${theme.label}`}
           >
             <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
             <span class="sr-only">Dark theme: </span>
@@ -160,6 +163,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
             data-theme-bg={theme.bg}
             data-theme-accent={theme.accent}
             data-theme-label={theme.label}
+            title={`Light theme: ${theme.label}`}
           >
             <IconComponent width={16} height={16} class="theme-switcher__option-icon" />
             <span class="sr-only">Light theme: </span>

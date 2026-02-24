@@ -6,7 +6,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.60) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** Landing | Docs | Dashboard | Full (same for init and add); all 56 components; we never overwrite existing files (snippets in RIZZO-SETUP.md). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Package:** Single **rizzo-css** (v0.0.61) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
 - **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast), focus-trap utility, bundle size reporting, performance and browser-support docs. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
 
 ---
@@ -64,7 +64,7 @@ Potential tasks to consider when prioritizing work; not in priority order.
 - **Component changelog** — Per-component or global changelog (e.g. new props, breaking changes) linked from docs.
 - **More copy-paste examples** — Form layouts, dashboard cards, settings panels as full-page snippets.
 - **Search** — Algolia or local search for docs (already referenced in .env.example for some setups).
-- **Docs version selector** — Link to docs for specific package version (e.g. 0.0.60) when multiple versions are documented.
+- **Docs version selector** — Link to docs for specific package version (e.g. 0.0.61) when multiple versions are documented.
 
 ### Accessibility & quality
 - **Cross-browser a11y** — Extend Playwright a11y runs to Firefox and WebKit (see BROWSER_SUPPORT).
