@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Empty from '../../../components/Empty.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'empty';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Empty" description="Empty state with optional icon, title, description, and action. Matches shadcn-svelte Empty.">
@@ -32,6 +38,8 @@ import Empty from '../components/rizzo/Empty.astro';
 <Empty title="No items yet" description="Get started by adding your first item.">
   <button type="button" class="btn btn-primary">Add item</button>
 </Empty>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. BEM: empty, empty__icon, empty__title, empty__description, empty__action. -->
 <div class="empty">
   <h3 class="empty__title">No items yet</h3>

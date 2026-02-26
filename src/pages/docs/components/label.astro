@@ -4,6 +4,12 @@ import Label from '../../../components/Label.astro';
 import Input from '../../../components/Input.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'label';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Label Component" description="Standalone form label; use with for/id to associate with inputs. Matches shadcn-svelte Label.">
@@ -43,6 +49,8 @@ import Input from '../components/rizzo/Input.astro';
 
 <Label for="email" required>Email</Label>
 <Input id="email" type="email" />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<label class="label label--required" for="email">Email</label>
 <input id="email" type="email" class="form-input" />`}
 		/>

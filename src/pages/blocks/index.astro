@@ -4,8 +4,8 @@ import Card from '../../components/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 
 const cliSnippet = `npx rizzo-css init
-# → Choose framework (Astro, Svelte, Vanilla)
-# → Choose variation: CSS only | Landing | Docs | Dashboard`;
+# → Choose framework (Vanilla, Astro, Svelte, React, Vue)
+# → Choose template: CSS only | Landing | Docs | Dashboard | Full`;
 ---
 
 <BlocksLayout
@@ -18,9 +18,27 @@ const cliSnippet = `npx rizzo-css init
 		<p class="blocks-index__browse-desc">Pre-built layouts and patterns using Rizzo components and design tokens. Use them as starting points for dashboards, docs sites, and app shells.</p>
 	</section>
 
-	<section>
+		<section>
 		<h2 class="blocks-index__section-label">Featured</h2>
 		<div class="blocks-index__grid">
+				<a href="/blocks/landing-hero" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Landing hero</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Marketing hero with headline, subtitle, and primary CTAs. Typography and button tokens.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Hero · Buttons · Typography</span>
+						</div>
+					</Card>
+				</a>
+				<a href="/blocks/pricing" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Pricing cards</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Three-tier pricing section using Card, Badge, and buttons. Theme-aware.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Card · Badge · Buttons</span>
+						</div>
+					</Card>
+				</a>
 				<a href="/blocks/dashboard-01" class="block-card-link">
 					<Card variant="elevated">
 						<div class="card__body">

@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ContextMenu from '../../../components/ContextMenu.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'context-menu';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Context Menu" description="Right-click menu. Matches shadcn-svelte Context Menu.">
@@ -45,6 +51,8 @@ import ContextMenu from '../components/rizzo/ContextMenu.astro';
   <div class="context-menu__separator"></div>
   <button type="button" class="context-menu__item">Settings</button>
 </ContextMenu>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + context-menu script from package/vanilla docs. data-context-menu-trigger on trigger; menu uses context-menu, context-menu__item, context-menu__separator. -->`}
 		/>
 	</section>

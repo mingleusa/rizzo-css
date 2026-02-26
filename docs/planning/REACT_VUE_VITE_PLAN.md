@@ -1,6 +1,6 @@
 # React, Vue, and Vite — Implementation plan
 
-**Status:** Planning. Not yet implemented. This doc describes how we will add React and Vue support and how Vite fits in.
+**Status:** Phase 1 (React) complete. React: `@astrojs/react`, `src/components/react/` with **all 56 components** fully implemented. Each component has a doc page with live demo and accurate React/TSX code blocks. Config: `src/config/reactComponents.ts`, `src/config/reactCodeSnippets.ts`, `src/config/reactDocPaths.ts`; registry: `src/components/react/registry.tsx`. Vue and Vite-based scaffolds remain planned.
 
 **Summary:**
 - **Docs site:** Use **Astro integrations** (`@astrojs/react`, `@astrojs/vue`) so React and Vue components run inside the existing Astro docs site, same pattern as `@astrojs/svelte`. No separate app.

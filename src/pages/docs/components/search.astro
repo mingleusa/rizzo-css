@@ -4,6 +4,12 @@ import SearchComponent from '../../../components/Search.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'search';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Search Component — Astro" description="Search component with Algolia integration and live filtering">
@@ -56,6 +62,8 @@ import Search from '../components/rizzo/Search.astro';
 </script>
 
 <Search id="search-main" />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Shipped Navbar includes Search; standalone below. Include js/main.js for open/close, focus trap, click-outside. -->
 <div class="search" data-search>
   <div class="search__trigger-wrapper">

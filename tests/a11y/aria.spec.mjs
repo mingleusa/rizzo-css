@@ -1,8 +1,10 @@
 /**
  * ARIA and role checks for screen reader–related markup.
  * Run: pnpm test:a11y
- * These assertions verify the markup that screen readers rely on (roles, labels, expanded state).
- * They do not run a real screen reader; for that, use manual testing per docs/ACCESSIBILITY.md#manual-accessibility-testing.
+ * Covers Astro component pages and React (/docs/react/components/*) for
+ * modal, dropdown, settings, alert-dialog, and sheet. Vue doc demos have no trigger buttons. These assertions verify the markup
+ * that screen readers rely on (roles, labels, expanded state). For real screen reader testing,
+ * use manual testing per docs/ACCESSIBILITY.md#manual-accessibility-testing.
  */
 import { test, expect } from '@playwright/test';
 
@@ -225,3 +227,47 @@ test.describe('ARIA and roles (sheet)', () => {
     await expect(dialog).toHaveAttribute('aria-labelledby');
   });
 });
+
+// —— React routes: same ARIA/roles as Astro (Vue doc demos have no trigger buttons) ——
+const REACT_ARIA_ROUTES = [
+  { path: '/docs/react/components/modal', trigger: /open modal/i, dialog: '.modal[role="dialog"]' },
+  { path: '/docs/react/components/dropdown', trigger: /^actions$/i, menu: '[role="menu"]' },
+  { path: '/docs/react/components/settings', trigger: /open settings/i, panelRole: 'dialog' },
+  { path: '/docs/react/components/alert-dialog', trigger: /delete/i, dialog: '[role="alertdialog"]' },
+  { path: '/docs/react/components/sheet', trigger: /open sheet/i, dialog: '.sheet[role="dialog"]' },
+];
+
+for (const { path, trigger, dialog, menu, panelRole } of REACT_ARIA_ROUTES) {
+  const slug = path.split('/').pop();
+  test.describe(`ARIA and roles (React: ${slug})`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(path);
+      await lockTheme(page);
+    });
+
+    test('has correct dialog/menu role and aria attributes when open', async ({ page }) => {
+      const main = page.getByRole('main');
+      await main.getByRole('button', { name: trigger }).first().click();
+      await page.waitForTimeout(300);
+      if (dialog) {
+        const el = page.locator(dialog).first();
+        await expect(el).toBeVisible({ timeout: 5000 });
+        await expect(el).toHaveAttribute('aria-modal', 'true');
+        await expect(el).toHaveAttribute('aria-labelledby');
+      }
+      if (menu) {
+        const el = page.locator(menu).first();
+        await expect(el).toBeVisible({ timeout: 5000 });
+        const item = el.locator('[role="menuitem"]').first();
+        await expect(item).toBeVisible();
+      }
+      if (panelRole === 'dialog') {
+        const root = page.locator('[data-settings]').first();
+        await expect(root).toBeVisible({ timeout: 5000 });
+        await expect(root).toHaveAttribute('role', 'dialog');
+        await expect(root).toHaveAttribute('aria-modal', 'true');
+        await expect(root).toHaveAttribute('aria-labelledby');
+      }
+    });
+  });
+}

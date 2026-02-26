@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import DashboardComponent from '../../../components/Dashboard.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'dashboard';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Dashboard Component — Astro" description="Layout component with sidebar and main content area for app dashboards. Uses Rizzo tokens and BEM classes.">
@@ -65,6 +71,8 @@ import Dashboard from '../components/rizzo/Dashboard.astro';
   <h1>Dashboard</h1>
   <p>Your content here.</p>
 </Dashboard>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <div class="dashboard">
   <aside class="dashboard__sidebar" aria-label="App navigation">

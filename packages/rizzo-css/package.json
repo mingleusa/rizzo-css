@@ -1,11 +1,13 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.62",
-  "engines": { "node": ">=18" },
+  "version": "0.0.63",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },
-  "description": "A modern CSS design system with semantic theming, 14 themes, accessible components (BEM), and pre-built blocks. Same CSS and components for Vanilla JS, Astro, and Svelte; CLI scaffolds with flat nav (Docs, Components, Blocks, Themes, Colors).",
+  "description": "A modern CSS design system with semantic theming, 14 themes, accessible components (BEM), and pre-built blocks. Same CSS and components for Vanilla JS, Astro, Svelte, React, and Vue; CLI scaffolds all five; blocks include Landing hero, Pricing, Dashboard, Docs layout.",
   "style": "dist/rizzo.min.css",
   "main": "dist/rizzo.min.css",
   "unpkg": "dist/rizzo.min.css",
@@ -27,12 +29,15 @@
     "bin",
     "dist",
     "scaffold/astro",
-    "scaffold/landing","scaffold/minimal",
+    "scaffold/landing",
+    "scaffold/minimal",
     "scaffold/config",
     "scaffold/shared",
     "scaffold/svelte",
     "scaffold/utils",
-    "scaffold/vanilla"
+    "scaffold/vanilla",
+    "scaffold/react",
+    "scaffold/vue"
   ],
   "keywords": [
     "css",
@@ -42,7 +47,9 @@
     "accessibility",
     "vanilla",
     "astro",
-    "svelte"
+    "svelte",
+    "react",
+    "vue"
   ],
   "repository": {
     "type": "git",

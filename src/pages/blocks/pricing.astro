@@ -1,0 +1,173 @@
+---
+import BlocksLayout from '../../layouts/BlocksLayout.astro';
+import Card from '../../components/Card.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<BlocksLayout
+	title="Pricing cards"
+	description="Three-tier pricing section using Card components and design tokens. Theme-aware and accessible."
+	documentTitle="Pricing cards — Blocks — Rizzo CSS"
+>
+	<section>
+		<p>This block is a <strong>pricing section</strong>: three plans in cards with features and CTAs. Uses Rizzo <strong>Card</strong> component and semantic colors so it adapts to every theme.</p>
+	</section>
+
+	<section>
+		<h2 id="preview">Preview</h2>
+		<p class="docs-dim">Pricing cards using Card component and button classes.</p>
+		<div class="block-preview-wrapper block-preview-wrapper--pricing">
+			<div class="pricing-grid">
+				<Card variant="elevated" class="pricing-card">
+					<div class="card__body">
+						<h3 class="pricing-card__name">Starter</h3>
+						<p class="pricing-card__price"><span class="pricing-card__currency">$</span>0</p>
+						<p class="pricing-card__period">Free forever</p>
+						<ul class="pricing-card__features">
+							<li>Up to 3 projects</li>
+							<li>Community support</li>
+						</ul>
+						<a href="#" class="btn btn-outline pricing-card__cta">Get started</a>
+					</div>
+				</Card>
+				<Card variant="elevated" class="pricing-card pricing-card--featured">
+					<div class="card__body">
+						<span class="badge badge--primary pricing-card__badge">Popular</span>
+						<h3 class="pricing-card__name">Pro</h3>
+						<p class="pricing-card__price"><span class="pricing-card__currency">$</span>12<span class="pricing-card__period-inline">/mo</span></p>
+						<p class="pricing-card__period">Billed monthly</p>
+						<ul class="pricing-card__features">
+							<li>Unlimited projects</li>
+							<li>Priority support</li>
+							<li>Advanced analytics</li>
+						</ul>
+						<a href="#" class="btn btn-primary pricing-card__cta">Start trial</a>
+					</div>
+				</Card>
+				<Card variant="elevated" class="pricing-card">
+					<div class="card__body">
+						<h3 class="pricing-card__name">Enterprise</h3>
+						<p class="pricing-card__price">Custom</p>
+						<p class="pricing-card__period">Contact us</p>
+						<ul class="pricing-card__features">
+							<li>Everything in Pro</li>
+							<li>SSO &amp; SLA</li>
+							<li>Dedicated support</li>
+						</ul>
+						<a href="#" class="btn btn-outline pricing-card__cta">Contact sales</a>
+					</div>
+				</Card>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="scaffold">Use in your project</h2>
+		<p>Copy the structure above. Cards use <code>variant="elevated"</code>; prices and features use design tokens. Add your own links and copy.</p>
+		<CodeBlock code={`<Card variant="elevated" class="pricing-card">
+  <div class="card__body">
+    <h3>Pro</h3>
+    <p class="pricing-card__price">$12<span>/mo</span></p>
+    <ul class="pricing-card__features">...</ul>
+    <a href="#" class="btn btn-primary">Start trial</a>
+  </div>
+</Card>`} language="astro" />
+	</section>
+
+	<section>
+		<h2>Components used</h2>
+		<ul>
+			<li><a href="/docs/components/cards">Card</a> — elevated variant for each plan</li>
+			<li><a href="/docs/components/button">Button</a> — <code>btn-primary</code> for primary CTA, <code>btn-outline</code> for secondary</li>
+			<li><a href="/docs/components/badge">Badge</a> — optional “Popular” label</li>
+		</ul>
+	</section>
+</BlocksLayout>
+
+<style>
+	.block-preview-wrapper {
+		margin: var(--spacing-6) 0;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+	.block-preview-wrapper--pricing {
+		padding: var(--spacing-6);
+		background: var(--background-alt);
+	}
+	.pricing-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+		gap: var(--spacing-6);
+		max-width: 56rem;
+		margin: 0 auto;
+	}
+	.pricing-card {
+		display: flex;
+		flex-direction: column;
+	}
+	.pricing-card :global(.card__body) {
+		flex: 1;
+		display: flex;
+		flex-direction: column;
+	}
+	.pricing-card--featured {
+		border-color: var(--accent);
+		box-shadow: 0 0 0 2px oklch(from var(--accent) l c h / 20%);
+	}
+	.pricing-card__badge {
+		align-self: flex-start;
+		margin-bottom: var(--spacing-2);
+	}
+	.pricing-card__name {
+		font-size: var(--font-size-lg);
+		font-weight: var(--font-weight-semibold);
+		color: var(--text);
+		margin: 0 0 var(--spacing-2);
+	}
+	.pricing-card__price {
+		font-size: var(--font-size-3xl);
+		font-weight: var(--font-weight-bold);
+		color: var(--text);
+		margin: 0 0 var(--spacing-0-5);
+	}
+	.pricing-card__currency,
+	.pricing-card__period-inline {
+		font-size: var(--font-size-lg);
+		color: var(--text-dim);
+		font-weight: var(--font-weight-normal);
+	}
+	.pricing-card__period {
+		font-size: var(--font-size-sm);
+		color: var(--text-dim);
+		margin: 0 0 var(--spacing-4);
+	}
+	.pricing-card__features {
+		list-style: none;
+		padding: 0;
+		margin: 0 0 var(--spacing-6);
+		flex: 1;
+		font-size: var(--font-size-sm);
+		color: var(--text);
+	}
+	.pricing-card__features li {
+		padding: var(--spacing-1) 0;
+		padding-left: var(--spacing-4);
+		position: relative;
+	}
+	.pricing-card__features li::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 0.65em;
+		width: 0.35em;
+		height: 0.35em;
+		background: var(--accent);
+		border-radius: 50%;
+	}
+	.pricing-card__cta {
+		width: 100%;
+		justify-content: center;
+	}
+	.docs-dim { color: var(--text-dim); font-size: var(--font-size-sm); margin-top: 0; }
+</style>

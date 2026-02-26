@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'toast';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Toast Component — Astro" description="Fixed position toast notifications with auto-dismiss and programmatic control">
@@ -77,6 +83,8 @@ import '../components/rizzo/Toast.astro';
 
 <Toast />
 <button class="btn btn-primary" on:click={() => showToast('Saved!', { variant: 'success' })}>Show Toast</button>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Include toast container + script from package scaffold. Then: -->
 <button class="btn btn-primary" onclick="window.showToast('Saved!', { variant: 'success' })">Show Toast</button>
 <!-- window.showToast(msg, { variant, position, autoDismiss }); window.removeAllToasts(); -->`}

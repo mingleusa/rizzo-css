@@ -11,7 +11,7 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
-  workers: isCI ? 2 : 1,
+  workers: 4, // parallel tests; faster locally and in CI
   timeout: isCI ? 60_000 : 30_000,
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : [['html', { open: 'never' }]],
   use: {

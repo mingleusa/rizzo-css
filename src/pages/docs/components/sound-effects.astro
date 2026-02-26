@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import SoundEffects from '../../../components/SoundEffects.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'sound-effects';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Sound Effects Component — Astro" description="Toggle for play sound on click (Web Audio); off by default for accessibility.">
@@ -31,6 +37,8 @@ import SoundEffects from '../components/rizzo/SoundEffects.astro';
 </script>
 
 <SoundEffects />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Checkbox with data-sound-effects; script runs on DOMContentLoaded. -->
 <!-- Include the layout sound script so clicks play the sound when soundEffects === 'true'. -->`}
 		/>

@@ -70,6 +70,17 @@ button:disabled,
   color: var(--accent-text-on-hover);
 }
 
+/* Links styled as .btn-primary: override a { color: var(--accent-fg) } so text uses --accent-text for WCAG AA 4.5:1 */
+a.btn-primary,
+a.btn-primary:visited {
+  color: var(--accent-text) !important;
+}
+
+a.btn-primary:hover,
+a.btn-primary:visited:hover {
+  color: var(--accent-text-on-hover) !important;
+}
+
 .btn-success {
   background-color: var(--success);
   color: var(--success-text-on-solid);

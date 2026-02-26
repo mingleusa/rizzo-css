@@ -1,12 +1,13 @@
 # Components
 
-Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, and Svelte. Each component has a dedicated documentation page with live examples, usage instructions, and API details.
+Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, Svelte, and **React**. Each component has a dedicated documentation page with **working live examples**, usage instructions, and **framework code tabs** (Astro | Svelte | React | Vanilla) so you can copy the example that matches your stack.
 
 **Package:** Scaffolds: vanilla; astro/base + variants; svelte/base + variants; plus `scaffold/config/`, `scaffold/utils/`, and **all 56 components** (BackToTop, Dashboard, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects, Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). **Templates:** **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 56 or pick). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). `npx rizzo-css help components` for the list. [GETTING_STARTED](./GETTING_STARTED.md). **Blocks:** [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout); see [Blocks](/blocks).
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
-- **Astro** — Reference implementation in this repo; use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
-- **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page. Use `npx rizzo-css init` and choose Svelte, then optionally add components from `scaffold/svelte/`.
+- **Astro** — Reference implementation in this repo; each [component page](/docs/components) has live examples and **Usage** tabs (Astro, Svelte, React, Vanilla). Use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
+- **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte | Vanilla | React") on any component or theme page. Use `npx rizzo-css init` and choose Svelte, then optionally add components from `scaffold/svelte/`.
+- **React** — Full implementations and docs at [/docs/react](/docs/react); all 56 components have live demos and React/TSX code blocks. Same BEM and behavior as Astro and Svelte. Copy components from `src/components/react/` or use the Usage tabs on [Astro component pages](/docs/components) for React snippets.
 
 See [Getting Started](./GETTING_STARTED.md) for full setup.
 

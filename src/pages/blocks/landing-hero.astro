@@ -1,0 +1,81 @@
+---
+import BlocksLayout from '../../layouts/BlocksLayout.astro';
+import Card from '../../components/Card.astro';
+import CodeBlock from '../../components/CodeBlock.astro';
+---
+
+<BlocksLayout
+	title="Landing hero"
+	description="Marketing hero section with headline, subtitle, and primary CTAs. Uses Rizzo typography and button components."
+	documentTitle="Landing hero — Blocks — Rizzo CSS"
+>
+	<section>
+		<p>This block is a <strong>landing hero</strong>: centered headline, supporting text, and call-to-action buttons. Use it as the top of a marketing or product page. Same structure when you scaffold with <code>npx rizzo-css init --template landing</code>.</p>
+	</section>
+
+	<section>
+		<h2 id="preview">Preview</h2>
+		<p class="docs-dim">Hero section using design tokens and button classes.</p>
+		<div class="block-preview-wrapper block-preview-wrapper--hero">
+			<header class="landing-hero">
+				<h1 class="landing-hero__title">Build something great</h1>
+				<p class="landing-hero__subtitle">A themeable, accessible design system. Same CSS across Vanilla, Astro, Svelte, React, and Vue — no runtime lock-in.</p>
+				<div class="landing-hero__ctas">
+					<a href="/docs/getting-started" class="btn btn-primary">Get started</a>
+					<a href="/docs/components" class="btn btn-outline">View components</a>
+				</div>
+			</header>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="scaffold">Get this block via CLI</h2>
+		<p>Scaffold a new project with the Landing template:</p>
+		<CodeBlock code="npx rizzo-css init --framework astro --template landing --yes" language="bash" />
+		<p>Or add to an existing project:</p>
+		<CodeBlock code="npx rizzo-css add --framework astro --template landing" language="bash" />
+	</section>
+
+	<section>
+		<h2>Components used</h2>
+		<ul>
+			<li>Rizzo <strong>typography</strong> and <strong>spacing</strong> tokens</li>
+			<li><a href="/docs/components/button">Button</a> classes (<code>btn</code>, <code>btn-primary</code>, <code>btn-outline</code>)</li>
+		</ul>
+	</section>
+</BlocksLayout>
+
+<style>
+	.block-preview-wrapper {
+		margin: var(--spacing-6) 0;
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+	}
+	.block-preview-wrapper--hero {
+		padding: var(--spacing-16) var(--spacing-6);
+		text-align: center;
+		background: var(--background-alt);
+	}
+	.landing-hero__title {
+		font-size: var(--font-size-4xl);
+		font-weight: var(--font-weight-extrabold);
+		color: var(--text);
+		margin: 0 0 var(--spacing-4);
+		line-height: var(--line-height-tight);
+	}
+	.landing-hero__subtitle {
+		font-size: var(--font-size-xl);
+		color: var(--text-dim);
+		max-width: var(--spacing-175);
+		margin: 0 auto var(--spacing-8);
+		line-height: var(--line-height-relaxed);
+	}
+	.landing-hero__ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--spacing-3);
+		justify-content: center;
+	}
+	.docs-dim { color: var(--text-dim); font-size: var(--font-size-sm); margin-top: 0; }
+</style>

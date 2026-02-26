@@ -1,8 +1,14 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Toggle from '../../../components/Toggle.astro';
+import ToggleComponent from '../../../components/Toggle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'toggle';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Toggle" description="Toggle button with pressed/unpressed state. Matches shadcn-svelte Toggle.">
@@ -10,10 +16,25 @@ import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 		<h2>Toggle</h2>
 		<p>Button with <code>aria-pressed</code>. Use <code>pressed</code> prop for controlled state.</p>
 		<AddComponentTabs componentName="Toggle" />
-		<div class="example">
+		<div class="example" id="toggle-demo-astro">
 			<div class="example-title">Live Example</div>
-			<Toggle ariaLabel="Toggle bold">Bold</Toggle>
+			<p class="example-hint">Click to toggle pressed state.</p>
+			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+				<ToggleComponent ariaLabel="Toggle bold">Bold</ToggleComponent>
+				<ToggleComponent pressed ariaLabel="On">On</ToggleComponent>
+			</div>
 		</div>
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', function () {
+				document.querySelectorAll('#toggle-demo-astro [data-toggle]').forEach(function (btn) {
+					btn.addEventListener('click', function () {
+						var pressed = this.getAttribute('aria-pressed') === 'true';
+						this.setAttribute('aria-pressed', !pressed);
+						this.classList.toggle('toggle--pressed', !pressed);
+					});
+				});
+			});
+		</script>
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
@@ -28,6 +49,8 @@ import Toggle from '../components/rizzo/Toggle.astro';
 
 <Toggle ariaLabel="Toggle bold">Bold</Toggle>
 <Toggle pressed ariaLabel="On">On</Toggle>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. Toggle state via JS (aria-pressed, class toggle--pressed). -->
 <button type="button" class="toggle" aria-pressed="false" aria-label="Toggle bold">Bold</button>
 <button type="button" class="toggle toggle--pressed" aria-pressed="true" aria-label="On">On</button>`}

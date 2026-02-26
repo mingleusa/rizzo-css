@@ -3,23 +3,30 @@ import Tabs from './Tabs.astro';
 import CodeBlock from './CodeBlock.astro';
 import AstroIcon from './icons/devicons/Astro.astro';
 import SvelteIcon from './icons/devicons/Svelte.astro';
+import ReactIcon from './icons/devicons/React.astro';
+import VueIcon from './icons/devicons/Vue.astro';
 import Javascript from './icons/devicons/Javascript.astro';
 
-/** Full code examples per framework for the Usage section. Show Astro | Svelte | Vanilla tabs using existing theme-aware icon components. */
+/** Full code examples per framework for the Usage section. Show Astro | Svelte | React | Vue | Vanilla tabs. */
 interface Props {
   astro?: string;
   svelte?: string;
+  react?: string;
+  vue?: string;
   vanilla?: string;
   /** Optional default tab id */
-  defaultTab?: 'astro' | 'svelte' | 'vanilla';
+  defaultTab?: 'astro' | 'svelte' | 'react' | 'vue' | 'vanilla';
   class?: string;
 }
 
-const { astro = '', svelte = '', vanilla = '', defaultTab = 'astro', class: className = '' } = Astro.props;
+const { astro = '', svelte = '', react = '', vue = '', vanilla = '', defaultTab = 'astro', class: className = '' } = Astro.props;
 
-const tabs: { id: string; label: string; iconComponent: any }[] = [];
+type TabItem = { id: string; label: string; iconComponent: (props: { width?: number; height?: number; class?: string }) => unknown };
+const tabs: TabItem[] = [];
 if (astro) tabs.push({ id: 'astro', label: 'Astro', iconComponent: AstroIcon });
 if (svelte) tabs.push({ id: 'svelte', label: 'Svelte', iconComponent: SvelteIcon });
+if (react) tabs.push({ id: 'react', label: 'React', iconComponent: ReactIcon });
+if (vue) tabs.push({ id: 'vue', label: 'Vue', iconComponent: VueIcon });
 if (vanilla) tabs.push({ id: 'vanilla', label: 'Vanilla', iconComponent: Javascript });
 const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : tabs[0]?.id ?? 'astro';
 ---
@@ -36,6 +43,16 @@ const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : ta
     {svelte && (
       <div class="framework-code-tabs__panel">
         <CodeBlock code={svelte.trim()} language="svelte" />
+      </div>
+    )}
+    {react && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={react.trim()} language="tsx" />
+      </div>
+    )}
+    {vue && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={vue.trim()} language="vue" />
       </div>
     )}
     {vanilla && (

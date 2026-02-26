@@ -10,6 +10,7 @@ declare global {
     removeToast?: (toastId: string) => void;
     removeAllToasts?: () => void;
     openSettings?: () => void;
+    closeSettings?: () => void;
   }
 }
 

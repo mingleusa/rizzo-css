@@ -2,6 +2,11 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'alert';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Alert Component — Astro" description="Accessible alert component with variants and dismissible functionality">
@@ -60,6 +65,8 @@ import Alert from '../components/rizzo/Alert.astro';
 <Alert variant="success">Your changes have been saved.</Alert>
 <Alert variant="error" dismissible>An error occurred. Please try again.</Alert>
 <Alert variant="success" dismissible autoDismiss={5000}>This alert will automatically dismiss in 5 seconds.</Alert>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Ensure Rizzo CSS is loaded. Dismiss/auto-dismiss need minimal JS (see vanilla docs). -->
 <div class="alert alert--success" role="alert" aria-live="polite">
   <div class="alert__content">Your changes have been saved.</div>
@@ -111,7 +118,7 @@ import Alert from '../components/rizzo/Alert.astro';
 			<li><strong>Focus Management:</strong> Close button has visible focus indicators</li>
 			<li><strong>Screen Reader Feedback:</strong> Announces when alerts are dismissed</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/alert">Svelte docs</a> · <a href="/docs/vanilla/components/alert">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/alert">Svelte</a> · <a href="/docs/react/components/alert">React</a> · <a href="/docs/vue/components/alert">Vue</a> · <a href="/docs/vanilla/components/alert">Vanilla</a></p>
 	</section>
 </DocsLayout>
 

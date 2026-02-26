@@ -6,8 +6,8 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.62) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
-- **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
+- **Package:** Single **rizzo-css** (v0.0.63) — CSS, CLI, and scaffolds for Vanilla, Astro, Svelte, React, and Vue. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Implemented:** **React implementation complete** — all 56 components with full implementations, live demos, React/TSX code blocks, and a11y coverage (axe + keyboard + ARIA on key components). **Code blocks up to date:** Astro reference component pages show Usage tabs for **Astro | Svelte | React | Vue | Vanilla**; React snippets from `src/config/reactCodeSnippets.ts`, Vue from `src/config/vueCodeSnippets.ts`. All frameworks have working live examples. Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ---
 
@@ -26,8 +26,8 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 - **Storybook** *(optional)* — Interactive playground and design system showcase.
 
 ### Package distribution
-- **Multi-framework** — React components; Vue components (in-repo or separate later). Docs site: Astro integrations (`@astrojs/react`, `@astrojs/vue`); scaffolds: Vite-based. Plan: [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md). [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md).
-- **In-repo framework routes** — React/Vue doc routes (same pattern as Svelte).
+- **Multi-framework** — **React:** *(done)* All 56 components with full implementations, live demos, and React code blocks at `/docs/react/components/<slug>`. **Vue:** *(done)* All 56 components with Vue implementations, live demos, and Vue SFC code blocks at `/docs/vue/components/<slug>`. Config: React — `src/config/reactComponents.ts`, `reactCodeSnippets.ts`, `reactDocPaths.ts`; Vue — `vueCodeSnippets.ts`, `reactDocPaths.ts` (getVueDocStaticPaths), `src/components/vue/registry.js`, `VueDocDemo.vue`. See [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md) and [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md).
+- **In-repo framework routes** — **React:** *(done)* Index, components overview, and dynamic route for all 56 component pages at `/docs/react/*`. **Vue:** *(done)* Same pattern at `/docs/vue/*`.
 
 ### Performance
 - **Lazy loading** *(optional)* — Documented in [BEST_PRACTICES.md – Lazy loading](./BEST_PRACTICES.md#lazy-loading-optional). Single-bundle approach is default; optional theme/component lazy-load only if you have a measured need.
@@ -72,7 +72,7 @@ Potential tasks to consider when prioritizing work; not in priority order.
 - **Bundle size budget** — *(done)* CI runs `node scripts/bundle-size.mjs --check` (450 kB package CSS); `pnpm check:size` locally. Documented in [PUBLISHING.md](./PUBLISHING.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ### Frameworks & scaffolds
-- **React components** — In-repo React versions of components (same BEM, same patterns as Svelte); doc route for React.
+- **React components** — *(done)* All 56 components have full React implementations, live demos, and accurate React/TSX code blocks on each doc page. Same BEM and behavior as Astro and Svelte.
 - **Vue components** — Same idea as React; optional separate package or in-repo.
 - **Scaffold variations** — *(documented)* "CSS only" template is the minimal scaffold (design tokens + one stylesheet; no components). See [TEMPLATES.md](./TEMPLATES.md).
 
@@ -92,7 +92,7 @@ Items above that are **not** marked *(done)* and are not manual-only:
 | **CSS & themes** | Additional theme presets (community/seasonal; keep contrast and a11y in mind) |
 | **Documentation** | Search (Algolia or local; .env.example referenced for some setups) |
 | **A11y** | — *(matrix done)* |
-| **Frameworks** | React components; Vue components; in-repo framework routes *(excluded from this pass)* |
+| **Frameworks** | React: *(all 56 done)*; Vue components; in-repo framework routes |
 | **General** | — *(stability/semver documented)* |
 
 **Remaining (priority)** — Manual a11y testing (keyboard + screen reader); optional Storybook; multi-framework React/Vue; in-repo framework routes; cross-browser/manual device testing as needed.

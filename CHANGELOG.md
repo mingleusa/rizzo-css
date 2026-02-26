@@ -4,7 +4,16 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- No unreleased changes yet.
+- New blocks: **Landing hero** and **Pricing cards** (design tokens, Card/Button/Badge). Block routes included in a11y axe runs.
+- Vue doc live examples and code blocks for all component pages; Vue routes covered by axe (keyboard/ARIA remain Astro + React only).
+- Vanilla tab copy-paste HTML for theme-switcher, settings, font-switcher, back-to-top, and forms.
+- **rizzo-css** npm package now ships **React and Vue scaffolds** (added to `files`); description and keywords updated for all five frameworks.
+- TypeScript: proper `ReactComponentSlug` usage in Astro/registry; window globals and Modal `inert` typed; Tabs `iconComponent` typed.
+
+## [0.0.63] - 2025-02-25
+
+- Version bump.
+- CLI banner and help include React and Vue; ASCII art tagline: "Design system · Vanilla · Astro · Svelte · React · Vue". Package and CLI now support all five frameworks (scaffolds for Vanilla, Astro, Svelte, React, Vue).
 
 ## [0.0.62] - 2025-02-25
 
@@ -19,6 +28,7 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.62...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.63...HEAD
+[0.0.63]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.63
 [0.0.62]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.62
 [0.0.61]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.61

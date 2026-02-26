@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ButtonGroup from '../../../components/ButtonGroup.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'button-group';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Button Group" description="Group of buttons attached together. Matches shadcn-svelte Button Group.">
@@ -38,6 +44,8 @@ import ButtonGroup from '../components/rizzo/ButtonGroup.astro';
   <button type="button" class="btn">Two</button>
   <button type="button" class="btn">Three</button>
 </ButtonGroup>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <div class="button-group" role="group">
   <button type="button" class="btn">One</button>

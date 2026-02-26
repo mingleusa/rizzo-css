@@ -43,6 +43,12 @@ export const DOCS_NAV: DocsNavGroup[] = [
         label: 'Getting Started',
         sections: [
           { id: 'installation', label: 'Installation' },
+          { id: 'installation-by-framework', label: 'By framework' },
+          { id: 'vanilla', label: 'Vanilla' },
+          { id: 'astro', label: 'Astro' },
+          { id: 'svelte', label: 'Svelte' },
+          { id: 'react', label: 'React' },
+          { id: 'vue', label: 'Vue' },
           { id: 'project-structure', label: 'Project Structure' },
           { id: 'development', label: 'Development' },
           { id: 'building', label: 'Building' },

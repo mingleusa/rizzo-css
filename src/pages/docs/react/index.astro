@@ -1,0 +1,29 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="React" description="Rizzo CSS components and examples for React.">
+  <section>
+    <h2>React</h2>
+    <p>
+      Use Rizzo CSS in your React app. The design system is built with a <strong>CSS-first</strong> architecture:
+      the same BEM class names and styles work across Astro, Svelte, Vanilla, and React.
+    </p>
+    <h3>Setup</h3>
+    <ol>
+      <li>Install the package: <code>pnpm add rizzo-css</code> (or npm/yarn).</li>
+      <li>Import the main CSS in your app entry (e.g. <code>main.tsx</code>): <code>import 'rizzo-css'</code>.</li>
+      <li>Copy React components from this repo (<code>src/components/react/</code>) into your project, or use the examples on each component page.</li>
+    </ol>
+    <p>
+      React components use the same class names as the Astro and Svelte versions, so they look and behave the same.
+    </p>
+    <h3>Components</h3>
+    <p>
+      <a href="/docs/react/components">Browse all 56 React components</a> — each has a full implementation, live demo, and React/TSX code blocks. Start with <a href="/docs/react/components/button">Button</a>.
+    </p>
+    <p>
+      <strong>Other frameworks:</strong> <a href="/docs">Astro</a> · <a href="/docs/svelte">Svelte</a> · <a href="/docs/vanilla">Vanilla</a>
+    </p>
+  </section>
+</DocsLayout>

@@ -8,7 +8,7 @@ const prefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
 
 <DocsLayout title="Docs overview" description="Condensed index of Rizzo CSS documentation: getting started, CLI, components by category, theming, and frameworks.">
   <section class="docs-overview">
-    <p class="docs-overview__intro">Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 56+ accessible BEM components — for <strong>Vanilla JS</strong>, <strong>Astro</strong>, and <strong>Svelte</strong>. Use the framework switcher above to switch doc links.</p>
+    <p class="docs-overview__intro">Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 56+ accessible BEM components — for <strong>Vanilla JS</strong>, <strong>Astro</strong>, <strong>Svelte</strong>, <strong>React</strong>, and <strong>Vue</strong>. Use the framework switcher above to switch doc links.</p>
 
     <h2 id="overview" class="docs-overview__h2">Overview</h2>
     <ul class="docs-overview__list">
@@ -25,6 +25,8 @@ const prefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
       <li><strong>Vanilla</strong> — <a href={`${prefix}/vanilla/components`}>Components</a></li>
       <li><strong>Astro</strong> — <a href={`${prefix}/components`}>Components</a></li>
       <li><strong>Svelte</strong> — <a href={`${prefix}/svelte/components`}>Components</a></li>
+      <li><strong>React</strong> — <a href={`${prefix}/react/components`}>Components</a></li>
+      <li><strong>Vue</strong> — <a href={`${prefix}/vue/components`}>Components</a></li>
     </ul>
 
     <h2 id="components" class="docs-overview__h2">Components</h2>
@@ -104,6 +106,8 @@ const prefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
     <h2 id="blocks" class="docs-overview__h2">Blocks</h2>
     <ul class="docs-overview__list">
       <li><a href="/blocks">Blocks overview</a></li>
+      <li><a href="/blocks/landing-hero">Landing hero</a></li>
+      <li><a href="/blocks/pricing">Pricing cards</a></li>
       <li><a href="/blocks/dashboard-01">Dashboard with sidebar</a></li>
       <li><a href="/blocks/docs-layout">Docs layout</a></li>
     </ul>

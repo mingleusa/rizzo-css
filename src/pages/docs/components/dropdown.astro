@@ -4,6 +4,12 @@ import Dropdown from '../../../components/Dropdown.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'dropdown';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Dropdown Component — Astro" description="Accessible dropdown menu component with keyboard navigation and menu items">
@@ -55,6 +61,8 @@ import Dropdown from '../components/rizzo/Dropdown.astro';
     { label: 'Settings', href: '/settings' },
   ]}
 />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + dropdown script from package/vanilla docs. Script runs on DOMContentLoaded. -->
 <div class="dropdown" data-dropdown="actions-menu">
   <button type="button" class="dropdown__trigger" aria-expanded="false" aria-haspopup="true" aria-controls="actions-menu-menu">Actions</button>

@@ -2,6 +2,11 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'button';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Button Component — Astro" description="Semantic button component with variants using theme variables">
@@ -57,6 +62,8 @@ import Button from '../components/rizzo/Button.astro';
 <Button class="btn-error">Error</Button>
 <Button class="btn-info">Info</Button>
 <Button class="btn-outline">Outline</Button>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Ensure Rizzo CSS is loaded: <link rel="stylesheet" href="/css/rizzo.min.css" /> -->
 <button class="btn">Default</button>
 <button class="btn btn-primary">Primary</button>
@@ -86,6 +93,6 @@ import Button from '../components/rizzo/Button.astro';
 				<button class="btn btn-primary" disabled>Disabled Primary</button>
 			</div>
 		</div>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/button">Svelte docs</a> · <a href="/docs/vanilla/components/button">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/button">Svelte</a> · <a href="/docs/react/components/button">React</a> · <a href="/docs/vue/components/button">Vue</a> · <a href="/docs/vanilla/components/button">Vanilla</a></p>
 	</section>
 </DocsLayout>

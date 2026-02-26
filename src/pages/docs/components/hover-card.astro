@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import HoverCard from '../../../components/HoverCard.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'hover-card';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Hover Card" description="Floating panel that opens on hover. Matches shadcn-svelte Hover Card.">
@@ -37,6 +43,8 @@ import HoverCard from '../components/rizzo/HoverCard.astro';
   <span data-hover-card-trigger style="cursor: pointer;">Hover me</span>
   <div style="min-width: 16rem;"><p>Card content here.</p></div>
 </HoverCard>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + hover-card script from package/vanilla docs. data-hover-card-trigger on trigger; content in hover-card__content. Opens on hover. -->`}
 		/>
 	</section>

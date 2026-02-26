@@ -4,8 +4,8 @@ interface Tab {
   label: string;
   /** Optional icon URL (e.g. /icons/devicons/Bun.svg) shown before the label */
   icon?: string;
-  /** Optional Astro icon component (theme-aware); used when present instead of icon URL */
-  iconComponent?: any;
+  /** Optional Astro icon component (theme-aware); used when present instead of icon URL. Rendered as <Component width={20} height={20} class="..." /> */
+  iconComponent?: (props: { width?: number; height?: number; class?: string }) => unknown;
   content?: string;
 }
 

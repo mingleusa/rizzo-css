@@ -4,7 +4,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 ## Features
 
-- **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro or Svelte components. React/Vue: same CSS; wrappers planned. See [Using Rizzo in your project](#using-rizzo-in-your-project).
+- **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro, Svelte, or React components. React docs and components at [/docs/react](https://rizzo-css.vercel.app/docs/react). Vue: same CSS; wrappers planned. See [Using Rizzo in your project](#using-rizzo-in-your-project).
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance).
 - **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte. **Templates:** **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). CSS only = no components; Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. **Add** = for existing projects (run in project root, then select components or CSS only). Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - **Vanilla** — No node_modules. Same five templates as Astro/Svelte: **CSS only** = CSS + RIZZO-SETUP.md + license + .gitignore (no web pages or components). **Landing** = CSS + RIZZO-SETUP.md (or full index + all components if you choose “all”). **Docs** / **Dashboard** = docs or dashboard overlay + component pages (all or pick) + `js/main.js`, icons, sfx. **Full** = site clone (index + Navbar, Settings, Footer + all component pages + js + icons). Add component JS via [Vanilla docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from Full.
@@ -33,7 +33,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 ## Using Rizzo in your project
 
-Rizzo CSS is **framework-agnostic**: the **same CSS and component styles** are included for **Vanilla JS**, Astro, and Svelte. All three get full theming and the same BEM component markup; we provide reference implementations and docs for each. For React and Vue, see [React and Vue (planned)](#react-and-vue-planned) below.
+Rizzo CSS is **framework-agnostic**: the **same CSS and BEM** work for **Vanilla JS**, Astro, Svelte, and **React**. We provide reference implementations and docs for each; React components live in `src/components/react/` and docs at [/docs/react](https://rizzo-css.vercel.app/docs/react). For Vue, see [React and Vue](#react-and-vue) below.
 
 ### Step 1: Get the CSS
 
@@ -132,15 +132,9 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 - **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page to switch views.
 - **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Persist with `localStorage` key `theme`; use `system` for OS preference. Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
-### React and Vue (planned)
+### React and Vue
 
-The **same CSS and BEM class names** work in React and Vue. We do not yet ship React or Vue component implementations or framework-specific docs. To use Rizzo today in a React or Vue project:
-
-1. Get and import the CSS as in [Step 1](#step-1-get-the-css) and [Step 2](#step-2-import-the-css).
-2. Use the [Components documentation](/docs/components) and Astro/Svelte source as a reference for markup and class names; build your own React/Vue wrappers that output the same structure and classes.
-3. For interactive behavior (modals, dropdowns, tabs, search), replicate the patterns from the Astro or Svelte components (focus trap, keyboard handling, ARIA).
-
-We plan to add React and Vue component packages and docs later; see [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
+The **same CSS and BEM class names** work in React and Vue. **React:** We ship full React component implementations in-repo. All 56 components have full implementations, live demos, and React/TSX code blocks at [/docs/react](/docs/react). Copy components from `src/components/react/` or follow the docs. **Vue:** Same CSS; Vue components and docs are planned. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
 
 ### JavaScript utilities
 
@@ -179,7 +173,8 @@ For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/asse
 | **Vanilla**  | Same | Init → Vanilla → template. **Full** = theme, Settings, toast, all component pages. [Vanilla components](/docs/vanilla/components). |
 | **Astro**    | Same | Init → Astro → template, or `add` in existing project. [Docs](/docs/components). |
 | **Svelte**   | Same | Init → Svelte → template, or `add` in existing project. [Docs](/docs/svelte). |
-| **React / Vue** | Same: install and import CSS | Same BEM and markup; build your own wrappers. React/Vue components planned later. |
+| **React** | Same: install and import CSS | [/docs/react](/docs/react): all 56 components with full implementations, live demos, and code blocks; copy from `src/components/react/`. |
+| **Vue** | Same: install and import CSS | Same BEM and markup; Vue components and docs planned. |
 
 ---
 

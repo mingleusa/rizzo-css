@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import ThemeSwitcher from '../../../components/ThemeSwitcher.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'theme-switcher';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Theme Switcher Component — Astro" description="Accessible theme switcher with theme icons and keyboard navigation">
@@ -29,8 +35,18 @@ import ThemeSwitcher from '../components/rizzo/ThemeSwitcher.astro';
 </script>
 
 <ThemeSwitcher idPrefix="page" />`}
-			vanilla={`<!-- Theme switcher HTML from package scaffold; script runs on DOMContentLoaded. -->
-<!-- Include theme list + [data-theme-switcher] markup; persist with applyTheme() and localStorage key "theme". -->`}
+			react={reactCode}
+			vue={vueCode}
+			vanilla={`<!-- Rizzo CSS + theme script. Full markup: packages/rizzo-css/scaffold/vanilla/components/theme-switcher.html -->
+<link rel="stylesheet" href="/css/rizzo.min.css" />
+<div class="theme-switcher" data-theme-switcher id="theme-switcher">
+  <button type="button" class="dropdown__trigger" aria-haspopup="true" aria-expanded="false">Theme</button>
+  <div class="dropdown__menu" role="menu" aria-hidden="true">
+    <div class="dropdown__item" role="menuitemradio" data-theme-value="github-dark-classic">Dark</div>
+    <div class="dropdown__item" role="menuitemradio" data-theme-value="github-light">Light</div>
+  </div>
+</div>
+<!-- Script: applyTheme(), localStorage "theme". See scaffold or /docs/vanilla/components/theme-switcher -->`}
 		/>
 		
 		<h3>Features</h3>

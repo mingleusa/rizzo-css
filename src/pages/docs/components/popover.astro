@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Popover from '../../../components/Popover.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'popover';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Popover" description="Floating panel triggered by a button. Matches shadcn-svelte Popover.">
@@ -35,6 +41,8 @@ import Popover from '../components/rizzo/Popover.astro';
   <button type="button" class="btn" data-popover-trigger>Open popover</button>
   <p>Popover content here.</p>
 </Popover>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + popover script from package/vanilla docs. data-popover-trigger on trigger; content in popover__content. Click outside or Escape to close. -->`}
 		/>
 	</section>

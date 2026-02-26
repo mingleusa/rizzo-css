@@ -1,7 +1,8 @@
 /**
  * Keyboard accessibility tests. Run: pnpm test:a11y
  * Verifies focus management, Tab order, Escape to close, and focus traps on the docs site.
- * Complements axe (which does not test keyboard behavior) and manual screen reader testing.
+ * Covers Astro component pages and React (/docs/react/components/*) for
+ * modal, dropdown, settings, alert-dialog, and sheet. Vue doc demos do not include trigger buttons. Complements axe and manual screen reader testing.
  */
 import { test, expect } from '@playwright/test';
 
@@ -229,3 +230,37 @@ test.describe('Keyboard accessibility (sheet)', () => {
     await expect(trigger).toBeFocused();
   });
 });
+
+// —— React routes: same keyboard behavior as Astro (Vue doc demos have no trigger buttons) ——
+const REACT_KEYBOARD_ROUTES = [
+  { path: '/docs/react/components/modal', trigger: /open modal/i, overlay: '.modal[role="dialog"]' },
+  { path: '/docs/react/components/dropdown', trigger: /^actions$/i, overlay: '[role="menu"]' },
+  { path: '/docs/react/components/settings', trigger: /open settings/i, overlay: '[data-settings]' },
+  { path: '/docs/react/components/alert-dialog', trigger: /delete/i, overlay: '[role="alertdialog"]' },
+  { path: '/docs/react/components/sheet', trigger: /open sheet/i, overlay: '.sheet[role="dialog"]' },
+];
+
+for (const { path, trigger, overlay: overlaySelector } of REACT_KEYBOARD_ROUTES) {
+  const slug = path.split('/').pop();
+  test.describe(`Keyboard accessibility (React: ${slug})`, () => {
+    test.beforeEach(async ({ page }) => {
+      await page.goto(path);
+      await lockTheme(page);
+    });
+
+    test('Escape closes overlay and focus returns to trigger', async ({ page }) => {
+      const main = page.getByRole('main');
+      const triggerBtn = main.getByRole('button', { name: trigger }).first();
+      await triggerBtn.focus();
+      await expect(triggerBtn).toBeFocused();
+      await page.keyboard.press('Enter');
+      await page.waitForTimeout(300);
+      const overlay = page.locator(overlaySelector).first();
+      await expect(overlay).toBeVisible({ timeout: 5000 });
+      await page.keyboard.press('Escape');
+      await page.waitForTimeout(300);
+      await expect(overlay).toHaveAttribute('aria-hidden', 'true');
+      await expect(triggerBtn).toBeFocused({ timeout: 3000 });
+    });
+  });
+}

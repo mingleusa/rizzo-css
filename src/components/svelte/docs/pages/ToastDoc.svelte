@@ -3,14 +3,14 @@
   import AddComponentTabs from '../AddComponentTabs.svelte';
 
   function showToastGlobal(message: string, options?: { variant?: string; position?: string; autoDismiss?: number }) {
-    if (typeof window !== 'undefined' && (window as any).showToast) {
-      (window as any).showToast(message, options);
+    if (typeof window !== 'undefined' && window.showToast) {
+      window.showToast(message, options);
     }
   }
 
   function removeAllToastsGlobal() {
-    if (typeof window !== 'undefined' && (window as any).removeAllToasts) {
-      (window as any).removeAllToasts();
+    if (typeof window !== 'undefined' && window.removeAllToasts) {
+      window.removeAllToasts();
     }
   }
 </script>

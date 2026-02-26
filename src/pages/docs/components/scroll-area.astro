@@ -4,6 +4,11 @@ import ScrollArea from '../../../components/ScrollArea.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'scroll-area';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
 ---
 
@@ -48,6 +53,8 @@ import ScrollArea from '../components/rizzo/ScrollArea.astro';
     <div>Item 2</div>
   </div>
 </ScrollArea>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. BEM: scroll-area, scroll-area__viewport, scroll-area__scrollbar. Set height/width on wrapper. -->
 <div class="scroll-area" style="height: 18rem; width: 12rem;">
   <div class="scroll-area__viewport">

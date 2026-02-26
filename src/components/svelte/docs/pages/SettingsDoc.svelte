@@ -145,11 +145,11 @@
 import { onMount } from 'svelte';
 let open = $state(false);
 onMount(() => {
-  (window as any).openSettings = () => { open = true; };
-  (window as any).closeSettings = () => { open = false; };
+  window.openSettings = () => { open = true; };
+  window.closeSettings = () => { open = false; };
   return () => {
-    delete (window as any).openSettings;
-    delete (window as any).closeSettings;
+    delete window.openSettings;
+    delete window.closeSettings;
   };
 });`}
     language="svelte"

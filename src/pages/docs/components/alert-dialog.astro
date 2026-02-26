@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AlertDialog from '../../../components/AlertDialog.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'alert-dialog';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Alert Dialog" description="Confirm/cancel dialog for destructive or important actions. Matches shadcn-svelte Alert Dialog.">
@@ -39,6 +45,8 @@ import AlertDialog from '../components/rizzo/AlertDialog.astro';
   <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
 </AlertDialog>
 <button type="button" class="btn" onclick={() => (open = true)}>Open</button>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + alert-dialog script from package/vanilla docs. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
 <div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
 <div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" data-alert-dialog aria-hidden="true" hidden>

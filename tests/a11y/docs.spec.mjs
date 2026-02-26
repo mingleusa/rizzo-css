@@ -5,7 +5,7 @@
  * Lock theme to avoid contrast variance from system preference (CI often uses light).
  *
  * Coverage: entire main site — homepage, all docs (getting-started, foundations, components overview),
- * every component page (Astro, Vanilla, Svelte), and all theme preview pages.
+ * every component page (Astro, Vanilla, Svelte, React, Vue), and all theme preview pages.
  * Rules: WCAG 2.0/2.1 Level A & AA. Only critical/serious violations fail the build.
  */
 import { test, expect } from '@playwright/test';
@@ -61,6 +61,8 @@ const COMPONENT_SLUGS = [
 /** Block pages (pre-built layouts). See src/pages/blocks/ and Navbar Blocks item. */
 const BLOCK_ROUTES = [
   '/blocks',
+  '/blocks/landing-hero',
+  '/blocks/pricing',
   '/blocks/dashboard-01',
   '/blocks/docs-layout',
 ];
@@ -82,10 +84,17 @@ const DOCS_A11Y_ROUTES = [
   '/docs/svelte',
   '/docs/svelte/components',
   ...COMPONENT_SLUGS.map((s) => `/docs/svelte/components/${s}`),
+  '/docs/react',
+  '/docs/react/components',
+  ...COMPONENT_SLUGS.map((s) => `/docs/react/components/${s}`),
+  '/docs/vue',
+  '/docs/vue/components',
+  ...COMPONENT_SLUGS.map((s) => `/docs/vue/components/${s}`),
   ...THEME_SLUGS.map((s) => `/docs/themes/${s}`),
 ];
 
 test.describe('Docs site accessibility (axe)', () => {
+  test.setTimeout(60_000); // axe.analyze() can be slow on large pages
   for (const route of DOCS_A11Y_ROUTES) {
     const name = route || 'homepage';
     test(`${name} has no critical or serious axe violations`, async ({ page }) => {

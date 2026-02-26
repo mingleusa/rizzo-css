@@ -4,6 +4,12 @@ import BreadcrumbComponent from '../../../components/Breadcrumb.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'breadcrumb';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Breadcrumb Component — Astro" description="Navigation breadcrumbs with separator customization and responsive behavior">
@@ -64,6 +70,8 @@ import Breadcrumb from '../components/rizzo/Breadcrumb.astro';
     { label: 'Breadcrumb' },
   ]}
 />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <nav aria-label="Breadcrumb" class="breadcrumb">
   <ol class="breadcrumb__list">

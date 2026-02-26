@@ -309,6 +309,7 @@ const { open = false } = Astro.props;
 
       if (e.key === 'Escape') {
         e.preventDefault();
+        e.stopPropagation();
         closeSettings();
         return;
       }
@@ -338,7 +339,8 @@ const { open = false } = Astro.props;
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
+    // Capture phase so Escape is handled before WebKit/Safari can consume it
+    document.addEventListener('keydown', handleKeyDown, true);
 
     // Font size slider
     if (fontSizeSlider) {

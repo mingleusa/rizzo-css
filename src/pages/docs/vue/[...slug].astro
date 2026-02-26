@@ -1,0 +1,51 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import VueDocDemo from '../../../components/vue/VueDocDemo.vue';
+import { getReactComponentMeta, type ReactComponentSlug } from '../../../config/reactComponents';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getVueDocStaticPaths } from '../../../config/reactDocPaths';
+
+export function getStaticPaths() {
+  return getVueDocStaticPaths();
+}
+
+const { slug: slugParam } = Astro.params;
+const slug = (slugParam as string) ?? '';
+const pathParts = slug.split('/').filter(Boolean);
+const componentSlug: ReactComponentSlug = (pathParts[0] === 'components' && pathParts[1] ? pathParts[1] : 'button') as ReactComponentSlug;
+const meta = getReactComponentMeta(componentSlug);
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+---
+
+<DocsLayout title={`${meta.title} — Vue`} description={meta.description}>
+  <section>
+    <h2>{meta.title}</h2>
+    <p>{meta.description}</p>
+    <p>Same BEM classes and behavior as Astro, Svelte, and React.</p>
+
+    <AddComponentTabs componentName={meta.title} />
+
+    <h3>Live example (Vue)</h3>
+    <div class="example">
+      <div class="example-title">Demo</div>
+      <div class="vue-doc-demo-wrapper">
+        <VueDocDemo slug={componentSlug} client:load />
+      </div>
+    </div>
+
+    <h3>Usage</h3>
+    <FrameworkCodeTabs react={reactCode} vue={vueCode} defaultTab="vue" />
+
+    <p>
+      <strong>Other frameworks:</strong>{' '}
+      <a href={`/docs/components/${componentSlug}`}>Astro</a> ·{' '}
+      <a href={`/docs/svelte/components/${componentSlug}`}>Svelte</a> ·{' '}
+      <a href={`/docs/react/components/${componentSlug}`}>React</a> ·{' '}
+      <a href={`/docs/vanilla/components/${componentSlug}`}>Vanilla</a>
+    </p>
+  </section>
+</DocsLayout>

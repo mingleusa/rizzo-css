@@ -4,6 +4,12 @@ import Badge from '../../../components/Badge.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'badge';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Badge Component — Astro" description="Small labels and tags for displaying status, categories, or counts">
@@ -87,6 +93,8 @@ import Badge from '../components/rizzo/Badge.astro';
 <Badge variant="primary">New</Badge>
 <Badge variant="success" size="sm">Active</Badge>
 <Badge variant="error" pill>Urgent</Badge>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <span class="badge badge--primary">Primary</span>
 <span class="badge badge--success badge--sm">Small Success</span>

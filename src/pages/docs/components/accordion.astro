@@ -4,6 +4,12 @@ import AccordionComponent from '../../../components/Accordion.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'accordion';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Accordion Component — Astro" description="Accessible accordion with collapsible sections, single or multiple open states, and keyboard navigation">
@@ -83,6 +89,8 @@ import Accordion from '../components/rizzo/Accordion.astro';
   <div><p>Content for section two</p></div>
   <div><p>Content for section three</p></div>
 </Accordion>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + accordion script from package/vanilla docs. Script runs on DOMContentLoaded. -->
 <div class="accordion" data-accordion="faq" data-allow-multiple="false">
   <div class="accordion__item">

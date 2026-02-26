@@ -4,6 +4,12 @@ import TabsComponent from '../../../components/Tabs.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'tabs';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Tabs Component — Astro" description="Accessible tabs component with keyboard navigation and ARIA tab pattern">
@@ -88,6 +94,8 @@ import Tabs from '../components/rizzo/Tabs.astro';
   <div><h4>Features</h4><p>Features content here</p></div>
   <div><h4>Pricing</h4><p>Pricing content here</p></div>
 </Tabs>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + component script (from package or vanilla docs). Script runs on DOMContentLoaded. -->
 <div class="tabs" data-tabs="my-tabs">
   <div class="tabs__list" role="tablist">

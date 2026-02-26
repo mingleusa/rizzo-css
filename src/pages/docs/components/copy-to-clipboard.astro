@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import CopyToClipboard from '../../../components/CopyToClipboard.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'copy-to-clipboard';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="CopyToClipboard Component — Astro" description="Reusable component for copying text values to the clipboard with visual feedback">
@@ -34,6 +40,8 @@ import CopyToClipboard from '../components/rizzo/CopyToClipboard.astro';
 <CopyToClipboard value="example@email.com" label="Copy" format="Email" />
 <CopyToClipboard value="var(--accent)" format="CSS Variable" />
 <CopyToClipboard value="#FF5733" format="Hex" />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Ensure Rizzo CSS and js/main.js are loaded. Buttons with data-copy-value or [data-copy] work automatically. -->
 <button type="button" class="copy-trigger" data-copy value="example@email.com" aria-label="Copy">
   <span class="copy-trigger__text">Copy</span>
@@ -57,6 +65,6 @@ import CopyToClipboard from '../components/rizzo/CopyToClipboard.astro';
 			<li>Theme-aware styling</li>
 			<li>Auto-reset after 2 seconds</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/copy-to-clipboard">Svelte docs</a> · <a href="/docs/vanilla/components/copy-to-clipboard">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/copy-to-clipboard">Svelte</a> · <a href="/docs/react/components/copy-to-clipboard">React</a> · <a href="/docs/vue/components/copy-to-clipboard">Vue</a> · <a href="/docs/vanilla/components/copy-to-clipboard">Vanilla</a></p>
 	</section>
 </DocsLayout>

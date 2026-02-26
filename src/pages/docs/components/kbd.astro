@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Kbd from '../../../components/Kbd.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'kbd';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Kbd Component" description="Keyboard key styling for shortcuts (e.g. Ctrl+K). Matches shadcn-svelte Kbd.">
@@ -34,6 +40,8 @@ import Kbd from '../components/rizzo/Kbd.astro';
 </script>
 
 <p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<p>Press <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">K</kbd> to open search.</p>`}
 		/>
 	</section>

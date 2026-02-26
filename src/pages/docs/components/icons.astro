@@ -56,6 +56,11 @@ import Vue from '../../../components/icons/devicons/Vue.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'icons';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 // Icon data with SVG content for copying
 const regularIcons = [
 	{ name: 'Gear', component: Gear, svg: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>' },
@@ -184,7 +189,9 @@ import Css3 from '../components/rizzo/icons/devicons/Css3.astro';
 
 <Gear width={20} height={20} />
 <Css3 width={16} height={16} class="my-icon" />`}
-			vanilla={`<!-- Inline SVG or use .icon class; currentColor for theme. -->
+			react={reactCode}
+			vue={vueCode}
+			vanilla={`<!-- Rizzo CSS. Inline SVG or use .icon class; currentColor for theme. -->
 <span class="icon" aria-hidden="true">
   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">...</svg>
 </span>`}
@@ -197,7 +204,7 @@ import Css3 from '../components/rizzo/icons/devicons/Css3.astro';
 			<li><code>class</code> - Optional CSS class for styling</li>
 		</ul>
 		<p>All regular icons use <code>currentColor</code> for theming and adapt to the current theme. Devicons use brand colors and are visible on all themes.</p>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/icons">Svelte docs</a> · <a href="/docs/vanilla/components/icons">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/icons">Svelte</a> · <a href="/docs/react/components/icons">React</a> · <a href="/docs/vue/components/icons">Vue</a> · <a href="/docs/vanilla/components/icons">Vanilla</a></p>
 	</section>
 </DocsLayout>
 

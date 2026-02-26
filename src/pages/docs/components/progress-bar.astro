@@ -4,6 +4,12 @@ import ProgressBarComponent from '../../../components/ProgressBar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'progress-bar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Progress Bar Component — Astro" description="Accessible progress bar with variants, sizes, and indeterminate state">
@@ -39,6 +45,8 @@ import ProgressBar from '../components/rizzo/ProgressBar.astro';
 </script>
 
 <ProgressBar value={60} max={100} />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed for static bar. -->
 <div class="progress-bar progress-bar--md progress-bar--primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
   <div class="progress-bar__fill" style="width: 60%"></div>
@@ -99,6 +107,6 @@ import ProgressBar from '../components/rizzo/ProgressBar.astro';
 			<li><strong>Sizes</strong> - sm, md, lg bar heights</li>
 			<li><strong>Reduced motion</strong> - Indeterminate animation disabled when user prefers reduced motion</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/progress-bar">Svelte docs</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/progress-bar">Svelte</a> · <a href="/docs/react/components/progress-bar">React</a> · <a href="/docs/vue/components/progress-bar">Vue</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla</a></p>
 	</section>
 </DocsLayout>

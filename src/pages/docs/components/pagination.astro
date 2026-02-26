@@ -4,6 +4,12 @@ import PaginationComponent from '../../../components/Pagination.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'pagination';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Pagination Component — Astro" description="Accessible pagination navigation with previous/next, page numbers, and ellipsis">
@@ -53,6 +59,8 @@ import Pagination from '../components/rizzo/Pagination.astro';
   totalPages={10}
   hrefTemplate="?page={page}"
 />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS; pagination links. For hash sync include script from package/vanilla docs (runs on DOMContentLoaded). -->
 <nav class="pagination" aria-label="Pagination" data-total-pages="10" data-href-template="?page={page}">
   <ul class="pagination__list">

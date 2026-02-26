@@ -5,6 +5,12 @@ import ResizablePane from '../../../components/ResizablePane.astro';
 import ResizableHandle from '../../../components/ResizableHandle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'resizable';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Resizable" description="Resizable panel groups. Matches shadcn-svelte Resizable.">
@@ -59,6 +65,8 @@ import ResizableHandle from '../components/rizzo/ResizableHandle.astro';
   <ResizableHandle />
   <ResizablePane defaultSize={50}><div>Two</div></ResizablePane>
 </ResizablePaneGroup>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + resizable script from package/vanilla docs. BEM: resizable-pane-group, resizable-pane, resizable-handle. -->
 <div class="resizable-pane-group resizable-pane-group--horizontal" data-resizable style="max-width: 28rem; height: 200px;">
   <div class="resizable-pane" style="flex: 0 0 50%;">One</div>

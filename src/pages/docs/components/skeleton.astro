@@ -4,6 +4,12 @@ import Skeleton from '../../../components/Skeleton.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'skeleton';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Skeleton Component — Astro" description="Accessible loading placeholder with shimmer animation">
@@ -34,6 +40,8 @@ import Skeleton from '../components/rizzo/Skeleton.astro';
 </script>
 
 <Skeleton />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS -->
 <span class="skeleton" role="status" aria-label="Loading" aria-busy="true"></span>`}
 		/>
@@ -56,6 +64,6 @@ import Skeleton from '../components/rizzo/Skeleton.astro';
 			<li><code>role="status"</code> and <code>aria-label</code> so screen readers announce loading state</li>
 			<li>Shimmer animation disabled when user prefers reduced motion</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/skeleton">Svelte docs</a> · <a href="/docs/vanilla/components/skeleton">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/skeleton">Svelte</a> · <a href="/docs/react/components/skeleton">React</a> · <a href="/docs/vue/components/skeleton">Vue</a> · <a href="/docs/vanilla/components/skeleton">Vanilla</a></p>
 	</section>
 </DocsLayout>

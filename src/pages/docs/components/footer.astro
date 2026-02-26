@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Footer from '../../../components/Footer.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'footer';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Footer Component — Astro" description="Accessible site footer with copyright and optional links">
@@ -56,6 +62,8 @@ import Footer from '../components/rizzo/Footer.astro';
     { href: '/terms', label: 'Terms' },
   ]}
 />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<footer class="footer" role="contentinfo">
   <div class="footer__container">
     <div class="footer__inner">

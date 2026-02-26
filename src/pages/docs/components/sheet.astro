@@ -3,6 +3,12 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 import Sheet from '../../../components/Sheet.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'sheet';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Sheet" description="Slide-out panel (drawer) from top, right, bottom, or left. Matches shadcn-svelte Sheet.">
@@ -35,6 +41,8 @@ import Sheet from '../components/rizzo/Sheet.astro';
   <p>Sheet content goes here.</p>
 </Sheet>
 <button type="button" class="btn" onclick={() => (open = true)}>Open sheet</button>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + sheet script from package/vanilla docs. Open/close: openSheet_<id>(), closeSheet_<id>(). -->
 <div class="sheet__overlay" data-sheet-overlay id="sheet-demo-overlay" aria-hidden="true"></div>
 <div class="sheet sheet--right" id="sheet-demo" data-sheet aria-hidden="true" hidden>

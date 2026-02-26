@@ -9,6 +9,12 @@ import Radio from '../../../components/Radio.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'forms';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Form Components — Astro" description="Accessible form components with validation states and examples">
@@ -58,9 +64,11 @@ import Input from '../components/rizzo/Input.astro';
 <FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
   <Input type="email" id="email" name="email" placeholder="you@example.com" />
 </FormGroup>`}
-			vanilla={`<!-- Rizzo CSS. Use BEM: form-group, form-group__label, form-control, etc. -->
+			react={reactCode}
+			vue={vueCode}
+			vanilla={`<!-- Rizzo CSS. BEM: form-group, form-group__label, form-control, form-input, form-error. -->
 <div class="form-group">
-  <label for="email" class="form-group__label">Email Address <span class="form-group__required">*</span></label>
+  <label for="email" class="form-group__label">Email <span class="form-group__required">*</span></label>
   <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" />
   <p class="form-group__help">We'll never share your email</p>
 </div>`}

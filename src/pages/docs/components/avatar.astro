@@ -4,6 +4,12 @@ import AvatarComponent from '../../../components/Avatar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'avatar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Avatar Component — Astro" description="User avatar with image or initials fallback, sizes and shapes">
@@ -49,6 +55,8 @@ import Avatar from '../components/rizzo/Avatar.astro';
 <Avatar name="Jane Doe" />
 <Avatar name="Alice" />
 <Avatar initials="AB" />`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS. No script needed. -->
 <span class="avatar avatar--md avatar--circle" role="img" aria-label="Jane Doe"><span class="avatar__initials">JD</span></span>
 <span class="avatar avatar--md avatar--circle" role="img" aria-label="Alice"><span class="avatar__initials">Al</span></span>`}

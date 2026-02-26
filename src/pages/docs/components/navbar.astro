@@ -2,6 +2,12 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'navbar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Navbar Component — Astro" description="Responsive, accessible navigation bar with integrated settings button">
@@ -56,6 +62,8 @@ import Settings from '../components/rizzo/Settings.astro';
 <main>
   <!-- page content -->
 </main>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<!-- From scaffold: Navbar includes Search + Settings button. Include js/main.js for mobile menu (click-outside, Escape), search (focus trap, click-outside), and settings. -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
@@ -132,6 +140,6 @@ import Settings from '../components/rizzo/Settings.astro';
 			<li>Sticky positioning at top</li>
 			<li>All styles use design system variables for easy framework portability</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/navbar">Svelte docs</a> · <a href="/docs/vanilla/components/navbar">Vanilla docs</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/navbar">Svelte</a> · <a href="/docs/react/components/navbar">React</a> · <a href="/docs/vue/components/navbar">Vue</a> · <a href="/docs/vanilla/components/navbar">Vanilla</a></p>
 	</section>
 </DocsLayout>

@@ -4,6 +4,12 @@ import Collapsible from '../../../components/Collapsible.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'collapsible';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Collapsible Component" description="Single expand/collapse section (one trigger, one panel). Use Accordion for multiple sections.">
@@ -44,6 +50,8 @@ import Collapsible from '../components/rizzo/Collapsible.astro';
 <Collapsible triggerLabel="Show more">
   <p>Panel content here.</p>
 </Collapsible>`}
+			react={reactCode}
+			vue={vueCode}
 			vanilla={`<div class="collapsible" data-collapsible id="my-collapsible">
   <button type="button" class="collapsible__trigger" id="my-collapsible-trigger"
     aria-expanded="false" aria-controls="my-collapsible-panel" data-collapsible-trigger>

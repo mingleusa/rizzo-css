@@ -1,6 +1,5 @@
 # Cross-browser accessibility tests (axe, keyboard, ARIA).
-# Build once, then run Chrome / Firefox / WebKit in parallel. See docs/BROWSER_SUPPORT.md and docs/ACCESSIBILITY.md.
-# Typical runtime: ~6–10 min (build ~3 min, then 3 browser jobs in parallel ~4–6 min each).
+# Build once, then run Chrome / Firefox / WebKit in parallel (4 workers per job). See docs/BROWSER_SUPPORT.md and docs/ACCESSIBILITY.md.
 name: Accessibility (a11y)
 
 on:
