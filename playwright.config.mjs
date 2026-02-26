@@ -4,17 +4,21 @@ import { defineConfig, devices } from '@playwright/test';
 
 const PREVIEW_URL = 'http://localhost:4321';
 
+const isCI = !!process.env.CI;
+
 export default defineConfig({
   testDir: './tests',
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 4 : 1,
-  reporter: process.env.CI ? [['github'], ['html', { open: 'never' }]] : [['html', { open: 'never' }]],
+  forbidOnly: isCI,
+  retries: isCI ? 2 : 0,
+  workers: isCI ? 2 : 1,
+  timeout: isCI ? 60_000 : 30_000,
+  reporter: isCI ? [['github'], ['html', { open: 'never' }]] : [['html', { open: 'never' }]],
   use: {
     baseURL: PREVIEW_URL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    actionTimeout: isCI ? 15_000 : 10_000,
   },
   projects: [
     {
@@ -51,9 +55,9 @@ export default defineConfig({
   webServer: {
     command: 'pnpm preview',
     url: PREVIEW_URL,
-    reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
-    stdout: process.env.CI ? 'pipe' : 'ignore',
+    reuseExistingServer: !isCI,
+    timeout: isCI ? 180_000 : 120_000,
+    stdout: isCI ? 'pipe' : 'ignore',
     stderr: 'inherit',
   },
 });

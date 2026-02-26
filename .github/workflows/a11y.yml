@@ -75,9 +75,16 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: a11y-dist
+          path: dist
 
-      - name: Restore dist
-        run: rm -rf dist && mv a11y-dist dist
+      - name: Verify dist after download
+        run: |
+          if [ ! -d dist ] || [ ! -f dist/index.html ]; then
+            echo "::error::Downloaded artifact missing dist/ or dist/index.html"
+            ls -la dist 2>/dev/null || true
+            exit 1
+          fi
+          echo "Dist OK ($(find dist -type f | wc -l) files)"
 
       - name: Install Playwright browser
         run: |

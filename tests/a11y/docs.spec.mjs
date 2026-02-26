@@ -21,7 +21,10 @@ async function lockTheme(page) {
 }
 
 async function runA11yOnPage(page, path) {
-  await page.goto(path);
+  await page.goto(path, { waitUntil: 'domcontentloaded' });
+  if (process.env.CI) {
+    await page.waitForLoadState('networkidle').catch(() => {});
+  }
   await lockTheme(page);
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
