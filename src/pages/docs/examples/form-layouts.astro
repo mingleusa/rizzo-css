@@ -1,0 +1,253 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import FormGroup from '../../../components/FormGroup.astro';
+import Input from '../../../components/Input.astro';
+import Textarea from '../../../components/Textarea.astro';
+import Card from '../../../components/Card.astro';
+import CodeBlock from '../../../components/CodeBlock.astro';
+import Select from '../../../components/Select.astro';
+import Checkbox from '../../../components/Checkbox.astro';
+---
+
+<DocsLayout title="Form & layout examples" description="Copy-paste examples: login form, contact form, dashboard stats cards, card grid, and settings panel using Rizzo CSS components.">
+  <section>
+    <p>Full-page snippets you can drop into your project. All use Rizzo form components, cards, and design tokens. Adjust classes and structure to match your stack (Astro, Svelte, or Vanilla).</p>
+  </section>
+
+  <section id="login-form">
+    <h2>Login form</h2>
+    <p>A simple sign-in form with email, password, and submit. Uses <code>form-group</code>, <code>form-control</code>, and <code>btn</code>.</p>
+    <div class="example" style="max-width: 24rem;">
+      <div class="example-title">Live example</div>
+      <form class="examples-form" method="get" action="#" aria-label="Login form example">
+        <FormGroup label="Email" labelFor="ex-login-email" required>
+          <Input type="email" id="ex-login-email" name="email" placeholder="you@example.com" autocomplete="email" />
+        </FormGroup>
+        <FormGroup label="Password" labelFor="ex-login-password" required>
+          <Input type="password" id="ex-login-password" name="password" placeholder="••••••••" autocomplete="current-password" />
+        </FormGroup>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary btn--block">Sign in</button>
+        </div>
+      </form>
+    </div>
+    <CodeBlock code={`<form class="form" method="post" action="/login" aria-label="Sign in">
+  <div class="form-group">
+    <label for="email" class="form-group__label">Email <span class="form-group__required" aria-hidden="true">*</span></label>
+    <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required autocomplete="email" />
+  </div>
+  <div class="form-group">
+    <label for="password" class="form-group__label">Password <span class="form-group__required" aria-hidden="true">*</span></label>
+    <input type="password" id="password" name="password" class="form-control" placeholder="••••••••" required autocomplete="current-password" />
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary btn--block">Sign in</button>
+  </div>
+</form>`} language="html" />
+  </section>
+
+  <section id="contact-form">
+    <h2>Contact form</h2>
+    <p>Name, email, and message with a submit button. Uses text input, textarea, and semantic form groups.</p>
+    <div class="example" style="max-width: 28rem;">
+      <div class="example-title">Live example</div>
+      <form class="examples-form" method="get" action="#" aria-label="Contact form example">
+        <FormGroup label="Name" labelFor="ex-contact-name" required>
+          <Input type="text" id="ex-contact-name" name="name" placeholder="Your name" />
+        </FormGroup>
+        <FormGroup label="Email" labelFor="ex-contact-email" required>
+          <Input type="email" id="ex-contact-email" name="email" placeholder="you@example.com" />
+        </FormGroup>
+        <FormGroup label="Message" labelFor="ex-contact-message" required help="We'll get back to you within 24 hours.">
+          <Textarea id="ex-contact-message" name="message" rows={4} placeholder="Your message..." />
+        </FormGroup>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary">Send message</button>
+        </div>
+      </form>
+    </div>
+    <CodeBlock code={`<form class="form" method="post" action="/contact" aria-label="Contact us">
+  <div class="form-group">
+    <label for="name" class="form-group__label">Name <span class="form-group__required" aria-hidden="true">*</span></label>
+    <input type="text" id="name" name="name" class="form-control" placeholder="Your name" required />
+  </div>
+  <div class="form-group">
+    <label for="email" class="form-group__label">Email <span class="form-group__required" aria-hidden="true">*</span></label>
+    <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required />
+  </div>
+  <div class="form-group">
+    <label for="message" class="form-group__label">Message <span class="form-group__required" aria-hidden="true">*</span></label>
+    <textarea id="message" name="message" class="form-control" rows="4" placeholder="Your message..." required></textarea>
+    <p class="form-group__help">We'll get back to you within 24 hours.</p>
+  </div>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary">Send message</button>
+  </div>
+</form>`} language="html" />
+  </section>
+
+  <section id="dashboard-stats">
+    <h2>Dashboard stats cards</h2>
+    <p>A row of stat cards (metric value + label) for dashboards. Uses <code>card</code> and design tokens.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="examples-stats-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); gap: var(--spacing-6);">
+        <Card variant="outlined">
+          <div class="card__body" style="text-align: center;">
+            <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg); line-height: 1.2;">1,234</div>
+            <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Users</div>
+          </div>
+        </Card>
+        <Card variant="outlined">
+          <div class="card__body" style="text-align: center;">
+            <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg); line-height: 1.2;">$12.5k</div>
+            <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Revenue</div>
+          </div>
+        </Card>
+        <Card variant="outlined">
+          <div class="card__body" style="text-align: center;">
+            <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg); line-height: 1.2;">98%</div>
+            <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Active</div>
+          </div>
+        </Card>
+      </div>
+    </div>
+    <CodeBlock code={`<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 10rem), 1fr)); gap: var(--spacing-6);">
+  <div class="card card--outlined">
+    <div class="card__body" style="text-align: center;">
+      <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg);">1,234</div>
+      <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Users</div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__body" style="text-align: center;">
+      <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg);">$12.5k</div>
+      <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Revenue</div>
+    </div>
+  </div>
+  <div class="card card--outlined">
+    <div class="card__body" style="text-align: center;">
+      <div style="font-size: var(--text-3xl); font-weight: 700; color: var(--accent-fg);">98%</div>
+      <div style="font-size: var(--font-size-sm); color: var(--text-dim); margin-top: var(--spacing-1);">Active</div>
+    </div>
+  </div>
+</div>`} language="html" />
+  </section>
+
+  <section id="card-grid">
+    <h2>Card grid</h2>
+    <p>A responsive grid of cards using Rizzo <code>card</code> and design tokens for spacing and typography.</p>
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="examples-card-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--spacing-6);">
+        <Card variant="elevated">
+          <div class="card__body">
+            <h3 style="margin: 0 0 var(--spacing-2); font-size: var(--text-lg);">Card one</h3>
+            <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Short description or summary for this card.</p>
+          </div>
+        </Card>
+        <Card variant="elevated">
+          <div class="card__body">
+            <h3 style="margin: 0 0 var(--spacing-2); font-size: var(--text-lg);">Card two</h3>
+            <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Another card with similar structure.</p>
+          </div>
+        </Card>
+        <Card variant="elevated">
+          <div class="card__body">
+            <h3 style="margin: 0 0 var(--spacing-2); font-size: var(--text-lg);">Card three</h3>
+            <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Use for feature lists, dashboards, or content blocks.</p>
+          </div>
+        </Card>
+      </div>
+    </div>
+    <CodeBlock code={`<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 1fr)); gap: var(--spacing-6);">
+  <div class="card card--elevated">
+    <div class="card__body">
+      <h3 style="margin: 0 0 var(--spacing-2); font-size: var(--text-lg);">Card one</h3>
+      <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Short description or summary.</p>
+    </div>
+  </div>
+  <div class="card card--elevated">
+    <div class="card__body">
+      <h3 style="margin: 0 0 var(--spacing-2); font-size: var(--text-lg);">Card two</h3>
+      <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Another card.</p>
+    </div>
+  </div>
+</div>`} language="html" />
+  </section>
+
+  <section id="settings-panel">
+    <h2>Settings panel</h2>
+    <p>A simple settings-style panel with a section heading, form controls, and switches. Matches the pattern used in the Rizzo Settings component.</p>
+    <div class="example" style="max-width: 28rem;">
+      <div class="example-title">Live example</div>
+      <div class="card card--outlined" style="padding: var(--spacing-6);">
+        <h3 style="margin: 0 0 var(--spacing-4); font-size: var(--text-lg);">Preferences</h3>
+        <form class="examples-form" method="get" action="#" aria-label="Preferences example">
+          <FormGroup label="Display name" labelFor="ex-pref-name" help="Shown to other users.">
+            <Input type="text" id="ex-pref-name" name="display_name" placeholder="Your name" />
+          </FormGroup>
+          <div class="form-group">
+            <label class="checkbox-label" for="ex-pref-notify">
+              <Checkbox id="ex-pref-notify" name="notify" />
+              <span>Receive email updates</span>
+            </label>
+          </div>
+          <FormGroup label="Theme" labelFor="ex-pref-theme">
+            <Select id="ex-pref-theme" name="theme">
+              <option value="system">System</option>
+              <option value="github-dark-classic">GitHub Dark Classic</option>
+              <option value="github-light">GitHub Light</option>
+            </Select>
+          </FormGroup>
+          <div class="form-group" style="margin-top: var(--spacing-4);">
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <CodeBlock code={`<div class="card card--outlined" style="padding: var(--spacing-6);">
+  <h3 style="margin: 0 0 var(--spacing-4); font-size: var(--text-lg);">Preferences</h3>
+  <form class="form" method="post" action="/settings">
+    <div class="form-group">
+      <label for="display_name" class="form-group__label">Display name</label>
+      <input type="text" id="display_name" name="display_name" class="form-control" placeholder="Your name" />
+      <p class="form-group__help">Shown to other users.</p>
+    </div>
+    <div class="form-group">
+      <label for="theme" class="form-group__label">Theme</label>
+      <select id="theme" name="theme" class="form-control">
+        <option value="system">System</option>
+        <option value="github-dark-classic">GitHub Dark Classic</option>
+        <option value="github-light">GitHub Light</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary">Save changes</button>
+    </div>
+  </form>
+</div>`} language="html" />
+  </section>
+</DocsLayout>
+
+<style>
+  .example {
+    margin: var(--spacing-6) 0;
+    padding: var(--spacing-6);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+  }
+  .example-title {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-dim);
+    margin-bottom: var(--spacing-4);
+  }
+  .examples-form .form-group + .form-group {
+    margin-top: var(--spacing-4);
+  }
+  .examples-card-grid :global(.card) {
+    min-height: 0;
+  }
+</style>

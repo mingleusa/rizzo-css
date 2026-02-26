@@ -2,6 +2,12 @@
 
 Notes for maintainers of the Rizzo CSS repo. For day-to-day commands (build, test, lint, contrast, bundle size), see [CONTRIBUTING.md](../CONTRIBUTING.md). For contributing and PRs, see the same doc.
 
+## Stability and versioning
+
+- **Current:** Pre-1.0 (0.0.x). We add features and fix bugs; minor versions (0.x.0) add features without breaking existing APIs; patch (0.0.x) for fixes and docs.
+- **Semver:** Follow [semantic versioning](https://semver.org/). See [PUBLISHING.md – Versioning strategy](./PUBLISHING.md#versioning-strategy) for patch vs minor vs major.
+- **1.0:** When the system stabilizes (e.g. no planned breaking changes to BEM class names or public CSS variables), we may release 1.0 and adopt a clearer deprecation policy (e.g. one minor version deprecation window before removal). Until then, avoid breaking changes without notice.
+
 ## Branch protection (main)
 
 To ensure all changes to `main` go through a reviewed pull request:

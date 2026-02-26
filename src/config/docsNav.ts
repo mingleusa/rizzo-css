@@ -126,6 +126,16 @@ export const DOCS_NAV: DocsNavGroup[] = [
         ],
       },
       {
+        href: 'tokens',
+        label: 'Tokens reference',
+        sections: [
+          { id: 'spacing', label: 'Spacing' },
+          { id: 'typography', label: 'Typography' },
+          { id: 'semantic-colors', label: 'Semantic colors' },
+          { id: 'radius-transition', label: 'Radius & transition' },
+        ],
+      },
+      {
         href: 'best-practices',
         label: 'Best Practices',
         sections: [
@@ -188,6 +198,23 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/toggle', label: 'Toggle', frameworkOnly: true },
       { href: 'components/toggle-group', label: 'Toggle Group', frameworkOnly: true },
       { href: 'components/tooltip', label: 'Tooltip', frameworkOnly: true },
+    ],
+  },
+  {
+    label: 'Examples',
+    links: [
+      { href: 'examples', label: 'Examples overview' },
+      {
+        href: 'examples/form-layouts',
+        label: 'Form & layout examples',
+        sections: [
+          { id: 'login-form', label: 'Login form' },
+          { id: 'contact-form', label: 'Contact form' },
+          { id: 'dashboard-stats', label: 'Dashboard stats cards' },
+          { id: 'card-grid', label: 'Card grid' },
+          { id: 'settings-panel', label: 'Settings panel' },
+        ],
+      },
     ],
   },
 ];

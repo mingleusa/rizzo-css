@@ -1,6 +1,6 @@
 # Rizzo CSS — Documentation overview
 
-Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BEM components. Same CSS and components for **Vanilla JS**, **Astro**, and **Svelte**. Open source. CLI for init, add, and templates (Landing, Docs, Dashboard, Full).
+Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BEM components. Same CSS and components for **Vanilla JS**, **Astro**, and **Svelte**. Open source. CLI for init, add, and templates (CSS only | Landing | Docs | Dashboard | Full).
 
 **Live docs:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 
@@ -8,7 +8,7 @@ Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BE
 
 ## Overview
 
-- **[Getting Started](./GETTING_STARTED.md)** — Installation, CLI, templates (Landing | Docs | Dashboard | Full), using components.
+- **[Getting Started](./GETTING_STARTED.md)** — Installation, CLI, templates (CSS only | Landing | Docs | Dashboard | Full), using components.
 - **[Templates](./TEMPLATES.md)** — What each template ships per framework (Vanilla, Astro, Svelte); consistent across all three.
 - **[CLI](./CLI.md)** — `npx rizzo-css init | add | theme | doctor | help`; templates and component picker.
 - **[rizzo-css.json](./CLI.md#config-rizzo-cssjson)** — Optional config: `targetDir`, `framework`, `packageManager`, `theme`.
@@ -21,7 +21,7 @@ Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BE
 ## Installation
 
 - **[Getting Started — Installation](./GETTING_STARTED.md#step-1-get-the-css)** — CLI, npm, clone, or CDN; link CSS once.
-- **Vanilla JS** — `npx rizzo-css init` → Vanilla → template (Landing | Docs | Dashboard | Full). Or `add` to existing. [Vanilla components](/docs/vanilla/components).
+- **Vanilla JS** — `npx rizzo-css init` → Vanilla → template (CSS only | Landing | Docs | Dashboard | Full). Or `add` to existing. [Vanilla components](/docs/vanilla/components).
 - **Astro** — `npx rizzo-css init` → Astro → template. Or `npm create astro@latest my-app && cd my-app && npx rizzo-css add`. [Components](/docs/components).
 - **SvelteKit** — `npx rizzo-css init` → Svelte → template. Or `npm create svelte@latest my-app && cd my-app && npx rizzo-css add`. [Svelte components](/docs/svelte/components).
 

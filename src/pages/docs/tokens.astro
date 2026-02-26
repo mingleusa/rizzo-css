@@ -1,0 +1,128 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Tokens reference" description="Quick reference for Rizzo CSS custom properties: spacing, typography, semantic colors, radius, and transition.">
+  <p>This page lists the main design tokens (CSS custom properties) used across the design system. Use these variables in your CSS for consistency. For full context see <a href="/docs/design-system">Design System</a> and <a href="/docs/colors">Colors</a>.</p>
+
+  <section id="spacing">
+    <h2>Spacing</h2>
+    <p>Spacing scale (rem-based). Use <code>var(--spacing-<em>n</em>)</code> for margins, padding, and gaps.</p>
+    <div class="tokens-table-wrapper">
+      <table class="table tokens-table">
+        <thead>
+          <tr><th>Variable</th><th>Value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--spacing-0</code></td><td>0</td></tr>
+          <tr><td><code>--spacing-1</code></td><td>0.25rem (4px)</td></tr>
+          <tr><td><code>--spacing-2</code></td><td>0.5rem (8px)</td></tr>
+          <tr><td><code>--spacing-3</code></td><td>0.75rem (12px)</td></tr>
+          <tr><td><code>--spacing-4</code></td><td>1rem (16px)</td></tr>
+          <tr><td><code>--spacing-5</code></td><td>1.25rem (20px)</td></tr>
+          <tr><td><code>--spacing-6</code></td><td>1.5rem (24px)</td></tr>
+          <tr><td><code>--spacing-8</code></td><td>2rem (32px)</td></tr>
+          <tr><td><code>--spacing-10</code></td><td>2.5rem (40px)</td></tr>
+          <tr><td><code>--spacing-12</code></td><td>3rem (48px)</td></tr>
+          <tr><td><code>--spacing-16</code></td><td>4rem (64px)</td></tr>
+          <tr><td><code>--spacing-20</code></td><td>5rem (80px)</td></tr>
+          <tr><td><code>--spacing-24</code></td><td>6rem (96px)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Additional tokens: <code>--spacing-0-125</code>, <code>--spacing-0-375</code>, <code>--spacing-0-625</code>, <code>--spacing-0-875</code>, <code>--spacing-14</code> through <code>--spacing-96</code>, <code>--content-padding-x</code>, <code>--content-padding-y</code>, <code>--section-spacing</code>, <code>--page-header-margin-bottom</code>.</p>
+  </section>
+
+  <section id="typography">
+    <h2>Typography</h2>
+    <h3>Font sizes</h3>
+    <p>Scaled by <code>--font-size-scale</code> (default 1). Base scale:</p>
+    <div class="tokens-table-wrapper">
+      <table class="table tokens-table">
+        <thead>
+          <tr><th>Variable</th><th>Base value</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--font-size-xs</code></td><td>0.75rem</td></tr>
+          <tr><td><code>--font-size-sm</code></td><td>0.875rem</td></tr>
+          <tr><td><code>--font-size-base</code></td><td>1rem</td></tr>
+          <tr><td><code>--font-size-lg</code></td><td>1.125rem</td></tr>
+          <tr><td><code>--font-size-xl</code></td><td>1.25rem</td></tr>
+          <tr><td><code>--font-size-2xl</code></td><td>1.5rem</td></tr>
+          <tr><td><code>--font-size-3xl</code></td><td>1.875rem</td></tr>
+          <tr><td><code>--font-size-4xl</code></td><td>2.25rem</td></tr>
+          <tr><td><code>--text-lg</code></td><td>1.125rem (heading utility)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3>Font weights</h3>
+    <p><code>--font-weight-light</code> (300), <code>--font-weight-normal</code> (400), <code>--font-weight-medium</code> (500), <code>--font-weight-semibold</code> (600), <code>--font-weight-bold</code> (700), <code>--font-weight-extrabold</code> (800).</p>
+    <h3>Line height & letter spacing</h3>
+    <p><code>--line-height-tight</code> (1.25), <code>--line-height-snug</code> (1.375), <code>--line-height-normal</code> (1.5), <code>--line-height-relaxed</code> (1.625), <code>--line-height-loose</code> (2). Letter spacing: <code>--letter-spacing-tighter</code> through <code>--letter-spacing-widest</code>.</p>
+    <h3>Font families</h3>
+    <p><code>--font-family</code> (body), <code>--font-family-sans</code>, <code>--font-family-mono</code>, <code>--font-family-serif</code>. Pair-specific: <code>--font-family-geist-sans</code>, <code>--font-family-geist-mono</code>, <code>--font-family-inter</code>, <code>--font-family-jetbrains-mono</code>, etc.</p>
+  </section>
+
+  <section id="semantic-colors">
+    <h2>Semantic colors</h2>
+    <p>Theme-aware; use these instead of raw colors. See <a href="/docs/colors">Colors</a> for scales and usage.</p>
+    <div class="tokens-table-wrapper">
+      <table class="table tokens-table">
+        <thead>
+          <tr><th>Variable</th><th>Purpose</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--background</code></td><td>Main background</td></tr>
+          <tr><td><code>--background-alt</code></td><td>Cards, panels</td></tr>
+          <tr><td><code>--text</code></td><td>Primary text</td></tr>
+          <tr><td><code>--text-dim</code></td><td>Secondary text</td></tr>
+          <tr><td><code>--border</code></td><td>Borders</td></tr>
+          <tr><td><code>--accent</code></td><td>Primary accent (buttons, fills)</td></tr>
+          <tr><td><code>--accent-fg</code></td><td>Links, outline buttons, focus</td></tr>
+          <tr><td><code>--icon</code></td><td>Icon color</td></tr>
+          <tr><td><code>--icon-dim</code></td><td>Dimmed icons</td></tr>
+          <tr><td><code>--success</code>, <code>--success-text</code></td><td>Success state</td></tr>
+          <tr><td><code>--warning</code>, <code>--warning-text</code></td><td>Warning state</td></tr>
+          <tr><td><code>--error</code>, <code>--error-text</code></td><td>Error state</td></tr>
+          <tr><td><code>--info</code>, <code>--info-text</code></td><td>Info state</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="radius-transition">
+    <h2>Radius & transition</h2>
+    <h3>Border radius</h3>
+    <p><code>--radius-none</code> (0), <code>--radius-sm</code> (0.125rem), <code>--radius</code> (0.25rem), <code>--radius-md</code>, <code>--radius-lg</code>, <code>--radius-xl</code>, <code>--radius-2xl</code>, <code>--radius-3xl</code>, <code>--radius-full</code> (9999px), <code>--radius-circle</code> (50%).</p>
+    <h3>Transition</h3>
+    <p><code>--transition-fast</code> (150ms), <code>--transition-base</code> (200ms), <code>--transition-slow</code> (300ms), <code>--transition-slower</code>, <code>--transition-slowest</code>, <code>--transition-ease-out</code>, <code>--transition-ease-in</code>, <code>--theme-transition-duration</code>.</p>
+    <h3>Z-index</h3>
+    <p><code>--z-base</code>, <code>--z-dropdown</code> (10), <code>--z-sticky</code> (50), <code>--z-fixed</code> (100), <code>--z-modal</code> (2000), <code>--z-tooltip</code> (3000), <code>--z-toast</code> (4000), <code>--z-navbar</code> (5000), <code>--z-settings</code> (10000), <code>--z-skip-link</code> (10001).</p>
+    <h3>Containers & layout</h3>
+    <p><code>--container-default</code> (1200px), <code>--container-sm</code> through <code>--container-2xl</code>, <code>--max-width-content</code> (65ch), <code>--bp-sm</code> through <code>--bp-xl</code> (breakpoints), <code>--touch-target-min</code> (3rem).</p>
+  </section>
+</DocsLayout>
+
+<style>
+  .tokens-table-wrapper {
+    overflow-x: auto;
+    margin: var(--spacing-4) 0;
+  }
+  .tokens-table {
+    width: 100%;
+    min-width: 20rem;
+  }
+  .tokens-table th,
+  .tokens-table td {
+    padding: var(--spacing-2) var(--spacing-4);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .tokens-table th {
+    font-weight: 600;
+    color: var(--text-dim);
+  }
+  .tokens-table code {
+    font-size: var(--font-size-sm);
+  }
+</style>

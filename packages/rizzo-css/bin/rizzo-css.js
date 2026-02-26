@@ -193,6 +193,7 @@ const LIGHT_THEMES = [
   'semi-light-purple',
 ];
 const THEMES = [...DARK_THEMES, ...LIGHT_THEMES];
+const VALID_THEME_VALUES = ['system', ...THEMES];
 // Components available for scaffold (must match scaffold/svelte and scaffold/astro; missing files are skipped on copy)
 const SVELTE_COMPONENTS = [
   'Button', 'Badge', 'Card', 'Dashboard', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
@@ -316,11 +317,57 @@ function getCssPath() {
   return join(getPackageRoot(), 'dist', 'rizzo.min.css');
 }
 
-/** Copy package dist/fonts into <cssTargetDir>/fonts so CSS url(./fonts/...) resolves. cssTargetDir is framework-specific (static/css | css). Not used for Astro; use copyRizzoCssAndFontsForAstro instead. */
-function copyRizzoFonts(cssTargetDir) {
+/** Simple semver comparison: true if a > b (e.g. "1.2.3" > "1.2.2"). */
+function semverGt(a, b) {
+  const pa = a.split('.').map((n) => parseInt(n, 10) || 0);
+  const pb = b.split('.').map((n) => parseInt(n, 10) || 0);
+  for (let i = 0; i < 3; i++) {
+    const na = pa[i] || 0, nb = pb[i] || 0;
+    if (na > nb) return true;
+    if (na < nb) return false;
+  }
+  return false;
+}
+
+/** Optional version check: if not --offline, fetch latest from registry and print one line if newer. Non-blocking (2s timeout). */
+async function checkNewerVersion(argv) {
+  if (hasFlag(argv, '--offline')) return;
+  let current;
+  try {
+    const pkgPath = join(getPackageRoot(), 'package.json');
+    current = JSON.parse(readFileSync(pkgPath, 'utf8')).version;
+  } catch (_) { return; }
+  try {
+    const ac = new AbortController();
+    const timeout = setTimeout(() => ac.abort(), 2500);
+    const res = await fetch('https://registry.npmjs.org/rizzo-css/latest', { signal: ac.signal }).finally(() => clearTimeout(timeout));
+    if (!res || !res.ok) return;
+    const data = await res.json();
+    const latest = data.version;
+    if (latest && semverGt(latest, current)) {
+      console.log('\n  \u2139 A newer version of rizzo-css is available: ' + latest + ' (you have ' + current + '). Run npm update rizzo-css or re-run npx rizzo-css add to use it.');
+    }
+  } catch (_) { /* ignore network or parse errors */ }
+}
+
+/** Copy package dist/fonts into <cssTargetDir>/fonts so CSS url(./fonts/...) resolves. cssTargetDir is framework-specific (static/css | css). Not used for Astro; use copyRizzoCssAndFontsForAstro instead. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite (projectDir must be cwd). */
+function copyRizzoFonts(cssTargetDir, opts) {
   const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
   if (!existsSync(fontsSrc)) return;
   const dest = join(cssTargetDir, 'fonts');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    function collectPaths(src, d) {
+      const entries = readdirSync(src, { withFileTypes: true });
+      for (const e of entries) {
+        const destPath = join(d, e.name);
+        if (e.isDirectory()) collectPaths(join(src, e.name), destPath);
+        else plan.wouldWrite.push(pathRelative(process.cwd(), destPath));
+      }
+    }
+    collectPaths(fontsSrc, dest);
+    return;
+  }
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(fontsSrc, { withFileTypes: true });
   for (const e of entries) {
@@ -334,11 +381,19 @@ function copyRizzoFonts(cssTargetDir) {
   }
 }
 
-/** Copy package dist/sfx (click.mp3 or click.wav) into projectDir/assets/sfx so sound-effects-inline.js can play the click sound. Used for Vanilla init and add. */
-function copyRizzoSfx(projectDir) {
+/** Copy package dist/sfx (click.mp3 or click.wav) into projectDir/assets/sfx so sound-effects-inline.js can play the click sound. Used for Vanilla init and add. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite. */
+function copyRizzoSfx(projectDir, opts) {
   const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
   if (!existsSync(sfxSrc)) return;
   const dest = join(projectDir, 'assets', 'sfx');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    readdirSync(sfxSrc, { withFileTypes: true }).forEach((e) => {
+      if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name)))
+        plan.wouldWrite.push(pathRelative(projectDir, join(dest, e.name)));
+    });
+    return;
+  }
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(sfxSrc, { withFileTypes: true });
   for (const e of entries) {
@@ -348,12 +403,34 @@ function copyRizzoSfx(projectDir) {
   }
 }
 
-/** Astro only: copy rizzo.min.css to public/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to public/assets/fonts. */
-function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
+/** Astro only: copy rizzo.min.css to public/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to public/assets/fonts. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite. */
+function copyRizzoCssAndFontsForAstro(projectDir, cssSource, opts) {
   const cssDir = join(projectDir, 'public', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
   const fontsDest = join(projectDir, 'public', 'assets', 'fonts');
   const sfxDest = join(projectDir, 'public', 'assets', 'sfx');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    plan.wouldWrite.push(pathRelative(projectDir, cssTarget));
+    function collectPaths(src, dest) {
+      const entries = readdirSync(src, { withFileTypes: true });
+      for (const e of entries) {
+        const destPath = join(dest, e.name);
+        if (e.isDirectory()) collectPaths(join(src, e.name), destPath);
+        else plan.wouldWrite.push(pathRelative(projectDir, destPath));
+      }
+    }
+    const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
+    if (existsSync(fontsSrc)) collectPaths(fontsSrc, fontsDest);
+    const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
+    if (existsSync(sfxSrc)) {
+      readdirSync(sfxSrc, { withFileTypes: true }).forEach((e) => {
+        if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name)))
+          plan.wouldWrite.push(pathRelative(projectDir, join(sfxDest, e.name)));
+      });
+    }
+    return;
+  }
   mkdirSync(cssDir, { recursive: true });
   mkdirSync(fontsDest, { recursive: true });
   mkdirSync(sfxDest, { recursive: true });
@@ -382,12 +459,34 @@ function copyRizzoCssAndFontsForAstro(projectDir, cssSource) {
   }
 }
 
-/** SvelteKit only: copy rizzo.min.css to static/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to static/assets/fonts. */
-function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
+/** SvelteKit only: copy rizzo.min.css to static/css with font URLs rewritten to ../assets/fonts/ (relative so base path works), and copy fonts to static/assets/fonts. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite. */
+function copyRizzoCssAndFontsForSvelte(projectDir, cssSource, opts) {
   const cssDir = join(projectDir, 'static', 'css');
   const cssTarget = join(cssDir, 'rizzo.min.css');
   const fontsDest = join(projectDir, 'static', 'assets', 'fonts');
   const sfxDest = join(projectDir, 'static', 'assets', 'sfx');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    plan.wouldWrite.push(pathRelative(projectDir, cssTarget));
+    function collectPaths(src, dest) {
+      const entries = readdirSync(src, { withFileTypes: true });
+      for (const e of entries) {
+        const destPath = join(dest, e.name);
+        if (e.isDirectory()) collectPaths(join(src, e.name), destPath);
+        else plan.wouldWrite.push(pathRelative(projectDir, destPath));
+      }
+    }
+    const fontsSrc = join(getPackageRoot(), 'dist', 'fonts');
+    if (existsSync(fontsSrc)) collectPaths(fontsSrc, fontsDest);
+    const sfxSrc = join(getPackageRoot(), 'dist', 'sfx');
+    if (existsSync(sfxSrc)) {
+      readdirSync(sfxSrc, { withFileTypes: true }).forEach((e) => {
+        if (!e.isDirectory() && (/\.mp3$/i.test(e.name) || /\.wav$/i.test(e.name)))
+          plan.wouldWrite.push(pathRelative(projectDir, join(sfxDest, e.name)));
+      });
+    }
+    return;
+  }
   mkdirSync(cssDir, { recursive: true });
   mkdirSync(fontsDest, { recursive: true });
   mkdirSync(sfxDest, { recursive: true });
@@ -416,12 +515,16 @@ function copyRizzoCssAndFontsForSvelte(projectDir, cssSource) {
   }
 }
 
-/** Copy the package LICENSE into the project dir as LICENSE-RIZZO so we do not overwrite an existing LICENSE. */
-function copyPackageLicense(projectDir) {
+/** Copy the package LICENSE into the project dir as LICENSE-RIZZO so we do not overwrite an existing LICENSE. opts: optional { dryRun, plan }; when dryRun push relative path to plan.wouldWrite. */
+function copyPackageLicense(projectDir, opts) {
   const licensePath = join(getPackageRoot(), 'LICENSE');
-  if (existsSync(licensePath)) {
-    copyFileSync(licensePath, join(projectDir, SCAFFOLD_LICENSE_FILENAME));
+  if (!existsSync(licensePath)) return;
+  const dest = join(projectDir, SCAFFOLD_LICENSE_FILENAME);
+  if (opts && opts.dryRun && opts.plan) {
+    opts.plan.wouldWrite.push(pathRelative(projectDir, dest));
+    return;
   }
+  copyFileSync(licensePath, dest);
 }
 
 /** Name of the scaffold gitignore file (no leading dot so npm pack includes it). Copied to project as .gitignore. */
@@ -615,11 +718,11 @@ function copyVariantOverlay(projectDir, framework, variation, replacements) {
   copyDirRecursiveWithReplacements(variantDir, projectDir, replacements);
 }
 
-/** Copy variant overlay with no-overwrite (for add to existing). Returns { skipped } like copyDirRecursiveWithReplacementsNoOverwrite. */
-function copyVariantOverlayNoOverwrite(projectDir, framework, variation, replacements) {
+/** Copy variant overlay with no-overwrite (for add to existing). Returns { skipped } like copyDirRecursiveWithReplacementsNoOverwrite. opts: optional { dryRun, plan }. */
+function copyVariantOverlayNoOverwrite(projectDir, framework, variation, replacements, opts) {
   const variantDir = getVariantDir(framework, variation);
   if (!variantDir) return { skipped: [] };
-  return copyDirRecursiveWithReplacementsNoOverwrite(variantDir, projectDir, replacements, projectDir);
+  return copyDirRecursiveWithReplacementsNoOverwrite(variantDir, projectDir, replacements, projectDir, opts);
 }
 
 function question(prompt) {
@@ -975,7 +1078,7 @@ Available commands: init, add, theme, doctor, help
 
 Flags summary:
   init   --yes  --path <dir>  --framework <fw>  --template <t>  --package-manager <pm>  --install  --no-install  --no-git
-  add    --path <dir>  --framework <fw>  --template css-only|landing|docs|dashboard|full  --no-snippet  --readme  --force  --vanilla-js
+  add    --path <dir>  --framework <fw>  --template css-only|landing|docs|dashboard|full  --dry-run  --no-snippet  --readme  --force  --vanilla-js
   theme  (no flags)
   doctor Check config, CSS file, and optional layout link
   help   (no flags)
@@ -1000,6 +1103,7 @@ Options (init):
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
   --install         After scaffolding, run package manager install in project directory (no prompt)
   --no-install      Do not run install; do not prompt (skip "Run <pm> install? (Y/n)")
+  --offline        Use package manager cache only (no network). Passed to install/add when running PM.
   --no-git          With --yes, skip initializing a git repository (default with --yes is to run git init)
   (Git: only init offers or runs git init. Interactive init: "Initialize git? (Y/n)". With --yes, git init runs unless --no-git. Add does not prompt for git. Init (create new): "Run <pm> install? (Y/n)" uses the package manager you selected (npm, pnpm, yarn, bun). Add: "Run <pm> add rizzo-css? (Y/n)" same. Vanilla has no package manager. rizzo-css.json is written only when the project does not already have one.)
 
@@ -1007,9 +1111,11 @@ Options (add) — run from your existing project root; you will choose a templat
   --template <t>    css-only | landing | docs | dashboard | full (CSS only = stylesheet only; others = component picker)
   --path <dir>      Target directory for rizzo.min.css (overrides config and framework default)
   --framework <fw>   vanilla | astro | svelte (overrides config and detection)
+  --dry-run         Preview which files would be written without writing; show RIZZO-SETUP.md snippet for skipped files
   --package-manager <pm>  npm | pnpm | yarn | bun (override detection for install/print commands)
   --install-package  After copying CSS, run package manager add rizzo-css
   --no-install      Do not run install or add (overrides --install-package)
+  --offline        Use package manager cache only (no network). Passed to add when running PM.
   --no-snippet      (Full only) Do not write RIZZO-SNIPPET.txt (link + theme copy-paste)
   --readme          Write README-RIZZO.md into the project
   --force           Overwrite existing rizzo.min.css without prompting
@@ -1102,12 +1208,12 @@ function cmdTheme() {
   process.stdout.write('\nExample: <html lang="en" data-theme="github-dark-classic">\n\n');
 }
 
-/** Check project for Rizzo CSS: config, CSS file, optional link in layout. */
+/** Check project for Rizzo CSS: config, CSS file, layout link, theme, fonts/sfx paths, and optional outdated-CSS hint. */
 function cmdDoctor() {
   const cwd = process.cwd();
   const config = readRizzoConfig(cwd);
   console.log(getBanner());
-  console.log('  Doctor — check config, CSS path, and layout link\n');
+  console.log('  Doctor — check config, CSS path, layout link, theme, and assets\n');
   let ok = true;
   if (!config) {
     console.log('  ✗ No ' + RIZZO_CONFIG_FILE + '. Run: npx rizzo-css add or init');
@@ -1123,6 +1229,48 @@ function cmdDoctor() {
       ok = false;
     } else {
       console.log('  ✓ CSS at ' + cssPath);
+      const cssSize = statSync(cssPath).size;
+      if (cssSize < 5000) {
+        console.log('  ? CSS file is very small (' + cssSize + ' B). Run pnpm build:css in the repo or re-run npx rizzo-css add to refresh.');
+        ok = false;
+      }
+    }
+    if (config.theme != null && config.theme !== '') {
+      if (VALID_THEME_VALUES.includes(config.theme)) {
+        console.log('  ✓ Theme (from config): ' + config.theme);
+      } else {
+        console.log('  ✗ Invalid theme in config: "' + config.theme + '". Use one of: system, ' + THEMES.slice(0, 5).join(', ') + ', ... (run npx rizzo-css theme for full list)');
+        ok = false;
+      }
+    }
+    const fontsDir = fw === 'astro' ? join(cwd, 'public', 'assets', 'fonts') : fw === 'svelte' ? join(cwd, 'static', 'assets', 'fonts') : join(cwd, targetDir, 'fonts');
+    if (!existsSync(fontsDir)) {
+      console.log('  ? Fonts path not found: ' + pathRelative(cwd, fontsDir) + ' (CSS may reference ../assets/fonts/ or ./fonts/; add fonts if you use theme typography)');
+    } else {
+      try {
+        const entries = readdirSync(fontsDir, { withFileTypes: true });
+        const hasFiles = entries.some((e) => e.isFile() && /\.(woff2?|ttf|otf)$/i.test(e.name));
+        if (!hasFiles) {
+          console.log('  ? Fonts dir exists but is empty or has no font files: ' + pathRelative(cwd, fontsDir));
+        } else {
+          console.log('  ✓ Fonts at ' + pathRelative(cwd, fontsDir));
+        }
+      } catch (_) {
+        console.log('  ? Could not read fonts dir: ' + pathRelative(cwd, fontsDir));
+      }
+    }
+    const sfxDir = fw === 'astro' ? join(cwd, 'public', 'assets', 'sfx') : fw === 'svelte' ? join(cwd, 'static', 'assets', 'sfx') : join(cwd, 'assets', 'sfx');
+    if (!existsSync(sfxDir)) {
+      console.log('  ? Sound effects path not found: ' + pathRelative(cwd, sfxDir) + ' (optional; needed if you use Settings or SoundEffects with click sounds)');
+    } else {
+      try {
+        const entries = readdirSync(sfxDir, { withFileTypes: true });
+        const hasSfx = entries.some((e) => e.isFile() && (/\.(mp3|wav)$/i.test(e.name)));
+        if (hasSfx) console.log('  ✓ Sound effects at ' + pathRelative(cwd, sfxDir));
+        else console.log('  ? Sfx dir exists but has no .mp3/.wav: ' + pathRelative(cwd, sfxDir));
+      } catch (_) {
+        console.log('  ? Could not read sfx dir: ' + pathRelative(cwd, sfxDir));
+      }
     }
     const layoutPaths = fw === 'svelte' ? ['src/app.html'] : fw === 'astro' ? ['src/layouts/Layout.astro', 'src/layouts/BaseLayout.astro'] : [];
     for (const lp of layoutPaths) {
@@ -1134,11 +1282,25 @@ function cmdDoctor() {
         } else {
           console.log('  ✓ Layout ' + lp + ' includes Rizzo link');
         }
+        if (content.includes('data-theme=')) {
+          const match = content.match(/data-theme=["']([^"']+)["']/);
+          if (match && !VALID_THEME_VALUES.includes(match[1])) {
+            console.log('  ? Layout has data-theme="' + match[1] + '" which is not a known theme. Use: npx rizzo-css theme');
+            ok = false;
+          }
+        }
         break;
       }
     }
+    const pkgPath = join(cwd, 'node_modules', 'rizzo-css', 'package.json');
+    if (existsSync(pkgPath)) {
+      try {
+        const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+        const ver = pkg.version;
+        if (ver) console.log('  ℹ rizzo-css in node_modules: v' + ver + '. Re-run npx rizzo-css add to refresh CSS if needed.');
+      } catch (_) { /* ignore */ }
+    }
   }
-  if (config && config.theme) console.log('  Theme (from config): ' + config.theme);
   console.log(ok ? '\nAll checks passed.\n' : '\nFix the items above, then run your dev server.\n');
 }
 
@@ -1266,6 +1428,7 @@ async function cmdAdd(argv) {
   const writeReadme = hasFlag(argv, '--readme');
   const force = hasFlag(argv, '--force');
   const copyVanillaJs = hasFlag(argv, '--vanilla-js');
+  const dryRun = hasFlag(argv, '--dry-run');
   const positionals = getPositionalArgs(argv, 3);
 
   const cwd = process.cwd();
@@ -1283,21 +1446,25 @@ async function cmdAdd(argv) {
     copyVanillaJs,
     installPackage: installPackage || undefined,
     noInstall: noInstall || undefined,
+    dryRun: dryRun || undefined,
+    plan: dryRun ? { wouldWrite: [], skipped: [] } : undefined,
   };
   await runAddToExisting(explicitFramework, options);
+  if (options.dryRun) return;
   if (installPackage && !noInstall) {
     const pm = (pmOverride
       ? getPackageManagerCommands({ agent: pmOverride, command: pmOverride })
       : (config && config.packageManager)
         ? getPackageManagerCommands({ agent: config.packageManager, command: config.packageManager })
         : resolvePackageManager(cwd));
-    const addPkg = pm.add('rizzo-css');
+    const addPkg = pm.add('rizzo-css') + (hasFlag(argv, '--offline') ? ' --offline' : '');
     console.log('\nRunning: ' + addPkg);
     const code = runInDir(cwd, addPkg);
     if (code !== 0) {
       console.error('\nInstall failed (exit ' + code + '). You can run manually: ' + addPkg);
     }
   }
+  await checkNewerVersion(argv).catch(() => {});
 }
 
 function getScaffoldSvelteDir() {
@@ -1372,8 +1539,8 @@ function getNavbarHtmlVanilla(title, brandHref) {
   return html.replace(/\{\{TITLE\}\}/g, title || 'App').replace(/\{\{NAVBAR_BRAND_HREF\}\}/g, brandHref || '#');
 }
 
-/** Copy selected Vanilla component HTML files into projectDir/components/, with replacements. Writes a simple components/index.html. */
-function copyVanillaComponents(projectDir, selectedNames, replacements) {
+/** Copy selected Vanilla component HTML files into projectDir/components/, with replacements. Writes a simple components/index.html. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite. */
+function copyVanillaComponents(projectDir, selectedNames, replacements, opts) {
   const srcDir = getScaffoldVanillaComponentsDir();
   if (!existsSync(srcDir)) return;
   const linkHref = replacements['{{LINK_HREF}}'] || 'css/rizzo.min.css';
@@ -1392,6 +1559,12 @@ function copyVanillaComponents(projectDir, selectedNames, replacements) {
   }
   if (slugsToCopy.length === 0) return;
   const destDir = join(projectDir, 'components');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    slugsToCopy.forEach((slug) => plan.wouldWrite.push(pathRelative(projectDir, join(destDir, slug + '.html'))));
+    plan.wouldWrite.push(pathRelative(projectDir, join(destDir, 'index.html')));
+    return;
+  }
   mkdirSync(destDir, { recursive: true });
   for (const slug of slugsToCopy) {
     const src = join(srcDir, slug + '.html');
@@ -1430,24 +1603,45 @@ ${indexLinks}
   writeFileSync(join(destDir, 'index.html'), indexHtml, 'utf8');
 }
 
-/** Copy Rizzo icons into the project for the given framework. */
-function copyRizzoIcons(projectDir, framework) {
+/** Copy Rizzo icons into the project for the given framework. opts: optional { dryRun, plan }; when dryRun push relative paths to plan.wouldWrite. */
+function copyRizzoIcons(projectDir, framework, opts) {
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  function collectIconPaths(src, dest) {
+    const entries = readdirSync(src, { withFileTypes: true });
+    for (const e of entries) {
+      const destPath = join(dest, e.name);
+      if (e.isDirectory()) collectIconPaths(join(src, e.name), destPath);
+      else plan.wouldWrite.push(pathRelative(projectDir, destPath));
+    }
+  }
   if (framework === 'astro') {
     const iconsSrc = join(getScaffoldAstroDir(), 'icons');
     if (!existsSync(iconsSrc)) return;
     const targetDir = join(projectDir, 'src', 'components', 'rizzo', 'icons');
+    if (plan) {
+      collectIconPaths(iconsSrc, targetDir);
+      return;
+    }
     mkdirSync(targetDir, { recursive: true });
     copyDirRecursive(iconsSrc, targetDir);
   } else if (framework === 'svelte') {
     const iconsSrc = join(getScaffoldSvelteDir(), 'icons');
     if (!existsSync(iconsSrc)) return;
     const targetDir = join(projectDir, 'src', 'lib', 'rizzo', 'icons');
+    if (plan) {
+      collectIconPaths(iconsSrc, targetDir);
+      return;
+    }
     mkdirSync(targetDir, { recursive: true });
     copyDirRecursive(iconsSrc, targetDir);
   } else if (framework === 'vanilla') {
     const iconsSrc = getScaffoldVanillaIconsDir();
     if (!existsSync(iconsSrc)) return;
     const targetDir = join(projectDir, 'icons');
+    if (plan) {
+      collectIconPaths(iconsSrc, targetDir);
+      return;
+    }
     mkdirSync(targetDir, { recursive: true });
     copyDirRecursive(iconsSrc, targetDir);
   }
@@ -1504,13 +1698,15 @@ function copyDirRecursiveWithReplacements(src, dest, replacements) {
  * Like copyDirRecursiveWithReplacements but never overwrites existing files.
  * Returns { skipped: Array<{ relativePath, content }> } for files that already existed (so caller can write RIZZO-SETUP.md).
  * relativePath is from projectDir (dest).
+ * opts: optional { dryRun, plan: { wouldWrite: string[], skipped: [] } }. When dryRun, no I/O; plan.wouldWrite gets new file paths, plan.skipped gets skipped entries (merged with returned skipped).
  */
-function copyDirRecursiveWithReplacementsNoOverwrite(src, dest, replacements, projectDir) {
+function copyDirRecursiveWithReplacementsNoOverwrite(src, dest, replacements, projectDir, opts) {
   const skipped = [];
   projectDir = projectDir || dest;
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
   const textExtensions = new Set(['.html', '.astro', '.svelte', '.ts', '.js', '.mjs', '.json', '.css', '.md']);
   function recurse(s, d) {
-    mkdirSync(d, { recursive: true });
+    if (!plan) mkdirSync(d, { recursive: true });
     const entries = readdirSync(s, { withFileTypes: true });
     for (const e of entries) {
       const srcPath = join(s, e.name);
@@ -1518,8 +1714,8 @@ function copyDirRecursiveWithReplacementsNoOverwrite(src, dest, replacements, pr
       if (e.isDirectory()) {
         recurse(srcPath, destPath);
       } else {
+        const rel = pathRelative(projectDir, destPath);
         if (existsSync(destPath)) {
-          const rel = pathRelative(projectDir, destPath);
           let content = '';
           const ext = srcPath.slice(srcPath.lastIndexOf('.'));
           if (textExtensions.has(ext)) {
@@ -1529,6 +1725,10 @@ function copyDirRecursiveWithReplacementsNoOverwrite(src, dest, replacements, pr
             }
           }
           skipped.push({ relativePath: rel, content });
+          continue;
+        }
+        if (plan) {
+          plan.wouldWrite.push(rel);
           continue;
         }
         const ext = srcPath.slice(srcPath.lastIndexOf('.'));
@@ -1548,7 +1748,7 @@ function copyDirRecursiveWithReplacementsNoOverwrite(src, dest, replacements, pr
   return { skipped };
 }
 
-function copySvelteComponents(projectDir, selectedNames) {
+function copySvelteComponents(projectDir, selectedNames, opts) {
   const scaffoldDir = getScaffoldSvelteDir();
   if (!existsSync(scaffoldDir)) {
     console.log('\n  Component templates not in this package; use CSS only or copy from repo: https://github.com/mingleusa/rizzo-css/tree/main/src/components/svelte');
@@ -1563,6 +1763,28 @@ function copySvelteComponents(projectDir, selectedNames) {
     return;
   }
   const targetDir = join(projectDir, 'src', 'lib', 'rizzo');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    toCopy.forEach((name) => { plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, name + '.svelte'))); });
+    const iconsSrc = join(scaffoldDir, 'icons');
+    if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
+      (function collect(s, d) {
+        readdirSync(s, { withFileTypes: true }).forEach((e) => {
+          const destPath = join(d, e.name);
+          if (e.isDirectory()) collect(join(s, e.name), destPath);
+          else plan.wouldWrite.push(pathRelative(projectDir, destPath));
+        });
+      })(iconsSrc, join(targetDir, 'icons'));
+    }
+    if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
+      if (existsSync(join(scaffoldDir, 'themes.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'themes.ts')));
+      if (existsSync(join(scaffoldDir, 'theme.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'theme.ts')));
+    }
+    if (toCopy.includes('Settings') && existsSync(join(getScaffoldConfigDir(), 'fonts.ts')))
+      plan.wouldWrite.push(pathRelative(projectDir, join(projectDir, 'src', 'lib', 'config', 'fonts.ts')));
+    if (toCopy.length > 0) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'index.ts')));
+    return;
+  }
   mkdirSync(targetDir, { recursive: true });
   const exports = [];
   for (const name of toCopy) {
@@ -1602,7 +1824,7 @@ function copySvelteComponents(projectDir, selectedNames) {
   }
 }
 
-function copyAstroComponents(projectDir, selectedNames) {
+function copyAstroComponents(projectDir, selectedNames, opts) {
   const scaffoldDir = getScaffoldAstroDir();
   if (!existsSync(scaffoldDir)) {
     console.log('\n  Astro component templates not in this package; use CSS only or copy from repo: https://github.com/mingleusa/rizzo-css/tree/main/src/components');
@@ -1617,6 +1839,27 @@ function copyAstroComponents(projectDir, selectedNames) {
     return;
   }
   const targetDir = join(projectDir, 'src', 'components', 'rizzo');
+  const plan = opts && opts.dryRun && opts.plan ? opts.plan : null;
+  if (plan) {
+    toCopy.forEach((name) => { plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, name + '.astro'))); });
+    const iconsSrc = join(scaffoldDir, 'icons');
+    if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) {
+      (function collect(s, d) {
+        readdirSync(s, { withFileTypes: true }).forEach((e) => {
+          const destPath = join(d, e.name);
+          if (e.isDirectory()) collect(join(s, e.name), destPath);
+          else plan.wouldWrite.push(pathRelative(projectDir, destPath));
+        });
+      })(iconsSrc, join(targetDir, 'icons'));
+    }
+    if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
+      if (existsSync(join(scaffoldDir, 'themes.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'themes.ts')));
+      if (existsSync(join(getScaffoldUtilsDir(), 'theme.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(projectDir, 'src', 'components', 'utils', 'theme.ts')));
+    }
+    if (toCopy.includes('Settings') && existsSync(join(getScaffoldConfigDir(), 'fonts.ts')))
+      plan.wouldWrite.push(pathRelative(projectDir, join(projectDir, 'src', 'components', 'config', 'fonts.ts')));
+    return;
+  }
   mkdirSync(targetDir, { recursive: true });
   let count = 0;
   for (const name of toCopy) {
@@ -1758,7 +2001,9 @@ async function runAddToExisting(frameworkOverride, options) {
     cssTarget = join(targetDir, 'rizzo.min.css');
   }
   const cssExists = existsSync(cssTarget);
-  if (cssExists && !options.force) {
+  if (options.dryRun) {
+    options._overwriteCss = true;
+  } else if (cssExists && !options.force) {
     const answer = await question('\nCSS already exists at ' + cssTarget + '. Overwrite? (y/N) ');
     if (answer !== '' && !/^y(es)?$/i.test(answer)) {
       console.log('Skipping CSS copy. Updating config and components only.');
@@ -1776,9 +2021,10 @@ async function runAddToExisting(frameworkOverride, options) {
   const astroCoreDir = getScaffoldAstroCoreDir();
   const svelteCoreDir = getScaffoldSvelteCoreDir();
   const themeCommentAdd = '  <!-- Initial: ' + theme + '; dark: ' + defaultDark + '; light: ' + defaultLight + ' (all 14 themes in CSS) -->';
+  const copyOpts = options.dryRun && options.plan ? options : undefined;
   if (framework === 'vanilla' && getVariantDir('vanilla', selectedVariation)) {
     const vanillaRepl = { '{{LINK_HREF}}': 'css/rizzo.min.css', '{{TITLE}}': 'App', '{{DATA_THEME}}': theme, '{{THEME_LIST_COMMENT}}': themeCommentAdd };
-    const variantResult = copyVariantOverlayNoOverwrite(cwd, 'vanilla', selectedVariation, vanillaRepl);
+    const variantResult = copyVariantOverlayNoOverwrite(cwd, 'vanilla', selectedVariation, vanillaRepl, copyOpts);
     if (variantResult && variantResult.skipped) addSkippedFiles = variantResult.skipped;
   } else if (selectedVariation !== 'css-only' && ((framework === 'astro' && existsSync(astroCoreDir)) || (framework === 'svelte' && existsSync(svelteCoreDir)))) {
     const themeComment = themeCommentAdd;
@@ -1818,48 +2064,54 @@ async function runAddToExisting(frameworkOverride, options) {
         }
       }
     }
-    mkdirSync(cwd, { recursive: true });
+    if (!options.dryRun) mkdirSync(cwd, { recursive: true });
     if (framework === 'astro') {
-      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(astroCoreDir, cwd, replacements, cwd);
-      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'astro', selectedVariation, replacements);
+      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(astroCoreDir, cwd, replacements, cwd, copyOpts);
+      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'astro', selectedVariation, replacements, copyOpts);
       addSkippedFiles = baseResult.skipped.concat(variantResult.skipped || []);
     } else if (framework === 'svelte') {
-      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(svelteCoreDir, cwd, replacements, cwd);
-      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'svelte', selectedVariation, replacements);
+      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(svelteCoreDir, cwd, replacements, cwd, copyOpts);
+      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'svelte', selectedVariation, replacements, copyOpts);
       addSkippedFiles = baseResult.skipped.concat(variantResult.skipped || []);
     }
   }
 
   if (options._overwriteCss) {
     if (framework === 'astro') {
-      copyRizzoCssAndFontsForAstro(cwd, cssSource);
+      copyRizzoCssAndFontsForAstro(cwd, cssSource, copyOpts);
     } else if (framework === 'svelte') {
-      copyRizzoCssAndFontsForSvelte(cwd, cssSource);
+      copyRizzoCssAndFontsForSvelte(cwd, cssSource, copyOpts);
     } else {
       const targetDir = join(cwd, targetDirRaw);
-      mkdirSync(targetDir, { recursive: true });
-      copyFileSync(cssSource, cssTarget);
-      copyRizzoFonts(dirname(cssTarget));
-      if (framework === 'vanilla' && selectedVariation !== 'css-only') copyRizzoSfx(cwd);
+      if (copyOpts && copyOpts.plan) {
+        copyOpts.plan.wouldWrite.push(pathRelative(cwd, cssTarget));
+        copyRizzoFonts(dirname(cssTarget), copyOpts);
+        if (framework === 'vanilla' && selectedVariation !== 'css-only') copyRizzoSfx(cwd, copyOpts);
+      } else {
+        mkdirSync(targetDir, { recursive: true });
+        copyFileSync(cssSource, cssTarget);
+        copyRizzoFonts(dirname(cssTarget));
+        if (framework === 'vanilla' && selectedVariation !== 'css-only') copyRizzoSfx(cwd);
+      }
     }
   }
 
-  if (selectedVariation !== 'css-only') copyRizzoIcons(cwd, framework);
+  if (selectedVariation !== 'css-only') copyRizzoIcons(cwd, framework, copyOpts);
   if (framework === 'svelte' && selectedComponents.length > 0) {
     const expanded = expandWithDeps('svelte', selectedComponents);
     logAddedDeps(selectedComponents, expanded, 'svelte');
-    copySvelteComponents(cwd, expanded);
+    copySvelteComponents(cwd, expanded, copyOpts);
   } else if (framework === 'astro' && selectedComponents.length > 0) {
     const expanded = expandWithDeps('astro', selectedComponents);
     logAddedDeps(selectedComponents, expanded, 'astro');
-    copyAstroComponents(cwd, expanded);
+    copyAstroComponents(cwd, expanded, copyOpts);
   } else if (framework === 'vanilla' && selectedComponents.length > 0) {
     const linkHrefForVanilla = (options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref;
     const vanillaRepl = { '{{LINK_HREF}}': linkHrefForVanilla, '{{DATA_THEME}}': theme };
-    copyVanillaComponents(cwd, selectedComponents, vanillaRepl);
+    copyVanillaComponents(cwd, selectedComponents, vanillaRepl, copyOpts);
     const needsJs = selectedComponents.some((c) => VANILLA_JS_COMPONENTS.includes(c));
     const vanillaJsPath = join(cwd, 'js', 'main.js');
-    if (needsJs && !existsSync(vanillaJsPath) && (options.copyVanillaJs || (!preselected && (await confirmCopyVanillaJs())))) {
+    if (!options.dryRun && needsJs && !existsSync(vanillaJsPath) && (options.copyVanillaJs || (!preselected && (await confirmCopyVanillaJs())))) {
       const vanillaJsSrc = join(getPackageRoot(), 'scaffold', 'vanilla', 'js', 'main.js');
       if (existsSync(vanillaJsSrc)) {
         mkdirSync(join(cwd, 'js'), { recursive: true });
@@ -1880,6 +2132,7 @@ async function runAddToExisting(frameworkOverride, options) {
     } else if (needsJs && !existsSync(vanillaJsPath)) {
       options._vanillaJsHint = true;
     }
+    if (options.dryRun && needsJs && !existsSync(vanillaJsPath) && options.plan) options.plan.wouldWrite.push('js/main.js');
   }
 
   const linkHref = (framework === 'astro' || framework === 'svelte') ? paths.linkHref : ((options && options.targetDir) ? getLinkHrefForTargetDir(framework, options.targetDir) : paths.linkHref);
@@ -1893,6 +2146,20 @@ async function runAddToExisting(frameworkOverride, options) {
   const configTargetDir = framework === 'astro' ? 'public/css' : framework === 'svelte' ? 'static/css' : targetDirRaw;
   const configPath = join(cwd, RIZZO_CONFIG_FILE);
   const hadConfig = existsSync(configPath);
+  if (options.dryRun) {
+    if (!hadConfig) options.plan.wouldWrite.push(RIZZO_CONFIG_FILE);
+    options.plan.wouldWrite.push(RIZZO_SETUP_FILE);
+    if (options.writeSnippet !== false) options.plan.wouldWrite.push(RIZZO_SNIPPET_FILE);
+    if (options.writeReadme) options.plan.wouldWrite.push(SCAFFOLD_README_FILENAME);
+    copyPackageLicense(cwd, copyOpts);
+    console.log('\n  Dry run — no files written.');
+    console.log('  Would write (' + options.plan.wouldWrite.length + ' paths):');
+    options.plan.wouldWrite.sort().forEach((p) => console.log('    ' + p));
+    const setupMdContent = buildRizzoSetupMd(framework, { linkHref, theme, defaultDark, defaultLight, skippedFiles: addSkippedFiles.length > 0 ? addSkippedFiles : undefined });
+    console.log('\n  --- RIZZO-SETUP.md snippet (for skipped files) ---\n');
+    console.log(setupMdContent);
+    return;
+  }
   if (!hadConfig) {
     writeRizzoConfig(cwd, { targetDir: configTargetDir, framework, packageManager: pm.agent, theme });
   }
@@ -2569,12 +2836,13 @@ async function cmdInit(argv) {
   }
 
   // Package manager install: only for Astro/Svelte (Vanilla has no package.json)
+  const installCmd = pm.install + (hasFlag(argv, '--offline') ? ' --offline' : '');
   if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
     const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' (current directory)';
-    console.log('\n  Running' + dirLabel + ': ' + pm.install);
-    const code = runInDir(projectDir, pm.install);
+    console.log('\n  Running' + dirLabel + ': ' + installCmd);
+    const code = runInDir(projectDir, installCmd);
     if (code !== 0) {
-      console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+      console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + installCmd);
     } else {
       console.log('  ✓ Dependencies installed.');
     }
@@ -2582,15 +2850,15 @@ async function cmdInit(argv) {
     const shouldRun = await confirmRunInstall(pm);
     if (shouldRun) {
       const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' here';
-      console.log('\n  Running' + dirLabel + ': ' + pm.install);
-      const code = runInDir(projectDir, pm.install);
+      console.log('\n  Running' + dirLabel + ': ' + installCmd);
+      const code = runInDir(projectDir, installCmd);
       if (code !== 0) {
-        console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + pm.install);
+        console.error('\n  Install failed (exit ' + code + '). Run manually: ' + runPrefix + installCmd);
       } else {
         console.log('  ✓ Dependencies installed.');
       }
     } else {
-      console.log('\n  Skipped. When ready, run: ' + runPrefix + pm.install);
+      console.log('\n  Skipped. When ready, run: ' + runPrefix + installCmd);
     }
   }
 
@@ -2621,6 +2889,7 @@ async function cmdInit(argv) {
       : 'open index.html or serve the folder (e.g. npx serve .)';
     console.log('\n  Next: ' + vanillaNext);
   }
+  await checkNewerVersion(argv).catch(() => {});
   console.log('\n  Docs: https://rizzo-css.vercel.app\n');
 }
 

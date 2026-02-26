@@ -22,9 +22,12 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [COMPONENTS.md](./COMPONENTS.md) | All components (56 in CLI; doc pages by category), usage, BEM, framework tabs |
+| [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
 | [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
+
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.62), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -43,6 +46,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 |-----|-------------|
 | [planning/CLI_PLANNING.md](./planning/CLI_PLANNING.md) | CLI scope, commands, implementation phases |
 | [planning/PLAN_FONT_CHANGER.md](./planning/PLAN_FONT_CHANGER.md) | Font pairs and Settings font changer (implemented) |
+| [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md) | React, Vue, and Vite: Astro integrations for docs; Vite as bundler in scaffolds |
 | [planning/SCAFFOLD_REPLICA_PLAN.md](./planning/SCAFFOLD_REPLICA_PLAN.md) | What the package scaffolds ship |
 
 ## Repository structure

@@ -14,7 +14,7 @@ When you **create new** or **add to existing**, you pick a **template**. The sam
 | **Dashboard** | Base + **dashboard** overlay: sidebar, stats cards, table. Component picker: all or pick. |
 | **Full**    | Clone of the Rizzo docs site (home, docs, components, themes). No picker; all components included. |
 
-**CSS only** = stylesheet + minimal project files only; no component picker. Landing, Docs, and Dashboard: same assets (Rizzo CSS, fonts, icons, sfx) and component choice (all or pick); only the starter layout and pages differ. **Full** copies the full variant only (site clone) and always includes all components.
+**CSS only** = stylesheet + minimal project files only; no component picker. This is the **minimal scaffold** (design tokens + one stylesheet; no web pages or components). Use it when you want only the design system CSS and will build your own pages. Landing, Docs, and Dashboard: same assets (Rizzo CSS, fonts, icons, sfx) and component choice (all or pick); only the starter layout and pages differ. **Full** copies the full variant only (site clone) and always includes all components.
 
 ### What ships per template × framework (consistent across frameworks)
 

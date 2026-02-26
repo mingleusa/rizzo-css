@@ -24,7 +24,7 @@ This doc describes the Rizzo CSS CLI: commands, flows, package manager handling,
 | **`init`** | Add Rizzo to an existing project or create a new one. Framework → existing vs new. **Existing** → template (CSS only | Landing | Docs | Dashboard | Full). **New** → location (**current directory** or **enter path or project name** — one prompt; relative or absolute), **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. Install runs in the project directory (CLI runs the package manager’s install there). For Vanilla there is no install step; the CLI prints the path so you can `cd` there and open or serve the folder. `--yes --framework vanilla|astro|svelte`; optional `--path <dir>` to scaffold into a specific directory. Optional `--template css-only|landing|docs|dashboard|full` (default **landing** with `--yes`), `--install` / `--no-install`. If target directory is not empty, prompts to continue. |
 | **`add`** | **For existing projects only.** Run from project root. Add Rizzo CSS (and optionally components): choose template **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**, then select which components to add (or CSS only for stylesheet only). Writes **RIZZO-SETUP.md** (all); Full also **RIZZO-SNIPPET.txt** unless `--no-snippet`. If CSS exists at target, prompts to overwrite (`--force` to skip). Vanilla Full: `--vanilla-js` or prompt to copy `js/main.js`. `--readme` writes README-RIZZO.md. |
 | **`theme`** | List theme IDs for `data-theme` on `<html>`. |
-| **`doctor`** | Check config, CSS file at configured path, and (Astro/Svelte) whether layout includes the stylesheet link. |
+| **`doctor`** | Check config, CSS path, layout link; validate theme (config and layout `data-theme`); check fonts and sfx paths; warn if CSS is very small; hint when rizzo-css is in node_modules. |
 | **`help`** | Usage, runners (npx, pnpm dlx, yarn: npx, bunx), framework examples, options. Prints the ASCII banner (rainbow theme colors) and centered tagline **Design system · Vanilla · Astro · Svelte**. |
 
 ---
@@ -108,9 +108,9 @@ When you add or pick components, the CLI automatically includes everything each 
 
 ## Options summary
 
-**init:** `--yes`, `--path <dir>`, `--framework`, `--template landing|docs|dashboard|full` (default **landing** with `--yes`), `--package-manager`, `--install`, `--no-install`. Non-empty target prompts to continue.
+**init:** `--yes`, `--path <dir>`, `--framework`, `--template landing|docs|dashboard|full` (default **landing** with `--yes`), `--package-manager`, `--install`, `--no-install`, `--offline`. Non-empty target prompts to continue. `--offline`: pass `--offline` to the package manager when running install (cache only).
 
-**add:** `--path <dir>`, `--framework`, `--template landing|docs|dashboard|full`, `--no-snippet`, `--readme`, `--force`, `--vanilla-js`. CSS exists → prompts unless `--force`.
+**add:** `--path <dir>`, `--framework`, `--template css-only|landing|docs|dashboard|full`, `--dry-run`, `--offline`, `--no-snippet`, `--readme`, `--force`, `--vanilla-js`. `--dry-run`: preview which files would be written and show RIZZO-SETUP.md snippet for skipped files (no writes). `--offline`: pass `--offline` to the package manager when running install/add (use cache only; for CI or air-gapped use). CSS exists → prompts unless `--force`.
 
 ---
 
@@ -124,7 +124,8 @@ When you add or pick components, the CLI automatically includes everything each 
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css') in cwd; `init` runs pm.install **in the project directory** after scaffold (with `--install` or when user confirms). `--no-install` skips.
 - [x] **Project path:** Init supports `--path <dir>` (with `--yes`) and interactive **enter path or project name** (one prompt; empty = current directory). Resolved relative to cwd or absolute; scaffold and install run in that directory. "Next step" shows `cd <relative-path> &&` when project is not cwd.
 - [x] **--yes:** `init --yes` scaffolds new in cwd (or in `--path <dir>`); default template is **landing**. Non-empty target directory prompts.
-- [x] **add:** Writes RIZZO-SETUP.md (all templates); Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--template landing|docs|dashboard|full`, `--readme`, `--force`, `--vanilla-js`. Config includes `theme`.
-- [x] **doctor:** Checks config, CSS path, layout link hint.
+- [x] **add:** Writes RIZZO-SETUP.md (all templates); Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--template css-only|landing|docs|dashboard|full`, `--dry-run`, `--offline`, `--readme`, `--force`, `--vanilla-js`. Config includes `theme`.
+- [x] **init/add --offline:** Pass `--offline` to package manager when running install or add (for CI or air-gapped use). Optional version check: after add/init, if not `--offline`, CLI may print a one-line notice if a newer npm version is available.
+- [x] **doctor:** Checks config, CSS path, layout link; validates theme (config + layout `data-theme`); fonts and sfx paths; small-CSS warning; rizzo-css version hint when in node_modules.
 - [x] **Config:** `theme` key supported; unknown keys preserved on write.
 - [x] **Docs:** GETTING_STARTED, this doc (CLI.md); help shows options and `help components` (with copy paths per framework).

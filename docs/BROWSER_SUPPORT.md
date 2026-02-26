@@ -16,6 +16,7 @@ Rizzo CSS targets **modern browsers** that support the features it uses. This do
 ## Testing
 
 - **Default (Chromium):** Run **`pnpm test:a11y`** for accessibility (axe, keyboard, ARIA) in a Chromium environment.
+- **CI:** On push/PR to `main`, the workflow [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs a11y tests on **Chromium, Firefox, and WebKit**. Locally, use `pnpm test:a11y:ci:cross-browser` to run the same set (requires `playwright install chromium firefox webkit`).
 - **Firefox:** `pnpm exec playwright test tests/a11y --project=a11y-firefox`
 - **Safari (WebKit):** `pnpm exec playwright test tests/a11y --project=a11y-webkit`
 - **Edge:** `pnpm exec playwright test tests/a11y --project=a11y-edge` (requires `playwright install msedge`)

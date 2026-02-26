@@ -7,6 +7,7 @@
 - [ ] Build passes (`pnpm build`)
 - [ ] A11y tests pass (`pnpm test:a11y`) if the change affects the docs site or components
 - [ ] Docs updated if behavior or options changed
+- [ ] **New component?** See [Checklist for new component PRs](CONTRIBUTING.md#checklist-for-new-component-prs) (Astro + Svelte + Vanilla slug + doc page + CLI entry).
 
 ## Additional notes
 

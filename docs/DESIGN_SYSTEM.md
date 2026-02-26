@@ -4,7 +4,7 @@ Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth
 
 ## Features
 
-- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Templates: **Landing** | **Docs** | **Dashboard** | **Full** (Full = site clone; others = all 56 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
+- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 56 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
 - **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, layout limits (e.g. `--max-height-navbar-submenu`), and component sizing (e.g. `--theme-switcher-width` so the theme switcher trigger and dropdown are the same width everywhere and fit the longest theme name on one line) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
 - **Layout consistency** — All main containers use `--container-default` (max-width) and `--content-padding-x` for horizontal padding so content aligns site-wide. Cards (`.card`), alerts (`.alert`), and table wrappers (`.table__wrapper`) use `width: 100%` and `min-width: 0` so they fill their container and behave correctly in flex/grid layouts.
 

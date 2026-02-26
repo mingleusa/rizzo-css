@@ -26,10 +26,15 @@ pnpm install
 | **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA) |
 | **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
 | **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
+| **Bundle size budget** | `pnpm check:size` — build CSS and fail if package bundle exceeds budget (CI runs this). See [Bundle size](#bundle-size) below. |
 
 **First time running a11y tests:** Playwright needs a browser. Run `pnpm exec playwright install chromium` once (or `playwright install` for all browsers). If you see "Executable doesn't exist at ... ms-playwright", that means the browser isn't installed yet.
 
 See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) for more.
+
+## Bundle size
+
+The package CSS (`packages/rizzo-css/dist/rizzo.min.css`) must stay under the budget (see `scripts/bundle-size.mjs`; default 450 kB). CI runs `node scripts/bundle-size.mjs --check` after build. Run `pnpm check:size` before submitting PRs that change CSS or themes.
 
 ## Where to add or change things
 
@@ -41,7 +46,18 @@ See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETT
 - **CLI:** `packages/rizzo-css/bin/rizzo-css.js` — commands, component list, scaffold copy logic.
 - **Docs content:** `src/pages/docs/` (site pages), `docs/` (markdown; index in [docs/README.md](docs/README.md)).
 
-When adding a new component, add it to the Astro scaffold list in `scripts/copy-scaffold.js` (`ASTRO_SCAFFOLD`) and to the CLI component lists in `packages/rizzo-css/bin/rizzo-css.js` (`SVELTE_COMPONENTS`, `ASTRO_COMPONENTS`, `VANILLA_COMPONENT_SLUGS` if it has a vanilla slug). Then run `pnpm build:package` and update docs as needed.
+When adding a new component, use the [Checklist for new component PRs](#checklist-for-new-component-prs) below and add the component to the Astro scaffold list in `scripts/copy-scaffold.js` (`ASTRO_SCAFFOLD`) and to the CLI component lists in `packages/rizzo-css/bin/rizzo-css.js` (`SVELTE_COMPONENTS`, `ASTRO_COMPONENTS`, `VANILLA_COMPONENT_SLUGS` if it has a vanilla slug). Then run `pnpm build:package` and update docs as needed.
+
+### Checklist for new component PRs
+
+Use this when opening a PR that **adds a new component**:
+
+- [ ] **Astro** — Component in `src/components/` (and in `ASTRO_SCAFFOLD` in `scripts/copy-scaffold.js`)
+- [ ] **Svelte** — Component in `src/components/svelte/` and exported in `index.ts`
+- [ ] **Vanilla** — Slug in `VANILLA_COMPONENT_SLUGS` in `packages/rizzo-css/bin/rizzo-css.js`; doc page under `src/pages/docs/vanilla/components/<slug>.astro` (or add to prepare-vanilla-scaffold if applicable)
+- [ ] **CLI** — Component name in `ASTRO_COMPONENTS` and `SVELTE_COMPONENTS` in `packages/rizzo-css/bin/rizzo-css.js`; add dependencies in `getComponentDeps` if needed
+- [ ] **Docs** — Astro doc page `src/pages/docs/components/<slug>.astro`; add slug to `src/config/docsNav.ts`; update `src/pages/docs/components.astro` and `docs/COMPONENTS.md`; add to `tests/a11y/docs.spec.mjs` (`COMPONENT_SLUGS` or `ASTRO_ONLY_COMPONENT_ROUTES`); update `scripts/index-docs.js` if needed
+- [ ] **Build & tests** — `pnpm build:package`, `pnpm build`, `pnpm test:a11y` pass
 
 **Keeping docs and tests in sync:** When you add or remove component or block pages, update (1) **nav** — `src/config/docsNav.ts` for docs sidebar (Components group); the main navbar is in `src/components/Navbar.astro` (`navLinks`: Docs, Components, Blocks, Themes, Colors). Block pages live under `/blocks` and use `BlocksLayout` with their own sidebar; (2) **Components overview** — `src/pages/docs/components.astro` (category + card) and `docs/COMPONENTS.md` (list and categories); (3) **a11y tests** — `tests/a11y/docs.spec.mjs`: add the slug to `COMPONENT_SLUGS` only if the page exists for Astro, Vanilla, and Svelte; otherwise add the path to `ASTRO_ONLY_COMPONENT_ROUTES`. For new blocks add to `BLOCK_ROUTES` (block URLs live under `/blocks`); (4) **search index** — `scripts/index-docs.js`: add to `componentPages`, `blockPages`, or `docsPages` so Cmd+K search finds the page.
 

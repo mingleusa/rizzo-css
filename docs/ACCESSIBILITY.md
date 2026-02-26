@@ -329,8 +329,13 @@ Run the full a11y suite: `pnpm test:a11y` (or `pnpm test:a11y:ci` in CI). This b
 - **ARIA / roles** — `tests/a11y/aria.spec.mjs`: Modal, dropdown, tabs, accordion, theme switcher, font switcher, footer, **settings** (dialog, aria-modal, aria-labelledby), **search** (dialog, aria-modal, aria-labelledby), **back to top** (button label), **tooltip** (trigger aria-describedby, tooltip role and id), **alert dialog** (role=alertdialog, aria-modal, aria-labelledby when open), **sheet** (role=dialog, aria-modal, aria-labelledby when open).
 - **Theme contrast** — `pnpm check:contrast`: verifies all themes meet WCAG AA (text/background and accent-text/accent ≥ 4.5:1). Run when adding or changing theme colors.
 - **Lint in build** — We use axe (WCAG 2/2.1 A & AA) in CI as the primary automated accessibility check. There is no eslint-plugin-jsx-a11y for Astro/Svelte in this repo; axe covers markup and roles. Add component-level a11y linting in your app if your stack supports it.
+- **Cross-browser** — CI runs the a11y suite on Chromium, Firefox, and WebKit. Locally: `pnpm test:a11y:ci:cross-browser`. See [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
 Automated tests do **not** replace manual keyboard and screen reader testing; use the checklist below for that.
+
+## Component a11y matrix and checklist
+
+The table below is the **component a11y matrix**: expected ARIA, keyboard, and focus behavior per component. **Automated tests** (axe in `docs.spec.mjs`, keyboard in `keyboard.spec.mjs`, ARIA in `aria.spec.mjs`) cover the components and routes listed in those specs; “tested” means covered by CI. Manual screen reader testing is still recommended for key flows (see [Manual accessibility testing](#manual-accessibility-testing)).
 
 ## Component accessibility checklist (all frameworks)
 

@@ -6,8 +6,8 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.61) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
-- **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast), focus-trap utility, bundle size reporting, performance and browser-support docs. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md).
+- **Package:** Single **rizzo-css** (v0.0.62) — CSS, CLI, and scaffolds for Vanilla, Astro, and Svelte. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Implemented:** Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ---
 
@@ -26,7 +26,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 - **Storybook** *(optional)* — Interactive playground and design system showcase.
 
 ### Package distribution
-- **Multi-framework** — React components; Vue components (in-repo or separate later). [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md).
+- **Multi-framework** — React components; Vue components (in-repo or separate later). Docs site: Astro integrations (`@astrojs/react`, `@astrojs/vue`); scaffolds: Vite-based. Plan: [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md). [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md).
 - **In-repo framework routes** — React/Vue doc routes (same pattern as Svelte).
 
 ### Performance
@@ -36,10 +36,10 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 - Additional spacing/transform/animation variables if discovered during porting.
 
 ### Browser support
-- **Cross-browser testing** — Playwright projects: Chromium (default), Firefox, WebKit, Edge, Mobile Chrome (Pixel 5), Mobile Safari (iPhone 12). Run `pnpm test:a11y` for Chromium; see [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) for all projects. Manual testing on real devices as needed.
+- **Cross-browser testing** — CI runs a11y on Chromium, Firefox, and WebKit (see [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing)). Playwright projects also include Edge, Mobile Chrome (Pixel 5), Mobile Safari (iPhone 12); run locally or add to CI as needed. Manual testing on real devices as needed.
 
 ### Examples & demos
-- Example pages (component/theme showcase, form/layout examples).
+- **Example pages** — *(done)* [Examples overview](/docs/examples) and [Form & layout examples](/docs/examples/form-layouts) (login form, contact form, card grid, settings panel) with copy-paste snippets. Theme showcase remains at [Themes](/themes); blocks at [Blocks](/blocks).
 - Templates (landing, dashboard, docs-site starter) *(optional)*.
 
 ---
@@ -49,36 +49,53 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 Potential tasks to consider when prioritizing work; not in priority order.
 
 ### CLI & tooling
-- **CLI `--dry-run`** — Preview which files would be written without writing; show RIZZO-SETUP.md snippet for skipped files.
-- **CLI `--offline` / cache** — Use cached scaffold/CSS when network is unavailable (e.g. for CI or air-gapped use).
-- **CLI `doctor` enhancements** — Check for outdated rizzo.min.css version, missing fonts/sfx paths, invalid `data-theme` values.
-- **Version check** — Optional prompt or notice when a newer npm version is available.
+- **CLI `--dry-run`** — *(done)* Preview which files would be written without writing; show RIZZO-SETUP.md snippet for skipped files. Use with `add`: `npx rizzo-css add --dry-run`.
+- **CLI `--offline` / cache** — *(done)* Pass `--offline` to the package manager when running install or add (use cache only; for CI or air-gapped use). See [CLI.md](./CLI.md).
+- **CLI `doctor` enhancements** — *(done)* Check config, CSS path, layout link; validate theme (config and layout `data-theme`); check fonts and sfx paths; small-CSS warning; hint when rizzo-css is in node_modules.
+- **Version check** — *(done)* After add/init, if not `--offline`, CLI fetches latest from registry and prints a one-line notice if a newer version is available.
 
 ### CSS & themes
-- **Light/dark-only bundles** *(optional)* — Smaller CSS for projects that only need one mode (document in BEST_PRACTICES).
+- **Light/dark-only bundles** *(optional)* — *(documented)* [BEST_PRACTICES.md – Light/dark-only bundles](./BEST_PRACTICES.md#lightdark-only-bundles-optional). Single bundle is default; custom build possible if needed.
 - **Additional theme presets** — Community or seasonal themes; keep contrast and a11y in mind.
-- **RTL support** — Document or add RTL-friendly utilities/variables if needed for right-to-left layouts.
-- **CSS custom property docs** — Single page or section listing all design tokens (spacing, colors, typography) for reference.
+- **RTL support** — *(documented)* [BEST_PRACTICES.md – RTL](./BEST_PRACTICES.md#rtl-right-to-left-support). LTR default; logical properties where used; set `dir="rtl"` for RTL.
+- **CSS custom property docs** — *(done)* [Tokens reference](/docs/tokens) page listing spacing, typography, semantic colors, radius, transition, z-index, and layout tokens.
 
 ### Documentation & site
-- **Component changelog** — Per-component or global changelog (e.g. new props, breaking changes) linked from docs.
-- **More copy-paste examples** — Form layouts, dashboard cards, settings panels as full-page snippets.
+- **Component changelog** — *(done)* [CHANGELOG.md](../CHANGELOG.md) in repo root; linked from [docs/README.md](./README.md). Per-release detail can be expanded.
+- **More copy-paste examples** — *(done)* [Form & layout examples](/docs/examples/form-layouts): login, contact, dashboard stats cards, card grid, settings panel. [Examples overview](/docs/examples) links to themes and blocks.
 - **Search** — Algolia or local search for docs (already referenced in .env.example for some setups).
-- **Docs version selector** — Link to docs for specific package version (e.g. 0.0.61) when multiple versions are documented.
+- **Docs version selector** — *(documented)* Docs site reflects latest main; [docs/README.md](./README.md) notes that specific versions are in CHANGELOG and on npm.
 
 ### Accessibility & quality
-- **Cross-browser a11y** — Extend Playwright a11y runs to Firefox and WebKit (see BROWSER_SUPPORT).
-- **Component a11y matrix** — Table of components vs. screen reader / keyboard behavior (tested vs. documented).
-- **Bundle size budget** — CI check that CSS size stays under a threshold; document in PUBLISHING or CONTRIBUTING.
+- **Cross-browser a11y** — *(done)* CI runs a11y on Chromium, Firefox, and WebKit; see [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing). Locally: `pnpm test:a11y:ci:cross-browser`.
+- **Component a11y matrix** — *(done)* [ACCESSIBILITY.md – Component a11y matrix](./ACCESSIBILITY.md#component-a11y-matrix-and-checklist): table of expected ARIA, keyboard, focus; automated tests cover routes in specs.
+- **Bundle size budget** — *(done)* CI runs `node scripts/bundle-size.mjs --check` (450 kB package CSS); `pnpm check:size` locally. Documented in [PUBLISHING.md](./PUBLISHING.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ### Frameworks & scaffolds
 - **React components** — In-repo React versions of components (same BEM, same patterns as Svelte); doc route for React.
 - **Vue components** — Same idea as React; optional separate package or in-repo.
-- **Scaffold variations** — Optional “minimal CSS only” scaffold (no components) for users who want just the design tokens.
+- **Scaffold variations** — *(documented)* "CSS only" template is the minimal scaffold (design tokens + one stylesheet; no components). See [TEMPLATES.md](./TEMPLATES.md).
 
 ### General
-- **Stability / maturity** — As the system stabilizes, consider a 1.0 and clearer semver policy (e.g. deprecation windows).
-- **Contributing** — Template for new component PRs (checklist: Astro + Svelte + Vanilla slug + doc page + CLI entry).
+- **Stability / maturity** — *(documented)* [MAINTAINING.md – Stability and versioning](./MAINTAINING.md#stability-and-versioning): pre-1.0, semver, and 1.0 considerations.
+- **Contributing** — *(done)* [Checklist for new component PRs](../CONTRIBUTING.md#checklist-for-new-component-prs) in CONTRIBUTING.md; PR template links to it.
+
+---
+
+## What’s left on the backlog
+
+Items above that are **not** marked *(done)* and are not manual-only:
+
+| Area | Item |
+|------|------|
+| **CLI** | — *(all done: --offline, version check)* |
+| **CSS & themes** | Additional theme presets (community/seasonal; keep contrast and a11y in mind) |
+| **Documentation** | Search (Algolia or local; .env.example referenced for some setups) |
+| **A11y** | — *(matrix done)* |
+| **Frameworks** | React components; Vue components; in-repo framework routes *(excluded from this pass)* |
+| **General** | — *(stability/semver documented)* |
+
+**Remaining (priority)** — Manual a11y testing (keyboard + screen reader); optional Storybook; multi-framework React/Vue; in-repo framework routes; cross-browser/manual device testing as needed.
 
 ---
 

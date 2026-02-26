@@ -73,7 +73,7 @@ This makes it easier to keep component APIs consistent and to add React/Vue late
 ### CSS loading
 
 - **Single import** — Import Rizzo CSS once in your root layout or main entry (e.g. `import 'rizzo-css'` or `<link rel="stylesheet" href="/css/rizzo.min.css" />`). Avoid loading it multiple times or in multiple chunks.
-- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.61`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
+- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.62`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
 - **No duplicate CSS** — If you use the npm package and also copy `rizzo.min.css` into `public/` or `static/`, use one or the other, not both.
 
 ### Bundle size
@@ -84,6 +84,11 @@ This makes it easier to keep component APIs consistent and to add React/Vue late
 
 - **Theme** — Apply the user’s stored theme (or system preference) **before** first paint. The scaffold layouts include an inline script in `<head>` that runs immediately: reads `localStorage.getItem('theme')` and sets `document.documentElement.setAttribute('data-theme', ...)`. Keep this script small and synchronous so the correct theme is applied before the rest of the page renders.
 - **Fonts** — If you use custom font pairs (e.g. from Settings), consider preloading the main font files so text doesn’t swap visibly. The design system uses CSS variables for font stacks; font files are loaded by the browser when referenced.
+
+### Light/dark-only bundles (optional)
+
+- **Default** — Rizzo ships one CSS file containing all 14 themes (7 light, 7 dark). The active theme is chosen at runtime via `data-theme` on `<html>`. This keeps a single request and simple cache behavior.
+- **If you only need one mode** — We don’t currently ship separate “light-only” or “dark-only” bundles. If you have a measured need (e.g. a kiosk that is always dark), you could use a custom build that excludes the other mode’s theme variables, or load only the theme file you need if the build is split in the future. For most apps, the single bundle is smaller than the cost of an extra round-trip.
 
 ### Bundle and assets
 
@@ -97,8 +102,15 @@ This makes it easier to keep component APIs consistent and to add React/Vue late
 
 ### Lazy loading (optional)
 
-- **Themes** — All theme files are combined into the single `rizzo.min.css`. Lazy-loading themes (loading a second CSS file per theme) is possible but not implemented by default; the single bundle keeps requests simple.
-- **Components** — In Astro/Svelte, code-splitting is handled by the framework. Rizzo doesn’t require special lazy-loading; use your framework’s patterns for lazy-loaded routes or heavy components.
+- **Themes** — All theme files are combined into the single `rizzo.min.css`. Lazy-loading themes (e.g. loading a second CSS file when the user switches theme) is possible in theory but not implemented by default; the single bundle keeps requests simple and avoids FOUC. Consider lazy-loading themes only if you have a measured need (e.g. many themes and rare switching).
+- **Components** — In Astro/Svelte, code-splitting is handled by the framework. Rizzo doesn’t require special lazy-loading; use your framework’s patterns for lazy-loaded routes or heavy components (e.g. `import()` for a modal that appears rarely).
+- **When to consider** — Stick with the single-bundle approach unless profiling shows CSS as a bottleneck or you need to defer non-critical theme/component CSS. Measure first; the default is optimized for one request and good cacheability.
+
+### RTL (right-to-left) support
+
+- **Current state** — Rizzo is built for LTR (left-to-right). Some layout and utilities use logical properties (`margin-inline`, `padding-inline`, etc.) where applicable, which will flip with `dir="rtl"` on `<html>` or a container.
+- **Using RTL** — Set `dir="rtl"` (and optionally `lang="ar"` or similar) on `<html>` or a wrapper. Test components that rely on physical directions (e.g. dropdown alignment, sheet drawer side); you may need overrides or future RTL-specific variables.
+- **Future** — If RTL becomes a requirement, we can add RTL-friendly utilities and document overrides; for now, LTR is the default and RTL is best-effort with logical properties.
 
 ### Measuring and monitoring
 
