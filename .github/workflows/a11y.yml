@@ -1,5 +1,6 @@
 # Cross-browser accessibility tests (axe, keyboard, ARIA).
-# Runs on Chromium, Firefox, and WebKit. See docs/BROWSER_SUPPORT.md and docs/ACCESSIBILITY.md.
+# Build once, then run Chrome / Firefox / WebKit in parallel. See docs/BROWSER_SUPPORT.md and docs/ACCESSIBILITY.md.
+# Typical runtime: ~6–10 min (build ~3 min, then 3 browser jobs in parallel ~4–6 min each).
 name: Accessibility (a11y)
 
 on:
@@ -9,8 +10,9 @@ on:
     branches: [main, master]
 
 jobs:
-  a11y:
+  build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
 
@@ -32,16 +34,68 @@ jobs:
       - name: Bundle size budget
         run: node scripts/bundle-size.mjs --check
 
-      - name: Install Playwright browsers (Chromium, Firefox, WebKit)
-        run: pnpm exec playwright install --with-deps chromium firefox webkit
+      - name: Verify build output
+        run: |
+          if [ ! -d dist ] || [ ! -f dist/index.html ]; then
+            echo "::error::Build did not produce dist/ or dist/index.html"
+            exit 1
+          fi
+          echo "Build output OK"
 
-      - name: Run a11y tests (Chromium, Firefox, WebKit)
-        run: pnpm exec playwright test tests/a11y --project=a11y --project=a11y-firefox --project=a11y-webkit
+      - name: Upload build
+        uses: actions/upload-artifact@v4
+        with:
+          name: a11y-dist
+          path: dist/
+
+  a11y-browser:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        project: [a11y, a11y-firefox, a11y-webkit]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Download build
+        uses: actions/download-artifact@v4
+        with:
+          name: a11y-dist
+
+      - name: Restore dist
+        run: rm -rf dist && mv a11y-dist dist
+
+      - name: Install Playwright browser
+        run: |
+          case "${{ matrix.project }}" in
+            a11y)           pnpm exec playwright install --with-deps chromium ;;
+            a11y-firefox)   pnpm exec playwright install --with-deps firefox ;;
+            a11y-webkit)    pnpm exec playwright install --with-deps webkit ;;
+          esac
+
+      - name: Run a11y tests (${{ matrix.project }})
+        env:
+          CI: true
+        run: pnpm exec playwright test tests/a11y --project=${{ matrix.project }}
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report
+          name: playwright-report-${{ matrix.project }}
           path: playwright-report/
           retention-days: 7
