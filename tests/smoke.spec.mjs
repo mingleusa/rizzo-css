@@ -34,7 +34,7 @@ test.describe('Smoke: key routes', () => {
   test('blocks landing-hero loads', async ({ page }) => {
     const res = await page.goto('/blocks/landing-hero', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
-    await expect(page.locator('h1')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Landing hero' })).toBeVisible();
   });
 
   test('component page (button) loads', async ({ page }) => {
