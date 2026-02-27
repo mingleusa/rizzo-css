@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import { FONT_PAIRS } from '../config/fonts';
 import '../styles/main.css';
 import soundEffectsScript from '../../packages/rizzo-css/scaffold/shared/sound-effects-inline.js?raw';
+import pkg from '../../package.json';
 
 interface Props {
   /** Page title for <title> (default: Rizzo CSS) */
@@ -354,6 +355,7 @@ const fontPairsAttr = JSON.stringify(FONT_PAIRS).replace(/&/g, '&amp;').replace(
 			</main>
 			<Footer
 			siteName="Rizzo CSS"
+			version={pkg.version}
 			links={[
 				{ href: '/docs/getting-started', label: 'Getting Started' },
 				{ href: '/blocks', label: 'Blocks' },

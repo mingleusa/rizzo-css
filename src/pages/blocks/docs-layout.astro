@@ -1,6 +1,8 @@
 ---
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
+import { DOCS_LAYOUT_SNIPPETS } from '../../config/blockCodeSnippets';
 ---
 
 <BlocksLayout
@@ -36,6 +38,18 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					</main>
 				</div>
 			</div>
+		</section>
+
+		<section>
+			<h2 id="usage">Usage</h2>
+			<p>Copy the snippet for your framework. Same BEM classes (<code>docs-sidebar</code>, <code>docs__main</code>, <code>docs__container</code>, <code>docs__content</code>) work in any stack.</p>
+			<FrameworkCodeTabs
+				astro={DOCS_LAYOUT_SNIPPETS.astro}
+				svelte={DOCS_LAYOUT_SNIPPETS.svelte}
+				react={DOCS_LAYOUT_SNIPPETS.react}
+				vue={DOCS_LAYOUT_SNIPPETS.vue}
+				vanilla={DOCS_LAYOUT_SNIPPETS.vanilla}
+			/>
 		</section>
 
 		<section>

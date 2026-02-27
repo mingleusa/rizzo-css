@@ -3,6 +3,8 @@ import BlocksLayout from '../../layouts/BlocksLayout.astro';
 import Dashboard from '../../components/Dashboard.astro';
 import Card from '../../components/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
+import { DASHBOARD_SNIPPETS } from '../../config/blockCodeSnippets';
 ---
 
 <BlocksLayout
@@ -87,6 +89,18 @@ import CodeBlock from '../../components/CodeBlock.astro';
 					</div>
 				</Dashboard>
 			</div>
+		</section>
+
+		<section>
+			<h2 id="usage">Usage</h2>
+			<p>Copy the snippet for your framework. Astro uses the Dashboard component; others use the same BEM structure (sidebar + main, stats grid, table).</p>
+			<FrameworkCodeTabs
+				astro={DASHBOARD_SNIPPETS.astro}
+				svelte={DASHBOARD_SNIPPETS.svelte}
+				react={DASHBOARD_SNIPPETS.react}
+				vue={DASHBOARD_SNIPPETS.vue}
+				vanilla={DASHBOARD_SNIPPETS.vanilla}
+			/>
 		</section>
 
 		<section>

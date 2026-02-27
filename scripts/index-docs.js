@@ -181,6 +181,8 @@ const componentPages = [
 ];
 
 const blockPages = [
+  { title: 'Landing hero', url: '/blocks/landing-hero', category: 'Blocks', description: 'Marketing hero section with headline, subtitle, and primary CTAs. Uses Rizzo typography and button components. Framework code tabs (Astro, Svelte, React, Vue, Vanilla). Scaffold with npx rizzo-css init --template landing.' },
+  { title: 'Pricing cards', url: '/blocks/pricing', category: 'Blocks', description: 'Three-tier pricing section using Card, Badge, and buttons. Theme-aware and accessible. Framework code tabs. Copy-paste for any framework.' },
   { title: 'Dashboard with sidebar', url: '/blocks/dashboard-01', category: 'Blocks', description: 'App dashboard with sidebar navigation, stat cards, and data table. Built with Dashboard, Card, and Table components. Scaffold with npx rizzo-css init --template dashboard.' },
   { title: 'Docs layout with sidebar', url: '/blocks/docs-layout', category: 'Blocks', description: 'Documentation layout with collapsible sidebar and main content area. Same pattern as the Rizzo docs site. Scaffold with npx rizzo-css init --template docs.' },
 ];

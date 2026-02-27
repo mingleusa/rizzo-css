@@ -7,7 +7,15 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 ## Current state
 
 - **Package:** Single **rizzo-css** (v0.0.63) — CSS, CLI, and scaffolds for Vanilla, Astro, Svelte, React, and Vue. **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
-- **Implemented:** **React implementation complete** — all 56 components with full implementations, live demos, React/TSX code blocks, and a11y coverage (axe + keyboard + ARIA on key components). **Code blocks up to date:** Astro reference component pages show Usage tabs for **Astro | Svelte | React | Vue | Vanilla**; React snippets from `src/config/reactCodeSnippets.ts`, Vue from `src/config/vueCodeSnippets.ts`. All frameworks have working live examples. Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
+- **Implemented:** **React implementation complete** — all 56 components with full implementations, live demos, React/TSX code blocks, and a11y coverage (axe + keyboard + ARIA on key components). **Code blocks up to date:** Astro reference component pages show Usage tabs for **Astro | Svelte | React | Vue | Vanilla**; React snippets from `src/config/reactCodeSnippets.ts`, Vue from `src/config/vueCodeSnippets.ts`. All frameworks have working live examples. **Blocks:** All four block pages have framework code tabs (Usage section) via `src/config/blockCodeSnippets.ts`. **Smoke tests:** `pnpm test:smoke` for key routes; **version in footer** from package.json. Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit; axe on Chromium/Firefox only, keyboard/ARIA on all three — see [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md)); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. **Production hardening:** `vercel.json` (cache + security headers), dependency audit in CI (`pnpm audit --audit-level=high`). Docs, components, and CLI are up to date. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
+
+---
+
+## Production readiness
+
+- **vercel.json** — *(done)* Repo root `vercel.json` configures cache headers for `/assets/`, `/_astro/`, `/css/`, `/icons/` (`public, max-age=31536000, immutable`) and security headers for all routes (`X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`).
+- **Dependency audit in CI** — *(done)* [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs `pnpm audit --audit-level=high` after install (currently `continue-on-error: true`; can be made blocking when desired).
+- **Docs (axe/WebKit)** — *(done)* [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) and [ACCESSIBILITY.md](./ACCESSIBILITY.md) state that axe runs on Chromium and Firefox only and is skipped on WebKit; keyboard and ARIA run on Chromium, Firefox, and WebKit.
 
 ---
 
@@ -40,6 +48,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ### Examples & demos
 - **Example pages** — *(done)* [Examples overview](/docs/examples) and [Form & layout examples](/docs/examples/form-layouts) (login form, contact form, card grid, settings panel) with copy-paste snippets. Theme showcase remains at [Themes](/themes); blocks at [Blocks](/blocks).
+- **Blocks** — *(enhanced)* Four block pages (Landing hero, Pricing, Dashboard, Docs layout) under `/blocks`; each has **Usage** section with **Astro | Svelte | React | Vue | Vanilla** code tabs (see `src/config/blockCodeSnippets.ts`). Preview + CLI instructions and component references. See [Blocks](/blocks) and [COMPONENTS.md](./COMPONENTS.md).
 - Templates (landing, dashboard, docs-site starter) *(optional)*.
 
 ---
@@ -79,6 +88,7 @@ Potential tasks to consider when prioritizing work; not in priority order.
 ### General
 - **Stability / maturity** — *(documented)* [MAINTAINING.md – Stability and versioning](./MAINTAINING.md#stability-and-versioning): pre-1.0, semver, and 1.0 considerations.
 - **Contributing** — *(done)* [Checklist for new component PRs](../CONTRIBUTING.md#checklist-for-new-component-prs) in CONTRIBUTING.md; PR template links to it.
+- **Post-deploy smoke test** — *(done)* `pnpm test:smoke` builds the site, starts preview, and runs Playwright smoke tests (`tests/smoke.spec.mjs`) for key routes (home, docs, components, blocks, themes). Run against deployed site with `BASE_URL=https://your-domain.com pnpm test:smoke`. See [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ---
 
@@ -95,7 +105,7 @@ Items above that are **not** marked *(done)* and are not manual-only:
 | **Frameworks** | React: *(all 56 done)*; Vue components; in-repo framework routes |
 | **General** | — *(stability/semver documented)* |
 
-**Remaining (priority)** — Manual a11y testing (keyboard + screen reader); optional Storybook; multi-framework React/Vue; in-repo framework routes; cross-browser/manual device testing as needed.
+**Remaining (priority)** — Manual a11y testing (keyboard + screen reader); optional Storybook; multi-framework React/Vue; in-repo framework routes; cross-browser/manual device testing as needed. Production hardening, block framework tabs, smoke test, and footer version are in place; docs, components, and CLI are up to date.
 
 ---
 

@@ -2,6 +2,8 @@
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
 import Card from '../../components/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
+import { LANDING_HERO_SNIPPETS } from '../../config/blockCodeSnippets';
 ---
 
 <BlocksLayout
@@ -26,6 +28,18 @@ import CodeBlock from '../../components/CodeBlock.astro';
 				</div>
 			</header>
 		</div>
+	</section>
+
+	<section>
+		<h2 id="usage">Usage</h2>
+		<p>Copy the snippet for your framework. Same BEM classes and structure work everywhere.</p>
+		<FrameworkCodeTabs
+			astro={LANDING_HERO_SNIPPETS.astro}
+			svelte={LANDING_HERO_SNIPPETS.svelte}
+			react={LANDING_HERO_SNIPPETS.react}
+			vue={LANDING_HERO_SNIPPETS.vue}
+			vanilla={LANDING_HERO_SNIPPETS.vanilla}
+		/>
 	</section>
 
 	<section>

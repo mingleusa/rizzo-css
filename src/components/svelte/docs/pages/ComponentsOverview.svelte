@@ -58,7 +58,7 @@
 <section>
   <h2>Component library</h2>
   <p>These components are built with Svelte and use the same Rizzo CSS classes and variables. Each page includes live examples and usage snippets.</p>
-  <p><strong>Every framework:</strong> Each component also has an <a href="/docs/components">Astro</a> doc page (live demos + “Using classes” HTML). Vanilla uses the same HTML and BEM from the Astro Usage sections. Use the framework switcher at the top to toggle between Astro and Svelte docs.</p>
+  <p><strong>Every framework:</strong> Each component also has an <a href="/docs/components">Astro</a> doc page (live demos + “Using classes” HTML). Vanilla uses the same HTML and BEM from the Astro Usage sections. Use the framework switcher at the top to switch between Astro, Svelte, React, Vue, and Vanilla docs.</p>
 </section>
 
 <section>

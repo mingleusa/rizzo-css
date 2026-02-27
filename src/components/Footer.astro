@@ -13,6 +13,8 @@ interface Props {
   links?: FooterLink[];
   /** Optional class for the root element */
   class?: string;
+  /** Optional version string (e.g. from package.json); shown as "v0.0.63" with link to CHANGELOG */
+  version?: string;
 }
 
 const {
@@ -20,6 +22,7 @@ const {
   year = new Date().getFullYear(),
   links = [],
   class: className = '',
+  version,
 } = Astro.props;
 
 const classes = `footer ${className}`.trim();
@@ -49,6 +52,11 @@ const classes = `footer ${className}`.trim();
             ))}
           </ul>
         </nav>
+      ) : null}
+      {version ? (
+        <p class="footer__version" aria-label="Package version">
+          <a class="footer__link" href="/docs/overview" title="Documentation">v{version}</a>
+        </p>
       ) : null}
       <slot />
     </div>

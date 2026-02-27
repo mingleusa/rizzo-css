@@ -5207,6 +5207,20 @@ div.navbar__sublink {
   outline-offset: var(--outline-offset);
 }
 
+.footer__version {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.footer__version .footer__link {
+  color: var(--text-dim);
+}
+
+.footer__version .footer__link:hover {
+  color: var(--accent-fg);
+}
+
 /* Footer: on mobile and tablet, add bottom padding so fixed back-to-top button doesn’t cover content */
 @media (width <= 1024px) {
   .footer {

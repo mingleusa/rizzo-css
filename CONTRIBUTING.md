@@ -24,6 +24,7 @@ pnpm install
 | **Lint CSS** | `pnpm lint:css` or `pnpm lint:css:fix` |
 | **Package (scaffolds)** | `pnpm build:package` — build CSS, run copy-scaffold + prepare-vanilla-scaffold |
 | **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA) |
+| **Smoke tests** | `pnpm test:smoke` — build + preview + key-route checks (home, docs, blocks, themes). For deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke` |
 | **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
 | **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
 | **Bundle size budget** | `pnpm check:size` — build CSS and fail if package bundle exceeds budget (CI runs this). See [Bundle size](#bundle-size) below. |

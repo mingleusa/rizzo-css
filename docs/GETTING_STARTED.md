@@ -120,7 +120,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 - **Reference implementation:** This repo is an Astro app. Use the Astro components from `src/components/` directly if your project is Astro, or copy the markup and class names from the component source or the [component docs](/docs/components).
 - **Scaffold:** Astro layout includes **theme flash prevention** and **toast**. Package includes **Navbar**, **Search**, **Settings** in `scaffold/astro/` (lightweight versions). Add via CLI (templates **Landing** | **Docs** | **Dashboard** | **Full**) or copy from this repo.
-- **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn--primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components). **Interactive components run their scripts after DOM ready**, so Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, etc. work when imported without extra setup. **Keyboard and click-outside:** Search, Settings, and the Navbar mobile menu all close on Escape and when clicking outside (backdrop/overlay); Search and Settings use focus trapping inside the panel. Each component doc page has **Astro | Svelte | Vanilla** code tabs with complete, copy-paste examples.
+- **Class names and structure:** All components use BEM classes (e.g. `btn`, `btn--primary`, `navbar`, `navbar__container`). Apply the same HTML structure and class names as in the [Components documentation](/docs/components). **Interactive components run their scripts after DOM ready**, so Navbar, Settings, Modal, Dropdown, Tabs, Accordion, Search, etc. work when imported without extra setup. **Keyboard and click-outside:** Search, Settings, and the Navbar mobile menu all close on Escape and when clicking outside (backdrop/overlay); Search and Settings use focus trapping inside the panel. Each component doc page has **Astro | Svelte | React | Vue | Vanilla** code tabs with complete, copy-paste examples.
 
 ### Step 5: Use components (Svelte)
 
@@ -129,7 +129,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
   import { Button, Badge, Card, Modal, Tabs, /* ... */ } from '$lib/rizzo';
   ```
 - **Scaffold:** Svelte `app.html` includes **theme flash prevention** and **toast**. Package includes **Navbar**, **Search**, **Settings** in `scaffold/svelte/` (lightweight versions). Add via CLI or copy from this repo.
-- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla") on any component or theme page to switch views.
+- **Docs and examples:** The docs site has a full Svelte section at **[/docs/svelte](/docs/svelte)** with component pages and a Vanilla section at **[/docs/vanilla/components](/docs/vanilla/components)** with copy-paste HTML, optional JS, and live demos. Use the **framework switcher** ("View as: Astro | Svelte | Vanilla | React | Vue") on any component or theme page to switch views.
 - **Themes:** Set the theme via `data-theme` on `<html>` (e.g. `github-dark-classic`, `github-light`). Persist with `localStorage` key `theme`; use `system` for OS preference. Theme IDs are in [Theming](./THEMING.md#available-themes). The same CSS and theme variables apply.
 
 ### React and Vue

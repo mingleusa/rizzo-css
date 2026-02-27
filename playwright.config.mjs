@@ -15,12 +15,17 @@ export default defineConfig({
   timeout: isCI ? 60_000 : 30_000,
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : [['html', { open: 'never' }]],
   use: {
-    baseURL: PREVIEW_URL,
+    baseURL: process.env.BASE_URL || PREVIEW_URL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
     actionTimeout: isCI ? 15_000 : 10_000,
   },
   projects: [
+    {
+      name: 'smoke',
+      use: { ...devices['Desktop Chrome'] },
+      testMatch: /smoke\.spec\.m?js/,
+    },
     {
       name: 'a11y',
       use: { ...devices['Desktop Chrome'] },

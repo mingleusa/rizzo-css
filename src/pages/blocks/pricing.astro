@@ -2,6 +2,8 @@
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
 import Card from '../../components/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
+import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
+import { PRICING_SNIPPETS } from '../../config/blockCodeSnippets';
 ---
 
 <BlocksLayout
@@ -62,16 +64,20 @@ import CodeBlock from '../../components/CodeBlock.astro';
 	</section>
 
 	<section>
+		<h2 id="usage">Usage</h2>
+		<p>Copy the snippet for your framework. Card component (Astro/React/Vue) or raw HTML with <code>card card--elevated</code> (Svelte/Vanilla).</p>
+		<FrameworkCodeTabs
+			astro={PRICING_SNIPPETS.astro}
+			svelte={PRICING_SNIPPETS.svelte}
+			react={PRICING_SNIPPETS.react}
+			vue={PRICING_SNIPPETS.vue}
+			vanilla={PRICING_SNIPPETS.vanilla}
+		/>
+	</section>
+
+	<section>
 		<h2 id="scaffold">Use in your project</h2>
-		<p>Copy the structure above. Cards use <code>variant="elevated"</code>; prices and features use design tokens. Add your own links and copy.</p>
-		<CodeBlock code={`<Card variant="elevated" class="pricing-card">
-  <div class="card__body">
-    <h3>Pro</h3>
-    <p class="pricing-card__price">$12<span>/mo</span></p>
-    <ul class="pricing-card__features">...</ul>
-    <a href="#" class="btn btn-primary">Start trial</a>
-  </div>
-</Card>`} language="astro" />
+		<p>Cards use <code>variant="elevated"</code> (or <code>card--elevated</code>); prices and features use design tokens. Add your own links and copy.</p>
 	</section>
 
 	<section>

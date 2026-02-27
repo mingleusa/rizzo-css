@@ -29,7 +29,7 @@ Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BE
 
 ## Components
 
-All components in the CLI and scaffold; same BEM/CSS for Astro, Svelte, and Vanilla. Each has a doc page with live examples and Astro | Svelte | Vanilla tabs.
+All components in the CLI and scaffold; same BEM/CSS for Astro, Svelte, React, Vue, and Vanilla. Each has a doc page with live examples and Astro | Svelte | React | Vue | Vanilla tabs.
 
 ### Layout & navigation
 
