@@ -305,7 +305,11 @@ const { open = false } = Astro.props;
 
     // Focus trapping and keyboard handlers
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (panel.getAttribute('data-open') !== 'true') return;
+      // Consider "open" when root aria-hidden is false (panel is visible). Don't rely only on
+      // data-open: in WebKit headless/CI requestAnimationFrame can be throttled, so data-open
+      // may not be set yet when the user presses Escape.
+      const isOpen = settings.getAttribute('aria-hidden') === 'false';
+      if (!isOpen) return;
 
       if (e.key === 'Escape') {
         e.preventDefault();

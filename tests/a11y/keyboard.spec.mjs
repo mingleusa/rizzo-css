@@ -170,7 +170,8 @@ test.describe('Keyboard accessibility (settings)', () => {
     const panel = page.locator('.settings__panel').first();
     await expect(panel).toBeVisible({ timeout: 3000 });
     await page.keyboard.press('Escape');
-    await page.waitForTimeout(300);
+    // Settings close uses setTimeout(300ms); wait for it to finish so CI (WebKit) and local stay in sync
+    await page.waitForTimeout(400);
     const overlay = page.locator('[data-settings]').first();
     await expect(overlay).toHaveAttribute('aria-hidden', 'true');
   });
@@ -184,7 +185,8 @@ test.describe('Keyboard accessibility (settings)', () => {
     const panel = page.locator('.settings__panel').first();
     await expect(panel).toBeVisible({ timeout: 3000 });
     await page.keyboard.press('Escape');
-    await page.waitForTimeout(300);
+    // Settings close uses setTimeout(300ms); wait for focus restore so CI (WebKit) and local stay in sync
+    await page.waitForTimeout(400);
     await expect(trigger).toBeFocused();
   });
 });

@@ -94,7 +94,7 @@ const DOCS_A11Y_ROUTES = [
 ];
 
 test.describe('Docs site accessibility (axe)', () => {
-  test.setTimeout(60_000); // axe.analyze() can be slow on large pages
+  test.setTimeout(90_000); // axe.analyze() can be slow on large pages; WebKit needs extra time in CI
   for (const route of DOCS_A11Y_ROUTES) {
     const name = route || 'homepage';
     test(`${name} has no critical or serious axe violations`, async ({ page }) => {

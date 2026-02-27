@@ -35,6 +35,7 @@ export default defineConfig({
       name: 'a11y-webkit',
       use: { ...devices['Desktop Safari'] },
       testMatch: /a11y\/.*\.spec\.m?js/,
+      timeout: isCI ? 120_000 : 60_000, // WebKit/axe can be slow; avoid "browser has been closed" timeouts
     },
     {
       name: 'a11y-edge',
