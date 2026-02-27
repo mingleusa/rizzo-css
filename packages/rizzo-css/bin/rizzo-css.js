@@ -564,6 +564,26 @@ function copySvelteGitignore(projectDir) {
   }
 }
 
+/** Copy React scaffold gitignore into project as .gitignore. */
+function copyReactGitignore(projectDir) {
+  const gitignorePath = join(getScaffoldReactCoreDir(), SCAFFOLD_GITIGNORE_FILE);
+  if (existsSync(gitignorePath)) {
+    copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+    const copiedAsFile = join(projectDir, SCAFFOLD_GITIGNORE_FILE);
+    if (existsSync(copiedAsFile)) unlinkSync(copiedAsFile);
+  }
+}
+
+/** Copy Vue scaffold gitignore into project as .gitignore. */
+function copyVueGitignore(projectDir) {
+  const gitignorePath = join(getScaffoldVueCoreDir(), SCAFFOLD_GITIGNORE_FILE);
+  if (existsSync(gitignorePath)) {
+    copyFileSync(gitignorePath, join(projectDir, '.gitignore'));
+    const copiedAsFile = join(projectDir, SCAFFOLD_GITIGNORE_FILE);
+    if (existsSync(copiedAsFile)) unlinkSync(copiedAsFile);
+  }
+}
+
 /** Read rizzo-css.json from cwd. Returns { targetDir?, framework?, packageManager?, theme? } or null. Preserves unknown keys. */
 function readRizzoConfig(cwd) {
   if (!cwd || !existsSync(cwd)) return null;
@@ -1702,6 +1722,14 @@ function getScaffoldSvelteCoreDir() {
   return join(getPackageRoot(), 'scaffold', 'svelte', 'base');
 }
 
+function getScaffoldReactCoreDir() {
+  return join(getPackageRoot(), 'scaffold', 'react', 'base');
+}
+
+function getScaffoldVueCoreDir() {
+  return join(getPackageRoot(), 'scaffold', 'vue', 'base');
+}
+
 function copyDirRecursive(src, dest) {
   mkdirSync(dest, { recursive: true });
   const entries = readdirSync(src, { withFileTypes: true });
@@ -2202,13 +2230,15 @@ async function runAddToExisting(frameworkOverride, options) {
   let addSkippedFiles = [];
   const astroCoreDir = getScaffoldAstroCoreDir();
   const svelteCoreDir = getScaffoldSvelteCoreDir();
+  const reactCoreDir = getScaffoldReactCoreDir();
+  const vueCoreDir = getScaffoldVueCoreDir();
   const themeCommentAdd = '  <!-- Initial: ' + theme + '; dark: ' + defaultDark + '; light: ' + defaultLight + ' (all 14 themes in CSS) -->';
   const copyOpts = options.dryRun && options.plan ? options : undefined;
   if (framework === 'vanilla' && getVariantDir('vanilla', selectedVariation)) {
     const vanillaRepl = { '{{LINK_HREF}}': 'css/rizzo.min.css', '{{TITLE}}': 'App', '{{DATA_THEME}}': theme, '{{THEME_LIST_COMMENT}}': themeCommentAdd };
     const variantResult = copyVariantOverlayNoOverwrite(cwd, 'vanilla', selectedVariation, vanillaRepl, copyOpts);
     if (variantResult && variantResult.skipped) addSkippedFiles = variantResult.skipped;
-  } else if (selectedVariation !== 'css-only' && ((framework === 'astro' && existsSync(astroCoreDir)) || (framework === 'svelte' && existsSync(svelteCoreDir)))) {
+  } else if (selectedVariation !== 'css-only' && ((framework === 'astro' && existsSync(astroCoreDir)) || (framework === 'svelte' && existsSync(svelteCoreDir)) || (framework === 'react' && existsSync(reactCoreDir)) || (framework === 'vue' && existsSync(vueCoreDir)))) {
     const themeComment = themeCommentAdd;
     const replacements = {
       '{{DATA_THEME}}': theme,
@@ -2254,6 +2284,14 @@ async function runAddToExisting(frameworkOverride, options) {
     } else if (framework === 'svelte') {
       const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(svelteCoreDir, cwd, replacements, cwd, copyOpts);
       const variantResult = copyVariantOverlayNoOverwrite(cwd, 'svelte', selectedVariation, replacements, copyOpts);
+      addSkippedFiles = baseResult.skipped.concat(variantResult.skipped || []);
+    } else if (framework === 'react') {
+      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(reactCoreDir, cwd, replacements, cwd, copyOpts);
+      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'react', selectedVariation, replacements, copyOpts);
+      addSkippedFiles = baseResult.skipped.concat(variantResult.skipped || []);
+    } else if (framework === 'vue') {
+      const baseResult = copyDirRecursiveWithReplacementsNoOverwrite(vueCoreDir, cwd, replacements, cwd, copyOpts);
+      const variantResult = copyVariantOverlayNoOverwrite(cwd, 'vue', selectedVariation, replacements, copyOpts);
       addSkippedFiles = baseResult.skipped.concat(variantResult.skipped || []);
     }
   }
@@ -2607,12 +2645,16 @@ async function cmdInit(argv) {
 
   const astroCoreDir = getScaffoldAstroCoreDir();
   const svelteCoreDir = getScaffoldSvelteCoreDir();
+  const reactCoreDir = getScaffoldReactCoreDir();
+  const vueCoreDir = getScaffoldVueCoreDir();
   const pathsForScaffold = getFrameworkCssPaths(framework);
   const useFullVariant = selectedVariation === 'full' && hasFullVariant(framework);
   const useHandpickAstro = selectedTemplate === 'full' && !fullAllComponents && framework === 'astro' && existsSync(astroCoreDir) && !useFullVariant;
   const useHandpickSvelte = selectedTemplate === 'full' && !fullAllComponents && framework === 'svelte' && existsSync(svelteCoreDir) && !useFullVariant;
   const useAstroBase = selectedTemplate === 'full' && fullAllComponents && framework === 'astro' && existsSync(astroCoreDir) && !useFullVariant;
   const useSvelteBase = selectedTemplate === 'full' && fullAllComponents && framework === 'svelte' && existsSync(svelteCoreDir) && !useFullVariant;
+  const useReactBase = selectedVariation !== 'css-only' && framework === 'react' && existsSync(reactCoreDir);
+  const useVueBase = selectedVariation !== 'css-only' && framework === 'vue' && existsSync(vueCoreDir);
   const useVanillaCore = selectedTemplate === 'full' && fullAllComponents && framework === 'vanilla' && existsSync(getScaffoldVanillaIndex()) && !useFullVariant && selectedVariation === 'landing';
   const useVanillaWithOverlay = selectedTemplate === 'full' && framework === 'vanilla' && (selectedVariation === 'docs' || selectedVariation === 'dashboard') && getVariantDir('vanilla', selectedVariation);
 
@@ -2798,6 +2840,38 @@ async function cmdInit(argv) {
       copyRizzoIcons(projectDir, 'svelte');
       copySvelteComponents(projectDir, componentsToCopy);
     }
+  } else if (useReactBase) {
+    mkdirSync(projectDir, { recursive: true });
+    const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(reactCoreDir, projectDir, replacements, projectDir);
+    copyVariantOverlay(projectDir, 'react', selectedVariation, replacements);
+    copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+    if (skipped.length > 0) {
+      writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('react', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+    }
+    cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+    if (existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    copyPackageLicense(projectDir);
+    copyReactGitignore(projectDir);
+    copyRizzoIcons(projectDir, 'react');
+    if (componentsToCopy.length > 0) copyReactComponents(projectDir, componentsToCopy);
+  } else if (useVueBase) {
+    mkdirSync(projectDir, { recursive: true });
+    const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(vueCoreDir, projectDir, replacements, projectDir);
+    copyVariantOverlay(projectDir, 'vue', selectedVariation, replacements);
+    copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+    if (skipped.length > 0) {
+      writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('vue', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+    }
+    cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+    if (existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
+      console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');
+    }
+    copyPackageLicense(projectDir);
+    copyVueGitignore(projectDir);
+    copyRizzoIcons(projectDir, 'vue');
+    if (componentsToCopy.length > 0) copyVueComponents(projectDir, componentsToCopy);
   } else if (selectedVariation === 'css-only') {
     // CSS only: no components, no web pages — just CSS, fonts, license, README, .gitignore (and framework base for Astro/Svelte)
     mkdirSync(projectDir, { recursive: true });
@@ -2828,6 +2902,24 @@ async function cmdInit(argv) {
       cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
       copyPackageLicense(projectDir);
       copySvelteGitignore(projectDir);
+    } else if (framework === 'react' && existsSync(reactCoreDir)) {
+      const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(reactCoreDir, projectDir, replacements, projectDir);
+      copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+      if (skipped.length > 0) {
+        writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('react', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+      }
+      cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+      copyPackageLicense(projectDir);
+      copyReactGitignore(projectDir);
+    } else if (framework === 'vue' && existsSync(vueCoreDir)) {
+      const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(vueCoreDir, projectDir, replacements, projectDir);
+      copyRizzoCssAndFontsForAstro(projectDir, cssSource);
+      if (skipped.length > 0) {
+        writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('vue', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
+      }
+      cssTarget = join(projectDir, 'public', 'css', 'rizzo.min.css');
+      copyPackageLicense(projectDir);
+      copyVueGitignore(projectDir);
     } else {
       // fallback: same as vanilla (no index.html)
       const cssDir = join(projectDir, pathsForScaffold.targetDir);
@@ -3033,7 +3125,7 @@ async function cmdInit(argv) {
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
   const runPrefix = projectDir !== cwd ? 'cd ' + pathRelative(cwd, projectDir) + ' && ' : '';
-  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte'));
+  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase || useReactBase || useVueBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
 
   console.log('\n  Scaffold complete. Summary above.');
 
@@ -3092,8 +3184,15 @@ async function cmdInit(argv) {
   if (useSvelteBase) {
     console.log('  - SvelteKit (core): app + ' + selectedComponents.length + ' component(s). Run: ' + runPrefix + nextStep);
   }
-  if ((framework === 'astro' || framework === 'svelte') && !useAstroBase && !useSvelteBase && !useHandpickAstro && !useHandpickSvelte) {
-    const fw = framework === 'svelte' ? 'Svelte' : 'Astro';
+  if (useReactBase) {
+    console.log('  - React (Vite): app + ' + (componentsToCopy.length > 0 ? componentsToCopy.length + ' component(s).' : 'base.') + ' Run: ' + runPrefix + nextStep);
+  }
+  if (useVueBase) {
+    console.log('  - Vue (Vite): app + ' + (componentsToCopy.length > 0 ? componentsToCopy.length + ' component(s).' : 'base.') + ' Run: ' + runPrefix + nextStep);
+  }
+  const hasBaseScaffold = useAstroBase || useSvelteBase || useHandpickAstro || useHandpickSvelte || useReactBase || useVueBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
+  if ((framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue') && !hasBaseScaffold) {
+    const fw = framework === 'svelte' ? 'Svelte' : framework === 'react' ? 'React' : framework === 'vue' ? 'Vue' : 'Astro';
     const createExample = getCreateProjectExample(pm, framework);
     console.log('\n  - Basic template (CSS + index). To get a full app: ' + createExample + ', then cd into the project and run ' + pm.dlx('rizzo-css add') + '.');
   }

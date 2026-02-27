@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.63",
+  "version": "0.0.64",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",
@@ -26,7 +26,8 @@
     "size": "node scripts/bundle-size.mjs",
     "check:size": "pnpm build:css && node scripts/bundle-size.mjs --check",
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
-    "publish:package": "cd packages/rizzo-css && npm publish"
+    "publish:package": "cd packages/rizzo-css && npm publish",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
@@ -47,6 +48,8 @@
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
     "sharp": "^0.34.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "stylelint": "^17.0.0",
     "stylelint-config-standard": "^40.0.0",
     "svelte": "^5.50.0",
@@ -60,5 +63,10 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "vue": "^3.5.29"
+  },
+  "lint-staged": {
+    "*.css": [
+      "stylelint --fix"
+    ]
   }
 }

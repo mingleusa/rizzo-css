@@ -4,9 +4,9 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 ## Features
 
-- **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro, Svelte, or React components. React docs and components at [/docs/react](https://rizzo-css.vercel.app/docs/react). Vue: same CSS; wrappers planned. See [Using Rizzo in your project](#using-rizzo-in-your-project).
+- **Using Rizzo** — Install from npm, clone + build, or CDN; import CSS once; use Astro, Svelte, React, or Vue components. React docs at [/docs/react](https://rizzo-css.vercel.app/docs/react), Vue at [/docs/vue](https://rizzo-css.vercel.app/docs/vue). See [Using Rizzo in your project](#using-rizzo-in-your-project).
 - **CLI** — `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. See [CLI at a glance](#cli-at-a-glance).
-- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte. **Templates:** **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). CSS only = no components; Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. **Add** = for existing projects (run in project root, then select components or CSS only). Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
+- **Package** — [rizzo-css](https://www.npmjs.com/package/rizzo-css): dist, CLI, scaffolds for Vanilla, Astro, Svelte, React, Vue. **Templates:** **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), **Full** (site clone). CSS only = no components; Landing/Docs/Dashboard get full framework + all components (all or pick); Full = site clone. We never overwrite; snippets in RIZZO-SETUP.md. **Add** = for existing projects (run in project root, then select components or CSS only). Full writes RIZZO-SNIPPET.txt unless `--no-snippet`. Scaffolds include LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
 - **Vanilla** — No node_modules. Same five templates as Astro/Svelte: **CSS only** = CSS + RIZZO-SETUP.md + license + .gitignore (no web pages or components). **Landing** = CSS + RIZZO-SETUP.md (or full index + all components if you choose “all”). **Docs** / **Dashboard** = docs or dashboard overlay + component pages (all or pick) + `js/main.js`, icons, sfx. **Full** = site clone (index + Navbar, Settings, Footer + all component pages + js + icons). Add component JS via [Vanilla docs](https://rizzo-css.vercel.app/docs/vanilla/components) or copy `js/main.js` from Full.
 - **CDN** — unpkg, jsDelivr; pin `.../rizzo-css@<version>/dist/rizzo.min.css`.
 - **Icons** — 53 total (31 Tabler-style, 22 devicons); same for Astro, Svelte, Vanilla.
@@ -17,7 +17,7 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | Framework (Vanilla / Astro / Svelte) → add to existing or create new. **New** → location, then template **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. **Full** = site clone (no picker); others = all 56 or pick components. `--yes --path <dir>` non-interactive. |
+| `npx rizzo-css init` | Framework (Vanilla / Astro / Svelte / React / Vue) → add to existing or create new. **New** → location, then template **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. **Full** = site clone (no picker); others = all 56 or pick components. `--yes --path <dir>` non-interactive. |
 | `npx rizzo-css add` | **For existing projects.** Run in project root. Choose template (CSS only \| Landing \| Docs \| Dashboard \| Full), then select which components to add (or CSS only). Writes RIZZO-SETUP.md; Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--dry-run` (preview files, no writes), `--readme`, `--force`, `--vanilla-js`. |
 | `npx rizzo-css theme` | List 14 theme IDs for `data-theme`. |
 | `npx rizzo-css doctor` | Check config, CSS path, layout link; validate theme (config + layout `data-theme`); check fonts and sfx paths; warn if CSS is very small; hint when rizzo-css is in node_modules. |
@@ -134,7 +134,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 ### React and Vue
 
-The **same CSS and BEM class names** work in React and Vue. **React:** We ship full React component implementations in-repo. All 56 components have full implementations, live demos, and React/TSX code blocks at [/docs/react](/docs/react). Copy components from `src/components/react/` or follow the docs. **Vue:** Same CSS; Vue components and docs are planned. See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
+The **same CSS and BEM class names** work in React and Vue. **React:** We ship full React component implementations in-repo. All 56 components have full implementations, live demos, and React/TSX code blocks at [/docs/react](/docs/react). Copy components from `src/components/react/` or follow the docs. **Vue:** Same CSS; full Vue docs and component examples at [/docs/vue](/docs/vue). See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
 
 ### JavaScript utilities
 

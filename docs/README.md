@@ -13,7 +13,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | [THEMING.md](./THEMING.md) | Themes, theme switcher, building your own |
 | [COLORS.md](./COLORS.md) | Color system, OKLCH, format conversion |
 | [ACCESSIBILITY.md](./ACCESSIBILITY.md) | A11y features, testing, manual checklist |
-| [MULTI_FRAMEWORK.md](./MULTI_FRAMEWORK.md) | Vanilla, Astro, Svelte, React; same CSS and components |
+| [MULTI_FRAMEWORK.md](./MULTI_FRAMEWORK.md) | Vanilla, Astro, Svelte, React, Vue; same CSS and components |
 | [SOUNDS_AND_FONTS.md](./SOUNDS_AND_FONTS.md) | Sound effects and font pairs (where they live, behavior) |
 | [BEST_PRACTICES.md](./BEST_PRACTICES.md) | Component composition patterns, performance optimization tips |
 
@@ -27,7 +27,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.63), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.64), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -56,8 +56,10 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
-| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, config/, shared/, utils/) — astro and svelte include base/ and variants/ |
+| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, react/, vue/, config/, shared/, utils/) — astro and svelte include base/ and variants/; react and vue include base/ (Vite). |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
-| **tests/** | Playwright a11y tests |
+| **tests/** | Playwright a11y tests (`tests/a11y/`) and smoke tests (`tests/smoke.spec.mjs`) |
+| **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |
+| **vercel.json** | Cache and security headers for deploy. CI: [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when relevant paths change. |
 
 Site pages (Astro) live under `src/pages/`: docs (`docs/`), blocks (`blocks/` with BlocksLayout), themes, colors. The navbar uses flat links: Docs | Components | Blocks | Themes | Colors. Markdown in `docs/` is the source of truth for maintainers and contributors.

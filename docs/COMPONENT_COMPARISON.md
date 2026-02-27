@@ -1,10 +1,10 @@
 # Component inventory and gaps
 
-This document lists Rizzo CSS components, Rizzo-only components, and planned or missing patterns. Use it to spot gaps, plan new components, and keep framework parity (Astro, Svelte, Vanilla) and accessibility in mind.
+This document lists Rizzo CSS components, Rizzo-only components, and planned or missing patterns. Use it to spot gaps, plan new components, and keep framework parity (Astro, Svelte, React, Vue, Vanilla) and accessibility in mind.
 
 ## Summary
 
-- **Rizzo has** all components in the CLI and scaffold (including Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). Same BEM/CSS for Astro, Svelte, and Vanilla. Dashboard has full parity (Astro, Svelte, Vanilla).
+- **Rizzo has** all components in the CLI and scaffold (including Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). Same BEM/CSS for Astro, Svelte, React, Vue, and Vanilla. Dashboard has full parity across frameworks.
 - **Framework parity:** All components (including **Dashboard**) have docs and examples for Astro, Svelte, and Vanilla.
 - **Accessibility:** Rizzo runs axe (WCAG 2 A/AA) on all doc and block routes via `pnpm test:a11y`. New or updated components should follow the same a11y patterns (keyboard, ARIA, focus, contrast).
 
@@ -126,7 +126,7 @@ Prioritized for planning (not all may be needed):
 - **Astro:** Component doc pages under `/docs/components/` (including Dashboard, Forms, Icons, etc.).
 - **Svelte:** Component doc pages under `/docs/svelte` (components overview and per-component pages).
 - **Vanilla:** Component doc pages under `/docs/vanilla/components/` (including Dashboard).
-- **A11y:** Dashboard is included in `COMPONENT_SLUGS` in `tests/a11y/docs.spec.mjs`, so all three framework routes are tested.
+- **A11y:** Dashboard is included in `COMPONENT_SLUGS` in `tests/a11y/docs.spec.mjs`, so all framework doc routes (Astro, Svelte, React, Vue, Vanilla) are tested.
 
 ---
 

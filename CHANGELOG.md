@@ -4,11 +4,10 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- New blocks: **Landing hero** and **Pricing cards** (design tokens, Card/Button/Badge). Block routes included in a11y axe runs.
-- Vue doc live examples and code blocks for all component pages; Vue routes covered by axe (keyboard/ARIA remain Astro + React only).
-- Vanilla tab copy-paste HTML for theme-switcher, settings, font-switcher, back-to-top, and forms.
-- **rizzo-css** npm package now ships **React and Vue scaffolds** (added to `files`); description and keywords updated for all five frameworks.
-- TypeScript: proper `ReactComponentSlug` usage in Astro/registry; window globals and Modal `inert` typed; Tabs `iconComponent` typed.
+## [0.0.64] - 2025-02-25
+
+- **React and Vue scaffolds:** Full base scaffolds for distribution. `scaffold/react/base/` (Vite + React) and `scaffold/vue/base/` (Vite + Vue) with package.json, index.html, theme script, src entry and App; CLI copies base for init/add (Landing, Docs, Dashboard, CSS only). React/Vue gitignore, create-new and add-to-existing branches, css-only and success messaging updated.
+- Docs and README: all five frameworks and scaffolds (TEMPLATES, FRAMEWORK_STRUCTURE, TODO, MULTI_FRAMEWORK, SOUNDS_AND_FONTS, README badges/examples) aligned with current state. Version references updated for 0.0.64.
 
 ## [0.0.63] - 2025-02-25
 
@@ -28,7 +27,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.63...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.64...HEAD
+[0.0.64]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.64
 [0.0.63]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.63
 [0.0.62]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.62
 [0.0.61]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.61

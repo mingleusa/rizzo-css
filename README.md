@@ -17,13 +17,13 @@
 <span style="color:#c44536 !important">| |_) </span><span style="color:#e07c3e !important">|| |  </span><span style="color:#d4a800 !important">/ /  /</span><span style="color:#2d9d78 !important"> / | |</span><span style="color:#0052bd !important"> | | |</span><span style="color:#7c3aed !important">   \__</span><span style="color:#d946ef !important">_ \___ \</span>
 <span style="color:#c44536 !important">|  _ &lt;</span><span style="color:#e07c3e !important"> | | /</span><span style="color:#d4a800 !important"> /_ / </span><span style="color:#2d9d78 !important">/| |_|</span><span style="color:#0052bd !important"> | | |</span><span style="color:#7c3aed !important">___ __</span><span style="color:#d946ef !important">_) |__) |</span>
 <span style="color:#c44536 !important">|_| \_</span><span style="color:#e07c3e !important">\___/_</span><span style="color:#d4a800 !important">___/__</span><span style="color:#2d9d78 !important">__\___</span><span style="color:#0052bd !important">/   \_</span><span style="color:#7c3aed !important">___|__</span><span style="color:#d946ef !important">__/____/</span><br><br>
-  Design system · Vanilla · Astro · Svelte
+  Design system · Vanilla · Astro · Svelte . React . Vue
 </pre>
 </div> -->
 
 *Run `npx rizzo-css help` to see this in the CLI (rainbow uses our theme colors).*
 
-[![npm](https://img.shields.io/badge/npm-0.0.63-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.64-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
 ![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
@@ -48,7 +48,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
 - 📦 **Comprehensive Components** - 56+ accessible, themeable components (Astro reference + Svelte + React + Vanilla docs)
-- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 56 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Svelte | React | Vanilla)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, and Svelte scaffolds. Framework switcher: **View as: Astro | Svelte | Vanilla | React | Vue**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 56 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Svelte | React | Vue | Vanilla)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, Svelte, React, and Vue scaffolds. Framework switcher: **View as: Astro | Svelte | Vanilla | React | Vue**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -111,6 +111,7 @@ Site available at `http://localhost:4321`
 | `pnpm test:a11y:ci` | Install Chromium and run a11y tests (for CI). |
 | `pnpm test:a11y:ci:cross-browser` | Run a11y tests on Chromium, Firefox, and WebKit (same as CI). See [BROWSER_SUPPORT](docs/BROWSER_SUPPORT.md#testing). |
 | `pnpm check:size` | Build CSS and fail if package bundle exceeds 450 kB (CI runs this). See [CONTRIBUTING](CONTRIBUTING.md#bundle-size). |
+| `pnpm test:smoke` | Build and run smoke tests (key routes: home, docs, blocks, themes). Pre-push hook runs this. See [CONTRIBUTING](CONTRIBUTING.md). |
 
 ## 🎨 CSS Setup
 
@@ -204,7 +205,7 @@ Comprehensive documentation is in the `docs/` directory and on the live site. **
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines, utility classes, best practices, and manual accessibility testing (keyboard, screen reader, tools)
 - [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) - Astro vs Svelte layout; framework switcher
-- [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Svelte (done); React/Vue (planned)
+- [Multi-Framework Strategy](./docs/MULTI_FRAMEWORK.md) - Vanilla, Astro, Svelte, React, Vue (same CSS; docs and scaffolds for all five)
 - [Publishing](./docs/PUBLISHING.md) - How to publish the npm package
 - [Changelog](./CHANGELOG.md) - Package and design system releases
 - [TODO](./docs/TODO.md) - Roadmap and tasks
