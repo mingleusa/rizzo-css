@@ -1,0 +1,39 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+
+const copyableHtml = `<div class="input-group">
+  <div class="input-group__wrapper">
+    <span class="input-group__addon input-group__addon--prefix" aria-hidden="true">$</span>
+    <input class="input-group__input" type="text" placeholder="0.00" aria-label="Amount" />
+    <span class="input-group__addon input-group__addon--suffix" aria-hidden="true">USD</span>
+  </div>
+</div>`;
+---
+
+<DocsLayout title="Input Group — Vanilla" description="Input with prefix/suffix addons. Ensure Rizzo CSS is loaded.">
+  <section>
+    <h2>Input Group</h2>
+    <p>Wrap an input with <code>input-group__wrapper</code> and optional <code>input-group__addon--prefix</code> / <code>input-group__addon--suffix</code>. Use <code>input-group--error</code> or <code>input-group--success</code> on the root for validation states.</p>
+    <AddComponentTabs componentName="Input Group" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <div class="input-group">
+        <div class="input-group__wrapper">
+          <span class="input-group__addon input-group__addon--prefix" aria-hidden="true">$</span>
+          <input class="input-group__input" type="text" placeholder="0.00" aria-label="Amount" />
+          <span class="input-group__addon input-group__addon--suffix" aria-hidden="true">USD</span>
+        </div>
+      </div>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={copyableHtml} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/input-group">Astro</a> · <a href="/docs/svelte/components/input-group">Svelte</a> · <a href="/docs/react/components/input-group">React</a> · <a href="/docs/vue/components/input-group">Vue</a></p>
+  </section>
+</DocsLayout>
+
+<style>
+  .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
+  .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
+</style>

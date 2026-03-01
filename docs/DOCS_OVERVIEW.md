@@ -1,6 +1,6 @@
 # Rizzo CSS — Documentation overview
 
-Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BEM components. Same CSS and components for **Vanilla JS**, **Astro**, and **Svelte**. Open source. CLI for init, add, and templates (CSS only | Landing | Docs | Dashboard | Full).
+Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BEM components. Same CSS and components for **Vanilla JS**, **Astro**, **Svelte**, **React**, and **Vue**. Open source. CLI for init, add, and templates (CSS only | Landing | Docs | Dashboard | Full).
 
 **Live docs:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
 
@@ -9,7 +9,7 @@ Rizzo CSS is a design system with semantic theming, 14 themes, and accessible BE
 ## Overview
 
 - **[Getting Started](./GETTING_STARTED.md)** — Installation, CLI, templates (CSS only | Landing | Docs | Dashboard | Full), using components.
-- **[Templates](./TEMPLATES.md)** — What each template ships per framework (Vanilla, Astro, Svelte); consistent across all three.
+- **[Templates](./TEMPLATES.md)** — What each template ships per framework (Vanilla, Astro, Svelte, React, Vue); consistent across all five.
 - **[CLI](./CLI.md)** — `npx rizzo-css init | add | theme | doctor | help`; templates and component picker.
 - **[rizzo-css.json](./CLI.md#config-rizzo-cssjson)** — Optional config: `targetDir`, `framework`, `packageManager`, `theme`.
 - **[Design System](./DESIGN_SYSTEM.md)** — Semantic variables, typography, utilities, naming.

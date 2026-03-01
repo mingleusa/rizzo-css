@@ -228,7 +228,7 @@ All buttons and components using colored backgrounds automatically use these con
 
 ### Theming variables used by components
 
-Components (Astro and Svelte) use semantic theme variables so every theme can guarantee WCAG AA contrast:
+Components (Astro, Svelte, React, Vue, and Vanilla) use semantic theme variables so every theme can guarantee WCAG AA contrast:
 
 | Use | Variables | Where used |
 |-----|-----------|------------|
@@ -363,7 +363,7 @@ When implementing or porting a component (Astro, Svelte, Vanilla, React, or Vue)
 | **Slider** | `role="slider"` or native `<input type="range">` with `aria-valuemin`, `aria-valuemax`, `aria-valuenow` | Arrows change value; Home/End to min/max | — |
 | **Toggle / Toggle Group** | Button `aria-pressed="true"` or `"false"` | Enter/Space toggles | — |
 
-Use this table when adding a new component or porting to another framework so Astro, Svelte, and Vanilla stay in sync.
+Use this table when adding a new component or porting to another framework so Astro, Svelte, React, Vue, and Vanilla stay in sync.
 
 ## Manual accessibility testing
 

@@ -1,10 +1,10 @@
 # Design System
 
-Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth** for styling. The same CSS and component styles ship for Vanilla, Astro, and Svelte in the **rizzo-css** package (dist, CLI, scaffolds; see [PUBLISHING](./PUBLISHING.md)). Porting to React/Vue needs only JS + same BEM markup. JS utilities (theme, storage, clipboard, toast): [GETTING_STARTED](./GETTING_STARTED.md#javascript-utilities).
+Rizzo CSS uses semantic theming (CSS custom properties) as the **source of truth** for styling. The same CSS and component styles ship for Vanilla, Astro, Svelte, React, and Vue in the **rizzo-css** package (dist, CLI, scaffolds; see [PUBLISHING](./PUBLISHING.md)). React and Vue use the same BEM markup and design tokens; all five frameworks share one CSS bundle. JS utilities (theme, storage, clipboard, toast): [GETTING_STARTED](./GETTING_STARTED.md#javascript-utilities).
 
 ## Features
 
-- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 56 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
+- **One package, any framework** — Single **rizzo-css** (CSS, CLI, scaffolds). Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 57 or pick). [PUBLISHING](./PUBLISHING.md) for version/CDN and scaffold READMEs.
 - **Standardized CSS variables** — Border widths (`--border-width`, `--border-width-2`–`4`, `--border-width-accent`), viewport heights (`--vh-70`, `--vh-80`, `--vh-90`), `--radius-circle`, layout limits (e.g. `--max-height-navbar-submenu`), and component sizing (e.g. `--theme-switcher-width` so the theme switcher trigger and dropdown are the same width everywhere and fit the longest theme name on one line) are defined in the design system. Components, forms, layout, accessibility, and utilities use these variables instead of hardcoded values.
 - **Layout consistency** — All main containers use `--container-default` (max-width) and `--content-padding-x` for horizontal padding so content aligns site-wide. Cards (`.card`), alerts (`.alert`), and table wrappers (`.table__wrapper`) use `width: 100%` and `min-width: 0` so they fill their container and behave correctly in flex/grid layouts.
 

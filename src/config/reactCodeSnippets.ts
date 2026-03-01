@@ -311,6 +311,11 @@ const [open, setOpen] = useState(false);
   <p>Hover card content.</p>
 </HoverCard>`,
 
+  'input-group': `import { InputGroup } from './components/react';
+
+<InputGroup prefix="$" suffix="USD" placeholder="0.00" />
+<InputGroup prefix="https://" suffix=".com" placeholder="site" />`,
+
   'context-menu': `import { ContextMenu } from './components/react';
 
 <ContextMenu trigger={<span>Right-click here</span>}>

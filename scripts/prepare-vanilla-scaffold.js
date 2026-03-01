@@ -17,7 +17,7 @@ const DOCS_BASE = 'https://rizzo-css.vercel.app';
 const COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'button-group',
   'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard', 'docs-sidebar', 'divider', 'dropdown', 'empty',
-  'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover',
+  'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover',
   'progress-bar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
   'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ];
@@ -64,7 +64,7 @@ function main() {
     <div class="home__container">
       <header class="home__hero">
         <h1 class="home__title">Rizzo CSS</h1>
-        <p class="home__subtitle">A modern CSS design system with semantic theming, accessibility-first components, and one CLI for Vanilla, Astro, and Svelte. Start here then make it your own.</p>
+        <p class="home__subtitle">A modern CSS design system with semantic theming, accessibility-first components, and one CLI for Vanilla, Astro, Svelte, React, and Vue. Start here then make it your own.</p>
         <div class="home__hero-ctas">
           <a href="${DOCS_BASE}/docs/getting-started" class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started</a>
           <a href="${DOCS_BASE}/docs/components" class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components</a>
@@ -72,7 +72,7 @@ function main() {
       </header>
       <section class="home__features" aria-labelledby="home-features-heading">
         <h2 id="home-features-heading" class="home__section-title">Features</h2>
-        <p class="home__features-intro">A complete design system that works across Vanilla, Astro, and Svelte — same CSS, same components, zero lock-in.</p>
+        <p class="home__features-intro">A complete design system that works across Vanilla, Astro, Svelte, React, and Vue — same CSS, same components, zero lock-in.</p>
         <div class="home__features-featured">
           <div class="home__card home__card--featured">
             <span class="home__card-icon" aria-hidden="true">Themes</span>

@@ -16,10 +16,13 @@ test.describe('Keyboard accessibility', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/docs/components/modal');
     await lockTheme(page);
+    await page.getByRole('main').waitFor({ state: 'visible', timeout: 10000 });
   });
 
   test('modal: Escape closes and focus returns to trigger', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: /open small modal/i }).first();
+    const main = page.getByRole('main');
+    const trigger = main.getByRole('button', { name: /open small modal/i }).first();
+    await trigger.waitFor({ state: 'visible', timeout: 10000 });
     await trigger.focus();
     await expect(trigger).toBeFocused();
     await page.keyboard.press('Enter');
@@ -33,7 +36,10 @@ test.describe('Keyboard accessibility', () => {
   });
 
   test('modal: focus moves into dialog when opened', async ({ page }) => {
-    await page.getByRole('button', { name: /open small modal/i }).first().click();
+    const main = page.getByRole('main');
+    const trigger = main.getByRole('button', { name: /open small modal/i }).first();
+    await trigger.waitFor({ state: 'visible', timeout: 10000 });
+    await trigger.click();
     const dialog = page.locator('.modal[data-open="true"]').first();
     await expect(dialog).toBeVisible();
     await page.waitForTimeout(100);
@@ -46,10 +52,13 @@ test.describe('Keyboard accessibility (dropdown)', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/docs/components/dropdown');
     await lockTheme(page);
+    await page.getByRole('main').waitFor({ state: 'visible', timeout: 10000 });
   });
 
   test('dropdown: Escape closes menu', async ({ page }) => {
-    const trigger = page.getByRole('button', { name: /^actions$/i }).first();
+    const main = page.getByRole('main');
+    const trigger = main.getByRole('button', { name: /actions/i }).first();
+    await trigger.waitFor({ state: 'visible', timeout: 10000 });
     await trigger.click();
     await page.waitForTimeout(150);
     const menu = trigger.locator('..').locator('[role="menu"]').first();
@@ -64,17 +73,19 @@ test.describe('Keyboard accessibility (tabs)', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/docs/components/tabs');
     await lockTheme(page);
+    await page.getByRole('main').waitFor({ state: 'visible', timeout: 10000 });
   });
 
   test('tabs: Tab reaches tab list, arrow keys change selection', async ({ page }) => {
-    const tablist = page.locator('[role="tablist"]').first();
-    await expect(tablist).toBeVisible();
-    const firstTab = page.locator('[role="tab"]').first();
-    firstTab.focus();
+    const main = page.getByRole('main');
+    const tablist = main.locator('[role="tablist"]').first();
+    await expect(tablist).toBeVisible({ timeout: 10000 });
+    const firstTab = main.locator('[role="tab"]').first();
+    await firstTab.focus();
     await expect(firstTab).toBeFocused();
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(100);
-    const tabs = page.locator('[role="tab"]');
+    const tabs = main.locator('[role="tab"]');
     const secondTab = tabs.nth(1);
     await expect(secondTab).toHaveAttribute('aria-selected', 'true');
   });

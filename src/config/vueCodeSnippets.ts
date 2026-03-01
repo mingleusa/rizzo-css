@@ -610,6 +610,17 @@ import Icons from '@/components/rizzo/Icons.vue';
 <template>
   <Icons />
 </template>`,
+
+  'input-group': `<script setup>
+import InputGroup from '@/components/rizzo/InputGroup.vue';
+</script>
+
+<template>
+  <InputGroup placeholder="0.00">
+    <template #prefix>$</template>
+    <template #suffix>USD</template>
+  </InputGroup>
+</template>`,
 };
 
 export function getAllVueCodeSnippets(): Record<string, string> {

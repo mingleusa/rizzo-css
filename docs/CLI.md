@@ -74,12 +74,12 @@ Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (sam
 | Vanilla | **Dashboard** | Landing + dashboard layout overlay. |
 | Vanilla | **Full** | index + js/main.js, icons, all component pages (all or pick). |
 | Astro | **CSS only** | Base only; CSS in public/css. No components. |
-| Astro | **Landing** | Full Astro base + hero/features page; 56 or pick components. |
+| Astro | **Landing** | Full Astro base + hero/features page; 57 or pick components. |
 | Astro | **Docs** | Base + docs layout + sidebar. |
 | Astro | **Dashboard** | Base + dashboard layout. |
 | Astro | **Full** | Clone of Rizzo docs site (no picker). |
 | Svelte | **CSS only** | Base only; CSS in static/css. No components. |
-| Svelte | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 56 or pick. |
+| Svelte | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 57 or pick. |
 | Svelte | **Full** | Clone of Rizzo docs site (no picker). |
 
 Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; Astro/Svelte include package.json and .env.example. `init --yes` defaults to **landing**; use `--template css-only|landing|docs|dashboard|full`.
@@ -119,7 +119,7 @@ When you add or pick components, the CLI automatically includes everything each 
 - [x] **Invocation:** Document and support npx, pnpm dlx, yarn (npx; Yarn 1 has no dlx), bunx.
 - [x] **Project’s PM:** Use detected (or chosen) PM for printed install/add/run commands.
 - [x] **Init (new):** Template: Landing | Docs | Dashboard | Full. Full = site clone; others = component picker with all interactive components pre-selected. Package manager prompted. Every scaffold includes LICENSE-RIZZO, README-RIZZO.md, .gitignore; Astro/Svelte include package.json and .env.example.
-- [x] **Add / init (existing):** Same template choice. Landing/Docs/Dashboard = picker (all 56 or pick). Full = RIZZO-SNIPPET.txt too. All templates write RIZZO-SETUP.md; Full also writes RIZZO-SNIPPET.txt. Detect framework and PM; print correct commands and “To install the package: …”.
+- [x] **Add / init (existing):** Same template choice. Landing/Docs/Dashboard = picker (all 57 or pick). Full = RIZZO-SNIPPET.txt too. All templates write RIZZO-SETUP.md; Full also writes RIZZO-SNIPPET.txt. Detect framework and PM; print correct commands and “To install the package: …”.
 - [x] **Config file:** rizzo-css.json is written only when the project does not already have one (targetDir, framework, packageManager, theme); read in add and init.
 - [x] **Run install:** `add --install-package` runs pm.add('rizzo-css') in cwd; `init` runs pm.install **in the project directory** after scaffold (with `--install` or when user confirms). `--no-install` skips.
 - [x] **Project path:** Init supports `--path <dir>` (with `--yes`) and interactive **enter path or project name** (one prompt; empty = current directory). Resolved relative to cwd or absolute; scaffold and install run in that directory. "Next step" shows `cd <relative-path> &&` when project is not cwd.

@@ -1,0 +1,74 @@
+---
+/**
+ * Input Group – input with optional prefix and/or suffix addons.
+ * BEM: input-group, input-group__wrapper, input-group__addon, input-group__addon--prefix|--suffix, input-group__input.
+ * Uses design tokens (--border, --accent, --text-dim, --radius-md, etc.).
+ */
+interface Props {
+  id?: string;
+  name?: string;
+  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search';
+  value?: string;
+  placeholder?: string;
+  required?: boolean;
+  disabled?: boolean;
+  readonly?: boolean;
+  autocomplete?: string;
+  class?: string;
+  error?: boolean;
+  success?: boolean;
+  /** ID for the inner input (for label for=""). */
+  inputId?: string;
+}
+
+const {
+  id,
+  name,
+  type = 'text',
+  value,
+  placeholder,
+  required = false,
+  disabled = false,
+  readonly = false,
+  autocomplete,
+  class: className = '',
+  error = false,
+  success = false,
+  inputId,
+} = Astro.props;
+
+const inputIdFinal = inputId ?? id ?? `input-group-${Math.random().toString(36).slice(2, 9)}`;
+const errorClass = error ? 'input-group--error' : '';
+const successClass = success ? 'input-group--success' : '';
+const rootClass = ['input-group', errorClass, successClass, className].filter(Boolean).join(' ');
+const hasPrefix = Astro.slots.has('prefix');
+const hasSuffix = Astro.slots.has('suffix');
+---
+
+<div class={rootClass}>
+  <div class="input-group__wrapper">
+    {hasPrefix && (
+      <span class="input-group__addon input-group__addon--prefix" aria-hidden="true">
+        <slot name="prefix" />
+      </span>
+    )}
+    <input
+      id={inputIdFinal}
+      name={name}
+      type={type}
+      value={value}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      readonly={readonly}
+      autocomplete={autocomplete}
+      class="input-group__input"
+      aria-invalid={error ? 'true' : undefined}
+    />
+    {hasSuffix && (
+      <span class="input-group__addon input-group__addon--suffix" aria-hidden="true">
+        <slot name="suffix" />
+      </span>
+    )}
+  </div>
+</div>

@@ -15,7 +15,7 @@
   Design system · Vanilla · Astro · Svelte
 </pre>
 
-SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you chose **Create new** and Svelte, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = base + component picker (all 56 or pick). Same template choice for **Add to existing** (`npx rizzo-css add`).
+SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you chose **Create new** and Svelte, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = base + component picker (all 57 or pick). Same template choice for **Add to existing** (`npx rizzo-css add`).
 
 ## Setup
 

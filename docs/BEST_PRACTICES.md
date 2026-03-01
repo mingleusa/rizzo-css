@@ -6,7 +6,7 @@ This guide covers **component composition patterns** and **performance optimizat
 
 ## Component composition patterns
 
-Rizzo components are designed to be composed in layouts and with each other. Follow these patterns so behavior and styling stay consistent across Vanilla, Astro, and Svelte.
+Rizzo components are designed to be composed in layouts and with each other. Follow these patterns so behavior and styling stay consistent across Vanilla, Astro, Svelte, React, and Vue.
 
 ### Container and slot patterns
 
@@ -50,7 +50,7 @@ If you add Navbar, include Search and Settings (or at least the triggers and lay
 - **Search** — Standalone overlay (trigger + panel with input and results). When used inside the navbar, give it an `id` if you have multiple search instances.
 - **Settings** — Opened via `window.openSettings()` from the layout script. The layout must include the Settings panel and the script that registers `openSettings`; the Navbar only needs a button that calls it.
 
-See the scaffold layouts (Vanilla, Astro, Svelte) for full examples of Navbar + Search + Settings composition.
+See the scaffold layouts (Vanilla, Astro, Svelte, React, Vue) for full examples of Navbar + Search + Settings composition.
 
 ### Modifiers and variants
 
@@ -62,9 +62,9 @@ See the scaffold layouts (Vanilla, Astro, Svelte) for full examples of Navbar + 
 When you extend or wrap Rizzo components:
 
 - **Astro** — Import types from `../types` (or your alias): `import type { Tab, MenuItem, ButtonProps } from '../types'`.
-- **Svelte** — Same types are available; use them in `interface Props` or for slot props so Astro and Svelte stay aligned.
+- **Svelte** — Same types are available; use them in `interface Props` or for slot props so Astro, Svelte, React, and Vue stay aligned.
 
-This makes it easier to keep component APIs consistent and to add React/Vue later using the same data shapes.
+This keeps component APIs consistent across all frameworks using the same data shapes.
 
 ---
 
@@ -73,7 +73,7 @@ This makes it easier to keep component APIs consistent and to add React/Vue late
 ### CSS loading
 
 - **Single import** — Import Rizzo CSS once in your root layout or main entry (e.g. `import 'rizzo-css'` or `<link rel="stylesheet" href="/css/rizzo.min.css" />`). Avoid loading it multiple times or in multiple chunks.
-- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.64`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
+- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.65`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
 - **No duplicate CSS** — If you use the npm package and also copy `rizzo.min.css` into `public/` or `static/`, use one or the other, not both.
 
 ### Bundle size

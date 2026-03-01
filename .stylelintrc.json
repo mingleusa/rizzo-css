@@ -11,6 +11,12 @@
         "message": "Expected class selector to follow BEM naming convention (block__element--modifier) or be a utility class"
       }
     ],
+    "custom-property-pattern": [
+      "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:--[a-z0-9]+)?$",
+      {
+        "message": "Expected custom property name to be kebab-case or token--format (e.g. text--oklch); pattern matches the part after --"
+      }
+    ],
     "no-descending-specificity": null,
     "declaration-block-single-line-max-declarations": null,
     "media-feature-name-value-no-unknown": [
@@ -29,7 +35,8 @@
     {
       "files": ["**/color-format-tokens.css"],
       "rules": {
-        "custom-property-pattern": null
+        "custom-property-pattern": null,
+        "no-duplicate-selectors": null
       }
     }
   ]

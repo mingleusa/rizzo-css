@@ -149,6 +149,12 @@ const componentPages = [
     description: 'Reusable SVG icon components using Tabler Icons and Devicons (MIT licensed) with interactive card grid, copy functionality, and theme-aware styling'
   },
   { 
+    title: 'Input Group', 
+    url: '/docs/components/input-group', 
+    category: 'Components',
+    description: 'Input with optional prefix and suffix addons (e.g. currency, domain). BEM: input-group, input-group__addon. Uses design tokens.'
+  },
+  { 
     title: 'Badge', 
     url: '/docs/components/badge', 
     category: 'Components',

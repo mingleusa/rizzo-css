@@ -1,0 +1,171 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Manual accessibility testing" description="Step-by-step checklist for manual keyboard and screen reader testing of Rizzo components.">
+	<section>
+		<h2 id="overview">Overview</h2>
+		<p>Use this runbook for manual keyboard and screen reader testing. Run automated tests first (<code>pnpm test:a11y</code>), then work through the priorities below. Each row links to the component doc page so you can open it and test the live demo. Log any issues (component, check, result, notes) and fix before release.</p>
+		<p>Full prose and matrix: <a href="/docs/accessibility">Accessibility</a> and <a href="https://github.com/mingleusa/rizzo-css/blob/main/docs/ACCESSIBILITY.md" target="_blank" rel="noopener noreferrer">docs/ACCESSIBILITY.md</a> (repo).</p>
+	</section>
+
+	<section>
+		<h2 id="priority-1">Priority 1 — High interaction (test first)</h2>
+		<p>Test these components with keyboard-only, then with a screen reader (NVDA, VoiceOver, or JAWS).</p>
+		<div class="table__wrapper">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Component</th>
+						<th>What to test</th>
+						<th>Doc page</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><strong>Modal</strong></td>
+						<td>Focus moves into modal when opened; focus trapped inside (Tab/Shift+Tab); Escape closes and focus returns to trigger; ARIA: role=dialog, aria-modal, aria-labelledby; screen reader announces purpose.</td>
+						<td><a href="/docs/components/modal">Modal</a></td>
+					</tr>
+					<tr>
+						<td><strong>Dropdown</strong></td>
+						<td>Trigger opens menu; arrow keys move; Enter/Space activates and closes; Escape closes and returns focus; nested submenus if any; ARIA: aria-expanded, role=menu/menuitem; screen reader announces menu and items.</td>
+						<td><a href="/docs/components/dropdown">Dropdown</a></td>
+					</tr>
+					<tr>
+						<td><strong>Theme Switcher</strong></td>
+						<td>Same as Dropdown; selected theme announced; ARIA: expanded, selected, menuitemradio.</td>
+						<td><a href="/docs/components/theme-switcher">Theme Switcher</a></td>
+					</tr>
+					<tr>
+						<td><strong>Font Switcher</strong></td>
+						<td>Same as Dropdown (in Settings or standalone); arrow keys, Enter to select pair; Escape closes; preview and label announced.</td>
+						<td><a href="/docs/components/font-switcher">Font Switcher</a></td>
+					</tr>
+					<tr>
+						<td><strong>Tabs</strong></td>
+						<td>Tab reaches tab list; arrows change tab; Enter/Space activates; panel updates and is announced; ARIA: tablist, tab, tabpanel, aria-selected, aria-controls.</td>
+						<td><a href="/docs/components/tabs">Tabs</a></td>
+					</tr>
+					<tr>
+						<td><strong>Search (Cmd+K)</strong></td>
+						<td>Open with keyboard; focus in input; Escape closes and returns focus; results keyboard navigable and announced.</td>
+						<td><a href="/docs/components/search">Search</a></td>
+					</tr>
+					<tr>
+						<td><strong>Settings</strong></td>
+						<td>Open/close with trigger; focus trap when open; Escape closes; theme, font size, font pair, sound effects, and other toggles keyboard operable and announced.</td>
+						<td><a href="/docs/components/settings">Settings</a></td>
+					</tr>
+					<tr>
+						<td><strong>Accordion</strong></td>
+						<td>Headers focusable; Enter/Space toggles; ARIA: aria-expanded, aria-controls; screen reader announces expanded/collapsed.</td>
+						<td><a href="/docs/components/accordion">Accordion</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="priority-2">Priority 2 — Forms and feedback</h2>
+		<div class="table__wrapper">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Component</th>
+						<th>What to test</th>
+						<th>Doc page</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><strong>Forms</strong></td>
+						<td>All inputs reachable by Tab; labels associated (for/id or aria-label); error/required announced; ARIA: aria-required, aria-invalid, aria-describedby.</td>
+						<td><a href="/docs/components/forms">Forms</a></td>
+					</tr>
+					<tr>
+						<td><strong>Tooltip</strong></td>
+						<td>Trigger focus shows tooltip; keyboard user can read it; no focus trap.</td>
+						<td><a href="/docs/components/tooltip">Tooltip</a></td>
+					</tr>
+					<tr>
+						<td><strong>Toast</strong></td>
+						<td>New toasts announced (live region); dismiss focusable and keyboard operable.</td>
+						<td><a href="/docs/components/toast">Toast</a></td>
+					</tr>
+					<tr>
+						<td><strong>CopyToClipboard</strong></td>
+						<td>Button has accessible name; success feedback announced.</td>
+						<td><a href="/docs/components/copy-to-clipboard">Copy to Clipboard</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="priority-3">Priority 3 — Navigation and layout</h2>
+		<div class="table__wrapper">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Component</th>
+						<th>What to test</th>
+						<th>Doc page</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><strong>Navbar</strong></td>
+						<td>Skip link or main content first; nav links and mobile menu keyboard accessible; mobile menu open/close and focus trap.</td>
+						<td><a href="/docs/components/navbar">Navbar</a></td>
+					</tr>
+					<tr>
+						<td><strong>Docs Sidebar</strong></td>
+						<td>Nav landmark; group labels and links focusable in order; current page indicated (e.g. aria-current or visible active state); collapse/expand if present.</td>
+						<td><a href="/docs/components/docs-sidebar">Docs Sidebar</a></td>
+					</tr>
+					<tr>
+						<td><strong>Footer</strong></td>
+						<td>Landmark (role="contentinfo" or semantic footer); links focusable with clear names; no interactive traps.</td>
+						<td><a href="/docs/components/footer">Footer</a></td>
+					</tr>
+					<tr>
+						<td><strong>Pagination, Breadcrumb, Buttons, Badge, Card, Table</strong></td>
+						<td>Links/buttons focusable with clear names; table headers associated if sortable.</td>
+						<td><a href="/docs/components">Components overview</a></td>
+					</tr>
+					<tr>
+						<td><strong>Sound Effects</strong></td>
+						<td>When used standalone: checkbox focusable, label "Play sound on click" and help text announced; state change announced. (When in Settings, covered by Settings.)</td>
+						<td><a href="/docs/components/sound-effects">Sound Effects</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="tools">Tools</h2>
+		<ul>
+			<li><strong>Keyboard-only</strong> — No mouse. Tab, Shift+Tab, Enter, Space, arrows, Escape. Confirm all actions possible and no focus traps (except intentional in modal/search/settings).</li>
+			<li><strong>Screen reader</strong> — NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS. Check announcements (labels, state changes, live regions).</li>
+			<li><strong>200% zoom</strong> — Test at 200% browser zoom (or 200% text scaling). Content should reflow without horizontal scrolling.</li>
+			<li><strong>Increased font size</strong> — Use the Settings font-size slider or OS font-size settings.</li>
+			<li><strong>Color blindness / vision</strong> — Browser DevTools (e.g. Chrome Rendering → Emulate vision deficiencies) to check information is not conveyed by color alone.</li>
+			<li><strong>axe DevTools</strong> — Browser extension for one-off page scans.</li>
+			<li><strong>Lighthouse</strong> — Chrome DevTools → Lighthouse → Accessibility for periodic checks.</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2 id="suggested-order">Suggested order</h2>
+		<ol>
+			<li>Keyboard-only pass on Priority 1 (Modal, Dropdown, Theme Switcher, Font Switcher, Settings, Tabs, Search, Accordion). Fix focus and traps.</li>
+			<li>Screen reader pass on the same. Fix labels and announcements.</li>
+			<li>axe DevTools on those pages. Fix reported issues.</li>
+			<li>Repeat for Priority 2 and 3; update <a href="/docs/accessibility#best-practices">Best practices</a> if you find new patterns.</li>
+		</ol>
+	</section>
+</DocsLayout>

@@ -1,0 +1,96 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import InputGroup from '../../../components/InputGroup.astro';
+import FormGroup from '../../../components/FormGroup.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+const componentSlug = 'input-group';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Input Group" description="Input with optional prefix and suffix addons. Uses Rizzo BEM and design tokens.">
+	<section>
+		<h2>Input Group</h2>
+		<p>An <strong>Input Group</strong> wraps a text input with optional prefix and/or suffix addons (e.g. currency symbol, icon, domain suffix). All parts share one border and focus ring for a single-field look. Uses the same design tokens as other form components.</p>
+
+		<AddComponentTabs componentName="Input Group" />
+	</section>
+
+	<section>
+		<h3>Props</h3>
+		<ul>
+			<li><code>prefix</code> (slot or ReactNode) – Content before the input (e.g. <code>$</code>, icon)</li>
+			<li><code>suffix</code> (slot or ReactNode) – Content after the input (e.g. <code>.com</code>, <code>USD</code>)</li>
+			<li>Standard input props: <code>id</code>, <code>name</code>, <code>type</code>, <code>placeholder</code>, <code>value</code>, <code>required</code>, <code>disabled</code>, <code>readonly</code>, <code>autocomplete</code></li>
+			<li><code>error</code> (boolean) – Error state (border and focus use <code>--error</code>)</li>
+			<li><code>success</code> (boolean) – Success state (border and focus use <code>--success</code>)</li>
+		</ul>
+	</section>
+
+	<section>
+		<h3>Examples</h3>
+		<div class="example">
+			<div class="example-title">Currency</div>
+			<FormGroup label="Amount" labelFor="input-group-currency">
+				<InputGroup inputId="input-group-currency" placeholder="0.00">
+					<span slot="prefix">$</span>
+					<span slot="suffix">USD</span>
+				</InputGroup>
+			</FormGroup>
+		</div>
+		<div class="example">
+			<div class="example-title">Domain</div>
+			<FormGroup label="Site URL" labelFor="input-group-domain">
+				<InputGroup inputId="input-group-domain" placeholder="mysite">
+					<span slot="prefix">https://</span>
+					<span slot="suffix">.com</span>
+				</InputGroup>
+			</FormGroup>
+		</div>
+		<div class="example">
+			<div class="example-title">Prefix only</div>
+			<InputGroup placeholder="Search…">
+				<span slot="prefix" aria-hidden="true">@</span>
+			</InputGroup>
+		</div>
+	</section>
+
+	<section>
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={`---
+import InputGroup from '../components/rizzo/InputGroup.astro';
+---
+
+<InputGroup placeholder="0.00">
+  <span slot="prefix">$</span>
+  <span slot="suffix">USD</span>
+</InputGroup>`}
+			svelte={`<script>
+  import { InputGroup } from '$lib/rizzo';
+</script>
+
+<InputGroup placeholder="0.00">
+  <span slot="prefix">$</span>
+  <span slot="suffix">USD</span>
+</InputGroup>`}
+			react={reactCode}
+			vue={vueCode}
+			vanilla={`<div class="input-group">
+  <div class="input-group__wrapper">
+    <span class="input-group__addon input-group__addon--prefix" aria-hidden="true">$</span>
+    <input class="input-group__input" placeholder="0.00" aria-label="Amount" />
+    <span class="input-group__addon input-group__addon--suffix" aria-hidden="true">USD</span>
+  </div>
+</div>`}
+		/>
+	</section>
+
+	<section>
+		<h3>BEM classes</h3>
+		<p><code>input-group</code>, <code>input-group__wrapper</code>, <code>input-group__addon</code>, <code>input-group__addon--prefix</code>, <code>input-group__addon--suffix</code>, <code>input-group__input</code>. Modifier: <code>input-group--error</code>, <code>input-group--success</code>.</p>
+	</section>
+</DocsLayout>

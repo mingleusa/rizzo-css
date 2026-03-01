@@ -5,7 +5,7 @@ This document lists Rizzo CSS components, Rizzo-only components, and planned or 
 ## Summary
 
 - **Rizzo has** all components in the CLI and scaffold (including Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). Same BEM/CSS for Astro, Svelte, React, Vue, and Vanilla. Dashboard has full parity across frameworks.
-- **Framework parity:** All components (including **Dashboard**) have docs and examples for Astro, Svelte, and Vanilla.
+- **Framework parity:** All components (including **Dashboard**) have docs and examples for Astro, Svelte, React, Vue, and Vanilla.
 - **Accessibility:** Rizzo runs axe (WCAG 2 A/AA) on all doc and block routes via `pnpm test:a11y`. New or updated components should follow the same a11y patterns (keyboard, ARIA, focus, contrast).
 
 ---
@@ -15,62 +15,62 @@ This document lists Rizzo CSS components, Rizzo-only components, and planned or 
 | Common pattern   | Rizzo equivalent        | Notes |
 |------------------|-------------------------|--------|
 | Accordion        | Accordion               | ✓ Same |
-| Alert Dialog     | Modal                   | Same pattern (dialog, focus trap). |
+| Alert Dialog     | Alert Dialog            | ✓ Same (confirm/cancel dialog, focus trap). |
 | Alert            | Alert                   | ✓ Same |
-| Aspect Ratio     | —                       | **Missing.** CSS aspect-ratio or wrapper. |
+| Aspect Ratio     | Aspect Ratio            | ✓ Same (wrapper for 16/9, 1/1, etc.). |
 | Avatar           | Avatar                  | ✓ Same |
 | Badge            | Badge                   | ✓ Same |
 | Breadcrumb       | Breadcrumb              | ✓ Same |
-| Button Group     | —                       | **Missing.** Button group (segmented control). We have button variants only. |
+| Button Group     | Button Group            | ✓ Same (horizontal/vertical attached buttons). |
 | Button           | Button                  | ✓ Same |
 | Calendar         | —                       | **Missing.** Date calendar. |
 | Card             | Cards                   | ✓ Same (we use "Cards" doc). |
 | Carousel         | —                       | **Missing.** Image/content carousel. |
 | Chart            | —                       | **Missing.** Data charts. |
 | Checkbox         | Forms (Checkbox)        | ✓ Same |
-| Collapsible      | Accordion               | Same idea (expand/collapse). |
+| Collapsible      | Collapsible             | ✓ Same (single expand/collapse; Accordion for multiple). |
 | Combobox         | —                       | **Missing.** Autocomplete + select. |
 | Command          | —                       | **Missing.** Command palette (e.g. Cmd+K). We have Search, not full command. |
-| Context Menu     | Dropdown                | Same pattern; trigger = right-click. |
+| Context Menu     | Context Menu            | ✓ Same (right-click menu). |
 | Data Table       | Table                   | ✓ Same (we have sorting/filtering). |
 | Date Picker      | —                       | **Missing.** Date input + calendar. |
 | Dialog           | Modal                   | ✓ Same |
-| Drawer           | —                       | **Missing.** Slide-out panel. |
+| Drawer           | Sheet                   | ✓ Same (slide-out from top/right/bottom/left). |
 | Dropdown Menu    | Dropdown                | ✓ Same |
-| Empty            | —                       | **Missing.** Empty state (illustration + text + CTA). |
+| Empty            | Empty                   | ✓ Same (empty state with icon, title, description, CTA). |
 | Field            | Forms (FormGroup)       | ✓ Same |
 | Form             | Forms                   | ✓ Same |
-| Hover Card       | Tooltip                 | Similar (hover popover). We have Tooltip. |
-| Input Group      | —                       | **Missing.** Input with prefix/suffix/addons. |
+| Hover Card       | Hover Card              | ✓ Same (floating panel on hover). |
+| Input Group      | Input Group             | ✓ Same (input with optional prefix/suffix addons). |
 | Input OTP        | —                       | **Missing.** OTP/code input. |
 | Input            | Forms (Input)           | ✓ Same |
-| Item             | —                       | **Missing.** List/item component (if distinct). |
-| Kbd              | —                       | **Missing as component.** We use `<kbd>` in code blocks. |
-| Label            | Forms (label)           | ✓ Same |
+| Item             | —                       | Optional; only if a distinct list primitive is needed. |
+| Kbd              | Kbd                     | ✓ Same (keyboard key styling component). |
+| Label            | Label                   | ✓ Same (standalone form label). |
 | Menubar          | Navbar / Dropdown       | We have Navbar + Dropdown. |
 | Native Select    | Forms (Select)          | ✓ Same |
 | Navigation Menu  | Navbar, Docs Sidebar    | ✓ Same |
 | Pagination       | Pagination              | ✓ Same |
-| Popover          | Tooltip / Dropdown      | We cover with Tooltip and Dropdown. |
+| Popover          | Popover                 | ✓ Same (floating panel triggered by button). |
 | Progress         | Progress Bar            | ✓ Same |
 | Radio Group      | Forms (Radio)           | ✓ Same |
 | Range Calendar   | —                       | **Missing.** Date range. |
-| Resizable        | —                       | **Missing.** Resizable panels. |
-| Scroll Area      | —                       | **Missing.** Custom scroll region. |
+| Resizable        | Resizable               | ✓ Same (panel groups with drag handles). |
+| Scroll Area      | Scroll Area             | ✓ Same (themed scrollbar region). |
 | Select           | Forms (Select)          | ✓ Same |
-| Separator        | Divider                 | ✓ Same |
-| Sheet            | —                       | **Missing.** Slide-out panel (like Drawer). |
+| Separator        | Separator               | ✓ Same (thin line; Divider has optional label). |
+| Sheet            | Sheet                   | ✓ Same (slide-out panel from any edge). |
 | Sidebar          | Docs Sidebar, Dashboard | ✓ Same |
-| Skeleton         | Skeleton                | ✓ Implemented. |
-| Slider           | —                       | **Missing.** Range slider input. |
+| Skeleton         | Skeleton                | ✓ Same |
+| Slider           | Slider                  | ✓ Same (range input, themeable). |
 | Sonner / Toast   | Toast                   | ✓ Same |
 | Spinner          | Spinner                 | ✓ Same |
-| Switch           | Switch                  | ✓ Implemented. |
+| Switch           | Switch                  | ✓ Same |
 | Table            | Table                   | ✓ Same |
 | Tabs             | Tabs                    | ✓ Same |
 | Textarea         | Forms (Textarea)        | ✓ Same |
-| Toggle Group     | —                       | **Missing.** Toggle button group. |
-| Toggle           | —                       | **Missing.** Toggle button. |
+| Toggle Group     | Toggle Group            | ✓ Same (single or multiple selection). |
+| Toggle           | Toggle                  | ✓ Same (pressed/unpressed button). |
 | Tooltip          | Tooltip                 | ✓ Same |
 | Typography       | —                       | Design system typography only; no Typography component. |
 
@@ -100,21 +100,21 @@ Prioritized for planning (not all may be needed):
 |-----------------|----------|--------|
 | **Skeleton**    | ~~High~~ ✓ Done | Implemented: loading placeholder, role="status", reduced-motion. |
 | **Switch**      | ~~High~~ ✓ Done | Implemented: role="switch", aria-checked, keyboard (Space). |
-| **Aspect Ratio**| Medium   | Wrapper for 16/9, 1/1, etc.; trivial with CSS. |
-| **Slider**      | Medium   | Range input; themeable, keyboard. |
-| **Input Group** | Medium   | Input + prefix/suffix (e.g. search icon, ".com"). |
-| **Empty**       | Medium   | Empty state block (illustration + text + CTA). |
-| **Drawer / Sheet** | Medium | Slide-out panel; could be one component. |
-| **Button Group**| Low      | Group of buttons (e.g. segmented). |
-| **Toggle / Toggle Group** | Low | Toggle button(s). |
-| **Kbd**         | Low      | Optional component for keyboard shortcuts. |
+| **Aspect Ratio**| ~~Medium~~ ✓ Done | Implemented: wrapper for 16/9, 1/1, etc. |
+| **Slider**      | ~~Medium~~ ✓ Done | Implemented: range input, themeable, keyboard. |
+| **Input Group** | ~~Medium~~ ✓ Done | Implemented: input with prefix/suffix addons (BEM: input-group, input-group__addon). |
+| **Empty**       | ~~Medium~~ ✓ Done | Implemented: empty state with icon, title, description, CTA. |
+| **Drawer / Sheet** | ~~Medium~~ ✓ Done | Implemented: Sheet component (slide-out from any edge). |
+| **Button Group**| ~~Low~~ ✓ Done | Implemented: horizontal/vertical attached buttons. |
+| **Toggle / Toggle Group** | ~~Low~~ ✓ Done | Implemented: Toggle and Toggle Group. |
+| **Kbd**         | ~~Low~~ ✓ Done | Implemented: Kbd component for keyboard shortcuts. |
+| **Resizable**   | ~~Low~~ ✓ Done | Implemented: resizable panel groups. |
+| **Scroll Area** | ~~Low~~ ✓ Done | Implemented: scroll area with themed scrollbar. |
 | **Calendar / Date Picker / Range Calendar** | Low | Heavier; consider later or external lib. |
 | **Carousel**    | Low      | Often app-specific. |
 | **Chart**       | Low      | Usually use a chart library. |
 | **Combobox**    | Low      | Autocomplete; more complex. |
 | **Command**     | Low      | Command palette; Search is related. |
-| **Resizable**   | Low      | Resizable split panels. |
-| **Scroll Area** | Low      | Custom scrollbar region. |
 | **Input OTP**   | Low      | Niche (verification codes). |
 | **Item**        | —        | Only if a distinct list primitive is needed. |
 | **Typography**  | —        | We use design system typography; optional component. |
@@ -125,6 +125,8 @@ Prioritized for planning (not all may be needed):
 
 - **Astro:** Component doc pages under `/docs/components/` (including Dashboard, Forms, Icons, etc.).
 - **Svelte:** Component doc pages under `/docs/svelte` (components overview and per-component pages).
+- **React:** Component doc pages under `/docs/react` (all 57 components with live demos and TSX snippets).
+- **Vue:** Component doc pages under `/docs/vue` (all 57 components with live demos and SFC snippets).
 - **Vanilla:** Component doc pages under `/docs/vanilla/components/` (including Dashboard).
 - **A11y:** Dashboard is included in `COMPONENT_SLUGS` in `tests/a11y/docs.spec.mjs`, so all framework doc routes (Astro, Svelte, React, Vue, Vanilla) are tested.
 

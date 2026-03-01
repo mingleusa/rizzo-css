@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.64",
+  "version": "0.0.65",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",
@@ -27,14 +27,20 @@
     "check:size": "pnpm build:css && node scripts/bundle-size.mjs --check",
     "rizzo-css": "node packages/rizzo-css/bin/rizzo-css.js",
     "publish:package": "cd packages/rizzo-css && npm publish",
-    "prepare": "husky"
+    "prepare": "husky",
+    "storybook": "pnpm build:css && storybook dev -p 6006",
+    "build-storybook": "pnpm build:css && storybook build"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
     "@axe-core/playwright": "^4.10.0",
     "@playwright/test": "^1.49.0",
+    "@storybook/addon-a11y": "^10.2.13",
+    "@storybook/addon-links": "^10.2.13",
+    "@storybook/addon-onboarding": "^10.2.13",
+    "@storybook/react-vite": "^10.2.13",
     "@sveltejs/adapter-auto": "^7.0.0",
-    "@sveltejs/kit": "^2.50.2",
+    "@sveltejs/kit": "^2.53.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
@@ -44,17 +50,20 @@
     "cssnano": "^7.1.2",
     "culori": "^4.0.0",
     "dotenv": "^17.2.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.4.3",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-import": "^16.1.1",
     "sharp": "^0.34.5",
-    "husky": "^9.1.7",
-    "lint-staged": "^15.4.3",
+    "storybook": "^10.2.13",
     "stylelint": "^17.0.0",
     "stylelint-config-standard": "^40.0.0",
-    "svelte": "^5.50.0",
+    "svelte": "^5.53.5",
     "svelte-check": "^4.3.6",
-    "typescript": "^5.9.3"
+    "tslib": "^2.8.1",
+    "typescript": "^5.9.3",
+    "@storybook/addon-docs": "^10.2.13"
   },
   "author": "mingleusa",
   "dependencies": {
@@ -65,8 +74,16 @@
     "vue": "^3.5.29"
   },
   "lint-staged": {
-    "*.css": [
+    "src/**/*.css": [
       "stylelint --fix"
     ]
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": "^4.59.0",
+      "ajv": "^8.18.0",
+      "cookie": "^0.7.0",
+      "devalue": "^5.6.3"
+    }
   }
 }

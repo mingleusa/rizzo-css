@@ -1,13 +1,14 @@
 # Components
 
-Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, Svelte, and **React**. Each component has a dedicated documentation page with **working live examples**, usage instructions, and **framework code tabs** (Astro | Svelte | React | Vue | Vanilla) so you can copy the example that matches your stack.
+Rizzo CSS includes accessible, themeable components with **the same CSS and BEM markup** for **Vanilla JS**, Astro, Svelte, **React**, and **Vue**. Each component has a dedicated documentation page with **working live examples**, usage instructions, and **framework code tabs** (Astro | Svelte | React | Vue | Vanilla) so you can copy the example that matches your stack.
 
-**Package:** Scaffolds: vanilla; astro/base + variants; svelte/base + variants; plus `scaffold/config/`, `scaffold/utils/`, and **all 56 components** (BackToTop, Dashboard, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects, Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). **Templates:** **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 56 or pick). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). `npx rizzo-css help components` for the list. [GETTING_STARTED](./GETTING_STARTED.md). **Blocks:** [Landing hero](/blocks/landing-hero), [Pricing cards](/blocks/pricing), [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout); see [Blocks](/blocks).
+**Package:** Scaffolds: vanilla; astro/base + variants; svelte/base + variants; plus `scaffold/config/`, `scaffold/utils/`, and **all 57 components** (BackToTop, Dashboard, DocsSidebar, ThemeSwitcher, FontSwitcher, SoundEffects, Skeleton, Switch, AlertDialog, Slider, Sheet, etc.). **Templates:** **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (CSS only = no components; Full = site clone; others = all 57 or pick). Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). `npx rizzo-css help components` for the list. [GETTING_STARTED](./GETTING_STARTED.md). **Blocks:** [Landing hero](/blocks/landing-hero), [Pricing cards](/blocks/pricing), [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout); see [Blocks](/blocks). Block BEM classes (e.g. `landing-hero__title`, `pricing-card`, `dashboard-page__stats-grid`, `docs-layout-demo`) and preview wrappers are defined in `src/styles/pages.css` using design tokens (`--font-size-*`, `--spacing-*`, `--text`, `--accent`, etc.) so blocks stay consistent with the design system across frameworks.
 
 - **Vanilla JS** — Same class names and HTML structure; use `npx rizzo-css init` and choose Vanilla JS for an example with theme (System option), Settings panel, toast, and samples. For copy-paste HTML and interactive demos per component, see the [Vanilla component pages](/docs/vanilla/components).
 - **Astro** — Reference implementation in this repo; each [component page](/docs/components) has live examples and **Usage** tabs (Astro, Svelte, React, Vue, Vanilla). Use `npx rizzo-css init` and choose Astro, then optionally add components from `scaffold/astro/` via the CLI or copy from the installed package.
 - **Svelte** — Component files and docs at [/docs/svelte](/docs/svelte); use the **framework switcher** ("View as: Astro | Svelte | Vanilla | React | Vue") on any component or theme page. Use `npx rizzo-css init` and choose Svelte, then optionally add components from `scaffold/svelte/`.
-- **React** — Full implementations and docs at [/docs/react](/docs/react); all 56 components have live demos and React/TSX code blocks. Same BEM and behavior as Astro and Svelte. Copy components from `src/components/react/` or use the Usage tabs on [Astro component pages](/docs/components) for React snippets.
+- **React** — Full implementations and docs at [/docs/react](/docs/react); all 57 components have live demos and React/TSX code blocks. Same BEM and behavior as Astro and Svelte. Copy components from `src/components/react/` or use the Usage tabs on [Astro component pages](/docs/components) for React snippets.
+- **Vue** — Full implementations and docs at [/docs/vue](/docs/vue); all 57 components have live demos and Vue/SFC code blocks. Same BEM and behavior as Astro, Svelte, and React. Copy components from the package scaffold or use the Usage tabs on [Astro component pages](/docs/components) for Vue snippets.
 
 See [Getting Started](./GETTING_STARTED.md) for full setup.
 
@@ -39,6 +40,7 @@ The [Components overview](/docs/components) groups components by category (Layou
 - [Forms](/docs/components/forms) - Form components (FormGroup, Input, Textarea, Select, Checkbox, Radio)
 - [Hover Card](/docs/components/hover-card) - Floating panel that opens on hover
 - [Icons](/docs/components/icons) - Reusable SVG icon components (Tabler Icons and Devicons)
+- [Input Group](/docs/components/input-group) - Input with optional prefix and suffix addons (e.g. icon, currency, domain)
 - [Kbd](/docs/components/kbd) - Keyboard key styling for shortcuts (e.g. Ctrl+K)
 - [Label](/docs/components/label) - Standalone form label; use with for/id to associate with inputs
 - [Modal](/docs/components/modal) - Accessible modal/dialog component
@@ -73,7 +75,7 @@ The [Components overview](/docs/components) groups components by category (Layou
 All of the following components are implemented with dedicated documentation pages, live examples, and full keyboard and screen reader support:
 
 **Layout:** Navbar, Docs Sidebar, Dashboard, Resizable, Footer  
-**Forms & input:** Button, Button Group, Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), Switch, Slider, Toggle, Toggle Group, Divider, Separator, Label, Kbd  
+**Forms & input:** Button, Button Group, Forms (FormGroup, Input, Textarea, Select, Checkbox, Radio), Input Group, Switch, Slider, Toggle, Toggle Group, Divider, Separator, Label, Kbd  
 **Data display:** Cards, Table, Badge, Pagination, Aspect Ratio, Empty, Scroll Area  
 **Feedback:** Alert, Skeleton, Spinner, Progress Bar, Toast  
 **Overlay:** Modal, Alert Dialog, Sheet, Popover, Hover Card, Context Menu, Dropdown, Tooltip  
@@ -102,7 +104,7 @@ All components in Rizzo CSS share these core features:
 
 Every component has documentation and examples for **Astro**, **Svelte**, **React**, **Vue**, and **Vanilla** (HTML + same BEM). Each component page includes **Astro | Svelte | React | Vue | Vanilla** code tabs with complete, copy-paste examples so you can use the block that matches your project. Some pages use multiple code blocks (e.g. setup + usage) where needed.
 
-**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, FontSwitcher, SoundEffects, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, BackToTop, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all five frameworks (Astro, Svelte, React, Vue, Vanilla).
+**Interactive components work when imported:** All interactive components (Navbar, Settings, ThemeSwitcher, FontSwitcher, SoundEffects, Modal, Dropdown, Tabs, Accordion, Search, Alert, Toast, Table, Pagination, CopyToClipboard, BackToTop, etc.) run their scripts after the DOM is ready (`DOMContentLoaded` or equivalent). When you add a component via the CLI or copy from the docs, it will work without extra setup in Astro, Svelte, React, Vue, or Vanilla. **Keyboard and click-outside:** Search overlay, Settings panel, and Navbar mobile menu are fully keyboard-navigable (Tab, Escape, focus trap where applicable) and close when you click outside the panel or menu in all five frameworks (Astro, Svelte, React, Vue, Vanilla).
 
 | Framework | Where to find it | What you get |
 |-----------|------------------|--------------|
@@ -540,7 +542,7 @@ An accessible dropdown for switching themes, used in the Settings panel and stan
 
 - **Preference + Dark/Light groups** — Preference (System), Dark themes, and Light themes with section labels; on mobile, bold labels with underlines. Each theme has a unique icon (Owl, Palette, Flame, Sunset, Zap, Shield, Heart, Sun, Cake, Lemon, Rainbow, Leaf, Cherry, Brush).
 - **Preview panel** — Always visible when the menu is open (viewports >480px). Fixed **Preview** label; theme name, swatch, and accent bar show the **current** theme by default and the **hovered** theme on hover/focus. Full-height vertical divider between list and preview. Hidden on viewports ≤480px.
-- **Consistent look** — All theme switchers (Settings, Astro docs, Svelte docs, Vanilla docs) use the same styling and width: fixed-width trigger (wide enough to fit the longest theme name on one line) and matching dropdown menu; label and chevron with space-between.
+- **Consistent look** — All theme switchers (Settings, Astro docs, Svelte docs, React docs, Vue docs, Vanilla docs) use the same styling and width: fixed-width trigger (wide enough to fit the longest theme name on one line) and matching dropdown menu; label and chevron with space-between.
 - Active theme displays name and icon in trigger button.
 - Full keyboard navigation (Arrow keys, Enter, Space, Escape, Home, End).
 - Accessible ARIA menu pattern.

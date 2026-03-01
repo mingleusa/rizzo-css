@@ -28,6 +28,7 @@ export { Tabs, type TabsProps, type Tab } from './Tabs';
 export { Accordion, type AccordionProps, type AccordionItem } from './Accordion';
 export { Slider, type SliderProps } from './Slider';
 export { Input, type InputProps, type InputSize } from './Input';
+export { InputGroup, type InputGroupProps } from './InputGroup';
 export { CopyToClipboard, type CopyToClipboardProps } from './CopyToClipboard';
 export { Tooltip, type TooltipProps, type TooltipPosition } from './Tooltip';
 export { Collapsible, type CollapsibleProps } from './Collapsible';

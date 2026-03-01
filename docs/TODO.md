@@ -6,15 +6,15 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Current state
 
-- **Package:** Single **rizzo-css** (v0.0.64) — CSS, CLI, and scaffolds for Vanilla, Astro, Svelte, React, and Vue (all five have base scaffolds; React/Vue use Vite; Astro/Svelte/Vanilla have base + variants). **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 56 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
-- **Implemented:** **React implementation complete** — all 56 components with full implementations, live demos, React/TSX code blocks, and a11y coverage (axe + keyboard + ARIA on key components). **Code blocks up to date:** Astro reference component pages show Usage tabs for **Astro | Svelte | React | Vue | Vanilla**; React snippets from `src/config/reactCodeSnippets.ts`, Vue from `src/config/vueCodeSnippets.ts`. All frameworks have working live examples. **Blocks:** All four block pages have framework code tabs (Usage section) via `src/config/blockCodeSnippets.ts`. **Smoke tests:** `pnpm test:smoke` for key routes; **version in footer** from package.json. Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit; axe on Chromium/Firefox only, keyboard/ARIA on all three — see [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md)); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. **Production hardening:** `vercel.json` (cache + security headers), dependency audit in CI (`pnpm audit --audit-level=high`). **CI path filter:** workflow runs only when relevant paths change (`src/`, `docs/`, `tests/`, `packages/rizzo-css/`, `scripts/`, `**/*.css`, config). **Git hooks (Husky):** pre-commit = lint-staged (stylelint --fix on staged CSS); pre-push = build then smoke tests. Docs, components, and CLI are up to date. See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
+- **Package:** Single **rizzo-css** (v0.0.65) — CSS, CLI, and scaffolds for Vanilla, Astro, Svelte, React, and Vue (all five have base scaffolds; React/Vue use Vite; Astro/Svelte/Vanilla have base + variants). **Templates:** CSS only | Landing | Docs | Dashboard | Full (same for init and add); CSS only = no web pages or components; all 57 components for other templates; we never overwrite existing files (snippets in RIZZO-SETUP.md). **Add** is for existing projects (select components or CSS only). Build: `pnpm build:package`. Docs: [docs/README.md](./README.md).
+- **Implemented:** **React implementation complete** — all 57 components with full implementations, live demos, React/TSX code blocks, and a11y coverage (axe + keyboard + ARIA on key components). **Code blocks up to date:** Astro reference component pages show Usage tabs for **Astro | Svelte | React | Vue | Vanilla**; React snippets from `src/config/reactCodeSnippets.ts`, Vue from `src/config/vueCodeSnippets.ts`. All frameworks have working live examples. **Blocks:** All four block pages have framework code tabs (Usage section) via `src/config/blockCodeSnippets.ts`. **Smoke tests:** `pnpm test:smoke` for key routes; **version in footer** from package.json. Automated a11y (axe, keyboard, ARIA, theme contrast) including cross-browser CI (Chromium, Firefox, WebKit; axe on Chromium/Firefox only, keyboard/ARIA on all three — see [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md)); focus-trap utility; bundle size reporting and budget (CI + `pnpm check:size`); tokens reference page ([/docs/tokens](/docs/tokens)); example pages ([/docs/examples](/docs/examples)); CLI `doctor` (theme, fonts/sfx, small-CSS, version hint) and `add --dry-run`; new-component PR checklist. **Production hardening:** `vercel.json` (cache + security headers), dependency audit in CI (`pnpm audit --audit-level=high`). **CI path filter:** workflow runs only when relevant paths change (`src/`, `docs/`, `tests/`, `packages/rizzo-css/`, `scripts/`, `**/*.css`, config). **Git hooks (Husky):** pre-commit = lint-staged (stylelint --fix on staged CSS); pre-push = build then smoke tests. Docs, components, and CLI are up to date. **Storybook 10:** Optional (`pnpm storybook`); Introduction, All 57 Components, Blocks; see [STORYBOOK.md](./STORYBOOK.md). **Manual testing:** [Manual testing checklist](/docs/accessibility/manual-testing). See [ACCESSIBILITY.md](./ACCESSIBILITY.md), [BEST_PRACTICES.md](./BEST_PRACTICES.md), [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md), [CLI.md](./CLI.md), [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ---
 
 ## Production readiness
 
 - **vercel.json** — *(done)* Repo root `vercel.json` configures cache headers for `/assets/`, `/_astro/`, `/css/`, `/icons/` (`public, max-age=31536000, immutable`) and security headers for all routes (`X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`).
-- **Dependency audit in CI** — *(done)* [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs `pnpm audit --audit-level=high` after install (currently `continue-on-error: true`; can be made blocking when desired).
+- **Dependency audit in CI** — *(done)* [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs `pnpm audit --audit-level=high` after install; failures block the workflow.
 - **Docs (axe/WebKit)** — *(done)* [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) and [ACCESSIBILITY.md](./ACCESSIBILITY.md) state that axe runs on Chromium and Firefox only and is skipped on WebKit; keyboard and ARIA run on Chromium, Firefox, and WebKit.
 - **CI path filter** — *(done)* [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when `src/`, `docs/`, `tests/`, `packages/rizzo-css/`, `scripts/`, `**/*.css`, or key config files change.
 - **Git hooks (Husky)** — *(done)* Pre-commit: lint-staged (stylelint --fix on staged `.css`). Pre-push: `pnpm build` then smoke tests. See [CONTRIBUTING.md](../CONTRIBUTING.md).
@@ -23,7 +23,7 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 
 ## Next (recommended)
 
-**Manual a11y testing** — Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, Settings, Search, Accordion) per [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing). Automated tests: `pnpm test:a11y`.
+**Manual a11y testing** — Run manual keyboard and screen reader testing on key components (Modal, Dropdown, Tabs, ThemeSwitcher, Font Switcher, Settings, Search, Accordion). Use the [Manual testing checklist](/docs/accessibility/manual-testing) page (runbook with links to each component doc); full prose in [ACCESSIBILITY.md – Manual accessibility testing](./ACCESSIBILITY.md#manual-accessibility-testing). Automated tests: `pnpm test:a11y`.
 
 ---
 
@@ -33,11 +33,11 @@ A short list of **remaining** work for the Rizzo CSS design system, in priority 
 - **Manual screen reader testing** — Work through the [manual testing checklist](./ACCESSIBILITY.md#manual-accessibility-testing); fix any announced-label or focus issues.
 
 ### Developer experience
-- **Storybook** *(optional)* — Interactive playground and design system showcase.
+- **Storybook** *(done)* — Optional Storybook for React components at `src/stories/`. Run `pnpm storybook` (builds CSS then starts on port 6006). See [STORYBOOK.md](./STORYBOOK.md).
 
 ### Package distribution
-- **Multi-framework** — **React:** *(done)* All 56 components with full implementations, live demos, and React code blocks at `/docs/react/components/<slug>`. **Vue:** *(done)* All 56 components with Vue implementations, live demos, and Vue SFC code blocks at `/docs/vue/components/<slug>`. **Scaffolds:** React and Vue have base scaffolds (`scaffold/react/base/`, `scaffold/vue/base/` — Vite) for init/add; CLI copies base + optional components. Config: React — `src/config/reactComponents.ts`, `reactCodeSnippets.ts`, `reactDocPaths.ts`; Vue — `vueCodeSnippets.ts`, `reactDocPaths.ts` (getVueDocStaticPaths), `src/components/vue/registry.js`, `VueDocDemo.vue`. See [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md), [TEMPLATES.md](./TEMPLATES.md).
-- **In-repo framework routes** — **React:** *(done)* Index, components overview, and dynamic route for all 56 component pages at `/docs/react/*`. **Vue:** *(done)* Same pattern at `/docs/vue/*`.
+- **Multi-framework** — **React:** *(done)* All 57 components with full implementations, live demos, and React code blocks at `/docs/react/components/<slug>`. **Vue:** *(done)* All 57 components with Vue implementations, live demos, and Vue SFC code blocks at `/docs/vue/components/<slug>`. **Scaffolds:** React and Vue have base scaffolds (`scaffold/react/base/`, `scaffold/vue/base/` — Vite) for init/add; CLI copies base + optional components. Config: React — `src/config/reactComponents.ts`, `reactCodeSnippets.ts`, `reactDocPaths.ts`; Vue — `vueCodeSnippets.ts`, `reactDocPaths.ts` (getVueDocStaticPaths), `src/components/vue/registry.js`, `VueDocDemo.vue`. See [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md), [TEMPLATES.md](./TEMPLATES.md).
+- **In-repo framework routes** — **React:** *(done)* Index, components overview, and dynamic route for all 57 component pages at `/docs/react/*`. **Vue:** *(done)* Same pattern at `/docs/vue/*`.
 
 ### Performance
 - **Lazy loading** *(optional)* — Documented in [BEST_PRACTICES.md – Lazy loading](./BEST_PRACTICES.md#lazy-loading-optional). Single-bundle approach is default; optional theme/component lazy-load only if you have a measured need.
@@ -74,7 +74,7 @@ Potential tasks to consider when prioritizing work; not in priority order.
 ### Documentation & site
 - **Component changelog** — *(done)* [CHANGELOG.md](../CHANGELOG.md) in repo root; linked from [docs/README.md](./README.md). Per-release detail can be expanded.
 - **More copy-paste examples** — *(done)* [Form & layout examples](/docs/examples/form-layouts): login, contact, dashboard stats cards, card grid, settings panel. [Examples overview](/docs/examples) links to themes and blocks.
-- **Search** — Algolia or local search for docs (already referenced in .env.example for some setups).
+- **Search** — *(done)* Client-side search works with no setup; Algolia optional for production. See [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md).
 - **Docs version selector** — *(documented)* Docs site reflects latest main; [docs/README.md](./README.md) notes that specific versions are in CHANGELOG and on npm.
 
 ### Accessibility & quality
@@ -83,8 +83,8 @@ Potential tasks to consider when prioritizing work; not in priority order.
 - **Bundle size budget** — *(done)* CI runs `node scripts/bundle-size.mjs --check` (450 kB package CSS); `pnpm check:size` locally. Documented in [PUBLISHING.md](./PUBLISHING.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 
 ### Frameworks & scaffolds
-- **React components** — *(done)* All 56 components have full React implementations, live demos, and accurate React/TSX code blocks on each doc page. Same BEM and behavior as Astro and Svelte.
-- **Vue components** — Same idea as React; optional separate package or in-repo.
+- **React components** — *(done)* All 57 components have full React implementations, live demos, and accurate React/TSX code blocks on each doc page. Same BEM and behavior as Astro and Svelte.
+- **Vue components** — *(done)* All 57 components with Vue implementations, live demos, and Vue SFC code blocks at /docs/vue; optional separate package in future.
 - **Scaffold variations** — *(documented)* "CSS only" template is the minimal scaffold (design tokens + one stylesheet; no components). See [TEMPLATES.md](./TEMPLATES.md).
 
 ### General
@@ -101,13 +101,43 @@ Items above that are **not** marked *(done)* and are not manual-only:
 | Area | Item |
 |------|------|
 | **CLI** | — *(all done: --offline, version check)* |
-| **CSS & themes** | Additional theme presets (community/seasonal; keep contrast and a11y in mind) |
-| **Documentation** | Search (Algolia or local; .env.example referenced for some setups) |
+| **CSS & themes** | Additional theme presets *(optional)* — Community or seasonal; keep contrast and a11y in mind. See [THEMING.md](./THEMING.md). |
+| **Documentation** | — **Search** *(done)*: Client-side works with no setup; Algolia optional ([ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md)). |
+| **CI** | — Dependency audit in a11y workflow is now **blocking** (was continue-on-error). |
 | **A11y** | — *(matrix done)* |
-| **Frameworks** | React: *(all 56 done)*; Vue components; in-repo framework routes |
+| **Frameworks** | React: *(all 57 done)*; Vue: *(all 57 done)*; in-repo routes *(done)* |
 | **General** | — *(stability/semver documented)* |
 
-**Remaining (priority)** — Manual a11y testing (keyboard + screen reader); optional Storybook; multi-framework React/Vue; in-repo framework routes; cross-browser/manual device testing as needed. Production hardening, block framework tabs, smoke test, and footer version are in place; docs, components, and CLI are up to date.
+**Remaining (priority)** — Manual a11y testing (keyboard + screen reader); cross-browser/manual device testing as needed. Storybook is in place (see [STORYBOOK.md](./STORYBOOK.md)). Production hardening, block framework tabs, smoke test, footer version, React/Vue components and in-repo docs routes are in place; docs, components, and CLI are up to date.
+
+---
+
+## Future components and blocks
+
+Components and blocks we may add later. Use our design system (BEM, tokens, a11y) when implementing. See [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md#gaps-planned-or-missing) for the full gap list.
+
+**Components (candidates for future addition):**
+
+| Component | Notes |
+|-----------|--------|
+| **Calendar** | Month grid for date display or date picker use; consider external lib for full date logic. |
+| **Date Picker** | Date input + calendar; builds on Calendar. |
+| **Range Calendar** | Date range selection. |
+| **Carousel** | Sliding content with previous/next controls and optional indicators. |
+| **Chart** | Data charts; often satisfied by a chart library; optional presentational wrapper. |
+| **Combobox** | Autocomplete + select; more complex. |
+| **Command** | Command palette (e.g. Cmd+K); Search is related; optional full command UI. |
+| **Input OTP** | One-time / verification code input (separate digit cells). |
+| **Item** | Optional list/item primitive only if needed. |
+| **Typography** | Optional component for applying text styles; we have design system typography tokens. |
+
+**Blocks (candidates for future addition):**
+
+| Block | Notes |
+|-------|--------|
+| Additional block templates | E.g. blog list, feature grid, testimonial, CTA strip; add as needed. |
+
+When adding any of these: follow [CONTRIBUTING.md](../CONTRIBUTING.md#checklist-for-new-component-prs), update [COMPONENTS.md](./COMPONENTS.md), [docsNav.ts](../src/config/docsNav.ts), a11y routes, CLI/scaffold lists, and framework registries.
 
 ---
 

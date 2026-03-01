@@ -1,6 +1,6 @@
 # React, Vue, and Vite — Implementation plan
 
-**Status:** Phase 1 (React) complete. React: `@astrojs/react`, `src/components/react/` with **all 56 components** fully implemented. Each component has a doc page with live demo and accurate React/TSX code blocks. Config: `src/config/reactComponents.ts`, `src/config/reactCodeSnippets.ts`, `src/config/reactDocPaths.ts`; registry: `src/components/react/registry.tsx`. Vue and Vite-based scaffolds remain planned.
+**Status:** Phase 1 (React) complete. React: `@astrojs/react`, `src/components/react/` with **all 57 components** fully implemented. Each component has a doc page with live demo and accurate React/TSX code blocks. Config: `src/config/reactComponents.ts`, `src/config/reactCodeSnippets.ts`, `src/config/reactDocPaths.ts`; registry: `src/components/react/registry.tsx`. Vue and Vite-based scaffolds remain planned.
 
 **Summary:**
 - **Docs site:** Use **Astro integrations** (`@astrojs/react`, `@astrojs/vue`) so React and Vue components run inside the existing Astro docs site, same pattern as `@astrojs/svelte`. No separate app.
@@ -64,7 +64,7 @@ React and Vue **component source** lives in the repo under `src/components/react
 
 - **Same BEM, same behavior:** React and Vue components render the same HTML structure and class names as Astro/Svelte; they use the same design tokens and a11y behavior (ARIA, keyboard, focus).
 - **Shared types:** Use `src/types/` (Tab, MenuItem, ButtonProps, etc.) so props stay aligned across Astro, Svelte, React, and Vue.
-- **Order:** Port a small core set first (e.g. Button, Card, Modal, Tabs, Dropdown, ThemeSwitcher, FormGroup, Input) to establish patterns; then expand to full parity with the 56 components.
+- **Order:** Port a small core set first (e.g. Button, Card, Modal, Tabs, Dropdown, ThemeSwitcher, FormGroup, Input) to establish patterns; then expand to full parity with the 57 components.
 
 ---
 

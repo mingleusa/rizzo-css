@@ -23,9 +23,9 @@
 
 *Run `npx rizzo-css help` to see this in the CLI (rainbow uses our theme colors).*
 
-[![npm](https://img.shields.io/badge/npm-0.0.64-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+[![npm](https://img.shields.io/badge/npm-0.0.65-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
 ![Astro](https://img.shields.io/badge/Astro-5.17.1-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
-![Svelte](https://img.shields.io/badge/Svelte-5.50.0-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
+![Svelte](https://img.shields.io/badge/Svelte-5.53+-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.9.3-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
 ![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7.3.1-646CFF?style=for-the-badge&logo=vite&logoColor=white)
@@ -47,8 +47,8 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 56+ accessible, themeable components (Astro reference + Svelte + React + Vanilla docs)
-- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 56 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Svelte | React | Vue | Vanilla)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, Svelte, React, and Vue scaffolds. Framework switcher: **View as: Astro | Svelte | Vanilla | React | Vue**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
+- 📦 **Comprehensive Components** - 57 accessible, themeable components (Astro reference + Svelte + React + Vue + Vanilla docs)
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 57 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Svelte | React | Vue | Vanilla)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, Svelte, React, and Vue scaffolds. Framework switcher: **View as: Astro | Svelte | Vanilla | React | Vue**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -58,7 +58,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 ## 🛠️ Tech Stack
 
 - **[Astro](https://astro.build)** `5.17.1` - Web framework (docs site + reference components)
-- **[Svelte](https://svelte.dev)** `5.50.0` - Framework docs and components at /docs/svelte; Svelte scaffold uses Svelte Kit
+- **[Svelte](https://svelte.dev)** `5.53+` - Framework docs and components at /docs/svelte; Svelte scaffold uses Svelte Kit
 - **[Vite](https://vitejs.dev)** `7.3.1` - Build tool for Svelte scaffold
 - **[TypeScript](https://www.typescriptlang.org/)** `5.9.3` - Type safety
 - **[PostCSS](https://postcss.org/)** `8.5.6` - CSS transformation with import support
@@ -73,7 +73,7 @@ A modern CSS design system built on Astro with semantic theming, accessibility-f
 
 **Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, Svelte, React, or Vue), then **add to existing** or **create new**. Both use the **same template choice**: **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), or **Full** (clone of the docs site). We never overwrite; snippets go in RIZZO-SETUP.md. **Add** is for existing projects: run in your project root, choose template, then select which components to add (or CSS only). Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte|react|vue --template css-only|landing|docs|dashboard|full` or `npx rizzo-css add --template css-only|landing|docs|dashboard|full`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). To run the CLI: use the [docs site](https://rizzo-css.vercel.app/docs/getting-started) package manager tabs (npm, pnpm, yarn, bun)—the **yarn** tab shows `npx` so it works with Yarn 1 and 2+. Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React and Vue: same CSS; full docs with live examples and code blocks at /docs/react and /docs/vue.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla; astro/base + astro/variants + astro components; svelte/base + svelte/variants + svelte components; react; vue). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. CSS only = no web pages or components (stylesheet + license, README, .gitignore). **Add** is for existing projects: run in project root, then select components (or CSS only). Landing/Docs/Dashboard = component picker (all 56 or pick); Full = site clone. Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all five frameworks.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla; astro/base + astro/variants + astro components; svelte/base + svelte/variants + svelte components; react; vue). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. CSS only = no web pages or components (stylesheet + license, README, .gitignore). **Add** is for existing projects: run in project root, then select components (or CSS only). Landing/Docs/Dashboard = component picker (all 57 or pick); Full = site clone. Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all five frameworks.
 
 ### Prerequisites
 
@@ -105,6 +105,7 @@ Site available at `http://localhost:4321`
 | `pnpm build:package` | Full package prep: lint, build CSS, copy scaffold, run prepare-* scripts. Use before `publish:package`. |
 | `pnpm publish:package` | Run `build:package` then publish the `rizzo-css` npm package |
 | `pnpm preview` | Preview production build |
+| `pnpm storybook` | Build CSS and start Storybook for React components (port 6006). See [docs/STORYBOOK.md](docs/STORYBOOK.md). |
 | `pnpm lint:css` | Lint CSS files |
 | `pnpm lint:css:fix` | Auto-fix CSS linting issues |
 | `pnpm test:a11y` | Build site and run accessibility tests (axe, keyboard, ARIA) on all docs routes including React and Vue. See [docs/ACCESSIBILITY.md](docs/ACCESSIBILITY.md#automated-accessibility-tests). |
@@ -167,13 +168,13 @@ Accessible, themeable components:
 - **ThemeSwitcher** - Accessible dropdown with **System** option (follows OS light/dark), Preference + Dark/Light groups, theme-specific icons, and active state styling. Preview panel shows current theme by default and hovered theme on hover. All theme switchers (Settings, docs) use the same full-width trigger and dropdown.
 - **Button** - Semantic button component with variants using theme variables
 - **Badge** - Small labels and tags for displaying status, categories, or counts with variants, sizes, and pill option
-- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, and Vanilla): 30 regular icons (Tabler) and 22 devicons (brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more; includes Cat logo and Cmd icon for keyboard shortcuts)
+- **Icons** - Reusable SVG icon components using Tabler Icons and Devicons (same set for Astro, Svelte, React, Vue, and Vanilla): 30 regular icons (Tabler) and 22 devicons (brand icons for CSS3, HTML5, JavaScript, Node.js, Astro, Svelte, React, Vue, and more; includes Cat logo and Cmd icon for keyboard shortcuts)
 - **Form Components** - Complete form system (FormGroup, Input, Textarea, Select, Checkbox, Radio) with validation states
 - **Card** - Flexible card component with variants, sections, and image support
 - **Modal** - Accessible modal/dialog component with focus trapping and keyboard navigation. Three sizes: sm, md (default), lg
 - **CopyToClipboard** - Copy to clipboard component with visual feedback
 - **CodeBlock** - Code block component with integrated copy-to-clipboard functionality and language icons. Displays colored brand icons (Devicons) for supported languages at 20px size for better visibility. Language text appears on large screens, icons only on mobile. Icons and copy button are vertically centered on all screen sizes. Used throughout documentation for code examples
-- **Search** - Search component with Algolia integration; trigger uses Cmd icon and K at same size as search icon (20px); Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; same live standalone example on Astro, Svelte, and Vanilla doc pages; mobile responsive
+- **Search** - Search component with Algolia integration; trigger uses Cmd icon and K at same size as search icon (20px); Cmd+K/Ctrl+K toggles open/close (including when focus is in search), Escape closes, backdrop or X to close; same live standalone example on Astro, Svelte, React, Vue, and Vanilla doc pages; mobile responsive
 - **Alert** - Alert/notification component with variants, dismissible functionality, auto-dismiss, and dynamic creation via JavaScript
 - **Toast** - Fixed position toast notifications with auto-dismiss and programmatic control. Available globally via `window.showToast()`. Six position options with automatic stacking
 - **Tooltip** - Accessible tooltip component with four position options (top, bottom, left, right), keyboard support, and theme-aware styling
@@ -198,9 +199,9 @@ See [Components Documentation](./docs/COMPONENTS.md) for usage examples.
 
 Comprehensive documentation is in the `docs/` directory and on the live site. **Site nav:** **Docs** | **Components** | **Blocks** | **Themes** | **Colors** (flat links; logo links to home). Docs sidebar: Introduction, Foundations, Components, Examples. **Site pages:** [Tokens reference](https://rizzo-css.vercel.app/docs/tokens), [Examples](https://rizzo-css.vercel.app/docs/examples) (form layouts, dashboard stats, settings panels). Blocks: pre-built layouts at `/blocks`.
 
-- [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
+- [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte/React/Vue/Vanilla), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
-- [Components](./docs/COMPONENTS.md) - Component library and usage (56 components)
+- [Components](./docs/COMPONENTS.md) - Component library and usage (57 components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes (also linked under Docs → Foundations on the site)
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines, utility classes, best practices, and manual accessibility testing (keyboard, screen reader, tools)

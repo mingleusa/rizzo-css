@@ -1312,3 +1312,265 @@ html.docs-sidebar-mobile #docs-sidebar-container {
 #themes-preview .themes-page__preview-dropdown-menu .dropdown__item[aria-current="true"]:focus-visible span {
   color: var(--accent) !important;
 }
+
+/* ==========================================================================
+   Blocks (landing hero, pricing, dashboard page, docs layout)
+   Reusable BEM blocks using design tokens. Used by /blocks/* pages and CLI.
+   ========================================================================== */
+
+.block-preview-wrapper {
+  margin: var(--spacing-6) 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.block-preview-wrapper--hero {
+  padding: var(--spacing-16) var(--spacing-6);
+  text-align: center;
+  background: var(--background-alt);
+}
+
+.block-preview-wrapper--pricing {
+  padding: var(--spacing-6);
+  background: var(--background-alt);
+}
+
+.block-preview-wrapper--docs {
+  min-height: 16rem;
+}
+
+.block-preview-wrapper--dashboard {
+  min-height: 24rem;
+}
+
+.docs-dim {
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+  margin-top: 0;
+}
+
+/* Landing hero block */
+.landing-hero__title {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--text);
+  margin: 0 0 var(--spacing-4);
+  line-height: var(--line-height-tight);
+}
+
+.landing-hero__subtitle {
+  font-size: var(--font-size-xl);
+  color: var(--text-dim);
+  max-width: var(--spacing-175);
+  margin: 0 auto var(--spacing-8);
+  line-height: var(--line-height-relaxed);
+}
+
+.landing-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  justify-content: center;
+}
+
+/* Pricing block */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: var(--spacing-6);
+  max-width: 56rem;
+  margin: 0 auto;
+}
+
+.pricing-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card .card__body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card--featured {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px oklch(from var(--accent) l c h / 20%);
+}
+
+.pricing-card__badge {
+  align-self: flex-start;
+  margin-bottom: var(--spacing-2);
+}
+
+.pricing-card__name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  margin: 0 0 var(--spacing-2);
+}
+
+.pricing-card__price {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  margin: 0 0 var(--spacing-0-5);
+}
+
+.pricing-card__currency,
+.pricing-card__period-inline {
+  font-size: var(--font-size-lg);
+  color: var(--text-dim);
+  font-weight: var(--font-weight-normal);
+}
+
+.pricing-card__period {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+  margin: 0 0 var(--spacing-4);
+}
+
+.pricing-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--spacing-6);
+  flex: 1;
+  font-size: var(--font-size-sm);
+  color: var(--text);
+}
+
+.pricing-card__features li {
+  padding: var(--spacing-1) 0;
+  padding-left: var(--spacing-4);
+  position: relative;
+}
+
+.pricing-card__features li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.35em;
+  height: 0.35em;
+  background: var(--accent);
+  border-radius: 50%;
+}
+
+.pricing-card__cta {
+  width: 100%;
+  justify-content: center;
+}
+
+/* Dashboard page block (stats + table inside Dashboard layout) */
+.dashboard-page__header {
+  margin-bottom: var(--spacing-6);
+}
+
+.dashboard-page__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-1);
+  color: var(--text);
+}
+
+.dashboard-page__subtitle {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: var(--font-size-sm);
+}
+
+.dashboard-page__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
+  gap: var(--spacing-4);
+  margin-bottom: var(--spacing-8);
+}
+
+.dashboard-page__stat .card__body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.dashboard-page__stat .card__label {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.dashboard-page__stat .card__value {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+}
+
+.dashboard-page__section-title {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-4);
+  color: var(--text);
+}
+
+/* Docs layout demo block */
+.docs-layout-demo {
+  display: flex;
+  min-height: 16rem;
+}
+
+.docs-layout-demo__sidebar {
+  width: 12rem;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  padding: var(--spacing-4);
+  background: var(--background-alt);
+}
+
+.docs-layout-demo__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.docs-layout-demo__nav-link {
+  display: block;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+}
+
+.docs-layout-demo__nav-link:hover {
+  background: var(--background);
+}
+
+.docs-layout-demo__nav-link--active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.docs-layout-demo__main {
+  flex: 1;
+  padding: var(--spacing-6);
+  overflow: auto;
+}
+
+.docs-layout-demo__header {
+  margin-bottom: var(--spacing-4);
+}
+
+.docs-layout-demo__title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-1);
+  color: var(--text);
+}
+
+.docs-layout-demo__desc {
+  margin: 0;
+  color: var(--text-dim);
+}
+
+.docs-layout-demo__content {
+  margin-top: var(--spacing-4);
+}

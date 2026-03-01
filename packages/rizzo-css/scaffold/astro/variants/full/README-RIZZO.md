@@ -15,7 +15,7 @@
   Design system · Vanilla · Astro · Svelte
 </pre>
 
-Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you chose **Create new** and Astro, then **Full** template. **Full** = clone of the Rizzo docs site (no component picker). **Landing** / **Docs** / **Dashboard** = base + component picker (all 56 or pick). Same template choice for **Add to existing** (`npx rizzo-css add`).
+Astro project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you chose **Create new** and Astro, then **Full** template. **Full** = clone of the Rizzo docs site (no component picker). **Landing** / **Docs** / **Dashboard** = base + component picker (all 57 or pick). Same template choice for **Add to existing** (`npx rizzo-css add`).
 
 ## Setup
 

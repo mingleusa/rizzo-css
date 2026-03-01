@@ -6,9 +6,9 @@ export const REACT_COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
   'button', 'button-group', 'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
   'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
-  'icons', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar', 'resizable', 'scroll-area',
-  'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects', 'spinner', 'switch',
-  'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
+  'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar',
+  'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
+  'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ] as const;
 
 export type ReactComponentSlug = (typeof REACT_COMPONENT_SLUGS)[number];
@@ -60,6 +60,7 @@ const DESCRIPTIONS: Record<string, string> = {
   forms: 'Comprehensive set of accessible form components with validation states',
   'hover-card': 'Floating panel that opens on hover',
   icons: 'Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid',
+  'input-group': 'Input with optional prefix and suffix addons (e.g. icon, currency, domain)',
   kbd: 'Keyboard key styling for shortcuts (e.g. Ctrl+K)',
   label: 'Standalone form label; use with for/id to associate with inputs',
   modal: 'Accessible modal/dialog component with focus trapping and keyboard navigation',

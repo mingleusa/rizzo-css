@@ -1,4 +1,4 @@
-// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3 (or relative assets/sfx for Vanilla), then click.wav fallback, else Web Audio fallback. Single source for main site (Layout.astro) and all shipped scaffolds (Astro, Svelte, Vanilla); keep behavior in sync. Includes nav links and logo (a[href], .navbar__link, .navbar__brand-link). Supports touch (touchend) so mobile plays like desktop.
+// Sound effects: play on click/tap when user has enabled (localStorage soundEffects === 'true'). Uses /assets/sfx/click.mp3 (or relative assets/sfx for Vanilla), then click.wav fallback, else Web Audio fallback. Single source for main site (Layout.astro) and all shipped scaffolds (Astro, Svelte, React, Vue, Vanilla); keep behavior in sync. Includes nav links and logo (a[href], .navbar__link, .navbar__brand-link). Supports touch (touchend) so mobile plays like desktop.
 (function() {
 	var SOUND_KEY = 'soundEffects';
 	var THROTTLE_MS = 120;

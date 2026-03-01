@@ -120,6 +120,18 @@ export const DOCS_NAV: DocsNavGroup[] = [
         ],
       },
       {
+        href: 'accessibility/manual-testing',
+        label: 'Manual testing checklist',
+        sections: [
+          { id: 'overview', label: 'Overview' },
+          { id: 'priority-1', label: 'Priority 1 — High interaction' },
+          { id: 'priority-2', label: 'Priority 2 — Forms and feedback' },
+          { id: 'priority-3', label: 'Priority 3 — Navigation and layout' },
+          { id: 'tools', label: 'Tools' },
+          { id: 'suggested-order', label: 'Suggested order' },
+        ],
+      },
+      {
         href: 'colors',
         label: 'Colors',
         sections: [
@@ -179,6 +191,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/forms', label: 'Forms', frameworkOnly: true },
       { href: 'components/hover-card', label: 'Hover Card', frameworkOnly: true },
       { href: 'components/icons', label: 'Icons', frameworkOnly: true },
+      { href: 'components/input-group', label: 'Input Group', frameworkOnly: true },
       { href: 'components/kbd', label: 'Kbd', frameworkOnly: true },
       { href: 'components/label', label: 'Label', frameworkOnly: true },
       { href: 'components/modal', label: 'Modal', frameworkOnly: true },

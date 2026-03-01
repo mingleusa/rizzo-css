@@ -25,7 +25,7 @@ const astroDest = join(scaffoldDir, 'astro');
 const ASTRO_SCAFFOLD = [
   'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox',
   'Collapsible', 'ContextMenu', 'CopyToClipboard', 'Dashboard', 'Divider', 'DocsSidebar', 'Dropdown', 'Empty', 'Footer', 'FontSwitcher', 'FormGroup',
-  'HoverCard', 'Icons', 'Input', 'Kbd', 'Label', 'Modal', 'Navbar', 'Pagination', 'Popover', 'ProgressBar', 'Radio', 'ResizableHandle', 'ResizablePane', 'ResizablePaneGroup',
+  'HoverCard', 'Icons', 'Input', 'InputGroup', 'Kbd', 'Label', 'Modal', 'Navbar', 'Pagination', 'Popover', 'ProgressBar', 'Radio', 'ResizableHandle', 'ResizablePane', 'ResizablePaneGroup',
   'ScrollArea', 'Search', 'Select', 'Separator', 'Settings', 'Sheet', 'Skeleton', 'Slider', 'SoundEffects', 'Spinner', 'Switch', 'Table', 'Tabs', 'Textarea',
   'ThemeIcon', 'ThemeSwitcher', 'Toast', 'Toggle', 'ToggleGroup', 'Tooltip',
 ];

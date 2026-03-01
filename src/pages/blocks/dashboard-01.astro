@@ -19,7 +19,7 @@ import { DASHBOARD_SNIPPETS } from '../../config/blockCodeSnippets';
 		<section>
 			<h2 id="preview">Preview</h2>
 			<p class="docs-dim">Below is the block rendered with Rizzo components. In your app this would be your root layout and page content.</p>
-			<div class="block-preview-wrapper">
+			<div class="block-preview-wrapper block-preview-wrapper--dashboard">
 				<Dashboard sidebarLabel="Dashboard navigation">
 					<nav slot="sidebar" class="dashboard__nav">
 						<a href="/blocks/dashboard-01" class="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
@@ -121,36 +121,4 @@ import { DASHBOARD_SNIPPETS } from '../../config/blockCodeSnippets';
 		</section>
 </BlocksLayout>
 
-<style>
-	.block-preview-wrapper {
-		margin: var(--spacing-6) 0;
-		border: 1px solid var(--border);
-		border-radius: var(--radius-lg);
-		overflow: hidden;
-		min-height: 24rem;
-	}
-	.dashboard-page__header { margin-bottom: var(--spacing-6); }
-	.dashboard-page__title { font-size: var(--text-2xl); font-weight: 700; margin: 0 0 var(--spacing-1); }
-	.dashboard-page__subtitle { margin: 0; color: var(--text-dim); }
-	.dashboard-page__stats-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr));
-		gap: var(--spacing-4);
-		margin-bottom: var(--spacing-8);
-	}
-	.dashboard-page__stat :global(.card__body) {
-		display: flex;
-		flex-direction: column;
-		gap: var(--spacing-1);
-	}
-	.dashboard-page__stat :global(.card__label) {
-		font-size: var(--text-sm);
-		color: var(--text-dim);
-	}
-	.dashboard-page__stat :global(.card__value) {
-		font-size: var(--text-xl);
-		font-weight: 700;
-	}
-	.dashboard-page__section-title { font-size: var(--text-lg); margin: 0 0 var(--spacing-4); }
-	.docs-dim { color: var(--text-dim); font-size: var(--font-size-sm); margin-top: 0; }
-</style>
+<!-- Block styles: pages.css (dashboard-page__*, block-preview-wrapper--dashboard, docs-dim) -->

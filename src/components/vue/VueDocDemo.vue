@@ -13,6 +13,7 @@ function demoPropsForSlug(slug) {
     'progress-bar': { value: 60, max: 100 },
     spinner: { label: 'Loading…' },
     forms: { ariaLabel: 'Sample input' },
+    'input-group': { ariaLabel: 'Amount', placeholder: '0.00' },
   };
   return map[slug] || {};
 }

@@ -36,6 +36,7 @@
   import DashboardDoc from './pages/DashboardDoc.svelte';
   import FooterDoc from './pages/FooterDoc.svelte';
   import LabelDoc from './pages/LabelDoc.svelte';
+  import InputGroupDoc from './pages/InputGroupDoc.svelte';
   import KbdDoc from './pages/KbdDoc.svelte';
   import SeparatorDoc from './pages/SeparatorDoc.svelte';
   import AspectRatioDoc from './pages/AspectRatioDoc.svelte';
@@ -160,6 +161,8 @@
     <FooterDoc />
   {:else if first === 'components' && second === 'label'}
     <LabelDoc />
+  {:else if first === 'components' && second === 'input-group'}
+    <InputGroupDoc />
   {:else if first === 'components' && second === 'kbd'}
     <KbdDoc />
   {:else if first === 'components' && second === 'separator'}

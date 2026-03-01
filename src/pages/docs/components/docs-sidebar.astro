@@ -26,7 +26,7 @@ const { framework } = getFrameworkFromPath(currentPath);
 		</div>
 
 		<h3>Usage</h3>
-		<p>Pass <code>currentPath</code> (current URL pathname) and <code>framework</code> (or path prefix) so links and active state match the docs framework (Astro, Svelte, Vanilla). The sidebar uses <code>DOCS_NAV</code> from config; you can provide a custom nav structure via a prop if you extend the component.</p>
+		<p>Pass <code>currentPath</code> (current URL pathname) and <code>framework</code> (or path prefix) so links and active state match the docs framework (Astro, Svelte, React, Vue, Vanilla). The sidebar uses <code>DOCS_NAV</code> from config; you can provide a custom nav structure via a prop if you extend the component.</p>
 		<FrameworkCodeTabs
 			astro={`---
 import DocsSidebar from '../components/DocsSidebar.astro';

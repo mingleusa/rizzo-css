@@ -30,6 +30,7 @@ import { Tabs } from './Tabs';
 import { Accordion } from './Accordion';
 import { SliderDemo } from './SliderDemo';
 import { Input } from './Input';
+import { InputGroup } from './InputGroup';
 import { CopyToClipboard } from './CopyToClipboard';
 import { TooltipDemo } from './TooltipDemo';
 import { CollapsibleDemo } from './CollapsibleDemo';
@@ -82,6 +83,7 @@ const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   accordion: Accordion,
   slider: SliderDemo,
   forms: Input,
+  'input-group': InputGroup,
   'copy-to-clipboard': CopyToClipboard,
   tooltip: TooltipDemo,
   collapsible: CollapsibleDemo,
@@ -139,6 +141,7 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
     ],
   },
   forms: { placeholder: 'Enter text…', type: 'text' },
+  'input-group': { placeholder: '0.00', prefix: '$', suffix: 'USD', 'aria-label': 'Amount' },
   'copy-to-clipboard': { value: 'npm install rizzo-css' },
   tooltip: { text: 'Tooltip text' },
   collapsible: { triggerLabel: 'Show more', defaultOpen: false, children: null },

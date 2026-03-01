@@ -413,6 +413,117 @@ legend {
   color: var(--success);
 }
 
+/* Input Group – input with optional prefix/suffix addons (BEM) */
+.input-group {
+  display: flex;
+  width: 100%;
+}
+
+.input-group__wrapper {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-md);
+  background-color: var(--background-alt);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.input-group__wrapper:focus-within {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 var(--spacing-3) oklch(from var(--accent) l c h / 10%);
+}
+
+.input-group__addon {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-0-625) var(--spacing-3);
+  font-size: var(--font-size-base);
+  color: var(--text-dim);
+  background-color: var(--background);
+  border: var(--border-width) solid var(--border);
+  white-space: nowrap;
+}
+
+.input-group__addon--prefix {
+  border-right: none;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.input-group__addon--suffix {
+  border-left: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.input-group__input {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-0-625) var(--spacing-3);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  line-height: var(--line-height-normal);
+  color: var(--text);
+  background: transparent;
+  border: var(--border-width) solid var(--border);
+  border-radius: 0;
+  appearance: none;
+  transition: border-color var(--transition-base);
+}
+
+.input-group__input::placeholder {
+  color: var(--text-dim);
+  opacity: var(--opacity-70);
+}
+
+/* When only prefix: input gets left border removed, right rounded */
+.input-group__wrapper:has(.input-group__addon--prefix):not(:has(.input-group__addon--suffix)) .input-group__input {
+  border-left: none;
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+/* When only suffix: input gets right border removed, left rounded */
+.input-group__wrapper:has(.input-group__addon--suffix):not(:has(.input-group__addon--prefix)) .input-group__input {
+  border-right: none;
+  border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+/* When both: no radius on input */
+.input-group__wrapper:has(.input-group__addon--prefix):has(.input-group__addon--suffix) .input-group__input {
+  border-left: none;
+  border-right: none;
+}
+
+.input-group__input:focus {
+  outline: none;
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.input-group__input:disabled,
+.input-group__wrapper:has(.input-group__input:disabled) {
+  opacity: var(--opacity-60);
+  cursor: not-allowed;
+}
+
+.input-group--error .input-group__wrapper {
+  border-color: var(--error);
+}
+
+.input-group--error .input-group__wrapper:focus-within {
+  border-color: var(--error);
+  box-shadow: 0 0 0 var(--spacing-3) oklch(from var(--error) l c h / 10%);
+}
+
+.input-group--success .input-group__wrapper {
+  border-color: var(--success);
+}
+
+.input-group--success .input-group__wrapper:focus-within {
+  border-color: var(--success);
+  box-shadow: 0 0 0 var(--spacing-3) oklch(from var(--success) l c h / 10%);
+}
+
 /* Form Layout */
 .form-row {
   display: flex;

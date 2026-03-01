@@ -29,6 +29,7 @@ const componentMap = {
   'forms': defineAsyncComponent(() => import('./Input.vue')),
   'hover-card': defineAsyncComponent(() => import('./HoverCard.vue')),
   'icons': defineAsyncComponent(() => import('./Icons.vue')),
+  'input-group': defineAsyncComponent(() => import('./InputGroup.vue')),
   'kbd': defineAsyncComponent(() => import('./Kbd.vue')),
   'label': defineAsyncComponent(() => import('./Label.vue')),
   'modal': defineAsyncComponent(() => import('./Modal.vue')),
