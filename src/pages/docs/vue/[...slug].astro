@@ -4,8 +4,11 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import VueDocDemo from '../../../components/vue/VueDocDemo.vue';
 import { getReactComponentMeta, type ReactComponentSlug } from '../../../config/reactComponents';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
 import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
 import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
 import { getVueDocStaticPaths } from '../../../config/reactDocPaths';
 
 export function getStaticPaths() {
@@ -17,8 +20,11 @@ const slug = (slugParam as string) ?? '';
 const pathParts = slug.split('/').filter(Boolean);
 const componentSlug: ReactComponentSlug = (pathParts[0] === 'components' && pathParts[1] ? pathParts[1] : 'button') as ReactComponentSlug;
 const meta = getReactComponentMeta(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
 const reactCode = getReactCodeSnippet(componentSlug);
 const vueCode = getVueCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title={`${meta.title} — Vue`} description={meta.description}>
@@ -38,7 +44,14 @@ const vueCode = getVueCodeSnippet(componentSlug);
     </div>
 
     <h3>Usage</h3>
-    <FrameworkCodeTabs react={reactCode} vue={vueCode} defaultTab="vue" />
+    <FrameworkCodeTabs
+      astro={astroCode}
+      svelte={svelteCode}
+      react={reactCode}
+      vue={vueCode}
+      vanilla={vanillaCode}
+      defaultTab="vue"
+    />
 
     <p>
       <strong>Other frameworks:</strong>{' '}

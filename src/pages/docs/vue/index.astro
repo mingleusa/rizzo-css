@@ -1,0 +1,29 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+---
+
+<DocsLayout title="Vue" description="Rizzo CSS components and examples for Vue.">
+  <section>
+    <h2>Vue</h2>
+    <p>
+      Use Rizzo CSS in your Vue app. The design system is built with a <strong>CSS-first</strong> architecture:
+      the same BEM class names and styles work across Astro, Svelte, React, Vue, and Vanilla.
+    </p>
+    <h3>Setup</h3>
+    <ol>
+      <li>Install the package: <code>pnpm add rizzo-css</code> (or npm/yarn).</li>
+      <li>Import the main CSS in your app entry (e.g. <code>main.ts</code>): <code>import 'rizzo-css'</code>.</li>
+      <li>Copy Vue components from this repo (<code>src/components/vue/</code>) into your project, or use the examples on each component page.</li>
+    </ol>
+    <p>
+      Vue components use the same class names as the Astro, Svelte, and React versions, so they look and behave the same.
+    </p>
+    <h3>Components</h3>
+    <p>
+      <a href="/docs/vue/components">Browse all 50 Vue components</a> — each has a full implementation, live demo, and Vue SFC code blocks. Start with <a href="/docs/vue/components/button">Button</a>.
+    </p>
+    <p>
+      <strong>Other frameworks:</strong> <a href="/docs">Astro</a> · <a href="/docs/svelte">Svelte</a> · <a href="/docs/react">React</a> · <a href="/docs/vanilla">Vanilla</a>
+    </p>
+  </section>
+</DocsLayout>

@@ -1,0 +1,64 @@
+---
+import BlocksLayout from '../../layouts/BlocksLayout.astro';
+import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
+import { LOGIN_SNIPPETS } from '../../config/blockCodeSnippets';
+---
+
+<BlocksLayout
+	title="Login"
+	description="Centered login form on a muted background. Uses Rizzo form components and design tokens. Copy and paste into your app."
+	documentTitle="Login — Blocks — Rizzo CSS"
+>
+	<section>
+		<p>This block is a <strong>login page</strong>: centered form card with optional brand link, email and password fields, submit button, and footer links (forgot password, sign up). Use it as a starting point for auth screens. Same BEM and tokens work in any framework.</p>
+	</section>
+
+	<section>
+		<h2 id="preview">Preview</h2>
+		<p class="docs-dim">Login form using design tokens and form-input classes.</p>
+		<div class="block-preview-wrapper block-preview-wrapper--login">
+			<div class="login-block">
+				<a href="/" class="login-block__brand" aria-label="Home">
+					<span class="login-block__brand-icon" aria-hidden="true">R</span>
+					Acme
+				</a>
+				<form class="login-block__form" action="#" method="post" aria-labelledby="login-heading">
+					<h2 id="login-heading" class="login-block__title">Sign in</h2>
+					<div class="form-group">
+						<label for="login-email-preview" class="label">Email</label>
+						<input type="email" id="login-email-preview" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" />
+					</div>
+					<div class="form-group">
+						<label for="login-password-preview" class="label">Password</label>
+						<input type="password" id="login-password-preview" name="password" class="form-input" placeholder="••••••••" autocomplete="current-password" />
+					</div>
+					<button type="submit" class="btn btn-primary" style="width: 100%;">Sign in</button>
+				</form>
+				<p class="login-block__footer">
+					<a href="#">Forgot password?</a> · <a href="/blocks/signup">Create account</a>
+				</p>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="usage">Usage</h2>
+		<p>Copy the snippet for your framework. Same BEM classes and structure work everywhere.</p>
+		<FrameworkCodeTabs
+			astro={LOGIN_SNIPPETS.astro}
+			svelte={LOGIN_SNIPPETS.svelte}
+			react={LOGIN_SNIPPETS.react}
+			vue={LOGIN_SNIPPETS.vue}
+			vanilla={LOGIN_SNIPPETS.vanilla}
+		/>
+	</section>
+
+	<section>
+		<h2>Components used</h2>
+		<ul>
+			<li>Rizzo <strong>form</strong> classes (<code>form-input</code>, <code>label</code>, <code>form-group</code>)</li>
+			<li><a href="/docs/components/button">Button</a> — <code>btn btn-primary</code> for submit</li>
+			<li>Design tokens for spacing, radius, and colors</li>
+		</ul>
+	</section>
+</BlocksLayout>

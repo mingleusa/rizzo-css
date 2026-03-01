@@ -15,7 +15,9 @@ Rizzo CSS targets **modern browsers** that support the features it uses. This do
 
 ## Testing
 
-- **Default (Chromium):** Run **`pnpm test:a11y`** for accessibility (axe, keyboard, ARIA) in a Chromium environment. Tests run with **4 workers** in parallel for faster completion. The a11y suite covers the full docs site: **axe** runs on all doc routes (foundation, components for Astro, Svelte, React, Vue), theme and color pages, and block routes (including Landing hero and Pricing). **Keyboard and ARIA** checks run on Astro and React only (modal, dropdown, settings, alert-dialog, sheet).
+For a single overview of a11y, browser, and smoke testing, see [TESTING.md](./TESTING.md).
+
+- **Default (Chromium):** Run **`pnpm test:a11y`** for accessibility (axe, keyboard, ARIA) in a Chromium environment. Tests run with **4 workers** (6 in CI) in parallel. Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. The a11y suite covers the full docs site: **axe** runs on all doc routes (foundation, components for Astro, Svelte, React, Vue), theme and color pages, and block routes (all six blocks: Landing hero, Pricing, Dashboard, Docs layout, Login, Sign up). **Keyboard and ARIA** checks run on Astro and React only (modal, dropdown, settings, alert-dialog, sheet).
 - **CI:** On push/PR to `main`, the workflow [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs a11y tests on **Chromium, Firefox, and WebKit**. **Axe (WCAG)** runs on **Chromium and Firefox only**; on **WebKit** the full docs axe suite is **skipped** (to avoid timeouts in CI). **Keyboard and ARIA** tests run on **Chromium, Firefox, and WebKit**. Locally, use `pnpm test:a11y:ci:cross-browser` to run the same set (requires `playwright install chromium firefox webkit`).
 - **Firefox:** `pnpm exec playwright test tests/a11y --project=a11y-firefox`
 - **Safari (WebKit):** `pnpm exec playwright test tests/a11y --project=a11y-webkit`

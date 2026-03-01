@@ -1574,3 +1574,91 @@ html.docs-sidebar-mobile #docs-sidebar-container {
 .docs-layout-demo__content {
   margin-top: var(--spacing-4);
 }
+
+/* Login block: centered form on muted background */
+.block-preview-wrapper--login,
+.block-preview-wrapper--signup {
+  padding: var(--spacing-16) var(--spacing-6);
+  background: var(--background-alt);
+  min-height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-block,
+.signup-block {
+  width: 100%;
+  max-width: 24rem;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.login-block__brand,
+.signup-block__brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.login-block__brand:hover,
+.signup-block__brand:hover {
+  color: var(--accent-fg);
+  text-decoration: none;
+}
+
+.login-block__brand-icon,
+.signup-block__brand-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--accent-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-sm);
+}
+
+.login-block__form,
+.signup-block__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+  padding: var(--spacing-6);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+}
+
+.login-block__title,
+.signup-block__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--text);
+  margin: 0 0 var(--spacing-1);
+}
+
+.login-block__footer,
+.signup-block__footer {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.login-block__footer a,
+.signup-block__footer a {
+  color: var(--accent-fg);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.login-block__footer a:hover,
+.signup-block__footer a:hover {
+  color: var(--accent-fg-hover);
+}

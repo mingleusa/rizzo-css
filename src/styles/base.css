@@ -32,8 +32,20 @@ a:hover {
 a.btn,
 .navbar a,
 .docs-sidebar a,
+.dashboard__nav a,
+.dashboard__nav-link,
+.docs-layout-demo__nav a,
+.docs-layout-demo__nav-link,
 [role="menu"] a,
 [role="tablist"] a {
+  text-decoration: none;
+}
+
+/* Sidebar nav links: no underline on hover (blocks + docs layout) */
+.dashboard__nav a:hover,
+.dashboard__nav-link:hover,
+.docs-layout-demo__nav a:hover,
+.docs-layout-demo__nav-link:hover {
   text-decoration: none;
 }
 

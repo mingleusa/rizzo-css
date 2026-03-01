@@ -8,12 +8,13 @@ const props = defineProps({
 
 const Component = computed(() => getVueComponent(props.slug));
 
+// Props passed to Vue component demos. Only include props the Vue component actually accepts (many are slot-only).
 function demoPropsForSlug(slug) {
   const map = {
-    'progress-bar': { value: 60, max: 100 },
     spinner: { label: 'Loading…' },
-    forms: { ariaLabel: 'Sample input' },
+    forms: { placeholder: 'Enter text…' },
     'input-group': { ariaLabel: 'Amount', placeholder: '0.00' },
+    cards: { variant: 'elevated' },
   };
   return map[slug] || {};
 }

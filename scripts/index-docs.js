@@ -191,6 +191,8 @@ const blockPages = [
   { title: 'Pricing cards', url: '/blocks/pricing', category: 'Blocks', description: 'Three-tier pricing section using Card, Badge, and buttons. Theme-aware and accessible. Framework code tabs. Copy-paste for any framework.' },
   { title: 'Dashboard with sidebar', url: '/blocks/dashboard-01', category: 'Blocks', description: 'App dashboard with sidebar navigation, stat cards, and data table. Built with Dashboard, Card, and Table components. Scaffold with npx rizzo-css init --template dashboard.' },
   { title: 'Docs layout with sidebar', url: '/blocks/docs-layout', category: 'Blocks', description: 'Documentation layout with collapsible sidebar and main content area. Same pattern as the Rizzo docs site. Scaffold with npx rizzo-css init --template docs.' },
+  { title: 'Login', url: '/blocks/login', category: 'Blocks', description: 'Centered login form on muted background. Brand link, email/password fields, submit button, and footer links. Framework code tabs. Copy-paste for any framework.' },
+  { title: 'Sign up', url: '/blocks/signup', category: 'Blocks', description: 'Centered sign-up form with name, email, password. Same tokens as Login. Framework code tabs. Copy-paste for any framework.' },
 ];
 
 const themePages = [

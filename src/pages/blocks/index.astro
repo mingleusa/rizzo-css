@@ -15,10 +15,10 @@ const cliSnippet = `npx rizzo-css init
 >
 	<section class="blocks-index__browse">
 		<h2 class="blocks-index__browse-title">Browse blocks</h2>
-		<p class="blocks-index__browse-desc">Pre-built layouts and patterns using Rizzo components and design tokens. Use them as starting points for dashboards, docs sites, and app shells.</p>
+		<p class="blocks-index__browse-desc">Pre-built layouts and patterns using Rizzo components and design tokens. Use them as starting points for dashboards, docs sites, auth screens, and app shells.</p>
 	</section>
 
-		<section>
+	<section>
 		<h2 class="blocks-index__section-label">Featured</h2>
 		<div class="blocks-index__grid">
 				<a href="/blocks/landing-hero" class="block-card-link">
@@ -57,14 +57,32 @@ const cliSnippet = `npx rizzo-css init
 						</div>
 					</Card>
 				</a>
-			</div>
-		</section>
+				<a href="/blocks/login" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Login</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Centered login form on a muted background. Brand link, email/password fields, and footer links.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Form · Button · Tokens</span>
+						</div>
+					</Card>
+				</a>
+				<a href="/blocks/signup" class="block-card-link">
+					<Card variant="elevated">
+						<div class="card__body">
+							<h3 style="margin: 0 0 var(--spacing-2) 0;">Sign up</h3>
+							<p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">Centered sign-up form with name, email, password, and link to sign in. Same tokens as Login.</p>
+							<span class="block-card-meta" style="margin-top: var(--spacing-2); font-size: var(--font-size-xs); color: var(--text-dim);">Form · Button · Tokens</span>
+						</div>
+					</Card>
+				</a>
+		</div>
+	</section>
 
-		<section>
-			<h2>Scaffold from CLI</h2>
-			<p>When you create a new project or add to existing, choose a <strong>template</strong>: <strong>CSS only</strong>, <strong>Landing</strong>, <strong>Docs</strong>, <strong>Dashboard</strong>, or <strong>Full</strong>. CSS only = stylesheet + license, README, .gitignore (no web pages or components). <strong>Add</strong> is for existing projects: run in your project root, then select which components to add (or CSS only). Landing, Docs, and Dashboard give you the same full setup with a different starter layout and content — matching the blocks above. Full clones the entire docs site.</p>
-			<CodeBlock code={cliSnippet} language="bash" />
-		</section>
+	<section>
+		<h2>Scaffold from CLI</h2>
+		<p>When you create a new project or add to existing, choose a <strong>template</strong>: <strong>CSS only</strong>, <strong>Landing</strong>, <strong>Docs</strong>, <strong>Dashboard</strong>, or <strong>Full</strong>. CSS only = stylesheet + license, README, .gitignore (no web pages or components). <strong>Add</strong> is for existing projects: run in your project root, then select which components to add (or CSS only). Landing, Docs, and Dashboard give you the same full setup with a different starter layout and content — matching the blocks above. Full clones the entire docs site.</p>
+		<CodeBlock code={cliSnippet} language="bash" />
+	</section>
 </BlocksLayout>
 
 <style>

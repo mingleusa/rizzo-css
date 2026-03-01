@@ -37,8 +37,32 @@ test.describe('Smoke: key routes', () => {
     await expect(page.getByRole('heading', { name: 'Landing hero' })).toBeVisible();
   });
 
+  test('blocks login loads', async ({ page }) => {
+    const res = await page.goto('/blocks/login', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await expect(page.getByRole('heading', { name: 'Login' })).toBeVisible();
+  });
+
+  test('blocks signup loads', async ({ page }) => {
+    const res = await page.goto('/blocks/signup', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await expect(page.getByRole('heading', { name: 'Sign up' })).toBeVisible();
+  });
+
   test('component page (button) loads', async ({ page }) => {
     const res = await page.goto('/docs/components/button', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+  });
+
+  test('docs react index loads', async ({ page }) => {
+    const res = await page.goto('/docs/react', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+  });
+
+  test('docs vue index loads', async ({ page }) => {
+    const res = await page.goto('/docs/vue', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
     await expect(page.locator('h1')).toBeVisible();
   });

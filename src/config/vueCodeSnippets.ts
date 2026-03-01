@@ -616,7 +616,7 @@ import InputGroup from '@/components/rizzo/InputGroup.vue';
 </script>
 
 <template>
-  <InputGroup placeholder="0.00">
+  <InputGroup aria-label="Amount" placeholder="0.00">
     <template #prefix>$</template>
     <template #suffix>USD</template>
   </InputGroup>

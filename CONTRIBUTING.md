@@ -23,14 +23,14 @@ pnpm install
 | **Build CSS only** | `pnpm build:css` |
 | **Lint CSS** | `pnpm lint:css` or `pnpm lint:css:fix` |
 | **Package (scaffolds)** | `pnpm build:package` — build CSS, run copy-scaffold + prepare-vanilla-scaffold |
-| **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA) |
-| **Smoke tests** | `pnpm test:smoke` — build + preview + key-route checks (home, docs, blocks, themes). For deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke` |
+| **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA). For faster local runs use `pnpm test:a11y:fast` (subset of routes). See [docs/TESTING.md](docs/TESTING.md). |
+| **Smoke tests** | `pnpm test:smoke` — build + preview + key-route checks (home, docs, blocks, themes, React/Vue doc index). For deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke`. See [docs/TESTING.md](docs/TESTING.md). |
 | **Git hooks (Husky)** | **pre-commit:** `lint-staged` runs stylelint --fix on staged `.css` files. **pre-push:** `pnpm build` then smoke tests. Run `pnpm install` once to enable hooks. |
 | **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
 | **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
 | **Bundle size budget** | `pnpm check:size` — build CSS and fail if package bundle exceeds budget (CI runs this). See [Bundle size](#bundle-size) below. |
 
-**First time running a11y tests:** Playwright needs a browser. Run `pnpm exec playwright install chromium` once (or `playwright install` for all browsers). If you see "Executable doesn't exist at ... ms-playwright", that means the browser isn't installed yet.
+**First time running a11y or smoke tests:** Playwright needs a browser. Run `pnpm exec playwright install chromium` once (or `pnpm exec playwright install` for all browsers). Both `pnpm test:a11y` and `pnpm test:smoke` use Playwright. If you see "Executable doesn't exist at ...", the browser isn't installed yet.
 
 See [package.json](package.json) scripts and [docs/GETTING_STARTED.md](docs/GETTING_STARTED.md) for more.
 

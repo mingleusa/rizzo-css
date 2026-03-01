@@ -21,13 +21,14 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 
 | Doc | Description |
 |-----|-------------|
-| [COMPONENTS.md](./COMPONENTS.md) | All components (57 in CLI; doc pages by category), usage, BEM, framework tabs |
+| [TESTING.md](./TESTING.md) | A11y, browser, and component-page testing (Playwright, axe, keyboard, ARIA, smoke) |
+| [COMPONENTS.md](./COMPONENTS.md) | All components (50 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
 | [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.65), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.66), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -40,6 +41,10 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | [TODO.md](./TODO.md) | Current tasks, roadmap, and **future components/blocks** to add |
 | [STORYBOOK.md](./STORYBOOK.md) | Optional Storybook for React components (`pnpm storybook`) |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Search: client-side (no setup) or Algolia for production; indexing and env setup |
+
+### Testing
+
+**A11y and smoke tests** use Playwright. Before running `pnpm test:a11y` or `pnpm test:smoke` for the first time, install browsers: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. CI runs a11y with sharding (Chromium and Firefox in 2 shards each) and 6 workers. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
 ### Planning (internal)
 
@@ -59,7 +64,7 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
 | **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, react/, vue/, config/, shared/, utils/) — astro and svelte include base/ and variants/; react and vue include base/ (Vite). |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
-| **tests/** | Playwright a11y tests (`tests/a11y/`) and smoke tests (`tests/smoke.spec.mjs`) |
+| **tests/** | Playwright a11y tests (`tests/a11y/`) and smoke tests (`tests/smoke.spec.mjs`). **First run:** install browsers with `pnpm exec playwright install chromium` (or `playwright install` for all). See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
 | **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |
 | **vercel.json** | Cache and security headers for deploy. CI: [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when relevant paths change. |
 

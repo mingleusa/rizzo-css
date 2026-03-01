@@ -11,14 +11,15 @@ export default defineConfig({
   fullyParallel: true,
   forbidOnly: isCI,
   retries: isCI ? 2 : 0,
-  workers: 4, // parallel tests; faster locally and in CI
-  timeout: isCI ? 60_000 : 30_000,
+  workers: isCI ? 6 : 4, // more workers in CI for faster axe runs
+  timeout: isCI ? 50_000 : 30_000,
   reporter: isCI ? [['github'], ['html', { open: 'never' }]] : [['html', { open: 'never' }]],
   use: {
     baseURL: process.env.BASE_URL || PREVIEW_URL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
-    actionTimeout: isCI ? 15_000 : 10_000,
+    actionTimeout: isCI ? 12_000 : 10_000,
+    navigationTimeout: isCI ? 15_000 : 12_000,
   },
   projects: [
     {

@@ -117,6 +117,11 @@ function PlaceholderFor(slug: string): ComponentType {
 /** Default props for doc demo when component is rendered with no props. */
 const DEMO_PROPS: Record<string, Record<string, unknown>> = {
   button: { children: 'Default' },
+  alert: { variant: 'info', children: 'Information message.' },
+  'progress-bar': { value: 60, max: 100, showLabel: true },
+  avatar: { name: 'Jane Doe' },
+  skeleton: {},
+  'back-to-top': { threshold: 400, label: 'Back to top' },
   breadcrumb: {
     items: [
       { label: 'Home', href: '/' },

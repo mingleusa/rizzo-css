@@ -1,5 +1,5 @@
 # Cross-browser accessibility tests (axe, keyboard, ARIA).
-# Build once, then run Chrome / Firefox / WebKit in parallel (4 workers per job). See docs/BROWSER_SUPPORT.md and docs/ACCESSIBILITY.md.
+# Build once, then run Chromium and Firefox with 2 shards each plus WebKit (5 jobs total). Sharding speeds up axe; 6 workers per job. See docs/TESTING.md and docs/BROWSER_SUPPORT.md.
 name: Accessibility (a11y)
 
 on:
@@ -53,11 +53,26 @@ jobs:
   a11y-browser:
     needs: build
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 12
     strategy:
       fail-fast: false
       matrix:
-        project: [a11y, a11y-firefox, a11y-webkit]
+        include:
+          - project: a11y
+            shard: 1
+            shard_total: 2
+          - project: a11y
+            shard: 2
+            shard_total: 2
+          - project: a11y-firefox
+            shard: 1
+            shard_total: 2
+          - project: a11y-firefox
+            shard: 2
+            shard_total: 2
+          - project: a11y-webkit
+            shard: 0
+            shard_total: 1
     steps:
       - uses: actions/checkout@v4
 
@@ -93,18 +108,23 @@ jobs:
           case "${{ matrix.project }}" in
             a11y)           pnpm exec playwright install --with-deps chromium ;;
             a11y-firefox)   pnpm exec playwright install --with-deps firefox ;;
-            a11y-webkit)    pnpm exec playwright install --with-deps webkit ;;
+            a11y-webkit)   pnpm exec playwright install --with-deps webkit ;;
           esac
 
-      - name: Run a11y tests (${{ matrix.project }})
+      - name: Run a11y tests
         env:
           CI: true
-        run: pnpm exec playwright test tests/a11y --project=${{ matrix.project }}
+        run: |
+          if [ "${{ matrix.shard_total }}" = "1" ]; then
+            pnpm exec playwright test tests/a11y --project=${{ matrix.project }}
+          else
+            pnpm exec playwright test tests/a11y --project=${{ matrix.project }} --shard=${{ matrix.shard }}/${{ matrix.shard_total }}
+          fi
 
       - name: Upload Playwright report
         uses: actions/upload-artifact@v4
         if: failure()
         with:
-          name: playwright-report-${{ matrix.project }}
+          name: playwright-report-${{ matrix.project }}-${{ matrix.shard }}
           path: playwright-report/
           retention-days: 7

@@ -1,13 +1,13 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.65",
+  "version": "0.0.66",
   "engines": {
     "node": ">=18"
   },
   "scripts": {
     "prepublishOnly": "cd ../.. && pnpm run lint:css:fix && pnpm run build:css && node scripts/copy-scaffold.js && node scripts/prepare-vanilla-scaffold.js"
   },
-  "description": "A modern CSS design system with semantic theming, 14 themes, accessible components (BEM), and pre-built blocks. Same CSS and components for Vanilla JS, Astro, Svelte, React, and Vue; CLI scaffolds all five; blocks include Landing hero, Pricing, Dashboard, Docs layout.",
+  "description": "A modern CSS design system with semantic theming, 14 themes, accessible components (BEM), and pre-built blocks. Same CSS and components for Vanilla JS, Astro, Svelte, React, and Vue; CLI scaffolds all five; blocks include Landing hero, Pricing, Dashboard, Docs layout, Login, Sign up.",
   "style": "dist/rizzo.min.css",
   "main": "dist/rizzo.min.css",
   "unpkg": "dist/rizzo.min.css",

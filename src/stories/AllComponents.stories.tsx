@@ -10,7 +10,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          'Browse all 57 Rizzo components. Same BEM and CSS for Astro, Svelte, React, Vue, and Vanilla.',
+          'Browse all 50 Rizzo components. Same BEM and CSS for Astro, Svelte, React, Vue, and Vanilla.',
       },
     },
   },

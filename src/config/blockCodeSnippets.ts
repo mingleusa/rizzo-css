@@ -1,6 +1,7 @@
 /**
  * Copy-paste code snippets for block pages, per framework.
- * Used by block pages (landing-hero, pricing, dashboard-01, docs-layout) with FrameworkCodeTabs.
+ * Used by block pages (landing-hero, pricing, dashboard-01, docs-layout, login, signup) with FrameworkCodeTabs.
+ * All six blocks have astro, svelte, react, vue, and vanilla snippets.
  */
 
 export const LANDING_HERO_SNIPPETS = {
@@ -312,4 +313,70 @@ export const DOCS_LAYOUT_SNIPPETS = {
   react: DOCS_LAYOUT_HTML,
   vue: DOCS_LAYOUT_HTML,
   vanilla: DOCS_LAYOUT_HTML,
+};
+
+/** Login block: centered form on muted background. Same HTML/BEM for all frameworks. */
+const LOGIN_HTML = `<div class="login-block">
+  <a href="/" class="login-block__brand" aria-label="Home">
+    <span class="login-block__brand-icon" aria-hidden="true">R</span>
+    Acme
+  </a>
+  <form class="login-block__form" action="#" method="post" aria-labelledby="login-heading">
+    <h2 id="login-heading" class="login-block__title">Sign in</h2>
+    <div class="form-group">
+      <label for="login-email" class="label">Email</label>
+      <input type="email" id="login-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" />
+    </div>
+    <div class="form-group">
+      <label for="login-password" class="label">Password</label>
+      <input type="password" id="login-password" name="password" class="form-input" placeholder="••••••••" autocomplete="current-password" />
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign in</button>
+  </form>
+  <p class="login-block__footer">
+    <a href="#">Forgot password?</a> · <a href="/signup">Create account</a>
+  </p>
+</div>`;
+
+export const LOGIN_SNIPPETS = {
+  astro: LOGIN_HTML,
+  svelte: LOGIN_HTML,
+  react: LOGIN_HTML,
+  vue: LOGIN_HTML,
+  vanilla: LOGIN_HTML,
+};
+
+/** Signup block: centered form on muted background. Same HTML/BEM for all frameworks. */
+const SIGNUP_HTML = `<div class="signup-block">
+  <a href="/" class="signup-block__brand" aria-label="Home">
+    <span class="signup-block__brand-icon" aria-hidden="true">R</span>
+    Acme
+  </a>
+  <form class="signup-block__form" action="#" method="post" aria-labelledby="signup-heading">
+    <h2 id="signup-heading" class="signup-block__title">Create account</h2>
+    <div class="form-group">
+      <label for="signup-name" class="label">Name</label>
+      <input type="text" id="signup-name" name="name" class="form-input" placeholder="Jane Doe" autocomplete="name" />
+    </div>
+    <div class="form-group">
+      <label for="signup-email" class="label">Email</label>
+      <input type="email" id="signup-email" name="email" class="form-input" placeholder="you@example.com" autocomplete="email" />
+    </div>
+    <div class="form-group">
+      <label for="signup-password" class="label">Password</label>
+      <input type="password" id="signup-password" name="password" class="form-input" placeholder="••••••••" autocomplete="new-password" />
+    </div>
+    <button type="submit" class="btn btn-primary" style="width: 100%;">Create account</button>
+  </form>
+  <p class="signup-block__footer">
+    Already have an account? <a href="/login">Sign in</a>
+  </p>
+</div>`;
+
+export const SIGNUP_SNIPPETS = {
+  astro: SIGNUP_HTML,
+  svelte: SIGNUP_HTML,
+  react: SIGNUP_HTML,
+  vue: SIGNUP_HTML,
+  vanilla: SIGNUP_HTML,
 };

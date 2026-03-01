@@ -60,7 +60,7 @@ All components in the CLI and scaffold; same BEM/CSS for Astro, Svelte, React, V
 
 - [Avatar](/docs/components/avatar), [Copy to Clipboard](/docs/components/copy-to-clipboard), [Theme Switcher](/docs/components/theme-switcher), [Font Switcher](/docs/components/font-switcher), [Settings](/docs/components/settings), [Search](/docs/components/search), [Icons](/docs/components/icons), [Sound Effects](/docs/components/sound-effects)
 
-**Blocks** (pre-built layouts): [Blocks](/blocks) — [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout).
+**Blocks** (pre-built layouts): [Blocks](/blocks) — [Landing hero](/blocks/landing-hero), [Pricing cards](/blocks/pricing), [Dashboard](/blocks/dashboard-01), [Docs layout](/blocks/docs-layout), [Login](/blocks/login), [Sign up](/blocks/signup).
 
 ---
 

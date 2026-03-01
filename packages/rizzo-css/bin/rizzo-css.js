@@ -1124,7 +1124,7 @@ Commands:
 Options (init):
   --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: landing)
   --path <dir>      Project directory (relative to cwd or absolute). Scaffold and run install there. With --yes; interactive: "Enter path" option.
-  --framework <fw>  vanilla | astro | svelte | react | vue (same 57 components each)
+  --framework <fw>  vanilla | astro | svelte | react | vue (same 50 components each)
   --template <t>    create new: css-only | landing | docs | dashboard | full (default: landing). add: same options.
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
   --install         After scaffolding, run package manager install in project directory (no prompt)
@@ -1189,7 +1189,7 @@ Component dependencies (Full template):
   Full list of available components and what relies on what: npx rizzo-css help components
 
 Frameworks:
-  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 57 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.vercel.app/docs/react and Vue.
+  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 50 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.vercel.app/docs/react and Vue.
 
 Docs: https://rizzo-css.vercel.app
 `);

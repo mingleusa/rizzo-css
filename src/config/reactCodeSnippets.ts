@@ -138,7 +138,8 @@ import { Button } from './components/react';
   ]}
 />`,
 
-  switch: `import { Switch } from './components/react';
+  switch: `import { useState } from 'react';
+import { Switch } from './components/react';
 
 const [checked, setChecked] = useState(false);
 <Switch
@@ -147,7 +148,8 @@ const [checked, setChecked] = useState(false);
   onCheckedChange={setChecked}
 />`,
 
-  toggle: `import { Toggle } from './components/react';
+  toggle: `import { useState } from 'react';
+import { Toggle } from './components/react';
 
 const [pressed, setPressed] = useState(false);
 <Toggle pressed={pressed} onPressedChange={setPressed} aria-label="Toggle">
@@ -195,7 +197,8 @@ const [pressed, setPressed] = useState(false);
   defaultExpanded="1"
 />`,
 
-  slider: `import { Slider } from './components/react';
+  slider: `import { useState } from 'react';
+import { Slider } from './components/react';
 
 const [value, setValue] = useState(50);
 <Slider
@@ -313,8 +316,8 @@ const [open, setOpen] = useState(false);
 
   'input-group': `import { InputGroup } from './components/react';
 
-<InputGroup prefix="$" suffix="USD" placeholder="0.00" />
-<InputGroup prefix="https://" suffix=".com" placeholder="site" />`,
+<InputGroup prefix="$" suffix="USD" placeholder="0.00" aria-label="Amount" />
+<InputGroup prefix="https://" suffix=".com" placeholder="site" aria-label="Domain" />`,
 
   'context-menu': `import { ContextMenu } from './components/react';
 

@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.65",
+  "version": "0.0.66",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",
@@ -17,6 +17,7 @@
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "test:a11y": "pnpm build && playwright test --project=a11y",
+    "test:a11y:fast": "pnpm build && A11Y_FAST=1 playwright test --project=a11y",
     "test:a11y:ci": "playwright install --with-deps chromium && pnpm test:a11y",
     "test:a11y:ci:cross-browser": "pnpm build && pnpm exec playwright install --with-deps chromium firefox webkit && pnpm exec playwright test tests/a11y --project=a11y --project=a11y-firefox --project=a11y-webkit",
     "test:smoke": "pnpm build && playwright test --project=smoke",

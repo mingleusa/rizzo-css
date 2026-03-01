@@ -21,10 +21,7 @@ async function lockTheme(page) {
 }
 
 async function runA11yOnPage(page, path) {
-  await page.goto(path, { waitUntil: 'domcontentloaded' });
-  if (process.env.CI) {
-    await page.waitForLoadState('networkidle').catch(() => {});
-  }
+  await page.goto(path, { waitUntil: process.env.CI ? 'load' : 'domcontentloaded' });
   await lockTheme(page);
   const results = await new AxeBuilder({ page })
     .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
@@ -65,6 +62,8 @@ const BLOCK_ROUTES = [
   '/blocks/pricing',
   '/blocks/dashboard-01',
   '/blocks/docs-layout',
+  '/blocks/login',
+  '/blocks/signup',
 ];
 
 const THEME_SLUGS = [
@@ -93,9 +92,32 @@ const DOCS_A11Y_ROUTES = [
   ...THEME_SLUGS.map((s) => `/docs/themes/${s}`),
 ];
 
+/** Fast subset for local quick feedback (A11Y_FAST=1). Foundation + blocks + one route per framework + sample components + themes sample. */
+const FAST_A11Y_ROUTES = [
+  ...FOUNDATION_ROUTES,
+  ...BLOCK_ROUTES,
+  '/docs/vanilla',
+  '/docs/vanilla/components',
+  '/docs/svelte',
+  '/docs/svelte/components',
+  '/docs/react',
+  '/docs/react/components',
+  '/docs/vue',
+  '/docs/vue/components',
+  '/docs/components/button',
+  '/docs/vanilla/components/button',
+  '/docs/svelte/components/button',
+  '/docs/react/components/button',
+  '/docs/vue/components/button',
+  '/docs/themes/github-dark-classic',
+  '/docs/themes/github-light',
+];
+
+const ROUTES_TO_RUN = process.env.A11Y_FAST ? FAST_A11Y_ROUTES : DOCS_A11Y_ROUTES;
+
 test.describe('Docs site accessibility (axe)', () => {
-  test.setTimeout(90_000); // axe.analyze() can be slow on large pages
-  for (const route of DOCS_A11Y_ROUTES) {
+  test.setTimeout(process.env.CI ? 55_000 : 60_000); // axe.analyze(); slightly lower in CI to fail faster
+  for (const route of ROUTES_TO_RUN) {
     const name = route || 'homepage';
     test(`${name} has no critical or serious axe violations`, async ({ page }, testInfo) => {
       // Skip on WebKit: axe is very slow and often hits the 90s timeout in CI (browser closed).
