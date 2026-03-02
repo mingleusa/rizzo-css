@@ -11,6 +11,7 @@ This doc summarizes how **accessibility**, **browser**, and **component-page** t
 | **A11y (CI)** | `pnpm test:a11y:ci` | Installs Chromium then runs a11y (for CI). |
 | **A11y (cross-browser)** | `pnpm test:a11y:ci:cross-browser` | Chromium, Firefox, WebKit (same as CI). |
 | **Smoke** | `pnpm test:smoke` | Build + key routes (home, docs, blocks, themes, React/Vue doc index). Pre-push hook runs this. |
+| **Visual regression** | `pnpm test:visual` | Screenshot key routes; compare to baselines. Update baselines: `pnpm test:visual:update`. |
 | **Theme contrast** | `pnpm check:contrast` | WCAG AA contrast for all 14 themes. |
 | **Bundle size** | `pnpm check:size` | Fail if package CSS exceeds budget (450 kB). |
 
@@ -64,11 +65,14 @@ See [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) for required 
 
 There are **no** framework-level unit tests (e.g. Vitest for React/Vue). “Component” coverage is:
 
-- **A11y axe:** Every component **doc page** (all 50 × 5 frameworks + blocks) is loaded and scanned. So every component is tested in the sense that its doc page must pass axe.
+- **A11y axe:** Every component **doc page** (all 51 × 5 frameworks + blocks) is loaded and scanned. So every component is tested in the sense that its doc page must pass axe.
 - **Keyboard/ARIA:** A subset of **interactive** components are tested on Astro and React doc pages (modal, dropdown, tabs, settings, alert-dialog, sheet, etc.).
 
 **Smoke tests** — `tests/smoke.spec.mjs`  
 Quick checks that key routes return 200 and main content is visible: homepage, docs getting-started, docs components overview, blocks index, blocks landing-hero, blocks login, blocks signup, one component page (button), themes index. Run with `pnpm test:smoke`. Pre-push hook runs build + smoke. To run against a deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke`.
+
+**Visual regression** — `tests/visual.spec.mjs`  
+Screenshot tests for layout/theme consistency on key routes (homepage, docs getting-started, docs components, component button page, blocks landing-hero, themes index). First run creates baselines; subsequent runs compare. Update baselines after intentional UI changes: `pnpm test:visual:update`. Uses fixed viewport (1280×720) and reduced motion for deterministic screenshots. **CI:** The [a11y workflow](.github/workflows/a11y.yml) runs the visual project after build; commit the snapshot baselines (from `pnpm test:visual:update`) so CI can compare.
 
 ---
 
@@ -93,8 +97,9 @@ Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in thi
 | **A11y (keyboard)** | Focus, Escape, traps on Astro + React component pages | `tests/a11y/keyboard.spec.mjs` |
 | **A11y (ARIA)** | Roles/labels on same components | `tests/a11y/aria.spec.mjs` |
 | **Browser** | Playwright projects (Chrome, Firefox, WebKit, Edge, mobile) | `playwright.config.mjs` |
-| **Component pages** | Covered by axe (all 50 × 5 frameworks) + keyboard/ARIA (subset) | Same a11y specs |
+| **Component pages** | Covered by axe (all 51 × 5 frameworks) + keyboard/ARIA (subset) | Same a11y specs |
 | **Smoke** | Key routes load and show content | `tests/smoke.spec.mjs` |
+| **Visual** | Screenshot key routes vs baselines | `tests/visual.spec.mjs` |
 | **Contrast** | Theme colors WCAG AA | `pnpm check:contrast` |
 | **Size** | Package CSS budget | `pnpm check:size` |
 

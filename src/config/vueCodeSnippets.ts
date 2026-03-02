@@ -342,6 +342,18 @@ import Tooltip from '@/components/rizzo/Tooltip.vue';
   <Tooltip id="tt-1" text="Tooltip text" position="top" />
 </template>`,
 
+  carousel: `<script setup>
+import Carousel from '@/components/rizzo/Carousel.vue';
+</script>
+
+<template>
+  <Carousel label="Slides">
+    <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+    <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+    <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+  </Carousel>
+</template>`,
+
   collapsible: `<script setup>
 import Collapsible from '@/components/rizzo/Collapsible.vue';
 </script>

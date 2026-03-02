@@ -15,6 +15,7 @@ export { Skeleton, type SkeletonProps, type SkeletonVariant } from './Skeleton';
 export { Alert, type AlertProps, type AlertVariant } from './Alert';
 export { Avatar, type AvatarProps, type AvatarSize, type AvatarShape } from './Avatar';
 export { Card, type CardProps, type CardVariant } from './Card';
+export { Carousel, type CarouselProps } from './Carousel';
 export { ProgressBar, type ProgressBarProps, type ProgressBarVariant, type ProgressBarSize } from './ProgressBar';
 export { Breadcrumb, type BreadcrumbProps, type BreadcrumbItem, type BreadcrumbSeparator } from './Breadcrumb';
 export { ButtonGroup, type ButtonGroupProps } from './ButtonGroup';

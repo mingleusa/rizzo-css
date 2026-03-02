@@ -39,6 +39,16 @@ export const DOCS_NAV: DocsNavGroup[] = [
         ],
       },
       {
+        href: 'showcase',
+        label: 'Showcase',
+        sections: [
+          { id: 'components', label: 'Components' },
+          { id: 'themes', label: 'Themes' },
+          { id: 'blocks', label: 'Blocks' },
+          { id: 'examples', label: 'Examples' },
+        ],
+      },
+      {
         href: 'getting-started',
         label: 'Getting Started',
         sections: [
@@ -178,6 +188,7 @@ export const DOCS_NAV: DocsNavGroup[] = [
       { href: 'components/button', label: 'Button', frameworkOnly: true },
       { href: 'components/button-group', label: 'Button Group', frameworkOnly: true },
       { href: 'components/cards', label: 'Cards', frameworkOnly: true },
+      { href: 'components/carousel', label: 'Carousel', frameworkOnly: true },
       { href: 'components/collapsible', label: 'Collapsible', frameworkOnly: true },
       { href: 'components/context-menu', label: 'Context Menu', frameworkOnly: true },
       { href: 'components/copy-to-clipboard', label: 'Copy to Clipboard', frameworkOnly: true },

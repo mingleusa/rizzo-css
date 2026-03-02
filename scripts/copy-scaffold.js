@@ -23,7 +23,7 @@ const astroDest = join(scaffoldDir, 'astro');
 
 // Astro components to scaffold. Must match CLI ASTRO_COMPONENTS + ThemeIcon. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
-  'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Checkbox',
+  'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Carousel', 'Checkbox',
   'Collapsible', 'ContextMenu', 'CopyToClipboard', 'Dashboard', 'Divider', 'DocsSidebar', 'Dropdown', 'Empty', 'Footer', 'FontSwitcher', 'FormGroup',
   'HoverCard', 'Icons', 'Input', 'InputGroup', 'Kbd', 'Label', 'Modal', 'Navbar', 'Pagination', 'Popover', 'ProgressBar', 'Radio', 'ResizableHandle', 'ResizablePane', 'ResizablePaneGroup',
   'ScrollArea', 'Search', 'Select', 'Separator', 'Settings', 'Sheet', 'Skeleton', 'Slider', 'SoundEffects', 'Spinner', 'Switch', 'Table', 'Tabs', 'Textarea',

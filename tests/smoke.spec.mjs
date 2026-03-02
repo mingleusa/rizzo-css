@@ -25,6 +25,12 @@ test.describe('Smoke: key routes', () => {
     await expect(page.locator('h1')).toBeVisible();
   });
 
+  test('docs showcase loads', async ({ page }) => {
+    const res = await page.goto('/docs/showcase', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+  });
+
   test('blocks index loads', async ({ page }) => {
     const res = await page.goto('/blocks', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
@@ -70,6 +76,14 @@ test.describe('Smoke: key routes', () => {
   test('themes index loads', async ({ page }) => {
     const res = await page.goto('/themes', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
+    await expect(page.locator('h1')).toBeVisible();
+  });
+
+  test('RTL: docs page loads with dir=rtl', async ({ page }) => {
+    const res = await page.goto('/docs/getting-started', { waitUntil: 'domcontentloaded' });
+    expect(res?.status()).toBe(200);
+    await page.evaluate(() => { document.documentElement.setAttribute('dir', 'rtl'); });
+    await expect(page.locator('main')).toBeVisible();
     await expect(page.locator('h1')).toBeVisible();
   });
 });

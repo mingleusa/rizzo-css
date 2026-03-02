@@ -1,0 +1,261 @@
+================================================================
+RIZZO CSS — OFFICIAL AI INTERFACE SPECIFICATION
+Version: 3.0
+Status: Canonical AI Contract
+Type: Framework-Agnostic CSS Design System
+Package version: 0.0.67
+================================================================
+
+
+################################################################
+# 1. SYSTEM PHILOSOPHY
+################################################################
+
+Rizzo CSS is a zero-runtime, accessibility-first, themeable CSS
+design system built to provide:
+
+- Semantic token architecture
+- OKLCH perceptual color scaling
+- WCAG AA minimum contrast
+- Component-first API (BEM naming, no prefix)
+- Utility-assisted layout
+- Mobile-first responsiveness
+- No JavaScript runtime dependency for CSS
+- Cross-framework compatibility (Vanilla, Astro, Svelte, React, Vue)
+
+Rizzo CSS prioritizes:
+
+1. Predictable class naming (BEM: .component, .component__element, .component--modifier)
+2. Semantic tokens over raw values
+3. Accessibility as default
+4. Theme safety (data-theme)
+5. AI-friendly deterministic output
+
+
+################################################################
+# 2. NAMING: NO PREFIX
+################################################################
+
+Components use BEM with NO "rz-" or other prefix:
+
+- .btn, .btn-primary, .btn-outline, .btn--sm
+- .navbar, .navbar__container, .navbar__brand, .navbar--menu-open
+- .card, .card__header, .card__body, .card__footer
+- .modal, .modal__overlay, .modal__content
+- .input, .input-group, .input-group__wrapper, .input-group__input
+- .alert, .badge, .dropdown, .tabs, .accordion, etc.
+
+Token names are semantic and unprefixed in theme scope:
+--background, --text, --text-dim, --accent, --accent-hover, --border,
+--success, --warning, --danger, --icon, --icon-dim, etc.
+
+
+################################################################
+# 3. ARCHITECTURAL LAYERS
+################################################################
+
+Layer 0 — Reset / Base
+Layer 1 — Primitive Tokens (variables.css: spacing, radius, z-index, breakpoints)
+Layer 2 — Semantic Tokens (theme-scoped: --background, --text, --accent, etc.)
+Layer 3 — Component Styles (BEM classes)
+Layer 4 — Utilities (u-* for layout, spacing, typography)
+Layer 5 — Themes ([data-theme="theme-id"])
+Layer 6 — Application Overrides
+
+
+################################################################
+# 4. TOKEN SYSTEM
+################################################################
+
+------------------------------------------------------------
+4.1 BASE TOKENS (variables.css)
+------------------------------------------------------------
+
+Spacing: --spacing-0 through --spacing-96 (4pt system where used)
+Radius: --radius, --radius-sm, --radius-md, --radius-lg, --radius-xl, --radius-full
+Typography: --font-size-xs → --font-size-2xl, --font-weight-*, --line-height-*
+Breakpoints: --bp-sm (640px), --bp-md (768px), --bp-lg (1024px), --bp-xl (1280px)
+Z-index: --z-dropdown, --z-modal, --z-toast, --z-navbar, --z-tooltip, etc.
+Transitions: --transition-fast, --transition-base, --transition-slow
+Easing: --ease-in-out-cubic
+
+------------------------------------------------------------
+4.2 SEMANTIC TOKENS (theme-scoped via [data-theme="..."])
+------------------------------------------------------------
+
+Background: --background, --background-alt (or --bg, --bg-alt in theme files)
+Text: --text, --text-dim
+Border: --border
+Accent: --accent, --accent-hover, --accent-text, --accent-fg, --accent-fg-hover
+Status: --success, --success-hover, --warning, --danger
+Icons: --icon, --icon-dim
+
+Component styling MUST use these semantic tokens, not raw colors.
+
+
+################################################################
+# 5. THEME SYSTEM
+################################################################
+
+Themes are controlled via:
+
+[data-theme="github-dark-classic"]
+[data-theme="github-light"]
+[data-theme="theme-id"]
+
+14 built-in themes (7 dark, 7 light):
+
+Dark: github-dark-classic, hack-the-box, minimal-dark-neon-yellow,
+      rocky-blood-orange, shades-of-purple, sandstorm-classic, pink-cat-boo
+Light: github-light, green-breeze-light, orangy-one-light, semi-light-purple,
+       cute-pink, red-velvet-cupcake, sunflower
+
+Rules:
+- Themes override semantic tokens only.
+- WCAG AA contrast required.
+- Focus visibility and reduced-motion respected.
+
+
+################################################################
+# 6. RESPONSIVE SYSTEM
+################################################################
+
+Mobile-first. Breakpoints: --bp-sm 640px, --bp-md 768px, --bp-lg 1024px, --bp-xl 1280px.
+
+Utility responsive prefix (when used): sm:, md:, lg:, xl:, 2xl:
+
+
+################################################################
+# 7. COMPONENT ARCHITECTURE (BEM)
+################################################################
+
+Pattern: .{component}, .{component}__{element}, .{component}--{modifier}
+
+------------------------------------------------------------
+7.1 BUTTON
+------------------------------------------------------------
+
+Base: .btn
+Variants: .btn-primary, .btn-secondary, .btn-outline, .btn-ghost, .btn-danger, .btn-success
+Sizes: .btn--sm, .btn--md, .btn--lg
+States: :focus-visible, :active, :disabled, [aria-busy="true"]
+Use <button> or role="button"; preserve type attribute.
+
+------------------------------------------------------------
+7.2 INPUT
+------------------------------------------------------------
+
+.input, .input-group (with .input-group__wrapper, .input-group__addon, .input-group__input)
+.input-group--error, .input-group--success
+States: :focus-visible, :invalid, :disabled
+Support aria-invalid, aria-describedby, label association.
+
+------------------------------------------------------------
+7.3 CARD
+------------------------------------------------------------
+
+.card, .card__header, .card__body, .card__footer
+
+------------------------------------------------------------
+7.4 MODAL
+------------------------------------------------------------
+
+.modal, .modal__overlay, .modal__content
+Required: role="dialog", aria-modal="true", focus trap, Escape closes, scroll lock.
+
+------------------------------------------------------------
+7.5 NAVBAR
+------------------------------------------------------------
+
+.navbar, .navbar__container, .navbar__brand, .navbar__menu, .navbar__item
+Modifiers: .navbar--menu-open, .navbar--search-open
+
+
+################################################################
+# 8. COMPONENTS (51 total)
+################################################################
+
+accordion, alert, alert-dialog, aspect-ratio, avatar, back-to-top, badge,
+breadcrumb, button, button-group, cards, carousel, collapsible, context-menu,
+copy-to-clipboard, dashboard, docs-sidebar, divider, dropdown, empty,
+footer, font-switcher, forms, hover-card, icons, input-group, kbd, label,
+modal, navbar, pagination, popover, progress-bar, resizable, scroll-area,
+search, separator, settings, sheet, skeleton, slider, sound-effects,
+spinner, switch, table, tabs, theme-switcher, toast, toggle, toggle-group, tooltip
+
+All 51 have implementations for Vanilla, Astro, Svelte, React, and Vue.
+Docs: /docs/components (Astro), /docs/vanilla/components, /docs/svelte, /docs/react, /docs/vue.
+
+
+################################################################
+# 9. BLOCKS (6 pre-built layouts)
+################################################################
+
+landing-hero, pricing, dashboard-01, docs-layout, login, signup
+
+Blocks use BEM (e.g. .landing-hero, .landing-hero__title). See /blocks and block doc pages.
+
+
+################################################################
+# 10. UTILITY CLASSES
+################################################################
+
+Prefix: u- (e.g. u-flex, u-grid, u-m-4, u-p-2, u-text-center).
+Used for layout, spacing, typography. Do not define colors in utilities.
+Responsive: sm:u-*, md:u-*, lg:u-*, xl:u-*.
+
+
+################################################################
+# 11. ACCESSIBILITY REQUIREMENTS
+################################################################
+
+- WCAG AA minimum contrast
+- Visible focus ring (:focus-visible)
+- Keyboard operable
+- No hover-only interaction
+- Preserve aria-* and semantic HTML
+- Error states announced
+- No color-only communication
+- Respect prefers-reduced-motion
+
+
+################################################################
+# 12. FRAMEWORK INTEGRATION
+################################################################
+
+Vanilla: Import CSS; use class attributes.
+React: Import CSS once at root; use className; forward refs; avoid wrapper divs.
+Vue: Preserve native elements; avoid scoped override of tokens.
+Svelte: Import globally; do not shadow CSS variables.
+Astro: Import in layout; avoid duplicate injection.
+
+CLI: npx rizzo-css init | add | theme | doctor | help. Scaffolds for all five frameworks.
+
+
+################################################################
+# 13. AI GENERATION RULES
+################################################################
+
+1. Use semantic tokens only (--background, --text, --accent, etc.).
+2. Use component classes (.btn, .navbar, .card) — no rz- prefix.
+3. Use utilities only for layout/spacing (u-*).
+4. Do not inline styles.
+5. Do not hardcode hex/rgb/hsl in component styles.
+6. Preserve ARIA and semantic HTML.
+7. Mobile-first order.
+8. Respect dark mode (theme tokens).
+9. Do not invent new token names; use existing semantic tokens.
+10. BEM: .component__element--modifier; no rz- prefix.
+
+
+################################################################
+# 14. EXTENSION CONTRACT
+################################################################
+
+Allowed: New component variants, new themes, extend utilities.
+Not allowed: Rename or add prefix to component classes; remove semantic tokens; replace tokens with raw values.
+
+
+################################################################
+END OF FILE
+################################################################

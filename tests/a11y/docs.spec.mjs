@@ -37,6 +37,7 @@ async function runA11yOnPage(page, path) {
 const FOUNDATION_ROUTES = [
   '/',
   '/docs/overview',
+  '/docs/showcase',
   '/docs/getting-started',
   '/docs/components',
   '/docs/design-system',
@@ -48,7 +49,7 @@ const FOUNDATION_ROUTES = [
 
 const COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
-  'button', 'button-group', 'cards', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
+  'button', 'button-group', 'cards', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
   'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
   'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar',
   'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',

@@ -1,0 +1,97 @@
+{
+  "name": "Rizzo CSS",
+  "type": "css-design-system",
+  "version": "3.0",
+  "packageVersion": "0.0.67",
+  "architecture": {
+    "naming": "BEM with no prefix (e.g. .btn, .navbar, .card)",
+    "layers": [
+      "reset/base",
+      "primitive-tokens",
+      "semantic-tokens",
+      "components",
+      "utilities",
+      "themes",
+      "application-overrides"
+    ],
+    "mobileFirst": true,
+    "runtime": "none",
+    "colorSpace": "OKLCH"
+  },
+  "tokens": {
+    "base": [
+      "spacing-0..96",
+      "radius, radius-sm, radius-md, radius-lg, radius-xl, radius-full",
+      "font-size-xs..2xl",
+      "bp-sm (640px), bp-md (768px), bp-lg (1024px), bp-xl (1280px)",
+      "z-dropdown, z-modal, z-toast, z-navbar, z-tooltip",
+      "transition-fast, transition-base, transition-slow"
+    ],
+    "semantic": [
+      "background, background-alt",
+      "text, text-dim",
+      "border",
+      "accent, accent-hover, accent-text, accent-fg, accent-fg-hover",
+      "success, success-hover, warning, danger",
+      "icon, icon-dim"
+    ]
+  },
+  "themes": {
+    "count": 14,
+    "dark": [
+      "github-dark-classic",
+      "hack-the-box",
+      "minimal-dark-neon-yellow",
+      "rocky-blood-orange",
+      "shades-of-purple",
+      "sandstorm-classic",
+      "pink-cat-boo"
+    ],
+    "light": [
+      "github-light",
+      "green-breeze-light",
+      "orangy-one-light",
+      "semi-light-purple",
+      "cute-pink",
+      "red-velvet-cupcake",
+      "sunflower"
+    ],
+    "selector": "[data-theme=\"theme-id\"]"
+  },
+  "frameworks": ["vanilla", "astro", "svelte", "react", "vue"],
+  "components": {
+    "count": 51,
+    "naming": "BEM, no prefix (e.g. .btn, .navbar, .card, .modal, .input)",
+    "slugs": [
+      "accordion", "alert", "alert-dialog", "aspect-ratio", "avatar", "back-to-top", "badge", "breadcrumb",
+      "button", "button-group", "cards", "carousel", "collapsible", "context-menu", "copy-to-clipboard", "dashboard",
+      "docs-sidebar", "divider", "dropdown", "empty", "footer", "font-switcher", "forms", "hover-card",
+      "icons", "input-group", "kbd", "label", "modal", "navbar", "pagination", "popover", "progress-bar",
+      "resizable", "scroll-area", "search", "separator", "settings", "sheet", "skeleton", "slider", "sound-effects",
+      "spinner", "switch", "table", "tabs", "theme-switcher", "toast", "toggle", "toggle-group", "tooltip"
+    ]
+  },
+  "blocks": {
+    "count": 6,
+    "slugs": ["landing-hero", "pricing", "dashboard-01", "docs-layout", "login", "signup"]
+  },
+  "utilities": {
+    "prefix": "u-",
+    "responsivePrefixes": ["sm:", "md:", "lg:", "xl:", "2xl:"]
+  },
+  "accessibility": {
+    "wcagLevel": "AA",
+    "focusVisible": true,
+    "keyboardNavigable": true,
+    "ariaPreserved": true,
+    "colorOnlyState": false
+  },
+  "aiRules": {
+    "semanticTokensOnly": true,
+    "utilitiesLayoutOnly": true,
+    "noInlineStyles": true,
+    "preserveAccessibility": true,
+    "respectDarkMode": true,
+    "useBEMNoPrefix": true
+  }
+}

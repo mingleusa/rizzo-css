@@ -1,0 +1,59 @@
+{
+    "_note": "Figma-style token references. Map to design-tokens.json. Theme variables in Rizzo CSS use semantic names (--background, --text, --accent). See ai/README.md.",
+    "global": {
+        "color": {
+            "primary": {
+                "value": "{global.color.primary.value}"
+            },
+            "secondary": {
+                "value": "{global.color.secondary.value}"
+            },
+            "success": {
+                "value": "{global.color.success.value}"
+            },
+            "warning": {
+                "value": "{global.color.warning.value}"
+            },
+            "danger": {
+                "value": "{global.color.danger.value}"
+            },
+            "background": {
+                "value": "{global.color.background.value}"
+            },
+            "surface": {
+                "value": "{global.color.surface.value}"
+            },
+            "text-primary": {
+                "value": "{global.color.text-primary.value}"
+            },
+            "text-secondary": {
+                "value": "{global.color.text-secondary.value}"
+            }
+        },
+        "spacing": {
+            "0": {
+                "value": "{global.spacing.0.value}"
+            },
+            "1": {
+                "value": "{global.spacing.1.value}"
+            },
+            "2": {
+                "value": "{global.spacing.2.value}"
+            },
+            "3": {
+                "value": "{global.spacing.3.value}"
+            },
+            "4": {
+                "value": "{global.spacing.4.value}"
+            }
+        },
+        "radius": {
+            "md": {
+                "value": "{global.radius.md.value}"
+            },
+            "lg": {
+                "value": "{global.radius.lg.value}"
+            }
+        }
+    }
+}

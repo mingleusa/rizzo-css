@@ -8,6 +8,17 @@ Notes for maintainers of the Rizzo CSS repo. For day-to-day commands (build, tes
 - **Semver:** Follow [semantic versioning](https://semver.org/). See [PUBLISHING.md – Versioning strategy](./PUBLISHING.md#versioning-strategy) for patch vs minor vs major.
 - **1.0:** When the system stabilizes (e.g. no planned breaking changes to BEM class names or public CSS variables), we may release 1.0 and adopt a clearer deprecation policy (e.g. one minor version deprecation window before removal). Until then, avoid breaking changes without notice.
 
+**Upgrade guide:** For how to upgrade between versions and what to expect at 1.0, see [UPGRADE.md](./UPGRADE.md).
+
+### Pre-1.0 checklist
+
+Before tagging 1.0, we aim to:
+
+1. **API stability** — No planned breaking renames to BEM class names or public theme tokens (`--background`, `--text`, `--accent`, etc.).
+2. **Deprecation policy** — Document how we will deprecate (e.g. one minor version notice before removal).
+3. **Docs** — [UPGRADE.md](./UPGRADE.md) and [MAINTAINING.md](./MAINTAINING.md) clearly describe stability and upgrade path.
+4. **Tasks by impact** — High-priority items in [TODO.md – Tasks by impact](./TODO.md#tasks-by-impact) reviewed; any blocking items for 1.0 addressed or explicitly deferred.
+
 ## Branch protection (main)
 
 To ensure all changes to `main` go through a reviewed pull request:

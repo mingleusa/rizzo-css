@@ -17,6 +17,7 @@ import { Skeleton } from './Skeleton';
 import { Alert } from './Alert';
 import { Avatar } from './Avatar';
 import { Card } from './Card';
+import { CarouselDemo } from './CarouselDemo';
 import { ProgressBar } from './ProgressBar';
 import { Breadcrumb } from './Breadcrumb';
 import { ButtonGroup } from './ButtonGroup';
@@ -70,6 +71,7 @@ const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   alert: Alert,
   avatar: Avatar,
   cards: Card,
+  carousel: CarouselDemo,
   'progress-bar': ProgressBar,
   breadcrumb: Breadcrumb,
   'button-group': ButtonGroup,
@@ -145,6 +147,7 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
       { id: 'a2', title: 'Section 2', content: '<p>Content for section 2.</p>' },
     ],
   },
+  carousel: {},
   forms: { placeholder: 'Enter text…', type: 'text' },
   'input-group': { placeholder: '0.00', prefix: '$', suffix: 'USD', 'aria-label': 'Amount' },
   'copy-to-clipboard': { value: 'npm install rizzo-css' },

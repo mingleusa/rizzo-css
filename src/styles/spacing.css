@@ -432,3 +432,66 @@
   padding-top: 6rem;
   padding-bottom: 6rem;
 }
+
+/* ============================================================
+   Logical spacing (RTL-aware): use for dir="rtl" support.
+   mis = margin-inline-start, mie = margin-inline-end,
+   pis = padding-inline-start, pie = padding-inline-end.
+   ============================================================ */
+.mis-0 { margin-inline-start: 0; }
+.mis-1 { margin-inline-start: 0.25rem; }
+.mis-2 { margin-inline-start: 0.5rem; }
+.mis-3 { margin-inline-start: 0.75rem; }
+.mis-4 { margin-inline-start: 1rem; }
+.mis-5 { margin-inline-start: 1.25rem; }
+.mis-6 { margin-inline-start: 1.5rem; }
+.mis-8 { margin-inline-start: 2rem; }
+.mis-10 { margin-inline-start: 2.5rem; }
+.mis-12 { margin-inline-start: 3rem; }
+.mis-16 { margin-inline-start: 4rem; }
+.mis-20 { margin-inline-start: 5rem; }
+.mis-24 { margin-inline-start: 6rem; }
+.mis-auto { margin-inline-start: auto; }
+
+.mie-0 { margin-inline-end: 0; }
+.mie-1 { margin-inline-end: 0.25rem; }
+.mie-2 { margin-inline-end: 0.5rem; }
+.mie-3 { margin-inline-end: 0.75rem; }
+.mie-4 { margin-inline-end: 1rem; }
+.mie-5 { margin-inline-end: 1.25rem; }
+.mie-6 { margin-inline-end: 1.5rem; }
+.mie-8 { margin-inline-end: 2rem; }
+.mie-10 { margin-inline-end: 2.5rem; }
+.mie-12 { margin-inline-end: 3rem; }
+.mie-16 { margin-inline-end: 4rem; }
+.mie-20 { margin-inline-end: 5rem; }
+.mie-24 { margin-inline-end: 6rem; }
+.mie-auto { margin-inline-end: auto; }
+
+.pis-0 { padding-inline-start: 0; }
+.pis-1 { padding-inline-start: 0.25rem; }
+.pis-2 { padding-inline-start: 0.5rem; }
+.pis-3 { padding-inline-start: 0.75rem; }
+.pis-4 { padding-inline-start: 1rem; }
+.pis-5 { padding-inline-start: 1.25rem; }
+.pis-6 { padding-inline-start: 1.5rem; }
+.pis-8 { padding-inline-start: 2rem; }
+.pis-10 { padding-inline-start: 2.5rem; }
+.pis-12 { padding-inline-start: 3rem; }
+.pis-16 { padding-inline-start: 4rem; }
+.pis-20 { padding-inline-start: 5rem; }
+.pis-24 { padding-inline-start: 6rem; }
+
+.pie-0 { padding-inline-end: 0; }
+.pie-1 { padding-inline-end: 0.25rem; }
+.pie-2 { padding-inline-end: 0.5rem; }
+.pie-3 { padding-inline-end: 0.75rem; }
+.pie-4 { padding-inline-end: 1rem; }
+.pie-5 { padding-inline-end: 1.25rem; }
+.pie-6 { padding-inline-end: 1.5rem; }
+.pie-8 { padding-inline-end: 2rem; }
+.pie-10 { padding-inline-end: 2.5rem; }
+.pie-12 { padding-inline-end: 3rem; }
+.pie-16 { padding-inline-end: 4rem; }
+.pie-20 { padding-inline-end: 5rem; }
+.pie-24 { padding-inline-end: 6rem; }

@@ -16,6 +16,7 @@ const componentMap = {
   'button': defineAsyncComponent(() => import('./Button.vue')),
   'button-group': defineAsyncComponent(() => import('./ButtonGroup.vue')),
   'cards': defineAsyncComponent(() => import('./Card.vue')),
+  'carousel': defineAsyncComponent(() => import('./Carousel.vue')),
   'collapsible': defineAsyncComponent(() => import('./Collapsible.vue')),
   'context-menu': defineAsyncComponent(() => import('./ContextMenu.vue')),
   'copy-to-clipboard': defineAsyncComponent(() => import('./CopyToClipboard.vue')),

@@ -1,0 +1,44 @@
+---
+import DocsLayout from '../../layouts/DocsLayout.astro';
+import { getFrameworkFromPath } from '../../config/frameworks';
+const currentPath = Astro.url.pathname;
+const { framework } = getFrameworkFromPath(currentPath);
+const prefix = framework.pathPrefix;
+---
+
+<DocsLayout title="Showcase" description="Rizzo CSS showcase: components, themes, and blocks in one place. Browse 51 components, 14 themes, and pre-built blocks.">
+  <section class="showcase">
+    <p class="showcase__intro">A single place to explore Rizzo CSS: components, themes, and blocks. Use the links below to jump to the full lists and live demos.</p>
+
+    <h2 id="components" class="showcase__h2">Components</h2>
+    <p>51 accessible, themeable components with the same BEM and behavior across Vanilla, Astro, Svelte, React, and Vue. Each has a doc page with live examples and framework-specific code.</p>
+    <p>
+      <a href={`${prefix}/components`} class="btn btn-primary">Browse all components</a>
+      <a href={`${prefix}/overview#components`} class="btn btn-outline">Overview by category</a>
+    </p>
+
+    <h2 id="themes" class="showcase__h2">Themes</h2>
+    <p>14 built-in themes with semantic tokens. Switch live on the theme showcase page; copy <code>data-theme</code> into your app.</p>
+    <p>
+      <a href="/themes" class="btn btn-primary">Open theme showcase</a>
+    </p>
+
+    <h2 id="blocks" class="showcase__h2">Blocks</h2>
+    <p>Pre-built page layouts: Landing hero, Pricing, Dashboard, Docs layout, Login, Sign up. Each block has Usage tabs (Astro, Svelte, React, Vue, Vanilla) and can be scaffolded with the CLI.</p>
+    <p>
+      <a href="/blocks" class="btn btn-primary">Browse blocks</a>
+    </p>
+
+    <h2 id="examples" class="showcase__h2">Examples</h2>
+    <p>Form and layout examples (login, contact, dashboard cards, settings panel) with copy-paste snippets.</p>
+    <p>
+      <a href={`${prefix}/examples`} class="btn btn-outline">Examples &amp; form layouts</a>
+    </p>
+  </section>
+</DocsLayout>
+
+<style>
+  .showcase__intro { margin-bottom: 1.5rem; }
+  .showcase__h2 { margin-top: 2rem; margin-bottom: 0.5rem; }
+  .showcase .btn { margin-inline-end: 0.5rem; margin-bottom: 0.5rem; }
+</style>

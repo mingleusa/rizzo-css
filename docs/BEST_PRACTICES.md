@@ -73,7 +73,7 @@ This keeps component APIs consistent across all frameworks using the same data s
 ### CSS loading
 
 - **Single import** — Import Rizzo CSS once in your root layout or main entry (e.g. `import 'rizzo-css'` or `<link rel="stylesheet" href="/css/rizzo.min.css" />`). Avoid loading it multiple times or in multiple chunks.
-- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.66`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
+- **CDN** — If you use a CDN, **pin the version** (e.g. `rizzo-css@0.0.67`) so cache hits are reliable and you control when to upgrade. Check with `curl -I <url>` that the response is 200.
 - **No duplicate CSS** — If you use the npm package and also copy `rizzo.min.css` into `public/` or `static/`, use one or the other, not both.
 
 ### Bundle size
@@ -108,9 +108,9 @@ This keeps component APIs consistent across all frameworks using the same data s
 
 ### RTL (right-to-left) support
 
-- **Current state** — Rizzo is built for LTR (left-to-right). Some layout and utilities use logical properties (`margin-inline`, `padding-inline`, etc.) where applicable, which will flip with `dir="rtl"` on `<html>` or a container.
-- **Using RTL** — Set `dir="rtl"` (and optionally `lang="ar"` or similar) on `<html>` or a wrapper. Test components that rely on physical directions (e.g. dropdown alignment, sheet drawer side); you may need overrides or future RTL-specific variables.
-- **Future** — If RTL becomes a requirement, we can add RTL-friendly utilities and document overrides; for now, LTR is the default and RTL is best-effort with logical properties.
+- **Using RTL** — Set `dir="rtl"` (and optionally `lang="ar"`) on `<html>` or a wrapper. Use **logical spacing utilities** (`mis-*`, `mie-*`, `pis-*`, `pie-*`) so margins and padding flip automatically. See [RTL.md](./RTL.md) for the full guide.
+- **Logical utilities** — Prefer `mis-*`, `mie-*`, `pis-*`, `pie-*` for RTL-friendly layouts; physical `ml-*`, `mr-*`, `pl-*`, `pr-*` do not flip.
+- **Components** — Navbar, dropdown, and sheet may need RTL overrides for positioning; use logical properties in custom CSS where possible.
 
 ### Measuring and monitoring
 

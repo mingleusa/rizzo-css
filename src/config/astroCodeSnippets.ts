@@ -141,4 +141,14 @@ import Separator from '../components/rizzo/Separator.astro';
 
 <Separator />
 <Separator orientation="vertical" />`,
+
+  carousel: `---
+import Carousel from '../components/rizzo/Carousel.astro';
+---
+
+<Carousel label="Slides">
+  <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+  <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+  <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+</Carousel>`,
 };

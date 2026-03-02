@@ -28,6 +28,14 @@ export default defineConfig({
       testMatch: /smoke\.spec\.m?js/,
     },
     {
+      name: 'visual',
+      use: {
+        ...devices['Desktop Chrome'],
+        viewport: { width: 1280, height: 720 },
+      },
+      testMatch: /visual\.spec\.m?js/,
+    },
+    {
       name: 'a11y',
       use: { ...devices['Desktop Chrome'] },
       testMatch: /a11y\/.*\.spec\.m?js/,

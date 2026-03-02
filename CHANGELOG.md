@@ -4,7 +4,15 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- **Docs:** React and Vue component pages now show all five framework Usage tabs (Astro | Svelte | React | Vue | Vanilla) with default tab React/Vue respectively. Added `src/config/astroCodeSnippets.ts`, `src/config/svelteCodeSnippets.ts`, and `src/config/vanillaCodeSnippets.ts` so framework-specific doc pages have full copy-paste examples for every framework. MULTI_FRAMEWORK, COMPONENTS, and TODO docs updated to describe the 5-tab parity and snippet configs.
+- (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
+
+## [0.0.67] - 2025-02-27
+
+- **Version:** Bump to 0.0.67 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; all docs, README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, scaffold READMEs, issue template, and tokens export aligned to 0.0.67.
+- **Upgrade guide:** [docs/UPGRADE.md](docs/UPGRADE.md) — how to upgrade within 0.0.x, pre-1.0 checklist, and what to expect at 1.0. [MAINTAINING.md](docs/MAINTAINING.md) expanded with Pre-1.0 checklist (API stability, deprecation policy, docs).
+- **Showcase page:** [/docs/showcase](/docs/showcase) — single page linking to components, themes, blocks, and examples; added to docs nav and a11y/smoke tests.
+- **Carousel a11y:** Indicators container changed from `<ol><li><button role="tab">` to `<div role="tablist"><button role="tab">` so tablist has direct tab children (fixes axe aria-required-children, aria-required-parent, listitem). Applied in Astro, React, Svelte, Vue, vanilla snippet, and package scaffolds.
+- **TODO:** [Tasks by impact](docs/TODO.md#tasks-by-impact) in docs/TODO.md; Showcase and Pre-1.0/upgrade guide marked done.
 
 ## [0.0.66] - 2025-02-27
 
@@ -49,7 +57,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.66...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.67...HEAD
+[0.0.67]: https://github.com/mingleusa/rizzo-css/compare/v0.0.66...v0.0.67
 [0.0.66]: https://github.com/mingleusa/rizzo-css/compare/v0.0.65...v0.0.66
 [0.0.65]: https://github.com/mingleusa/rizzo-css/compare/v0.0.64...v0.0.65
 [0.0.64]: https://github.com/mingleusa/rizzo-css/releases/tag/v0.0.64

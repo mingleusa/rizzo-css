@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "description": "Rizzo CSS component class names (BEM, no prefix). 51 components total; see ai/llms.json for full slug list.",
+  "button": {
+    "class": "btn",
+    "variants": ["btn-primary", "btn-secondary", "btn-outline", "btn-ghost", "btn-danger", "btn-success"],
+    "sizes": ["btn--sm", "btn--md", "btn--lg"],
+    "states": ["focus-visible", "active", "disabled", "aria-busy"],
+    "accessibility": ["role=button or <button>", "type=button preserved"]
+  },
+  "input": {
+    "class": "input",
+    "inputGroup": "input-group, input-group__wrapper, input-group__addon, input-group__input",
+    "states": ["focus-visible", "invalid", "disabled"],
+    "modifiers": ["input-group--error", "input-group--success"],
+    "accessibility": ["aria-invalid", "aria-describedby", "label association required"]
+  },
+  "card": {
+    "class": "card",
+    "elements": ["card__header", "card__body", "card__footer"]
+  },
+  "modal": {
+    "class": "modal",
+    "elements": ["modal__overlay", "modal__content"],
+    "accessibility": ["role=dialog", "aria-modal=true", "focusTrap", "escCloses", "scrollLock"]
+  },
+  "navbar": {
+    "class": "navbar",
+    "elements": ["navbar__container", "navbar__brand", "navbar__menu", "navbar__item"],
+    "modifiers": ["navbar--menu-open", "navbar--search-open"]
+  }
+}

@@ -242,4 +242,20 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 
   icons: `<!-- Rizzo CSS. Inline SVG or use .icon class; currentColor for theme. -->
 <span class="icon" aria-hidden="true"><!-- svg --></span>`,
+
+  carousel: `<!-- Rizzo CSS. Carousel needs JS for prev/next (see /docs/vanilla/components/carousel). -->
+<div class="carousel" role="region" aria-roledescription="carousel" aria-label="Slides" data-carousel>
+  <div class="carousel__viewport" data-carousel-viewport>
+    <div class="carousel__track" data-carousel-track>
+      <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+      <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+      <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+    </div>
+  </div>
+  <div class="carousel__controls">
+    <button type="button" class="carousel__prev" aria-label="Previous slide" data-carousel-prev>...</button>
+    <div class="carousel__indicators" role="tablist" aria-label="Slide indicators" data-carousel-indicators></div>
+    <button type="button" class="carousel__next" aria-label="Next slide" data-carousel-next>...</button>
+  </div>
+</div>`,
 };

@@ -1,17 +1,18 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.66",
+  "version": "0.0.67",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",
     "preview": "astro preview",
     "astro": "astro",
     "clean": "node -e \"const fs=require('fs');['dist','.astro','node_modules/.vite'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true});console.log('Removed',d)}catch(e){}})\"",
-    "build": "pnpm generate:color-formats && pnpm lint:css:fix && pnpm build:css && astro build",
+    "build": "pnpm generate:color-formats && pnpm export:tokens && pnpm lint:css:fix && pnpm build:css && astro build",
     "build:css": "node scripts/build-css.js",
     "build:package": "pnpm lint:css:fix && pnpm build:css && pnpm copy-scaffold && pnpm prepare:vanilla-scaffold",
     "generate:color-formats": "node scripts/generate-color-formats.mjs",
+    "export:tokens": "node scripts/export-tokens.mjs",
     "copy-scaffold": "node scripts/copy-scaffold.js",
     "prepare:vanilla-scaffold": "node scripts/prepare-vanilla-scaffold.js",
     "lint:css": "stylelint \"src/**/*.css\"",
@@ -21,6 +22,8 @@
     "test:a11y:ci": "playwright install --with-deps chromium && pnpm test:a11y",
     "test:a11y:ci:cross-browser": "pnpm build && pnpm exec playwright install --with-deps chromium firefox webkit && pnpm exec playwright test tests/a11y --project=a11y --project=a11y-firefox --project=a11y-webkit",
     "test:smoke": "pnpm build && playwright test --project=smoke",
+    "test:visual": "pnpm build && playwright test --project=visual",
+    "test:visual:update": "pnpm build && playwright test --project=visual --update-snapshots",
     "index:algolia": "node scripts/index-docs.js",
     "setup:algolia": "echo 'Copy .env.example to .env and add your Algolia credentials'",
     "check:contrast": "node scripts/check-contrast.mjs",
@@ -37,6 +40,7 @@
     "@axe-core/playwright": "^4.10.0",
     "@playwright/test": "^1.49.0",
     "@storybook/addon-a11y": "^10.2.13",
+    "@storybook/addon-docs": "^10.2.13",
     "@storybook/addon-links": "^10.2.13",
     "@storybook/addon-onboarding": "^10.2.13",
     "@storybook/react-vite": "^10.2.13",
@@ -63,15 +67,18 @@
     "svelte": "^5.53.5",
     "svelte-check": "^4.3.6",
     "tslib": "^2.8.1",
-    "typescript": "^5.9.3",
-    "@storybook/addon-docs": "^10.2.13"
+    "typescript": "^5.9.3"
   },
   "author": "mingleusa",
   "dependencies": {
     "@astrojs/react": "^4.4.2",
     "@astrojs/vue": "^5.1.4",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "postcss-js": "^5.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "style-dictionary": "^5.3.2",
     "vue": "^3.5.29"
   },
   "lint-staged": {

@@ -1,0 +1,165 @@
+{
+  "name": "rizzo-css",
+  "version": "0.0.67",
+  "description": "Design tokens for Rizzo CSS. Use with design tools or runtimes.",
+  "source": "ai/design-tokens.json",
+  "semantic": "Theme CSS uses --background, --text, --accent, --border, etc. See theme files.",
+  "tokens": {
+    "global": {
+      "color": {
+        "primary": {
+          "value": "oklch(60% 0.15 260)"
+        },
+        "secondary": {
+          "value": "oklch(55% 0.12 260)"
+        },
+        "success": {
+          "value": "oklch(65% 0.15 145)"
+        },
+        "warning": {
+          "value": "oklch(70% 0.12 85)"
+        },
+        "danger": {
+          "value": "oklch(60% 0.18 25)"
+        },
+        "background": {
+          "value": "oklch(98% 0 0)"
+        },
+        "surface": {
+          "value": "oklch(96% 0 0)"
+        },
+        "text-primary": {
+          "value": "oklch(15% 0 0)"
+        },
+        "text-secondary": {
+          "value": "oklch(35% 0 0)"
+        }
+      },
+      "spacing": {
+        "0": {
+          "value": "0"
+        },
+        "1": {
+          "value": "0.25rem"
+        },
+        "2": {
+          "value": "0.5rem"
+        },
+        "3": {
+          "value": "0.75rem"
+        },
+        "4": {
+          "value": "1rem"
+        },
+        "5": {
+          "value": "1.5rem"
+        },
+        "6": {
+          "value": "2rem"
+        },
+        "7": {
+          "value": "3rem"
+        },
+        "8": {
+          "value": "4rem"
+        }
+      },
+      "radius": {
+        "xs": {
+          "value": "4px"
+        },
+        "sm": {
+          "value": "6px"
+        },
+        "md": {
+          "value": "10px"
+        },
+        "lg": {
+          "value": "16px"
+        },
+        "xl": {
+          "value": "24px"
+        },
+        "pill": {
+          "value": "999px"
+        }
+      },
+      "typography": {
+        "fontFamily": {
+          "sans": {
+            "value": "system-ui, sans-serif"
+          },
+          "mono": {
+            "value": "ui-monospace, monospace"
+          }
+        },
+        "fontSize": {
+          "xs": {
+            "value": "0.75rem"
+          },
+          "sm": {
+            "value": "0.875rem"
+          },
+          "md": {
+            "value": "1rem"
+          },
+          "lg": {
+            "value": "1.25rem"
+          },
+          "xl": {
+            "value": "1.5rem"
+          },
+          "2xl": {
+            "value": "2rem"
+          },
+          "3xl": {
+            "value": "3rem"
+          }
+        },
+        "fontWeight": {
+          "regular": {
+            "value": 400
+          },
+          "medium": {
+            "value": 500
+          },
+          "bold": {
+            "value": 700
+          }
+        },
+        "lineHeight": {
+          "tight": {
+            "value": 1.2
+          },
+          "normal": {
+            "value": 1.5
+          },
+          "relaxed": {
+            "value": 1.8
+          }
+        }
+      },
+      "motion": {
+        "duration": {
+          "fast": {
+            "value": "120ms"
+          },
+          "normal": {
+            "value": "220ms"
+          },
+          "slow": {
+            "value": "350ms"
+          }
+        },
+        "ease": {
+          "standard": {
+            "value": "cubic-bezier(.2,.8,.2,1)"
+          },
+          "emphasized": {
+            "value": "cubic-bezier(.4,.0,.2,1)"
+          }
+        }
+      }
+    }
+  }
+}

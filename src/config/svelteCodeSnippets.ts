@@ -140,4 +140,14 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
 
 <Separator />
 <Separator orientation="vertical" />`,
+
+  carousel: `<script>
+  import { Carousel } from '$lib/rizzo';
+</script>
+
+<Carousel label="Slides">
+  <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+  <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+  <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+</Carousel>`,
 };

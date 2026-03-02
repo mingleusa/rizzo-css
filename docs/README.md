@@ -9,6 +9,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [GETTING_STARTED.md](./GETTING_STARTED.md) | Installation, CLI, package, CDN, framework setup |
+| [UPGRADE.md](./UPGRADE.md) | Upgrading between versions; pre-1.0 checklist; what to expect at 1.0 |
 | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Design system overview, variables, typography |
 | [THEMING.md](./THEMING.md) | Themes, theme switcher, building your own |
 | [COLORS.md](./COLORS.md) | Color system, OKLCH, format conversion |
@@ -22,13 +23,16 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [TESTING.md](./TESTING.md) | A11y, browser, and component-page testing (Playwright, axe, keyboard, ARIA, smoke) |
-| [COMPONENTS.md](./COMPONENTS.md) | All components (50 in CLI; doc pages by category), usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All components (51 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
 | [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
+| [RTL.md](./RTL.md) | Right-to-left support: `dir="rtl"`, logical utilities (`mis-*`, `mie-*`, `pis-*`, `pie-*`) |
+| **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 51 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
+| **Design tokens** | `pnpm export:tokens` writes **public/tokens/rizzo-tokens.json** and **.js** from `ai/design-tokens.json` (runs as part of `pnpm build`). Served at `/tokens/rizzo-tokens.json`; use in Figma, Style Dictionary, or runtimes. |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.66), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.67), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -38,13 +42,13 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | [MAINTAINING.md](./MAINTAINING.md) | Maintenance notes and links |
 | [FRAMEWORK_STRUCTURE.md](./FRAMEWORK_STRUCTURE.md) | Repo layout: src/, scaffolds, frameworks |
 | [TEMPLATES.md](./TEMPLATES.md) | Landing, Docs, Dashboard, Full templates (init and add) |
-| [TODO.md](./TODO.md) | Current tasks, roadmap, and **future components/blocks** to add |
+| [TODO.md](./TODO.md) | Current tasks, **tasks by impact** (high/medium/nice-to-have), roadmap, and **future components/blocks** to add |
 | [STORYBOOK.md](./STORYBOOK.md) | Optional Storybook for React components (`pnpm storybook`) |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Search: client-side (no setup) or Algolia for production; indexing and env setup |
 
 ### Testing
 
-**A11y and smoke tests** use Playwright. Before running `pnpm test:a11y` or `pnpm test:smoke` for the first time, install browsers: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. CI runs a11y with sharding (Chromium and Firefox in 2 shards each) and 6 workers. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
+**A11y, smoke, and visual regression tests** use Playwright. Before running `pnpm test:a11y` or `pnpm test:smoke` for the first time, install browsers: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. **Visual regression:** `pnpm test:visual` (compare to baselines), `pnpm test:visual:update` (update baselines); commit snapshot files so CI can compare. CI runs a11y with sharding (Chromium and Firefox in 2 shards each) and 6 workers, plus the visual job. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
 ### Planning (internal)
 

@@ -223,6 +223,14 @@ const [value, setValue] = useState(50);
 <button type="button" aria-describedby="tt-1">Hover me</button>
 <Tooltip id="tt-1" text="Tooltip text" position="top" />`,
 
+  carousel: `import { Carousel } from './components/react';
+
+<Carousel label="Slides">
+  <div className="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+  <div className="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+  <div className="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+</Carousel>`,
+
   collapsible: `import { Collapsible } from './components/react';
 
 <Collapsible triggerLabel="Show more" defaultOpen={false}>

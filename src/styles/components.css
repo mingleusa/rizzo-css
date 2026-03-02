@@ -5741,3 +5741,109 @@ div.navbar__sublink {
   width: var(--spacing-1);
   height: var(--spacing-4);
 }
+
+/* Carousel: sliding content with prev/next and optional indicators */
+.carousel {
+  position: relative;
+  width: 100%;
+}
+
+.carousel__viewport {
+  overflow: hidden;
+  width: 100%;
+  border-radius: var(--radius-lg);
+  background: var(--background-alt);
+}
+
+.carousel__track {
+  display: flex;
+  transition: transform var(--transition-base) var(--ease-in-out-cubic);
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .carousel__track {
+    transition: none;
+  }
+}
+
+.carousel__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+  padding: var(--spacing-6);
+  box-sizing: border-box;
+}
+
+.carousel__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-4);
+  margin-top: var(--spacing-4);
+}
+
+.carousel__prev,
+.carousel__next {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--touch-target-min);
+  height: var(--touch-target-min);
+  padding: 0;
+  background: var(--background-alt);
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  cursor: pointer;
+  transition: background var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.carousel__prev:hover,
+.carousel__next:hover {
+  background: var(--border);
+  border-color: var(--text-dim);
+}
+
+.carousel__prev:focus-visible,
+.carousel__next:focus-visible {
+  outline: var(--outline-width) solid var(--accent);
+  outline-offset: var(--outline-offset);
+}
+
+.carousel__prev:disabled,
+.carousel__next:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.carousel__prev svg,
+.carousel__next svg {
+  width: 24px;
+  height: 24px;
+}
+
+.carousel__indicators {
+  display: flex;
+  gap: var(--spacing-2);
+  margin: 0;
+  padding: 0;
+}
+
+.carousel__indicator {
+  width: var(--spacing-2);
+  height: var(--spacing-2);
+  border-radius: var(--radius-full);
+  background: var(--border);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.carousel__indicator:hover {
+  background: var(--text-dim);
+}
+
+.carousel__indicator[aria-selected="true"] {
+  background: var(--accent);
+}

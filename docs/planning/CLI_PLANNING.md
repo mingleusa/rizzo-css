@@ -4,7 +4,7 @@
 
 Planning document for the Rizzo CSS CLI: scope, commands, package shape, and implementation phases.
 
-> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte / React / Vue) → existing or new. **Existing** (or `add`): same template choice (CSS only | Landing | Docs | Dashboard | Full). **New:** **CSS only**, **Landing**, **Docs**, **Dashboard**, or **Full** (per framework) → package manager. Full = site clone; Landing/Docs/Dashboard = component picker (all 50 or pick). (npm, pnpm, yarn, bun; detected suggested). **rizzo-css.json** (targetDir, framework, packageManager, theme) written only when the project does not already have a config file. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte|react|vue` and `--template landing|docs|dashboard|full`, `--install`, `--no-install`. See [CLI.md](../CLI.md).
+> **Status**: Implemented. CLI ships in the **rizzo-css** package: `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. **Init:** framework (Vanilla / Astro / Svelte / React / Vue) → existing or new. **Existing** (or `add`): same template choice (CSS only | Landing | Docs | Dashboard | Full). **New:** **CSS only**, **Landing**, **Docs**, **Dashboard**, or **Full** (per framework) → package manager. Full = site clone; Landing/Docs/Dashboard = component picker (all 51 or pick). (npm, pnpm, yarn, bun; detected suggested). **rizzo-css.json** (targetDir, framework, packageManager, theme) written only when the project does not already have a config file. **Add** uses config and detection; `--install-package` runs pm add. Non-interactive: `init --yes --framework vanilla|astro|svelte|react|vue` and `--template landing|docs|dashboard|full`, `--install`, `--no-install`. See [CLI.md](../CLI.md).
 
 **Docs site:** The [Getting Started](/docs/getting-started) page and the home page include a **package manager tabbed selector** (npm, pnpm, yarn, bun): users click a tab to select their manager, then use the copy button to copy the CLI command. Each tab shows the appropriate command (e.g. `npx rizzo-css init`, `pnpm dlx rizzo-css init`). The **yarn** tab shows `npx` so it works with Yarn 1 and 2+ (Yarn 1 has no `dlx`).
 
@@ -51,7 +51,7 @@ Planning document for the Rizzo CSS CLI: scope, commands, package shape, and imp
 - [x] Implement `add`: copy CSS; auto-detect Svelte/Astro; default paths `static/css` or `public/css`; `--path` and `--framework` support.
 - [x] Implement `theme`: list 14 theme IDs.
 - [x] Document in [Getting Started](../GETTING_STARTED.md): "Quick start with CLI" via `npx rizzo-css init` / `add`.
-- [x] **Component selection:** **Full** = site clone (no picker); **Landing** / **Docs** / **Dashboard** give component picker (all 50 or pick). (and minimal index only if missing for Starter) (Astro/Svelte). Scaffold populated by `scripts/copy-scaffold.js` and `prepare-vanilla-scaffold.js` (run in prepublishOnly). Package ships scaffold/vanilla, astro-core, svelte-core, astro/, svelte/.
+- [x] **Component selection:** **Full** = site clone (no picker); **Landing** / **Docs** / **Dashboard** give component picker (all 51 or pick). (and minimal index only if missing for Starter) (Astro/Svelte). Scaffold populated by `scripts/copy-scaffold.js` and `prepare-vanilla-scaffold.js` (run in prepublishOnly). Package ships scaffold/vanilla, astro-core, svelte-core, astro/, svelte/.
 
 ### Phase 2 – Themes and options
 

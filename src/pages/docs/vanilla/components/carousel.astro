@@ -1,0 +1,41 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import CarouselComponent from '../../../../components/Carousel.astro';
+---
+
+<DocsLayout title="Carousel — Vanilla" description="Carousel with vanilla HTML. Use the same BEM structure; add your own script for prev/next or reuse the logic from the Astro component.">
+  <section>
+    <h2>Carousel</h2>
+    <p>Sliding content with previous/next controls and optional indicators. Structure uses <code>carousel</code>, <code>carousel__viewport</code>, <code>carousel__track</code>, and <code>carousel__slide</code>. JavaScript is required for prev/next and indicator clicks.</p>
+    <AddComponentTabs componentName="Carousel" />
+
+    <h3>Live example (Astro component; same BEM)</h3>
+    <div class="example">
+      <div class="example-title">Carousel</div>
+      <CarouselComponent label="Vanilla carousel demo">
+        <div class="carousel__slide"><h4>Slide 1</h4><p>First slide.</p></div>
+        <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide.</p></div>
+        <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide.</p></div>
+      </CarouselComponent>
+    </div>
+
+    <h3>Markup</h3>
+    <p>Use the same HTML structure. Add a script that listens for <code>data-carousel-prev</code> and <code>data-carousel-next</code> clicks and updates the track <code>transform</code>; see the Astro Carousel component script for reference.</p>
+    <CodeBlock code={`<div class="carousel" role="region" aria-roledescription="carousel" aria-label="Slides" data-carousel>
+  <div class="carousel__viewport" data-carousel-viewport>
+    <div class="carousel__track" data-carousel-track>
+      <div class="carousel__slide"><h4>Slide 1</h4><p>Content</p></div>
+      <div class="carousel__slide"><h4>Slide 2</h4><p>Content</p></div>
+      <div class="carousel__slide"><h4>Slide 3</h4><p>Content</p></div>
+    </div>
+  </div>
+  <div class="carousel__controls">
+    <button type="button" class="carousel__prev" aria-label="Previous slide" data-carousel-prev>...</button>
+    <div class="carousel__indicators" role="tablist" aria-label="Slide indicators" data-carousel-indicators></div>
+    <button type="button" class="carousel__next" aria-label="Next slide" data-carousel-next>...</button>
+  </div>
+</div>`} language="html" />
+  </section>
+</DocsLayout>
