@@ -1,0 +1,54 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import CalendarComponent from '../../../components/Calendar.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'calendar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Calendar Component — Astro" description="Month grid calendar for date display or date picker use. Keyboard and screen reader accessible.">
+	<section>
+		<h2>Calendar Component</h2>
+		<p>A month-grid calendar for choosing a date. Includes previous/next month navigation and optional selected date. Uses <code>role="group"</code> and <code>role="grid"</code> with <code>role="gridcell"</code> for accessibility. Fires a <code>calendar-select</code> custom event when a day is chosen.</p>
+
+		<AddComponentTabs componentName="Calendar" />
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code> (string, optional) — Unique id (auto-generated if omitted)</li>
+			<li><code>initialMonth</code> (string, optional) — Initial month as <code>YYYY-MM</code> (default: current month)</li>
+			<li><code>selected</code> (string, optional) — Selected date as <code>YYYY-MM-DD</code></li>
+			<li><code>label</code> (string, optional) — Accessible label (default: "Calendar")</li>
+			<li><code>class</code> (string, optional) — Additional CSS classes</li>
+		</ul>
+
+		<h3>Events</h3>
+		<p>Listen for <code>calendar-select</code> on the calendar element. <code>event.detail.date</code> is <code>YYYY-MM-DD</code>.</p>
+
+		<h3>Live Example</h3>
+		<div class="example">
+			<div class="example-title">Calendar</div>
+			<CalendarComponent label="Choose a date" />
+		</div>
+
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={astroCode}
+			svelte={svelteCode}
+			react={reactCode}
+			vue={vueCode}
+			vanilla={vanillaCode}
+		/>
+	</section>
+</DocsLayout>

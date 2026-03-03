@@ -1,0 +1,37 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import CalendarComponent from '../../../../components/Calendar.astro';
+---
+
+<DocsLayout title="Calendar — Vanilla" description="Calendar with vanilla HTML. Use the same BEM structure; the grid is built by script (see Astro Calendar component for reference).">
+  <section>
+    <h2>Calendar</h2>
+    <p>Month grid for choosing a date. Structure uses <code>calendar</code>, <code>calendar__header</code>, <code>calendar__month</code>, <code>calendar__grid</code>, <code>calendar__row</code>, <code>calendar__weekday</code>, and <code>calendar__day</code>. JavaScript is required to build the month grid and handle prev/next and selection. Listen for <code>calendar-select</code> for the chosen date (YYYY-MM-DD).</p>
+    <AddComponentTabs componentName="Calendar" />
+
+    <h3>Live example (Astro component; same BEM)</h3>
+    <div class="example">
+      <div class="example-title">Calendar</div>
+      <CalendarComponent label="Choose a date" />
+    </div>
+
+    <h3>Markup</h3>
+    <p>Use the same HTML shell. Your script should populate <code>data-calendar-body</code> with rows and day buttons, and handle <code>data-calendar-prev</code> / <code>data-calendar-next</code> and day clicks. See the Astro Calendar component script for the full logic.</p>
+    <CodeBlock code={`<div class="calendar" role="group" aria-label="Calendar" data-calendar data-initial-month data-selected>
+  <div class="calendar__header">
+    <button type="button" class="calendar__prev" aria-label="Previous month" data-calendar-prev>...</button>
+    <div class="calendar__month" aria-live="polite" data-calendar-month-label>—</div>
+    <button type="button" class="calendar__next" aria-label="Next month" data-calendar-next>...</button>
+  </div>
+  <div class="calendar__grid" role="grid" aria-label="Month" data-calendar-grid>
+    <div class="calendar__row" role="row">
+      <div class="calendar__weekday" role="columnheader">Sun</div>
+      <!-- Mon–Sat -->
+    </div>
+    <div class="calendar__body" data-calendar-body role="presentation"></div>
+  </div>
+</div>`} language="html" />
+  </section>
+</DocsLayout>

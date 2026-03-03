@@ -16,6 +16,7 @@ const componentMap = {
   'button': defineAsyncComponent(() => import('./Button.vue')),
   'button-group': defineAsyncComponent(() => import('./ButtonGroup.vue')),
   'cards': defineAsyncComponent(() => import('./Card.vue')),
+  'calendar': defineAsyncComponent(() => import('./Calendar.vue')),
   'carousel': defineAsyncComponent(() => import('./Carousel.vue')),
   'collapsible': defineAsyncComponent(() => import('./Collapsible.vue')),
   'context-menu': defineAsyncComponent(() => import('./ContextMenu.vue')),

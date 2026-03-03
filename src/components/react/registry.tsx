@@ -17,6 +17,7 @@ import { Skeleton } from './Skeleton';
 import { Alert } from './Alert';
 import { Avatar } from './Avatar';
 import { Card } from './Card';
+import { Calendar } from './Calendar';
 import { CarouselDemo } from './CarouselDemo';
 import { ProgressBar } from './ProgressBar';
 import { Breadcrumb } from './Breadcrumb';
@@ -71,6 +72,7 @@ const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   alert: Alert,
   avatar: Avatar,
   cards: Card,
+  calendar: Calendar,
   carousel: CarouselDemo,
   'progress-bar': ProgressBar,
   breadcrumb: Breadcrumb,
@@ -147,6 +149,7 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
       { id: 'a2', title: 'Section 2', content: '<p>Content for section 2.</p>' },
     ],
   },
+  calendar: {},
   carousel: {},
   forms: { placeholder: 'Enter text…', type: 'text' },
   'input-group': { placeholder: '0.00', prefix: '$', suffix: 'USD', 'aria-label': 'Amount' },

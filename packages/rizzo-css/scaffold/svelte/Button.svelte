@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
 
-  type Variant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'outline';
+  type Variant = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'outline' | 'ghost';
   interface Props {
     variant?: Variant;
     disabled?: boolean;

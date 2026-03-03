@@ -132,3 +132,40 @@ a.btn-primary:visited:hover {
   background-color: var(--accent);
   color: var(--accent-text);
 }
+
+/* Ghost: minimal background, text only with hover fill */
+.btn-ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--accent-fg);
+}
+
+.btn-ghost:hover {
+  background-color: var(--border);
+  border-color: transparent;
+  color: var(--accent-fg);
+}
+
+/* Secondary: muted action, uses border/subtle bg */
+.btn-secondary {
+  background-color: var(--background-alt);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.btn-secondary:hover {
+  background-color: var(--border);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+/* Size modifiers */
+.btn--sm {
+  padding: var(--spacing-1) var(--spacing-3);
+  font-size: var(--font-size-sm);
+}
+
+.btn--lg {
+  padding: var(--spacing-3) var(--spacing-6);
+  font-size: var(--font-size-lg);
+}

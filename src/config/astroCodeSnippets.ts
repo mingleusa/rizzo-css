@@ -22,10 +22,14 @@ const ASTRO_CODE_SNIPPETS: Record<string, string> = {
 import Button from '../components/rizzo/Button.astro';
 ---
 
-<Button>Click me</Button>
+<Button>Default</Button>
 <Button class="btn-primary">Primary</Button>
+<Button class="btn-secondary">Secondary</Button>
 <Button class="btn-success">Success</Button>
-<Button class="btn-outline">Outline</Button>`,
+<Button class="btn-outline">Outline</Button>
+<Button class="btn-ghost">Ghost</Button>
+<Button class="btn-primary btn--sm">Small</Button>
+<Button class="btn-primary btn--lg">Large</Button>`,
 
   alert: `---
 import Alert from '../components/rizzo/Alert.astro';
@@ -141,6 +145,12 @@ import Separator from '../components/rizzo/Separator.astro';
 
 <Separator />
 <Separator orientation="vertical" />`,
+
+  calendar: `---
+import Calendar from '../components/rizzo/Calendar.astro';
+---
+
+<Calendar label="Choose a date" />`,
 
   carousel: `---
 import Carousel from '../components/rizzo/Carousel.astro';

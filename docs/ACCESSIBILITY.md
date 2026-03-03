@@ -367,7 +367,9 @@ Use this table when adding a new component or porting to another framework so As
 
 ## Manual accessibility testing
 
-Use this checklist for manual keyboard and screen reader testing. Run automated tests first (`pnpm test:a11y`), then work through the priorities below. Log issues (component, check, result, notes) and fix before release; update [Best practices](#best-practices) if you discover new patterns.
+A full **manual a11y runbook** is on the docs site: [Manual testing checklist](/docs/accessibility/manual-testing). It includes: **Before you start** (run automated tests, build/preview, browser and AT setup), **Priority 1–3** tables with links to each component doc page, **Tools**, a **Step-by-step example** (Modal), a **Results log** table to copy and fill in, **Screen reader quick reference** (NVDA, VoiceOver, JAWS keys), and **Suggested order**. Use it for release sign-off or when adding or changing interactive components.
+
+Below is the same checklist in prose form for the repo. Run automated tests first (`pnpm test:a11y`), then work through the priorities. Log issues (component, check, result, notes) and fix before release; update [Best practices](#best-practices) if you discover new patterns.
 
 ### Priority 1 — High interaction (test first)
 

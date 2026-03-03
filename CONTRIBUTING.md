@@ -57,7 +57,7 @@ Use this when opening a PR that **adds a new component**:
 
 - [ ] **Astro** — Component in `src/components/` (and in `ASTRO_SCAFFOLD` in `scripts/copy-scaffold.js`)
 - [ ] **Svelte** — Component in `src/components/svelte/` and exported in `index.ts`
-- [ ] **Vanilla** — Slug in `VANILLA_COMPONENT_SLUGS` in `packages/rizzo-css/bin/rizzo-css.js`; doc page under `src/pages/docs/vanilla/components/<slug>.astro` (or add to prepare-vanilla-scaffold if applicable)
+- [ ] **Vanilla** — Slug in `VANILLA_COMPONENT_SLUGS` in `packages/rizzo-css/bin/rizzo-css.js` and in `src/config/vanillaSnippets.ts`; doc page `src/pages/docs/vanilla/components/<slug>.astro`; add slug to `scripts/prepare-vanilla-scaffold.js` `COMPONENT_SLUGS` (alphabetical) so the shipped vanilla scaffold includes the component page
 - [ ] **CLI** — Component name in `ASTRO_COMPONENTS` and `SVELTE_COMPONENTS` in `packages/rizzo-css/bin/rizzo-css.js`; add dependencies in `getComponentDeps` if needed
 - [ ] **Docs** — Astro doc page `src/pages/docs/components/<slug>.astro`; add slug to `src/config/docsNav.ts`; update `src/pages/docs/components.astro` and `docs/COMPONENTS.md`; add to `tests/a11y/docs.spec.mjs` (`COMPONENT_SLUGS` or `ASTRO_ONLY_COMPONENT_ROUTES`); update `scripts/index-docs.js` if needed
 - [ ] **Build & tests** — `pnpm build:package`, `pnpm build`, `pnpm test:a11y` pass

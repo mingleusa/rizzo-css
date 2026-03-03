@@ -42,7 +42,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		<p>Place Search and Settings in the desktop actions area (<code>navbar__actions-desktop</code>). On mobile, search/settings are often icon-only in the header. Use the same BEM structure as the <a href="/docs/components/navbar">Navbar component</a>; the scaffold uses <code>window.openSettings()</code> for the settings button. The layout must include the Settings panel and the script that registers <code>openSettings</code>. See the scaffold layouts (Vanilla, Astro, Svelte, React, Vue) for full examples.</p>
 
 		<h3>Modifiers and shared types</h3>
-		<p>Use <strong>BEM modifiers</strong> for variants (e.g. <code>btn--primary</code>, <code>card--elevated</code>, <code>tabs--pills</code>) and semantic props where supported. When extending or wrapping Rizzo components, import types from <code>../types</code> (Astro) or the same in Svelte so APIs stay consistent.</p>
+		<p>Use <strong>BEM modifiers</strong> for variants (e.g. <code>btn-primary</code>, <code>btn-ghost</code>, <code>card--elevated</code>, <code>tabs--pills</code>) and semantic props where supported. When extending or wrapping Rizzo components, import types from <code>../types</code> (Astro) or the same in Svelte so APIs stay consistent.</p>
 	</section>
 
 	<section>
@@ -51,7 +51,7 @@ import DocsLayout from '../../layouts/DocsLayout.astro';
 		<h3>CSS loading</h3>
 		<ul>
 			<li><strong>Single import</strong> — Import Rizzo CSS once in your root layout or main entry. Avoid loading it multiple times.</li>
-			<li><strong>CDN</strong> — Pin the version (e.g. <code>rizzo-css@0.0.67</code>) so cache hits are reliable. Verify with <code>curl -I &lt;url&gt;</code> (200).</li>
+			<li><strong>CDN</strong> — Pin the version (e.g. <code>rizzo-css@0.0.68</code>) so cache hits are reliable. Verify with <code>curl -I &lt;url&gt;</code> (200).</li>
 			<li><strong>No duplicate CSS</strong> — Use either the npm package or a copied file in <code>public/</code> or <code>static/</code>, not both.</li>
 		</ul>
 

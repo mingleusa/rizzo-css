@@ -11,10 +11,11 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'primary', 'success', 'warning', 'error', 'info', 'outline'],
+      options: ['default', 'primary', 'secondary', 'success', 'warning', 'error', 'info', 'outline', 'ghost'],
     },
     disabled: { control: 'boolean' },
     children: { control: 'text' },
+    className: { control: 'text' },
   },
 };
 
@@ -42,16 +43,36 @@ export const Outline: Story = {
   },
 };
 
+export const Secondary: Story = {
+  args: { variant: 'secondary', children: 'Secondary' },
+};
+
+export const Ghost: Story = {
+  args: { variant: 'ghost', children: 'Ghost' },
+};
+
+export const Sizes: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center', flexWrap: 'wrap' }}>
+      <Button variant="primary" className="btn--sm">Small</Button>
+      <Button variant="primary">Default</Button>
+      <Button variant="primary" className="btn--lg">Large</Button>
+    </div>
+  ),
+};
+
 export const AllVariants: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
       <Button variant="default">Default</Button>
       <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
       <Button variant="success">Success</Button>
       <Button variant="warning">Warning</Button>
       <Button variant="error">Error</Button>
       <Button variant="info">Info</Button>
       <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
     </div>
   ),
 };

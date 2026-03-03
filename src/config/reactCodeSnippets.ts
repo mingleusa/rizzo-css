@@ -20,9 +20,12 @@ const REACT_CODE_SNIPPETS: Record<string, string> = {
 
 <Button>Default</Button>
 <Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
 <Button variant="success">Success</Button>
 <Button variant="outline">Outline</Button>
-<Button disabled>Disabled</Button>`,
+<Button variant="ghost">Ghost</Button>
+<Button variant="primary" className="btn--sm">Small</Button>
+<Button variant="primary" className="btn--lg">Large</Button>`,
 
   badge: `import { Badge } from './components/react';
 
@@ -222,6 +225,10 @@ const [value, setValue] = useState(50);
 
 <button type="button" aria-describedby="tt-1">Hover me</button>
 <Tooltip id="tt-1" text="Tooltip text" position="top" />`,
+
+  calendar: `import { Calendar } from './components/react';
+
+<Calendar label="Choose a date" onSelect={(date) => console.log(date)} />`,
 
   carousel: `import { Carousel } from './components/react';
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-type Variant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'outline';
+type Variant = 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'error' | 'info' | 'outline' | 'ghost';
 
 withDefaults(
   defineProps<{

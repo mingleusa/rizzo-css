@@ -17,16 +17,16 @@ This guide will help you get started with Rizzo CSS. The documentation site is a
 
 | Command | What it does |
 |--------|----------------|
-| `npx rizzo-css init` | Framework (Vanilla / Astro / Svelte / React / Vue) → add to existing or create new. **New** → location, then template **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. **Full** = site clone (no picker); others = all 51 or pick components. `--yes --path <dir>` non-interactive. |
+| `npx rizzo-css init` | Framework (Vanilla / Astro / Svelte / React / Vue) → add to existing or create new. **New** → location, then template **Landing** \| **Docs** \| **Dashboard** \| **Full**, then package manager. **Full** = site clone (no picker); others = all 52 or pick components. `--yes --path <dir>` non-interactive. |
 | `npx rizzo-css add` | **For existing projects.** Run in project root. Choose template (CSS only \| Landing \| Docs \| Dashboard \| Full), then select which components to add (or CSS only). Writes RIZZO-SETUP.md; Full also RIZZO-SNIPPET.txt unless `--no-snippet`. `--dry-run` (preview files, no writes), `--readme`, `--force`, `--vanilla-js`. |
 | `npx rizzo-css theme` | List 14 theme IDs for `data-theme`. |
 | `npx rizzo-css doctor` | Check config, CSS path, layout link; validate theme (config + layout `data-theme`); check fonts and sfx paths; warn if CSS is very small; hint when rizzo-css is in node_modules. |
 
 **Run by package manager:** npm and yarn → `npx rizzo-css <command>` (yarn tab shows npx so it works with Yarn 1 and 2+); pnpm → `pnpm dlx rizzo-css <command>`; bun → `bunx rizzo-css <command>`. Use the docs site tabs to copy the command for your manager.
 
-**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template css-only|landing|docs|dashboard|full**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--template css-only|landing|docs|dashboard|full**, **--dry-run** (preview, no writes), **--offline** (use PM cache only), **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** CSS only = stylesheet + license, README, barebones HTML (no components); Landing = hero/features page; Docs = documentation layout + sidebar; Dashboard = app dashboard layout; Full = clone of the Rizzo docs site (all components). CSS only skips component picker; others get full framework + Rizzo; Landing/Docs/Dashboard then prompt for all 51 or pick components. `npx rizzo-css help components` lists components and copy paths.
+**Config:** **rizzo-css.json** `{ "targetDir", "framework", "packageManager", "theme" }`; unknown keys preserved. Init: **--yes**, **--path &lt;dir&gt;** (project directory), **--framework**, **--template css-only|landing|docs|dashboard|full**, **--package-manager**, **--install** / **--no-install**. Add: **--path** (CSS target dir), **--template css-only|landing|docs|dashboard|full**, **--dry-run** (preview, no writes), **--offline** (use PM cache only), **--install-package**, **--no-snippet**, **--readme**, **--force**, **--vanilla-js**. **Templates:** CSS only = stylesheet + license, README, barebones HTML (no components); Landing = hero/features page; Docs = documentation layout + sidebar; Dashboard = app dashboard layout; Full = clone of the Rizzo docs site (all components). CSS only skips component picker; others get full framework + Rizzo; Landing/Docs/Dashboard then prompt for all 52 or pick components. `npx rizzo-css help components` lists components and copy paths.
 
-**Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. Full includes these automatically; picker shows e.g. "Navbar (adds Search, Settings)". When you add **Settings** via the CLI (Astro or Svelte), the CLI also copies **scaffold/config/fonts.ts** into your project (Astro: `src/components/config/fonts.ts`; Svelte: `src/lib/config/fonts.ts`) so the font-pair dropdown works. List: `npx rizzo-css help components`. **Component counts:** Full = site clone; Landing/Docs/Dashboard = all 51 or pick (all frameworks).
+**Component dependencies:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects; Toast adds Alert. Full includes these automatically; picker shows e.g. "Navbar (adds Search, Settings)". When you add **Settings** via the CLI (Astro or Svelte), the CLI also copies **scaffold/config/fonts.ts** into your project (Astro: `src/components/config/fonts.ts`; Svelte: `src/lib/config/fonts.ts`) so the font-pair dropdown works. List: `npx rizzo-css help components`. **Component counts:** Full = site clone; Landing/Docs/Dashboard = all 52 or pick (all frameworks).
 
 **Tip:** Use the **package manager tabs** on the [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) docs page (npm, pnpm, yarn, bun): click a tab to select your manager, then copy the command. **Yarn users:** the yarn tab shows `npx` so the command works with Yarn 1 and 2+ (Yarn 1 has no `dlx`). **Create new:** CLI prompts for package manager so the printed "install && dev" command matches. **Add to existing** or `add`: CLI prints the exact `<link>` tag; it does not edit your layout. To use the official create command plus Rizzo: `npm create svelte@latest my-app && cd my-app && npx rizzo-css add` (or Astro/pnpm/yarn/bun equivalents). 
 ---
@@ -45,7 +45,7 @@ On the [docs site](https://rizzo-css.vercel.app/docs/getting-started), use the *
 npx rizzo-css init
 ```
 
-**First:** choose framework (Vanilla / Astro / Svelte / React / Vue). **Then:** add to existing or create new. **Existing** (or `add`) → choose **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**; CLI prints the `<link>` tag. **New** → location, then template (CSS only / Landing / Docs / Dashboard / Full), then package manager. **CSS only** = no components; **Full** = site clone; others = all 51 or pick components.
+**First:** choose framework (Vanilla / Astro / Svelte / React / Vue). **Then:** add to existing or create new. **Existing** (or `add`) → choose **CSS only** \| **Landing** \| **Docs** \| **Dashboard** \| **Full**; CLI prints the `<link>` tag. **New** → location, then template (CSS only / Landing / Docs / Dashboard / Full), then package manager. **CSS only** = no components; **Full** = site clone; others = all 52 or pick components.
 
 ```bash
 npx rizzo-css add
@@ -134,7 +134,7 @@ Follow the steps below for your chosen framework. Each path assumes you have the
 
 ### React and Vue
 
-The **same CSS and BEM class names** work in React and Vue. **React:** We ship full React component implementations in-repo. All 51 components have full implementations, live demos, and React/TSX code blocks at [/docs/react](/docs/react). Copy components from `src/components/react/` or follow the docs. **Vue:** Same CSS; full Vue docs and component examples at [/docs/vue](/docs/vue). See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
+The **same CSS and BEM class names** work in React and Vue. **React:** We ship full React component implementations in-repo. All 52 components have full implementations, live demos, and React/TSX code blocks at [/docs/react](/docs/react). Copy components from `src/components/react/` or follow the docs. **Vue:** Same CSS; full Vue docs and component examples at [/docs/vue](/docs/vue). See [Multi-Framework Strategy](./MULTI_FRAMEWORK.md) and [TODO](./TODO.md).
 
 ### JavaScript utilities
 
@@ -173,8 +173,8 @@ For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/asse
 | **Vanilla**  | Same | Init → Vanilla → template. **Full** = theme, Settings, toast, all component pages. [Vanilla components](/docs/vanilla/components). |
 | **Astro**    | Same | Init → Astro → template, or `add` in existing project. [Docs](/docs/components). |
 | **Svelte**   | Same | Init → Svelte → template, or `add` in existing project. [Docs](/docs/svelte). |
-| **React** | Same: install and import CSS | [/docs/react](/docs/react): all 51 components with full implementations, live demos, and code blocks; copy from `src/components/react/`. |
-| **Vue** | Same: install and import CSS | [/docs/vue](/docs/vue): all 51 components with full implementations, live demos, and Vue/SFC code blocks; copy from `src/components/vue/`. |
+| **React** | Same: install and import CSS | [/docs/react](/docs/react): all 52 components with full implementations, live demos, and code blocks; copy from `src/components/react/`. |
+| **Vue** | Same: install and import CSS | [/docs/vue](/docs/vue): all 52 components with full implementations, live demos, and Vue/SFC code blocks; copy from `src/components/vue/`. |
 
 ---
 

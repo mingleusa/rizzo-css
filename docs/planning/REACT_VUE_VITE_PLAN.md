@@ -1,6 +1,6 @@
 # React, Vue, and Vite — Implementation plan
 
-**Status:** Phase 1 (React) and Vue complete. React: `@astrojs/react`, `src/components/react/` with **all 51 components** fully implemented; each component has a doc page with live demo and **Astro | Svelte | React | Vue | Vanilla** Usage tabs. Vue: `@astrojs/vue`, `src/components/vue/` with all 51 components; doc pages at `/docs/vue/components/<slug>` with the same five framework tabs (default: Vue). Config: React — `reactComponents.ts`, `reactCodeSnippets.ts`, `astroCodeSnippets.ts`, `svelteCodeSnippets.ts`, `vanillaCodeSnippets.ts`, `reactDocPaths.ts`; Vue — `vueCodeSnippets.ts`, same snippet configs, `getVueDocStaticPaths`, `registry.js`, `VueDocDemo.vue`. Vite-based scaffolds for React and Vue are implemented (`scaffold/react/base/`, `scaffold/vue/base/`).
+**Status:** Phase 1 (React) and Vue complete. React: `@astrojs/react`, `src/components/react/` with **all 52 components** fully implemented; each component has a doc page with live demo and **Astro | Svelte | React | Vue | Vanilla** Usage tabs. Vue: `@astrojs/vue`, `src/components/vue/` with all 52 components; doc pages at `/docs/vue/components/<slug>` with the same five framework tabs (default: Vue). Config: React — `reactComponents.ts`, `reactCodeSnippets.ts`, `astroCodeSnippets.ts`, `svelteCodeSnippets.ts`, `vanillaCodeSnippets.ts`, `reactDocPaths.ts`; Vue — `vueCodeSnippets.ts`, same snippet configs, `getVueDocStaticPaths`, `registry.js`, `VueDocDemo.vue`. Vite-based scaffolds for React and Vue are implemented (`scaffold/react/base/`, `scaffold/vue/base/`).
 
 **Summary:**
 - **Docs site:** Use **Astro integrations** (`@astrojs/react`, `@astrojs/vue`) so React and Vue components run inside the existing Astro docs site, same pattern as `@astrojs/svelte`. No separate app.
@@ -64,7 +64,7 @@ React and Vue **component source** lives in the repo under `src/components/react
 
 - **Same BEM, same behavior:** React and Vue components render the same HTML structure and class names as Astro/Svelte; they use the same design tokens and a11y behavior (ARIA, keyboard, focus).
 - **Shared types:** Use `src/types/` (Tab, MenuItem, ButtonProps, etc.) so props stay aligned across Astro, Svelte, React, and Vue.
-- **Order:** Port a small core set first (e.g. Button, Card, Modal, Tabs, Dropdown, ThemeSwitcher, FormGroup, Input) to establish patterns; then expand to full parity with the 51 components.
+- **Order:** Port a small core set first (e.g. Button, Card, Modal, Tabs, Dropdown, ThemeSwitcher, FormGroup, Input) to establish patterns; then expand to full parity with the 52 components.
 
 ---
 

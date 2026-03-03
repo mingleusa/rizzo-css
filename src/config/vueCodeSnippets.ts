@@ -27,9 +27,12 @@ import Button from '@/components/rizzo/Button.vue';
 <template>
   <Button>Default</Button>
   <Button variant="primary">Primary</Button>
+  <Button variant="secondary">Secondary</Button>
   <Button variant="success">Success</Button>
   <Button variant="outline">Outline</Button>
-  <Button disabled>Disabled</Button>
+  <Button variant="ghost">Ghost</Button>
+  <Button variant="primary" class="btn--sm">Small</Button>
+  <Button variant="primary" class="btn--lg">Large</Button>
 </template>`,
 
   badge: `<script setup>
@@ -340,6 +343,14 @@ import Tooltip from '@/components/rizzo/Tooltip.vue';
 <template>
   <button type="button" aria-describedby="tt-1">Hover me</button>
   <Tooltip id="tt-1" text="Tooltip text" position="top" />
+</template>`,
+
+  calendar: `<script setup>
+import Calendar from '@/components/rizzo/Calendar.vue';
+</script>
+
+<template>
+  <Calendar label="Choose a date" @select="(date) => console.log(date)" />
 </template>`,
 
   carousel: `<script setup>

@@ -3,14 +3,15 @@ import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-error">Error</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>
-<button class="btn" disabled>Disabled</button>`;
+const copyableHtml = `<button type="button" class="btn">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-outline">Outline</button>
+<button type="button" class="btn btn-ghost">Ghost</button>
+<button type="button" class="btn btn-primary btn--sm">Small</button>
+<button type="button" class="btn btn-primary btn--lg">Large</button>
+<button type="button" class="btn" disabled>Disabled</button>`;
 ---
 
 <DocsLayout title="Button — Vanilla" description="Button variants with vanilla HTML. Ensure Rizzo CSS is loaded.">
@@ -21,14 +22,15 @@ const copyableHtml = `<button class="btn">Default</button>
     <div class="example">
       <div class="example-title">Live example</div>
       <div class="example-demo">
-        <button class="btn">Default</button>
-        <button class="btn btn-primary">Primary</button>
-        <button class="btn btn-success">Success</button>
-        <button class="btn btn-warning">Warning</button>
-        <button class="btn btn-error">Error</button>
-        <button class="btn btn-info">Info</button>
-        <button class="btn btn-outline">Outline</button>
-        <button class="btn" disabled>Disabled</button>
+        <button type="button" class="btn">Default</button>
+        <button type="button" class="btn btn-primary">Primary</button>
+        <button type="button" class="btn btn-secondary">Secondary</button>
+        <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-outline">Outline</button>
+        <button type="button" class="btn btn-ghost">Ghost</button>
+        <button type="button" class="btn btn-primary btn--sm">Small</button>
+        <button type="button" class="btn btn-primary btn--lg">Large</button>
+        <button type="button" class="btn" disabled>Disabled</button>
       </div>
     </div>
 

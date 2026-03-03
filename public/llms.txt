@@ -3,7 +3,7 @@ RIZZO CSS — OFFICIAL AI INTERFACE SPECIFICATION
 Version: 3.0
 Status: Canonical AI Contract
 Type: Framework-Agnostic CSS Design System
-Package version: 0.0.67
+Package version: 0.0.68
 ================================================================
 
 
@@ -136,8 +136,8 @@ Pattern: .{component}, .{component}__{element}, .{component}--{modifier}
 ------------------------------------------------------------
 
 Base: .btn
-Variants: .btn-primary, .btn-secondary, .btn-outline, .btn-ghost, .btn-danger, .btn-success
-Sizes: .btn--sm, .btn--md, .btn--lg
+Variants: .btn-primary, .btn-secondary, .btn-success, .btn-warning, .btn-error, .btn-info, .btn-outline, .btn-ghost
+Sizes: .btn--sm, .btn--lg
 States: :focus-visible, :active, :disabled, [aria-busy="true"]
 Use <button> or role="button"; preserve type attribute.
 
@@ -170,20 +170,30 @@ Required: role="dialog", aria-modal="true", focus trap, Escape closes, scroll lo
 .navbar, .navbar__container, .navbar__brand, .navbar__menu, .navbar__item
 Modifiers: .navbar--menu-open, .navbar--search-open
 
+------------------------------------------------------------
+7.6 CALENDAR
+------------------------------------------------------------
+
+.calendar, .calendar__header, .calendar__prev, .calendar__next, .calendar__month,
+.calendar__grid, .calendar__row, .calendar__weekday, .calendar__day
+Modifiers: .calendar__day--today, .calendar__day--selected, .calendar__day--other-month
+Role: group (wrapper), grid (month), gridcell (days). Use role="columnheader" for weekday labels.
+Fires calendar-select (detail.date = YYYY-MM-DD) on day click.
+
 
 ################################################################
-# 8. COMPONENTS (51 total)
+# 8. COMPONENTS (52 total)
 ################################################################
 
 accordion, alert, alert-dialog, aspect-ratio, avatar, back-to-top, badge,
-breadcrumb, button, button-group, cards, carousel, collapsible, context-menu,
+breadcrumb, button, button-group, cards, calendar, carousel, collapsible, context-menu,
 copy-to-clipboard, dashboard, docs-sidebar, divider, dropdown, empty,
 footer, font-switcher, forms, hover-card, icons, input-group, kbd, label,
 modal, navbar, pagination, popover, progress-bar, resizable, scroll-area,
 search, separator, settings, sheet, skeleton, slider, sound-effects,
 spinner, switch, table, tabs, theme-switcher, toast, toggle, toggle-group, tooltip
 
-All 51 have implementations for Vanilla, Astro, Svelte, React, and Vue.
+All 52 have implementations for Vanilla, Astro, Svelte, React, and Vue.
 Docs: /docs/components (Astro), /docs/vanilla/components, /docs/svelte, /docs/react, /docs/vue.
 
 

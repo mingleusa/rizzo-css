@@ -4,9 +4,15 @@ import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
 import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
 const componentSlug = 'button';
 const reactCode = getReactCodeSnippet(componentSlug);
 const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
 ---
 
 <DocsLayout title="Button Component — Astro" description="Semantic button component with variants using theme variables">
@@ -16,73 +22,43 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<AddComponentTabs componentName="Button" />
 
-		<h3>Button Variants</h3>
-		<div class="example">
-			<div class="example-title">Live Examples</div>
-			<div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
-				<button class="btn">Default</button>
-				<button class="btn btn-primary">Primary</button>
-				<button class="btn btn-success">Success</button>
-				<button class="btn btn-warning">Warning</button>
-				<button class="btn btn-error">Error</button>
-				<button class="btn btn-info">Info</button>
-				<button class="btn btn-outline">Outline</button>
+		<h3>Button variants</h3>
+		<div class="example example--live">
+			<div class="example-title">Live examples</div>
+			<div class="button-demo-grid">
+				<button class="btn" type="button">Default</button>
+				<button class="btn btn-primary" type="button">Primary</button>
+				<button class="btn btn-secondary" type="button">Secondary</button>
+				<button class="btn btn-success" type="button">Success</button>
+				<button class="btn btn-warning" type="button">Warning</button>
+				<button class="btn btn-error" type="button">Error</button>
+				<button class="btn btn-info" type="button">Info</button>
+				<button class="btn btn-outline" type="button">Outline</button>
+				<button class="btn btn-ghost" type="button">Ghost</button>
 			</div>
+			<p class="example-caption">Sizes: <button class="btn btn-primary btn--sm" type="button">Small</button> <button class="btn btn-primary" type="button">Default</button> <button class="btn btn-primary btn--lg" type="button">Large</button></p>
 		</div>
 		
-		<p>All buttons:</p>
-		<ul>
-			<li>Use semantic theme variables</li>
-			<li>Have hover and focus states</li>
-			<li>Support disabled state</li>
-			<li>Are keyboard accessible</li>
-		</ul>
+		<p>All buttons use semantic theme variables, have hover and focus states, support <code>disabled</code>, and are keyboard accessible.</p>
 		
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
-			astro={`---
-import Button from '../components/rizzo/Button.astro';
----
-
-<Button>Click me</Button>
-<Button class="btn-primary">Primary</Button>
-<Button class="btn-success">Success</Button>
-<Button class="btn-warning">Warning</Button>
-<Button class="btn-error">Error</Button>
-<Button class="btn-info">Info</Button>
-<Button class="btn-outline">Outline</Button>`}
-			svelte={`<script>
-  import { Button } from '$lib/rizzo';
-</script>
-
-<Button>Click me</Button>
-<Button class="btn-primary">Primary</Button>
-<Button class="btn-success">Success</Button>
-<Button class="btn-warning">Warning</Button>
-<Button class="btn-error">Error</Button>
-<Button class="btn-info">Info</Button>
-<Button class="btn-outline">Outline</Button>`}
+			astro={astroCode}
+			svelte={svelteCode}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Ensure Rizzo CSS is loaded: <link rel="stylesheet" href="/css/rizzo.min.css" /> -->
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-warning">Warning</button>
-<button class="btn btn-error">Error</button>
-<button class="btn btn-info">Info</button>
-<button class="btn btn-outline">Outline</button>`}
+			vanilla={vanillaCode}
 		/>
 		
-		<h3>Button Variants</h3>
+		<h3>Variants and sizes</h3>
 		<ul>
-			<li><code>btn</code> - Default button style</li>
-			<li><code>btn-primary</code> - Primary action button</li>
-			<li><code>btn-success</code> - Success/positive action</li>
-			<li><code>btn-warning</code> - Warning action</li>
-			<li><code>btn-error</code> - Error/destructive action</li>
-			<li><code>btn-info</code> - Informational action</li>
-			<li><code>btn-outline</code> - Outlined button style</li>
+			<li><code>btn</code> — Default</li>
+			<li><code>btn-primary</code> — Primary action</li>
+			<li><code>btn-secondary</code> — Secondary/muted action</li>
+			<li><code>btn-success</code>, <code>btn-warning</code>, <code>btn-error</code>, <code>btn-info</code> — Semantic states</li>
+			<li><code>btn-outline</code> — Outlined</li>
+			<li><code>btn-ghost</code> — Minimal, transparent until hover</li>
+			<li><code>btn--sm</code>, <code>btn--lg</code> — Size modifiers (combine with any variant)</li>
 		</ul>
 		
 		<h3>Disabled State</h3>
@@ -96,3 +72,18 @@ import Button from '../components/rizzo/Button.astro';
 		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/button">Svelte</a> · <a href="/docs/react/components/button">React</a> · <a href="/docs/vue/components/button">Vue</a> · <a href="/docs/vanilla/components/button">Vanilla</a></p>
 	</section>
 </DocsLayout>
+
+<style>
+  .button-demo-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-3);
+    align-items: center;
+  }
+  .example-caption {
+    margin: var(--spacing-3) 0 0;
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+  }
+  .example-caption .btn { margin-inline-end: var(--spacing-2); }
+</style>

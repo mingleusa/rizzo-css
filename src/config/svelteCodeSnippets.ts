@@ -22,10 +22,14 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
   import { Button } from '$lib/rizzo';
 </script>
 
-<Button>Click me</Button>
+<Button>Default</Button>
 <Button class="btn-primary">Primary</Button>
+<Button class="btn-secondary">Secondary</Button>
 <Button class="btn-success">Success</Button>
-<Button class="btn-outline">Outline</Button>`,
+<Button class="btn-outline">Outline</Button>
+<Button class="btn-ghost">Ghost</Button>
+<Button class="btn-primary btn--sm">Small</Button>
+<Button class="btn-primary btn--lg">Large</Button>`,
 
   alert: `<script>
   import { Alert } from '$lib/rizzo';
@@ -140,6 +144,12 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
 
 <Separator />
 <Separator orientation="vertical" />`,
+
+  calendar: `<script>
+  import { Calendar } from '$lib/rizzo';
+</script>
+
+<Calendar label="Choose a date" onSelect={(date) => console.log(date)} />`,
 
   carousel: `<script>
   import { Carousel } from '$lib/rizzo';

@@ -3,11 +3,13 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 export type ButtonVariant =
   | 'default'
   | 'primary'
+  | 'secondary'
   | 'success'
   | 'warning'
   | 'error'
   | 'info'
-  | 'outline';
+  | 'outline'
+  | 'ghost';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: ButtonVariant;

@@ -4,7 +4,7 @@
  */
 export const REACT_COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
-  'button', 'button-group', 'cards', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
+  'button', 'button-group', 'cards', 'calendar', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
   'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
   'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar',
   'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
@@ -47,6 +47,7 @@ const DESCRIPTIONS: Record<string, string> = {
   button: 'Semantic button component with variants using theme variables',
   'button-group': 'Group of buttons attached together (horizontal or vertical)',
   cards: 'Flexible card component with variants, sections, and image support',
+  calendar: 'Month grid for date display or date picker; prev/next month, keyboard and screen reader accessible',
   carousel: 'Sliding content with previous/next controls and optional dot indicators; keyboard and screen reader friendly',
   collapsible: 'Single expand/collapse section (one trigger, one panel)',
   'context-menu': 'Right-click menu with items and separators',

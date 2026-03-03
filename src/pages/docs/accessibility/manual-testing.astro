@@ -2,11 +2,21 @@
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 ---
 
-<DocsLayout title="Manual accessibility testing" description="Step-by-step checklist for manual keyboard and screen reader testing of Rizzo components.">
+<DocsLayout title="Manual accessibility testing" description="Runbook for manual keyboard and screen reader testing of Rizzo components: prerequisites, step-by-step checks, and results log.">
 	<section>
 		<h2 id="overview">Overview</h2>
-		<p>Use this runbook for manual keyboard and screen reader testing. Run automated tests first (<code>pnpm test:a11y</code>), then work through the priorities below. Each row links to the component doc page so you can open it and test the live demo. Log any issues (component, check, result, notes) and fix before release.</p>
-		<p>Full prose and matrix: <a href="/docs/accessibility">Accessibility</a> and <a href="https://github.com/mingleusa/rizzo-css/blob/main/docs/ACCESSIBILITY.md" target="_blank" rel="noopener noreferrer">docs/ACCESSIBILITY.md</a> (repo).</p>
+		<p>This runbook guides manual keyboard and screen reader testing of Rizzo CSS components. Use it before a release or when adding or changing interactive components. Run automated tests first, then work through the priorities below. Each row links to the component doc page so you can open it and test the live demo.</p>
+		<p>Full prose and component matrix: <a href="/docs/accessibility">Accessibility</a> and <a href="https://github.com/mingleusa/rizzo-css/blob/main/docs/ACCESSIBILITY.md" target="_blank" rel="noopener noreferrer">docs/ACCESSIBILITY.md</a> (repo).</p>
+	</section>
+
+	<section>
+		<h2 id="before-you-start">Before you start</h2>
+		<ul>
+			<li><strong>Automated tests</strong> — Run <code>pnpm test:a11y</code> and fix any failures. Manual testing does not replace axe, keyboard, and ARIA specs.</li>
+			<li><strong>Build and preview</strong> — Use <code>pnpm build && pnpm preview</code> (or your deployed docs URL). Test against the same build you will ship.</li>
+			<li><strong>Browser and AT</strong> — Use a recent Chrome, Firefox, or Safari. For screen reader: NVDA (Windows), VoiceOver (macOS: Cmd+F5), or JAWS (Windows). Disable mouse for keyboard-only passes.</li>
+			<li><strong>Theme</strong> — Optional: lock theme (e.g. <code>data-theme="github-dark-classic"</code>) so contrast and focus rings are consistent while testing.</li>
+		</ul>
 	</section>
 
 	<section>
@@ -156,6 +166,54 @@ import DocsLayout from '../../../layouts/DocsLayout.astro';
 			<li><strong>Color blindness / vision</strong> — Browser DevTools (e.g. Chrome Rendering → Emulate vision deficiencies) to check information is not conveyed by color alone.</li>
 			<li><strong>axe DevTools</strong> — Browser extension for one-off page scans.</li>
 			<li><strong>Lighthouse</strong> — Chrome DevTools → Lighthouse → Accessibility for periodic checks.</li>
+		</ul>
+	</section>
+
+	<section>
+		<h2 id="step-by-step-example">Step-by-step example: Modal</h2>
+		<p>Use this pattern for other Priority 1 components. Open <a href="/docs/components/modal">Modal</a> and follow in order.</p>
+		<ol>
+			<li>Tab to the trigger button (“Open modal”). Activate with Enter or Space.</li>
+			<li>Confirm focus moves into the dialog (first focusable element or the dialog container).</li>
+			<li>Tab and Shift+Tab repeatedly — focus must stay inside the modal (no focus on page behind).</li>
+			<li>Press Escape — modal closes and focus returns to the trigger button.</li>
+			<li>Re-open the modal. With a screen reader, confirm the dialog is announced (e.g. “dialog” and title/aria-labelledby). Navigate and confirm focus and labels are announced correctly.</li>
+		</ol>
+	</section>
+
+	<section>
+		<h2 id="results-log">Results log</h2>
+		<p>Copy the table below (or use a spreadsheet) to log results. Record <strong>Pass</strong>, <strong>Fail</strong>, or <strong>N/A</strong> and add notes for failures or follow-ups.</p>
+		<div class="table__wrapper">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Component</th>
+						<th>Keyboard</th>
+						<th>Screen reader</th>
+						<th>Notes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr><td>Modal</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Dropdown</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Theme Switcher</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Font Switcher</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Tabs</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Search</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Settings</td><td>—</td><td>—</td><td></td></tr>
+					<tr><td>Accordion</td><td>—</td><td>—</td><td></td></tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+
+	<section>
+		<h2 id="screen-reader-keys">Screen reader quick reference</h2>
+		<ul>
+			<li><strong>NVDA (Windows)</strong> — Tab / Shift+Tab: focus; Down/Up: read next/previous line; Insert+Down: read all; Insert+F7: elements list (headings, landmarks, links).</li>
+			<li><strong>VoiceOver (macOS)</strong> — VO+Right/Left: move; VO+Shift+Down: enter group; VO+Shift+Up: leave group; VO+A: read all; VO+U: rotor (headings, links, landmarks).</li>
+			<li><strong>JAWS (Windows)</strong> — Tab / Shift+Tab: focus; Down/Up: read; Insert+Down: read next; Insert+F7: links list; Insert+F6: headings list.</li>
 		</ul>
 	</section>
 

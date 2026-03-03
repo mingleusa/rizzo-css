@@ -4,7 +4,15 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
+- **Button:** New variants and sizes across all frameworks: `btn-secondary`, `btn-ghost`, `btn--sm`, `btn--lg`. CSS in `buttons.css`; React, Vue, Svelte Button components and types updated; doc page uses snippet getters; live example grid shows all variants and sizes; Storybook Button story updated; [public/llms.txt](public/llms.txt) aligned.
+- **Docs & TODO:** [docs/TODO.md](docs/TODO.md) — Testing summary table; Documentation & consistency section. Best practices: correct button BEM examples (`btn-primary`, `btn-ghost`).
+- **Docs:** All documentation updated for **52 components** (Calendar added). Component count and “all 52 or pick” aligned across README, docs/*.md, docs/planning/*.md, GETTING_STARTED, COMPONENTS, TESTING, STORYBOOK, MULTI_FRAMEWORK, FRAMEWORK_STRUCTURE, CLI, TEMPLATES, PUBLISHING, DESIGN_SYSTEM, COMPONENT_COMPARISON, ai/README.md, showcase/overview/Layout/Search, scaffold READMEs, and package README.
 - (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
+
+## [0.0.68] - 2025-02-27
+
+- **Version:** Bump to 0.0.68 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; all docs, README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, and tokens export aligned to 0.0.68.
+- **Visual regression (CI):** Screenshot tests now use `maxDiffPixelRatio: 0.02` and lock theme before capture so minor font/subpixel differences between CI (Linux) and local do not fail the build. [TESTING.md](docs/TESTING.md) updated.
 
 ## [0.0.67] - 2025-02-27
 
@@ -57,7 +65,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.67...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.68...HEAD
+[0.0.68]: https://github.com/mingleusa/rizzo-css/compare/v0.0.67...v0.0.68
 [0.0.67]: https://github.com/mingleusa/rizzo-css/compare/v0.0.66...v0.0.67
 [0.0.66]: https://github.com/mingleusa/rizzo-css/compare/v0.0.65...v0.0.66
 [0.0.65]: https://github.com/mingleusa/rizzo-css/compare/v0.0.64...v0.0.65

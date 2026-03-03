@@ -18,10 +18,14 @@ function getDefaultSnippet(slug: string): string {
 
 const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   button: `<!-- Ensure Rizzo CSS is loaded: <link rel="stylesheet" href="/css/rizzo.min.css" /> -->
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-success">Success</button>
-<button class="btn btn-outline">Outline</button>`,
+<button type="button" class="btn">Default</button>
+<button type="button" class="btn btn-primary">Primary</button>
+<button type="button" class="btn btn-secondary">Secondary</button>
+<button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-outline">Outline</button>
+<button type="button" class="btn btn-ghost">Ghost</button>
+<button type="button" class="btn btn-primary btn--sm">Small</button>
+<button type="button" class="btn btn-primary btn--lg">Large</button>`,
 
   alert: `<!-- Ensure Rizzo CSS is loaded. Dismiss/auto-dismiss need minimal JS (see vanilla docs). -->
 <div class="alert alert--success" role="alert" aria-live="polite">
@@ -242,6 +246,22 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 
   icons: `<!-- Rizzo CSS. Inline SVG or use .icon class; currentColor for theme. -->
 <span class="icon" aria-hidden="true"><!-- svg --></span>`,
+
+  calendar: `<!-- Rizzo CSS. Calendar grid is built by script (see /docs/vanilla/components/calendar). -->
+<div class="calendar" role="group" aria-label="Calendar" data-calendar data-initial-month data-selected>
+  <div class="calendar__header">
+    <button type="button" class="calendar__prev" aria-label="Previous month" data-calendar-prev>...</button>
+    <div class="calendar__month" aria-live="polite" data-calendar-month-label>—</div>
+    <button type="button" class="calendar__next" aria-label="Next month" data-calendar-next>...</button>
+  </div>
+  <div class="calendar__grid" role="grid" aria-label="Month" data-calendar-grid>
+    <div class="calendar__row" role="row">
+      <div class="calendar__weekday" role="columnheader">Sun</div>
+      <!-- ... Mon–Sat ... -->
+    </div>
+    <div class="calendar__body" data-calendar-body role="presentation"></div>
+  </div>
+</div>`,
 
   carousel: `<!-- Rizzo CSS. Carousel needs JS for prev/next (see /docs/vanilla/components/carousel). -->
 <div class="carousel" role="region" aria-roledescription="carousel" aria-label="Slides" data-carousel>
