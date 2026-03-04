@@ -13,14 +13,22 @@
   <p>Dialog with overlay, focus trap, optional sizes (sm, md, lg). Close via button, overlay click, or Escape.</p>
   <AddComponentTabs componentName="Modal" />
 
-  <h3>Live example</h3>
+  <h3>Standard Example</h3>
   <div class="example">
-    <div class="example-title">Open modal</div>
-    <Button onclick={() => (open = true)}>Open modal</Button>
-    <Modal bind:open title="Example modal" closeOnOverlayClick closeOnEscape>
-      <p>Modal body content. Focus is trapped; Escape or overlay click closes.</p>
+    <div class="example-title">Live Example</div>
+    <p>Click the button below to open a standard modal dialog:</p>
+    <Button onclick={() => (open = true)}>Open Example Modal</Button>
+    <Modal bind:open title="Example Modal" closeOnOverlayClick closeOnEscape>
+      <p>This is an example modal dialog. It demonstrates:</p>
+      <ul>
+        <li>Focus trapping — Tab cycles within the modal</li>
+        <li>Keyboard navigation — Escape key closes the modal</li>
+        <li>Backdrop overlay with blur effect</li>
+        <li>Theme-aware styling</li>
+      </ul>
       {#snippet footer()}
-        <Button variant="primary" onclick={() => (open = false)}>Close</Button>
+        <Button onclick={() => (open = false)}>Cancel</Button>
+        <Button variant="primary" onclick={() => (open = false)}>Confirm</Button>
       {/snippet}
     </Modal>
   </div>

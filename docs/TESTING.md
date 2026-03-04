@@ -17,6 +17,8 @@ This doc summarizes how **accessibility**, **browser**, and **component-page** t
 
 **First run:** Install a browser so Playwright can run: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). See [CONTRIBUTING](../CONTRIBUTING.md#running-and-building) and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
+**Production / deploy readiness:** Before deploying the docs site or publishing the npm package: (1) `pnpm build` and `pnpm build:package` must pass; (2) run `pnpm exec playwright install` once so smoke and a11y tests can run; (3) `pnpm test:smoke` and `pnpm test:a11y` (or `pnpm test:a11y:fast` for a quick pass). See [PUBLISHING.md](./PUBLISHING.md#pre-publish-checklist) for the full pre-publish checklist.
+
 ---
 
 ## 1. Accessibility (a11y) tests

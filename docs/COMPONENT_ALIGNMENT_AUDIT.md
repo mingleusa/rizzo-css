@@ -62,6 +62,21 @@ Live examples and/or code snippets match Astro's canonical content across **Astr
 
 ---
 
+## Post-scan alignment (pristine pass)
+
+The following were updated so live examples match the Astro originals in each framework’s syntax:
+
+- **Vanilla accordion** — Three items: "Section one", "Section two", "Section three"; panel copy "Content for section one. Only one panel is open at a time." etc.; first panel expanded by default.
+- **Vanilla breadcrumb** — Four items: Home → Docs → Components → Breadcrumb (current); live example and copyable HTML updated.
+- **Vanilla modal** — Standard example: title "Example Modal", body bullet list (focus trapping, keyboard, backdrop, theme-aware), footer Cancel + Confirm; copyable HTML aligned.
+- **Vanilla button** — All nine variants (Default, Primary, Secondary, Success, Warning, Error, Info, Outline, Ghost); separate "Sizes:" row (Small, Default, Large) and "Disabled State" (Disabled Default, Disabled Primary); copyable HTML updated.
+- **Svelte button** — Added Secondary and Ghost; "Sizes:" caption with Small/Default/Large; "Disabled State" heading and "Live Example" label; labels "Disabled Default" / "Disabled Primary".
+- **Svelte modal** — Standard example: "Open Example Modal" trigger, title "Example Modal", body bullet list (same as Astro), footer Cancel + Confirm.
+- **React modal** — `ModalDemo.tsx` updated to match Astro: intro text, "Open Example Modal" button, title "Example Modal", body bullet list (focus trapping, keyboard, backdrop, theme-aware), footer Cancel + Confirm via `footer` prop.
+- **Vue** — Already aligned: modal and button custom blocks match Astro copy; accordion, breadcrumb, and other demos use matching content.
+
+---
+
 ## Conclusion
 
-**Yes** — all 53 components have aligned live examples across Astro, Vanilla, Svelte, Vue, and React. Vue overlay components (modal, alert-dialog, sheet, popover, hover-card, context-menu, dropdown) use custom blocks in `VueDocDemo.vue` with Rizzo BEM and Vue refs for open/close state.
+**Yes** — all 53 components have aligned live examples across Astro, Vanilla, Svelte, Vue, and React. Vue overlay components (modal, alert-dialog, sheet, popover, hover-card, context-menu, dropdown) use custom blocks in `VueDocDemo.vue` with Rizzo BEM and Vue refs for open/close state. Vanilla, Svelte, and React demos for accordion, breadcrumb, modal, and button now match Astro’s content and structure in their respective syntax. Vue modal and button demos were already aligned.

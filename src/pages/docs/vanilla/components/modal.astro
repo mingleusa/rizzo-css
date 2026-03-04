@@ -4,7 +4,7 @@ import ModalComponent from '../../../../components/astro/Modal.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<button type="button" class="btn btn-primary" id="open-modal-btn">Open modal</button>
+const copyableHtml = `<button type="button" class="btn btn-primary" id="open-modal-btn">Open Example Modal</button>
 
 <!-- Overlay (sibling to .modal) -->
 <div class="modal__overlay" id="demo-overlay" aria-hidden="true"></div>
@@ -12,11 +12,17 @@ const copyableHtml = `<button type="button" class="btn btn-primary" id="open-mod
 <!-- Dialog: add modal--sm | modal--md | modal--lg for size -->
 <div class="modal modal--md" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
   <div class="modal__header">
-    <h2 class="modal__title" id="demo-modal-title">Modal title</h2>
+    <h2 class="modal__title" id="demo-modal-title">Example Modal</h2>
     <button type="button" class="modal__close" aria-label="Close modal">×</button>
   </div>
   <div class="modal__body">
-    <p>Modal body. Close via button, overlay click, or Escape.</p>
+    <p>This is an example modal dialog. It demonstrates:</p>
+    <ul>
+      <li>Focus trapping — Tab cycles within the modal</li>
+      <li>Keyboard navigation — Escape key closes the modal</li>
+      <li>Backdrop overlay with blur effect</li>
+      <li>Theme-aware styling</li>
+    </ul>
   </div>
   <div class="modal__footer">
     <button type="button" class="btn">Cancel</button>
@@ -91,12 +97,20 @@ const copyableJs = `(function() {
     <h3>Standard example</h3>
     <div class="example">
       <div class="example-title">Live example</div>
-      <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_docs_modal && window.openModal_vanilla_docs_modal()">Open example modal</button>
+      <p>Click the button below to open a standard modal dialog:</p>
+      <button type="button" class="btn btn-primary" onclick="window.openModal_vanilla_docs_modal && window.openModal_vanilla_docs_modal()">Open Example Modal</button>
     </div>
-    <ModalComponent id="vanilla-docs-modal" title="Example modal" size="md" open={false}>
-      <p>Same component as Astro docs. Use the HTML/JS below for a vanilla-only implementation.</p>
+    <ModalComponent id="vanilla-docs-modal" title="Example Modal" size="md" open={false}>
+      <p>This is an example modal dialog. It demonstrates:</p>
+      <ul>
+        <li>Focus trapping — Tab cycles within the modal</li>
+        <li>Keyboard navigation — Escape key closes the modal</li>
+        <li>Backdrop overlay with blur effect</li>
+        <li>Theme-aware styling</li>
+      </ul>
       <div slot="footer">
-        <button class="btn" onclick="window.closeModal_vanilla_docs_modal && window.closeModal_vanilla_docs_modal()">Close</button>
+        <button class="btn" onclick="window.closeModal_vanilla_docs_modal && window.closeModal_vanilla_docs_modal()">Cancel</button>
+        <button class="btn btn-primary" onclick="window.closeModal_vanilla_docs_modal && window.closeModal_vanilla_docs_modal()">Confirm</button>
       </div>
     </ModalComponent>
 

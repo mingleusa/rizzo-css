@@ -7,11 +7,18 @@ const copyableHtml = `<button type="button" class="btn">Default</button>
 <button type="button" class="btn btn-primary">Primary</button>
 <button type="button" class="btn btn-secondary">Secondary</button>
 <button type="button" class="btn btn-success">Success</button>
+<button type="button" class="btn btn-warning">Warning</button>
+<button type="button" class="btn btn-error">Error</button>
+<button type="button" class="btn btn-info">Info</button>
 <button type="button" class="btn btn-outline">Outline</button>
 <button type="button" class="btn btn-ghost">Ghost</button>
+<!-- Sizes: -->
 <button type="button" class="btn btn-primary btn--sm">Small</button>
+<button type="button" class="btn btn-primary">Default</button>
 <button type="button" class="btn btn-primary btn--lg">Large</button>
-<button type="button" class="btn" disabled>Disabled</button>`;
+<!-- Disabled: -->
+<button type="button" class="btn" disabled>Disabled Default</button>
+<button type="button" class="btn btn-primary" disabled>Disabled Primary</button>`;
 ---
 
 <DocsLayout title="Button — Vanilla" description="Button variants with vanilla HTML. Ensure Rizzo CSS is loaded.">
@@ -19,18 +26,28 @@ const copyableHtml = `<button type="button" class="btn">Default</button>
     <h2>Button</h2>
     <p>Semantic button with BEM classes. No JS required for static buttons.</p>
     <AddComponentTabs componentName="Button" />
+    <h3>Button variants</h3>
     <div class="example">
-      <div class="example-title">Live example</div>
-      <div class="example-demo">
+      <div class="example-title">Live examples</div>
+      <div class="example-demo button-demo-grid">
         <button type="button" class="btn">Default</button>
         <button type="button" class="btn btn-primary">Primary</button>
         <button type="button" class="btn btn-secondary">Secondary</button>
         <button type="button" class="btn btn-success">Success</button>
+        <button type="button" class="btn btn-warning">Warning</button>
+        <button type="button" class="btn btn-error">Error</button>
+        <button type="button" class="btn btn-info">Info</button>
         <button type="button" class="btn btn-outline">Outline</button>
         <button type="button" class="btn btn-ghost">Ghost</button>
-        <button type="button" class="btn btn-primary btn--sm">Small</button>
-        <button type="button" class="btn btn-primary btn--lg">Large</button>
-        <button type="button" class="btn" disabled>Disabled</button>
+      </div>
+      <p class="example-caption">Sizes: <button type="button" class="btn btn-primary btn--sm">Small</button> <button type="button" class="btn btn-primary">Default</button> <button type="button" class="btn btn-primary btn--lg">Large</button></p>
+    </div>
+    <h3>Disabled State</h3>
+    <div class="example">
+      <div class="example-title">Live Example</div>
+      <div class="example-demo" style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
+        <button type="button" class="btn" disabled>Disabled Default</button>
+        <button type="button" class="btn btn-primary" disabled>Disabled Primary</button>
       </div>
     </div>
 
@@ -46,4 +63,6 @@ const copyableHtml = `<button type="button" class="btn">Default</button>
   .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }
   .example-title { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--text-dim); margin-bottom: var(--spacing-3); text-transform: uppercase; letter-spacing: var(--letter-spacing-wider); }
   .example-demo { display: flex; flex-wrap: wrap; gap: var(--spacing-3); align-items: center; }
+  .example-caption { font-size: var(--font-size-sm); color: var(--text-dim); margin: var(--spacing-3) 0 0; }
+  .button-demo-grid { display: flex; flex-wrap: wrap; gap: var(--spacing-3); }
 </style>

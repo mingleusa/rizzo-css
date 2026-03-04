@@ -269,9 +269,20 @@ const [value, setValue] = useState(50);
 import { Modal, Button } from './components/react';
 
 const [open, setOpen] = useState(false);
-<Button onClick={() => setOpen(true)}>Open modal</Button>
-<Modal open={open} onOpenChange={setOpen} title="Modal title">
-  <p>Modal content.</p>
+<Button onClick={() => setOpen(true)}>Open Example Modal</Button>
+<Modal
+  open={open}
+  onOpenChange={setOpen}
+  title="Example Modal"
+  footer={<><Button onClick={() => setOpen(false)}>Cancel</Button><Button variant="primary" onClick={() => setOpen(false)}>Confirm</Button></>}
+>
+  <p>This is an example modal dialog. It demonstrates:</p>
+  <ul>
+    <li>Focus trapping — Tab cycles within the modal</li>
+    <li>Keyboard navigation — Escape key closes the modal</li>
+    <li>Backdrop overlay with blur effect</li>
+    <li>Theme-aware styling</li>
+  </ul>
 </Modal>`,
 
   'alert-dialog': `import { useState } from 'react';

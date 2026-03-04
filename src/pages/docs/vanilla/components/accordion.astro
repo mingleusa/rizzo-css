@@ -5,18 +5,26 @@ import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="accordion">
   <div class="accordion__item">
-    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-1" id="acc-trigger-1">Section 1</button>
+    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-1" id="acc-trigger-1">Section one</button>
     <div id="acc-1" class="accordion__panel" hidden>
       <div class="accordion__panel-inner">
-        <div class="accordion__panel-content">Content here.</div>
+        <div class="accordion__panel-content"><p>Content for section one. Only one panel is open at a time.</p></div>
       </div>
     </div>
   </div>
   <div class="accordion__item">
-    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-2" id="acc-trigger-2">Section 2</button>
+    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-2" id="acc-trigger-2">Section two</button>
     <div id="acc-2" class="accordion__panel" hidden>
       <div class="accordion__panel-inner">
-        <div class="accordion__panel-content">More content.</div>
+        <div class="accordion__panel-content"><p>Content for section two.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="accordion__item">
+    <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="acc-3" id="acc-trigger-3">Section three</button>
+    <div id="acc-3" class="accordion__panel" hidden>
+      <div class="accordion__panel-inner">
+        <div class="accordion__panel-content"><p>Content for section three.</p></div>
       </div>
     </div>
   </div>
@@ -48,18 +56,26 @@ const copyableJs = `document.querySelectorAll('.accordion__trigger').forEach(fun
       <div class="example-demo">
         <div class="accordion" id="vanilla-accordion-demo">
           <div class="accordion__item">
-            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-1" id="vanilla-acc-trigger-1">Section 1</button>
-            <div id="vanilla-acc-1" class="accordion__panel" hidden>
+            <button type="button" class="accordion__trigger" aria-expanded="true" aria-controls="vanilla-acc-1" id="vanilla-acc-trigger-1" class="accordion__trigger--expanded">Section one</button>
+            <div id="vanilla-acc-1" class="accordion__panel accordion__panel--expanded">
               <div class="accordion__panel-inner">
-                <div class="accordion__panel-content">Content here.</div>
+                <div class="accordion__panel-content"><p>Content for section one. Only one panel is open at a time.</p></div>
               </div>
             </div>
           </div>
           <div class="accordion__item">
-            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-2" id="vanilla-acc-trigger-2">Section 2</button>
+            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-2" id="vanilla-acc-trigger-2">Section two</button>
             <div id="vanilla-acc-2" class="accordion__panel" hidden>
               <div class="accordion__panel-inner">
-                <div class="accordion__panel-content">More content.</div>
+                <div class="accordion__panel-content"><p>Content for section two.</p></div>
+              </div>
+            </div>
+          </div>
+          <div class="accordion__item">
+            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vanilla-acc-3" id="vanilla-acc-trigger-3">Section three</button>
+            <div id="vanilla-acc-3" class="accordion__panel" hidden>
+              <div class="accordion__panel-inner">
+                <div class="accordion__panel-content"><p>Content for section three.</p></div>
               </div>
             </div>
           </div>
@@ -80,7 +96,9 @@ const copyableJs = `document.querySelectorAll('.accordion__trigger').forEach(fun
 
 <script is:inline>
 (function() {
-  var triggers = document.querySelectorAll('#vanilla-accordion-demo .accordion__trigger');
+  var accordion = document.getElementById('vanilla-accordion-demo');
+  if (!accordion) return;
+  var triggers = accordion.querySelectorAll('.accordion__trigger');
   triggers.forEach(function(btn) {
     btn.addEventListener('click', function() {
       var expanded = btn.getAttribute('aria-expanded') === 'true';

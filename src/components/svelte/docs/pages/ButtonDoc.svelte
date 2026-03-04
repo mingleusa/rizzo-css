@@ -15,12 +15,15 @@
     <div class="example-buttons">
       <Button>Default</Button>
       <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
       <Button variant="success">Success</Button>
       <Button variant="warning">Warning</Button>
       <Button variant="error">Error</Button>
       <Button variant="info">Info</Button>
       <Button variant="outline">Outline</Button>
+      <Button variant="ghost">Ghost</Button>
     </div>
+    <p class="example-caption">Sizes: <Button variant="primary" class="btn--sm">Small</Button> <Button variant="primary">Default</Button> <Button variant="primary" class="btn--lg">Large</Button></p>
   </div>
 
   <h3>Usage</h3>
@@ -38,12 +41,12 @@
     language="svelte"
   />
 
-  <h3>Disabled state</h3>
+  <h3>Disabled State</h3>
   <div class="example">
-    <div class="example-title">Live example</div>
+    <div class="example-title">Live Example</div>
     <div class="example-buttons">
-      <Button disabled>Disabled default</Button>
-      <Button variant="primary" disabled>Disabled primary</Button>
+      <Button disabled>Disabled Default</Button>
+      <Button variant="primary" disabled>Disabled Primary</Button>
     </div>
   </div>
 
@@ -56,5 +59,10 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--spacing-3);
+  }
+  .example-caption {
+    font-size: var(--font-size-sm);
+    color: var(--text-dim);
+    margin: var(--spacing-3) 0 0;
   }
 </style>
