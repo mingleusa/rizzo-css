@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import DashboardComponent from '../../../components/Dashboard.astro';
+import DashboardComponent from '../../../components/astro/Dashboard.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -42,7 +42,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Dashboard from '../components/rizzo/Dashboard.astro';
+import Dashboard from '../components/astro/Dashboard.astro';
 ---
 
 <Dashboard sidebarLabel="App navigation">
@@ -108,6 +108,7 @@ import Dashboard from '../components/rizzo/Dashboard.astro';
 			<li><code>dashboard__nav-link</code> — Nav link; use <code>dashboard__nav-link--active</code> for current page.</li>
 			<li><code>dashboard__main</code> — Main content area.</li>
 		</ul>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/dashboard">Vanilla</a> · <a href="/docs/svelte/components/dashboard">Svelte</a> · <a href="/docs/vue/components/dashboard">Vue</a> · <a href="/docs/react/components/dashboard">React</a></p>
 	</section>
 
 	<section>

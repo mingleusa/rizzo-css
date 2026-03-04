@@ -1,7 +1,8 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Card from '../../../components/Card.astro';
-import { VANILLA_COMPONENT_SLUGS, VANILLA_COMPONENT_TITLES } from '../../../config/vanillaSnippets';
+import Card from '../../../components/astro/Card.astro';
+import { getCategoriesWithItems } from '../../../config/componentCategories';
+import { VANILLA_COMPONENT_TITLES } from '../../../config/vanillaSnippets';
 
 const componentDescriptions: Record<string, string> = {
   accordion: 'Collapsible sections with single/multiple open and keyboard navigation',
@@ -36,6 +37,7 @@ const componentDescriptions: Record<string, string> = {
   navbar: 'Responsive, accessible navigation bar with Search and Settings',
   pagination: 'Accessible pagination with prev/next, page numbers, ellipsis, and configurable URLs',
   'progress-bar': 'Progress bar with variants, sizes, optional label, and indeterminate (loading) state',
+  'range-calendar': 'Date range selection; two clicks set start and end; listen for range-calendar-select (detail.start, detail.end)',
   resizable: 'Resizable panel groups (resizable__pane-group, resizable__pane, resizable__handle); JS for drag',
   'scroll-area': 'Scrollable area with themed scrollbar (scroll-area, scroll-area__viewport)',
   search: 'Search component with Algolia integration and live filtering',
@@ -55,6 +57,11 @@ const componentDescriptions: Record<string, string> = {
   'toggle-group': 'Group of toggle buttons (toggle-group, toggle-group--vertical)',
   tooltip: 'Accessible tooltip component with positioning options and hover states',
 };
+
+const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs/vanilla', (slug) => ({
+  title: VANILLA_COMPONENT_TITLES[slug] ?? slug,
+  description: componentDescriptions[slug] ?? 'Vanilla HTML + BEM usage.',
+}));
 ---
 
 <DocsLayout title="Vanilla Components" description="Interactive examples and copyable HTML for Rizzo CSS components.">
@@ -63,28 +70,45 @@ const componentDescriptions: Record<string, string> = {
     <p>Each component has a Vanilla page with copyable HTML and, where available, a live demo. Use the same BEM classes in your own HTML once Rizzo CSS is loaded. Interactive behavior (modal, dropdown, tabs, search, copy-to-clipboard, navbar mobile, etc.) is wired by <code>js/main.js</code> when you use the Full scaffold; tooltips use CSS only (:hover and :focus-within).</p>
   </section>
   <section>
-    <h2>Available Components</h2>
-    <div class="vanilla-components-grid">
-      {VANILLA_COMPONENT_SLUGS.map((slug) => (
-        <a href={`/docs/vanilla/components/${slug}`} class="component-card-link">
-          <Card variant="elevated">
-            <div class="card__body">
-              <h3 style="margin: 0 0 var(--spacing-2) 0;">{VANILLA_COMPONENT_TITLES[slug] ?? slug}</h3>
-              <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">{componentDescriptions[slug] ?? 'Vanilla HTML + BEM usage.'}</p>
-            </div>
-          </Card>
-        </a>
-      ))}
-    </div>
+    <h2>Browse by category</h2>
+    {COMPONENT_CATEGORIES.map((cat) => (
+      <div class="docs-component-category" id={cat.id}>
+        <h3 class="docs-component-category__title">{cat.label}</h3>
+        <div class="vanilla-components-grid">
+          {cat.items.map((item) => (
+            <a href={item.href} class="component-card-link">
+              <Card variant="elevated">
+                <div class="card__body">
+                  <h3 style="margin: 0 0 var(--spacing-2) 0;">{item.title}</h3>
+                  <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">{item.description}</p>
+                </div>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
   </section>
 </DocsLayout>
 
 <style>
+  .docs-component-category {
+    margin-bottom: var(--spacing-10);
+  }
+  .docs-component-category:last-of-type {
+    margin-bottom: 0;
+  }
+  .docs-component-category__title {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    margin: 0 0 var(--spacing-4);
+    color: var(--text);
+  }
   .vanilla-components-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr));
     gap: var(--spacing-6);
-    margin: var(--spacing-8) 0;
+    margin: 0 0 var(--spacing-8) 0;
   }
   .component-card-link {
     text-decoration: none;

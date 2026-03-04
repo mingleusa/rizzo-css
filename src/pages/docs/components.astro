@@ -1,126 +1,26 @@
 ---
 import DocsLayout from '../../layouts/DocsLayout.astro';
-import Card from '../../components/Card.astro';
+import Card from '../../components/astro/Card.astro';
+import { getCategoriesWithItems } from '../../config/componentCategories';
+import { REACT_COMPONENT_META } from '../../config/reactComponents';
 
-interface ComponentItem {
-	href: string;
-	title: string;
-	description: string;
-}
-
-const COMPONENT_CATEGORIES: { label: string; id: string; items: ComponentItem[] }[] = [
-	{
-		label: 'Layout',
-		id: 'layout',
-		items: [
-			{ href: '/docs/components/navbar', title: 'Navbar', description: 'Responsive, accessible navigation bar with Search and Settings' },
-			{ href: '/docs/components/docs-sidebar', title: 'Docs Sidebar', description: 'Documentation sidebar navigation with grouped links and active state' },
-			{ href: '/docs/components/dashboard', title: 'Dashboard', description: 'Layout with sidebar and main content area for app dashboards' },
-			{ href: '/docs/components/resizable', title: 'Resizable', description: 'Resizable panel groups with drag handles (horizontal or vertical)' },
-			{ href: '/docs/components/footer', title: 'Footer', description: 'Site footer with copyright, optional site name, and optional link list (role="contentinfo")' },
-		],
-	},
-	{
-		label: 'Forms & inputs',
-		id: 'forms',
-		items: [
-			{ href: '/docs/components/button', title: 'Button', description: 'Semantic button component with variants using theme variables' },
-			{ href: '/docs/components/button-group', title: 'Button Group', description: 'Group of buttons attached together (horizontal or vertical)' },
-			{ href: '/docs/components/forms', title: 'Forms', description: 'Comprehensive set of accessible form components with validation states' },
-			{ href: '/docs/components/input-group', title: 'Input Group', description: 'Input with optional prefix and suffix addons (e.g. icon, currency, domain)' },
-			{ href: '/docs/components/switch', title: 'Switch', description: 'Accessible on/off toggle with role="switch" and keyboard support' },
-			{ href: '/docs/components/slider', title: 'Slider', description: 'Range slider input with themed track and fill' },
-			{ href: '/docs/components/toggle', title: 'Toggle', description: 'Toggle button with pressed/unpressed state' },
-			{ href: '/docs/components/toggle-group', title: 'Toggle Group', description: 'Group of toggle buttons (single or multiple selection)' },
-			{ href: '/docs/components/divider', title: 'Divider', description: 'Horizontal or vertical divider line with optional label (e.g. OR)' },
-			{ href: '/docs/components/separator', title: 'Separator', description: 'Thin separator line (horizontal or vertical)' },
-			{ href: '/docs/components/label', title: 'Label', description: 'Standalone form label; use with for/id to associate with inputs' },
-			{ href: '/docs/components/kbd', title: 'Kbd', description: 'Keyboard key styling for shortcuts (e.g. Ctrl+K)' },
-		],
-	},
-	{
-		label: 'Data display',
-		id: 'data',
-		items: [
-			{ href: '/docs/components/cards', title: 'Cards', description: 'Flexible card component with variants, sections, and image support' },
-			{ href: '/docs/components/carousel', title: 'Carousel', description: 'Sliding content with previous/next controls and optional dot indicators' },
-			{ href: '/docs/components/table', title: 'Table', description: 'Data table with column sorting and optional filtering' },
-			{ href: '/docs/components/badge', title: 'Badge', description: 'Small labels and tags for displaying status, categories, or counts' },
-			{ href: '/docs/components/pagination', title: 'Pagination', description: 'Accessible pagination with prev/next, page numbers, ellipsis, and configurable URLs' },
-			{ href: '/docs/components/aspect-ratio', title: 'Aspect Ratio', description: 'Enforces an aspect ratio on content (e.g. 16/9, 1/1)' },
-			{ href: '/docs/components/empty', title: 'Empty', description: 'Empty state with optional icon, title, description, and action' },
-			{ href: '/docs/components/scroll-area', title: 'Scroll Area', description: 'Scrollable area with themed scrollbar (vertical or horizontal)' },
-		],
-	},
-	{
-		label: 'Feedback',
-		id: 'feedback',
-		items: [
-			{ href: '/docs/components/alert', title: 'Alert', description: 'Accessible alert component with variants, dismissible functionality, and auto-dismiss' },
-			{ href: '/docs/components/skeleton', title: 'Skeleton', description: 'Loading placeholder with shimmer animation; respects reduced motion' },
-			{ href: '/docs/components/spinner', title: 'Spinner', description: 'Accessible loading spinner with variants and sizes; respects reduced motion' },
-			{ href: '/docs/components/progress-bar', title: 'Progress Bar', description: 'Progress bar with variants, sizes, optional label, and indeterminate (loading) state' },
-			{ href: '/docs/components/toast', title: 'Toast', description: 'Fixed position toast notifications with auto-dismiss and programmatic control' },
-		],
-	},
-	{
-		label: 'Overlay',
-		id: 'overlay',
-		items: [
-			{ href: '/docs/components/modal', title: 'Modal', description: 'Accessible modal/dialog component with focus trapping and keyboard navigation' },
-			{ href: '/docs/components/alert-dialog', title: 'Alert Dialog', description: 'Confirm/cancel dialog for destructive or important actions' },
-			{ href: '/docs/components/sheet', title: 'Sheet', description: 'Slide-out panel (drawer) from top, right, bottom, or left' },
-			{ href: '/docs/components/popover', title: 'Popover', description: 'Floating panel triggered by a button' },
-			{ href: '/docs/components/hover-card', title: 'Hover Card', description: 'Floating panel that opens on hover' },
-			{ href: '/docs/components/context-menu', title: 'Context Menu', description: 'Right-click menu with items and separators' },
-			{ href: '/docs/components/dropdown', title: 'Dropdown', description: 'Accessible dropdown menu with keyboard navigation, nested submenus, separators, and menu items' },
-			{ href: '/docs/components/tooltip', title: 'Tooltip', description: 'Accessible tooltip component with positioning options and hover states' },
-		],
-	},
-	{
-		label: 'Navigation',
-		id: 'navigation',
-		items: [
-			{ href: '/docs/components/breadcrumb', title: 'Breadcrumb', description: 'Navigation breadcrumbs with separator customization and responsive truncation' },
-			{ href: '/docs/components/back-to-top', title: 'Back to Top', description: 'Fixed button that appears on scroll and smoothly scrolls the page back to top' },
-		],
-	},
-	{
-		label: 'Disclosure',
-		id: 'disclosure',
-		items: [
-			{ href: '/docs/components/accordion', title: 'Accordion', description: 'Collapsible sections with single/multiple open and keyboard navigation' },
-			{ href: '/docs/components/collapsible', title: 'Collapsible', description: 'Single expand/collapse section (one trigger, one panel)' },
-			{ href: '/docs/components/tabs', title: 'Tabs', description: 'Accessible tabs component with keyboard navigation and ARIA tab pattern' },
-		],
-	},
-	{
-		label: 'Other',
-		id: 'other',
-		items: [
-			{ href: '/docs/components/avatar', title: 'Avatar', description: 'User avatar with image or initials fallback, sizes and circle/square shape' },
-			{ href: '/docs/components/copy-to-clipboard', title: 'Copy to Clipboard', description: 'Component for copying text values to the clipboard with visual feedback' },
-			{ href: '/docs/components/theme-switcher', title: 'Theme Switcher', description: 'Accessible theme switcher with theme icons and keyboard navigation' },
-			{ href: '/docs/components/font-switcher', title: 'Font Switcher', description: 'Font pair (sans + mono) dropdown with preview and keyboard navigation' },
-			{ href: '/docs/components/settings', title: 'Settings', description: 'Comprehensive settings panel for theme switching and accessibility options' },
-			{ href: '/docs/components/search', title: 'Search', description: 'Search with Algolia integration; Cmd icon + K in trigger; same live example on Astro, Svelte, and Vanilla' },
-			{ href: '/docs/components/icons', title: 'Icons', description: 'Reusable SVG icon components (Tabler Icons and Devicons) with interactive card grid and copy functionality' },
-			{ href: '/docs/components/sound-effects', title: 'Sound Effects', description: 'Toggle for play sound on click (Web Audio); off by default' },
-		],
-	},
-];
+const metaBySlug = Object.fromEntries(REACT_COMPONENT_META.map((m) => [m.slug, m]));
+const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs', (slug) => {
+	const m = metaBySlug[slug];
+	return m ? { title: m.title, description: m.description } : { title: slug, description: '' };
+});
 ---
 
 <DocsLayout title="Components" description="Browse accessible, themeable components built with Rizzo design tokens and BEM.">
 	<section class="docs-components-intro">
 		<h2 class="docs-components-intro__title">Components</h2>
 		<p class="docs-components-intro__tagline">Browse the collection of accessible, themeable components. Copy and paste into your app—same CSS and BEM for Astro, Svelte, and Vanilla.</p>
-		<p class="docs-components-intro__meta">Each component has live demos and <strong>Astro | Svelte | React | Vue | Vanilla</strong> code tabs where applicable. Use the framework switcher above.</p>
+		<p class="docs-components-intro__meta">Each component has live demos and <strong>Astro | Vanilla | Svelte | Vue | React</strong> code tabs where applicable. Use the framework switcher above.</p>
 		<p class="docs-components-intro__nav">Quick jump: <a href="/docs/components">Astro</a> · <a href="/docs/svelte/components">Svelte</a> · <a href="/docs/react/components">React</a> · <a href="/docs/vanilla/components">Vanilla</a></p>
 	</section>
 
 	<section>
-		<h2 class="docs-components-browse-title">Browse all components</h2>
+		<h2 class="docs-components-browse-title">Browse by category</h2>
 		{COMPONENT_CATEGORIES.map((cat) => (
 			<div class="docs-component-category" id={cat.id}>
 				<h3 class="docs-component-category__title">{cat.label}</h3>

@@ -4,13 +4,27 @@ import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="collapsible" data-collapsible>
-  <button type="button" class="collapsible__trigger" aria-expanded="false" aria-controls="panel-id" data-collapsible-trigger>
-    <span class="collapsible__trigger-label">Toggle</span>
+  <button type="button" class="collapsible__trigger" id="trigger-id" aria-expanded="false" aria-controls="panel-id" data-collapsible-trigger>
+    <span class="collapsible__trigger-label">Show more</span>
+    <span class="collapsible__icon" aria-hidden="true">▼</span>
   </button>
-  <div class="collapsible__panel" id="panel-id" role="region" hidden data-collapsible-panel>
-    <div class="collapsible__panel-inner">Content here. Wire click on trigger to toggle hidden/aria-expanded.</div>
+  <div class="collapsible__panel" id="panel-id" role="region" aria-labelledby="trigger-id" hidden data-collapsible-panel>
+    <div class="collapsible__panel-inner"><p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p></div>
   </div>
 </div>`;
+
+const copyableJs = `document.querySelectorAll('.collapsible[data-collapsible]').forEach(function(root) {
+  var trigger = root.querySelector('[data-collapsible-trigger]');
+  var panel = root.querySelector('[data-collapsible-panel]');
+  if (!trigger || !panel) return;
+  trigger.addEventListener('click', function() {
+    var expanded = trigger.getAttribute('aria-expanded') === 'true';
+    var next = !expanded;
+    trigger.setAttribute('aria-expanded', next);
+    panel.hidden = !next;
+    panel.classList.toggle('collapsible__panel--expanded', next);
+  });
+});`;
 ---
 
 <DocsLayout title="Collapsible — Vanilla" description="Expand/collapse section with vanilla HTML. Ensure Rizzo CSS and init script are loaded.">
@@ -19,21 +33,48 @@ const copyableHtml = `<div class="collapsible" data-collapsible>
     <p>Single expand/collapse. Use <code>collapsible__trigger</code> and <code>collapsible__panel</code> with <code>data-collapsible-trigger</code> / <code>data-collapsible-panel</code>. Wire toggle behavior in JS (e.g. full scaffold <code>js/main.js</code> or your own).</p>
     <AddComponentTabs componentName="Collapsible" />
     <div class="example">
-      <div class="example-title">Live example (structure only; JS toggles open/closed)</div>
+      <div class="example-title">Live example</div>
       <div class="collapsible" data-collapsible>
-        <button type="button" class="collapsible__trigger" aria-expanded="false" aria-controls="collapsible-vanilla-panel" data-collapsible-trigger>
-          <span class="collapsible__trigger-label">Toggle</span>
+        <button type="button" class="collapsible__trigger" id="collapsible-vanilla-trigger" aria-expanded="false" aria-controls="collapsible-vanilla-panel" data-collapsible-trigger>
+          <span class="collapsible__trigger-label">Show more</span>
+          <span class="collapsible__icon" aria-hidden="true">▼</span>
         </button>
-        <div class="collapsible__panel" id="collapsible-vanilla-panel" role="region" hidden data-collapsible-panel>
-          <div class="collapsible__panel-inner">Panel content.</div>
+        <div class="collapsible__panel" id="collapsible-vanilla-panel" role="region" aria-labelledby="collapsible-vanilla-trigger" hidden data-collapsible-panel>
+          <div class="collapsible__panel-inner"><p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p></div>
         </div>
       </div>
     </div>
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/collapsible">Astro</a> · <a href="/docs/svelte/components/collapsible">Svelte</a> · <a href="/docs/react/components/collapsible">React</a> · <a href="/docs/vue/components/collapsible">Vue</a></p>
+    <h3>JavaScript</h3>
+    <CodeBlock code={copyableJs} language="javascript" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/collapsible">Astro</a> · <a href="/docs/svelte/components/collapsible">Svelte</a> · <a href="/docs/vue/components/collapsible">Vue</a> · <a href="/docs/react/components/collapsible">React</a></p>
   </section>
 </DocsLayout>
+
+<script is:inline>
+(function() {
+  function init() {
+    document.querySelectorAll('.collapsible[data-collapsible]').forEach(function(root) {
+      if (root.hasAttribute('data-collapsible-inited')) return;
+      root.setAttribute('data-collapsible-inited', 'true');
+      var trigger = root.querySelector('[data-collapsible-trigger]');
+      var panel = root.querySelector('[data-collapsible-panel]');
+      if (!trigger || !panel) return;
+      trigger.addEventListener('click', function() {
+        var expanded = trigger.getAttribute('aria-expanded') === 'true';
+        var next = !expanded;
+        trigger.setAttribute('aria-expanded', next);
+        panel.hidden = !next;
+        panel.classList.toggle('collapsible__panel--expanded', next);
+      });
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  document.addEventListener('astro:page-load', function() { setTimeout(init, 0); });
+})();
+</script>
 
 <style>
   .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }

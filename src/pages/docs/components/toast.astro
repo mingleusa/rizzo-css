@@ -71,7 +71,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<p>Toast uses the Alert component; include Toast (or Alert) once so <code>showToast</code> is available. Scripts run after DOM ready.</p>
 		<FrameworkCodeTabs
 			astro={`---
-import '../components/rizzo/Toast.astro';
+import '../components/astro/Toast.astro';
 ---
 
 <!-- Toast container is rendered by the component. Then anywhere: -->
@@ -121,7 +121,7 @@ window.removeAllToasts();`} language="javascript" />
 		<h3>Toast Component (Static)</h3>
 		<p>For static toast components in Astro templates, you can use the <code>Toast</code> component:</p>
 		<CodeBlock code={`---
-import Toast from '../../components/Toast.astro';
+import Toast from '../../components/astro/Toast.astro';
 ---
 
 <Toast variant="success" position="top-right" autoDismiss={5000}>
@@ -129,7 +129,7 @@ import Toast from '../../components/Toast.astro';
 </Toast>`} language="astro" />
 		
 		<p><strong>Note:</strong> For dynamic toast notifications, use the programmatic <code>showToast()</code> function instead. The toast functions are available globally on all pages via <code>window.showToast()</code>, <code>window.removeToast()</code>, and <code>window.removeAllToasts()</code>.</p>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/toast">Svelte</a> · Vanilla: same HTML and BEM for static toasts; use <code>showToast()</code> / <code>removeToast()</code> for dynamic (included in scaffold).</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/toast">Vanilla</a> · <a href="/docs/svelte/components/toast">Svelte</a> · <a href="/docs/vue/components/toast">Vue</a> · <a href="/docs/react/components/toast">React</a></p>
 	</section>
 </DocsLayout>
 

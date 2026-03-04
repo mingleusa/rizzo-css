@@ -27,6 +27,9 @@
   {#snippet trigger()} Hover me {/snippet}
   <p>Content on hover.</p>
 </HoverCard>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/hover-card">Astro</a> · <a href="/docs/vanilla/components/hover-card">Vanilla</a> · <a href="/docs/vue/components/hover-card">Vue</a> · <a href="/docs/react/components/hover-card">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
-import Card from '../../components/Card.astro';
+import Card from '../../components/astro/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
 import { PRICING_SNIPPETS } from '../../config/blockCodeSnippets';
@@ -72,6 +72,7 @@ import { PRICING_SNIPPETS } from '../../config/blockCodeSnippets';
 			react={PRICING_SNIPPETS.react}
 			vue={PRICING_SNIPPETS.vue}
 			vanilla={PRICING_SNIPPETS.vanilla}
+			defaultTab="astro"
 		/>
 	</section>
 

@@ -84,9 +84,12 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 <div class="avatar" data-initials="JD">Jane Doe</div>
 <img class="avatar avatar--img" src="/photo.jpg" alt="Jane" />`,
 
-  'progress-bar': `<!-- Rizzo CSS. No script needed for static bar. -->
-<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100">
-  <div class="progress-bar__fill" style="width: 60%;"></div>
+  'progress-bar': `<!-- Rizzo CSS. BEM: progress, progress__track, progress__bar, progress__label. -->
+<div class="progress progress--primary progress--md" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
+  <div class="progress__track">
+    <div class="progress__bar" style="width: 60%;"></div>
+  </div>
+  <span class="progress__label" aria-hidden="true">60%</span>
 </div>`,
 
   breadcrumb: `<!-- Rizzo CSS. No script needed. -->
@@ -139,8 +142,10 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 <button data-modal-trigger="my-modal">Open</button>`,
 
   tooltip: `<!-- Rizzo CSS; tooltip is CSS + aria-describedby; no JS required for hover/focus. -->
-<button aria-describedby="tip-1">Hover me</button>
-<span id="tip-1" class="tooltip" role="tooltip">Tooltip text</span>`,
+<div class="tooltip-wrapper" aria-describedby="tip-1">
+  <button type="button" class="btn btn-primary">Hover me</button>
+  <span id="tip-1" class="tooltip tooltip--top" role="tooltip">This is a basic tooltip</span>
+</div>`,
 
   collapsible: `<!-- Rizzo CSS + accordion/collapsible script from package/vanilla docs. -->
 <div class="collapsible" data-collapsible id="my-collapsible">
@@ -181,9 +186,19 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   <div class="resizable-pane">Right</div>
 </div>`,
 
-  'alert-dialog': `<!-- Rizzo CSS + alert-dialog script. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
-<div id="confirm-dialog" class="alert-dialog" role="alertdialog">...</div>
-<button onclick="openAlertDialog_confirmDialog()">Confirm</button>`,
+  'alert-dialog': `<!-- Overlay must be a sibling BEFORE the dialog so it stacks behind. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
+<div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
+<div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" aria-labelledby="alert-demo-title" aria-describedby="alert-demo-desc" data-alert-dialog aria-hidden="true" hidden>
+  <div class="alert-dialog__content">
+    <h2 id="alert-demo-title" class="alert-dialog__title">Delete item?</h2>
+    <p id="alert-demo-desc" class="alert-dialog__description">This action cannot be undone.</p>
+    <div class="alert-dialog__actions">
+      <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
+      <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn" onclick="openAlertDialog_alert_demo()">Open</button>`,
 
   sheet: `<!-- Rizzo CSS + sheet script. openSheet_<id>(), closeSheet_<id>(). -->
 <div id="drawer" class="sheet" aria-hidden="true">...</div>
@@ -220,8 +235,23 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   'copy-to-clipboard': `<!-- Ensure Rizzo CSS and js/main.js are loaded. -->
 <button type="button" class="btn" data-copy-value="npm install rizzo-css">Copy</button>`,
 
-  navbar: `<!-- From scaffold: Navbar includes Search + Settings. Include js/main.js for mobile menu. -->
-<header class="navbar">...</header>`,
+  navbar: `<!-- From scaffold: Navbar includes Search + Settings. Include js/main.js for mobile menu, search, and settings. -->
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="navbar__container">
+    <div class="navbar__brand">
+      <a href="/" class="navbar__brand-link">My Site</a>
+    </div>
+    <div class="navbar__actions-desktop">
+      <!-- Search trigger + overlay; Settings button -->
+    </div>
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+    </button>
+    <div class="navbar__menu" id="navbar-menu" role="menu" aria-hidden="true">
+      <a href="/" class="navbar__link">Home</a>
+    </div>
+  </div>
+</nav>`,
 
   search: `<!-- Shipped Navbar includes Search; standalone below. Include js/main.js for open/close. -->
 <div class="search" data-search>...</div>`,
@@ -241,8 +271,20 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   'docs-sidebar': `<!-- Same BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__link. -->
 <aside class="docs-sidebar"><nav class="docs-sidebar__nav">...</nav></aside>`,
 
-  dashboard: `<!-- Dashboard layout: dashboard, dashboard__sidebar, dashboard__main. -->
-<div class="dashboard"><aside class="dashboard__sidebar">...</aside><main class="dashboard__main">...</main></div>`,
+  dashboard: `<!-- Same structure as Astro live example: sidebar (nav) + main. -->
+<div class="dashboard">
+  <aside class="dashboard__sidebar" aria-label="Dashboard navigation">
+    <nav class="dashboard__nav">
+      <a href="/dashboard" class="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
+      <a href="/items" class="dashboard__nav-link">Items</a>
+      <a href="/settings" class="dashboard__nav-link">Settings</a>
+    </nav>
+  </aside>
+  <main id="main-content" class="dashboard__main">
+    <h3 style="margin: 0 0 var(--spacing-2);">Main content</h3>
+    <p style="margin: 0;">Put your page content here. Combine with Card, Table, and other Rizzo components.</p>
+  </main>
+</div>`,
 
   icons: `<!-- Rizzo CSS. Inline SVG or use .icon class; currentColor for theme. -->
 <span class="icon" aria-hidden="true"><!-- svg --></span>`,
@@ -260,6 +302,19 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
       <!-- ... Mon–Sat ... -->
     </div>
     <div class="calendar__body" data-calendar-body role="presentation"></div>
+  </div>
+</div>`,
+
+  'range-calendar': `<!-- Rizzo CSS. Range calendar: two clicks set start/end; listen for range-calendar-select (see /docs/vanilla/components/range-calendar). -->
+<div class="calendar calendar--range" role="group" aria-label="Choose date range" data-range-calendar>
+  <div class="calendar__header">
+    <button type="button" class="calendar__prev" aria-label="Previous month" data-range-calendar-prev>...</button>
+    <div class="calendar__month" aria-live="polite" data-range-calendar-month-label>—</div>
+    <button type="button" class="calendar__next" aria-label="Next month" data-range-calendar-next>...</button>
+  </div>
+  <div class="calendar__grid" role="grid" data-range-calendar-grid>
+    <div class="calendar__row" role="row"><!-- weekdays --></div>
+    <div class="calendar__body" data-range-calendar-body role="presentation"></div>
   </div>
 </div>`,
 

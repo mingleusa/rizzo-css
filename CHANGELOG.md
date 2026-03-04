@@ -4,10 +4,16 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
+- **Range Calendar:** New component for date range selection (high-impact task). Two clicks set start and end; order normalized. Astro (`RangeCalendar.astro`), React, Vue, Svelte components; BEM `.calendar--range`, `.calendar__day--range-start`, `--range-end`, `--in-range`; event `range-calendar-select` (detail.start, detail.end). Doc pages and framework code tabs; CLI and scaffold; a11y routes; llms.txt and ai/llms.json. **53 components** total.
 - **Button:** New variants and sizes across all frameworks: `btn-secondary`, `btn-ghost`, `btn--sm`, `btn--lg`. CSS in `buttons.css`; React, Vue, Svelte Button components and types updated; doc page uses snippet getters; live example grid shows all variants and sizes; Storybook Button story updated; [public/llms.txt](public/llms.txt) aligned.
 - **Docs & TODO:** [docs/TODO.md](docs/TODO.md) — Testing summary table; Documentation & consistency section. Best practices: correct button BEM examples (`btn-primary`, `btn-ghost`).
 - **Docs:** All documentation updated for **52 components** (Calendar added). Component count and “all 52 or pick” aligned across README, docs/*.md, docs/planning/*.md, GETTING_STARTED, COMPONENTS, TESTING, STORYBOOK, MULTI_FRAMEWORK, FRAMEWORK_STRUCTURE, CLI, TEMPLATES, PUBLISHING, DESIGN_SYSTEM, COMPONENT_COMPARISON, ai/README.md, showcase/overview/Layout/Search, scaffold READMEs, and package README.
 - (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
+
+## [0.0.69] - 2025-02-27
+
+- **Version:** Bump to 0.0.69 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, and tokens export aligned to 0.0.69.
+- **Component alignment:** All 53 components have aligned live examples across Astro, Vanilla, Svelte, Vue, and React. Vue overlay demos (modal, alert-dialog, sheet, popover, hover-card, context-menu, dropdown) use custom blocks in `VueDocDemo.vue` with Rizzo BEM and refs; tooltip/copy-to-clipboard snippets and Vanilla label/tooltip copy aligned. Audit: [docs/COMPONENT_ALIGNMENT_AUDIT.md](docs/COMPONENT_ALIGNMENT_AUDIT.md).
 
 ## [0.0.68] - 2025-02-27
 
@@ -65,7 +71,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.68...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.69...HEAD
+[0.0.69]: https://github.com/mingleusa/rizzo-css/compare/v0.0.68...v0.0.69
 [0.0.68]: https://github.com/mingleusa/rizzo-css/compare/v0.0.67...v0.0.68
 [0.0.67]: https://github.com/mingleusa/rizzo-css/compare/v0.0.66...v0.0.67
 [0.0.66]: https://github.com/mingleusa/rizzo-css/compare/v0.0.65...v0.0.66

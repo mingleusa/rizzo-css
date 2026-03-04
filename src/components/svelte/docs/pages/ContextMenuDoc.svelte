@@ -29,6 +29,9 @@
   <button type="button" class="context-menu__item">Profile</button>
   <button type="button" class="context-menu__item">Billing</button>
 </ContextMenu>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/context-menu">Astro</a> · <a href="/docs/vanilla/components/context-menu">Vanilla</a> · <a href="/docs/vue/components/context-menu">Vue</a> · <a href="/docs/react/components/context-menu">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -1,7 +1,7 @@
 ---
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
-import Dashboard from '../../components/Dashboard.astro';
-import Card from '../../components/Card.astro';
+import Dashboard from '../../components/astro/Dashboard.astro';
+import Card from '../../components/astro/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
 import { DASHBOARD_SNIPPETS } from '../../config/blockCodeSnippets';
@@ -100,6 +100,7 @@ import { DASHBOARD_SNIPPETS } from '../../config/blockCodeSnippets';
 				react={DASHBOARD_SNIPPETS.react}
 				vue={DASHBOARD_SNIPPETS.vue}
 				vanilla={DASHBOARD_SNIPPETS.vanilla}
+				defaultTab="astro"
 			/>
 		</section>
 

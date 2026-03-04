@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import BackToTop from '../../../components/BackToTop.astro';
+import BackToTop from '../../../components/astro/BackToTop.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -32,7 +32,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import BackToTop from '../components/rizzo/BackToTop.astro';
+import BackToTop from '../components/astro/BackToTop.astro';
 ---
 
 <BackToTop />
@@ -56,6 +56,6 @@ import BackToTop from '../components/rizzo/BackToTop.astro';
   </button>
 </div>`}
 		/>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/back-to-top">Svelte</a> · <a href="/docs/react/components/back-to-top">React</a> · <a href="/docs/vue/components/back-to-top">Vue</a> · <a href="/docs/vanilla/components/back-to-top">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/back-to-top">Vanilla</a> · <a href="/docs/svelte/components/back-to-top">Svelte</a> · <a href="/docs/vue/components/back-to-top">Vue</a> · <a href="/docs/react/components/back-to-top">React</a></p>
 	</section>
 </DocsLayout>

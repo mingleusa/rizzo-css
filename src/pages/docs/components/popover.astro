@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Popover from '../../../components/Popover.astro';
+import Popover from '../../../components/astro/Popover.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -26,7 +26,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Popover from '../components/rizzo/Popover.astro';
+import Popover from '../components/astro/Popover.astro';
 ---
 
 <Popover>
@@ -45,5 +45,6 @@ import Popover from '../components/rizzo/Popover.astro';
 			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + popover script from package/vanilla docs. data-popover-trigger on trigger; content in popover__content. Click outside or Escape to close. -->`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/popover">Vanilla</a> · <a href="/docs/svelte/components/popover">Svelte</a> · <a href="/docs/vue/components/popover">Vue</a> · <a href="/docs/react/components/popover">React</a></p>
 	</section>
 </DocsLayout>

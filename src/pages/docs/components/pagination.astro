@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import PaginationComponent from '../../../components/Pagination.astro';
+import PaginationComponent from '../../../components/astro/Pagination.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -42,7 +42,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Pagination from '../components/rizzo/Pagination.astro';
+import Pagination from '../components/astro/Pagination.astro';
 ---
 
 <Pagination
@@ -149,6 +149,6 @@ import Pagination from '../components/rizzo/Pagination.astro';
 			<li><strong>Configurable URLs</strong> - <code>hrefTemplate</code> with <code>{'{page}'}</code> placeholder</li>
 			<li><strong>Theme-aware</strong> - Uses design system variables</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/pagination">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/pagination">Vanilla</a> · <a href="/docs/svelte/components/pagination">Svelte</a> · <a href="/docs/vue/components/pagination">Vue</a> · <a href="/docs/react/components/pagination">React</a></p>
 	</section>
 </DocsLayout>

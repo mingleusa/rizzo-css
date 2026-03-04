@@ -4,7 +4,7 @@ import { Collapsible } from './Collapsible';
 export function CollapsibleDemo() {
   return (
     <Collapsible triggerLabel="Show more" defaultOpen={false}>
-      <p>Hidden content here. Same BEM classes as Astro and Svelte.</p>
+      <p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>
     </Collapsible>
   );
 }

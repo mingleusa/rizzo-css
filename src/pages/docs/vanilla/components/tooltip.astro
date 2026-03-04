@@ -5,7 +5,7 @@ import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<div class="tooltip-wrapper" aria-describedby="tip-1">
   <button type="button" class="btn btn-primary">Hover me</button>
-  <span class="tooltip tooltip--top" id="tip-1" role="tooltip">Tooltip text. Add JS for show/hide and position.</span>
+  <span class="tooltip tooltip--top" id="tip-1" role="tooltip">This is a basic tooltip</span>
 </div>`;
 ---
 
@@ -19,7 +19,7 @@ const copyableHtml = `<div class="tooltip-wrapper" aria-describedby="tip-1">
       <div class="example-demo">
         <div class="tooltip-wrapper" aria-describedby="vanilla-tip-1" style="display:inline-block">
           <button type="button" class="btn btn-primary">Hover me</button>
-          <span class="tooltip tooltip--top" id="vanilla-tip-1" role="tooltip">Tooltip text. CSS shows on :hover of wrapper.</span>
+          <span class="tooltip tooltip--top" id="vanilla-tip-1" role="tooltip">This is a basic tooltip</span>
         </div>
       </div>
     </div>
@@ -27,7 +27,7 @@ const copyableHtml = `<div class="tooltip-wrapper" aria-describedby="tip-1">
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
 
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/tooltip">Astro</a> · <a href="/docs/svelte/components/tooltip">Svelte</a> · <a href="/docs/react/components/tooltip">React</a> · <a href="/docs/vue/components/tooltip">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/tooltip">Astro</a> · <a href="/docs/svelte/components/tooltip">Svelte</a> · <a href="/docs/vue/components/tooltip">Vue</a> · <a href="/docs/react/components/tooltip">React</a></p>
   </section>
 </DocsLayout>
 

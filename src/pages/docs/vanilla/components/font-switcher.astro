@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
-import FontSwitcherComponent from '../../../../components/FontSwitcher.astro';
+import FontSwitcherComponent from '../../../../components/astro/FontSwitcher.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../../../../config/fonts';
@@ -41,7 +41,7 @@ ${FONT_PAIRS.map((pair) => `      <div class="font-switcher__option" role="menui
     <CodeBlock code={copyableHtml} language="html" />
 
     <p><a href="/docs/components/font-switcher">View <strong>Font Switcher</strong> on the Astro docs</a> for usage and keyboard behavior.</p>
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/font-switcher">Astro</a> · <a href="/docs/svelte/components/font-switcher">Svelte</a> · <a href="/docs/react/components/font-switcher">React</a> · <a href="/docs/vue/components/font-switcher">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/font-switcher">Astro</a> · <a href="/docs/svelte/components/font-switcher">Svelte</a> · <a href="/docs/vue/components/font-switcher">Vue</a> · <a href="/docs/react/components/font-switcher">React</a></p>
     <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
   </section>
 </DocsLayout>

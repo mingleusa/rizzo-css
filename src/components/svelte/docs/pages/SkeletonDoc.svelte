@@ -31,6 +31,9 @@
 <Skeleton variant="circle" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/skeleton">Astro</a> · <a href="/docs/vanilla/components/skeleton">Vanilla</a> · <a href="/docs/vue/components/skeleton">Vue</a> · <a href="/docs/react/components/skeleton">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

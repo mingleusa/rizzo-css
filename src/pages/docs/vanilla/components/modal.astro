@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
-import ModalComponent from '../../../../components/Modal.astro';
+import ModalComponent from '../../../../components/astro/Modal.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
@@ -106,7 +106,7 @@ const copyableJs = `(function() {
     <h3>JavaScript</h3>
     <CodeBlock code={copyableJs} language="javascript" />
 
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/modal">Astro</a> · <a href="/docs/svelte/components/modal">Svelte</a> · <a href="/docs/react/components/modal">React</a> · <a href="/docs/vue/components/modal">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/modal">Astro</a> · <a href="/docs/svelte/components/modal">Svelte</a> · <a href="/docs/vue/components/modal">Vue</a> · <a href="/docs/react/components/modal">React</a></p>
   </section>
 </DocsLayout>
 

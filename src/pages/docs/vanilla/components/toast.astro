@@ -16,19 +16,20 @@ const copyableHtml = `<div class="toast-container toast-container--top-right">
     <p>Fixed-position notifications. On this site <code>window.showToast</code> is provided by the layout. For your own app, implement a toast util or use the layout pattern.</p>
     <AddComponentTabs componentName="Toast" />
     <div class="example">
-      <div class="example-title">Live example</div>
+      <div class="example-title">Live Examples</div>
       <div class="example-demo">
-        <button type="button" class="btn btn-success" onclick="window.showToast && window.showToast('Saved!', { variant: 'success' })">Show success</button>
-        <button type="button" class="btn btn-error" onclick="window.showToast && window.showToast('Error.', { variant: 'error' })">Show error</button>
-        <button type="button" class="btn btn-info" onclick="window.showToast && window.showToast('Info.', { variant: 'info' })">Show info</button>
-        <button type="button" class="btn" onclick="window.removeAllToasts && window.removeAllToasts()">Clear all</button>
+        <button type="button" class="btn btn-success" onclick="window.showToast && window.showToast('Success! Your changes have been saved.', { variant: 'success' })">Show Success Toast</button>
+        <button type="button" class="btn btn-error" onclick="window.showToast && window.showToast('Error! Something went wrong.', { variant: 'error' })">Show Error Toast</button>
+        <button type="button" class="btn btn-warning" onclick="window.showToast && window.showToast('Warning! Please review your changes.', { variant: 'warning' })">Show Warning Toast</button>
+        <button type="button" class="btn btn-info" onclick="window.showToast && window.showToast('Info: New features are available.', { variant: 'info' })">Show Info Toast</button>
+        <button type="button" class="btn" onclick="window.removeAllToasts && window.removeAllToasts()">Clear All Toasts</button>
       </div>
     </div>
 
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
 
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/toast">Astro</a> · <a href="/docs/svelte/components/toast">Svelte</a> · <a href="/docs/react/components/toast">React</a> · <a href="/docs/vue/components/toast">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/toast">Astro</a> · <a href="/docs/svelte/components/toast">Svelte</a> · <a href="/docs/vue/components/toast">Vue</a> · <a href="/docs/react/components/toast">React</a></p>
   </section>
 </DocsLayout>
 

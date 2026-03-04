@@ -5,7 +5,7 @@ const rootClass = computed(() => ["navbar", props.class].filter(Boolean).join(" 
 </script>
 
 <template>
-  <div :class="rootClass">
+  <nav :class="rootClass" role="navigation" aria-label="Main navigation">
     <slot />
-  </div>
+  </nav>
 </template>

@@ -50,6 +50,9 @@
 <Badge variant="error" pill>Urgent</Badge>`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/badge">Astro</a> · <a href="/docs/vanilla/components/badge">Vanilla</a> · <a href="/docs/vue/components/badge">Vue</a> · <a href="/docs/react/components/badge">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

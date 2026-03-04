@@ -356,6 +356,9 @@
     language="css"
   />
   <p><strong>Astro &amp; Vanilla:</strong> <a href="/docs/components/forms">Astro</a> · <a href="/docs/vanilla/components/forms">Vanilla</a> — same BEM classes and HTML structure.</p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/forms">Astro</a> · <a href="/docs/vanilla/components/forms">Vanilla</a> · <a href="/docs/vue/components/forms">Vue</a> · <a href="/docs/react/components/forms">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

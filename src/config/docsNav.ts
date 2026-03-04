@@ -1,7 +1,10 @@
+import { COMPONENT_CATEGORIES } from './componentCategories';
+import { slugToTitle } from './reactComponents';
+
 /**
  * Docs sidebar navigation. Paths are canonical (e.g. getting-started, components/button).
  * - Introduction & Foundations: always use /docs/ (shared; no Svelte/Vanilla-specific pages).
- * - Components: use framework pathPrefix (/docs or /docs/svelte or /docs/vanilla).
+ * - Components: use framework pathPrefix (/docs or /docs/svelte or /docs/vanilla). Order matches category layout (Layout, Forms & inputs, etc.).
  * - Optional sections: for long docs, sidebar shows subsection links (href#id) with smooth scroll.
  */
 export interface DocsNavSection {
@@ -14,6 +17,8 @@ export interface DocsNavLink {
   label: string;
   /** If true, link uses pathPrefix (framework-specific). If false, link uses /docs (shared). */
   frameworkOnly?: boolean;
+  /** If true, href is used as-is (e.g. /blocks/landing-hero). Use for cross-section links. */
+  absolute?: boolean;
   /** Subsection anchors for this page (sidebar only; links use page#id, smooth scroll). */
   sections?: DocsNavSection[];
 }
@@ -181,58 +186,25 @@ export const DOCS_NAV: DocsNavGroup[] = [
     label: 'Components',
     links: [
       { href: 'components', label: 'Overview', frameworkOnly: true },
-      { href: 'components/accordion', label: 'Accordion', frameworkOnly: true },
-      { href: 'components/alert', label: 'Alert', frameworkOnly: true },
-      { href: 'components/alert-dialog', label: 'Alert Dialog', frameworkOnly: true },
-      { href: 'components/aspect-ratio', label: 'Aspect Ratio', frameworkOnly: true },
-      { href: 'components/avatar', label: 'Avatar', frameworkOnly: true },
-      { href: 'components/back-to-top', label: 'Back to Top', frameworkOnly: true },
-      { href: 'components/badge', label: 'Badge', frameworkOnly: true },
-      { href: 'components/breadcrumb', label: 'Breadcrumb', frameworkOnly: true },
-      { href: 'components/button', label: 'Button', frameworkOnly: true },
-      { href: 'components/button-group', label: 'Button Group', frameworkOnly: true },
-      { href: 'components/cards', label: 'Cards', frameworkOnly: true },
-      { href: 'components/calendar', label: 'Calendar', frameworkOnly: true },
-      { href: 'components/carousel', label: 'Carousel', frameworkOnly: true },
-      { href: 'components/collapsible', label: 'Collapsible', frameworkOnly: true },
-      { href: 'components/context-menu', label: 'Context Menu', frameworkOnly: true },
-      { href: 'components/copy-to-clipboard', label: 'Copy to Clipboard', frameworkOnly: true },
-      { href: 'components/dashboard', label: 'Dashboard', frameworkOnly: true },
-      { href: 'components/docs-sidebar', label: 'Docs Sidebar', frameworkOnly: true },
-      { href: 'components/divider', label: 'Divider', frameworkOnly: true },
-      { href: 'components/dropdown', label: 'Dropdown', frameworkOnly: true },
-      { href: 'components/empty', label: 'Empty', frameworkOnly: true },
-      { href: 'components/footer', label: 'Footer', frameworkOnly: true },
-      { href: 'components/font-switcher', label: 'Font Switcher', frameworkOnly: true },
-      { href: 'components/forms', label: 'Forms', frameworkOnly: true },
-      { href: 'components/hover-card', label: 'Hover Card', frameworkOnly: true },
-      { href: 'components/icons', label: 'Icons', frameworkOnly: true },
-      { href: 'components/input-group', label: 'Input Group', frameworkOnly: true },
-      { href: 'components/kbd', label: 'Kbd', frameworkOnly: true },
-      { href: 'components/label', label: 'Label', frameworkOnly: true },
-      { href: 'components/modal', label: 'Modal', frameworkOnly: true },
-      { href: 'components/navbar', label: 'Navbar', frameworkOnly: true },
-      { href: 'components/pagination', label: 'Pagination', frameworkOnly: true },
-      { href: 'components/popover', label: 'Popover', frameworkOnly: true },
-      { href: 'components/progress-bar', label: 'Progress Bar', frameworkOnly: true },
-      { href: 'components/resizable', label: 'Resizable', frameworkOnly: true },
-      { href: 'components/scroll-area', label: 'Scroll Area', frameworkOnly: true },
-      { href: 'components/search', label: 'Search', frameworkOnly: true },
-      { href: 'components/separator', label: 'Separator', frameworkOnly: true },
-      { href: 'components/settings', label: 'Settings', frameworkOnly: true },
-      { href: 'components/sheet', label: 'Sheet', frameworkOnly: true },
-      { href: 'components/skeleton', label: 'Skeleton', frameworkOnly: true },
-      { href: 'components/slider', label: 'Slider', frameworkOnly: true },
-      { href: 'components/sound-effects', label: 'Sound Effects', frameworkOnly: true },
-      { href: 'components/spinner', label: 'Spinner', frameworkOnly: true },
-      { href: 'components/switch', label: 'Switch', frameworkOnly: true },
-      { href: 'components/table', label: 'Table', frameworkOnly: true },
-      { href: 'components/tabs', label: 'Tabs', frameworkOnly: true },
-      { href: 'components/theme-switcher', label: 'Theme Switcher', frameworkOnly: true },
-      { href: 'components/toast', label: 'Toast', frameworkOnly: true },
-      { href: 'components/toggle', label: 'Toggle', frameworkOnly: true },
-      { href: 'components/toggle-group', label: 'Toggle Group', frameworkOnly: true },
-      { href: 'components/tooltip', label: 'Tooltip', frameworkOnly: true },
+      ...COMPONENT_CATEGORIES.flatMap((cat) =>
+        cat.slugs.map((slug) => ({
+          href: `components/${slug}` as const,
+          label: slugToTitle(slug),
+          frameworkOnly: true as const,
+        }))
+      ),
+    ],
+  },
+  {
+    label: 'Blocks',
+    links: [
+      { href: '/blocks', label: 'Blocks overview', absolute: true },
+      { href: '/blocks/landing-hero', label: 'Landing hero', absolute: true },
+      { href: '/blocks/pricing', label: 'Pricing cards', absolute: true },
+      { href: '/blocks/dashboard-01', label: 'Dashboard', absolute: true },
+      { href: '/blocks/docs-layout', label: 'Docs layout', absolute: true },
+      { href: '/blocks/login', label: 'Login', absolute: true },
+      { href: '/blocks/signup', label: 'Sign up', absolute: true },
     ],
   },
   {

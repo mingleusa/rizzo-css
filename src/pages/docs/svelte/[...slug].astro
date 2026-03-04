@@ -1,8 +1,8 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import SvelteDocPage from '../../../components/svelte/docs/SvelteDocPage.svelte';
-import Search from '../../../components/Search.astro';
-import Skeleton from '../../../components/Skeleton.astro';
+import Search from '../../../components/astro/Search.astro';
+import Skeleton from '../../../components/astro/Skeleton.astro';
 
 export function getStaticPaths() {
   const paths: { params: { slug: string } }[] = [
@@ -16,6 +16,7 @@ export function getStaticPaths() {
     { params: { slug: 'components/divider' } },
     { params: { slug: 'components/spinner' } },
     { params: { slug: 'components/progress-bar' } },
+    { params: { slug: 'components/range-calendar' } },
     { params: { slug: 'components/avatar' } },
     { params: { slug: 'components/alert' } },
     { params: { slug: 'components/breadcrumb' } },
@@ -78,6 +79,7 @@ function getMeta() {
     divider: 'Divider',
     spinner: 'Spinner',
     'progress-bar': 'Progress Bar',
+    'range-calendar': 'Range Calendar',
     avatar: 'Avatar',
     alert: 'Alert',
     breadcrumb: 'Breadcrumb',

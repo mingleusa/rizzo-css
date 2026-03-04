@@ -44,23 +44,9 @@ const ALGOLIA_API_KEY = process.env.ALGOLIA_ADMIN_KEY || process.env.ALGOLIA_API
 const ALGOLIA_INDEX_NAME = process.env.ALGOLIA_INDEX_NAME || process.env.PUBLIC_ALGOLIA_INDEX_NAME || 'rizzo-css-docs';
 
 if (!ALGOLIA_APP_ID || !ALGOLIA_API_KEY) {
-  console.error('Error: Algolia credentials are required');
-  console.error('\nTo set up Algolia:');
-  console.error('1. Create an account at https://www.algolia.com/');
-  console.error('2. Create a new application');
-  console.error('3. Get your Application ID and Admin API Key');
-  console.error('\nOption 1: Create a .env file (recommended)');
-  console.error('   Copy .env.example to .env and fill in your credentials:');
-  console.error('   ALGOLIA_APP_ID=your-app-id');
-  console.error('   ALGOLIA_ADMIN_KEY=your-admin-api-key');
-  console.error('   ALGOLIA_INDEX_NAME=rizzo-css-docs');
-  console.error('\nOption 2: Set environment variables');
-  console.error('   export ALGOLIA_APP_ID="your-app-id"');
-  console.error('   export ALGOLIA_ADMIN_KEY="your-admin-api-key"');
-  console.error('   export ALGOLIA_INDEX_NAME="rizzo-css-docs"');
-  console.error('\nNote: Install dotenv for .env file support:');
-  console.error('   pnpm add -D dotenv');
-  process.exit(1);
+  console.warn('Skipping Algolia index: ALGOLIA_APP_ID and ALGOLIA_ADMIN_KEY are not set.');
+  console.warn('To enable doc search: set credentials in .env or see scripts/index-docs.js');
+  process.exit(0);
 }
 
 // Documentation structure
@@ -415,16 +401,16 @@ async function uploadToAlgolia(records) {
     // console.log('2. The Search component will automatically use Algolia if env vars are set');
     // console.log('3. Verify your index in the Algolia dashboard');
   } catch (error) {
-    console.error('Error uploading to Algolia:', error.message);
+    console.warn('Warning: Could not upload to Algolia:', error.message);
     if (error.response) {
-      console.error('Response:', error.response);
+      console.warn('Response:', error.response);
     }
-    console.error('\nMake sure you have:');
-    console.error('1. Installed algoliasearch: pnpm add algoliasearch');
-    console.error('2. Set correct ALGOLIA_APP_ID and ALGOLIA_ADMIN_KEY in .env');
-    console.error('3. The Admin API key has write permissions');
-    console.error('4. The index name is correct');
-    process.exit(1);
+    console.warn('\nTo enable Algolia search index:');
+    console.warn('1. Install algoliasearch: pnpm add algoliasearch');
+    console.warn('2. Set correct ALGOLIA_APP_ID and ALGOLIA_ADMIN_KEY in .env');
+    console.warn('3. The Admin API key must have write permissions');
+    console.warn('4. Build continues without failing (index can be uploaded later).');
+    // Do not exit(1) so the build chain (lint, build, test) can complete without Algolia credentials
   }
 }
 

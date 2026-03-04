@@ -27,6 +27,9 @@
   {#snippet trigger()} Open popover {/snippet}
   <p>Content here.</p>
 </Popover>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/popover">Astro</a> · <a href="/docs/vanilla/components/popover">Vanilla</a> · <a href="/docs/vue/components/popover">Vue</a> · <a href="/docs/react/components/popover">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

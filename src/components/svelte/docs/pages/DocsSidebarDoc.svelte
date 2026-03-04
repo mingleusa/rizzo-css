@@ -27,5 +27,6 @@
     language="svelte"
   />
   <p><a href="/docs/components/docs-sidebar">Full Astro Docs Sidebar documentation</a> — props, BEM classes, and layout (toggle + overlay on mobile).</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/docs-sidebar">Astro</a> · <a href="/docs/vanilla/components/docs-sidebar">Vanilla</a> · <a href="/docs/vue/components/docs-sidebar">Vue</a> · <a href="/docs/react/components/docs-sidebar">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

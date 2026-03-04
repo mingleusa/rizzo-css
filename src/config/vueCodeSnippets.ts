@@ -111,13 +111,12 @@ import Button from '@/components/rizzo/Button.vue';
 </script>
 
 <template>
-  <Empty
-    title="No results"
-    description="Try adjusting your search."
-  >
-    <template #action>
+  <Empty>
+    <h3 class="empty__title">No results</h3>
+    <p class="empty__description">Try adjusting your search.</p>
+    <div class="empty__action">
       <Button variant="primary">Clear filters</Button>
-    </template>
+    </div>
   </Empty>
 </template>`,
 
@@ -126,9 +125,12 @@ import AspectRatio from '@/components/rizzo/AspectRatio.vue';
 </script>
 
 <template>
-  <AspectRatio ratio="16/9">
-    <img src="/video-poster.jpg" alt="" />
-  </AspectRatio>
+  <!-- Set ratio via CSS vars on a wrapper; component provides .aspect-ratio -->
+  <div style="--aspect-ratio: 16/9; --aspect-ratio-padding: 56.25%;">
+    <AspectRatio>
+      <img src="/video-poster.jpg" alt="" />
+    </AspectRatio>
+  </div>
 </template>`,
 
   skeleton: `<script setup>
@@ -137,8 +139,8 @@ import Skeleton from '@/components/rizzo/Skeleton.vue';
 
 <template>
   <Skeleton />
-  <Skeleton variant="text" />
-  <Skeleton variant="circle" />
+  <Skeleton class="skeleton--text" />
+  <Skeleton class="skeleton--circle" />
 </template>`,
 
   alert: `<script setup>
@@ -353,6 +355,14 @@ import Calendar from '@/components/rizzo/Calendar.vue';
   <Calendar label="Choose a date" @select="(date) => console.log(date)" />
 </template>`,
 
+  'range-calendar': `<script setup>
+import RangeCalendar from '@/components/rizzo/RangeCalendar.vue';
+</script>
+
+<template>
+  <RangeCalendar label="Choose date range" @range-select="({ start, end }) => console.log(start, end)" />
+</template>`,
+
   carousel: `<script setup>
 import Carousel from '@/components/rizzo/Carousel.vue';
 </script>
@@ -538,8 +548,25 @@ import Search from '@/components/rizzo/Search.vue';
 </script>
 
 <template>
-  <Navbar site-name="My App">
-    <Search id="nav-search" />
+  <Navbar>
+    <div class="navbar__container">
+      <div class="navbar__brand">
+        <a href="/" class="navbar__brand-link">My App</a>
+      </div>
+      <div class="navbar__actions-desktop">
+        <Search id="nav-search" />
+        <button type="button" class="navbar__settings-btn" aria-label="Open settings">
+          <span class="navbar__settings-label">Settings</span>
+        </button>
+      </div>
+      <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+      </button>
+      <div class="navbar__menu" role="menu" aria-hidden="true">
+        <a href="/docs" class="navbar__link">Docs</a>
+        <a href="/blocks" class="navbar__link">Blocks</a>
+      </div>
+    </div>
   </Navbar>
 </template>`,
 
@@ -604,25 +631,45 @@ import DocsSidebar from '@/components/rizzo/DocsSidebar.vue';
 </script>
 
 <template>
-  <DocsSidebar
-    :links="[
-      { href: '/docs', label: 'Overview' },
-      { href: '/docs/components', label: 'Components', active: true },
-    ]"
-  />
+  <DocsSidebar>
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Introduction</h2>
+      <ul class="docs-sidebar__list">
+        <li class="docs-sidebar__item"><a href="/docs/vue/overview" class="docs-sidebar__link">Overview</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/vue/showcase" class="docs-sidebar__link">Showcase</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/vue/getting-started" class="docs-sidebar__link">Getting Started</a></li>
+      </ul>
+    </div>
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Foundations</h2>
+      <ul class="docs-sidebar__list">...</ul>
+    </div>
+    <div class="docs-sidebar__group">
+      <h2 class="docs-sidebar__group-label">Components</h2>
+      <ul class="docs-sidebar__list">...</ul>
+    </div>
+  </DocsSidebar>
 </template>`,
 
   dashboard: `<script setup>
 import Dashboard from '@/components/rizzo/Dashboard.vue';
-import DocsSidebar from '@/components/rizzo/DocsSidebar.vue';
 </script>
 
 <template>
   <Dashboard>
-    <template #sidebar>
-      <DocsSidebar :links="[]" />
+    <template #default>
+      <aside class="dashboard__sidebar" aria-label="Dashboard navigation">
+        <nav class="dashboard__nav">
+          <a href="/dashboard" class="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
+          <a href="/items" class="dashboard__nav-link">Items</a>
+          <a href="/settings" class="dashboard__nav-link">Settings</a>
+        </nav>
+      </aside>
+      <main class="dashboard__main">
+        <h3>Main content</h3>
+        <p>Put your page content here. Combine with Card, Table, and other Rizzo components.</p>
+      </main>
     </template>
-    <p>Main content.</p>
   </Dashboard>
 </template>`,
 

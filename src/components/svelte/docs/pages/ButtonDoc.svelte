@@ -46,6 +46,9 @@
       <Button variant="primary" disabled>Disabled primary</Button>
     </div>
   </div>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/button">Astro</a> · <a href="/docs/vanilla/components/button">Vanilla</a> · <a href="/docs/vue/components/button">Vue</a> · <a href="/docs/react/components/button">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

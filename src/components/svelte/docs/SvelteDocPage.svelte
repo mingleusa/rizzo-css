@@ -7,6 +7,8 @@
   import BackToTopDoc from './pages/BackToTopDoc.svelte';
   import BadgeDoc from './pages/BadgeDoc.svelte';
   import CardsDoc from './pages/CardsDoc.svelte';
+  import CalendarDoc from './pages/CalendarDoc.svelte';
+  import CarouselDoc from './pages/CarouselDoc.svelte';
   import DividerDoc from './pages/DividerDoc.svelte';
   import SpinnerDoc from './pages/SpinnerDoc.svelte';
   import ProgressBarDoc from './pages/ProgressBarDoc.svelte';
@@ -53,6 +55,7 @@
   import HoverCardDoc from './pages/HoverCardDoc.svelte';
   import ContextMenuDoc from './pages/ContextMenuDoc.svelte';
   import ResizableDoc from './pages/ResizableDoc.svelte';
+  import RangeCalendarDoc from './pages/RangeCalendarDoc.svelte';
 
   interface Props {
     /** Slug from URL (e.g. "components/badge"). Pass string so SSR and client hydrate the same. */
@@ -103,12 +106,18 @@
     <BadgeDoc />
   {:else if first === 'components' && second === 'cards'}
     <CardsDoc />
+  {:else if first === 'components' && second === 'calendar'}
+    <CalendarDoc />
+  {:else if first === 'components' && second === 'carousel'}
+    <CarouselDoc />
   {:else if first === 'components' && second === 'divider'}
     <DividerDoc />
   {:else if first === 'components' && second === 'spinner'}
     <SpinnerDoc />
   {:else if first === 'components' && second === 'progress-bar'}
     <ProgressBarDoc />
+  {:else if first === 'components' && second === 'range-calendar'}
+    <RangeCalendarDoc />
   {:else if first === 'components' && second === 'avatar'}
     <AvatarDoc />
   {:else if first === 'components' && second === 'alert'}

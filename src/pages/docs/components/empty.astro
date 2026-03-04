@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Empty from '../../../components/Empty.astro';
+import Empty from '../../../components/astro/Empty.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -25,7 +25,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Empty from '../components/rizzo/Empty.astro';
+import Empty from '../components/astro/Empty.astro';
 ---
 
 <Empty title="No items yet" description="Get started by adding your first item.">
@@ -47,5 +47,6 @@ import Empty from '../components/rizzo/Empty.astro';
   <div class="empty__action"><button type="button" class="btn btn-primary">Add item</button></div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/empty">Vanilla</a> · <a href="/docs/svelte/components/empty">Svelte</a> · <a href="/docs/vue/components/empty">Vue</a> · <a href="/docs/react/components/empty">React</a></p>
 	</section>
 </DocsLayout>

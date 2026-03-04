@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Sheet from '../../../components/Sheet.astro';
+import Sheet from '../../../components/astro/Sheet.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -26,7 +26,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Sheet from '../components/rizzo/Sheet.astro';
+import Sheet from '../components/astro/Sheet.astro';
 ---
 
 <Sheet id="sheet-demo" title="Side panel" side="right">
@@ -56,5 +56,6 @@ import Sheet from '../components/rizzo/Sheet.astro';
 </div>
 <button type="button" class="btn" onclick="window.openSheet_sheet_demo()">Open sheet</button>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/sheet">Vanilla</a> · <a href="/docs/svelte/components/sheet">Svelte</a> · <a href="/docs/vue/components/sheet">Vue</a> · <a href="/docs/react/components/sheet">React</a></p>
 	</section>
 </DocsLayout>

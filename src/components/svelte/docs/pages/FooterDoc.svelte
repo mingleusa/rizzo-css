@@ -21,11 +21,10 @@
   <div class="example">
     <div class="example-title">Live example</div>
     <Footer
-      siteName="Rizzo CSS"
+      siteName="Rizzo"
       links={[
-        { href: '/docs/getting-started', label: 'Getting Started' },
-        { href: '/docs/components', label: 'Components' },
-        { href: '/docs/theming', label: 'Theming' },
+        { href: '/docs', label: 'Docs' },
+        { href: '/', label: 'Home' },
       ]}
     />
   </div>
@@ -49,6 +48,9 @@
 <Footer siteName="My Site" year={2025} />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/footer">Astro</a> · <a href="/docs/vanilla/components/footer">Vanilla</a> · <a href="/docs/vue/components/footer">Vue</a> · <a href="/docs/react/components/footer">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

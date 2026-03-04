@@ -1,0 +1,35 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import RangeCalendarComponent from '../../../../components/astro/RangeCalendar.astro';
+---
+
+<DocsLayout title="Range Calendar — Vanilla" description="Date range selection with vanilla HTML. Same BEM as Calendar with calendar--range; script builds grid and handles range (start/end).">
+  <section>
+    <h2>Range Calendar</h2>
+    <p>Calendar for selecting a date range. Two clicks set start and end (order normalized). Uses <code>calendar calendar--range</code> and day modifiers <code>calendar__day--range-start</code>, <code>calendar__day--range-end</code>, <code>calendar__day--in-range</code>. JavaScript is required; listen for <code>range-calendar-select</code> (<code>detail.start</code>, <code>detail.end</code> as YYYY-MM-DD).</p>
+    <AddComponentTabs componentName="RangeCalendar" />
+
+    <h3>Live example (Astro component; same BEM)</h3>
+    <div class="example">
+      <div class="example-title">Range Calendar</div>
+      <RangeCalendarComponent label="Choose date range" />
+    </div>
+
+    <h3>Markup</h3>
+    <p>Use <code>data-range-calendar</code>, <code>data-range-calendar-body</code>, <code>data-range-calendar-prev</code>, <code>data-range-calendar-next</code>. Your script should populate the body and handle clicks to set start/end and dispatch <code>range-calendar-select</code>. See the Astro RangeCalendar component for the full logic.</p>
+    <CodeBlock code={`<div class="calendar calendar--range" role="group" aria-label="Choose date range" data-range-calendar>
+  <div class="calendar__header">
+    <button type="button" class="calendar__prev" aria-label="Previous month" data-range-calendar-prev>...</button>
+    <div class="calendar__month" aria-live="polite" data-range-calendar-month-label>—</div>
+    <button type="button" class="calendar__next" aria-label="Next month" data-range-calendar-next>...</button>
+  </div>
+  <div class="calendar__grid" role="grid" data-range-calendar-grid>
+    <div class="calendar__row" role="row"><!-- weekdays --></div>
+    <div class="calendar__body" data-range-calendar-body role="presentation"></div>
+  </div>
+</div>`} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/range-calendar">Astro</a> · <a href="/docs/svelte/components/range-calendar">Svelte</a> · <a href="/docs/vue/components/range-calendar">Vue</a> · <a href="/docs/react/components/range-calendar">React</a></p>
+  </section>
+</DocsLayout>

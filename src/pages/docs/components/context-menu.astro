@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ContextMenu from '../../../components/ContextMenu.astro';
+import ContextMenu from '../../../components/astro/ContextMenu.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -30,7 +30,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import ContextMenu from '../components/rizzo/ContextMenu.astro';
+import ContextMenu from '../components/astro/ContextMenu.astro';
 ---
 
 <ContextMenu>
@@ -55,5 +55,6 @@ import ContextMenu from '../components/rizzo/ContextMenu.astro';
 			vue={vueCode}
 			vanilla={`<!-- Rizzo CSS + context-menu script from package/vanilla docs. data-context-menu-trigger on trigger; menu uses context-menu, context-menu__item, context-menu__separator. -->`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/context-menu">Vanilla</a> · <a href="/docs/svelte/components/context-menu">Svelte</a> · <a href="/docs/vue/components/context-menu">Vue</a> · <a href="/docs/react/components/context-menu">React</a></p>
 	</section>
 </DocsLayout>

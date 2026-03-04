@@ -35,6 +35,9 @@
 <Pagination currentPage={1} totalPages={5} showFirstLast={false} />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/pagination">Astro</a> · <a href="/docs/vanilla/components/pagination">Vanilla</a> · <a href="/docs/vue/components/pagination">Vue</a> · <a href="/docs/react/components/pagination">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ProgressBarComponent from '../../../components/ProgressBar.astro';
+import ProgressBarComponent from '../../../components/astro/ProgressBar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -36,7 +36,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		</div>
 		<FrameworkCodeTabs
 			astro={`---
-import ProgressBar from '../components/rizzo/ProgressBar.astro';
+import ProgressBar from '../components/astro/ProgressBar.astro';
 ---
 
 <ProgressBar value={60} max={100} />`}
@@ -107,6 +107,6 @@ import ProgressBar from '../components/rizzo/ProgressBar.astro';
 			<li><strong>Sizes</strong> - sm, md, lg bar heights</li>
 			<li><strong>Reduced motion</strong> - Indeterminate animation disabled when user prefers reduced motion</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/progress-bar">Svelte</a> · <a href="/docs/react/components/progress-bar">React</a> · <a href="/docs/vue/components/progress-bar">Vue</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/progress-bar">Vanilla</a> · <a href="/docs/svelte/components/progress-bar">Svelte</a> · <a href="/docs/vue/components/progress-bar">Vue</a> · <a href="/docs/react/components/progress-bar">React</a></p>
 	</section>
 </DocsLayout>

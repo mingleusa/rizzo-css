@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Label from '../../../components/Label.astro';
-import Input from '../../../components/Input.astro';
+import Label from '../../../components/astro/Label.astro';
+import Input from '../../../components/astro/Input.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -37,8 +37,8 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Label from '../components/rizzo/Label.astro';
-import Input from '../components/rizzo/Input.astro';
+import Label from '../components/astro/Label.astro';
+import Input from '../components/astro/Input.astro';
 ---
 
 <Label for="email" required>Email</Label>
@@ -54,5 +54,6 @@ import Input from '../components/rizzo/Input.astro';
 			vanilla={`<label class="label label--required" for="email">Email</label>
 <input id="email" type="email" class="form-input" />`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/label">Vanilla</a> · <a href="/docs/svelte/components/label">Svelte</a> · <a href="/docs/vue/components/label">Vue</a> · <a href="/docs/react/components/label">React</a></p>
 	</section>
 </DocsLayout>

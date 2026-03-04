@@ -1,12 +1,18 @@
 <script lang="ts">
   import CodeBlock from '../CodeBlock.svelte';
   import AddComponentTabs from '../AddComponentTabs.svelte';
+  import Navbar from '../../Navbar.svelte';
 </script>
 
 <section>
   <h2>Navbar component</h2>
   <p>A responsive, accessible navigation bar with dropdown menus, search, and settings. The docs site uses the <strong>Astro</strong> Navbar in the layout. In a Svelte app, use the same BEM classes and HTML structure; wire open/close and keyboard behavior with Svelte state and event handlers.</p>
   <AddComponentTabs componentName="Navbar" />
+
+  <h3>Live example</h3>
+  <div class="navbar-demo-wrapper">
+    <Navbar siteName="Rizzo" />
+  </div>
 
   <h3>Features</h3>
   <ul>
@@ -77,5 +83,15 @@
   </ul>
 
   <p><a href="/docs/components/navbar">Full Astro Navbar documentation</a> — structure, dropdown layout, and the inline script you can port to Svelte for toggle, dropdown positioning, and keyboard handling.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/navbar">Astro</a> · <a href="/docs/vanilla/components/navbar">Vanilla</a> · <a href="/docs/vue/components/navbar">Vue</a> · <a href="/docs/react/components/navbar">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
+
+<style>
+  .navbar-demo-wrapper {
+    margin: var(--spacing-4) 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+</style>

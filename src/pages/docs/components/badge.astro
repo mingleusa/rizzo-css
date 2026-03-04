@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Badge from '../../../components/Badge.astro';
+import Badge from '../../../components/astro/Badge.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -80,7 +80,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Badge from '../components/rizzo/Badge.astro';
+import Badge from '../components/astro/Badge.astro';
 ---
 
 <Badge variant="primary">New</Badge>
@@ -130,6 +130,6 @@ import Badge from '../components/rizzo/Badge.astro';
 		<p>Add the <code>badge--pill</code> class or <code>pill</code> prop to create fully rounded badges:</p>
 		<CodeBlock code={`<Badge variant="primary" pill>Pill Badge</Badge>
 <span class="badge badge--primary badge--pill">Pill Badge</span>`} language="astro" />
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/badge">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/badge">Vanilla</a> · <a href="/docs/svelte/components/badge">Svelte</a> · <a href="/docs/vue/components/badge">Vue</a> · <a href="/docs/react/components/badge">React</a></p>
 	</section>
 </DocsLayout>

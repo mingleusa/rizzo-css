@@ -10,7 +10,7 @@
   <AddComponentTabs componentName="Empty" />
   <div class="example">
     <div class="example-title">Live example</div>
-    <Empty title="No items yet" description="Get started by adding your first item.">
+    <Empty title="No items yet" description="Get started by adding your first item. You can edit or remove it anytime.">
       {#snippet action()}
         <button type="button" class="btn btn-primary">Add item</button>
       {/snippet}
@@ -20,11 +20,14 @@
   import Empty from './components/svelte/Empty.svelte';
 </script>
 
-<Empty title="No items yet" description="Get started by adding your first item.">
+<Empty title="No items yet" description="Get started by adding your first item. You can edit or remove it anytime.">
   {#snippet action()}
     <button type="button" class="btn btn-primary">Add item</button>
   {/snippet}
 </Empty>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/empty">Astro</a> · <a href="/docs/vanilla/components/empty">Vanilla</a> · <a href="/docs/vue/components/empty">Vue</a> · <a href="/docs/react/components/empty">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -219,16 +219,22 @@ const [value, setValue] = useState(50);
 
   'copy-to-clipboard': `import { CopyToClipboard } from './components/react';
 
-<CopyToClipboard value="npm install rizzo-css" label="Copy" />`,
+<CopyToClipboard id="copy-example-email" value="example@email.com" format="Email" />`,
 
   tooltip: `import { Tooltip } from './components/react';
 
-<button type="button" aria-describedby="tt-1">Hover me</button>
-<Tooltip id="tt-1" text="Tooltip text" position="top" />`,
+<div className="tooltip-wrapper" aria-describedby="tooltip-basic">
+  <button type="button" className="btn btn-primary">Hover me</button>
+  <Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
+</div>`,
 
   calendar: `import { Calendar } from './components/react';
 
 <Calendar label="Choose a date" onSelect={(date) => console.log(date)} />`,
+
+  'range-calendar': `import { RangeCalendar } from './components/react';
+
+<RangeCalendar label="Choose date range" onRangeSelect={(start, end) => console.log(start, end)} />`,
 
   carousel: `import { Carousel } from './components/react';
 
@@ -341,10 +347,13 @@ const [open, setOpen] = useState(false);
   <div className="dropdown__item" role="menuitem">Paste</div>
 </ContextMenu>`,
 
-  navbar: `import { Navbar } from './components/react';
+  navbar: `import { Navbar, Search } from './components/react';
 
 <Navbar siteName="My App">
-  <Search id="nav-search" />
+  <Search id="nav-search" placeholder="Search…" />
+  <button type="button" className="navbar__settings-btn" aria-label="Open settings">
+    <span className="navbar__settings-label">Settings</span>
+  </button>
 </Navbar>`,
 
   search: `import { Search } from './components/react';
@@ -381,15 +390,27 @@ const [open, setOpen] = useState(false);
 
   'docs-sidebar': `import { DocsSidebar } from './components/react';
 
-<DocsSidebar links={[
-  { href: '/docs', label: 'Overview' },
-  { href: '/docs/components', label: 'Components', active: true },
-]} />`,
+<DocsSidebar
+  pathPrefix="/docs/react"
+  currentPath={pathname}
+/>`,
 
-  dashboard: `import { Dashboard, DocsSidebar } from './components/react';
+  dashboard: `import { Dashboard } from './components/react';
 
-<Dashboard sidebar={<DocsSidebar links={[...]} />}>
-  <p>Main content.</p>
+<Dashboard
+  sidebarLabel="Dashboard navigation"
+  sidebar={
+    <nav className="dashboard__nav">
+      <a href="/dashboard" className="dashboard__nav-link dashboard__nav-link--active" aria-current="page">Dashboard</a>
+      <a href="/items" className="dashboard__nav-link">Items</a>
+      <a href="/settings" className="dashboard__nav-link">Settings</a>
+    </nav>
+  }
+>
+  <div>
+    <h3>Main content</h3>
+    <p>Put your page content here. Combine with Card, Table, and other Rizzo components.</p>
+  </div>
 </Dashboard>`,
 
   icons: `import { Icons } from './components/react';

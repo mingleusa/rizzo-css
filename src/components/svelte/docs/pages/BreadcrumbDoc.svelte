@@ -17,7 +17,8 @@
         items={[
           { label: 'Home', href: '/' },
           { label: 'Docs', href: '/docs' },
-          { label: 'Svelte' },
+          { label: 'Components', href: '/docs/components' },
+          { label: 'Breadcrumb' },
         ]}
       />
       <Breadcrumb
@@ -46,6 +47,9 @@
 <Breadcrumb items={items} separator="slash" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/breadcrumb">Astro</a> · <a href="/docs/vanilla/components/breadcrumb">Vanilla</a> · <a href="/docs/vue/components/breadcrumb">Vue</a> · <a href="/docs/react/components/breadcrumb">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

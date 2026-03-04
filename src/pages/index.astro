@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import ThemeSwitcher from '../components/ThemeSwitcher.astro';
+import ThemeSwitcher from '../components/astro/ThemeSwitcher.astro';
 import PackageInstallTabs from '../components/PackageInstallTabs.astro';
 import CliCommandTabs from '../components/CliCommandTabs.astro';
 ---
@@ -34,10 +34,22 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 					<div class="home__example">
 						<h3>Buttons</h3>
 						<div class="home__button-group">
-							<button class="btn">Default</button>
-							<button class="btn btn-primary">Primary</button>
-							<button class="btn btn-outline">Outline</button>
+							<button type="button" class="btn">Default</button>
+							<button type="button" class="btn btn-primary">Primary</button>
+							<button type="button" class="btn btn-secondary">Secondary</button>
+							<button type="button" class="btn btn-success">Success</button>
+							<button type="button" class="btn btn-warning">Warning</button>
+							<button type="button" class="btn btn-error">Error</button>
+							<button type="button" class="btn btn-info">Info</button>
+							<button type="button" class="btn btn-outline">Outline</button>
+							<button type="button" class="btn btn-ghost">Ghost</button>
 						</div>
+						<p class="home__button-sizes">
+							<span class="home__button-sizes-label">Sizes:</span>
+							<button type="button" class="btn btn-primary btn--sm">Small</button>
+							<button type="button" class="btn btn-primary">Default</button>
+							<button type="button" class="btn btn-primary btn--lg">Large</button>
+						</p>
 					</div>
 					<div class="home__example">
 						<h3>Theme</h3>

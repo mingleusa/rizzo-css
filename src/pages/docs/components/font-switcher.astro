@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import FontSwitcher from '../../../components/FontSwitcher.astro';
+import FontSwitcher from '../../../components/astro/FontSwitcher.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -26,7 +26,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<p>FontSwitcher script runs after DOM ready and initializes every <code>[data-font-switcher]</code> on the page. Use it inside Settings or standalone.</p>
 		<FrameworkCodeTabs
 			astro={`---
-import FontSwitcher from '../components/rizzo/FontSwitcher.astro';
+import FontSwitcher from '../components/astro/FontSwitcher.astro';
 ---
 
 <FontSwitcher />
@@ -69,6 +69,6 @@ import FontSwitcher from '../components/rizzo/FontSwitcher.astro';
 
 		<h3>Font pairs</h3>
 		<p>Font pairs are defined in config (<code>FONT_PAIRS</code>, <code>FONT_PAIR_DEFAULT</code>). When you add Settings via the CLI, it copies <code>fonts.ts</code> (Astro: <code>src/components/config/fonts.ts</code>; Svelte: <code>src/lib/config/fonts.ts</code>). Each pair sets <code>--font-family</code> (sans) and <code>--font-family-mono</code> (mono) on the document. The layout flash script applies the stored pair on load before the component script runs.</p>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/font-switcher">Svelte</a> (live Svelte component) · <a href="/docs/vanilla/components/font-switcher">Vanilla</a> (live example + copyable HTML).</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/font-switcher">Vanilla</a> · <a href="/docs/svelte/components/font-switcher">Svelte</a> · <a href="/docs/vue/components/font-switcher">Vue</a> · <a href="/docs/react/components/font-switcher">React</a></p>
 	</section>
 </DocsLayout>

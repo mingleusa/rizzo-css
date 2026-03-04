@@ -25,4 +25,7 @@
 <CopyToClipboard value={code} format="code" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/copy-to-clipboard">Astro</a> · <a href="/docs/vanilla/components/copy-to-clipboard">Vanilla</a> · <a href="/docs/vue/components/copy-to-clipboard">Vue</a> · <a href="/docs/react/components/copy-to-clipboard">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

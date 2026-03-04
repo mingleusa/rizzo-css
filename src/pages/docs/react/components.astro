@@ -1,7 +1,14 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Card from '../../../components/Card.astro';
+import Card from '../../../components/astro/Card.astro';
+import { getCategoriesWithItems } from '../../../config/componentCategories';
 import { REACT_COMPONENT_META } from '../../../config/reactComponents';
+
+const metaBySlug = Object.fromEntries(REACT_COMPONENT_META.map((m) => [m.slug, m]));
+const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs/react', (slug) => {
+  const m = metaBySlug[slug];
+  return m ? { title: m.title, description: m.description } : { title: slug, description: '' };
+});
 ---
 
 <DocsLayout title="Components — React" description="React components using Rizzo CSS. Same BEM and behavior as Astro and Svelte.">
@@ -11,24 +18,29 @@ import { REACT_COMPONENT_META } from '../../../config/reactComponents';
       All {REACT_COMPONENT_META.length} components have full React implementations with live demos and React/TSX code blocks. Same BEM and behavior as Astro and Svelte.
     </p>
     <p class="docs-components-intro__nav">
-      Quick jump: <a href="/docs/components">Astro</a> · <a href="/docs/svelte/components">Svelte</a> · <a href="/docs/vanilla/components">Vanilla</a> · <a href="/docs/react/components">React</a>
+      Quick jump: <a href="/docs/components">Astro</a> · <a href="/docs/svelte/components">Svelte</a> · <a href="/docs/react/components">React</a> · <a href="/docs/vue/components">Vue</a> · <a href="/docs/vanilla/components">Vanilla</a>
     </p>
   </section>
 
   <section>
-    <h2 class="docs-components-browse-title">All components</h2>
-    <div class="docs-component-grid">
-      {REACT_COMPONENT_META.map((item) => (
-        <a href={`/docs/react/components/${item.slug}`} class="component-card-link">
-          <Card variant="elevated">
-            <div class="card__body">
-              <h3 style="margin: 0 0 var(--spacing-2) 0;">{item.title}</h3>
-              <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">{item.description}</p>
-            </div>
-          </Card>
-        </a>
-      ))}
-    </div>
+    <h2 class="docs-components-browse-title">Browse by category</h2>
+    {COMPONENT_CATEGORIES.map((cat) => (
+      <div class="docs-component-category" id={cat.id}>
+        <h3 class="docs-component-category__title">{cat.label}</h3>
+        <div class="docs-component-grid">
+          {cat.items.map((item) => (
+            <a href={item.href} class="component-card-link">
+              <Card variant="elevated">
+                <div class="card__body">
+                  <h3 style="margin: 0 0 var(--spacing-2) 0;">{item.title}</h3>
+                  <p style="margin: 0; color: var(--text-dim); font-size: var(--font-size-sm);">{item.description}</p>
+                </div>
+              </Card>
+            </a>
+          ))}
+        </div>
+      </div>
+    ))}
     <p style="margin-top: var(--spacing-4); color: var(--text-dim); font-size: var(--font-size-sm);">
       Use the framework switcher above to view the same components in Astro, Svelte, React, Vue, or Vanilla.
     </p>
@@ -41,10 +53,14 @@ import { REACT_COMPONENT_META } from '../../../config/reactComponents';
   .docs-components-intro__tagline { font-size: var(--text-lg); color: var(--text-dim); margin: 0 0 var(--spacing-2); line-height: var(--line-height-relaxed); }
   .docs-components-intro__nav { font-size: var(--font-size-sm); margin: 0; }
   .docs-components-browse-title { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--spacing-6); color: var(--text); }
+  .docs-component-category { margin-bottom: var(--spacing-10); }
+  .docs-component-category:last-of-type { margin-bottom: 0; }
+  .docs-component-category__title { font-size: var(--text-lg); font-weight: 600; margin: 0 0 var(--spacing-4); color: var(--text); }
   .docs-component-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr));
     gap: var(--spacing-6);
+    margin: 0;
   }
   .component-card-link { text-decoration: none; color: inherit; display: flex; flex-direction: column; height: 100%; transition: transform var(--transition-base); }
   .component-card-link :global(.card) { flex: 1; display: flex; flex-direction: column; min-height: 0; }

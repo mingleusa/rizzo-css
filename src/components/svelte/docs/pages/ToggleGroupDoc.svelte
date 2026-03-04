@@ -11,22 +11,24 @@
   <AddComponentTabs componentName="ToggleGroup" />
   <div class="example">
     <div class="example-title">Live example</div>
-    <ToggleGroup>
-      <Toggle>Left</Toggle>
-      <Toggle pressed>Center</Toggle>
-      <Toggle>Right</Toggle>
+    <ToggleGroup type="single">
+      <Toggle ariaLabel="Left">Left</Toggle>
+      <Toggle pressed ariaLabel="Center">Center</Toggle>
+      <Toggle ariaLabel="Right">Right</Toggle>
     </ToggleGroup>
   </div>
   <CodeBlock code={`<script>
-  import ToggleGroup from './components/svelte/ToggleGroup.svelte';
-  import Toggle from './components/svelte/Toggle.svelte';
+  import { ToggleGroup, Toggle } from '$lib/rizzo';
 </script>
 
-<ToggleGroup>
-  <Toggle>Left</Toggle>
-  <Toggle pressed>Center</Toggle>
-  <Toggle>Right</Toggle>
+<ToggleGroup type="single">
+  <Toggle ariaLabel="Left">Left</Toggle>
+  <Toggle pressed ariaLabel="Center">Center</Toggle>
+  <Toggle ariaLabel="Right">Right</Toggle>
 </ToggleGroup>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/toggle-group">Astro</a> · <a href="/docs/vanilla/components/toggle-group">Vanilla</a> · <a href="/docs/vue/components/toggle-group">Vue</a> · <a href="/docs/react/components/toggle-group">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

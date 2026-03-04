@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import SoundEffects from '../../../components/SoundEffects.astro';
+import SoundEffects from '../../../components/astro/SoundEffects.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -26,7 +26,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<p>Use the component standalone or inside Settings. The component script initializes every <code>[data-sound-effects]</code> checkbox (load/save <code>localStorage.soundEffects</code>).</p>
 		<FrameworkCodeTabs
 			astro={`---
-import SoundEffects from '../components/rizzo/SoundEffects.astro';
+import SoundEffects from '../components/astro/SoundEffects.astro';
 ---
 
 <SoundEffects />
@@ -50,6 +50,6 @@ import SoundEffects from '../components/rizzo/SoundEffects.astro';
 			<li>The click sound is played by a <strong>global script</strong> in the layout that listens for primary clicks on buttons, links, tabs, options, and other interactive elements (throttled). The script loads <code>/assets/sfx/click.mp3</code> then <code>/assets/sfx/click.wav</code> (add to <code>public/assets/sfx/</code>); if neither is found, a Web Audio tone is used. Include that script (see Layout.astro) for the sound to play when the user has enabled it.</li>
 		</ul>
 
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/vanilla/components/sound-effects">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/sound-effects">Vanilla</a> · <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/vue/components/sound-effects">Vue</a> · <a href="/docs/react/components/sound-effects">React</a></p>
 	</section>
 </DocsLayout>

@@ -2,8 +2,8 @@
 import Layout from './Layout.astro';
 import FrameworkSwitcher from '../components/FrameworkSwitcher.astro';
 import DocsSidebar from '../components/DocsSidebar.astro';
-import BackToTop from '../components/BackToTop.astro';
-import { getFrameworkFromPath } from '../config/frameworks';
+import BackToTop from '../components/astro/BackToTop.astro';
+import { getFrameworkFromPath, shouldShowFrameworkSwitcher, FRAMEWORKS } from '../config/frameworks';
 
 interface Props {
 	title: string;
@@ -14,11 +14,17 @@ interface Props {
 const { title, description, class: className = '' } = Astro.props;
 const docsClass = className ? `docs ${className}` : 'docs';
 const currentPath = Astro.url.pathname;
-const { framework } = getFrameworkFromPath(currentPath);
+const { framework, canonicalPath } = getFrameworkFromPath(currentPath);
+const showFrameworkSwitcher = shouldShowFrameworkSwitcher(currentPath);
 ---
 
 <Layout title={`${title} — Rizzo CSS`} description={description}>
-	<div class={docsClass} data-docs>
+	<div
+		class={docsClass}
+		data-docs
+		data-canonical-path={showFrameworkSwitcher ? canonicalPath : undefined}
+		data-frameworks={showFrameworkSwitcher ? JSON.stringify(FRAMEWORKS.map((f) => ({ id: f.id, pathPrefix: f.pathPrefix }))) : undefined}
+	>
 		<script is:inline>
 			(function(){var w=typeof window!=='undefined'?window.innerWidth:1025;if(w<=1024){document.documentElement.classList.add('docs-sidebar-mobile');}else{document.documentElement.classList.add('docs-sidebar-desktop');}})();
 		</script>
@@ -225,7 +231,7 @@ const { framework } = getFrameworkFromPath(currentPath);
 		background-color: var(--background-alt);
 	}
 	
-  .docs__content :global(a) {
+  .docs__content :global(a:not(.docs-sidebar__link):not(.docs-sidebar__sublink):not(.dashboard__nav-link)) {
 		color: var(--accent-fg);
 		text-decoration: underline;
 		text-underline-offset: 0.15em;

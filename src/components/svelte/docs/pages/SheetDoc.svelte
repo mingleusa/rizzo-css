@@ -25,6 +25,9 @@
   Content here.
 </Sheet>
 <button type="button" class="btn" onclick={() => (open = true)}>Open</button>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/sheet">Astro</a> · <a href="/docs/vanilla/components/sheet">Vanilla</a> · <a href="/docs/vue/components/sheet">Vue</a> · <a href="/docs/react/components/sheet">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

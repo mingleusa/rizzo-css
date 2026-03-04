@@ -13,6 +13,8 @@ interface Props {
   tabs: Tab[];
   id?: string;
   defaultTab?: string;
+  /** When set, selected tab id is stored and restored so framework tabs stay in sync across pages */
+  syncStorageKey?: string;
   variant?: 'default' | 'pills' | 'underline';
   class?: string;
 }
@@ -21,17 +23,19 @@ const {
   tabs,
   id,
   defaultTab,
+  syncStorageKey,
   variant = 'default',
   class: className = '',
 } = Astro.props;
 
 const tabsId = id || `tabs-${Math.random().toString(36).substr(2, 9)}`;
-const activeTabId = defaultTab || tabs[0]?.id || '';
+const serverDefaultTab = defaultTab || tabs[0]?.id || '';
+const activeTabId = serverDefaultTab;
 const variantClass = variant !== 'default' ? `tabs--${variant}` : '';
 const classes = `tabs ${variantClass} ${className}`.trim();
 ---
 
-<div class={classes} data-tabs={tabsId}>
+<div class={classes} data-tabs={tabsId} data-sync-storage-key={syncStorageKey || undefined}>
   <div
     class="tabs__list"
     role="tablist"
@@ -91,7 +95,7 @@ const classes = `tabs ${variantClass} ${className}`.trim();
   </div>
 </div>
 
-<script define:vars={{ tabsId, activeTabId }}>
+<script define:vars={{ tabsId, activeTabId, syncStorageKey }}>
   (function initTabs() {
     const init = () => {
       const tabsContainer = document.querySelector(`[data-tabs="${tabsId}"]`);
@@ -110,19 +114,32 @@ const classes = `tabs ${variantClass} ${className}`.trim();
         return;
       }
 
-      // Set initial active state
-      let activeIndex = Array.from(tabButtons).findIndex(
-        (btn) => btn.getAttribute('data-tab-id') === activeTabId
-      );
+      const tabIds = Array.from(tabButtons).map((btn) => btn.getAttribute('data-tab-id')).filter(Boolean);
+      let initialTabId = activeTabId;
+      if (syncStorageKey && typeof sessionStorage !== 'undefined') {
+        try {
+          const stored = sessionStorage.getItem(syncStorageKey);
+          if (stored && tabIds.indexOf(stored) !== -1) {
+            initialTabId = stored;
+          }
+        } catch (_) {}
+      }
+
+      let activeIndex = tabIds.indexOf(initialTabId);
       if (activeIndex === -1) activeIndex = 0;
 
       const activateTab = (index) => {
-        // Validate index
         if (index < 0 || index >= tabButtons.length) return;
 
         const targetButton = tabButtons[index];
         const targetTabId = targetButton.getAttribute('data-tab-id');
         if (!targetTabId) return;
+
+        if (syncStorageKey && typeof sessionStorage !== 'undefined') {
+          try {
+            sessionStorage.setItem(syncStorageKey, targetTabId);
+          } catch (_) {}
+        }
 
         // Update all buttons
         tabButtons.forEach((btn, idx) => {

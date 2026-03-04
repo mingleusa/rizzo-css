@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import AvatarComponent from '../../../components/Avatar.astro';
+import AvatarComponent from '../../../components/astro/Avatar.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -42,7 +42,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		</div>
 		<FrameworkCodeTabs
 			astro={`---
-import Avatar from '../components/rizzo/Avatar.astro';
+import Avatar from '../components/astro/Avatar.astro';
 ---
 
 <Avatar name="Jane Doe" />
@@ -118,6 +118,6 @@ import Avatar from '../components/rizzo/Avatar.astro';
 			<li><strong>Sizes</strong> - sm, md, lg</li>
 			<li><strong>Shape</strong> - circle (default) or square with rounded corners</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/avatar">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/avatar">Vanilla</a> · <a href="/docs/svelte/components/avatar">Svelte</a> · <a href="/docs/vue/components/avatar">Vue</a> · <a href="/docs/react/components/avatar">React</a></p>
 	</section>
 </DocsLayout>

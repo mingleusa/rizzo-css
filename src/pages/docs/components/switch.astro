@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Switch from '../../../components/Switch.astro';
+import Switch from '../../../components/astro/Switch.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -33,7 +33,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		</div>
 		<FrameworkCodeTabs
 			astro={`---
-import Switch from '../components/rizzo/Switch.astro';
+import Switch from '../components/astro/Switch.astro';
 ---
 
 <Switch label="Enable notifications" />`}
@@ -66,6 +66,6 @@ import Switch from '../components/rizzo/Switch.astro';
 			<li>Focus visible on the track when the input is focused</li>
 			<li>Space toggles the switch</li>
 		</ul>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/switch">Svelte</a> · <a href="/docs/react/components/switch">React</a> · <a href="/docs/vue/components/switch">Vue</a> · <a href="/docs/vanilla/components/switch">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/switch">Vanilla</a> · <a href="/docs/svelte/components/switch">Svelte</a> · <a href="/docs/vue/components/switch">Vue</a> · <a href="/docs/react/components/switch">React</a></p>
 	</section>
 </DocsLayout>

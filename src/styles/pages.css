@@ -469,6 +469,24 @@
   gap: var(--spacing-3);
 }
 
+.home__button-sizes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  align-items: center;
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+.home__button-sizes-label {
+  margin-right: var(--spacing-1);
+}
+
+.home__button-sizes .btn {
+  margin: 0;
+}
+
 .home__theme-demo {
   max-width: var(--spacing-75);
 }
@@ -1155,6 +1173,7 @@ html:has([data-docs]) {
   margin: 0;
 }
 
+/* Sidebar nav links: no underline by default (nav style, not content links). */
 .docs-sidebar__link {
   display: block;
   padding: var(--spacing-2) var(--spacing-3);

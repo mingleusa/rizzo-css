@@ -13,12 +13,12 @@ const rootDir = resolve(__dirname, '..');
 const scaffoldVanilla = join(rootDir, 'packages', 'rizzo-css', 'scaffold', 'vanilla');
 const DOCS_BASE = 'https://rizzo-css.vercel.app';
 
-/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all 52 components, all frameworks). */
+/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all 53 components, all frameworks). */
 const COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'button-group',
   'cards', 'calendar', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard', 'docs-sidebar', 'divider', 'dropdown', 'empty',
   'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover',
-  'progress-bar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
+  'progress-bar', 'range-calendar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
   'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ];
 

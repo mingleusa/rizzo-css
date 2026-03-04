@@ -2,7 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
-import FooterComponent from '../../../../components/Footer.astro';
+import FooterComponent from '../../../../components/astro/Footer.astro';
 
 const currentYear = new Date().getFullYear();
 ---
@@ -26,11 +26,10 @@ const currentYear = new Date().getFullYear();
     <div class="example">
       <div class="example-title">Live example</div>
       <FooterComponent
-        siteName="Rizzo CSS"
+        siteName="Rizzo"
         links={[
-          { href: '/docs/getting-started', label: 'Getting Started' },
-          { href: '/docs/components', label: 'Components' },
-          { href: '/docs/theming', label: 'Theming' },
+          { href: '/docs', label: 'Docs' },
+          { href: '/', label: 'Home' },
         ]}
       />
     </div>

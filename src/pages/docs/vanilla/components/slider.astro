@@ -17,7 +17,7 @@ const copyableHtml = `<div class="slider" data-slider>
     <p>Range input with themed track and fill. Use <code>slider__input</code>, <code>slider__track</code>, <code>slider__fill</code>. Wire <code>input</code>/<code>change</code> to update <code>slider__fill</code> width and <code>aria-valuenow</code>.</p>
     <AddComponentTabs componentName="Slider" />
     <div class="example">
-      <div class="example-title">Live example (structure; sync script in full scaffold)</div>
+      <div class="example-title">Live example</div>
       <div class="slider" data-slider>
         <input type="range" class="slider__input" min="0" max="100" value="50" aria-label="Volume" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50" data-slider-input />
         <div class="slider__track" aria-hidden="true">
@@ -27,9 +27,57 @@ const copyableHtml = `<div class="slider" data-slider>
     </div>
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/slider">Astro</a> · <a href="/docs/svelte/components/slider">Svelte</a> · <a href="/docs/react/components/slider">React</a> · <a href="/docs/vue/components/slider">Vue</a></p>
+    <h3>JavaScript (sync fill and aria-valuenow)</h3>
+    <CodeBlock code={`document.querySelectorAll('.slider[data-slider]').forEach(function(slider) {
+  var input = slider.querySelector('[data-slider-input]');
+  var fill = slider.querySelector('[data-slider-fill]');
+  if (!input || !fill) return;
+  function update() {
+    var min = parseFloat(input.getAttribute('min')) || 0;
+    var max = parseFloat(input.getAttribute('max')) || 100;
+    var val = parseFloat(input.value) || min;
+    var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+    fill.style.width = pct + '%';
+    input.setAttribute('aria-valuenow', String(val));
+  }
+  input.addEventListener('input', update);
+  input.addEventListener('change', update);
+  update();
+});`} language="javascript" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/slider">Astro</a> · <a href="/docs/svelte/components/slider">Svelte</a> · <a href="/docs/vue/components/slider">Vue</a> · <a href="/docs/react/components/slider">React</a></p>
   </section>
 </DocsLayout>
+
+<script is:inline>
+(function() {
+  function syncSlider(slider) {
+    var input = slider.querySelector('[data-slider-input]');
+    var fill = slider.querySelector('[data-slider-fill]');
+    if (!input || !fill) return;
+    function update() {
+      var min = parseFloat(input.getAttribute('min')) || 0;
+      var max = parseFloat(input.getAttribute('max')) || 100;
+      var val = parseFloat(input.value) || min;
+      var pct = max > min ? ((val - min) / (max - min)) * 100 : 0;
+      fill.style.width = pct + '%';
+      input.setAttribute('aria-valuenow', String(val));
+    }
+    input.addEventListener('input', update);
+    input.addEventListener('change', update);
+    update();
+  }
+  function init() {
+    document.querySelectorAll('.slider[data-slider]').forEach(function(root) {
+      if (root.hasAttribute('data-slider-inited')) return;
+      root.setAttribute('data-slider-inited', 'true');
+      syncSlider(root);
+    });
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+  document.addEventListener('astro:page-load', function() { setTimeout(init, 0); });
+})();
+</script>
 
 <style>
   .example { margin: var(--spacing-6) 0; padding: var(--spacing-4); background: var(--background-alt); border: 1px solid var(--border); border-radius: var(--radius-lg); }

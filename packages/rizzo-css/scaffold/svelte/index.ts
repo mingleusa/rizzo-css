@@ -6,6 +6,7 @@ export { default as Button } from './Button.svelte';
 export { default as Badge } from './Badge.svelte';
 export { default as Card } from './Card.svelte';
 export { default as Calendar } from './Calendar.svelte';
+export { default as RangeCalendar } from './RangeCalendar.svelte';
 export { default as Carousel } from './Carousel.svelte';
 export { default as Dashboard } from './Dashboard.svelte';
 export { default as Divider } from './Divider.svelte';

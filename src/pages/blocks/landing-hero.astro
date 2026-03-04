@@ -1,6 +1,6 @@
 ---
 import BlocksLayout from '../../layouts/BlocksLayout.astro';
-import Card from '../../components/Card.astro';
+import Card from '../../components/astro/Card.astro';
 import CodeBlock from '../../components/CodeBlock.astro';
 import FrameworkCodeTabs from '../../components/FrameworkCodeTabs.astro';
 import { LANDING_HERO_SNIPPETS } from '../../config/blockCodeSnippets';
@@ -39,6 +39,7 @@ import { LANDING_HERO_SNIPPETS } from '../../config/blockCodeSnippets';
 			react={LANDING_HERO_SNIPPETS.react}
 			vue={LANDING_HERO_SNIPPETS.vue}
 			vanilla={LANDING_HERO_SNIPPETS.vanilla}
+			defaultTab="astro"
 		/>
 	</section>
 

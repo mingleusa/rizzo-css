@@ -23,16 +23,16 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [TESTING.md](./TESTING.md) | A11y, browser, and component-page testing (Playwright, axe, keyboard, ARIA, smoke) |
-| [COMPONENTS.md](./COMPONENTS.md) | All components (52 in CLI; doc pages by category), usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All components (53 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
 | [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 | [RTL.md](./RTL.md) | Right-to-left support: `dir="rtl"`, logical utilities (`mis-*`, `mie-*`, `pis-*`, `pie-*`) |
-| **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 52 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
+| **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 53 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
 | **Design tokens** | `pnpm export:tokens` writes **public/tokens/rizzo-tokens.json** and **.js** from `ai/design-tokens.json` (runs as part of `pnpm build`). Served at `/tokens/rizzo-tokens.json`; use in Figma, Style Dictionary, or runtimes. |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.68), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.69), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 

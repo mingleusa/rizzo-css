@@ -115,4 +115,7 @@
     language="svelte"
   />
   <p><strong>Astro & Vanilla:</strong> <a href="/docs/components/table">Astro</a> · <a href="/docs/vanilla/components/table">Vanilla</a></p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/table">Astro</a> · <a href="/docs/vanilla/components/table">Vanilla</a> · <a href="/docs/vue/components/table">Vue</a> · <a href="/docs/react/components/table">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

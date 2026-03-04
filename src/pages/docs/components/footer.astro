@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Footer from '../../../components/Footer.astro';
+import Footer from '../../../components/astro/Footer.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -21,11 +21,10 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<div class="example">
 			<div class="example-title">Live Example</div>
 			<Footer
-				siteName="Rizzo CSS"
+				siteName="Rizzo"
 				links={[
-					{ href: '/docs/getting-started', label: 'Getting Started' },
-					{ href: '/docs/components', label: 'Components' },
-					{ href: '/docs/theming', label: 'Theming' },
+					{ href: '/docs', label: 'Docs' },
+					{ href: '/', label: 'Home' },
 				]}
 			/>
 		</div>
@@ -33,7 +32,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Footer from '../components/rizzo/Footer.astro';
+import Footer from '../components/astro/Footer.astro';
 ---
 
 <Footer siteName="My Site" />
@@ -89,6 +88,6 @@ import Footer from '../components/rizzo/Footer.astro';
 			<li><code>class</code> (string, optional) — Additional CSS classes on the root</li>
 		</ul>
 
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/footer">Svelte</a> (live component) · <a href="/docs/vanilla/components/footer">Vanilla</a> (copyable HTML).</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/footer">Vanilla</a> · <a href="/docs/svelte/components/footer">Svelte</a> · <a href="/docs/vue/components/footer">Vue</a> · <a href="/docs/react/components/footer">React</a></p>
 	</section>
 </DocsLayout>

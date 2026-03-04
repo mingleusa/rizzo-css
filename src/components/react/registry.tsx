@@ -18,6 +18,7 @@ import { Alert } from './Alert';
 import { Avatar } from './Avatar';
 import { Card } from './Card';
 import { Calendar } from './Calendar';
+import { RangeCalendar } from './RangeCalendar';
 import { CarouselDemo } from './CarouselDemo';
 import { ProgressBar } from './ProgressBar';
 import { Breadcrumb } from './Breadcrumb';
@@ -73,6 +74,7 @@ const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   avatar: Avatar,
   cards: Card,
   calendar: Calendar,
+  'range-calendar': RangeCalendar,
   carousel: CarouselDemo,
   'progress-bar': ProgressBar,
   breadcrumb: Breadcrumb,
@@ -150,10 +152,11 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
     ],
   },
   calendar: {},
+  'range-calendar': {},
   carousel: {},
   forms: { placeholder: 'Enter text…', type: 'text' },
   'input-group': { placeholder: '0.00', prefix: '$', suffix: 'USD', 'aria-label': 'Amount' },
-  'copy-to-clipboard': { value: 'npm install rizzo-css' },
+  'copy-to-clipboard': { value: 'example@email.com', format: 'Email', id: 'copy-example-email' },
   tooltip: { text: 'Tooltip text' },
   collapsible: { triggerLabel: 'Show more', defaultOpen: false, children: null },
   table: {
@@ -166,10 +169,17 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
       { name: 'Beta', value: 20 },
       { name: 'Gamma', value: 15 },
     ],
-    caption: 'Demo table',
+    caption: 'Sample data',
     striped: true,
   },
   navbar: { siteName: 'Rizzo' },
+  label: { htmlFor: 'demo-input', children: 'Email' },
+  cards: { variant: 'elevated' as const, children: 'Card content' },
+  divider: { orientation: 'horizontal' as const, label: 'OR' },
+  kbd: { children: 'Ctrl' },
+  separator: { orientation: 'horizontal' as const },
+  'aspect-ratio': { ratio: 16 / 9, children: null },
+  spinner: { label: 'Loading…', size: 'md' as const, variant: 'primary' as const },
 };
 
 export function getReactComponent(slug: string): ComponentType<any> {

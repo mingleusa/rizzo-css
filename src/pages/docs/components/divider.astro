@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import DividerComponent from '../../../components/Divider.astro';
+import DividerComponent from '../../../components/astro/Divider.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -37,7 +37,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		</div>
 		<FrameworkCodeTabs
 			astro={`---
-import Divider from '../components/rizzo/Divider.astro';
+import Divider from '../components/astro/Divider.astro';
 ---
 
 <Divider />`}
@@ -87,6 +87,6 @@ import Divider from '../components/rizzo/Divider.astro';
 			<li><strong>Vertical</strong> - Full-height line for use in flex layouts</li>
 			<li><strong>Theme-aware</strong> - Uses <code>--border</code> and <code>--text-dim</code></li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/divider">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/divider">Vanilla</a> · <a href="/docs/svelte/components/divider">Svelte</a> · <a href="/docs/vue/components/divider">Vue</a> · <a href="/docs/react/components/divider">React</a></p>
 	</section>
 </DocsLayout>

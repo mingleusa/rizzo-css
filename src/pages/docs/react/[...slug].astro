@@ -35,9 +35,9 @@ const vanillaCode = getVanillaCodeSnippet(componentSlug);
 
     <AddComponentTabs componentName={meta.title} />
 
-    <h3>Live example (React)</h3>
+    <h3>Live examples</h3>
     <div class="example">
-      <div class="example-title">Demo</div>
+      <div class="example-title">React</div>
       <div class="react-doc-demo">
         <ReactDocDemo slug={componentSlug} client:load />
       </div>
@@ -56,9 +56,9 @@ const vanillaCode = getVanillaCodeSnippet(componentSlug);
     <p>
       <strong>Other frameworks:</strong>{' '}
       <a href={`/docs/components/${componentSlug}`}>Astro</a> ·{' '}
+      <a href={`/docs/vanilla/components/${componentSlug}`}>Vanilla</a> ·{' '}
       <a href={`/docs/svelte/components/${componentSlug}`}>Svelte</a> ·{' '}
-      <a href={`/docs/vue/components/${componentSlug}`}>Vue</a> ·{' '}
-      <a href={`/docs/vanilla/components/${componentSlug}`}>Vanilla</a>
+      <a href={`/docs/vue/components/${componentSlug}`}>Vue</a>
     </p>
   </section>
 </DocsLayout>

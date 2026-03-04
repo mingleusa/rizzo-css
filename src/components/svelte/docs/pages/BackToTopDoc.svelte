@@ -34,6 +34,9 @@
 <BackToTop threshold={300} label="Scroll to top" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/back-to-top">Astro</a> · <a href="/docs/vanilla/components/back-to-top">Vanilla</a> · <a href="/docs/vue/components/back-to-top">Vue</a> · <a href="/docs/react/components/back-to-top">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

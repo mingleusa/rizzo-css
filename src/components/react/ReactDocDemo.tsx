@@ -1,14 +1,12 @@
-import { getReactComponent, getDemoProps } from './registry';
+import { ReactDocShowcase } from './ReactDocShowcase';
 
 export interface ReactDocDemoProps {
   slug: string;
 }
 
-/** Renders the React component for the given slug (used by docs React [...slug].astro). */
+/** Renders a full-fledged live example for the given slug (used by docs React [...slug].astro). */
 export function ReactDocDemo({ slug }: ReactDocDemoProps) {
-  const Component = getReactComponent(slug);
-  const demoProps = getDemoProps(slug);
-  return <Component {...demoProps} />;
+  return <ReactDocShowcase slug={slug} />;
 }
 
 export default ReactDocDemo;

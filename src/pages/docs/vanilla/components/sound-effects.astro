@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
-import SoundEffectsComponent from '../../../../components/SoundEffects.astro';
+import SoundEffectsComponent from '../../../../components/astro/SoundEffects.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
@@ -27,7 +27,7 @@ const copyableHtml = `<label class="settings__checkbox-label">
     <p>Copy the markup below. Wire the checkbox with a script that reads/writes <code>localStorage.soundEffects</code>. Include the layout sound script for the click sound to play.</p>
     <CodeBlock code={copyableHtml} language="html" />
 
-    <p><a href="/docs/components/sound-effects">Astro Sound Effects</a> · <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/react/components/sound-effects">React</a> · <a href="/docs/vue/components/sound-effects">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/sound-effects">Astro</a> · <a href="/docs/svelte/components/sound-effects">Svelte</a> · <a href="/docs/vue/components/sound-effects">Vue</a> · <a href="/docs/react/components/sound-effects">React</a></p>
     <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
   </section>
 </DocsLayout>

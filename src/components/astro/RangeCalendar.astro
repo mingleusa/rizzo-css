@@ -1,0 +1,215 @@
+---
+interface Props {
+  id?: string;
+  /** Initial month as YYYY-MM (default: current month) */
+  initialMonth?: string;
+  /** Initial range start as YYYY-MM-DD (optional) */
+  rangeStart?: string;
+  /** Initial range end as YYYY-MM-DD (optional) */
+  rangeEnd?: string;
+  /** Accessible label (default: "Choose date range") */
+  label?: string;
+  class?: string;
+}
+
+const {
+  id,
+  initialMonth,
+  rangeStart,
+  rangeEnd,
+  label = 'Choose date range',
+  class: className = '',
+} = Astro.props;
+
+const calendarId = id || `range-calendar-${Math.random().toString(36).substr(2, 9)}`;
+const classes = `calendar calendar--range ${className}`.trim();
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+---
+
+<div
+  class={classes}
+  id={calendarId}
+  role="group"
+  aria-label={label}
+  data-range-calendar
+  data-initial-month={initialMonth ?? undefined}
+  data-range-start={rangeStart ?? undefined}
+  data-range-end={rangeEnd ?? undefined}
+>
+  <div class="calendar__header">
+    <button type="button" class="calendar__prev" aria-label="Previous month" data-range-calendar-prev>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>
+    </button>
+    <div class="calendar__month" aria-live="polite" data-range-calendar-month-label>—</div>
+    <button type="button" class="calendar__next" aria-label="Next month" data-range-calendar-next>
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
+    </button>
+  </div>
+  <div class="calendar__grid" role="grid" aria-label="Month" data-range-calendar-grid>
+    <div class="calendar__row" role="row">
+      {WEEKDAYS.map((day) => (
+        <div class="calendar__weekday" role="columnheader" aria-label={day}>{day}</div>
+      ))}
+    </div>
+    <div class="calendar__body" data-range-calendar-body role="presentation">
+      <!-- Rows filled by script -->
+    </div>
+  </div>
+</div>
+
+<script define:vars={{ calendarId }}>
+  (function initRangeCalendar() {
+    const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function parseYYYYMM(str) {
+      if (!str) return null;
+      const [y, m] = str.split('-').map(Number);
+      if (!y || !m || m < 1 || m > 12) return null;
+      return { year: y, month: m - 1 };
+    }
+
+    function toYYYYMM(year, month) {
+      return year + '-' + String(month + 1).padStart(2, '0');
+    }
+
+    function toYYYYMMDD(year, month, day) {
+      return year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
+    }
+
+    function dateStrToMs(s) {
+      const d = new Date(s);
+      return isNaN(d.getTime()) ? null : d.getTime();
+    }
+
+    function getMonthGrid(year, month) {
+      const first = new Date(year, month, 1);
+      const last = new Date(year, month + 1, 0);
+      const startDay = first.getDay();
+      const daysInMonth = last.getDate();
+      const weeks = [];
+      let week = [];
+      const pad = startDay;
+      const prevMonth = month === 0 ? 11 : month - 1;
+      const prevYear = month === 0 ? year - 1 : year;
+      const prevLast = new Date(prevYear, prevMonth + 1, 0).getDate();
+      for (let i = 0; i < pad; i++) {
+        week.push({ day: prevLast - pad + i + 1, year: prevYear, month: prevMonth, currentMonth: false });
+      }
+      for (let d = 1; d <= daysInMonth; d++) {
+        week.push({ day: d, year, month, currentMonth: true });
+        if (week.length === 7) { weeks.push(week); week = []; }
+      }
+      const nextMonth = month === 11 ? 0 : month + 1;
+      const nextYear = month === 11 ? year + 1 : year;
+      for (let i = 1; week.length < 7; i++) {
+        week.push({ day: i, year: nextYear, month: nextMonth, currentMonth: false });
+      }
+      if (week.length) weeks.push(week);
+      return weeks;
+    }
+
+    function render(root) {
+      const body = root.querySelector('[data-range-calendar-body]');
+      const labelEl = root.querySelector('[data-range-calendar-month-label]');
+      const gridEl = root.querySelector('[data-range-calendar-grid]');
+      if (!body || !labelEl || !gridEl) return;
+
+      let state = root._rangeCalendarState;
+      if (!state) {
+        const now = new Date();
+        state = { year: now.getFullYear(), month: now.getMonth(), start: null, end: null };
+        const initial = parseYYYYMM(root.dataset.initialMonth);
+        if (initial) { state.year = initial.year; state.month = initial.month; }
+        if (root.dataset.rangeStart) state.start = root.dataset.rangeStart;
+        if (root.dataset.rangeEnd) state.end = root.dataset.rangeEnd;
+        root._rangeCalendarState = state;
+      }
+
+      const today = new Date();
+      const todayStr = toYYYYMMDD(today.getFullYear(), today.getMonth(), today.getDate());
+      const startMs = state.start ? dateStrToMs(state.start) : null;
+      const endMs = state.end ? dateStrToMs(state.end) : null;
+      const [minMs, maxMs] = startMs != null && endMs != null
+        ? (startMs <= endMs ? [startMs, endMs] : [endMs, startMs])
+        : [null, null];
+
+      labelEl.textContent = MONTHS[state.month] + ' ' + state.year;
+      gridEl.setAttribute('aria-label', MONTHS[state.month] + ' ' + state.year);
+
+      const weeks = getMonthGrid(state.year, state.month);
+      body.innerHTML = '';
+      weeks.forEach(function (week) {
+        const row = document.createElement('div');
+        row.className = 'calendar__row';
+        row.setAttribute('role', 'row');
+        week.forEach(function (cell) {
+          const dateStr = toYYYYMMDD(cell.year, cell.month, cell.day);
+          const ms = dateStrToMs(dateStr);
+          const isToday = dateStr === todayStr;
+          const isStart = state.start === dateStr;
+          const isEnd = state.end === dateStr;
+          const inRange = minMs != null && maxMs != null && ms != null && ms >= minMs && ms <= maxMs && !isStart && !isEnd;
+
+          const cellDiv = document.createElement('div');
+          cellDiv.setAttribute('role', 'gridcell');
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'calendar__day';
+          if (!cell.currentMonth) btn.classList.add('calendar__day--other-month');
+          if (isToday) btn.classList.add('calendar__day--today');
+          if (isStart) btn.classList.add('calendar__day--range-start');
+          if (isEnd) btn.classList.add('calendar__day--range-end');
+          if (inRange) btn.classList.add('calendar__day--in-range');
+          btn.setAttribute('aria-label', 'Choose ' + MONTHS[cell.month] + ' ' + cell.day + ', ' + cell.year);
+          btn.textContent = String(cell.day);
+          btn.dataset.date = dateStr;
+          btn.addEventListener('click', function () {
+            if (state.start === null || (state.start !== null && state.end !== null)) {
+              state.start = dateStr;
+              state.end = null;
+            } else {
+              state.end = dateStr;
+              const s = dateStrToMs(state.start);
+              const e = dateStrToMs(state.end);
+              if (s != null && e != null && e < s) {
+                var t = state.start;
+                state.start = state.end;
+                state.end = t;
+              }
+              root.dispatchEvent(new CustomEvent('range-calendar-select', {
+                detail: { start: state.start, end: state.end },
+                bubbles: true
+              }));
+            }
+            render(root);
+          });
+          cellDiv.appendChild(btn);
+          row.appendChild(cellDiv);
+        });
+        body.appendChild(row);
+      });
+    }
+
+    function init() {
+      const root = document.getElementById(calendarId);
+      if (!root) return;
+      root.querySelector('[data-range-calendar-prev]')?.addEventListener('click', function () {
+        const s = root._rangeCalendarState || { year: new Date().getFullYear(), month: new Date().getMonth() };
+        if (s.month === 0) { s.month = 11; s.year--; } else s.month--;
+        root._rangeCalendarState = s;
+        render(root);
+      });
+      root.querySelector('[data-range-calendar-next]')?.addEventListener('click', function () {
+        const s = root._rangeCalendarState || { year: new Date().getFullYear(), month: new Date().getMonth() };
+        if (s.month === 11) { s.month = 0; s.year++; } else s.month++;
+        root._rangeCalendarState = s;
+        render(root);
+      });
+      render(root);
+    }
+
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+    else init();
+  })();
+</script>

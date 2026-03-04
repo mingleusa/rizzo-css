@@ -3,9 +3,9 @@ import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<!-- Structure only; open/close via JS (e.g. openAlertDialog_id / closeAlertDialog_id) -->
+const copyableHtml = `<!-- Overlay must be a sibling BEFORE the dialog so it stacks behind. open/close via JS (openAlertDialog_<id> / closeAlertDialog_<id>). -->
+<div class="alert-dialog__overlay" data-alert-dialog-overlay id="my-alert-overlay" aria-hidden="true"></div>
 <div class="alert-dialog" role="alertdialog" aria-modal="true" aria-labelledby="alert-title" aria-describedby="alert-desc" id="my-alert" hidden>
-  <div class="alert-dialog__overlay"></div>
   <div class="alert-dialog__content">
     <h2 class="alert-dialog__title" id="alert-title">Delete item?</h2>
     <p class="alert-dialog__description" id="alert-desc">This action cannot be undone.</p>
@@ -20,7 +20,7 @@ const copyableHtml = `<!-- Structure only; open/close via JS (e.g. openAlertDial
 <DocsLayout title="Alert Dialog — Vanilla" description="Confirm/cancel dialog with vanilla HTML. Open/close via JS.">
   <section>
     <h2>Alert Dialog</h2>
-    <p>Modal with <code>role="alertdialog"</code>. Use <code>alert-dialog__overlay</code>, <code>alert-dialog__content</code>, <code>alert-dialog__title</code>, <code>alert-dialog__description</code>, <code>alert-dialog__actions</code>. Wire open/close and focus trap in JS.</p>
+    <p>Modal with <code>role="alertdialog"</code>. Use <code>alert-dialog__overlay</code> as a <strong>sibling before</strong> the <code>alert-dialog</code> (so the overlay stacks behind the dialog), then <code>alert-dialog__content</code>, <code>alert-dialog__title</code>, <code>alert-dialog__description</code>, <code>alert-dialog__actions</code>. Wire open/close and focus trap in JS.</p>
     <AddComponentTabs componentName="AlertDialog" />
     <div class="example">
       <div class="example-title">Structure (open via JS)</div>
@@ -28,7 +28,7 @@ const copyableHtml = `<!-- Structure only; open/close via JS (e.g. openAlertDial
     </div>
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/alert-dialog">Astro</a> · <a href="/docs/svelte/components/alert-dialog">Svelte</a> · <a href="/docs/react/components/alert-dialog">React</a> · <a href="/docs/vue/components/alert-dialog">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/alert-dialog">Astro</a> · <a href="/docs/svelte/components/alert-dialog">Svelte</a> · <a href="/docs/vue/components/alert-dialog">Vue</a> · <a href="/docs/react/components/alert-dialog">React</a></p>
   </section>
 </DocsLayout>
 

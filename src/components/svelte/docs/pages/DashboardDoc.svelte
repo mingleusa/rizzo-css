@@ -42,6 +42,7 @@
     language="svelte"
   />
   <p><a href="/docs/components/dashboard">Full Astro Dashboard documentation</a> — props, BEM classes, and the <a href="/blocks/dashboard-01">Dashboard block</a> for a complete example.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/dashboard">Astro</a> · <a href="/docs/vanilla/components/dashboard">Vanilla</a> · <a href="/docs/vue/components/dashboard">Vue</a> · <a href="/docs/react/components/dashboard">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 

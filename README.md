@@ -23,34 +23,115 @@
 
 *Run `npx rizzo-css help` to see this in the CLI (rainbow uses our theme colors).*
 
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
-[![npm](https://img.shields.io/badge/npm-0.0.68-CB3837?style=for-the-badge&logo=npm)](https://www.npmjs.com/package/rizzo-css)
+<!-- Badges support light/dark mode via prefers-color-scheme -->
+<a href="./LICENSE"><picture>
+  <source srcset="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&theme=light" alt="License: MIT" />
+</picture></a>
+<a href="https://www.npmjs.com/package/rizzo-css"><picture>
+  <source srcset="https://img.shields.io/badge/npm-0.0.69-CB3837?style=for-the-badge&logo=npm&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/npm-0.0.69-CB3837?style=for-the-badge&logo=npm&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/npm-0.0.69-CB3837?style=for-the-badge&logo=npm&theme=light" alt="npm version" />
+</picture></a>
 
 **Frameworks** (same CSS & BEM for all)
 
-![Vanilla](https://img.shields.io/badge/Vanilla-JS%20%2F%20HTML5-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
-![Astro](https://img.shields.io/badge/Astro-5.17-FF5D01?style=for-the-badge&logo=astro&logoColor=white)
-![Svelte](https://img.shields.io/badge/Svelte-5.53+-FF3E00?style=for-the-badge&logo=svelte&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black)
-![Vue](https://img.shields.io/badge/Vue-3.5-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)
+<picture>
+  <source srcset="https://img.shields.io/badge/Vanilla-JS%20%2F%20HTML5-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Vanilla-JS%20%2F%20HTML5-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Vanilla-JS%20%2F%20HTML5-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black&theme=light" alt="Vanilla JS / HTML5" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Astro-5.17-FF5D01?style=for-the-badge&logo=astro&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Astro-5.17-FF5D01?style=for-the-badge&logo=astro&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Astro-5.17-FF5D01?style=for-the-badge&logo=astro&logoColor=white&theme=light" alt="Astro" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Svelte-5.53+-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Svelte-5.53+-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Svelte-5.53+-FF3E00?style=for-the-badge&logo=svelte&logoColor=white&theme=light" alt="Svelte" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=black&theme=light" alt="React" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Vue-3.5-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Vue-3.5-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Vue-3.5-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white&theme=light" alt="Vue" />
+</picture>
 
 **Tooling**
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
-![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white)
-![Vite](https://img.shields.io/badge/Vite-6+-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![PostCSS](https://img.shields.io/badge/PostCSS-8.5-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white)
-![Stylelint](https://img.shields.io/badge/Stylelint-17-263238?style=for-the-badge&logo=stylelint&logoColor=white)
-![pnpm](https://img.shields.io/badge/pnpm-9+-F69220?style=for-the-badge&logo=pnpm&logoColor=white)
-![Husky](https://img.shields.io/badge/Husky-9-8F8F8F?style=for-the-badge&logo=husky&logoColor=white)
-![Playwright](https://img.shields.io/badge/Playwright-1.49-2D4552?style=for-the-badge&logo=playwright&logoColor=white)
-![Storybook](https://img.shields.io/badge/Storybook-10-FF4785?style=for-the-badge&logo=storybook&logoColor=white)
-![axe](https://img.shields.io/badge/axe--core-4.10-007DC2?style=for-the-badge&logo=accessibility&logoColor=white)
-![Algolia](https://img.shields.io/badge/Algolia-5.47-5468FF?style=for-the-badge&logo=algolia&logoColor=white)
-![lint-staged](https://img.shields.io/badge/lint--staged-15-4A90D9?style=for-the-badge&logo=git&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub_Actions-a11y%20%7C%20build-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+<picture>
+  <source srcset="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white&theme=light" alt="TypeScript" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=node.js&logoColor=white&theme=light" alt="Node.js" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Vite-6+-646CFF?style=for-the-badge&logo=vite&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Vite-6+-646CFF?style=for-the-badge&logo=vite&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Vite-6+-646CFF?style=for-the-badge&logo=vite&logoColor=white&theme=light" alt="Vite" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/PostCSS-8.5-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/PostCSS-8.5-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/PostCSS-8.5-DD3A0A?style=for-the-badge&logo=postcss&logoColor=white&theme=light" alt="PostCSS" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Stylelint-17-263238?style=for-the-badge&logo=stylelint&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Stylelint-17-263238?style=for-the-badge&logo=stylelint&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Stylelint-17-263238?style=for-the-badge&logo=stylelint&logoColor=white&theme=light" alt="Stylelint" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/pnpm-9+-F69220?style=for-the-badge&logo=pnpm&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/pnpm-9+-F69220?style=for-the-badge&logo=pnpm&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/pnpm-9+-F69220?style=for-the-badge&logo=pnpm&logoColor=white&theme=light" alt="pnpm" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Husky-9-8F8F8F?style=for-the-badge&logo=husky&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Husky-9-8F8F8F?style=for-the-badge&logo=husky&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Husky-9-8F8F8F?style=for-the-badge&logo=husky&logoColor=white&theme=light" alt="Husky" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Playwright-1.49-2D4552?style=for-the-badge&logo=playwright&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Playwright-1.49-2D4552?style=for-the-badge&logo=playwright&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Playwright-1.49-2D4552?style=for-the-badge&logo=playwright&logoColor=white&theme=light" alt="Playwright" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Storybook-10-FF4785?style=for-the-badge&logo=storybook&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Storybook-10-FF4785?style=for-the-badge&logo=storybook&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Storybook-10-FF4785?style=for-the-badge&logo=storybook&logoColor=white&theme=light" alt="Storybook" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/axe--core-4.10-007DC2?style=for-the-badge&logo=accessibility&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/axe--core-4.10-007DC2?style=for-the-badge&logo=accessibility&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/axe--core-4.10-007DC2?style=for-the-badge&logo=accessibility&logoColor=white&theme=light" alt="axe-core" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/Algolia-5.47-5468FF?style=for-the-badge&logo=algolia&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/Algolia-5.47-5468FF?style=for-the-badge&logo=algolia&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/Algolia-5.47-5468FF?style=for-the-badge&logo=algolia&logoColor=white&theme=light" alt="Algolia" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/lint--staged-15-4A90D9?style=for-the-badge&logo=git&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/lint--staged-15-4A90D9?style=for-the-badge&logo=git&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/lint--staged-15-4A90D9?style=for-the-badge&logo=git&logoColor=white&theme=light" alt="lint-staged" />
+</picture>
+<picture>
+  <source srcset="https://img.shields.io/badge/GitHub_Actions-a11y%20%7C%20build-2088FF?style=for-the-badge&logo=github-actions&logoColor=white&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/GitHub_Actions-a11y%20%7C%20build-2088FF?style=for-the-badge&logo=github-actions&logoColor=white&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/GitHub_Actions-a11y%20%7C%20build-2088FF?style=for-the-badge&logo=github-actions&logoColor=white&theme=light" alt="GitHub Actions" />
+</picture>
 
-A modern CSS design system with semantic theming and 52 accessible components. **Vanilla**, **Astro**, **Svelte**, **React**, and **Vue** — same CSS and BEM; docs and CLI for all five.
+A modern CSS design system with semantic theming and 53 accessible components. **Vanilla**, **Astro**, **Svelte**, **React**, and **Vue** — same CSS and BEM; docs and CLI for all five.
 
 [Getting Started](#-getting-started) • [Documentation](#-documentation) • [Components](#-components) • [Theming](#-theming-system)
 
@@ -63,8 +144,8 @@ A modern CSS design system with semantic theming and 52 accessible components. *
 - 🎨 **14 Built-in Themes** - 7 dark and 7 light themes with semantic variable support (including GitHub Dark Classic and GitHub Light)
 - ♿ **Accessibility First** - WCAG AA compliant with full keyboard navigation and screen reader support
 - 🎯 **Semantic Theming** - All components use semantic CSS variables that adapt automatically
-- 📦 **Comprehensive Components** - 52 accessible, themeable components (Astro reference + Svelte + React + Vue + Vanilla docs)
-- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 52 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Svelte | React | Vue | Vanilla)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, Svelte, React, and Vue scaffolds. Framework switcher: **View as: Astro | Svelte | Vanilla | React | Vue**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
+- 📦 **Comprehensive Components** - 53 accessible, themeable components (Astro reference + Svelte + React + Vue + Vanilla docs)
+- 🔀 **Multi-framework** - **Vanilla JS**, Astro, Svelte, and **React** with the same CSS and BEM; **all 53 components have full React implementations** with working live demos and React/TSX code blocks. Every component doc page shows **Usage tabs (Astro | Vanilla | Svelte | Vue | React)** with up-to-date copy-paste examples. CLI offers Vanilla, Astro, Svelte, React, and Vue scaffolds. Framework switcher: **View as: Astro | Vanilla | Svelte | Vue | React**. [/docs/svelte](/docs/svelte) · [/docs/react](/docs/react) · [/docs/vue](/docs/vue) · [/docs/vanilla](/docs/vanilla)
 - 🛠️ **Utility Classes** - Display, position, borders, flexbox, grid, gap, animations, and more
 - 🎨 **OKLCH Colors** - Perceptually uniform color space for better color manipulation
 - 📱 **Responsive** - Mobile-first design with responsive breakpoints
@@ -98,7 +179,7 @@ A modern CSS design system with semantic theming and 52 accessible components. *
 
 **Using Rizzo?** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, Svelte, React, or Vue), then **add to existing** or **create new**. Both use the **same template choice**: **CSS only** (stylesheet + license, README, .gitignore; no web pages or components), **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), or **Full** (clone of the docs site). We never overwrite; snippets go in RIZZO-SETUP.md. **Add** is for existing projects: run in your project root, choose template, then select which components to add (or CSS only). Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte|react|vue --template css-only|landing|docs|dashboard|full` or `npx rizzo-css add --template css-only|landing|docs|dashboard|full`. Or install the package: `pnpm add rizzo-css` (or npm/yarn/bun). To run the CLI: use the [docs site](https://rizzo-css.vercel.app/docs/getting-started) package manager tabs (npm, pnpm, yarn, bun)—the **yarn** tab shows `npx` so it works with Yarn 1 and 2+. Optional **rizzo-css.json** for targetDir, framework, packageManager. Full guide: [GETTING_STARTED](docs/GETTING_STARTED.md). React and Vue: same CSS; full docs with live examples and code blocks at /docs/react and /docs/vue.
 
-**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla; astro/base + astro/variants + astro components; svelte/base + svelte/variants + svelte components; react; vue). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. CSS only = no web pages or components (stylesheet + license, README, .gitignore). **Add** is for existing projects: run in project root, then select components (or CSS only). Landing/Docs/Dashboard = component picker (all 52 or pick); Full = site clone. Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all five frameworks.
+**What ships:** `rizzo-css` includes dist, CLI, and scaffolds (vanilla; astro/base + astro/variants + astro components; svelte/base + svelte/variants + svelte components; react; vue). Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, and **.gitignore**; Astro/Svelte include package.json and .env.example. **CLI:** `init` | `add` | `theme` | `doctor` | `help`. **New and existing use the same flow:** choose **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. CSS only = no web pages or components (stylesheet + license, README, .gitignore). **Add** is for existing projects: run in project root, then select components (or CSS only). Landing/Docs/Dashboard = component picker (all 53 or pick); Full = site clone. Dependencies auto-included (Navbar→Search, Settings; Settings→ThemeSwitcher, FontSwitcher, SoundEffects; Toast→Alert). Full also writes **RIZZO-SNIPPET.txt** unless `--no-snippet`. You add the `<link>` (CLI prints it). Run `npx rizzo-css help components` for the list. Same CSS and BEM for all five frameworks.
 
 ### Prerequisites
 
@@ -229,7 +310,7 @@ Comprehensive documentation is in the `docs/` directory and on the live site. **
 
 - [Getting Started](./docs/GETTING_STARTED.md) - CLI (`npx rizzo-css init`/`add`), npm install, import CSS, use components (Astro/Svelte/React/Vue/Vanilla), [JavaScript utilities](./docs/GETTING_STARTED.md#javascript-utilities) (theme, storage, clipboard, toast), and [docs layout / site nav](./docs/GETTING_STARTED.md#documentation-layout-and-site-nav)
 - [Design System](./docs/DESIGN_SYSTEM.md) - Variables, file organization, and utilities
-- [Components](./docs/COMPONENTS.md) - Component library and usage (52 components)
+- [Components](./docs/COMPONENTS.md) - Component library and usage (53 components)
 - [Theming](./docs/THEMING.md) - Themes, system preference, custom themes (also linked under Docs → Foundations on the site)
 - [Colors](./docs/COLORS.md) - Color reference (OKLCH, Hex, RGB, HSL)
 - [Accessibility](./docs/ACCESSIBILITY.md) - Guidelines, utility classes, best practices, and manual accessibility testing (keyboard, screen reader, tools)

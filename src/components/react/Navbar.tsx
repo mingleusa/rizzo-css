@@ -1,16 +1,32 @@
 import type { HTMLAttributes, ReactNode } from 'react';
 import { useState, useEffect } from 'react';
 
+export interface NavbarLink {
+  href: string;
+  label: string;
+}
+
 export interface NavbarProps extends HTMLAttributes<HTMLElement> {
   siteName?: string;
   logo?: string;
+  /** Desktop: slot for Search + Settings. */
   children?: ReactNode;
+  /** Mobile menu links (same as Astro/Svelte/Vue/Vanilla demos). */
+  menuLinks?: NavbarLink[];
 }
+
+const DEFAULT_MENU_LINKS: NavbarLink[] = [
+  { href: '/docs', label: 'Docs' },
+  { href: '/docs/components', label: 'Components' },
+  { href: '/blocks', label: 'Blocks' },
+  { href: '/themes', label: 'Themes' },
+];
 
 export function Navbar({
   siteName = 'Site',
   logo,
   children,
+  menuLinks = DEFAULT_MENU_LINKS,
   className = '',
   ...rest
 }: NavbarProps) {
@@ -35,7 +51,7 @@ export function Navbar({
   }, [menuOpen]);
 
   return (
-    <nav className={`navbar ${className}`.trim()} role="navigation" aria-label="Main navigation" {...rest}>
+    <nav className={`navbar ${menuOpen ? 'navbar--menu-open' : ''} ${className}`.trim()} role="navigation" aria-label="Main navigation" {...rest}>
       <div className="navbar__container">
         <div className="navbar__brand">
           <a href="/" className="navbar__brand-link">
@@ -53,18 +69,33 @@ export function Navbar({
           className="navbar__toggle"
           aria-label="Toggle menu"
           aria-expanded={menuOpen}
+          aria-controls="navbar-menu"
           onClick={() => setMenuOpen((o) => !o)}
         >
           <span className="navbar__toggle-icon" aria-hidden="true">
             <span /><span /><span />
           </span>
         </button>
-      </div>
-      {menuOpen && (
-        <div className="navbar__mobile" aria-hidden="false">
-          <div className="navbar__mobile-inner">Mobile menu</div>
+        <div
+          className={`navbar__menu ${menuOpen ? 'navbar__menu--open' : ''}`}
+          id="navbar-menu"
+          role="navigation"
+          aria-label="Mobile menu"
+          aria-hidden={!menuOpen}
+        >
+          {menuLinks.map((link) => (
+            <div key={link.href} className="navbar__item">
+              <a
+                href={link.href}
+                className="navbar__link"
+                tabIndex={menuOpen ? 0 : -1}
+              >
+                {link.label}
+              </a>
+            </div>
+          ))}
         </div>
-      )}
+      </div>
     </nav>
   );
 }

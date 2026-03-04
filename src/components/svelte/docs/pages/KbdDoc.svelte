@@ -17,6 +17,9 @@
 </script>
 
 <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/kbd">Astro</a> · <a href="/docs/vanilla/components/kbd">Vanilla</a> · <a href="/docs/vue/components/kbd">Vue</a> · <a href="/docs/react/components/kbd">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

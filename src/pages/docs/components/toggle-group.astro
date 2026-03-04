@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ToggleGroup from '../../../components/ToggleGroup.astro';
-import Toggle from '../../../components/Toggle.astro';
+import ToggleGroup from '../../../components/astro/ToggleGroup.astro';
+import Toggle from '../../../components/astro/Toggle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -28,8 +28,8 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import ToggleGroup from '../components/rizzo/ToggleGroup.astro';
-import Toggle from '../components/rizzo/Toggle.astro';
+import ToggleGroup from '../components/astro/ToggleGroup.astro';
+import Toggle from '../components/astro/Toggle.astro';
 ---
 
 <ToggleGroup type="single">
@@ -55,5 +55,6 @@ import Toggle from '../components/rizzo/Toggle.astro';
   <button type="button" class="toggle" aria-pressed="false" aria-label="Right">Right</button>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/toggle-group">Vanilla</a> · <a href="/docs/svelte/components/toggle-group">Svelte</a> · <a href="/docs/vue/components/toggle-group">Vue</a> · <a href="/docs/react/components/toggle-group">React</a></p>
 	</section>
 </DocsLayout>

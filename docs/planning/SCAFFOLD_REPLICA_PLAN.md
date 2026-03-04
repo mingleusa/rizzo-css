@@ -9,17 +9,17 @@ The published **rizzo-css** package includes only these scaffolds (see `packages
 - **scaffold/landing/** — Landing template source: `index.html` with placeholders. CLI uses this first (then fallback to minimal), applies replacements, and writes the project’s index (or public/static index for Astro/Svelte) when creating new or add; if file exists, content goes into RIZZO-SETUP.md as a snippet.
 - **scaffold/minimal/** — Fallback index source (same content as landing). CLI uses it when landing is missing; also as the “Example minimal page” snippet in RIZZO-SETUP.md.
 - **scaffold/vanilla/** — Full Vanilla HTML + CSS. Built by `copy-scaffold.js` (vanilla icons) and `prepare-vanilla-scaffold.js` (component showcase: `components/index.html`, `components/<slug>.html`, and landing content in `index.html`). Includes `index.html`, `js/main.js`, `components/`, `icons/`, `variants/` (docs, dashboard, full), README-RIZZO.md, LICENSE-RIZZO, .gitignore. Used for all Vanilla templates (Landing, Docs, Dashboard, Full).
-- **scaffold/astro/** — Astro component files (52 + ThemeIcon) plus **base/** (base app: config, one page, README-RIZZO.md, .env.example) and **variants/** (docs, dashboard, full). CLI copies base + variant or full variant; component files are copied to `src/components/rizzo/` when user picks components.
-- **scaffold/svelte/** — Svelte component files (50) plus **base/** (SvelteKit base) and **variants/** (docs, dashboard, full). Same flow as Astro.
+- **scaffold/astro/** — Astro component files (53 + ThemeIcon) plus **base/** (base app: config, one page, README-RIZZO.md, .env.example) and **variants/** (docs, dashboard, full). CLI copies base + variant or full variant; component files are copied to `src/components/rizzo/` when user picks components.
+- **scaffold/svelte/** — Svelte component files (53) plus **base/** (SvelteKit base) and **variants/** (docs, dashboard, full). Same flow as Astro.
 - **scaffold/config/** — `fonts.ts` for FontSwitcher/Settings. CLI copies to project when adding Settings.
 - **scaffold/shared/** — Shared snippets (e.g. navbar-vanilla.html). Used by CLI for Vanilla Full.
 - **scaffold/utils/** — Theme utilities (`theme.ts`) used by ThemeSwitcher; ThemeSwitcher.astro imports `../utils/theme`. CLI copies this into the project as `src/components/utils/theme.ts` when adding ThemeSwitcher or ThemeIcon.
 
-**CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. Init → framework → add to existing or create new (same template choice: Landing | Docs | Dashboard | Full). Create new → **Landing**, **Docs**, **Dashboard**, or **Full** (Full = site clone; Landing/Docs/Dashboard picker has all 52 or pick). Add to existing → same template choice. `npx rizzo-css add` = same as add to existing.
+**CLI:** `npx rizzo-css init` | `add` | `theme` | `doctor` | `help`. Init → framework → add to existing or create new (same template choice: Landing | Docs | Dashboard | Full). Create new → **Landing**, **Docs**, **Dashboard**, or **Full** (Full = site clone; Landing/Docs/Dashboard picker has all 53 or pick). Add to existing → same template choice. `npx rizzo-css add` = same as add to existing.
 
 ## Build and publish
 
-- **copy-scaffold.js** — Run from repo root. Copies `src/components/` (Astro) and `src/components/svelte/` (Svelte) into `packages/rizzo-css/scaffold/astro/` and `scaffold/svelte/`; writes `scaffold/utils/theme.ts` (from `src/utils/theme.ts`, import fixed to `../astro/themes`) for ThemeSwitcher; copies vanilla base and icons into `scaffold/vanilla/`.
+- **copy-scaffold.js** — Run from repo root. Copies `src/components/astro/` (Astro) and `src/components/svelte/` (Svelte) into `packages/rizzo-css/scaffold/astro/` and `scaffold/svelte/`; writes `scaffold/utils/theme.ts` (from `src/utils/theme.ts`, import fixed to `../astro/themes`) for ThemeSwitcher; copies vanilla base and icons into `scaffold/vanilla/`.
 - **prepare-vanilla-scaffold.js** — Run from repo root. Builds `scaffold/vanilla/components/` (index + per-component HTML) and updates vanilla `index.html` with hero + documentation cards (external links to docs site).
 
 Both run in package `prepublishOnly` (with `lint:css:fix` and `build:css`). Root `pnpm build:package` runs `copy-scaffold` and `prepare:vanilla-scaffold` only. See [PUBLISHING](../PUBLISHING.md).
@@ -33,7 +33,7 @@ scaffold/vanilla/
 │   ├── index.html
 │   ├── accordion.html
 │   ├── button.html
-│   └── ...        # 52 component pages (navbar, settings, theme-switcher, button, etc.)
+│   └── ...        # 53 component pages (navbar, settings, theme-switcher, button, etc.)
 ├── css/
 ├── js/
 │   └── main.js

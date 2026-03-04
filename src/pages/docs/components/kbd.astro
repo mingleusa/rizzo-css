@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Kbd from '../../../components/Kbd.astro';
+import Kbd from '../../../components/astro/Kbd.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -31,7 +31,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Kbd from '../components/rizzo/Kbd.astro';
+import Kbd from '../components/astro/Kbd.astro';
 ---
 
 <p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>`}

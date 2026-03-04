@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import InputGroup from '../../../components/InputGroup.astro';
-import FormGroup from '../../../components/FormGroup.astro';
+import InputGroup from '../../../components/astro/InputGroup.astro';
+import FormGroup from '../../../components/astro/FormGroup.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
@@ -62,7 +62,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import InputGroup from '../components/rizzo/InputGroup.astro';
+import InputGroup from '../components/astro/InputGroup.astro';
 ---
 
 <InputGroup placeholder="0.00">
@@ -87,6 +87,7 @@ import InputGroup from '../components/rizzo/InputGroup.astro';
   </div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/input-group">Vanilla</a> · <a href="/docs/svelte/components/input-group">Svelte</a> · <a href="/docs/vue/components/input-group">Vue</a> · <a href="/docs/react/components/input-group">React</a></p>
 	</section>
 
 	<section>

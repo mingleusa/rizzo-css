@@ -11,16 +11,19 @@
   <div class="example">
     <div class="example-title">Live example (16/9)</div>
     <AspectRatio ratio={16 / 9} class="example-ratio">
-      <div class="example-ratio-inner">16∶9</div>
+      <div class="example-ratio-inner">16:9</div>
     </AspectRatio>
   </div>
   <CodeBlock code={`<script>
-  import AspectRatio from './components/svelte/AspectRatio.svelte';
+  import { AspectRatio } from '$lib/rizzo';
 </script>
 
 <AspectRatio ratio={16/9}>
-  <img src="..." alt="" />
+  <img src="/hero.jpg" alt="Hero" />
 </AspectRatio>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/aspect-ratio">Astro</a> · <a href="/docs/vanilla/components/aspect-ratio">Vanilla</a> · <a href="/docs/vue/components/aspect-ratio">Vue</a> · <a href="/docs/react/components/aspect-ratio">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -16,7 +16,7 @@ bun add rizzo-css
 
 The package works with **npm**, **pnpm**, **yarn**, and **bun**. After install, run the CLI with your manager’s runner: `npx` (npm/yarn), `pnpm dlx`, or `bunx`.
 
-**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, Svelte, React, or Vue), then **add to existing** or **create new**. Both flows use the **same template choice**: **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), or **Full** (clone of the docs site). Landing/Docs/Dashboard = component picker (all 52 or pick). We **never overwrite your existing files**; any skipped content is in **RIZZO-SETUP.md**. You must add the `<link>` yourself (CLI prints the exact tag). Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte|react|vue --template landing|docs|dashboard|full` or `npx rizzo-css add --template landing|docs|dashboard|full`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
+**Quick start (no install):** `npx rizzo-css init` — choose **framework** (Vanilla, Astro, Svelte, React, or Vue), then **add to existing** or **create new**. Both flows use the **same template choice**: **Landing** (hero/features), **Docs** (sidebar + sample doc), **Dashboard** (sidebar + stats/table), or **Full** (clone of the docs site). Landing/Docs/Dashboard = component picker (all 53 or pick). We **never overwrite your existing files**; any skipped content is in **RIZZO-SETUP.md**. You must add the `<link>` yourself (CLI prints the exact tag). Non-interactive: `npx rizzo-css init --yes --framework vanilla|astro|svelte|react|vue --template landing|docs|dashboard|full` or `npx rizzo-css add --template landing|docs|dashboard|full`. Optional **rizzo-css.json** and `add --install-package`. All get the **same CSS and component styles**. To use the **official Svelte or Astro create command** plus Rizzo, create the app first, then run `npx rizzo-css add`:
 
 ```bash
 npm create svelte@latest my-app && cd my-app && npx rizzo-css add
@@ -25,7 +25,7 @@ npm create astro@latest my-app   && cd my-app && npx rizzo-css add
 
 **Running the CLI:** npm → `npx`; pnpm → `pnpm dlx`; yarn → `npx` (Yarn 1 has no `dlx`; works with Yarn 2+ too); bun → `bunx`. The [docs site](https://rizzo-css.vercel.app/docs/getting-started) tabs show the correct command for each manager.
 
-**Same flow for new and existing:** Both prompt for **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all 52 or pick). Full = site clone (no picker); also writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. `npx rizzo-css doctor` checks config and CSS path. `npx rizzo-css theme` lists themes.
+**Same flow for new and existing:** Both prompt for **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all 53 or pick). Full = site clone (no picker); also writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. `npx rizzo-css doctor` checks config and CSS path. `npx rizzo-css theme` lists themes.
 
 | | **Create new** (`init` → new) | **Add to existing** (`add` or `init` → existing) |
 |---|------------------------------|--------------------------------------------------|
@@ -72,7 +72,7 @@ import 'rizzo-css';
 **Without a bundler (plain HTML):** Use a CDN. Both unpkg and jsDelivr resolve the package root to the built CSS (via the `unpkg` / `jsdelivr` fields in this package). For reliability or to pin a version, use the explicit path:
 
 ```html
-<!-- unpkg (pin version: replace @latest with @0.0.68 or any version) -->
+<!-- unpkg (pin version: replace @latest with @0.0.69 or any version) -->
 <link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />
 
 <!-- or jsDelivr -->

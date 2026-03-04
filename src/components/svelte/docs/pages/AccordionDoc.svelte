@@ -4,7 +4,7 @@
   import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const items = [
-    { id: 'one', title: 'Section one', content: '<p>Content for section one.</p>' },
+    { id: 'one', title: 'Section one', content: '<p>Content for section one. Only one panel is open at a time.</p>' },
     { id: 'two', title: 'Section two', content: '<p>Content for section two.</p>' },
     { id: 'three', title: 'Section three', content: '<p>Content for section three.</p>' },
   ];
@@ -52,4 +52,7 @@
 <Accordion items={items} allowMultiple />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/accordion">Astro</a> · <a href="/docs/vanilla/components/accordion">Vanilla</a> · <a href="/docs/vue/components/accordion">Vue</a> · <a href="/docs/react/components/accordion">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

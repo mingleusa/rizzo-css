@@ -1,8 +1,8 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ResizablePaneGroup from '../../../components/ResizablePaneGroup.astro';
-import ResizablePane from '../../../components/ResizablePane.astro';
-import ResizableHandle from '../../../components/ResizableHandle.astro';
+import ResizablePaneGroup from '../../../components/astro/ResizablePaneGroup.astro';
+import ResizablePane from '../../../components/astro/ResizablePane.astro';
+import ResizableHandle from '../../../components/astro/ResizableHandle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -46,9 +46,9 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import ResizablePaneGroup from '../components/rizzo/ResizablePaneGroup.astro';
-import ResizablePane from '../components/rizzo/ResizablePane.astro';
-import ResizableHandle from '../components/rizzo/ResizableHandle.astro';
+import ResizablePaneGroup from '../components/astro/ResizablePaneGroup.astro';
+import ResizablePane from '../components/astro/ResizablePane.astro';
+import ResizableHandle from '../components/astro/ResizableHandle.astro';
 ---
 
 <ResizablePaneGroup direction="horizontal" style="max-width: 28rem; height: 200px;">
@@ -74,5 +74,6 @@ import ResizableHandle from '../components/rizzo/ResizableHandle.astro';
   <div class="resizable-pane" style="flex: 0 0 50%;">Two</div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/resizable">Vanilla</a> · <a href="/docs/svelte/components/resizable">Svelte</a> · <a href="/docs/vue/components/resizable">Vue</a> · <a href="/docs/react/components/resizable">React</a></p>
 	</section>
 </DocsLayout>

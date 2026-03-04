@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ModalComponent from '../../../components/Modal.astro';
+import ModalComponent from '../../../components/astro/Modal.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -96,8 +96,8 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Modal from '../components/rizzo/Modal.astro';
-import Button from '../components/rizzo/Button.astro';
+import Modal from '../../../components/astro/Modal.astro';
+import Button from '../../../components/astro/Button.astro';
 ---
 
 <Modal id="example-modal" title="Example Modal" size="md">
@@ -182,6 +182,6 @@ window.closeModal_example_modal();`} language="javascript" />
 			<li><code>lg</code> - Large (48rem / 768px max-width) - Ideal for complex forms and detailed content</li>
 		</ul>
 		<p><strong>Note:</strong> On mobile devices (≤640px), all modals automatically use 95vw width for better mobile experience.</p>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/modal">Svelte</a> · <a href="/docs/react/components/modal">React</a> · <a href="/docs/vue/components/modal">Vue</a> · <a href="/docs/vanilla/components/modal">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/modal">Vanilla</a> · <a href="/docs/svelte/components/modal">Svelte</a> · <a href="/docs/vue/components/modal">Vue</a> · <a href="/docs/react/components/modal">React</a></p>
 	</section>
 </DocsLayout>

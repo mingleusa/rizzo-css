@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Slider from '../../../components/Slider.astro';
+import Slider from '../../../components/astro/Slider.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -23,7 +23,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Slider from '../components/rizzo/Slider.astro';
+import Slider from '../components/astro/Slider.astro';
 ---
 
 <Slider ariaLabel="Volume" min={0} max={100} value={50} />`}
@@ -42,5 +42,6 @@ import Slider from '../components/rizzo/Slider.astro';
   </div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/slider">Vanilla</a> · <a href="/docs/svelte/components/slider">Svelte</a> · <a href="/docs/vue/components/slider">Vue</a> · <a href="/docs/react/components/slider">React</a></p>
 	</section>
 </DocsLayout>

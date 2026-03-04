@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import SearchComponent from '../../../components/Search.astro';
+import SearchComponent from '../../../components/astro/Search.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -51,7 +51,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<p>Search script runs after DOM ready. Ctrl+K / Cmd+K opens it when the component is on the page.</p>
 		<FrameworkCodeTabs
 			astro={`---
-import Search from '../components/rizzo/Search.astro';
+import Search from '../../../components/astro/Search.astro';
 ---
 
 <Search id="search-main" />
@@ -163,7 +163,7 @@ PUBLIC_ALGOLIA_INDEX_NAME=your-index-name
 			<li><strong>Screen Reader Support:</strong> Proper announcements and labels</li>
 			<li><strong>Live Regions:</strong> Search results announced to screen readers</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/search">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add JS for Cmd+K and Algolia.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/search">Vanilla</a> · <a href="/docs/svelte/components/search">Svelte</a> · <a href="/docs/vue/components/search">Vue</a> · <a href="/docs/react/components/search">React</a></p>
 	</section>
 </DocsLayout>
 

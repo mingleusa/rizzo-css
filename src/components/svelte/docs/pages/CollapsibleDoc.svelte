@@ -10,17 +10,20 @@
   <AddComponentTabs componentName="Collapsible" />
   <div class="example">
     <div class="example-title">Live example</div>
-    <Collapsible triggerLabel="Toggle" defaultOpen={false}>
-      Panel content here. Click the trigger to expand or collapse.
+    <Collapsible triggerLabel="Show more" defaultOpen={false}>
+      <p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>
     </Collapsible>
   </div>
   <CodeBlock code={`<script>
-  import Collapsible from './components/svelte/Collapsible.svelte';
+  import { Collapsible } from '$lib/rizzo';
 </script>
 
-<Collapsible triggerLabel="Toggle">
-  Content inside panel.
+<Collapsible triggerLabel="Show more">
+  <p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>
 </Collapsible>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/collapsible">Astro</a> · <a href="/docs/vanilla/components/collapsible">Vanilla</a> · <a href="/docs/vue/components/collapsible">Vue</a> · <a href="/docs/react/components/collapsible">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

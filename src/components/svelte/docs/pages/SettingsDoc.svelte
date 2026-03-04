@@ -156,5 +156,6 @@ onMount(() => {
   />
 
   <p><a href="/docs/components/settings">Full Astro Settings documentation</a> — layout, persistence, and the inline script you can port to Svelte.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/settings">Astro</a> · <a href="/docs/vanilla/components/settings">Vanilla</a> · <a href="/docs/vue/components/settings">Vue</a> · <a href="/docs/react/components/settings">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

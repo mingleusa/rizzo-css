@@ -159,6 +159,7 @@
   </ul>
 
   <p><a href="/docs/components/theme-switcher">Full Astro Theme Switcher documentation</a> — implementation details and keyboard behavior.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/theme-switcher">Astro</a> · <a href="/docs/vanilla/components/theme-switcher">Vanilla</a> · <a href="/docs/vue/components/theme-switcher">Vue</a> · <a href="/docs/react/components/theme-switcher">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 

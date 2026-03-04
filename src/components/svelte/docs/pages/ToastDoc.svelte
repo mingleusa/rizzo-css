@@ -59,13 +59,13 @@ removeAllToasts();`}
 
   <h3>Live examples (programmatic)</h3>
   <div class="example">
-    <div class="example-title">Show toasts</div>
+    <div class="example-title">Live Examples</div>
     <div class="example-buttons">
-      <button type="button" class="btn btn-success" onclick={() => showToastGlobal('Success! Your changes have been saved.', { variant: 'success' })}>Success</button>
-      <button type="button" class="btn btn-error" onclick={() => showToastGlobal('Something went wrong.', { variant: 'error' })}>Error</button>
-      <button type="button" class="btn btn-warning" onclick={() => showToastGlobal('Please review.', { variant: 'warning' })}>Warning</button>
-      <button type="button" class="btn btn-info" onclick={() => showToastGlobal('New features available.', { variant: 'info' })}>Info</button>
-      <button type="button" class="btn" onclick={() => removeAllToastsGlobal()}>Clear all</button>
+      <button type="button" class="btn btn-success" onclick={() => showToastGlobal('Success! Your changes have been saved.', { variant: 'success' })}>Show Success Toast</button>
+      <button type="button" class="btn btn-error" onclick={() => showToastGlobal('Error! Something went wrong.', { variant: 'error' })}>Show Error Toast</button>
+      <button type="button" class="btn btn-warning" onclick={() => showToastGlobal('Warning! Please review your changes.', { variant: 'warning' })}>Show Warning Toast</button>
+      <button type="button" class="btn btn-info" onclick={() => showToastGlobal('Info: New features are available.', { variant: 'info' })}>Show Info Toast</button>
+      <button type="button" class="btn" onclick={() => removeAllToastsGlobal()}>Clear All Toasts</button>
     </div>
   </div>
 
@@ -126,6 +126,7 @@ removeAllToasts();`}
   />
 
   <p><a href="/docs/components/toast">Full Astro Toast documentation</a> — options and programmatic API.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/toast">Astro</a> · <a href="/docs/vanilla/components/toast">Vanilla</a> · <a href="/docs/vue/components/toast">Vue</a> · <a href="/docs/react/components/toast">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 

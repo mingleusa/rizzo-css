@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ScrollArea from '../../../components/ScrollArea.astro';
+import ScrollArea from '../../../components/astro/ScrollArea.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -32,7 +32,7 @@ const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import ScrollArea from '../components/rizzo/ScrollArea.astro';
+import ScrollArea from '../components/astro/ScrollArea.astro';
 ---
 
 <ScrollArea style="height: 18rem; width: 12rem;">
@@ -66,5 +66,6 @@ import ScrollArea from '../components/rizzo/ScrollArea.astro';
   </div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/scroll-area">Vanilla</a> · <a href="/docs/svelte/components/scroll-area">Svelte</a> · <a href="/docs/vue/components/scroll-area">Vue</a> · <a href="/docs/react/components/scroll-area">React</a></p>
 	</section>
 </DocsLayout>

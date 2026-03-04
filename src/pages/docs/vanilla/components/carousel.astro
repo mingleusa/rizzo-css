@@ -2,7 +2,7 @@
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
-import CarouselComponent from '../../../../components/Carousel.astro';
+import CarouselComponent from '../../../../components/astro/Carousel.astro';
 ---
 
 <DocsLayout title="Carousel — Vanilla" description="Carousel with vanilla HTML. Use the same BEM structure; add your own script for prev/next or reuse the logic from the Astro component.">
@@ -14,10 +14,19 @@ import CarouselComponent from '../../../../components/Carousel.astro';
     <h3>Live example (Astro component; same BEM)</h3>
     <div class="example">
       <div class="example-title">Carousel</div>
-      <CarouselComponent label="Vanilla carousel demo">
-        <div class="carousel__slide"><h4>Slide 1</h4><p>First slide.</p></div>
-        <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide.</p></div>
-        <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide.</p></div>
+      <CarouselComponent label="Example slides">
+        <div class="carousel__slide">
+          <h4 style="margin-top:0">Slide 1</h4>
+          <p>First slide content. Use previous/next or the indicators to navigate.</p>
+        </div>
+        <div class="carousel__slide">
+          <h4 style="margin-top:0">Slide 2</h4>
+          <p>Second slide content.</p>
+        </div>
+        <div class="carousel__slide">
+          <h4 style="margin-top:0">Slide 3</h4>
+          <p>Third slide content.</p>
+        </div>
       </CarouselComponent>
     </div>
 

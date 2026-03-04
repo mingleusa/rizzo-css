@@ -132,6 +132,7 @@
   </ul>
 
   <p><a href="/docs/components/search">Full Astro Search documentation</a> — Algolia setup, props, and the inline script you can port to Svelte.</p>
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/search">Astro</a> · <a href="/docs/vanilla/components/search">Vanilla</a> · <a href="/docs/vue/components/search">Vue</a> · <a href="/docs/react/components/search">React</a></p>
   <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 

@@ -12,12 +12,13 @@ export interface Framework {
   pathPrefix: string;
 }
 
+/** Canonical order for framework tabs (View as + Usage): Astro, Vanilla, Svelte, Vue, React. */
 export const FRAMEWORKS: Framework[] = [
   { id: 'astro', label: 'Astro', pathPrefix: '/docs' },
-  { id: 'svelte', label: 'Svelte', pathPrefix: '/docs/svelte' },
   { id: 'vanilla', label: 'Vanilla', pathPrefix: '/docs/vanilla' },
-  { id: 'react', label: 'React', pathPrefix: '/docs/react' },
+  { id: 'svelte', label: 'Svelte', pathPrefix: '/docs/svelte' },
   { id: 'vue', label: 'Vue', pathPrefix: '/docs/vue' },
+  { id: 'react', label: 'React', pathPrefix: '/docs/react' },
 ];
 
 const FRAMEWORK_PREFIXES = FRAMEWORKS.map((f) => f.pathPrefix).filter((p) => p !== '/docs');

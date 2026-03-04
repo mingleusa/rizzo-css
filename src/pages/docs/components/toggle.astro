@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import ToggleComponent from '../../../components/Toggle.astro';
+import ToggleComponent from '../../../components/astro/Toggle.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -38,7 +38,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Toggle from '../components/rizzo/Toggle.astro';
+import Toggle from '../components/astro/Toggle.astro';
 ---
 
 <Toggle ariaLabel="Toggle bold">Bold</Toggle>
@@ -55,5 +55,6 @@ import Toggle from '../components/rizzo/Toggle.astro';
 <button type="button" class="toggle" aria-pressed="false" aria-label="Toggle bold">Bold</button>
 <button type="button" class="toggle toggle--pressed" aria-pressed="true" aria-label="On">On</button>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/toggle">Vanilla</a> · <a href="/docs/svelte/components/toggle">Svelte</a> · <a href="/docs/vue/components/toggle">Vue</a> · <a href="/docs/react/components/toggle">React</a></p>
 	</section>
 </DocsLayout>

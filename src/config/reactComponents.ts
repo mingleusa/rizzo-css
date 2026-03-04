@@ -4,10 +4,11 @@
  */
 export const REACT_COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb',
-  'button', 'button-group', 'cards', 'calendar', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard',
+  'button', 'button-group', 'cards', 'calendar', 'carousel', 'collapsible',
+  'context-menu', 'copy-to-clipboard', 'dashboard',
   'docs-sidebar', 'divider', 'dropdown', 'empty', 'footer', 'font-switcher', 'forms', 'hover-card',
   'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover', 'progress-bar',
-  'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
+  'range-calendar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
   'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ] as const;
 
@@ -70,6 +71,7 @@ const DESCRIPTIONS: Record<string, string> = {
   pagination: 'Accessible pagination with prev/next, page numbers, ellipsis, and configurable URLs',
   popover: 'Floating panel triggered by a button',
   'progress-bar': 'Progress bar with variants, sizes, optional label, and indeterminate (loading) state',
+  'range-calendar': 'Date range selection; two clicks set start and end; builds on Calendar; range-calendar-select event',
   resizable: 'Resizable panel groups with drag handles (horizontal or vertical)',
   'scroll-area': 'Scrollable area with themed scrollbar (vertical or horizontal)',
   search: 'Search with Algolia integration; Cmd+K in trigger',

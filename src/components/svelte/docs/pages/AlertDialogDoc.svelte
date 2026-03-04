@@ -29,6 +29,9 @@
     <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
   {/snippet}
 </AlertDialog>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/alert-dialog">Astro</a> · <a href="/docs/vanilla/components/alert-dialog">Vanilla</a> · <a href="/docs/vue/components/alert-dialog">Vue</a> · <a href="/docs/react/components/alert-dialog">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

@@ -10,15 +10,20 @@
   <AddComponentTabs componentName="Label" />
   <div class="example">
     <div class="example-title">Live example</div>
-    <Label for="label-demo">Email</Label>
-    <input id="label-demo" type="email" class="input" style="display: block; margin-top: var(--spacing-1);" />
+    <div class="form-group">
+      <Label for="label-demo-input" required>Email</Label>
+      <input id="label-demo-input" type="email" class="form-input" placeholder="you@example.com" style="display: block; margin-top: var(--spacing-1);" />
+    </div>
   </div>
   <CodeBlock code={`<script>
-  import Label from './components/svelte/Label.svelte';
+  import { Label } from '$lib/rizzo';
 </script>
 
-<Label for="email-id">Email</Label>
-<input id="email-id" type="email" />`} language="svelte" />
+<Label for="label-demo-input" required>Email</Label>
+<input id="label-demo-input" type="email" placeholder="you@example.com" class="form-input" />`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/label">Astro</a> · <a href="/docs/vanilla/components/label">Vanilla</a> · <a href="/docs/vue/components/label">Vue</a> · <a href="/docs/react/components/label">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

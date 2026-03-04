@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import TabsComponent from '../../../components/Tabs.astro';
+import TabsComponent from '../../../components/astro/Tabs.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -65,7 +65,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Tabs from '../components/rizzo/Tabs.astro';
+import Tabs from '../../../components/astro/Tabs.astro';
 ---
 
 <Tabs
@@ -241,6 +241,6 @@ import Tabs from '../components/rizzo/Tabs.astro';
 			<li><strong>Screen Reader Support</strong> - Proper announcements when tabs change</li>
 			<li><strong>Focus Indicators</strong> - Visible focus outline using <code>--accent-fg</code> (or <code>--accent</code>) color</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/tabs">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for tab switch and keyboard.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/tabs">Vanilla</a> · <a href="/docs/svelte/components/tabs">Svelte</a> · <a href="/docs/vue/components/tabs">Vue</a> · <a href="/docs/react/components/tabs">React</a></p>
 	</section>
 </DocsLayout>

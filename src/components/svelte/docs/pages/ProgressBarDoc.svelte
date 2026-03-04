@@ -86,6 +86,9 @@
     <li><strong>Reduced motion</strong> - Indeterminate animation disabled when user prefers reduced motion</li>
   </ul>
   <p><strong>Astro & Vanilla:</strong> <a href="/docs/components/progress-bar">Astro</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla</a></p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/progress-bar">Astro</a> · <a href="/docs/vanilla/components/progress-bar">Vanilla</a> · <a href="/docs/vue/components/progress-bar">Vue</a> · <a href="/docs/react/components/progress-bar">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

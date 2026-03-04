@@ -17,6 +17,9 @@
 </script>
 
 <Slider ariaLabel="Volume" min={0} max={100} value={50} />`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/slider">Astro</a> · <a href="/docs/vanilla/components/slider">Vanilla</a> · <a href="/docs/vue/components/slider">Vue</a> · <a href="/docs/react/components/slider">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

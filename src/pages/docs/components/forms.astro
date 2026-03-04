@@ -1,11 +1,11 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import FormGroup from '../../../components/FormGroup.astro';
-import Input from '../../../components/Input.astro';
-import Textarea from '../../../components/Textarea.astro';
-import Select from '../../../components/Select.astro';
-import Checkbox from '../../../components/Checkbox.astro';
-import Radio from '../../../components/Radio.astro';
+import FormGroup from '../../../components/astro/FormGroup.astro';
+import Input from '../../../components/astro/Input.astro';
+import Textarea from '../../../components/astro/Textarea.astro';
+import Select from '../../../components/astro/Select.astro';
+import Checkbox from '../../../components/astro/Checkbox.astro';
+import Radio from '../../../components/astro/Radio.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -50,8 +50,8 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import FormGroup from '../components/rizzo/FormGroup.astro';
-import Input from '../components/rizzo/Input.astro';
+import FormGroup from '../components/astro/FormGroup.astro';
+import Input from '../components/astro/Input.astro';
 ---
 
 <FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
@@ -138,8 +138,8 @@ import Input from '../components/rizzo/Input.astro';
 
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import FormGroup from '../../components/FormGroup.astro';
-import Input from '../../components/Input.astro';
+import FormGroup from '../../components/astro/FormGroup.astro';
+import Input from '../../components/astro/Input.astro';
 ---
 
 <FormGroup label="Email" labelFor="email" required>
@@ -173,8 +173,8 @@ import Input from '../../components/Input.astro';
 
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import FormGroup from '../../components/FormGroup.astro';
-import Textarea from '../../components/Textarea.astro';
+import FormGroup from '../../components/astro/FormGroup.astro';
+import Textarea from '../../components/astro/Textarea.astro';
 ---
 
 <FormGroup label="Message" labelFor="message" help="Enter your message here">
@@ -207,8 +207,8 @@ import Textarea from '../../components/Textarea.astro';
 
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import FormGroup from '../../components/FormGroup.astro';
-import Select from '../../components/Select.astro';
+import FormGroup from '../../components/astro/FormGroup.astro';
+import Select from '../../components/astro/Select.astro';
 ---
 
 <FormGroup label="Country" labelFor="country" required>
@@ -254,7 +254,7 @@ import Select from '../../components/Select.astro';
 
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import Checkbox from '../../components/Checkbox.astro';
+import Checkbox from '../../components/astro/Checkbox.astro';
 ---
 
 <label class="checkbox-label">
@@ -307,7 +307,7 @@ import Checkbox from '../../components/Checkbox.astro';
 
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import Radio from '../../components/Radio.astro';
+import Radio from '../../components/astro/Radio.astro';
 ---
 
 <fieldset>
@@ -386,6 +386,6 @@ import Radio from '../../components/Radio.astro';
   border-radius: var(--radius-lg);
   padding: var(--spacing-4);
 }`} language="css" />
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/forms">Svelte</a> · <a href="/docs/vanilla/components/forms">Vanilla</a> — same BEM classes, structure, and examples.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/forms">Vanilla</a> · <a href="/docs/svelte/components/forms">Svelte</a> · <a href="/docs/vue/components/forms">Vue</a> · <a href="/docs/react/components/forms">React</a></p>
 	</section>
 </DocsLayout>

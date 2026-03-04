@@ -6,7 +6,7 @@ import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
-      <a href="/" class="navbar__brand-link" aria-label="Site name home">Site name</a>
+      <a href="/" class="navbar__brand-link" aria-label="Rizzo home">Rizzo</a>
     </div>
     <div class="navbar__actions-desktop">
       <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-results">
@@ -20,8 +20,11 @@ const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main nav
       <span class="sr-only">Menu</span>
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <div class="navbar__menu" id="navbar-menu" role="menu" hidden>
-      <!-- Nav links (Docs, Components, Blocks, Themes, Colors); see Astro Navbar for full structure -->
+    <div class="navbar__menu" id="navbar-menu" role="navigation" aria-label="Mobile menu" hidden>
+      <div class="navbar__item"><a href="/docs" class="navbar__link" tabindex="-1">Docs</a></div>
+      <div class="navbar__item"><a href="/docs/components" class="navbar__link" tabindex="-1">Components</a></div>
+      <div class="navbar__item"><a href="/blocks" class="navbar__link" tabindex="-1">Blocks</a></div>
+      <div class="navbar__item"><a href="/themes" class="navbar__link" tabindex="-1">Themes</a></div>
     </div>
   </div>
 </nav>`;
@@ -32,12 +35,38 @@ const copyableHtml = `<nav class="navbar" role="navigation" aria-label="Main nav
     <h2>Navbar</h2>
     <p>Responsive, accessible navigation bar. Use the same BEM classes and structure in your HTML. For full markup and variants (including integrated settings and mobile menu), copy from the Astro component docs.</p>
     <AddComponentTabs componentName="Navbar" />
+    <h3>Live example</h3>
+    <div class="example navbar-demo-box">
+      <div class="example-title">Navbar (vanilla HTML)</div>
+      <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <div class="navbar__container">
+          <div class="navbar__brand">
+            <a href="/" class="navbar__brand-link" aria-label="Rizzo home">Rizzo</a>
+          </div>
+          <div class="navbar__actions-desktop">
+            <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false"><span class="search__trigger-text">Search</span></button>
+            <button type="button" class="navbar__settings-btn" aria-label="Open settings"><span class="navbar__settings-label">Settings</span></button>
+          </div>
+          <button type="button" class="navbar__toggle" aria-expanded="false" aria-controls="vanilla-demo-navbar-menu" aria-label="Toggle navigation menu">
+            <span class="sr-only">Menu</span>
+            <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+          </button>
+          <div class="navbar__menu" id="vanilla-demo-navbar-menu" role="navigation" aria-label="Mobile menu" hidden>
+            <div class="navbar__item"><a href="/docs" class="navbar__link" tabindex="-1">Docs</a></div>
+            <div class="navbar__item"><a href="/docs/components" class="navbar__link" tabindex="-1">Components</a></div>
+            <div class="navbar__item"><a href="/blocks" class="navbar__link" tabindex="-1">Blocks</a></div>
+            <div class="navbar__item"><a href="/themes" class="navbar__link" tabindex="-1">Themes</a></div>
+          </div>
+        </div>
+      </nav>
+      <p class="example-caption">Same BEM classes as Astro/Svelte. Wire toggle, search, and settings with your JS or <code>js/main.js</code> from the scaffold.</p>
+    </div>
     <h3>HTML (minimal structure)</h3>
     <p>Copy the markup below as a starting point. Ensure Rizzo CSS is loaded. Wire search and settings with your own JS or use <code>window.openSettings()</code> if your layout provides it.</p>
     <CodeBlock code={copyableHtml} language="html" />
 
     <p><a href="/docs/components/navbar">View <strong>Navbar</strong> on the Astro docs</a> for complete markup and structure.</p>
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/navbar">Astro</a> · <a href="/docs/svelte/components/navbar">Svelte</a> · <a href="/docs/react/components/navbar">React</a> · <a href="/docs/vue/components/navbar">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/navbar">Astro</a> · <a href="/docs/svelte/components/navbar">Svelte</a> · <a href="/docs/vue/components/navbar">Vue</a> · <a href="/docs/react/components/navbar">React</a></p>
     <p><a href="/docs/vanilla/components">← Back to Vanilla components</a></p>
   </section>
 </DocsLayout>

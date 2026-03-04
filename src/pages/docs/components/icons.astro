@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Card from '../../../components/Card.astro';
+import Card from '../../../components/astro/Card.astro';
 import Gear from '../../../components/icons/Gear.astro';
 import Close from '../../../components/icons/Close.astro';
 import ChevronDown from '../../../components/icons/ChevronDown.astro';
@@ -177,8 +177,8 @@ const devicons = [
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Gear from '../components/rizzo/icons/Gear.astro';
-import Css3 from '../components/rizzo/icons/devicons/Css3.astro';
+import Gear from '../../../components/icons/Gear.astro';
+import Css3 from '../../../components/icons/devicons/Css3.astro';
 ---
 <Gear width={20} height={20} />
 <Css3 width={16} height={16} class="my-icon" />`}
@@ -204,7 +204,7 @@ import Css3 from '../components/rizzo/icons/devicons/Css3.astro';
 			<li><code>class</code> - Optional CSS class for styling</li>
 		</ul>
 		<p>All regular icons use <code>currentColor</code> for theming and adapt to the current theme. Devicons use brand colors and are visible on all themes.</p>
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/icons">Svelte</a> · <a href="/docs/react/components/icons">React</a> · <a href="/docs/vue/components/icons">Vue</a> · <a href="/docs/vanilla/components/icons">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/icons">Vanilla</a> · <a href="/docs/svelte/components/icons">Svelte</a> · <a href="/docs/vue/components/icons">Vue</a> · <a href="/docs/react/components/icons">React</a></p>
 	</section>
 </DocsLayout>
 

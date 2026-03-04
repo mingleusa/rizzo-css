@@ -95,6 +95,9 @@
 <Alert variant="info" autoDismiss={5000}>Auto-dismiss in 5s.</Alert>`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/alert">Astro</a> · <a href="/docs/vanilla/components/alert">Vanilla</a> · <a href="/docs/vue/components/alert">Vue</a> · <a href="/docs/react/components/alert">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

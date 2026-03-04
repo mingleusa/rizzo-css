@@ -14,8 +14,12 @@
   <div class="example">
     <div class="example-title">Live examples</div>
     <div class="example-tooltips">
+      <div class="tooltip-wrapper" aria-describedby="tooltip-svelte-basic">
+        <Button variant="primary">Hover me</Button>
+        <Tooltip id="tooltip-svelte-basic" text="This is a basic tooltip" position="top" />
+      </div>
       <div class="tooltip-wrapper" aria-describedby="tooltip-svelte-top">
-        <Button variant="primary">Hover me (top)</Button>
+        <Button variant="primary">Top</Button>
         <Tooltip id="tooltip-svelte-top" text="Tooltip on top" position="top" />
       </div>
       <div class="tooltip-wrapper" aria-describedby="tooltip-svelte-bottom">
@@ -36,16 +40,18 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Button from './components/svelte/Button.svelte';
-  import Tooltip from './components/svelte/Tooltip.svelte';
+  import { Button, Tooltip } from '$lib/rizzo';
 </script>
 
 <div class="tooltip-wrapper" aria-describedby="my-tooltip">
   <Button variant="primary">Hover me</Button>
-  <Tooltip id="my-tooltip" text="Help text" position="top" />
+  <Tooltip id="my-tooltip" text="This is a basic tooltip" position="top" />
 </div>`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/tooltip">Astro</a> · <a href="/docs/vanilla/components/tooltip">Vanilla</a> · <a href="/docs/vue/components/tooltip">Vue</a> · <a href="/docs/react/components/tooltip">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

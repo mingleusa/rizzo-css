@@ -1,6 +1,6 @@
 ---
 import Layout from './Layout.astro';
-import BackToTop from '../components/BackToTop.astro';
+import BackToTop from '../components/astro/BackToTop.astro';
 
 interface Props {
   /** Page title (document title and h1) */
@@ -255,7 +255,7 @@ const BLOCKS_NAV = [
     background-color: var(--background-alt);
   }
 
-  .docs__content :global(a) {
+  .docs__content :global(a:not(.docs-sidebar__link):not(.docs-sidebar__sublink):not(.dashboard__nav-link)) {
     color: var(--accent-fg);
     text-decoration: underline;
     text-underline-offset: 0.15em;

@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import AspectRatio from '../../../components/AspectRatio.astro';
+import AspectRatio from '../../../components/astro/AspectRatio.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 
@@ -29,7 +29,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import AspectRatio from '../components/rizzo/AspectRatio.astro';
+import AspectRatio from '../components/astro/AspectRatio.astro';
 ---
 
 <AspectRatio ratio={16/9}>
@@ -51,5 +51,6 @@ import AspectRatio from '../components/rizzo/AspectRatio.astro';
   </div>
 </div>`}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/aspect-ratio">Vanilla</a> · <a href="/docs/svelte/components/aspect-ratio">Svelte</a> · <a href="/docs/vue/components/aspect-ratio">Vue</a> · <a href="/docs/react/components/aspect-ratio">React</a></p>
 	</section>
 </DocsLayout>

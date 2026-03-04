@@ -16,4 +16,7 @@
   </div>
 
   <p><a href="/docs/components/sound-effects">Full Astro Sound Effects documentation</a> · <a href="/docs/vanilla/components/sound-effects">Vanilla</a></p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/sound-effects">Astro</a> · <a href="/docs/vanilla/components/sound-effects">Vanilla</a> · <a href="/docs/vue/components/sound-effects">Vue</a> · <a href="/docs/react/components/sound-effects">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

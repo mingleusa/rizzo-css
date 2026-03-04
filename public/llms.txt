@@ -3,7 +3,7 @@ RIZZO CSS — OFFICIAL AI INTERFACE SPECIFICATION
 Version: 3.0
 Status: Canonical AI Contract
 Type: Framework-Agnostic CSS Design System
-Package version: 0.0.68
+Package version: 0.0.69
 ================================================================
 
 
@@ -180,20 +180,29 @@ Modifiers: .calendar__day--today, .calendar__day--selected, .calendar__day--othe
 Role: group (wrapper), grid (month), gridcell (days). Use role="columnheader" for weekday labels.
 Fires calendar-select (detail.date = YYYY-MM-DD) on day click.
 
+------------------------------------------------------------
+7.7 RANGE CALENDAR
+------------------------------------------------------------
+
+.calendar.calendar--range (same structure as Calendar)
+Modifiers: .calendar__day--range-start, .calendar__day--range-end, .calendar__day--in-range
+Data: data-range-calendar, data-range-calendar-body, data-range-calendar-prev, data-range-calendar-next
+Fires range-calendar-select (detail.start, detail.end = YYYY-MM-DD) when both dates chosen. Two clicks set start then end (order normalized).
+
 
 ################################################################
-# 8. COMPONENTS (52 total)
+# 8. COMPONENTS (53 total)
 ################################################################
 
 accordion, alert, alert-dialog, aspect-ratio, avatar, back-to-top, badge,
 breadcrumb, button, button-group, cards, calendar, carousel, collapsible, context-menu,
 copy-to-clipboard, dashboard, docs-sidebar, divider, dropdown, empty,
 footer, font-switcher, forms, hover-card, icons, input-group, kbd, label,
-modal, navbar, pagination, popover, progress-bar, resizable, scroll-area,
+modal, navbar, pagination, popover, progress-bar, range-calendar, resizable, scroll-area,
 search, separator, settings, sheet, skeleton, slider, sound-effects,
 spinner, switch, table, tabs, theme-switcher, toast, toggle, toggle-group, tooltip
 
-All 52 have implementations for Vanilla, Astro, Svelte, React, and Vue.
+All 53 have implementations for Vanilla, Astro, Svelte, React, and Vue.
 Docs: /docs/components (Astro), /docs/vanilla/components, /docs/svelte, /docs/react, /docs/vue.
 
 

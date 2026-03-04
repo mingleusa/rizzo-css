@@ -3,7 +3,7 @@ import { Carousel } from './Carousel';
 /** Wrapper for doc demo and Storybook: Carousel with default slides. */
 export function CarouselDemo() {
   return (
-    <Carousel label="Slides">
+    <Carousel label="Example slides">
       <div className="carousel__slide">
         <h4 style={{ marginTop: 0 }}>Slide 1</h4>
         <p>First slide content. Use previous/next or the indicators to navigate.</p>

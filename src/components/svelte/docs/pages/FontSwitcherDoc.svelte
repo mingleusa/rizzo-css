@@ -35,4 +35,7 @@
 
   <p><a href="/docs/components/font-switcher">Full Astro Font Switcher documentation</a> — usage, keyboard behavior, and font config.</p>
   <p><a href="/docs/vanilla/components/font-switcher">Vanilla Font Switcher</a> — copyable HTML and live example.</p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/font-switcher">Astro</a> · <a href="/docs/vanilla/components/font-switcher">Vanilla</a> · <a href="/docs/vue/components/font-switcher">Vue</a> · <a href="/docs/react/components/font-switcher">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

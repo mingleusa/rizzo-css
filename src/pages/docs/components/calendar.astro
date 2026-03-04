@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import CalendarComponent from '../../../components/Calendar.astro';
+import CalendarComponent from '../../../components/astro/Calendar.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
@@ -50,5 +50,6 @@ const vanillaCode = getVanillaCodeSnippet(componentSlug);
 			vue={vueCode}
 			vanilla={vanillaCode}
 		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/calendar">Vanilla</a> · <a href="/docs/svelte/components/calendar">Svelte</a> · <a href="/docs/vue/components/calendar">Vue</a> · <a href="/docs/react/components/calendar">React</a></p>
 	</section>
 </DocsLayout>

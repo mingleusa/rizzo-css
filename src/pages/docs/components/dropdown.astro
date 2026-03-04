@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Dropdown from '../../../components/Dropdown.astro';
+import Dropdown from '../../../components/astro/Dropdown.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -36,7 +36,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		
 		<FrameworkCodeTabs
 			astro={`---
-import Dropdown from '../components/rizzo/Dropdown.astro';
+import Dropdown from '../components/astro/Dropdown.astro';
 ---
 
 <Dropdown
@@ -410,7 +410,7 @@ import Dropdown from '../components/rizzo/Dropdown.astro';
     { label: 'Delete', value: 'delete', onClick: 'handleAction' },
   ]}
 />`} language="astro" />
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/dropdown">Svelte</a> · Vanilla: same HTML and BEM as in Usage above; add minimal JS for open/close and keyboard.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/dropdown">Vanilla</a> · <a href="/docs/svelte/components/dropdown">Svelte</a> · <a href="/docs/vue/components/dropdown">Vue</a> · <a href="/docs/react/components/dropdown">React</a></p>
 	</section>
 </DocsLayout>
 

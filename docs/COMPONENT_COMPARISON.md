@@ -125,8 +125,8 @@ Prioritized for planning (not all may be needed):
 
 - **Astro:** Component doc pages under `/docs/components/` (including Dashboard, Forms, Icons, etc.).
 - **Svelte:** Component doc pages under `/docs/svelte` (components overview and per-component pages).
-- **React:** Component doc pages under `/docs/react` (all 52 components with live demos and TSX snippets).
-- **Vue:** Component doc pages under `/docs/vue` (all 52 components with live demos and SFC snippets).
+- **React:** Component doc pages under `/docs/react` (all 53 components with live demos and TSX snippets).
+- **Vue:** Component doc pages under `/docs/vue` (all 53 components with live demos and SFC snippets).
 - **Vanilla:** Component doc pages under `/docs/vanilla/components/` (including Dashboard).
 - **A11y:** Dashboard is included in `COMPONENT_SLUGS` in `tests/a11y/docs.spec.mjs`, so all framework doc routes (Astro, Svelte, React, Vue, Vanilla) are tested.
 

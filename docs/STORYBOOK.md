@@ -38,7 +38,7 @@ Storybook runs with **React** only in this repo. All required packages are in th
 ## What’s included
 
 - **Introduction** — Overview and multi-framework note (same CSS for Astro, Svelte, React, Vue, Vanilla).
-- **Rizzo/All Components** — One story that lets you browse all **52 components** from a dropdown (uses the same registry as the docs).
+- **Rizzo/All Components** — One story that lets you browse all **53 components** from a dropdown (uses the same registry as the docs).
 - **Rizzo/** — Individual stories: **Button**, **Badge**, **Card**, **Carousel**, **Alert**, **Modal**, **Accordion**, **Tabs**, **Spinner**, **Progress Bar**, **Settings** (with a **Guide** story and Controls for `title`), **Search**, **Navbar**, **Dropdown**, **Theme Switcher**, and more. Use the **Controls** panel to tweak props (e.g. at **Rizzo/Settings/Guide**).
 - **Blocks/** — Pre-built layouts: **Landing Hero**, **Pricing** (cards grid), **Dashboard** (sidebar + stats), **Docs Layout** (sidebar + main), **Login**, **Signup**. Same structure and BEM as the Astro block pages at /blocks/*.
 - **Rizzo CSS** is loaded in the preview so all themes and BEM styles apply.

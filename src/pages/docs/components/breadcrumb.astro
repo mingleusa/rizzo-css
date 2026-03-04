@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import BreadcrumbComponent from '../../../components/Breadcrumb.astro';
+import BreadcrumbComponent from '../../../components/astro/Breadcrumb.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -47,7 +47,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Breadcrumb from '../components/rizzo/Breadcrumb.astro';
+import Breadcrumb from '../components/astro/Breadcrumb.astro';
 ---
 
 <Breadcrumb
@@ -151,6 +151,6 @@ import Breadcrumb from '../components/rizzo/Breadcrumb.astro';
 			<li><strong>Theme-aware</strong> - Uses design system variables for color and spacing</li>
 			<li><strong>Accessible</strong> - Focus styles, hover states, and screen reader friendly</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/breadcrumb">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/breadcrumb">Vanilla</a> · <a href="/docs/svelte/components/breadcrumb">Svelte</a> · <a href="/docs/vue/components/breadcrumb">Vue</a> · <a href="/docs/react/components/breadcrumb">React</a></p>
 	</section>
 </DocsLayout>

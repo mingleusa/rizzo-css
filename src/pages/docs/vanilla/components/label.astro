@@ -3,11 +3,10 @@ import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<label class="label" for="input-id">Email</label>
-<input id="input-id" type="email" />
-
-<label class="label label--required" for="req-id">Required field</label>
-<input id="req-id" type="text" required />`;
+const copyableHtml = `<div class="form-group">
+  <label class="label label--required" for="email">Email</label>
+  <input id="email" type="email" class="form-input" placeholder="you@example.com" />
+</div>`;
 ---
 
 <DocsLayout title="Label — Vanilla" description="Form label with vanilla HTML. Ensure Rizzo CSS is loaded.">
@@ -17,12 +16,14 @@ const copyableHtml = `<label class="label" for="input-id">Email</label>
     <AddComponentTabs componentName="Label" />
     <div class="example">
       <div class="example-title">Live example</div>
-      <label class="label" for="label-demo-id">Email</label>
-      <input id="label-demo-id" type="email" class="input" style="display: block; margin-top: var(--spacing-1);" />
+      <div class="form-group">
+        <label class="label label--required" for="label-demo-id">Email</label>
+        <input id="label-demo-id" type="email" class="form-input" placeholder="you@example.com" style="display: block; margin-top: var(--spacing-1);" />
+      </div>
     </div>
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/label">Astro</a> · <a href="/docs/svelte/components/label">Svelte</a> · <a href="/docs/react/components/label">React</a> · <a href="/docs/vue/components/label">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/label">Astro</a> · <a href="/docs/svelte/components/label">Svelte</a> · <a href="/docs/vue/components/label">Vue</a> · <a href="/docs/react/components/label">React</a></p>
   </section>
 </DocsLayout>
 

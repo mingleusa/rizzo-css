@@ -3,15 +3,16 @@ import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<div class="scroll-area" style="height: 12rem; width: 14rem;">
+const tags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
+const copyableHtml = `<div class="scroll-area" style="height: 18rem; width: 12rem;">
   <div class="scroll-area__viewport" tabindex="0">
-    <div style="padding: var(--spacing-4);">Long content here... (use fixed height so it scrolls)</div>
+    <div style="padding: var(--spacing-4);">
+      <h4 style="margin: 0 0 var(--spacing-4) 0; font-size: var(--font-size-sm); font-weight: 600;">Tags</h4>
+      <div style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-2);">v1.2.0-beta.20</div>
+      <div style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-2);">v1.2.0-beta.19</div>
+      <!-- ... -->
+    </div>
   </div>
-</div>
-
-<!-- Horizontal: add scroll-area--horizontal -->
-<div class="scroll-area scroll-area--horizontal" style="width: 20rem; overflow: hidden;">
-  <div class="scroll-area__viewport" tabindex="0"><div style="display: flex; gap: 1rem; padding: 1rem; width: max-content;">Item 1 Item 2 Item 3</div></div>
 </div>`;
 ---
 
@@ -21,23 +22,21 @@ const copyableHtml = `<div class="scroll-area" style="height: 12rem; width: 14re
     <p>Give the wrapper a fixed height (or width for horizontal). Use <code>scroll-area</code> and <code>scroll-area__viewport</code>. Add <code>scroll-area--horizontal</code> for horizontal scrolling.</p>
     <AddComponentTabs componentName="ScrollArea" />
     <div class="example">
-      <div class="example-title">Live example (vertical)</div>
-      <div class="scroll-area" style="height: 10rem; width: 12rem; border: 1px solid var(--border); border-radius: var(--radius-md);">
+      <div class="example-title">Live example</div>
+      <div class="scroll-area" style="height: 18rem; width: 12rem; border-radius: var(--radius-md); border: var(--border-width) solid var(--border);">
         <div class="scroll-area__viewport" tabindex="0">
           <div style="padding: var(--spacing-4);">
-            <p style="margin: 0 0 var(--spacing-2) 0;">Line 1</p>
-            <p style="margin: 0 0 var(--spacing-2) 0;">Line 2</p>
-            <p style="margin: 0 0 var(--spacing-2) 0;">Line 3</p>
-            <p style="margin: 0 0 var(--spacing-2) 0;">Line 4</p>
-            <p style="margin: 0 0 var(--spacing-2) 0;">Line 5</p>
-            <p style="margin: 0;">Line 6</p>
+            <h4 style="margin: 0 0 var(--spacing-4) 0; font-size: var(--font-size-sm); font-weight: 600;">Tags</h4>
+            {tags.map((tag) => (
+              <div style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-2);">{tag}</div>
+            ))}
           </div>
         </div>
       </div>
     </div>
     <h3>HTML</h3>
     <CodeBlock code={copyableHtml} language="html" />
-    <p><strong>Other frameworks:</strong> <a href="/docs/components/scroll-area">Astro</a> · <a href="/docs/svelte/components/scroll-area">Svelte</a> · <a href="/docs/react/components/scroll-area">React</a> · <a href="/docs/vue/components/scroll-area">Vue</a></p>
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/scroll-area">Astro</a> · <a href="/docs/svelte/components/scroll-area">Svelte</a> · <a href="/docs/vue/components/scroll-area">Vue</a> · <a href="/docs/react/components/scroll-area">React</a></p>
   </section>
 </DocsLayout>
 

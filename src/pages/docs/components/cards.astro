@@ -1,7 +1,7 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Card from '../../../components/Card.astro';
-import Button from '../../../components/Button.astro';
+import Card from '../../../components/astro/Card.astro';
+import Button from '../../../components/astro/Button.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -36,7 +36,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<h3>Usage</h3>
 		<FrameworkCodeTabs
 			astro={`---
-import Card from '../components/rizzo/Card.astro';
+import Card from '../components/astro/Card.astro';
 ---
 
 <Card>
@@ -105,7 +105,7 @@ import Card from '../components/rizzo/Card.astro';
 		
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import Card from '../../components/Card.astro';
+import Card from '../../components/astro/Card.astro';
 ---
 
 <Card variant="elevated">
@@ -148,8 +148,8 @@ import Card from '../../components/Card.astro';
 		
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import Card from '../../components/Card.astro';
-import Button from '../../components/Button.astro';
+import Card from '../../components/astro/Card.astro';
+import Button from '../../components/astro/Button.astro';
 ---
 
 <Card>
@@ -196,7 +196,7 @@ import Button from '../../components/Button.astro';
 		
 		<h3>Code Example</h3>
 		<CodeBlock code={`---
-import Card from '../../components/Card.astro';
+import Card from '../../components/astro/Card.astro';
 ---
 
 <Card variant="elevated">
@@ -268,6 +268,6 @@ import Card from '../../components/Card.astro';
 			<li>Include alt text for images</li>
 			<li>Ensure keyboard navigation for interactive cards</li>
 		</ul>
-		<p><strong>Svelte & Vanilla:</strong> <a href="/docs/svelte/components/cards">Svelte</a> · Vanilla: same HTML and BEM as in Usage above.</p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/cards">Vanilla</a> · <a href="/docs/svelte/components/cards">Svelte</a> · <a href="/docs/vue/components/cards">Vue</a> · <a href="/docs/react/components/cards">React</a></p>
 	</section>
 </DocsLayout>

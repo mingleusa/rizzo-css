@@ -63,7 +63,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 		<p>Include Settings once in your layout (e.g. with Navbar). Scripts run after DOM ready so the panel and theme switcher work when imported.</p>
 		<FrameworkCodeTabs
 			astro={`---
-import Settings from '../components/rizzo/Settings.astro';
+import Settings from '../../../components/astro/Settings.astro';
 ---
 
 <!-- Include once in layout. Default closed. -->
@@ -101,6 +101,6 @@ window.openSettings();
 
 // Close the settings panel
 window.closeSettings();`} language="javascript" />
-		<p><strong>Other frameworks:</strong> <a href="/docs/svelte/components/settings">Svelte</a> · <a href="/docs/react/components/settings">React</a> · <a href="/docs/vue/components/settings">Vue</a> · <a href="/docs/vanilla/components/settings">Vanilla</a></p>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/settings">Vanilla</a> · <a href="/docs/svelte/components/settings">Svelte</a> · <a href="/docs/vue/components/settings">Vue</a> · <a href="/docs/react/components/settings">React</a></p>
 	</section>
 </DocsLayout>

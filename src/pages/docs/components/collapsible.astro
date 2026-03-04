@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../layouts/DocsLayout.astro';
-import Collapsible from '../../../components/Collapsible.astro';
+import Collapsible from '../../../components/astro/Collapsible.astro';
 import CodeBlock from '../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../components/AddComponentTabs.astro';
 import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
@@ -37,7 +37,7 @@ const vueCode = getVueCodeSnippet(componentSlug);
 
 		<FrameworkCodeTabs
 			astro={`---
-import Collapsible from '../components/rizzo/Collapsible.astro';
+import Collapsible from '../components/astro/Collapsible.astro';
 ---
 
 <Collapsible triggerLabel="Show more">
@@ -72,5 +72,6 @@ import Collapsible from '../components/rizzo/Collapsible.astro';
 		<ul>
 			<li><kbd>Enter</kbd> or <kbd>Space</kbd> — Toggle the panel</li>
 		</ul>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/collapsible">Vanilla</a> · <a href="/docs/svelte/components/collapsible">Svelte</a> · <a href="/docs/vue/components/collapsible">Vue</a> · <a href="/docs/react/components/collapsible">React</a></p>
 	</section>
 </DocsLayout>

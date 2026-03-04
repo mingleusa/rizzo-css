@@ -1,0 +1,56 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import RangeCalendarComponent from '../../../components/astro/RangeCalendar.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'range-calendar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Range Calendar Component — Astro" description="Date range selection calendar. Two clicks set start and end; fires range-calendar-select with start and end (YYYY-MM-DD).">
+	<section>
+		<h2>Range Calendar Component</h2>
+		<p>A calendar for selecting a date range. Click once to set the start date, then click again to set the end date (order is normalized so <code>start</code> ≤ <code>end</code>). Uses the same BEM structure as <a href="/docs/components/calendar">Calendar</a> with <code>calendar--range</code> and range state modifiers. Fires <code>range-calendar-select</code> when both dates are set.</p>
+
+		<AddComponentTabs componentName="RangeCalendar" />
+
+		<h3>Props</h3>
+		<ul>
+			<li><code>id</code> (string, optional) — Unique id (auto-generated if omitted)</li>
+			<li><code>initialMonth</code> (string, optional) — Initial month as <code>YYYY-MM</code></li>
+			<li><code>rangeStart</code> (string, optional) — Initial range start as <code>YYYY-MM-DD</code></li>
+			<li><code>rangeEnd</code> (string, optional) — Initial range end as <code>YYYY-MM-DD</code></li>
+			<li><code>label</code> (string, optional) — Accessible label (default: "Choose date range")</li>
+			<li><code>class</code> (string, optional) — Additional CSS classes</li>
+		</ul>
+
+		<h3>Events</h3>
+		<p>Listen for <code>range-calendar-select</code> on the calendar element. <code>event.detail</code> has <code>start</code> and <code>end</code> (YYYY-MM-DD).</p>
+
+		<h3>Live Example</h3>
+		<div class="example">
+			<div class="example-title">Range Calendar</div>
+			<RangeCalendarComponent label="Choose date range" />
+		</div>
+
+		<h3>Usage</h3>
+		<FrameworkCodeTabs
+			astro={astroCode}
+			svelte={svelteCode}
+			react={reactCode}
+			vue={vueCode}
+			vanilla={vanillaCode}
+		/>
+		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/range-calendar">Vanilla</a> · <a href="/docs/svelte/components/range-calendar">Svelte</a> · <a href="/docs/vue/components/range-calendar">Vue</a> · <a href="/docs/react/components/range-calendar">React</a></p>
+	</section>
+</DocsLayout>

@@ -10,6 +10,13 @@
   let { siteName = 'Site', logo }: Props = $props();
   let menuOpen = $state(false);
 
+  const menuLinks = [
+    { href: '/docs', label: 'Docs' },
+    { href: '/docs/components', label: 'Components' },
+    { href: '/blocks', label: 'Blocks' },
+    { href: '/themes', label: 'Themes' },
+  ];
+
   // Click outside and Escape to close mobile menu
   $effect(() => {
     if (!menuOpen) return;
@@ -44,7 +51,7 @@
     </div>
     <div class="navbar__actions-desktop">
       <Search id="search-navbar" />
-      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick={() => window.openSettings?.()}>
         <Gear width={20} height={20} class="navbar__settings-icon" />
         <span class="navbar__settings-label">Settings</span>
       </button>
@@ -58,8 +65,12 @@
     >
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <div class="navbar__menu" class:navbar__menu--open={menuOpen} aria-hidden={!menuOpen}>
-      <a href="/" class="navbar__link">Home</a>
+    <div class="navbar__menu" class:navbar__menu--open={menuOpen} aria-hidden={!menuOpen} role="navigation" aria-label="Mobile menu">
+      {#each menuLinks as link}
+        <div class="navbar__item">
+          <a href={link.href} class="navbar__link" tabindex={menuOpen ? 0 : -1}>{link.label}</a>
+        </div>
+      {/each}
     </div>
   </div>
 </nav>

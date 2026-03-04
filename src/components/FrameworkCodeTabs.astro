@@ -1,5 +1,5 @@
 ---
-import Tabs from './Tabs.astro';
+import Tabs from './astro/Tabs.astro';
 import CodeBlock from './CodeBlock.astro';
 import AstroIcon from './icons/devicons/Astro.astro';
 import SvelteIcon from './icons/devicons/Svelte.astro';
@@ -7,7 +7,7 @@ import ReactIcon from './icons/devicons/React.astro';
 import VueIcon from './icons/devicons/Vue.astro';
 import Javascript from './icons/devicons/Javascript.astro';
 
-/** Full code examples per framework for the Usage section. Show Astro | Svelte | React | Vue | Vanilla tabs. */
+/** Full code examples per framework for the Usage section. Order: Astro, Vanilla, Svelte, Vue, React (matches View as). */
 interface Props {
   astro?: string;
   svelte?: string;
@@ -15,44 +15,30 @@ interface Props {
   vue?: string;
   vanilla?: string;
   /** Optional default tab id */
-  defaultTab?: 'astro' | 'svelte' | 'react' | 'vue' | 'vanilla';
+  defaultTab?: 'astro' | 'vanilla' | 'svelte' | 'vue' | 'react';
   class?: string;
 }
 
 const { astro = '', svelte = '', react = '', vue = '', vanilla = '', defaultTab = 'astro', class: className = '' } = Astro.props;
 
+/** Canonical order: Astro, Vanilla, Svelte, Vue, React (same as FRAMEWORKS in config/frameworks.ts). */
 type TabItem = { id: string; label: string; iconComponent: (props: { width?: number; height?: number; class?: string }) => unknown };
 const tabs: TabItem[] = [];
 if (astro) tabs.push({ id: 'astro', label: 'Astro', iconComponent: AstroIcon });
-if (svelte) tabs.push({ id: 'svelte', label: 'Svelte', iconComponent: SvelteIcon });
-if (react) tabs.push({ id: 'react', label: 'React', iconComponent: ReactIcon });
-if (vue) tabs.push({ id: 'vue', label: 'Vue', iconComponent: VueIcon });
 if (vanilla) tabs.push({ id: 'vanilla', label: 'Vanilla', iconComponent: Javascript });
+if (svelte) tabs.push({ id: 'svelte', label: 'Svelte', iconComponent: SvelteIcon });
+if (vue) tabs.push({ id: 'vue', label: 'Vue', iconComponent: VueIcon });
+if (react) tabs.push({ id: 'react', label: 'React', iconComponent: ReactIcon });
 const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : tabs[0]?.id ?? 'astro';
 ---
 
-<div class={`usage-tabs framework-code-tabs ${className}`.trim()}>
+<div class={`usage-tabs framework-code-tabs ${className}`.trim()} data-default-tab={effectiveDefault} data-framework-tabs-sync>
   <h3 class="usage-tabs__title">Usage</h3>
-  <p class="usage-tabs__hint">Full example for each framework. Copy the block that matches your project.</p>
+  <p class="usage-tabs__hint">Full example for each framework (Astro, Vanilla, Svelte, Vue, React). Switch framework via <strong>View as</strong> or by clicking a <strong>Usage</strong> tab—both stay in sync.</p>
   <Tabs tabs={tabs} defaultTab={effectiveDefault} id="framework-code-tabs" class="framework-code-tabs__tabs usage-tabs__tabs">
     {astro && (
       <div class="framework-code-tabs__panel">
         <CodeBlock code={astro.trim()} language="astro" />
-      </div>
-    )}
-    {svelte && (
-      <div class="framework-code-tabs__panel">
-        <CodeBlock code={svelte.trim()} language="svelte" />
-      </div>
-    )}
-    {react && (
-      <div class="framework-code-tabs__panel">
-        <CodeBlock code={react.trim()} language="tsx" />
-      </div>
-    )}
-    {vue && (
-      <div class="framework-code-tabs__panel">
-        <CodeBlock code={vue.trim()} language="vue" />
       </div>
     )}
     {vanilla && (
@@ -60,7 +46,69 @@ const effectiveDefault = tabs.some((t) => t.id === defaultTab) ? defaultTab : ta
         <CodeBlock code={vanilla.trim()} language="html" />
       </div>
     )}
+    {svelte && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={svelte.trim()} language="svelte" />
+      </div>
+    )}
+    {vue && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={vue.trim()} language="vue" />
+      </div>
+    )}
+    {react && (
+      <div class="framework-code-tabs__panel">
+        <CodeBlock code={react.trim()} language="tsx" />
+      </div>
+    )}
   </Tabs>
+  <script>
+    (function () {
+      function init() {
+        const container = document.querySelector('.framework-code-tabs[data-framework-tabs-sync]');
+        if (!container) return;
+        const docs = container.closest('[data-docs]');
+        if (!docs) return;
+        const canonicalPath = docs.getAttribute('data-canonical-path');
+        const frameworksJson = docs.getAttribute('data-frameworks');
+        if (!canonicalPath || !frameworksJson) return;
+        /** @type {{ id: string; pathPrefix: string }[]} */
+        let frameworks;
+        try {
+          frameworks = JSON.parse(frameworksJson);
+        } catch (_) {
+          return;
+        }
+        const tabEls = container.querySelectorAll('[role="tab"]');
+        tabEls.forEach((tab) => {
+          tab.addEventListener(
+            'click',
+            (e) => {
+              const id = tab.getAttribute('data-tab-id');
+              if (!id) return;
+              const fw = frameworks.find((f: { id: string; pathPrefix: string }) => f.id === id);
+              if (!fw || !fw.pathPrefix) return;
+              const href = fw.pathPrefix + (canonicalPath || '') || '/';
+              if (href === window.location.pathname) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                return;
+              }
+              e.preventDefault();
+              e.stopImmediatePropagation();
+              window.location.href = href;
+            },
+            true
+          );
+        });
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+      } else {
+        init();
+      }
+    })();
+  </script>
 </div>
 
 <style>

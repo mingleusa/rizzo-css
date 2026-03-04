@@ -78,6 +78,9 @@
 <Divider orientation="vertical" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/divider">Astro</a> · <a href="/docs/vanilla/components/divider">Vanilla</a> · <a href="/docs/vue/components/divider">Vue</a> · <a href="/docs/react/components/divider">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

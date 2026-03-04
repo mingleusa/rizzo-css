@@ -241,6 +241,9 @@ import Vue from '../../icons/devicons/Vue.svelte';
   </ul>
   <p>All regular icons use <code>currentColor</code> for theming and adapt to the current theme. Devicons use brand colors and are visible on all themes.</p>
   <p><strong>Astro & Vanilla:</strong> <a href="/docs/components/icons">Astro</a> · Vanilla: same SVG markup and BEM; see Usage above.</p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/icons">Astro</a> · <a href="/docs/vanilla/components/icons">Vanilla</a> · <a href="/docs/vue/components/icons">Vue</a> · <a href="/docs/react/components/icons">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

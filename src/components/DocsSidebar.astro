@@ -13,7 +13,8 @@ interface Props {
 const { currentPath, framework, omitId } = Astro.props;
 const pathPrefix = framework.pathPrefix; // /docs or /docs/svelte or /docs/vanilla
 
-function fullHref(link: { href: string; frameworkOnly?: boolean }) {
+function fullHref(link: { href: string; frameworkOnly?: boolean; absolute?: boolean }) {
+  if (link.absolute && link.href.startsWith('/')) return link.href;
   const base = link.frameworkOnly ? pathPrefix : '/docs';
   return `${base}/${link.href}`;
 }

@@ -31,6 +31,9 @@
 <Spinner size="lg" variant="success" label="Loading…" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/spinner">Astro</a> · <a href="/docs/vanilla/components/spinner">Vanilla</a> · <a href="/docs/vue/components/spinner">Vue</a> · <a href="/docs/react/components/spinner">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

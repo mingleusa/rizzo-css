@@ -20,6 +20,9 @@
 
 <Separator />
 <Separator orientation="vertical" />`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/separator">Astro</a> · <a href="/docs/vanilla/components/separator">Vanilla</a> · <a href="/docs/vue/components/separator">Vue</a> · <a href="/docs/react/components/separator">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

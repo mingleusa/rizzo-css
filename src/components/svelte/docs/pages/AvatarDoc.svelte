@@ -82,6 +82,9 @@
 <Avatar src="/photo.jpg" alt="Jane Doe" size="md" />`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/avatar">Astro</a> · <a href="/docs/vanilla/components/avatar">Vanilla</a> · <a href="/docs/vue/components/avatar">Vue</a> · <a href="/docs/react/components/avatar">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

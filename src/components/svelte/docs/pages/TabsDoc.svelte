@@ -151,4 +151,7 @@
     <li><strong>Theme-aware</strong> — Adapts to all 14 themes</li>
   </ul>
   <p><strong>Astro & Vanilla:</strong> <a href="/docs/components/tabs">Astro</a> · <a href="/docs/vanilla/components/tabs">Vanilla</a></p>
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/tabs">Astro</a> · <a href="/docs/vanilla/components/tabs">Vanilla</a> · <a href="/docs/vue/components/tabs">Vue</a> · <a href="/docs/react/components/tabs">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>

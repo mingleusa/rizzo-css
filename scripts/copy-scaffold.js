@@ -18,12 +18,12 @@ const scaffoldDir = join(pkgDir, 'scaffold');
 
 const svelteSrc = resolve(rootDir, 'src', 'components', 'svelte');
 const svelteDest = join(scaffoldDir, 'svelte');
-const astroSrc = resolve(rootDir, 'src', 'components');
+const astroSrc = resolve(rootDir, 'src', 'components', 'astro');
 const astroDest = join(scaffoldDir, 'astro');
 
 // Astro components to scaffold. Must match CLI ASTRO_COMPONENTS + ThemeIcon. Navbar, Search, Settings use minimal scaffold content (no docs config).
 const ASTRO_SCAFFOLD = [
-  'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Calendar', 'Carousel', 'Checkbox',
+  'Accordion', 'Alert', 'AlertDialog', 'AspectRatio', 'Avatar', 'Badge', 'BackToTop', 'Breadcrumb', 'Button', 'ButtonGroup', 'Card', 'Calendar', 'RangeCalendar', 'Carousel', 'Checkbox',
   'Collapsible', 'ContextMenu', 'CopyToClipboard', 'Dashboard', 'Divider', 'DocsSidebar', 'Dropdown', 'Empty', 'Footer', 'FontSwitcher', 'FormGroup',
   'HoverCard', 'Icons', 'Input', 'InputGroup', 'Kbd', 'Label', 'Modal', 'Navbar', 'Pagination', 'Popover', 'ProgressBar', 'Radio', 'ResizableHandle', 'ResizablePane', 'ResizablePaneGroup',
   'ScrollArea', 'Search', 'Select', 'Separator', 'Settings', 'Sheet', 'Skeleton', 'Slider', 'SoundEffects', 'Spinner', 'Switch', 'Table', 'Tabs', 'Textarea',
@@ -444,7 +444,8 @@ function copyAstro() {
     themeContent = themeContent.replace(/from '\.\.\/config\/themes'|from "\.\.\/config\/themes"/g, "from '../astro/themes'");
     writeFileSync(join(utilsDir, 'theme.ts'), themeContent);
   }
-  const iconsSrc = join(astroSrc, 'icons');
+  // Icons live at src/components/icons (sibling of astro/)
+  const iconsSrc = resolve(rootDir, 'src', 'components', 'icons');
   if (existsSync(iconsSrc)) {
     copyDirRecursive(iconsSrc, join(astroDest, 'icons'));
   }

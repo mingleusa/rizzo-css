@@ -154,6 +154,9 @@
 </Card>`}
     language="svelte"
   />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/cards">Astro</a> · <a href="/docs/vanilla/components/cards">Vanilla</a> · <a href="/docs/vue/components/cards">Vue</a> · <a href="/docs/react/components/cards">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

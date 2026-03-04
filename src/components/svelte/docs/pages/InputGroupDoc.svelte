@@ -30,6 +30,9 @@
   {#snippet prefix()}\${/snippet}
   {#snippet suffix()}USD{/snippet}
 </InputGroup>`} language="svelte" />
+
+  <p><strong>Other frameworks:</strong> <a href="/docs/components/input-group">Astro</a> · <a href="/docs/vanilla/components/input-group">Vanilla</a> · <a href="/docs/vue/components/input-group">Vue</a> · <a href="/docs/react/components/input-group">React</a></p>
+  <p><a href="/docs/svelte/components">← Back to Svelte components</a></p>
 </section>
 
 <style>

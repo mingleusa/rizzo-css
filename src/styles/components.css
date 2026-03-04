@@ -2154,6 +2154,61 @@ div.navbar__sublink {
   }
 }
 
+/* Dashboard — two-column layout: sidebar + main. Same BEM for all frameworks. */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+}
+
+.dashboard__sidebar {
+  width: 16rem;
+  flex-shrink: 0;
+  border-right: 1px solid var(--border);
+  padding: var(--spacing-4);
+  background: var(--background-alt);
+}
+
+.dashboard__nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+.dashboard__nav-link {
+  display: block;
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--radius-md);
+  color: var(--text);
+  text-decoration: none;
+}
+
+.dashboard__nav-link:hover {
+  background: var(--background);
+}
+
+.dashboard__nav-link--active {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.dashboard__main {
+  flex: 1;
+  padding: var(--spacing-6);
+  overflow: auto;
+}
+
+@media (width <= 768px) {
+  .dashboard {
+    flex-direction: column;
+  }
+
+  .dashboard__sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}
+
 /* Copy to Clipboard */
 .copy-to-clipboard {
   display: inline-flex;
@@ -2368,19 +2423,25 @@ div.navbar__sublink {
 /* Live example boxes: shared theme-aware styling for component doc pages (Astro, Svelte, React, Vue, Vanilla) */
 .example {
   margin: var(--spacing-6) 0;
-  padding: var(--spacing-4);
+  padding: var(--spacing-5);
   background: var(--background-alt);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
 }
 
 .example-title {
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
   color: var(--text-dim);
   margin-bottom: var(--spacing-3);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wider);
+}
+
+.react-doc-demo,
+.vue-doc-demo-wrapper {
+  min-height: 2.5rem;
 }
 
 .example-demo {
@@ -4123,7 +4184,7 @@ div.navbar__sublink {
 
 .accordion__trigger:hover {
   background-color: var(--background);
-  color: var(--accent);
+  color: var(--text);
 }
 
 .accordion__trigger:focus-visible {
@@ -4133,7 +4194,7 @@ div.navbar__sublink {
 
 .accordion__trigger--expanded {
   background-color: var(--background);
-  color: var(--accent);
+  color: var(--text);
 }
 
 .accordion__title {
@@ -4150,7 +4211,7 @@ div.navbar__sublink {
 
 .accordion__trigger--expanded .accordion__icon {
   transform: rotate(180deg);
-  color: var(--accent);
+  color: var(--text-dim);
 }
 
 .accordion__panel {
@@ -4260,7 +4321,7 @@ div.navbar__sublink {
   box-shadow: 0 1px 0 var(--border);
 }
 
-/* Alert Dialog */
+/* Alert Dialog — overlay must be a sibling before .alert-dialog (so it stacks behind the dialog). */
 .alert-dialog__overlay {
   position: fixed;
   inset: 0;
@@ -5953,4 +6014,30 @@ div.navbar__sublink {
 .calendar__day--other-month {
   color: var(--text-dim);
   opacity: 0.7;
+}
+
+/* Range Calendar: reuse .calendar; range states */
+.calendar--range {
+  /* same as .calendar; modifiers below for range selection */
+}
+
+.calendar__day--in-range {
+  background: oklch(from var(--accent) l c h / 20%);
+  color: var(--text);
+}
+
+.calendar__day--in-range:hover {
+  background: oklch(from var(--accent) l c h / 35%);
+}
+
+.calendar__day--range-start,
+.calendar__day--range-end {
+  background: var(--accent);
+  color: var(--accent-text);
+}
+
+.calendar__day--range-start:hover,
+.calendar__day--range-end:hover {
+  background: var(--accent-hover);
+  color: var(--accent-text-on-hover);
 }
