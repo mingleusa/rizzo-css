@@ -32,12 +32,14 @@ Vite + Vue project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you
 
 ## Project structure
 
-- `vite.config.ts` — Vite configuration
+- `vite.config.ts` — Vite configuration (includes `@` → `src` alias)
 - `index.html` — HTML shell with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/main.ts` — Entry point
 - `src/App.vue` — Root component
+- `src/components/rizzo/` — Rizzo Vue components (added by `npx rizzo-css add`); import with `@/components/rizzo`
 - `public/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI; font URLs point to `/assets/fonts/`)
 - `public/assets/fonts/` — Rizzo font files (added by CLI)
+- `.env.example` — Optional env template (copy to `.env` if needed)
 - `README-RIZZO.md` — This file (scaffold docs; does not replace your project README)
 - `LICENSE-RIZZO` — Rizzo CSS license (does not replace your project LICENSE)
 
@@ -46,5 +48,6 @@ Vite + Vue project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you
 - `pnpm dev` — Start dev server
 - `pnpm build` — Build for production
 - `pnpm preview` — Preview production build
+- `npx rizzo-css add Button` — Add Rizzo components (or `pnpm exec rizzo-css add Button` with rizzo-css in devDependencies)
 
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

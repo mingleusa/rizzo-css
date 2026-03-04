@@ -231,21 +231,34 @@ const showFrameworkSwitcher = shouldShowFrameworkSwitcher(currentPath);
 		background-color: var(--background-alt);
 	}
 	
-  .docs__content :global(a:not(.docs-sidebar__link):not(.docs-sidebar__sublink):not(.dashboard__nav-link)) {
+	/* Nav/card/navbar/etc.: no underline. Body/prose links: underline for a11y (link-in-text-block). */
+	.docs__content :global(a) {
+		text-decoration: none;
+	}
+	
+	/* In-content (prose) links: accent color + underline so they're distinguishable (WCAG 1.4.1, axe link-in-text-block). */
+	.docs__content :global(a:not(.docs-sidebar__link):not(.docs-sidebar__sublink):not(.dashboard__nav-link):not(.component-card-link):not(.block-card-link):not(.navbar__link):not(.navbar__brand-link):not(.footer__link):not(.breadcrumb__link):not(.pagination__link)) {
 		color: var(--accent-fg);
 		text-decoration: underline;
 		text-underline-offset: 0.15em;
 		transition: color var(--transition-base);
 	}
 	
-  .docs__content :global(a:hover) {
+	.docs__content :global(a:not(.docs-sidebar__link):not(.docs-sidebar__sublink):not(.dashboard__nav-link):not(.component-card-link):not(.block-card-link):not(.navbar__link):not(.navbar__brand-link):not(.footer__link):not(.breadcrumb__link):not(.pagination__link)):hover {
 		color: var(--accent-fg-hover);
 	}
 	
-	/* Card-as-link: no underline by default (underline on hover only, see pages.css) */
-	.docs__content :global(.block-card-link),
-	.docs__content :global(.component-card-link) {
+	/* Card link content: ensure no underline on children. */
+	.docs__content :global(.component-card-link *),
+	.docs__content :global(.block-card-link *) {
 		text-decoration: none;
+	}
+	
+	/* Live example navbar: stay below main site navbar (--z-navbar), no overlap */
+	.docs__content :global(.navbar),
+	.docs__content :global(.navbar--menu-open),
+	.docs__content :global(.navbar--search-open) {
+		z-index: 1;
 	}
 	
 	.docs__content :global(hr) {
@@ -270,6 +283,17 @@ const showFrameworkSwitcher = shouldShowFrameworkSwitcher(currentPath);
 		letter-spacing: var(--letter-spacing-wide);
 		color: var(--text-dim);
 		margin-bottom: var(--spacing-4);
+	}
+	
+	/* Dashboard demo: consistent height across Astro/Vanilla/Svelte/Vue/React */
+	.docs__content :global(.dashboard-demo-wrap) {
+		border: 1px solid var(--border);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		min-height: 14rem;
+	}
+	.docs__content :global(.dashboard-demo-wrap .dashboard) {
+		min-height: 14rem;
 	}
 	
 	.docs__content :global(section) {

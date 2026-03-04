@@ -582,7 +582,14 @@ export function ReactDocShowcase({ slug }: { slug: string }): ReactNode {
   // No custom showcase: render the registered component with demo props (already a working example)
   const Component = getReactComponent(slug);
   const demoProps = getDemoProps(slug);
-  return <Component {...demoProps} />;
+  const content = <Component {...demoProps} />;
+
+  // Dashboard: wrap in dashboard-demo-wrap for consistent height with Astro/Vanilla/Svelte/Vue
+  if (slug === 'dashboard') {
+    return <div className="dashboard-demo-wrap">{content}</div>;
+  }
+
+  return content;
 }
 
 export default ReactDocShowcase;

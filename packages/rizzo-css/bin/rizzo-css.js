@@ -2147,6 +2147,8 @@ async function runAddToExisting(frameworkOverride, options) {
   let selectedComponents;
   if (selectedVariation === 'css-only') {
     selectedComponents = [];
+  } else if (selectedVariation === 'full' && componentList.length > 0) {
+    selectedComponents = [...componentList];
   } else if (preselected && componentList.length > 0) {
     const valid = preselected.filter((c) => componentList.includes(c));
     const invalid = preselected.filter((c) => !componentList.includes(c));
@@ -2572,11 +2574,11 @@ async function cmdInit(argv) {
     selectedVariation = await promptTemplate();
     selectedTemplate = 'full'; // all templates get full framework + Rizzo
 
-    // CSS only = no component picker; Full (site clone) = all components; Landing/Docs/Dashboard = choose all or pick
+    // CSS only = no component picker; Full = all components (no prompt); Landing/Docs/Dashboard = choose all or pick
     if (selectedVariation === 'css-only') {
       selectedComponents = [];
       fullAllComponents = false;
-    } else if (selectedVariation === 'full' && hasFullVariant(framework)) {
+    } else if (selectedVariation === 'full') {
       fullAllComponents = true;
       selectedComponents = framework === 'svelte' ? [...SVELTE_COMPONENTS] : framework === 'astro' ? [...ASTRO_COMPONENTS] : framework === 'react' ? [...REACT_COMPONENTS] : framework === 'vue' ? [...VUE_COMPONENTS] : Object.keys(VANILLA_COMPONENT_SLUGS);
     } else {

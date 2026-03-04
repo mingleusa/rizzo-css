@@ -59,7 +59,7 @@ function extractSvgFromAstro(astroPath) {
 function copyIconsToPublic(astroIconsDir, publicIconsDir) {
   if (!existsSync(astroIconsDir)) return 0;
   if (existsSync(publicIconsDir)) {
-    rmSync(publicIconsDir, { recursive: true });
+    rmSync(publicIconsDir, { recursive: true, force: true });
   }
   mkdirSync(publicIconsDir, { recursive: true });
   let count = 0;

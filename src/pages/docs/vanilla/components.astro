@@ -74,7 +74,7 @@ const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs/vanilla', (slug) => (
     {COMPONENT_CATEGORIES.map((cat) => (
       <div class="docs-component-category" id={cat.id}>
         <h3 class="docs-component-category__title">{cat.label}</h3>
-        <div class="vanilla-components-grid">
+        <div class="docs-component-grid">
           {cat.items.map((item) => (
             <a href={item.href} class="component-card-link">
               <Card variant="elevated">
@@ -104,11 +104,11 @@ const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs/vanilla', (slug) => (
     margin: 0 0 var(--spacing-4);
     color: var(--text);
   }
-  .vanilla-components-grid {
+  .docs-component-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--spacing-70), 1fr));
     gap: var(--spacing-6);
-    margin: 0 0 var(--spacing-8) 0;
+    margin: 0;
   }
   .component-card-link {
     text-decoration: none;
@@ -151,7 +151,7 @@ const COMPONENT_CATEGORIES = getCategoriesWithItems('/docs/vanilla', (slug) => (
     }
   }
   @media (width <= 640px) {
-    .vanilla-components-grid {
+    .docs-component-grid {
       grid-template-columns: 1fr;
     }
   }
