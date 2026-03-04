@@ -90,14 +90,14 @@ test.describe('Smoke: key routes', () => {
   test('component page has Usage section and code blocks', async ({ page }) => {
     const res = await page.goto('/docs/components/button', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
-    await expect(page.getByRole('heading', { name: /usage/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /usage/i }).first()).toBeVisible();
     await expect(page.locator('pre code').first()).toBeVisible();
   });
 
   test('block page has Usage and code snippets', async ({ page }) => {
     const res = await page.goto('/blocks/landing-hero', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
-    await expect(page.getByRole('heading', { name: /usage/i })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /usage/i }).first()).toBeVisible();
     await expect(page.locator('pre code').first()).toBeVisible();
   });
 });

@@ -15,6 +15,9 @@ import Kbd from './Kbd.vue';
 import Separator from './Separator.vue';
 import ButtonGroup from './ButtonGroup.vue';
 import Spinner from './Spinner.vue';
+import Label from './Label.vue';
+import InputGroup from './InputGroup.vue';
+import ResizablePaneGroup from './ResizablePaneGroup.vue';
 
 const componentMap = {
   'accordion': defineAsyncComponent(() => import('./Accordion.vue')),
@@ -44,15 +47,15 @@ const componentMap = {
   'forms': defineAsyncComponent(() => import('./Input.vue')),
   'hover-card': defineAsyncComponent(() => import('./HoverCard.vue')),
   'icons': defineAsyncComponent(() => import('./Icons.vue')),
-  'input-group': defineAsyncComponent(() => import('./InputGroup.vue')),
+  'input-group': InputGroup,
   'kbd': Kbd,
-  'label': defineAsyncComponent(() => import('./Label.vue')),
+  'label': Label,
   'modal': defineAsyncComponent(() => import('./Modal.vue')),
   'navbar': defineAsyncComponent(() => import('./Navbar.vue')),
   'pagination': defineAsyncComponent(() => import('./Pagination.vue')),
   'popover': defineAsyncComponent(() => import('./Popover.vue')),
   'progress-bar': defineAsyncComponent(() => import('./ProgressBar.vue')),
-  'resizable': defineAsyncComponent(() => import('./ResizablePaneGroup.vue')),
+  'resizable': ResizablePaneGroup,
   'scroll-area': defineAsyncComponent(() => import('./ScrollArea.vue')),
   'search': defineAsyncComponent(() => import('./Search.vue')),
   'separator': Separator,
