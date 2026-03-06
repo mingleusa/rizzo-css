@@ -17,30 +17,32 @@ const { id, title = 'Are you sure?', description, open = false, class: className
 const dialogId = id || `alert-dialog-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<div
-	class={`alert-dialog__overlay ${open ? 'alert-dialog__overlay--open' : ''}`.trim()}
-	data-alert-dialog-overlay
-	aria-hidden={!open}
-	id={`${dialogId}-overlay`}
-></div>
-<div
-	class={`alert-dialog ${className}`.trim()}
-	role="alertdialog"
-	aria-modal="true"
-	aria-labelledby={`${dialogId}-title`}
-	aria-describedby={description ? `${dialogId}-desc` : undefined}
-	aria-hidden={!open}
-	id={dialogId}
-	data-alert-dialog
-	hidden={!open}
->
-	<div class="alert-dialog__content">
-		<h2 id={`${dialogId}-title`} class="alert-dialog__title">{title}</h2>
-		{description && (
-			<p id={`${dialogId}-desc`} class="alert-dialog__description">{description}</p>
-		)}
-		<div class="alert-dialog__actions">
-			<slot name="actions" />
+<div class="alert-dialog-root">
+	<div
+		class={`alert-dialog__overlay ${open ? 'alert-dialog__overlay--open' : ''}`.trim()}
+		data-alert-dialog-overlay
+		aria-hidden={!open}
+		id={`${dialogId}-overlay`}
+	></div>
+	<div
+		class={`alert-dialog ${className}`.trim()}
+		role="alertdialog"
+		aria-modal="true"
+		aria-labelledby={`${dialogId}-title`}
+		aria-describedby={description ? `${dialogId}-desc` : undefined}
+		aria-hidden={!open}
+		id={dialogId}
+		data-alert-dialog
+		hidden={!open}
+	>
+		<div class="alert-dialog__content">
+			<h2 id={`${dialogId}-title`} class="alert-dialog__title">{title}</h2>
+			{description && (
+				<p id={`${dialogId}-desc`} class="alert-dialog__description">{description}</p>
+			)}
+			<div class="alert-dialog__actions">
+				<slot name="actions" />
+			</div>
 		</div>
 	</div>
 </div>

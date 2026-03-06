@@ -6,27 +6,27 @@ import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
 const copyableHtml = `<button type="button" class="btn btn-primary" id="open-modal-btn">Open Example Modal</button>
 
-<!-- Overlay (sibling to .modal) -->
-<div class="modal__overlay" id="demo-overlay" aria-hidden="true"></div>
-
-<!-- Dialog: add modal--sm | modal--md | modal--lg for size -->
-<div class="modal modal--md" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
-  <div class="modal__header">
-    <h2 class="modal__title" id="demo-modal-title">Example Modal</h2>
-    <button type="button" class="modal__close" aria-label="Close modal">×</button>
-  </div>
-  <div class="modal__body">
-    <p>This is an example modal dialog. It demonstrates:</p>
-    <ul>
-      <li>Focus trapping — Tab cycles within the modal</li>
-      <li>Keyboard navigation — Escape key closes the modal</li>
-      <li>Backdrop overlay with blur effect</li>
-      <li>Theme-aware styling</li>
-    </ul>
-  </div>
-  <div class="modal__footer">
-    <button type="button" class="btn">Cancel</button>
-    <button type="button" class="btn btn-primary">Confirm</button>
+<!-- Use .modal-root so overlay stacks behind the modal. Overlay id: <modalId>-overlay. -->
+<div class="modal-root">
+  <div class="modal__overlay" id="demo-overlay" aria-hidden="true"></div>
+  <div class="modal modal--md" id="demo-modal" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title" aria-hidden="true">
+    <div class="modal__header">
+      <h2 class="modal__title" id="demo-modal-title">Example Modal</h2>
+      <button type="button" class="modal__close" aria-label="Close modal">×</button>
+    </div>
+    <div class="modal__body">
+      <p>This is an example modal dialog. It demonstrates:</p>
+      <ul>
+        <li>Focus trapping — Tab cycles within the modal</li>
+        <li>Keyboard navigation — Escape key closes the modal</li>
+        <li>Backdrop overlay with blur effect</li>
+        <li>Theme-aware styling</li>
+      </ul>
+    </div>
+    <div class="modal__footer">
+      <button type="button" class="btn">Cancel</button>
+      <button type="button" class="btn btn-primary">Confirm</button>
+    </div>
   </div>
 </div>`;
 

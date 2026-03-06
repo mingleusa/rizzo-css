@@ -9,7 +9,12 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 - **Docs & TODO:** [docs/TODO.md](docs/TODO.md) — Testing summary table; Documentation & consistency section. Best practices: correct button BEM examples (`btn-primary`, `btn-ghost`).
 - **Docs:** All documentation updated for **53 components** (Calendar added). Component count and “all 53 or pick” aligned across README, docs/*.md, docs/planning/*.md, GETTING_STARTED, COMPONENTS, TESTING, STORYBOOK, MULTI_FRAMEWORK, FRAMEWORK_STRUCTURE, CLI, TEMPLATES, PUBLISHING, DESIGN_SYSTEM, COMPONENT_COMPARISON, ai/README.md, showcase/overview/Layout/Search, scaffold READMEs, and package README.
 - (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
-- **Production readiness:** Version 0.0.71 aligned across package, docs, tokens, and scaffold. Build and `build:package` pass. A11y tests updated for React modal trigger text ("Open Example Modal"). Run `pnpm exec playwright install` before `test:smoke` / `test:a11y` (see [docs/TESTING.md](docs/TESTING.md)).
+- **Production readiness:** Version 0.0.72 aligned across package, docs, tokens, and scaffold. Build and `build:package` pass. Run `pnpm exec playwright install` before `test:smoke` / `test:a11y` (see [docs/TESTING.md](docs/TESTING.md)).
+
+## [0.0.72] - 2025-02-27
+
+- **Version:** Bump to 0.0.72 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, and tokens export aligned to 0.0.72.
+- **Overlay stacking (Alert Dialog, Modal, Sheet):** All three overlay components now use a root wrapper (`.alert-dialog-root`, `.modal-root`, `.sheet-root`) so the overlay stacks behind the dialog/modal/sheet in one stacking context. Applied across Astro, React, Svelte, Vue, and vanilla docs/snippets; scaffold React Sheet updated; Svelte Modal footer indentation fixed. Legacy markup without the wrapper still uses z-index fallbacks.
 
 ## [0.0.71] - 2025-02-27
 
@@ -17,6 +22,7 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 - **React CLI scaffold:** Base template (`scaffold/react/base/`) now includes Vite `@` path alias (vite.config.ts + tsconfig.json), `.env.example`, and README-RIZZO.md updated with project structure and `@/components/rizzo` import notes. Aligns with Vue scaffold; no duplicate files.
 - **A11y:** In-doc prose links (e.g. "Other frameworks") now use underline so they are distinguishable without relying on color (axe `link-in-text-block`, WCAG 1.4.1). Nav, cards, navbar, and similar links remain without underline.
 - **Build:** `scripts/build-css.js` uses `rmSync(..., { force: true })` when clearing `public/icons` to avoid ENOTEMPTY on some systems.
+- **Alert Dialog:** Overlay z-index fixed so it stacks behind the dialog (uses `--z-modal-backdrop` / `--z-modal`; overlay no longer covers the dialog).
 
 ## [0.0.70] - 2025-02-27
 
@@ -83,7 +89,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.71...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.72...HEAD
+[0.0.72]: https://github.com/mingleusa/rizzo-css/compare/v0.0.71...v0.0.72
 [0.0.71]: https://github.com/mingleusa/rizzo-css/compare/v0.0.70...v0.0.71
 [0.0.70]: https://github.com/mingleusa/rizzo-css/compare/v0.0.69...v0.0.70
 [0.0.69]: https://github.com/mingleusa/rizzo-css/compare/v0.0.68...v0.0.69

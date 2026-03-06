@@ -2,7 +2,7 @@
   "name": "Rizzo CSS",
   "type": "css-design-system",
   "version": "3.0",
-  "packageVersion": "0.0.71",
+  "packageVersion": "0.0.72",
   "architecture": {
     "naming": "BEM with no prefix (e.g. .btn, .navbar, .card)",
     "layers": [

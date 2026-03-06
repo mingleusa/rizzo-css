@@ -2006,7 +2006,43 @@ div.navbar__sublink {
   }
 }
 
-/* Modal */
+/* Modal — use .modal-root wrapper so overlay and modal stack correctly in one context. */
+.modal-root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  pointer-events: none;
+}
+
+.modal-root > .modal__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  background-color: oklch(from var(--shadow-color) l c h / 60%);
+  backdrop-filter: blur(var(--blur-sm));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-slow) ease;
+}
+
+.modal-root > .modal__overlay[aria-hidden="false"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-root > .modal {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.modal-root > .modal[aria-hidden="false"] {
+  pointer-events: auto;
+}
+
+/* When not inside .modal-root (legacy markup), keep overlay behind modal by z-index. */
 .modal__overlay {
   position: fixed;
   top: 0;
@@ -4321,12 +4357,45 @@ div.navbar__sublink {
   box-shadow: 0 1px 0 var(--border);
 }
 
-/* Alert Dialog — overlay must be a sibling before .alert-dialog (so it stacks behind the dialog). */
+/* Alert Dialog — use .alert-dialog-root wrapper so overlay and dialog stack correctly in one context. */
+.alert-dialog-root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  pointer-events: none;
+}
+
+.alert-dialog-root > .alert-dialog__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: oklch(from var(--background) l c h / 70%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.alert-dialog-root > .alert-dialog__overlay--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.alert-dialog-root > .alert-dialog {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.alert-dialog-root > .alert-dialog:not([hidden]) {
+  pointer-events: auto;
+}
+
+/* When not inside .alert-dialog-root (e.g. legacy markup), keep overlay behind dialog by z-index. */
 .alert-dialog__overlay {
   position: fixed;
   inset: 0;
   background: oklch(from var(--background) l c h / 70%);
-  z-index: var(--z-modal-overlay, 9998);
+  z-index: var(--z-modal-backdrop);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--transition-base), visibility var(--transition-base);
@@ -4342,7 +4411,7 @@ div.navbar__sublink {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  z-index: var(--z-modal, 9999);
+  z-index: var(--z-modal);
   background: var(--background);
   border: var(--border-width) solid var(--border);
   border-radius: var(--radius-lg);
@@ -4510,12 +4579,45 @@ div.navbar__sublink {
   transition: width var(--transition-fast);
 }
 
-/* Sheet (drawer) */
+/* Sheet (drawer) — use .sheet-root wrapper so overlay and sheet stack correctly in one context. */
+.sheet-root {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-modal);
+  pointer-events: none;
+}
+
+.sheet-root > .sheet__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background: oklch(from var(--background) l c h / 70%);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--transition-base), visibility var(--transition-base);
+}
+
+.sheet-root > .sheet__overlay--open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.sheet-root > .sheet {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.sheet-root > .sheet:not([hidden]) {
+  pointer-events: auto;
+}
+
+/* When not inside .sheet-root (legacy markup), keep overlay behind sheet by z-index. */
 .sheet__overlay {
   position: fixed;
   inset: 0;
   background: oklch(from var(--background) l c h / 70%);
-  z-index: var(--z-sheet-overlay, 9998);
+  z-index: var(--z-modal-backdrop);
   opacity: 0;
   visibility: hidden;
   transition: opacity var(--transition-base), visibility var(--transition-base);
@@ -4528,7 +4630,7 @@ div.navbar__sublink {
 
 .sheet {
   position: fixed;
-  z-index: var(--z-sheet, 9999);
+  z-index: var(--z-modal);
   background: var(--background);
   border: var(--border-width) solid var(--border);
   box-shadow: var(--shadow-lg);

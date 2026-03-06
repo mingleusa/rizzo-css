@@ -122,17 +122,19 @@ import Button from '../../../components/astro/Button.astro';
 <Button onclick="window.openModal_example_modal()">Open Modal</Button>`}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Ensure Rizzo CSS + js/main.js are loaded. Overlay id must be \`<modalId>-overlay\`. -->
-<div class="modal__overlay" id="example-modal-overlay" aria-hidden="true"></div>
-<div class="modal modal--md" id="example-modal" role="dialog" aria-modal="true" aria-labelledby="example-modal-title" aria-hidden="true">
-  <div class="modal__header">
-    <h2 id="example-modal-title" class="modal__title">Example Modal</h2>
-    <button type="button" class="modal__close" data-modal-close aria-label="Close">×</button>
-  </div>
-  <div class="modal__body"><p>Modal content goes here.</p></div>
-  <div class="modal__footer">
-    <button type="button" class="btn" onclick="window.closeModal_example_modal()">Cancel</button>
-    <button type="button" class="btn btn-primary" onclick="window.closeModal_example_modal()">Confirm</button>
+			vanilla={`<!-- Use .modal-root so overlay stacks behind the modal. Ensure Rizzo CSS + js/main.js. Overlay id: \`<modalId>-overlay\`. -->
+<div class="modal-root">
+  <div class="modal__overlay" id="example-modal-overlay" aria-hidden="true"></div>
+  <div class="modal modal--md" id="example-modal" role="dialog" aria-modal="true" aria-labelledby="example-modal-title" aria-hidden="true">
+    <div class="modal__header">
+      <h2 id="example-modal-title" class="modal__title">Example Modal</h2>
+      <button type="button" class="modal__close" data-modal-close aria-label="Close">×</button>
+    </div>
+    <div class="modal__body"><p>Modal content goes here.</p></div>
+    <div class="modal__footer">
+      <button type="button" class="btn" onclick="window.closeModal_example_modal()">Cancel</button>
+      <button type="button" class="btn btn-primary" onclick="window.closeModal_example_modal()">Confirm</button>
+    </div>
   </div>
 </div>
 <button type="button" class="btn btn-primary" data-modal-open="example-modal">Open Modal</button>`}

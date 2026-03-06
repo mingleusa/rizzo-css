@@ -16,33 +16,35 @@ const { id, title, side = 'right', open = false, class: className = '' } = Astro
 const sheetId = id || `sheet-${Math.random().toString(36).slice(2, 9)}`;
 ---
 
-<div
-	class={`sheet__overlay ${open ? 'sheet__overlay--open' : ''}`.trim()}
-	data-sheet-overlay
-	aria-hidden={!open}
-	id={`${sheetId}-overlay`}
-></div>
-<div
-	class={`sheet sheet--${side} ${open ? 'sheet--open' : ''} ${className}`.trim()}
-	role="dialog"
-	aria-modal="true"
-	aria-labelledby={title ? `${sheetId}-title` : undefined}
-	aria-hidden={!open}
-	id={sheetId}
-	data-sheet
-	hidden={!open}
->
-	<div class="sheet__content">
-		{title && (
-			<div class="sheet__header">
-				<h2 id={`${sheetId}-title`} class="sheet__title">{title}</h2>
-				<button type="button" class="sheet__close" aria-label="Close" data-sheet-close>
-					<Close width={20} height={20} />
-				</button>
+<div class="sheet-root">
+	<div
+		class={`sheet__overlay ${open ? 'sheet__overlay--open' : ''}`.trim()}
+		data-sheet-overlay
+		aria-hidden={!open}
+		id={`${sheetId}-overlay`}
+	></div>
+	<div
+		class={`sheet sheet--${side} ${open ? 'sheet--open' : ''} ${className}`.trim()}
+		role="dialog"
+		aria-modal="true"
+		aria-labelledby={title ? `${sheetId}-title` : undefined}
+		aria-hidden={!open}
+		id={sheetId}
+		data-sheet
+		hidden={!open}
+	>
+		<div class="sheet__content">
+			{title && (
+				<div class="sheet__header">
+					<h2 id={`${sheetId}-title`} class="sheet__title">{title}</h2>
+					<button type="button" class="sheet__close" aria-label="Close" data-sheet-close>
+						<Close width={20} height={20} />
+					</button>
+				</div>
+			)}
+			<div class="sheet__body">
+				<slot />
 			</div>
-		)}
-		<div class="sheet__body">
-			<slot />
 		</div>
 	</div>
 </div>

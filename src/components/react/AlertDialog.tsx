@@ -40,7 +40,7 @@ export function AlertDialog({
   }, [open, onOpenChange]);
 
   return (
-    <>
+    <div className="alert-dialog-root">
       <div
         className={`alert-dialog__overlay ${open ? 'alert-dialog__overlay--open' : ''}`.trim()}
         data-alert-dialog-overlay
@@ -73,7 +73,7 @@ export function AlertDialog({
           <div className="alert-dialog__actions">{actions}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

@@ -47,15 +47,17 @@ import AlertDialog from '../components/astro/AlertDialog.astro';
 <button type="button" class="btn" onclick={() => (open = true)}>Open</button>`}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Overlay must be a sibling BEFORE the dialog so it stacks behind. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
-<div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
-<div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" aria-labelledby="alert-demo-title" aria-describedby="alert-demo-desc" data-alert-dialog aria-hidden="true" hidden>
-  <div class="alert-dialog__content">
-    <h2 id="alert-demo-title" class="alert-dialog__title">Delete item?</h2>
-    <p id="alert-demo-desc" class="alert-dialog__description">This action cannot be undone.</p>
-    <div class="alert-dialog__actions">
-      <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
-      <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+			vanilla={`<!-- Use .alert-dialog-root so overlay stacks behind the dialog. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
+<div class="alert-dialog-root">
+  <div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
+  <div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" aria-labelledby="alert-demo-title" aria-describedby="alert-demo-desc" data-alert-dialog aria-hidden="true" hidden>
+    <div class="alert-dialog__content">
+      <h2 id="alert-demo-title" class="alert-dialog__title">Delete item?</h2>
+      <p id="alert-demo-desc" class="alert-dialog__description">This action cannot be undone.</p>
+      <div class="alert-dialog__actions">
+        <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
+        <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+      </div>
     </div>
   </div>
 </div>

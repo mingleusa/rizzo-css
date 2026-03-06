@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.71",
+  "version": "0.0.72",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",

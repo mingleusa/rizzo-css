@@ -3,15 +3,17 @@ import DocsLayout from '../../../../layouts/DocsLayout.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 
-const copyableHtml = `<!-- Sheet: overlay + content; open/close via JS (e.g. openSheet_id). side: top | right | bottom | left -->
-<div class="sheet" id="my-sheet" data-sheet data-side="right" hidden>
-  <div class="sheet__overlay" data-sheet-overlay></div>
-  <div class="sheet__content">
-    <div class="sheet__header">
-      <h2 class="sheet__title">Title</h2>
-      <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+const copyableHtml = `<!-- Use .sheet-root so overlay stacks behind the sheet. openSheet_<id>(), closeSheet_<id>(). side: sheet--right | sheet--left | sheet--top | sheet--bottom -->
+<div class="sheet-root">
+  <div class="sheet__overlay" data-sheet-overlay id="my-sheet-overlay" aria-hidden="true"></div>
+  <div class="sheet sheet--right" id="my-sheet" data-sheet aria-hidden="true" hidden>
+    <div class="sheet__content">
+      <div class="sheet__header">
+        <h2 class="sheet__title">Title</h2>
+        <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+      </div>
+      <div class="sheet__body">Content</div>
     </div>
-    <div class="sheet__body">Content</div>
   </div>
 </div>`;
 ---

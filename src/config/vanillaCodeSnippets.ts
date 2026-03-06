@@ -137,9 +137,19 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   <div class="tabs__panel" role="tabpanel">...</div>
 </div>`,
 
-  modal: `<!-- Rizzo CSS + js. Overlay id must be <modalId>-overlay. -->
-<div id="my-modal-overlay" class="modal-overlay" aria-hidden="true">...</div>
-<button data-modal-trigger="my-modal">Open</button>`,
+  modal: `<!-- Use .modal-root so overlay stacks behind the modal. Overlay id: <modalId>-overlay. -->
+<div class="modal-root">
+  <div class="modal__overlay" id="my-modal-overlay" aria-hidden="true"></div>
+  <div class="modal modal--md" id="my-modal" role="dialog" aria-modal="true" aria-labelledby="my-modal-title" aria-hidden="true">
+    <div class="modal__header">
+      <h2 id="my-modal-title" class="modal__title">Title</h2>
+      <button type="button" class="modal__close" data-modal-close aria-label="Close">×</button>
+    </div>
+    <div class="modal__body">Content</div>
+    <div class="modal__footer"><button type="button" class="btn" data-modal-close>Close</button></div>
+  </div>
+</div>
+<button type="button" class="btn" data-modal-open="my-modal">Open</button>`,
 
   tooltip: `<!-- Rizzo CSS; tooltip is CSS + aria-describedby; no JS required for hover/focus. -->
 <div class="tooltip-wrapper" aria-describedby="tip-1">
@@ -186,23 +196,36 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   <div class="resizable-pane">Right</div>
 </div>`,
 
-  'alert-dialog': `<!-- Overlay must be a sibling BEFORE the dialog so it stacks behind. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
-<div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
-<div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" aria-labelledby="alert-demo-title" aria-describedby="alert-demo-desc" data-alert-dialog aria-hidden="true" hidden>
-  <div class="alert-dialog__content">
-    <h2 id="alert-demo-title" class="alert-dialog__title">Delete item?</h2>
-    <p id="alert-demo-desc" class="alert-dialog__description">This action cannot be undone.</p>
-    <div class="alert-dialog__actions">
-      <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
-      <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+  'alert-dialog': `<!-- Use .alert-dialog-root so overlay stacks behind the dialog. openAlertDialog_<id>(), closeAlertDialog_<id>(). -->
+<div class="alert-dialog-root">
+  <div class="alert-dialog__overlay" data-alert-dialog-overlay id="alert-demo-overlay" aria-hidden="true"></div>
+  <div class="alert-dialog" id="alert-demo" role="alertdialog" aria-modal="true" aria-labelledby="alert-demo-title" aria-describedby="alert-demo-desc" data-alert-dialog aria-hidden="true" hidden>
+    <div class="alert-dialog__content">
+      <h2 id="alert-demo-title" class="alert-dialog__title">Delete item?</h2>
+      <p id="alert-demo-desc" class="alert-dialog__description">This action cannot be undone.</p>
+      <div class="alert-dialog__actions">
+        <button type="button" class="btn" data-alert-dialog-close>Cancel</button>
+        <button type="button" class="btn btn-error" data-alert-dialog-close>Delete</button>
+      </div>
     </div>
   </div>
 </div>
 <button type="button" class="btn" onclick="openAlertDialog_alert_demo()">Open</button>`,
 
-  sheet: `<!-- Rizzo CSS + sheet script. openSheet_<id>(), closeSheet_<id>(). -->
-<div id="drawer" class="sheet" aria-hidden="true">...</div>
-<button onclick="openSheet_drawer()">Open</button>`,
+  sheet: `<!-- Use .sheet-root so overlay stacks behind the sheet. openSheet_<id>(), closeSheet_<id>(). -->
+<div class="sheet-root">
+  <div class="sheet__overlay" data-sheet-overlay id="drawer-overlay" aria-hidden="true"></div>
+  <div class="sheet sheet--right" id="drawer" data-sheet aria-hidden="true" hidden>
+    <div class="sheet__content">
+      <div class="sheet__header">
+        <h2 class="sheet__title">Title</h2>
+        <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+      </div>
+      <div class="sheet__body">Content</div>
+    </div>
+  </div>
+</div>
+<button type="button" class="btn" onclick="window.openSheet_drawer()">Open</button>`,
 
   toast: `<!-- Include toast container + script from package scaffold. -->
 <div id="toast-container" class="toast-container"></div>

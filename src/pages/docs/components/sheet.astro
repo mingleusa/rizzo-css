@@ -43,15 +43,17 @@ import Sheet from '../components/astro/Sheet.astro';
 <button type="button" class="btn" onclick={() => (open = true)}>Open sheet</button>`}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Rizzo CSS + sheet script from package/vanilla docs. Open/close: openSheet_<id>(), closeSheet_<id>(). -->
-<div class="sheet__overlay" data-sheet-overlay id="sheet-demo-overlay" aria-hidden="true"></div>
-<div class="sheet sheet--right" id="sheet-demo" data-sheet aria-hidden="true" hidden>
-  <div class="sheet__content">
-    <div class="sheet__header">
-      <h2 class="sheet__title">Side panel</h2>
-      <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+			vanilla={`<!-- Use .sheet-root so overlay stacks behind the sheet. Rizzo CSS + sheet script. openSheet_<id>(), closeSheet_<id>(). -->
+<div class="sheet-root">
+  <div class="sheet__overlay" data-sheet-overlay id="sheet-demo-overlay" aria-hidden="true"></div>
+  <div class="sheet sheet--right" id="sheet-demo" data-sheet aria-hidden="true" hidden>
+    <div class="sheet__content">
+      <div class="sheet__header">
+        <h2 class="sheet__title">Side panel</h2>
+        <button type="button" class="sheet__close" aria-label="Close" data-sheet-close></button>
+      </div>
+      <div class="sheet__body"><p>Sheet content goes here.</p></div>
     </div>
-    <div class="sheet__body"><p>Sheet content goes here.</p></div>
   </div>
 </div>
 <button type="button" class="btn" onclick="window.openSheet_sheet_demo()">Open sheet</button>`}

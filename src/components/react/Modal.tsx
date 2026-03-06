@@ -103,7 +103,7 @@ export function Modal({
   };
 
   return (
-    <>
+    <div className="modal-root">
       <div
         ref={overlayRef}
         className="modal__overlay"
@@ -143,7 +143,7 @@ export function Modal({
         <div className="modal__body">{children}</div>
         {footer != null && <div className="modal__footer">{footer}</div>}
       </div>
-    </>
+    </div>
   );
 }
 

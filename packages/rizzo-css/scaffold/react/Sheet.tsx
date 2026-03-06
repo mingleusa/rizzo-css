@@ -42,7 +42,7 @@ export function Sheet({
   };
 
   return (
-    <>
+    <div className="sheet-root">
       <div
         className={`sheet__overlay ${open ? 'sheet__overlay--open' : ''}`.trim()}
         data-sheet-overlay
@@ -79,7 +79,7 @@ export function Sheet({
           <div className="sheet__body">{children}</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

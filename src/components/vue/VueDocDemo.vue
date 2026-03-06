@@ -196,24 +196,26 @@ const dropdownOpen = ref(false);
       <div class="vue-overlay-demo">
         <p style="margin-bottom: var(--spacing-3);">Click the button below to open a standard modal dialog:</p>
         <button type="button" class="btn btn-primary" @click="modalOpen = true">Open Example Modal</button>
-        <div class="modal__overlay" :aria-hidden="!modalOpen" @click="modalOpen = false"></div>
-        <div class="modal modal--md" role="dialog" aria-modal="true" aria-labelledby="vue-modal-title" :aria-hidden="!modalOpen" :hidden="!modalOpen">
-          <div class="modal__header">
-            <h2 id="vue-modal-title" class="modal__title">Example Modal</h2>
-            <button type="button" class="modal__close" aria-label="Close modal" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">×</button>
-          </div>
-          <div class="modal__body">
-            <p>This is an example modal dialog. It demonstrates:</p>
-            <ul>
-              <li>Focus trapping — Tab cycles within the modal</li>
-              <li>Keyboard navigation — Escape key closes the modal</li>
-              <li>Backdrop overlay with blur effect</li>
-              <li>Theme-aware styling</li>
-            </ul>
-          </div>
-          <div class="modal__footer">
-            <button type="button" class="btn" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Cancel</button>
-            <button type="button" class="btn btn-primary" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Confirm</button>
+        <div class="modal-root">
+          <div class="modal__overlay" :aria-hidden="!modalOpen" @click="modalOpen = false"></div>
+          <div class="modal modal--md" role="dialog" aria-modal="true" aria-labelledby="vue-modal-title" :aria-hidden="!modalOpen" :hidden="!modalOpen">
+            <div class="modal__header">
+              <h2 id="vue-modal-title" class="modal__title">Example Modal</h2>
+              <button type="button" class="modal__close" aria-label="Close modal" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">×</button>
+            </div>
+            <div class="modal__body">
+              <p>This is an example modal dialog. It demonstrates:</p>
+              <ul>
+                <li>Focus trapping — Tab cycles within the modal</li>
+                <li>Keyboard navigation — Escape key closes the modal</li>
+                <li>Backdrop overlay with blur effect</li>
+                <li>Theme-aware styling</li>
+              </ul>
+            </div>
+            <div class="modal__footer">
+              <button type="button" class="btn" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Cancel</button>
+              <button type="button" class="btn btn-primary" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Confirm</button>
+            </div>
           </div>
         </div>
       </div>
@@ -221,14 +223,16 @@ const dropdownOpen = ref(false);
     <!-- Alert Dialog: same as Astro — "Delete item?" + This action cannot be undone. + Cancel/Delete -->
     <template v-else-if="slug === 'alert-dialog'">
       <div class="vue-overlay-demo">
-        <div class="alert-dialog__overlay" :class="{ 'alert-dialog__overlay--open': alertDialogOpen }" :aria-hidden="!alertDialogOpen" @click="alertDialogOpen = false"></div>
-        <div class="alert-dialog" role="alertdialog" aria-modal="true" aria-labelledby="vue-alert-dialog-title" aria-describedby="vue-alert-dialog-desc" :aria-hidden="!alertDialogOpen" :hidden="!alertDialogOpen">
-          <div class="alert-dialog__content">
-            <h2 id="vue-alert-dialog-title" class="alert-dialog__title">Delete item?</h2>
-            <p id="vue-alert-dialog-desc" class="alert-dialog__description">This action cannot be undone.</p>
-            <div class="alert-dialog__actions">
-              <button type="button" class="btn" :tabindex="alertDialogOpen ? 0 : -1" @click="alertDialogOpen = false">Cancel</button>
-              <button type="button" class="btn btn-error" :tabindex="alertDialogOpen ? 0 : -1" @click="alertDialogOpen = false">Delete</button>
+        <div class="alert-dialog-root">
+          <div class="alert-dialog__overlay" :class="{ 'alert-dialog__overlay--open': alertDialogOpen }" :aria-hidden="!alertDialogOpen" @click="alertDialogOpen = false"></div>
+          <div class="alert-dialog" role="alertdialog" aria-modal="true" aria-labelledby="vue-alert-dialog-title" aria-describedby="vue-alert-dialog-desc" :aria-hidden="!alertDialogOpen" :hidden="!alertDialogOpen">
+            <div class="alert-dialog__content">
+              <h2 id="vue-alert-dialog-title" class="alert-dialog__title">Delete item?</h2>
+              <p id="vue-alert-dialog-desc" class="alert-dialog__description">This action cannot be undone.</p>
+              <div class="alert-dialog__actions">
+                <button type="button" class="btn" :tabindex="alertDialogOpen ? 0 : -1" @click="alertDialogOpen = false">Cancel</button>
+                <button type="button" class="btn btn-error" :tabindex="alertDialogOpen ? 0 : -1" @click="alertDialogOpen = false">Delete</button>
+              </div>
             </div>
           </div>
         </div>
@@ -238,14 +242,16 @@ const dropdownOpen = ref(false);
     <!-- Sheet: same as Astro — "Side panel" + Sheet content goes here. + Open sheet -->
     <template v-else-if="slug === 'sheet'">
       <div class="vue-overlay-demo">
-        <div class="sheet__overlay" :class="{ 'sheet__overlay--open': sheetOpen }" :aria-hidden="!sheetOpen" @click="sheetOpen = false"></div>
-        <div class="sheet sheet--right" :class="{ 'sheet--open': sheetOpen }" role="dialog" aria-modal="true" aria-labelledby="vue-sheet-title" :aria-hidden="!sheetOpen" :hidden="!sheetOpen">
-          <div class="sheet__content">
-            <div class="sheet__header">
-              <h2 id="vue-sheet-title" class="sheet__title">Side panel</h2>
-              <button type="button" class="sheet__close" aria-label="Close" :tabindex="sheetOpen ? 0 : -1" @click="sheetOpen = false">×</button>
+        <div class="sheet-root">
+          <div class="sheet__overlay" :class="{ 'sheet__overlay--open': sheetOpen }" :aria-hidden="!sheetOpen" @click="sheetOpen = false"></div>
+          <div class="sheet sheet--right" :class="{ 'sheet--open': sheetOpen }" role="dialog" aria-modal="true" aria-labelledby="vue-sheet-title" :aria-hidden="!sheetOpen" :hidden="!sheetOpen">
+            <div class="sheet__content">
+              <div class="sheet__header">
+                <h2 id="vue-sheet-title" class="sheet__title">Side panel</h2>
+                <button type="button" class="sheet__close" aria-label="Close" :tabindex="sheetOpen ? 0 : -1" @click="sheetOpen = false">×</button>
+              </div>
+              <div class="sheet__body"><p>Sheet content goes here.</p></div>
             </div>
-            <div class="sheet__body"><p>Sheet content goes here.</p></div>
           </div>
         </div>
         <button type="button" class="btn" @click="sheetOpen = true">Open sheet</button>
