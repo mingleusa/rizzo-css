@@ -9,7 +9,12 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 - **Docs & TODO:** [docs/TODO.md](docs/TODO.md) — Testing summary table; Documentation & consistency section. Best practices: correct button BEM examples (`btn-primary`, `btn-ghost`).
 - **Docs:** All documentation updated for **53 components** (Calendar added). Component count and “all 53 or pick” aligned across README, docs/*.md, docs/planning/*.md, GETTING_STARTED, COMPONENTS, TESTING, STORYBOOK, MULTI_FRAMEWORK, FRAMEWORK_STRUCTURE, CLI, TEMPLATES, PUBLISHING, DESIGN_SYSTEM, COMPONENT_COMPARISON, ai/README.md, showcase/overview/Layout/Search, scaffold READMEs, and package README.
 - (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
-- **Production readiness:** Version 0.0.72 aligned across package, docs, tokens, and scaffold. Build and `build:package` pass. Run `pnpm exec playwright install` before `test:smoke` / `test:a11y` (see [docs/TESTING.md](docs/TESTING.md)).
+- **Production readiness:** Version 0.0.73 aligned across package, docs, tokens, and scaffold. Build and `build:package` pass. Run `pnpm exec playwright install` before `test:smoke` / `test:a11y` (see [docs/TESTING.md](docs/TESTING.md)).
+
+## [0.0.73] - 2025-02-27
+
+- **Version:** Bump to 0.0.73 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, and tokens export aligned to 0.0.73.
+- **Security (audit):** pnpm override for `svgo` set to `>=4.0.1` to fix high-severity DoS (Billion Laughs) in transitive dependency; `pnpm audit --audit-level=high` now passes.
 
 ## [0.0.72] - 2025-02-27
 
@@ -89,7 +94,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.72...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.73...HEAD
+[0.0.73]: https://github.com/mingleusa/rizzo-css/compare/v0.0.72...v0.0.73
 [0.0.72]: https://github.com/mingleusa/rizzo-css/compare/v0.0.71...v0.0.72
 [0.0.71]: https://github.com/mingleusa/rizzo-css/compare/v0.0.70...v0.0.71
 [0.0.70]: https://github.com/mingleusa/rizzo-css/compare/v0.0.69...v0.0.70
