@@ -246,7 +246,7 @@ test.describe('Keyboard accessibility (sheet)', () => {
 
 // —— React routes: same keyboard behavior as Astro (Vue doc demos have no trigger buttons) ——
 const REACT_KEYBOARD_ROUTES = [
-  { path: '/docs/react/components/modal', trigger: /open example modal/i, overlay: '.modal[role="dialog"]' },
+  { path: '/docs/react/components/modal', trigger: /open modal/i, overlay: '.modal[role="dialog"]' },
   { path: '/docs/react/components/dropdown', trigger: /^actions$/i, overlay: '[role="menu"]' },
   { path: '/docs/react/components/settings', trigger: /open settings/i, overlay: '[data-settings]' },
   { path: '/docs/react/components/alert-dialog', trigger: /delete/i, overlay: '[role="alertdialog"]' },

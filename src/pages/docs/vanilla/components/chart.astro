@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import Chart from '../../../../components/astro/Chart.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { getVanillaCodeSnippet } from '../../../../config/vanillaCodeSnippets';
+---
+
+<DocsLayout title="Chart — Vanilla" description="Bar chart with vanilla HTML and Rizzo CSS. BEM: chart, chart__bars, chart__bar-wrap, chart__bar, chart__label.">
+  <section>
+    <h2>Chart</h2>
+    <p>Simple bar chart using Rizzo CSS classes. Use <code>--chart-bar-fill</code> to override bar color. For dynamic data, use JS to set <code>style="height: X%"</code> on each <code>.chart__bar</code>.</p>
+    <AddComponentTabs componentName="Chart" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <Chart data={[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]} />
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={getVanillaCodeSnippet('chart')} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/chart">Astro</a> · <a href="/docs/svelte/components/chart">Svelte</a> · <a href="/docs/vue/components/chart">Vue</a> · <a href="/docs/react/components/chart">React</a></p>
+  </section>
+</DocsLayout>

@@ -15,7 +15,7 @@
   Design system · Vanilla · Astro · Svelte
 </pre>
 
-This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = CSS, fonts, icons, sfx + component picker (all 53 or pick); Landing adds hero/features; Docs adds sidebar + sample doc; Dashboard adds sidebar + stats/table. **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice**; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
+This project was scaffolded with `npx rizzo-css init` when you chose **Create new project** and Vanilla JS, then **Landing**, **Docs**, **Dashboard**, or **Full**. **Full** = clone of the docs site. **Landing** / **Docs** / **Dashboard** = CSS, fonts, icons, sfx + component picker (all 58 or pick); Landing adds hero/features; Docs adds sidebar + sample doc; Dashboard adds sidebar + stats/table. **Add to existing project** (or `npx rizzo-css add`) uses the **same template choice**; you must add the stylesheet `<link>` yourself (CLI prints the exact tag).
 
 ## First-time setup
 
@@ -28,7 +28,7 @@ If you prefer to load CSS from a CDN instead of the local file, replace the `<li
 - `<link rel="stylesheet" href="https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css" />`  
 - Or jsDelivr: `https://cdn.jsdelivr.net/npm/rizzo-css@latest/dist/rizzo.min.css`  
 
-(Replace `@latest` with a specific version, e.g. `@0.0.74`, in production.)
+(Replace `@latest` with a specific version, e.g. `@0.0.75`, in production.)
 
 The CLI replaces placeholders in `index.html` (e.g. `{{DATA_THEME}}`, `{{TITLE}}`) when you run `rizzo-css init`. The theme selected during init is used on first load when you have no saved preference in the browser.
 

@@ -5,16 +5,10 @@ export function DropdownDemo() {
     <Dropdown
       trigger="Actions"
       items={[
-        { label: 'Edit', onClick: (v) => console.log(v) },
-        { label: 'Duplicate' },
+        { label: 'Edit', href: '#' },
+        { label: 'Duplicate', href: '#' },
         { separator: true },
-        {
-          label: 'More',
-          submenu: [
-            { label: 'Option A', onClick: () => {} },
-            { label: 'Option B', onClick: () => {} },
-          ],
-        },
+        { label: 'More', href: '#' },
       ]}
     />
   );

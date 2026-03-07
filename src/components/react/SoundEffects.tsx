@@ -6,7 +6,7 @@ export function SoundEffects() {
   return (
     <div className="sound-effects" data-sound-effects>
       <Switch
-        label="Play sound on click"
+        label="Sound on click"
         checked={on}
         onCheckedChange={setOn}
       />

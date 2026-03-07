@@ -32,7 +32,7 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   <div class="alert__content">Your changes have been saved.</div>
 </div>
 <div class="alert alert--error alert--dismissible" role="alert">
-  <div class="alert__content">An error occurred.</div>
+  <div class="alert__content">An error occurred. Please try again.</div>
   <button type="button" class="alert__close" aria-label="Dismiss">×</button>
 </div>`,
 
@@ -56,7 +56,8 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 <div class="separator" role="separator"></div>`,
 
   spinner: `<!-- Rizzo CSS. No script needed. -->
-<div class="spinner" role="status" aria-label="Loading"></div>`,
+<div class="spinner" role="status" aria-label="Loading"></div>
+<div class="spinner spinner--success spinner--lg" role="status" aria-label="Loading"></div>`,
 
   kbd: `<!-- Rizzo CSS. No script needed. -->
 <p>Press <kbd class="kbd">Ctrl</kbd>+<kbd class="kbd">K</kbd> to open search.</p>`,
@@ -65,10 +66,11 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 <label class="label" for="email">Email</label>
 <input id="email" type="email" class="form-input" />`,
 
-  empty: `<!-- Rizzo CSS. No script needed. BEM: empty, empty__icon, empty__title, empty__description. -->
+  empty: `<!-- Rizzo CSS. No script needed. BEM: empty, empty__title, empty__description, empty__action. -->
 <div class="empty">
-  <div class="empty__title">No results</div>
-  <div class="empty__description">Try adjusting your search.</div>
+  <h3 class="empty__title">No items yet</h3>
+  <p class="empty__description">Get started by adding your first item.</p>
+  <div class="empty__action"><button type="button" class="btn btn-primary">Add item</button></div>
 </div>`,
 
   'aspect-ratio': `<!-- Rizzo CSS. Use --aspect-ratio (e.g. 16/9) and --aspect-ratio-padding. -->
@@ -116,7 +118,11 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 
   footer: `<!-- Rizzo CSS. No script needed. -->
 <footer class="footer" role="contentinfo">
-  <p class="footer__copy">© 2025 Acme. All rights reserved.</p>
+  <p class="footer__copy">© 2025 My App. All rights reserved.</p>
+  <nav class="footer__links" aria-label="Footer links">
+    <a href="/docs">Docs</a>
+    <a href="/privacy">Privacy</a>
+  </nav>
 </footer>`,
 
   cards: `<!-- Rizzo CSS. No script needed. -->
@@ -154,7 +160,7 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   tooltip: `<!-- Rizzo CSS; tooltip is CSS + aria-describedby; no JS required for hover/focus. -->
 <div class="tooltip-wrapper" aria-describedby="tip-1">
   <button type="button" class="btn btn-primary">Hover me</button>
-  <span id="tip-1" class="tooltip tooltip--top" role="tooltip">This is a basic tooltip</span>
+  <span id="tip-1" class="tooltip tooltip--top" role="tooltip">Tooltip text</span>
 </div>`,
 
   collapsible: `<!-- Rizzo CSS + accordion/collapsible script from package/vanilla docs. -->
@@ -366,4 +372,53 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
     <button type="button" class="carousel__next" aria-label="Next slide" data-carousel-next>...</button>
   </div>
 </div>`,
+
+  chart: `<!-- Rizzo CSS. BEM: chart, chart__bars, chart__bar-wrap, chart__bar, chart__label. -->
+<div class="chart" role="img" aria-label="Bar chart">
+  <div class="chart__bars">
+    <div class="chart__bar-wrap"><div class="chart__bar" style="height: 40%;"></div><span class="chart__label">A</span></div>
+    <div class="chart__bar-wrap"><div class="chart__bar" style="height: 65%;"></div><span class="chart__label">B</span></div>
+    <div class="chart__bar-wrap"><div class="chart__bar" style="height: 30%;"></div><span class="chart__label">C</span></div>
+  </div>
+</div>`,
+
+  command: `<!-- Rizzo CSS. Command palette: .command-root, .command__overlay, .command__dialog, .command__search, .command__list, .command__item. Add JS for open/close (e.g. data-command-trigger, ⌘K). See /docs/vanilla/components/command. -->
+<div class="command-root">
+  <button type="button" class="btn btn-outline" data-command-trigger>Open command palette (⌘K)</button>
+  <div class="command__overlay" aria-hidden="true" hidden></div>
+  <div class="command__dialog" role="dialog" aria-modal="true" aria-label="Command palette" aria-hidden="true" hidden>
+    <div class="command__search-wrap"><input type="search" class="command__search" placeholder="Search…" /></div>
+    <div class="command__list" role="listbox"><button type="button" class="command__item">New file <kbd>⌘N</kbd></button><button type="button" class="command__item">Save <kbd>⌘S</kbd></button></div>
+  </div>
+</div>`,
+
+  direction: `<!-- Rizzo CSS. Sets dir on container. -->
+<div class="direction direction--rtl" dir="rtl">
+  <p>Right-to-left content here.</p>
+</div>`,
+
+  'input-otp': `<!-- Rizzo CSS. BEM: input-otp, input-otp__digit. Add JS for focus move and paste (see /docs/vanilla/components/input-otp). -->
+<div class="input-otp" role="group" aria-label="One-time code">
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 1 of 6" />
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 2 of 6" />
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 3 of 6" />
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 4 of 6" />
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 5 of 6" />
+  <input type="text" inputmode="numeric" maxlength="1" class="input-otp__digit" aria-label="Digit 6 of 6" />
+</div>`,
+
+  menubar: `<!-- Rizzo CSS. BEM: menubar, menubar__item, menubar__trigger, menubar__menu, menubar__menu-item. Add JS for open/close (see /docs/vanilla/components/menubar). -->
+<nav class="menubar" role="menubar" aria-label="Main menu">
+  <div class="menubar__item" role="none">
+    <button type="button" class="menubar__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">File</button>
+    <div class="menubar__menu" role="menu" hidden>
+      <a href="#" class="menubar__menu-item" role="menuitem">New</a>
+      <a href="#" class="menubar__menu-item" role="menuitem">Open</a>
+    </div>
+  </div>
+  <div class="menubar__item" role="none">
+    <button type="button" class="menubar__trigger" role="menuitem" aria-haspopup="true" aria-expanded="false">Edit</button>
+    <div class="menubar__menu" role="menu" hidden><a href="#" class="menubar__menu-item" role="menuitem">Undo</a></div>
+  </div>
+</nav>`,
 };

@@ -56,6 +56,11 @@
   import ContextMenuDoc from './pages/ContextMenuDoc.svelte';
   import ResizableDoc from './pages/ResizableDoc.svelte';
   import RangeCalendarDoc from './pages/RangeCalendarDoc.svelte';
+  import ChartDoc from './pages/ChartDoc.svelte';
+  import CommandDoc from './pages/CommandDoc.svelte';
+  import DirectionDoc from './pages/DirectionDoc.svelte';
+  import InputOtpDoc from './pages/InputOtpDoc.svelte';
+  import MenubarDoc from './pages/MenubarDoc.svelte';
 
   interface Props {
     /** Slug from URL (e.g. "components/badge"). Pass string so SSR and client hydrate the same. */
@@ -110,6 +115,16 @@
     <CalendarDoc />
   {:else if first === 'components' && second === 'carousel'}
     <CarouselDoc />
+  {:else if first === 'components' && second === 'chart'}
+    <ChartDoc />
+  {:else if first === 'components' && second === 'command'}
+    <CommandDoc />
+  {:else if first === 'components' && second === 'direction'}
+    <DirectionDoc />
+  {:else if first === 'components' && second === 'input-otp'}
+    <InputOtpDoc />
+  {:else if first === 'components' && second === 'menubar'}
+    <MenubarDoc />
   {:else if first === 'components' && second === 'divider'}
     <DividerDoc />
   {:else if first === 'components' && second === 'spinner'}

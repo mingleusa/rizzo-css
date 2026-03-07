@@ -88,7 +88,9 @@ import Label from '../components/astro/Label.astro';
 import Empty from '../components/astro/Empty.astro';
 ---
 
-<Empty title="No results" description="Try adjusting your search." />`,
+<Empty title="No items yet" description="Get started by adding your first item.">
+  <button type="button" slot="action" class="btn btn-primary">Add item</button>
+</Empty>`,
 
   'aspect-ratio': `---
 import AspectRatio from '../components/astro/AspectRatio.astro';
@@ -168,6 +170,49 @@ import Carousel from '../components/astro/Carousel.astro';
   <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
   <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
 </Carousel>`,
+
+  chart: `---
+import Chart from '../components/astro/Chart.astro';
+---
+
+<Chart data={[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]} />`,
+
+  command: `---
+import Command from '../components/astro/Command.astro';
+---
+
+<Command
+  triggerLabel="Open command palette (⌘K)"
+  searchPlaceholder="Search…"
+  items={[{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }]}
+  client:load
+/>`,
+
+  direction: `---
+import Direction from '../components/astro/Direction.astro';
+---
+
+<Direction dir="rtl">
+  <p>Right-to-left content here.</p>
+</Direction>`,
+
+  'input-otp': `---
+import InputOtp from '../components/astro/InputOtp.astro';
+---
+
+<InputOtp length={6} ariaLabel="One-time code" client:load />`,
+
+  menubar: `---
+import Menubar from '../components/astro/Menubar.astro';
+---
+
+<Menubar
+  items={[
+    { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] },
+    { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] },
+  ]}
+  client:load
+/>`,
 
   accordion: `---
 import Accordion from '../components/astro/Accordion.astro';

@@ -4,12 +4,15 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- **Range Calendar:** New component for date range selection (high-impact task). Two clicks set start and end; order normalized. Astro (`RangeCalendar.astro`), React, Vue, Svelte components; BEM `.calendar--range`, `.calendar__day--range-start`, `--range-end`, `--in-range`; event `range-calendar-select` (detail.start, detail.end). Doc pages and framework code tabs; CLI and scaffold; a11y routes; llms.txt and ai/llms.json. **53 components** total.
-- **Button:** New variants and sizes across all frameworks: `btn-secondary`, `btn-ghost`, `btn--sm`, `btn--lg`. CSS in `buttons.css`; React, Vue, Svelte Button components and types updated; doc page uses snippet getters; live example grid shows all variants and sizes; Storybook Button story updated; [public/llms.txt](public/llms.txt) aligned.
-- **Docs & TODO:** [docs/TODO.md](docs/TODO.md) — Testing summary table; Documentation & consistency section. Best practices: correct button BEM examples (`btn-primary`, `btn-ghost`).
-- **Docs:** All documentation updated for **53 components** (Calendar added). Component count and “all 53 or pick” aligned across README, docs/*.md, docs/planning/*.md, GETTING_STARTED, COMPONENTS, TESTING, STORYBOOK, MULTI_FRAMEWORK, FRAMEWORK_STRUCTURE, CLI, TEMPLATES, PUBLISHING, DESIGN_SYSTEM, COMPONENT_COMPARISON, ai/README.md, showcase/overview/Layout/Search, scaffold READMEs, and package README.
-- (Next: see [docs/TODO.md](docs/TODO.md) — Tasks by impact.)
-- **Production readiness:** Version 0.0.74 aligned across package, docs, tokens, and scaffold. Build and `build:package` pass. Run `pnpm exec playwright install` before `test:smoke` / `test:a11y` (see [docs/TESTING.md](docs/TESTING.md)).
+- **Production readiness:** Build, build:package, lint:css:fix, and check:size pass. 58 components; 329 doc pages; Astro Command/InputOtp/Menubar use inline scripts (no client:load). Vite Toast single-import fix; Algolia upload message shortened; Playwright test scripts unset NO_COLOR to avoid Node warnings. Package and CLI at 0.0.75.
+- (Next: see [docs/TODO.md](docs/TODO.md).)
+
+## [0.0.75] - 2025-03-06
+
+- **Version:** Bump to 0.0.75 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, and tokens export aligned to 0.0.75.
+- **New components (58 total):** Chart, Command, Direction, Input OTP, Menubar added across Astro, React, Vue, Svelte, and Vanilla. CSS (BEM), doc pages, live examples, code snippets, and ai/llms.json updated. (shadcn/ui comparison completed; Chart, Command, Direction, Input OTP, Menubar added.)
+- **Docs & AI:** All docs and ai folder (llms.json, README, public/llms.txt) updated for 58 components and accurate live examples/code blocks.
+
 
 ## [0.0.74] - 2025-03-06
 
@@ -41,7 +44,7 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 ## [0.0.69] - 2025-02-27
 
 - **Version:** Bump to 0.0.69 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, and tokens export aligned to 0.0.69.
-- **Component alignment:** All 53 components have aligned live examples across Astro, Vanilla, Svelte, Vue, and React. Vue overlay demos (modal, alert-dialog, sheet, popover, hover-card, context-menu, dropdown) use custom blocks in `VueDocDemo.vue` with Rizzo BEM and refs; tooltip/copy-to-clipboard snippets and Vanilla label/tooltip copy aligned. Audit: [docs/COMPONENT_ALIGNMENT_AUDIT.md](docs/COMPONENT_ALIGNMENT_AUDIT.md).
+- **Component alignment:** All 53 components have aligned live examples across Astro, Vanilla, Svelte, Vue, and React. Vue overlay demos (modal, alert-dialog, sheet, popover, hover-card, context-menu, dropdown) use custom blocks in `VueDocDemo.vue` with Rizzo BEM and refs; tooltip/copy-to-clipboard snippets and Vanilla label/tooltip copy aligned. Alignment completed across all frameworks.
 
 ## [0.0.68] - 2025-02-27
 
@@ -65,7 +68,7 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 - **Backlog / docs:** TODO backlog table updated: Search marked done (client-side + Algolia); theme presets optional; ALGOLIA_SETUP linked in docs README.
 - **Docs:** TODO.md now includes a **Future components and blocks** section (Calendar, Date Picker, Range Calendar, Carousel, Chart, Combobox, Command, Input OTP, Item, Typography; additional block templates). All docs updated for 50 components; docs/README.md links TODO for future components/blocks.
 - **Input Group:** New component (Astro, React, Vue, Svelte, Vanilla) — input with optional prefix/suffix addons. BEM: `input-group`, `input-group__wrapper`, `input-group__addon`, `input-group__input`; CSS in `forms.css`; doc page, nav, a11y routes, CLI, and code snippets updated.
-- **Blocks & design system:** Block styles (landing-hero, pricing-grid/pricing-card, dashboard-page, docs-layout-demo, block-preview-wrapper) moved to `src/styles/pages.css` with design tokens (`--font-size-*`, `--font-weight-*`, `--spacing-*`, `--text`, `--accent`). Dashboard and docs-layout block pages fixed to use token names (no `--text-2xl`). COMPONENT_COMPARISON.md updated: Aspect Ratio, Button Group, Empty, Sheet, Slider, Toggle, Toggle Group, Kbd, Resizable, Scroll Area, etc. marked as implemented; framework parity note includes React and Vue.
+- **Blocks & design system:** Block styles (landing-hero, pricing-grid/pricing-card, dashboard-page, docs-layout-demo, block-preview-wrapper) moved to `src/styles/pages.css` with design tokens (`--font-size-*`, `--font-weight-*`, `--spacing-*`, `--text`, `--accent`). Dashboard and docs-layout block pages fixed to use token names (no `--text-2xl`). Component inventory (Aspect Ratio, Button Group, Empty, Sheet, Slider, Toggle, Toggle Group, Kbd, Resizable, Scroll Area, etc.) and framework parity note updated to include React and Vue.
 - **Scaffold:** Svelte scaffold `package.json` (base + variants/full) updated to `@sveltejs/kit` ^2.53.4 and `svelte` ^5.53.5 to match root and security updates.
 - **Storybook:** Dependencies documented in `docs/STORYBOOK.md` (React only; `@storybook/react` provided by `@storybook/react-vite`). All stories use `import type { Meta, StoryObj } from '@storybook/react'`; MDX uses `@storybook/addon-docs/blocks`. Stories added: Settings (with Guide + Controls), Search, Navbar, Dropdown, Theme Switcher.
 - **Docs:** README Svelte badge and Tech Stack updated to 5.53+; markdown and site docs aligned with current state (version 0.0.66, five frameworks, Storybook 10).
@@ -99,7 +102,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.74...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.75...HEAD
+[0.0.75]: https://github.com/mingleusa/rizzo-css/compare/v0.0.74...v0.0.75
 [0.0.74]: https://github.com/mingleusa/rizzo-css/compare/v0.0.73...v0.0.74
 [0.0.73]: https://github.com/mingleusa/rizzo-css/compare/v0.0.72...v0.0.73
 [0.0.72]: https://github.com/mingleusa/rizzo-css/compare/v0.0.71...v0.0.72

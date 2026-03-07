@@ -1,0 +1,116 @@
+---
+/**
+ * Command palette (e.g. Cmd+K). Trigger opens overlay + dialog with search and list.
+ * Items: { label, shortcut?, id }. Uses inline script for interactivity (no client:load).
+ */
+interface Props {
+  id?: string;
+  /** Trigger button label */
+  triggerLabel?: string;
+  /** Placeholder for search input */
+  searchPlaceholder?: string;
+  /** Items to show (filtered by search) */
+  items?: { id: string; label: string; shortcut?: string }[];
+  class?: string;
+}
+
+const {
+  id: idProp,
+  triggerLabel = 'Open command palette (⌘K)',
+  searchPlaceholder = 'Search…',
+  items = [
+    { id: 'new', label: 'New file', shortcut: '⌘N' },
+    { id: 'save', label: 'Save', shortcut: '⌘S' },
+    { id: 'search', label: 'Search', shortcut: '⌘K' },
+  ],
+  class: className = '',
+} = Astro.props;
+
+const id = idProp ?? `command-${Math.random().toString(36).slice(2, 9)}`;
+const overlayId = `${id}-overlay`;
+const dialogId = `${id}-dialog`;
+const searchId = `${id}-search`;
+const listId = `${id}-list`;
+---
+
+<div class={`command-root ${className}`.trim()}>
+  <button type="button" class="btn btn-outline" data-command-trigger data-command-id={id} aria-haspopup="dialog" aria-expanded="false">
+    {triggerLabel}
+  </button>
+  <div id={overlayId} class="command__overlay" aria-hidden="true" hidden data-command-overlay data-command-id={id}></div>
+  <div id={dialogId} class="command__dialog" role="dialog" aria-modal="true" aria-label="Command palette" aria-hidden="true" hidden data-command-dialog data-command-id={id}>
+    <div class="command__search-wrap">
+      <input
+        id={searchId}
+        type="search"
+        class="command__search"
+        placeholder={searchPlaceholder}
+        autocomplete="off"
+        data-command-search
+        data-command-id={id}
+        aria-controls={listId}
+      />
+    </div>
+    <div id={listId} class="command__list" role="listbox" aria-label="Commands">
+      {items.map((item) => (
+        <button type="button" class="command__item" role="option" data-command-item data-command-id={id} data-value={item.id} tabindex="-1">
+          {item.label}
+          {item.shortcut && <kbd>{item.shortcut}</kbd>}
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script is:inline define:vars={{ id, overlayId, dialogId, searchId, listId }}>
+(function () {
+  function getEls(rootId) {
+    var r = document.querySelector('[data-command-id="' + rootId + '"]')?.closest('.command-root');
+    if (!r) return {};
+    return {
+      trigger: r.querySelector('[data-command-trigger]'),
+      overlay: r.querySelector('[data-command-overlay]'),
+      dialog: r.querySelector('[data-command-dialog]'),
+      search: r.querySelector('[data-command-search]'),
+      items: r.querySelectorAll('[data-command-item]'),
+    };
+  }
+  function open(rootId) {
+    var el = getEls(rootId);
+    if (!el.overlay || !el.dialog) return;
+    el.overlay.hidden = false;
+    el.overlay.setAttribute('aria-hidden', 'false');
+    el.dialog.hidden = false;
+    el.dialog.setAttribute('aria-hidden', 'false');
+    el.trigger?.setAttribute('aria-expanded', 'true');
+    setTimeout(function () { el.search?.focus(); }, 0);
+  }
+  function close(rootId) {
+    var el = getEls(rootId);
+    if (!el.overlay || !el.dialog) return;
+    el.overlay.hidden = true;
+    el.dialog.hidden = true;
+    el.overlay.setAttribute('aria-hidden', 'true');
+    el.dialog.setAttribute('aria-hidden', 'true');
+    el.trigger?.setAttribute('aria-expanded', 'false');
+    el.trigger?.focus();
+  }
+  document.addEventListener('click', function (e) {
+    var t = e.target;
+    if (t?.dataset?.commandTrigger) open(t.dataset.commandId);
+    else if (t?.dataset?.commandOverlay) close(t.dataset.commandId);
+    else if (t?.dataset?.commandItem) { close(t.dataset.commandId); }
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      var openDialog = document.querySelector('.command__dialog[aria-hidden="false"]');
+      if (openDialog) close(openDialog.dataset?.commandId);
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+      e.preventDefault();
+      var first = document.querySelector('.command-root');
+      if (first) open(first.querySelector('[data-command-trigger]')?.dataset?.commandId);
+    }
+  });
+})();
+</script>

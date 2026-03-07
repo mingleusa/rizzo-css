@@ -17,15 +17,13 @@ import ResizablePane from './ResizablePane.vue';
 import ResizableHandle from './ResizableHandle.vue';
 import Label from './Label.vue';
 import InputGroup from './InputGroup.vue';
+import Toast from './Toast.vue';
 
 const props = defineProps({
   slug: { type: String, required: true },
 });
 
 const Component = computed(() => getVueComponent(props.slug));
-
-// Tags for scroll-area demo (same as Astro)
-const scrollAreaTags = Array.from({ length: 20 }, (_, i) => `v1.2.0-beta.${20 - i}`);
 
 // Props for Vue component demos (match React DEMO_PROPS where Vue accepts same props).
 function demoPropsForSlug(slug) {
@@ -40,16 +38,16 @@ function demoPropsForSlug(slug) {
     'back-to-top': { threshold: 400, label: 'Back to top' },
     breadcrumb: {},
     empty: {},
-    footer: { siteName: 'Rizzo', year: new Date().getFullYear(), links: [{ href: '/docs', label: 'Docs' }, { href: '/', label: 'Home' }] },
+    footer: { siteName: 'My App', year: new Date().getFullYear(), links: [{ href: '/docs', label: 'Docs' }, { href: '/privacy', label: 'Privacy' }] },
     pagination: { currentPage: 2, totalPages: 10, showFirstLast: true, maxVisible: 5 },
     tabs: {},
     accordion: {},
     calendar: { label: 'Choose a date' },
     'range-calendar': { label: 'Choose date range' },
-    carousel: { label: 'Example slides' },
+    carousel: { label: 'Slides' },
     forms: { placeholder: 'Enter text…' },
     'input-group': { ariaLabel: 'Amount', placeholder: '0.00' },
-    'copy-to-clipboard': { value: 'example@email.com', format: 'Email' },
+    'copy-to-clipboard': { value: 'npm install rizzo-css', label: 'Copy' },
     tooltip: {},
     collapsible: {},
     table: {},
@@ -61,6 +59,11 @@ function demoPropsForSlug(slug) {
     separator: {},
     'aspect-ratio': {},
     icons: {},
+    chart: { data: [{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }] },
+    command: { triggerLabel: 'Open command palette (⌘K)', searchPlaceholder: 'Search…', items: [{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }] },
+    direction: { dir: 'rtl' },
+    'input-otp': { length: 6 },
+    menubar: { items: [{ label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] }, { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] }] },
   };
   return map[slug] ?? {};
 }
@@ -148,11 +151,11 @@ const dropdownOpen = ref(false);
         <button type="button" class="toggle" aria-pressed="false" aria-label="Right">Right</button>
       </div>
     </template>
-    <!-- Label: same as Astro — Email (required) + Input -->
+    <!-- Label: same design as Astro — Email + input id="email" -->
     <template v-else-if="slug === 'label'">
       <div class="form-group">
-        <Label for="vue-label-demo-input" required>Email</Label>
-        <input id="vue-label-demo-input" type="email" class="form-input" placeholder="you@example.com" />
+        <Label for="email">Email</Label>
+        <input id="email" type="email" class="form-input" placeholder="you@example.com" />
       </div>
     </template>
     <!-- Input group: same as Astro — Amount $ 0.00 USD -->
@@ -162,59 +165,38 @@ const dropdownOpen = ref(false);
         <template #suffix>USD</template>
       </InputGroup>
     </template>
-    <!-- Scroll area: same as Astro — Tags list, 18rem × 12rem -->
+    <!-- Scroll area: same design as Astro — vertical, max-height 200px, "Scrollable content here." -->
     <template v-else-if="slug === 'scroll-area'">
-      <div class="scroll-area" style="height: 18rem; width: 12rem; border-radius: var(--radius-md); border: var(--border-width) solid var(--border);">
+      <div class="scroll-area" style="max-height: 200px; border-radius: var(--radius-md); border: var(--border-width) solid var(--border);">
         <div class="scroll-area__viewport" tabindex="0">
-          <div style="padding: var(--spacing-4);">
-            <h4 style="margin: 0 0 var(--spacing-4) 0; font-size: var(--font-size-sm); font-weight: 600;">Tags</h4>
-            <div v-for="tag in scrollAreaTags" :key="tag" style="font-size: var(--font-size-sm); margin-bottom: var(--spacing-2);">{{ tag }}</div>
-          </div>
+          <div>Scrollable content here.</div>
         </div>
       </div>
     </template>
-    <!-- Toast: same as Astro — trigger buttons (Success, Error, Warning, Info) -->
+    <!-- Toast: same design as Astro — info, top-right, dismissible, "Saved!" -->
     <template v-else-if="slug === 'toast'">
-      <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-3);">
-        <button type="button" class="btn btn-success" @click="showToast('Success! Your changes have been saved.', { variant: 'success' })">Show Success Toast</button>
-        <button type="button" class="btn btn-error" @click="showToast('Error! Something went wrong.', { variant: 'error' })">Show Error Toast</button>
-        <button type="button" class="btn btn-warning" @click="showToast('Warning! Please review your changes.', { variant: 'warning' })">Show Warning Toast</button>
-        <button type="button" class="btn btn-info" @click="showToast('Info: New features are available.', { variant: 'info' })">Show Info Toast</button>
-      </div>
+      <Toast variant="info" position="top-right" dismissible>Saved!</Toast>
     </template>
-    <!-- Tooltip: same as Astro — "Hover me" + "This is a basic tooltip" -->
+    <!-- Tooltip: same design as Astro — "Hover me" + "Tooltip text" -->
     <template v-else-if="slug === 'tooltip'">
-      <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-4); align-items: center; padding: var(--spacing-8);">
-        <div class="tooltip-wrapper" aria-describedby="tooltip-basic">
-          <button type="button" class="btn btn-primary">Hover me</button>
-          <span id="tooltip-basic" class="tooltip tooltip--top" role="tooltip" aria-hidden="true">This is a basic tooltip</span>
-        </div>
+      <div>
+        <button type="button" aria-describedby="tt-1">Hover me</button>
+        <span id="tt-1" class="tooltip tooltip--top" role="tooltip" aria-hidden="true">Tooltip text</span>
       </div>
     </template>
-    <!-- Modal: same as Astro — Open button + Example Modal (medium) with body + Cancel/Confirm -->
+    <!-- Modal: same design as Astro — title "Modal title", trigger "Open modal", content "Modal content." -->
     <template v-else-if="slug === 'modal'">
       <div class="vue-overlay-demo">
-        <p style="margin-bottom: var(--spacing-3);">Click the button below to open a standard modal dialog:</p>
-        <button type="button" class="btn btn-primary" @click="modalOpen = true">Open Example Modal</button>
+        <button type="button" class="btn" @click="modalOpen = true">Open modal</button>
         <div class="modal-root">
           <div class="modal__overlay" :aria-hidden="!modalOpen" @click="modalOpen = false"></div>
           <div class="modal modal--md" role="dialog" aria-modal="true" aria-labelledby="vue-modal-title" :aria-hidden="!modalOpen" :hidden="!modalOpen">
             <div class="modal__header">
-              <h2 id="vue-modal-title" class="modal__title">Example Modal</h2>
-              <button type="button" class="modal__close" aria-label="Close modal" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">×</button>
+              <h2 id="vue-modal-title" class="modal__title">Modal title</h2>
+              <button type="button" class="modal__close" aria-label="Close" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">×</button>
             </div>
             <div class="modal__body">
-              <p>This is an example modal dialog. It demonstrates:</p>
-              <ul>
-                <li>Focus trapping — Tab cycles within the modal</li>
-                <li>Keyboard navigation — Escape key closes the modal</li>
-                <li>Backdrop overlay with blur effect</li>
-                <li>Theme-aware styling</li>
-              </ul>
-            </div>
-            <div class="modal__footer">
-              <button type="button" class="btn" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Cancel</button>
-              <button type="button" class="btn btn-primary" :tabindex="modalOpen ? 0 : -1" @click="modalOpen = false">Confirm</button>
+              <p>Modal content.</p>
             </div>
           </div>
         </div>
@@ -239,110 +221,101 @@ const dropdownOpen = ref(false);
         <button type="button" class="btn" @click="alertDialogOpen = true">Open alert dialog</button>
       </div>
     </template>
-    <!-- Sheet: same as Astro — "Side panel" + Sheet content goes here. + Open sheet -->
+    <!-- Sheet: same design as Astro — title "Panel", content "Sheet content.", trigger "Open sheet" -->
     <template v-else-if="slug === 'sheet'">
       <div class="vue-overlay-demo">
+        <button type="button" class="btn" @click="sheetOpen = true">Open sheet</button>
         <div class="sheet-root">
           <div class="sheet__overlay" :class="{ 'sheet__overlay--open': sheetOpen }" :aria-hidden="!sheetOpen" @click="sheetOpen = false"></div>
           <div class="sheet sheet--right" :class="{ 'sheet--open': sheetOpen }" role="dialog" aria-modal="true" aria-labelledby="vue-sheet-title" :aria-hidden="!sheetOpen" :hidden="!sheetOpen">
             <div class="sheet__content">
               <div class="sheet__header">
-                <h2 id="vue-sheet-title" class="sheet__title">Side panel</h2>
+                <h2 id="vue-sheet-title" class="sheet__title">Panel</h2>
                 <button type="button" class="sheet__close" aria-label="Close" :tabindex="sheetOpen ? 0 : -1" @click="sheetOpen = false">×</button>
               </div>
-              <div class="sheet__body"><p>Sheet content goes here.</p></div>
+              <div class="sheet__body"><p>Sheet content.</p></div>
             </div>
           </div>
         </div>
-        <button type="button" class="btn" @click="sheetOpen = true">Open sheet</button>
       </div>
     </template>
-    <!-- Popover: same as Astro — "Open popover" trigger + Popover content here. -->
+    <!-- Popover: same design as Astro — trigger "Open" + "Popover content." -->
     <template v-else-if="slug === 'popover'">
       <div class="vue-overlay-demo vue-popover-demo">
         <div class="popover" :class="{ 'popover--open': popoverOpen }">
-          <button type="button" class="btn" data-popover-trigger aria-haspopup="true" :aria-expanded="popoverOpen" @click="popoverOpen = !popoverOpen">Open popover</button>
+          <button type="button" class="btn" data-popover-trigger aria-haspopup="true" :aria-expanded="popoverOpen" @click="popoverOpen = !popoverOpen">Open</button>
           <div class="popover__content" :class="{ 'popover__content--open': popoverOpen }" role="dialog" :aria-hidden="!popoverOpen" :hidden="!popoverOpen">
-            <p style="margin:0;">Popover content here.</p>
+            <p style="margin:0;">Popover content.</p>
           </div>
         </div>
       </div>
     </template>
-    <!-- Hover Card: same as Astro — "Hover me" + SvelteKit copy -->
+    <!-- Hover Card: same design as Astro — "Hover me" + "Hover card content." -->
     <template v-else-if="slug === 'hover-card'">
       <div class="vue-overlay-demo vue-hover-card-demo">
         <div class="hover-card" @mouseenter="hoverCardOpen = true" @mouseleave="hoverCardOpen = false">
           <span data-hover-card-trigger style="cursor: pointer; text-decoration: underline;">Hover me</span>
           <div class="hover-card__content" :class="{ 'hover-card__content--open': hoverCardOpen }" style="min-width: 16rem;" :aria-hidden="!hoverCardOpen" :hidden="!hoverCardOpen">
-            <p style="margin: 0; font-size: var(--font-size-sm);">SvelteKit — Web development, streamlined.</p>
+            <p style="margin: 0;">Hover card content.</p>
           </div>
         </div>
       </div>
     </template>
-    <!-- Context Menu: same as Astro — Right click here + Profile, Billing, Team, separator, Subscription -->
+    <!-- Context Menu: same design as Astro — Right-click + Edit, separator, Delete -->
     <template v-else-if="slug === 'context-menu'">
       <div class="vue-overlay-demo vue-context-menu-demo">
-        <div
-          class="context-menu"
-          style="display: inline-block;"
-        >
+        <div class="context-menu" style="display: inline-block;">
           <div
             data-context-menu-trigger
             style="display: flex; align-items: center; justify-content: center; height: 150px; width: 300px; border: var(--border-width) dashed var(--border); border-radius: var(--radius-md); font-size: var(--font-size-sm); cursor: context-menu;"
             @contextmenu.prevent="contextMenuOpen = true"
           >
-            Right click here
+            Right-click
           </div>
           <div v-show="contextMenuOpen" class="context-menu__content" :class="{ 'context-menu__content--open': contextMenuOpen }" role="menu" style="left: 50%; top: 50%; transform: translate(-50%, -50%);">
-            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Profile</button>
-            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Billing</button>
-            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Team</button>
-            <div class="context-menu__separator"></div>
-            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Subscription</button>
+            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Edit</button>
+            <div class="context-menu__separator" role="separator"></div>
+            <button type="button" class="context-menu__item" @click="contextMenuOpen = false">Delete</button>
           </div>
         </div>
       </div>
     </template>
-    <!-- Dropdown: same as Astro — trigger "Actions" + Edit, Delete, separator, Settings -->
+    <!-- Dropdown: same design as Astro — trigger "Actions" + Edit, Duplicate, separator, More -->
     <template v-else-if="slug === 'dropdown'">
       <div class="vue-overlay-demo vue-dropdown-demo">
         <div class="dropdown" :class="{ 'dropdown--open': dropdownOpen }">
           <button type="button" class="dropdown__trigger" aria-haspopup="true" :aria-expanded="dropdownOpen" @click="dropdownOpen = !dropdownOpen">Actions</button>
           <div class="dropdown__menu" :class="{ 'dropdown__menu--open': dropdownOpen }" role="menu" :aria-hidden="!dropdownOpen" :hidden="!dropdownOpen">
             <a href="#" class="dropdown__item" role="menuitem" @click.prevent="dropdownOpen = false">Edit</a>
-            <a href="#" class="dropdown__item" role="menuitem" @click.prevent="dropdownOpen = false">Delete</a>
+            <a href="#" class="dropdown__item" role="menuitem" @click.prevent="dropdownOpen = false">Duplicate</a>
             <div class="dropdown__separator" role="separator"></div>
-            <a href="/settings" class="dropdown__item" role="menuitem" @click="dropdownOpen = false">Settings</a>
+            <a href="#" class="dropdown__item" role="menuitem" @click.prevent="dropdownOpen = false">More</a>
           </div>
         </div>
       </div>
     </template>
-    <!-- Copy-to-clipboard: same as Astro — intro + value example@email.com, format Email -->
+    <!-- Copy-to-clipboard: same design as Astro — value "npm install rizzo-css", label "Copy" -->
     <template v-else-if="slug === 'copy-to-clipboard'">
-      <div>
-        <p style="margin-bottom: var(--spacing-3);">Click the button below to copy text:</p>
-        <component :is="Component" v-bind="demoProps" />
-      </div>
+      <component :is="Component" v-bind="demoProps" />
     </template>
-    <!-- Forms: same as Astro — FormGroup-style (Email Address, placeholder, help) -->
+    <!-- Forms: same design as Astro — Email, placeholder you@example.com -->
     <template v-else-if="slug === 'forms'">
       <div class="form-group">
-        <label class="form-group__label required" for="vue-forms-email">Email Address</label>
-        <input id="vue-forms-email" type="email" name="email" class="form-input" placeholder="you@example.com" />
-        <p class="form-group__help">We'll never share your email</p>
+        <Label for="email">Email</Label>
+        <input id="email" type="email" name="email" class="form-input" placeholder="you@example.com" />
       </div>
     </template>
-    <!-- Resizable: horizontal panes "One" | "Two" (same as Astro/Svelte/React) -->
+    <!-- Resizable: same design as Astro — horizontal Left | Right -->
     <template v-else-if="slug === 'resizable'">
       <div class="vue-resizable-demo-wrap">
-        <ResizablePaneGroup class="vue-resizable-demo resizable-pane-group--horizontal">
-          <ResizablePane><div class="vue-resizable-pane-inner">One</div></ResizablePane>
+        <ResizablePaneGroup class="vue-resizable-demo resizable-pane-group--horizontal" direction="horizontal">
+          <ResizablePane :default-size="50"><div class="vue-resizable-pane-inner">Left</div></ResizablePane>
           <ResizableHandle />
-          <ResizablePane><div class="vue-resizable-pane-inner">Two</div></ResizablePane>
+          <ResizablePane><div class="vue-resizable-pane-inner">Right</div></ResizablePane>
         </ResizablePaneGroup>
       </div>
     </template>
-    <!-- Full-fledged showcases: multiple variants and real content (matches Astro/React docs) -->
+    <!-- Button: same design as Astro — Default, Primary, Secondary, Success, Outline, Ghost, Small, Large -->
     <template v-else-if="slug === 'button'">
       <div class="vue-showcase-stack">
         <div class="vue-showcase-grid">
@@ -350,101 +323,56 @@ const dropdownOpen = ref(false);
           <Button variant="primary">Primary</Button>
           <Button variant="secondary">Secondary</Button>
           <Button variant="success">Success</Button>
-          <Button variant="warning">Warning</Button>
-          <Button variant="error">Error</Button>
-          <Button variant="info">Info</Button>
           <Button variant="outline">Outline</Button>
           <Button variant="ghost">Ghost</Button>
         </div>
-        <p class="vue-showcase-caption">Sizes: <Button variant="primary" class="btn--sm">Small</Button> <Button variant="primary">Default</Button> <Button variant="primary" class="btn--lg">Large</Button></p>
-        <div class="vue-showcase-grid">
-          <Button disabled>Disabled Default</Button>
-          <Button variant="primary" disabled>Disabled Primary</Button>
-        </div>
+        <p class="vue-showcase-caption">Sizes: <Button variant="primary" class="btn--sm">Small</Button> <Button variant="primary" class="btn--lg">Large</Button></p>
       </div>
     </template>
     <template v-else-if="slug === 'badge'">
-      <div class="vue-showcase-stack">
-        <div class="vue-showcase-grid">
-          <Badge variant="primary">Primary</Badge>
-          <Badge variant="success">Success</Badge>
-          <Badge variant="warning">Warning</Badge>
-          <Badge variant="error">Error</Badge>
-          <Badge variant="info">Info</Badge>
-        </div>
-        <div class="vue-showcase-grid">
-          <Badge variant="primary" pill>Pill</Badge>
-          <Badge variant="success" size="sm">Small</Badge>
-          <Badge variant="warning" size="md">Medium</Badge>
-          <Badge variant="error" size="lg">Large</Badge>
-        </div>
+      <div class="vue-showcase-grid">
+        <Badge>Default</Badge>
+        <Badge variant="primary">Primary</Badge>
+        <Badge variant="success">Success</Badge>
       </div>
     </template>
     <template v-else-if="slug === 'alert'">
       <div class="vue-showcase-stack">
-        <Alert class="alert--info"><span class="alert__content">Your session will expire in 5 minutes. Save your work to avoid losing changes.</span></Alert>
-        <Alert class="alert--success"><span class="alert__content">Your profile has been updated successfully.</span></Alert>
-        <Alert class="alert--warning"><span class="alert__content">This action cannot be undone. Please confirm before proceeding.</span></Alert>
-        <Alert class="alert--error"><span class="alert__content">We couldn’t save your changes. Check your connection and try again.</span></Alert>
+        <Alert class="alert--success"><span class="alert__content">Your changes have been saved.</span></Alert>
+        <Alert class="alert--error alert--dismissible">
+          <span class="alert__content">An error occurred. Please try again.</span>
+          <button type="button" class="alert__close" aria-label="Dismiss">×</button>
+        </Alert>
       </div>
     </template>
+    <!-- Cards: same design as Astro — one elevated card "Card title" / "Card content." -->
     <template v-else-if="slug === 'cards'">
-      <div class="vue-showcase-grid vue-showcase-grid--stretch">
-        <Card variant="elevated">
-          <div class="card__body">
-            <h4 class="vue-showcase-card-title">Elevated card</h4>
-            <p class="vue-showcase-card-p">Use for primary content or calls to action.</p>
-          </div>
-        </Card>
-        <Card variant="outlined">
-          <div class="card__body">
-            <h4 class="vue-showcase-card-title">Outlined card</h4>
-            <p class="vue-showcase-card-p">Subtle border for secondary content.</p>
-          </div>
-        </Card>
-        <Card variant="default">
-          <div class="card__body">
-            <h4 class="vue-showcase-card-title">Default card</h4>
-            <p class="vue-showcase-card-p">Standard card for general use.</p>
-          </div>
-        </Card>
-      </div>
+      <Card variant="elevated">
+        <div class="card__body">
+          <h3>Card title</h3>
+          <p>Card content.</p>
+        </div>
+      </Card>
     </template>
+    <!-- Progress bar: same design as Astro — one bar value 60, showLabel -->
     <template v-else-if="slug === 'progress-bar'">
-      <div class="vue-showcase-stack">
-        <div class="progress progress--primary progress--md" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
-          <div class="progress__track"><div class="progress__bar" style="width: 60%;" /></div>
-          <span class="progress__label" aria-hidden="true">60%</span>
-        </div>
-        <div class="progress progress--success progress--md" role="progressbar" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
-          <div class="progress__track"><div class="progress__bar" style="width: 85%;" /></div>
-          <span class="progress__label" aria-hidden="true">85%</span>
-        </div>
-        <div class="progress progress--warning progress--md" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
-          <div class="progress__track"><div class="progress__bar" style="width: 30%;" /></div>
-          <span class="progress__label" aria-hidden="true">30%</span>
-        </div>
+      <div class="progress progress--primary progress--md" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" aria-label="Progress">
+        <div class="progress__track"><div class="progress__bar" style="width: 60%;" /></div>
+        <span class="progress__label" aria-hidden="true">60%</span>
       </div>
     </template>
+    <!-- Avatar: same design as Astro — Jane Doe (initials) + src photo.jpg -->
     <template v-else-if="slug === 'avatar'">
       <div class="vue-showcase-grid">
-        <Avatar class="avatar--sm"><span class="avatar__initials">JD</span></Avatar>
-        <Avatar class="avatar--md"><span class="avatar__initials">JD</span></Avatar>
-        <Avatar class="avatar--lg"><span class="avatar__initials">JD</span></Avatar>
-        <Avatar class="avatar--md"><span class="avatar__initials">AC</span></Avatar>
-        <Avatar class="avatar--md"><span class="avatar__initials">AB</span></Avatar>
+        <Avatar name="Jane Doe" />
+        <Avatar src="/photo.jpg" alt="Jane" />
       </div>
     </template>
+    <!-- Skeleton: same design as Astro — default + text variant -->
     <template v-else-if="slug === 'skeleton'">
       <div class="vue-showcase-stack">
-        <div>
-          <Skeleton class="skeleton--text" style="display: block; margin-bottom: var(--spacing-2);" />
-          <Skeleton class="skeleton--text" style="display: block; width: 75%;" />
-        </div>
-        <div class="vue-showcase-grid">
-          <Skeleton class="skeleton--circle" style="width: 40px; height: 40px;" />
-          <Skeleton class="skeleton--rect" style="width: 120px; height: 80px;" />
-        </div>
+        <Skeleton />
+        <Skeleton class="skeleton--text" />
       </div>
     </template>
     <template v-else-if="slug === 'divider'">
@@ -458,13 +386,9 @@ const dropdownOpen = ref(false);
         </div>
       </div>
     </template>
+    <!-- Kbd: same design as Astro — Press Ctrl+K to open search -->
     <template v-else-if="slug === 'kbd'">
-      <div class="vue-showcase-grid">
-        <Kbd>Ctrl</Kbd>
-        <Kbd>Shift</Kbd>
-        <Kbd>K</Kbd>
-        <span>Press <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd> to open search.</span>
-      </div>
+      <p style="margin: 0;">Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>
     </template>
     <template v-else-if="slug === 'separator'">
       <div class="vue-showcase-stack">
@@ -479,30 +403,22 @@ const dropdownOpen = ref(false);
     <template v-else-if="slug === 'button-group'">
       <div class="vue-showcase-stack">
         <ButtonGroup>
-          <Button variant="primary">Save</Button>
-          <Button variant="outline">Cancel</Button>
-        </ButtonGroup>
-        <ButtonGroup class="button-group--vertical">
-          <Button>First</Button>
-          <Button>Second</Button>
-          <Button>Third</Button>
+          <Button>One</Button>
+          <Button>Two</Button>
+          <Button>Three</Button>
         </ButtonGroup>
       </div>
     </template>
     <template v-else-if="slug === 'spinner'">
       <div class="vue-showcase-stack">
-        <Spinner label="Loading…" />
-        <div class="vue-showcase-grid">
-          <Spinner size="sm" variant="primary" label="Loading" />
-          <Spinner size="md" variant="success" label="Loading" />
-          <Spinner size="lg" variant="warning" label="Loading" />
-        </div>
+        <Spinner />
+        <Spinner variant="success" size="lg" />
       </div>
     </template>
     <template v-else-if="slug === 'empty'">
       <div class="empty">
         <h3 class="empty__title">No items yet</h3>
-        <p class="empty__description">Get started by adding your first item. You can edit or remove it anytime.</p>
+        <p class="empty__description">Get started by adding your first item.</p>
         <div class="empty__action">
           <Button variant="primary">Add item</Button>
         </div>
@@ -513,63 +429,49 @@ const dropdownOpen = ref(false);
       <component :is="Component" v-bind="demoProps">
         <template v-if="slug === 'accordion'" #default>
           <div class="accordion__item">
-            <button type="button" class="accordion__trigger accordion__trigger--expanded" aria-expanded="true" aria-controls="vue-acc-one" id="vue-acc-trigger-one">Section one</button>
-            <div id="vue-acc-one" class="accordion__panel accordion__panel--expanded">
+            <button type="button" class="accordion__trigger accordion__trigger--expanded" aria-expanded="true" aria-controls="vue-acc-1" id="vue-acc-trigger-1">Section 1</button>
+            <div id="vue-acc-1" class="accordion__panel accordion__panel--expanded">
               <div class="accordion__panel-inner">
-                <div class="accordion__panel-content"><p>Content for section one. Only one panel is open at a time.</p></div>
+                <div class="accordion__panel-content"><p>Content 1.</p></div>
               </div>
             </div>
           </div>
           <div class="accordion__item">
-            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vue-acc-two" id="vue-acc-trigger-two">Section two</button>
-            <div id="vue-acc-two" class="accordion__panel" hidden>
+            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vue-acc-2" id="vue-acc-trigger-2">Section 2</button>
+            <div id="vue-acc-2" class="accordion__panel" hidden>
               <div class="accordion__panel-inner">
-                <div class="accordion__panel-content"><p>Content for section two.</p></div>
-              </div>
-            </div>
-          </div>
-          <div class="accordion__item">
-            <button type="button" class="accordion__trigger" aria-expanded="false" aria-controls="vue-acc-three" id="vue-acc-trigger-three">Section three</button>
-            <div id="vue-acc-three" class="accordion__panel" hidden>
-              <div class="accordion__panel-inner">
-                <div class="accordion__panel-content"><p>Content for section three.</p></div>
+                <div class="accordion__panel-content"><p>Content 2.</p></div>
               </div>
             </div>
           </div>
         </template>
         <template v-else-if="slug === 'tabs'" #default>
           <div class="tabs__list" role="tablist" aria-label="Tabs">
-            <span class="tabs__tab tabs__tab--active" id="vue-tabs-tab-overview" role="tab" tabindex="0" aria-selected="true" aria-controls="vue-tabs-panel-overview" data-tab-id="overview">Overview</span>
-            <span class="tabs__tab" id="vue-tabs-tab-features" role="tab" tabindex="-1" aria-selected="false" aria-controls="vue-tabs-panel-features" data-tab-id="features">Features</span>
-            <span class="tabs__tab" id="vue-tabs-tab-pricing" role="tab" tabindex="-1" aria-selected="false" aria-controls="vue-tabs-panel-pricing" data-tab-id="pricing">Pricing</span>
+            <span class="tabs__tab tabs__tab--active" id="vue-tabs-tab-one" role="tab" tabindex="0" aria-selected="true" aria-controls="vue-tabs-panel-one" data-tab-id="one">Tab One</span>
+            <span class="tabs__tab" id="vue-tabs-tab-two" role="tab" tabindex="-1" aria-selected="false" aria-controls="vue-tabs-panel-two" data-tab-id="two">Tab Two</span>
           </div>
           <div class="tabs__panels-wrapper">
-            <div class="tabs__panel tabs__panel--active" id="vue-tabs-panel-overview" role="tabpanel" aria-labelledby="vue-tabs-tab-overview" data-panel-id="overview">
-              <div class="tabs__panel-content"><h4>Overview</h4><p>This is the overview content. It provides a general introduction to the topic.</p></div>
+            <div class="tabs__panel tabs__panel--active" id="vue-tabs-panel-one" role="tabpanel" aria-labelledby="vue-tabs-tab-one" data-panel-id="one">
+              <div class="tabs__panel-content"><p>Content for Tab One.</p></div>
             </div>
-            <div class="tabs__panel" id="vue-tabs-panel-features" role="tabpanel" aria-labelledby="vue-tabs-tab-features" aria-hidden="true" data-panel-id="features">
-              <div class="tabs__panel-content"><h4>Features</h4><ul><li>Feature 1: Accessible design</li><li>Feature 2: Keyboard navigation</li><li>Feature 3: Theme-aware styling</li></ul></div>
-            </div>
-            <div class="tabs__panel" id="vue-tabs-panel-pricing" role="tabpanel" aria-labelledby="vue-tabs-tab-pricing" aria-hidden="true" data-panel-id="pricing">
-              <div class="tabs__panel-content"><h4>Pricing</h4><p>Choose the plan that works best for you.</p></div>
+            <div class="tabs__panel" id="vue-tabs-panel-two" role="tabpanel" aria-labelledby="vue-tabs-tab-two" aria-hidden="true" data-panel-id="two">
+              <div class="tabs__panel-content"><p>Content for Tab Two.</p></div>
             </div>
           </div>
         </template>
         <template v-else-if="slug === 'table'" #default>
           <div class="table__wrapper">
-            <table class="table__table">
-              <caption class="table__caption">Sample data</caption>
+            <table class="table__table table--striped">
+              <caption class="table__caption">Demo table</caption>
               <thead class="table__head">
                 <tr class="table__row">
                   <th class="table__cell table__cell--head" scope="col">Name</th>
-                  <th class="table__cell table__cell--head" scope="col">Role</th>
-                  <th class="table__cell table__cell--head" scope="col">Status</th>
+                  <th class="table__cell table__cell--head" scope="col">Value</th>
                 </tr>
               </thead>
               <tbody class="table__body">
-                <tr class="table__row"><td class="table__cell">Alice</td><td class="table__cell">Developer</td><td class="table__cell">Active</td></tr>
-                <tr class="table__row"><td class="table__cell">Bob</td><td class="table__cell">Designer</td><td class="table__cell">Active</td></tr>
-                <tr class="table__row"><td class="table__cell">Carol</td><td class="table__cell">Manager</td><td class="table__cell">Away</td></tr>
+                <tr class="table__row"><td class="table__cell">Alpha</td><td class="table__cell">10</td></tr>
+                <tr class="table__row"><td class="table__cell">Beta</td><td class="table__cell">20</td></tr>
               </tbody>
             </table>
           </div>
@@ -581,7 +483,7 @@ const dropdownOpen = ref(false);
           </button>
           <div id="vue-collapsible-panel" class="collapsible__panel" role="region" aria-labelledby="vue-collapsible-trigger" hidden>
             <div class="collapsible__panel-inner">
-              <p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>
+              <p>Hidden content here.</p>
             </div>
           </div>
         </template>
@@ -589,12 +491,12 @@ const dropdownOpen = ref(false);
           <div class="footer__container">
             <div class="footer__inner">
               <p class="footer__copyright">
-                <span class="footer__site-name">Rizzo</span> · <span class="footer__year">© {{ new Date().getFullYear() }}</span>
+                <span class="footer__site-name">My App</span> · <span class="footer__year">© {{ new Date().getFullYear() }}</span>
               </p>
               <nav class="footer__nav" aria-label="Footer">
                 <ul class="footer__links">
                   <li class="footer__link-item"><a class="footer__link" href="/docs">Docs</a></li>
-                  <li class="footer__link-item"><a class="footer__link" href="/">Home</a></li>
+                  <li class="footer__link-item"><a class="footer__link" href="/privacy">Privacy</a></li>
                 </ul>
               </nav>
             </div>
@@ -722,7 +624,7 @@ const dropdownOpen = ref(false);
         <template v-else-if="slug === 'empty'" #default>
           <div class="empty">
             <h3 class="empty__title">No items yet</h3>
-            <p class="empty__description">Get started by adding your first item. You can edit or remove it anytime.</p>
+            <p class="empty__description">Get started by adding your first item.</p>
             <div class="empty__action">
               <Button variant="primary">Add item</Button>
             </div>
@@ -735,30 +637,22 @@ const dropdownOpen = ref(false);
               <li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
               <li class="breadcrumb__item"><a href="/docs">Docs</a></li>
               <li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-              <li class="breadcrumb__item"><a href="/docs/components">Components</a></li>
-              <li class="breadcrumb__item"><span class="breadcrumb__sep" aria-hidden="true">/</span></li>
-              <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Breadcrumb</li>
+              <li class="breadcrumb__item breadcrumb__item--current" aria-current="page">Current</li>
             </ol>
           </nav>
         </template>
         <template v-else-if="slug === 'label'" #default>Email</template>
         <template v-else-if="slug === 'kbd'" #default>Ctrl</template>
         <template v-else-if="slug === 'aspect-ratio'" #default>
-          <div class="vue-aspect-placeholder">16:9</div>
+          <img src="/poster.jpg" alt="" />
         </template>
         <template v-else-if="slug === 'carousel'" #default>
-          <div class="carousel__slide">
-            <h4 style="margin-top:0">Slide 1</h4>
-            <p>First slide content. Use previous/next or the indicators to navigate.</p>
-          </div>
-          <div class="carousel__slide">
-            <h4 style="margin-top:0">Slide 2</h4>
-            <p>Second slide content.</p>
-          </div>
-          <div class="carousel__slide">
-            <h4 style="margin-top:0">Slide 3</h4>
-            <p>Third slide content.</p>
-          </div>
+          <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>
+          <div class="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
+          <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
+        </template>
+        <template v-else-if="slug === 'direction'" #default>
+          <p>Right-to-left content here.</p>
         </template>
       </component>
     </template>

@@ -44,8 +44,7 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
 
 <Badge>Default</Badge>
 <Badge variant="primary">Primary</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="warning" pill>Pill</Badge>`,
+<Badge variant="success">Success</Badge>`,
 
   'button-group': `<script>
   import { ButtonGroup, Button } from '$lib/rizzo';
@@ -89,7 +88,9 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
   import { Empty } from '$lib/rizzo';
 </script>
 
-<Empty title="No results" description="Try adjusting your search." />`,
+<Empty title="No items yet" description="Get started by adding your first item.">
+  <button type="button" class="btn btn-primary">Add item</button>
+</Empty>`,
 
   'aspect-ratio': `<script>
   import { AspectRatio } from '$lib/rizzo';
@@ -168,6 +169,47 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
   <div class="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
 </Carousel>`,
 
+  chart: `<script>
+  import { Chart } from '$lib/rizzo';
+</script>
+
+<Chart data={[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]} />`,
+
+  command: `<script>
+  import { Command } from '$lib/rizzo';
+</script>
+
+<Command
+  triggerLabel="Open command palette (⌘K)"
+  searchPlaceholder="Search…"
+  items={[{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }]}
+/>`,
+
+  direction: `<script>
+  import { Direction } from '$lib/rizzo';
+</script>
+
+<Direction dir="rtl">
+  <p>Right-to-left content here.</p>
+</Direction>`,
+
+  'input-otp': `<script>
+  import { InputOtp } from '$lib/rizzo';
+</script>
+
+<InputOtp length={6} ariaLabel="One-time code" />`,
+
+  menubar: `<script>
+  import { Menubar } from '$lib/rizzo';
+</script>
+
+<Menubar
+  items={[
+    { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] },
+    { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] },
+  ]}
+/>`,
+
   accordion: `<script>
   import { Accordion } from '$lib/rizzo';
 </script>
@@ -187,7 +229,7 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
 </script>
 
 <Button variant="error" onclick={() => (open = true)}>Delete</Button>
-<AlertDialog bind:open title="Delete item?" description="This cannot be undone.">
+<AlertDialog bind:open title="Delete item?" description="This action cannot be undone.">
   {#snippet actions()}
     <Button variant="outline" onclick={() => (open = false)}>Cancel</Button>
     <Button variant="error" onclick={() => (open = false)}>Delete</Button>

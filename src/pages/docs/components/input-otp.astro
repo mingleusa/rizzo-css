@@ -1,0 +1,34 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import InputOtp from '../../../components/astro/InputOtp.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'input-otp';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Input OTP — Astro" description="One-time code input: multiple digit boxes (e.g. 4–6) with auto-focus and paste support.">
+  <section>
+    <h2>Input OTP</h2>
+    <p>Multiple digit inputs for one-time codes (e.g. 6-digit verification). Auto-advances on input and supports paste. Requires <code>client:load</code> for focus and paste behavior.</p>
+    <AddComponentTabs componentName="InputOtp" />
+    <h3>Live Example</h3>
+    <div class="example">
+      <div class="example-title">6-digit code</div>
+      <InputOtp length={6} ariaLabel="One-time code" />
+    </div>
+    <h3>Usage</h3>
+    <FrameworkCodeTabs astro={astroCode} svelte={svelteCode} react={reactCode} vue={vueCode} vanilla={vanillaCode} />
+    <p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/input-otp">Vanilla</a> · <a href="/docs/svelte/components/input-otp">Svelte</a> · <a href="/docs/vue/components/input-otp">Vue</a> · <a href="/docs/react/components/input-otp">React</a></p>
+  </section>
+</DocsLayout>

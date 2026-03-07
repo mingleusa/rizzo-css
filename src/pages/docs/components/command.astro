@@ -1,0 +1,34 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Command from '../../../components/astro/Command.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'command';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Command — Astro" description="Command palette (e.g. Cmd+K): searchable list of actions with keyboard navigation.">
+  <section>
+    <h2>Command</h2>
+    <p>Command palette: trigger opens a dialog with search and list of actions. Use <kbd>⌘</kbd>K (or Ctrl+K) to open. Interactivity is provided by an inline script.</p>
+    <AddComponentTabs componentName="Command" />
+    <h3>Live Example</h3>
+    <div class="example">
+      <div class="example-title">Command palette</div>
+      <Command triggerLabel="Open command palette (⌘K)" searchPlaceholder="Search…" items={[{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }, { id: 'search', label: 'Search', shortcut: '⌘K' }]} />
+    </div>
+    <h3>Usage</h3>
+    <FrameworkCodeTabs astro={astroCode} svelte={svelteCode} react={reactCode} vue={vueCode} vanilla={vanillaCode} />
+    <p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/command">Vanilla</a> · <a href="/docs/svelte/components/command">Svelte</a> · <a href="/docs/vue/components/command">Vue</a> · <a href="/docs/react/components/command">React</a></p>
+  </section>
+</DocsLayout>

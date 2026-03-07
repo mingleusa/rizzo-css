@@ -6147,3 +6147,220 @@ div.navbar__sublink {
   background: var(--accent-hover);
   color: var(--accent-text-on-hover);
 }
+
+/* —— Chart (data visualization) —— */
+.chart {
+  --chart-bar-fill: var(--accent);
+
+  display: block;
+  width: 100%;
+}
+
+.chart__bars {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-2);
+  min-height: 120px;
+  padding: var(--spacing-4) 0;
+}
+
+.chart__bar-wrap {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+
+.chart__bar {
+  width: 100%;
+  max-width: 2.5rem;
+  min-height: 4px;
+  background: var(--chart-bar-fill);
+  border-radius: var(--radius-sm);
+  transition: height 0.2s ease;
+}
+
+.chart__label {
+  font-size: var(--font-size-sm);
+  color: var(--text-dim);
+}
+
+/* —— Command (palette / Cmd+K) —— */
+.command-root {
+  position: relative;
+}
+
+.command__overlay {
+  position: fixed;
+  inset: 0;
+  background: oklch(from var(--overlay) l c h / 60%);
+  z-index: var(--z-modal, 4000);
+  animation: overlay-in 0.15s ease;
+}
+
+.command__dialog {
+  position: fixed;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - var(--spacing-8), 28rem);
+  max-height: 70vh;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  z-index: calc(var(--z-modal, 4000) + 1);
+  display: flex;
+  flex-direction: column;
+  animation: overlay-in 0.15s ease;
+}
+
+.command__search-wrap {
+  padding: var(--spacing-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.command__search {
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--text);
+}
+
+.command__list {
+  overflow-y: auto;
+  padding: var(--spacing-2);
+  max-height: 280px;
+}
+
+.command__item {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: left;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.command__item:hover,
+.command__item[aria-selected="true"] {
+  background: var(--background-alt);
+}
+
+.command__item kbd {
+  margin-left: var(--spacing-2);
+  font-size: var(--font-size-xs);
+  color: var(--text-dim);
+}
+
+/* —— Direction (RTL/LTR wrapper) —— */
+.direction {
+  display: block;
+}
+
+.direction--rtl {
+  direction: rtl;
+}
+
+.direction--ltr {
+  direction: ltr;
+}
+
+/* —— Input OTP —— */
+.input-otp {
+  display: flex;
+  gap: var(--spacing-2);
+  justify-content: center;
+}
+
+.input-otp__digit {
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-variant-numeric: tabular-nums;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--background);
+  color: var(--text);
+}
+
+.input-otp__digit:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.input-otp__digit::placeholder {
+  color: var(--text-dim);
+}
+
+/* —— Menubar —— */
+.menubar {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 var(--spacing-2);
+  min-height: 2.5rem;
+  background: var(--background-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.menubar__item {
+  position: relative;
+}
+
+.menubar__trigger {
+  padding: var(--spacing-2) var(--spacing-3);
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+}
+
+.menubar__trigger:hover,
+.menubar__trigger[aria-expanded="true"] {
+  background: var(--background);
+}
+
+.menubar__menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 10rem;
+  margin-top: var(--spacing-1);
+  padding: var(--spacing-1);
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+}
+
+.menubar__menu-item {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-2) var(--spacing-3);
+  text-align: left;
+  border: none;
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--text);
+  font-size: var(--font-size-sm);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.menubar__menu-item:hover {
+  background: var(--background-alt);
+}

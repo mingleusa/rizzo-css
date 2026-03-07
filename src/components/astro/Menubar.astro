@@ -1,0 +1,86 @@
+---
+/**
+ * Horizontal menubar with dropdown menus (File, Edit, View). Uses inline script for open/close (no client:load).
+ * items: { label, menu: { label, href? }[] }
+ */
+interface Props {
+  id?: string;
+  items?: { label: string; menu: { label: string; href?: string }[] }[];
+  class?: string;
+}
+
+const {
+  id: idProp,
+  items = [
+    { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }, { label: 'Save', href: '#' }] },
+    { label: 'Edit', menu: [{ label: 'Undo', href: '#' }, { label: 'Redo', href: '#' }] },
+    { label: 'View', menu: [{ label: 'Zoom in', href: '#' }, { label: 'Zoom out', href: '#' }] },
+  ],
+  class: className = '',
+} = Astro.props;
+
+const menubarId = idProp ?? `menubar-${Math.random().toString(36).slice(2, 9)}`;
+---
+
+<nav id={menubarId} class={`menubar ${className}`.trim()} role="menubar" aria-label="Main menu" data-menubar>
+  {items.map((item, i) => {
+    const triggerId = `${menubarId}-trigger-${i}`;
+    const menuId = `${menubarId}-menu-${i}`;
+    return (
+      <div class="menubar__item" role="none">
+        <button
+          type="button"
+          id={triggerId}
+          class="menubar__trigger"
+          role="menuitem"
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls={menuId}
+          data-menubar-trigger
+          data-menubar-id={menubarId}
+        >
+          {item.label}
+        </button>
+        <div id={menuId} class="menubar__menu" role="menu" aria-labelledby={triggerId} hidden data-menubar-menu data-menubar-id={menubarId}>
+          {item.menu.map((entry) => (
+            entry.href
+              ? <a href={entry.href} class="menubar__menu-item" role="menuitem">{entry.label}</a>
+              : <button type="button" class="menubar__menu-item" role="menuitem">{entry.label}</button>
+          ))}
+        </div>
+      </div>
+    );
+  })}
+</nav>
+
+<script is:inline define:vars={{ menubarId }}>
+(function () {
+  document.querySelectorAll('[data-menubar]').forEach(function (bar) {
+    var id = bar.id || bar.dataset?.menubarId;
+    var triggers = bar.querySelectorAll('[data-menubar-trigger]');
+    var menus = bar.querySelectorAll('[data-menubar-menu]');
+    function closeAll() {
+      triggers.forEach(function (t) { t.setAttribute('aria-expanded', 'false'); });
+      menus.forEach(function (m) { m.hidden = true; });
+    }
+    triggers.forEach(function (trigger, i) {
+      var menu = menus[i];
+      if (!menu) return;
+      trigger.addEventListener('click', function () {
+        var open = trigger.getAttribute('aria-expanded') === 'true';
+            closeAll();
+            if (!open) {
+              trigger.setAttribute('aria-expanded', 'true');
+              menu.hidden = false;
+            }
+      });
+    });
+    document.addEventListener('click', function (e) {
+      if (!bar.contains(e.target)) closeAll();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeAll();
+    });
+  });
+})();
+</script>

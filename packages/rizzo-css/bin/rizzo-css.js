@@ -196,18 +196,18 @@ const THEMES = [...DARK_THEMES, ...LIGHT_THEMES];
 const VALID_THEME_VALUES = ['system', ...THEMES];
 // Components available for scaffold (must match scaffold/svelte and scaffold/astro; missing files are skipped on copy)
 const SVELTE_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Calendar', 'RangeCalendar', 'Carousel', 'Dashboard', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'BackToTop', 'Breadcrumb',   'FormGroup', 'Input', 'InputGroup', 'Checkbox', 'Textarea', 'Select', 'Radio',
-  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
+  'Button', 'Badge', 'Card', 'Calendar', 'RangeCalendar', 'Carousel', 'Chart', 'Dashboard', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'BackToTop', 'Breadcrumb', 'Command', 'FormGroup', 'Input', 'InputGroup', 'InputOtp', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown', 'Direction', 'Menubar',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons', 'Skeleton', 'Switch',
   'Label', 'Kbd', 'Collapsible', 'AlertDialog', 'AspectRatio', 'ButtonGroup', 'Empty', 'Separator',
   'Slider', 'Sheet', 'Popover', 'Toggle', 'ToggleGroup', 'ScrollArea', 'HoverCard', 'ContextMenu', 'ResizablePaneGroup', 'ResizablePane', 'ResizableHandle',
 ];
 const ASTRO_COMPONENTS = [
-  'Button', 'Badge', 'Card', 'Calendar', 'RangeCalendar', 'Carousel', 'Dashboard', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
-  'BackToTop', 'Breadcrumb',   'FormGroup', 'Input', 'InputGroup', 'Checkbox', 'Textarea', 'Select', 'Radio',
-  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown',
+  'Button', 'Badge', 'Card', 'Calendar', 'RangeCalendar', 'Carousel', 'Chart', 'Dashboard', 'Divider', 'DocsSidebar', 'Footer', 'Spinner', 'ProgressBar', 'Avatar', 'Alert',
+  'BackToTop', 'Breadcrumb', 'Command', 'FormGroup', 'Input', 'InputGroup', 'InputOtp', 'Checkbox', 'Textarea', 'Select', 'Radio',
+  'CopyToClipboard', 'Tooltip', 'Pagination', 'Tabs', 'Accordion', 'Dropdown', 'Direction', 'Menubar',
   'Modal', 'Toast', 'Table', 'ThemeSwitcher', 'FontSwitcher', 'SoundEffects',
   'Navbar', 'Settings', 'Search', 'Icons', 'Skeleton', 'Switch',
   'Label', 'Kbd', 'Collapsible', 'AlertDialog', 'AspectRatio', 'ButtonGroup', 'Empty', 'Separator',
@@ -290,8 +290,8 @@ function logAddedDeps(selected, expanded, framework) {
 // Vanilla scaffold: component name (same as ASTRO_COMPONENTS) -> components/*.html slug. New components (label, kbd, etc.) have stub pages in scaffold/vanilla/components/.
 const VANILLA_COMPONENT_SLUGS = {
   Accordion: 'accordion', Alert: 'alert', AlertDialog: 'alert-dialog', AspectRatio: 'aspect-ratio', Avatar: 'avatar', BackToTop: 'back-to-top', Badge: 'badge', Breadcrumb: 'breadcrumb', Button: 'button', ButtonGroup: 'button-group',
-  Card: 'cards', Calendar: 'calendar', RangeCalendar: 'range-calendar', Carousel: 'carousel', Checkbox: 'forms', Collapsible: 'collapsible', ContextMenu: 'context-menu', CopyToClipboard: 'copy-to-clipboard', Dashboard: 'dashboard', Divider: 'divider', DocsSidebar: 'docs-sidebar', Dropdown: 'dropdown',
-  Empty: 'empty', Footer: 'footer', FormGroup: 'forms', HoverCard: 'hover-card', Input: 'forms', InputGroup: 'input-group', Icons: 'icons', Kbd: 'kbd', Label: 'label',
+  Card: 'cards', Calendar: 'calendar', RangeCalendar: 'range-calendar', Carousel: 'carousel', Chart: 'chart', Checkbox: 'forms', Collapsible: 'collapsible', Command: 'command', ContextMenu: 'context-menu', CopyToClipboard: 'copy-to-clipboard', Dashboard: 'dashboard', Direction: 'direction', Divider: 'divider', DocsSidebar: 'docs-sidebar', Dropdown: 'dropdown',
+  Empty: 'empty', Footer: 'footer', FormGroup: 'forms', HoverCard: 'hover-card', Input: 'forms', InputGroup: 'input-group', InputOtp: 'input-otp', Icons: 'icons', Kbd: 'kbd', Label: 'label', Menubar: 'menubar',
   Modal: 'modal', Navbar: 'navbar', Pagination: 'pagination', Popover: 'popover', ProgressBar: 'progress-bar',
   Radio: 'forms', ResizableHandle: 'resizable', ResizablePane: 'resizable', ResizablePaneGroup: 'resizable', ScrollArea: 'scroll-area', Search: 'search', Separator: 'separator', Select: 'forms', Settings: 'settings', Sheet: 'sheet',
   Skeleton: 'skeleton', Slider: 'slider', SoundEffects: 'sound-effects', Spinner: 'spinner', Switch: 'switch', Table: 'table',
@@ -1124,7 +1124,7 @@ Commands:
 Options (init):
   --yes             Non-interactive: scaffold new in cwd with defaults (framework: astro, template: landing)
   --path <dir>      Project directory (relative to cwd or absolute). Scaffold and run install there. With --yes; interactive: "Enter path" option.
-  --framework <fw>  vanilla | astro | svelte | react | vue (same 53 components each)
+  --framework <fw>  vanilla | astro | svelte | react | vue (same 58 components each)
   --template <t>    create new: css-only | landing | docs | dashboard | full (default: landing). add: same options.
   --package-manager <pm>  npm | pnpm | yarn | bun (with --yes, or skip PM prompt when interactive)
   --install         After scaffolding, run package manager install in project directory (no prompt)
@@ -1189,7 +1189,7 @@ Component dependencies (Full template):
   Full list of available components and what relies on what: npx rizzo-css help components
 
 Frameworks:
-  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 53 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.vercel.app/docs/react and Vue.
+  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 58 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.vercel.app/docs/react and Vue.
 
 Docs: https://rizzo-css.vercel.app
 `);

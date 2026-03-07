@@ -401,15 +401,8 @@ async function uploadToAlgolia(records) {
     // console.log('2. The Search component will automatically use Algolia if env vars are set');
     // console.log('3. Verify your index in the Algolia dashboard');
   } catch (error) {
-    console.warn('Warning: Could not upload to Algolia:', error.message);
-    if (error.response) {
-      console.warn('Response:', error.response);
-    }
-    console.warn('\nTo enable Algolia search index:');
-    console.warn('1. Install algoliasearch: pnpm add algoliasearch');
-    console.warn('2. Set correct ALGOLIA_APP_ID and ALGOLIA_ADMIN_KEY in .env');
-    console.warn('3. The Admin API key must have write permissions');
-    console.warn('4. Build continues without failing (index can be uploaded later).');
+    console.warn('Warning: Algolia upload failed (check ALGOLIA_APP_ID and ALGOLIA_ADMIN_KEY in .env). Build continues.');
+    console.warn('To enable: pnpm add algoliasearch, set credentials in .env, then re-run index:algolia.');
     // Do not exit(1) so the build chain (lint, build, test) can complete without Algolia credentials
   }
 }

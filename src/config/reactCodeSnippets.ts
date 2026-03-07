@@ -31,19 +31,14 @@ const REACT_CODE_SNIPPETS: Record<string, string> = {
 
 <Badge>Default</Badge>
 <Badge variant="primary">Primary</Badge>
-<Badge variant="success">Success</Badge>
-<Badge variant="warning" pill>Pill</Badge>`,
+<Badge variant="success">Success</Badge>`,
 
   'button-group': `import { ButtonGroup, Button } from './components/react';
 
 <ButtonGroup>
-  <Button variant="primary">Save</Button>
-  <Button variant="outline">Cancel</Button>
-</ButtonGroup>
-<ButtonGroup orientation="vertical">
-  <Button>First</Button>
-  <Button>Second</Button>
-  <Button>Third</Button>
+  <Button>One</Button>
+  <Button>Two</Button>
+  <Button>Three</Button>
 </ButtonGroup>`,
 
   divider: `import { Divider } from './components/react';
@@ -60,50 +55,46 @@ const REACT_CODE_SNIPPETS: Record<string, string> = {
   spinner: `import { Spinner } from './components/react';
 
 <Spinner />
-<Spinner variant="success" size="lg" />
-<Spinner label="Loading data…" />`,
+<Spinner variant="success" size="lg" />`,
 
   kbd: `import { Kbd } from './components/react';
 
-<Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>`,
+<p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>`,
 
   label: `import { Label } from './components/react';
 
-<Label htmlFor="my-input">Email</Label>
-<input id="my-input" type="email" />`,
+<Label htmlFor="email">Email</Label>
+<input id="email" type="email" className="form-input" placeholder="you@example.com" />`,
 
   empty: `import { Empty } from './components/react';
 import { Button } from './components/react';
 
 <Empty
-  title="No results"
-  description="Try adjusting your search."
-  action={<Button variant="primary">Clear filters</Button>}
+  title="No items yet"
+  description="Get started by adding your first item."
+  action={<Button variant="primary">Add item</Button>}
 />`,
 
   'aspect-ratio': `import { AspectRatio } from './components/react';
 
 <AspectRatio ratio={16 / 9}>
-  <img src="/video-poster.jpg" alt="" />
+  <img src="/poster.jpg" alt="" />
 </AspectRatio>`,
 
   skeleton: `import { Skeleton } from './components/react';
 
 <Skeleton />
-<Skeleton variant="text" />
-<Skeleton variant="circle" />`,
+<Skeleton variant="text" />`,
 
   alert: `import { Alert } from './components/react';
 
-<Alert variant="info">Information message.</Alert>
-<Alert variant="success" dismissible onDismiss={() => {}}>Saved!</Alert>
-<Alert variant="error">Something went wrong.</Alert>`,
+<Alert variant="success">Your changes have been saved.</Alert>
+<Alert variant="error" dismissible>An error occurred. Please try again.</Alert>`,
 
   avatar: `import { Avatar } from './components/react';
 
 <Avatar name="Jane Doe" />
-<Avatar src="/avatar.jpg" alt="User" />
-<Avatar initials="AB" size="lg" />`,
+<Avatar src="/photo.jpg" alt="Jane" />`,
 
   cards: `import { Card } from './components/react';
 
@@ -116,8 +107,7 @@ import { Button } from './components/react';
 
   'progress-bar': `import { ProgressBar } from './components/react';
 
-<ProgressBar value={60} max={100} showLabel />
-<ProgressBar indeterminate label="Loading…" />`,
+<ProgressBar value={60} max={100} showLabel />`,
 
   breadcrumb: `import { Breadcrumb } from './components/react';
 
@@ -127,7 +117,6 @@ import { Button } from './components/react';
     { label: 'Docs', href: '/docs' },
     { label: 'Current' },
   ]}
-  separator="chevron"
 />`,
 
   'back-to-top': `import { BackToTop } from './components/react';
@@ -223,14 +212,12 @@ const [value, setValue] = useState(50);
 
   'copy-to-clipboard': `import { CopyToClipboard } from './components/react';
 
-<CopyToClipboard id="copy-example-email" value="example@email.com" format="Email" />`,
+<CopyToClipboard value="npm install rizzo-css" label="Copy" />`,
 
   tooltip: `import { Tooltip } from './components/react';
 
-<div className="tooltip-wrapper" aria-describedby="tooltip-basic">
-  <button type="button" className="btn btn-primary">Hover me</button>
-  <Tooltip id="tooltip-basic" text="This is a basic tooltip" position="top" />
-</div>`,
+<button type="button" aria-describedby="tt-1">Hover me</button>
+<Tooltip id="tt-1" text="Tooltip text" position="top" />`,
 
   calendar: `import { Calendar } from './components/react';
 
@@ -247,6 +234,37 @@ const [value, setValue] = useState(50);
   <div className="carousel__slide"><h4>Slide 2</h4><p>Second slide content.</p></div>
   <div className="carousel__slide"><h4>Slide 3</h4><p>Third slide content.</p></div>
 </Carousel>`,
+
+  chart: `import { Chart } from './components/react';
+
+<Chart data={[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]} />`,
+
+  command: `import { Command } from './components/react';
+
+<Command
+  triggerLabel="Open command palette (⌘K)"
+  searchPlaceholder="Search…"
+  items={[{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }]}
+/>`,
+
+  direction: `import { Direction } from './components/react';
+
+<Direction dir="rtl">
+  <p>Right-to-left content here.</p>
+</Direction>`,
+
+  'input-otp': `import { InputOtp } from './components/react';
+
+<InputOtp length={6} ariaLabel="One-time code" />`,
+
+  menubar: `import { Menubar } from './components/react';
+
+<Menubar
+  items={[
+    { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] },
+    { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] },
+  ]}
+/>`,
 
   collapsible: `import { Collapsible } from './components/react';
 
@@ -273,20 +291,9 @@ const [value, setValue] = useState(50);
 import { Modal, Button } from './components/react';
 
 const [open, setOpen] = useState(false);
-<Button onClick={() => setOpen(true)}>Open Example Modal</Button>
-<Modal
-  open={open}
-  onOpenChange={setOpen}
-  title="Example Modal"
-  footer={<><Button onClick={() => setOpen(false)}>Cancel</Button><Button variant="primary" onClick={() => setOpen(false)}>Confirm</Button></>}
->
-  <p>This is an example modal dialog. It demonstrates:</p>
-  <ul>
-    <li>Focus trapping — Tab cycles within the modal</li>
-    <li>Keyboard navigation — Escape key closes the modal</li>
-    <li>Backdrop overlay with blur effect</li>
-    <li>Theme-aware styling</li>
-  </ul>
+<Button onClick={() => setOpen(true)}>Open modal</Button>
+<Modal open={open} onOpenChange={setOpen} title="Modal title">
+  <p>Modal content.</p>
 </Modal>`,
 
   'alert-dialog': `import { useState } from 'react';
@@ -294,7 +301,7 @@ import { AlertDialog, Button } from './components/react';
 
 const [open, setOpen] = useState(false);
 <Button variant="error" onClick={() => setOpen(true)}>Delete</Button>
-<AlertDialog open={open} onOpenChange={setOpen} title="Delete item?" description="This cannot be undone."
+<AlertDialog open={open} onOpenChange={setOpen} title="Delete item?" description="This action cannot be undone."
   actions={<><Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button><Button variant="error" onClick={() => setOpen(false)}>Delete</Button></>}
 />`,
 
@@ -320,10 +327,10 @@ const [open, setOpen] = useState(false);
   dropdown: `import { Dropdown } from './components/react';
 
 <Dropdown trigger="Actions" items={[
-  { label: 'Edit', onClick: (v) => {} },
-  { label: 'Duplicate' },
+  { label: 'Edit', href: '#' },
+  { label: 'Duplicate', href: '#' },
   { separator: true },
-  { label: 'More', submenu: [{ label: 'Option A' }, { label: 'Option B' }] },
+  { label: 'More', href: '#' },
 ]} />`,
 
   popover: `import { useState } from 'react';
@@ -352,14 +359,14 @@ const [open, setOpen] = useState(false);
 
   'input-group': `import { InputGroup } from './components/react';
 
-<InputGroup prefix="$" suffix="USD" placeholder="0.00" aria-label="Amount" />
-<InputGroup prefix="https://" suffix=".com" placeholder="site" aria-label="Domain" />`,
+<InputGroup prefix="$" suffix="USD" placeholder="0.00" ariaLabel="Amount" />`,
 
   'context-menu': `import { ContextMenu } from './components/react';
 
-<ContextMenu trigger={<span>Right-click here</span>}>
-  <div className="dropdown__item" role="menuitem">Copy</div>
-  <div className="dropdown__item" role="menuitem">Paste</div>
+<ContextMenu trigger={<span>Right-click</span>}>
+  <div className="context-menu__item">Edit</div>
+  <div className="context-menu__separator" role="separator" />
+  <div className="context-menu__item">Delete</div>
 </ContextMenu>`,
 
   navbar: `import { Navbar, Search } from './components/react';

@@ -1,0 +1,34 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Menubar from '../../../components/astro/Menubar.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'menubar';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Menubar — Astro" description="Horizontal menu bar with dropdown menus (e.g. File, Edit, View); accessible ARIA menubar.">
+  <section>
+    <h2>Menubar</h2>
+    <p>Horizontal menubar with dropdown menus. Each top-level item opens a menu of links or actions. Uses <code>role="menubar"</code> and <code>role="menu"</code>. Requires <code>client:load</code> for open/close.</p>
+    <AddComponentTabs componentName="Menubar" />
+    <h3>Live Example</h3>
+    <div class="example">
+      <div class="example-title">Menubar</div>
+      <Menubar items={[{ label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }, { label: 'Save', href: '#' }] }, { label: 'Edit', menu: [{ label: 'Undo', href: '#' }, { label: 'Redo', href: '#' }] }, { label: 'View', menu: [{ label: 'Zoom in', href: '#' }, { label: 'Zoom out', href: '#' }] }]} />
+    </div>
+    <h3>Usage</h3>
+    <FrameworkCodeTabs astro={astroCode} svelte={svelteCode} react={reactCode} vue={vueCode} vanilla={vanillaCode} />
+    <p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/menubar">Vanilla</a> · <a href="/docs/svelte/components/menubar">Svelte</a> · <a href="/docs/vue/components/menubar">Vue</a> · <a href="/docs/react/components/menubar">React</a></p>
+  </section>
+</DocsLayout>

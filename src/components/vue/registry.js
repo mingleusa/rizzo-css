@@ -18,6 +18,7 @@ import Spinner from './Spinner.vue';
 import Label from './Label.vue';
 import InputGroup from './InputGroup.vue';
 import ResizablePaneGroup from './ResizablePaneGroup.vue';
+import Toast from './Toast.vue';
 
 const componentMap = {
   'accordion': defineAsyncComponent(() => import('./Accordion.vue')),
@@ -34,10 +35,13 @@ const componentMap = {
   'calendar': defineAsyncComponent(() => import('./Calendar.vue')),
   'range-calendar': defineAsyncComponent(() => import('./RangeCalendar.vue')),
   'carousel': defineAsyncComponent(() => import('./Carousel.vue')),
+  'chart': defineAsyncComponent(() => import('./Chart.vue')),
   'collapsible': defineAsyncComponent(() => import('./Collapsible.vue')),
+  'command': defineAsyncComponent(() => import('./Command.vue')),
   'context-menu': defineAsyncComponent(() => import('./ContextMenu.vue')),
   'copy-to-clipboard': defineAsyncComponent(() => import('./CopyToClipboard.vue')),
   'dashboard': defineAsyncComponent(() => import('./Dashboard.vue')),
+  'direction': defineAsyncComponent(() => import('./Direction.vue')),
   'docs-sidebar': defineAsyncComponent(() => import('./DocsSidebar.vue')),
   'divider': Divider,
   'dropdown': defineAsyncComponent(() => import('./Dropdown.vue')),
@@ -48,8 +52,10 @@ const componentMap = {
   'hover-card': defineAsyncComponent(() => import('./HoverCard.vue')),
   'icons': defineAsyncComponent(() => import('./Icons.vue')),
   'input-group': InputGroup,
+  'input-otp': defineAsyncComponent(() => import('./InputOtp.vue')),
   'kbd': Kbd,
   'label': Label,
+  'menubar': defineAsyncComponent(() => import('./Menubar.vue')),
   'modal': defineAsyncComponent(() => import('./Modal.vue')),
   'navbar': defineAsyncComponent(() => import('./Navbar.vue')),
   'pagination': defineAsyncComponent(() => import('./Pagination.vue')),
@@ -69,7 +75,7 @@ const componentMap = {
   'table': defineAsyncComponent(() => import('./Table.vue')),
   'tabs': defineAsyncComponent(() => import('./Tabs.vue')),
   'theme-switcher': defineAsyncComponent(() => import('./ThemeSwitcher.vue')),
-  'toast': defineAsyncComponent(() => import('./Toast.vue')),
+  'toast': Toast,
   'toggle': defineAsyncComponent(() => import('./Toggle.vue')),
   'toggle-group': defineAsyncComponent(() => import('./ToggleGroup.vue')),
   'tooltip': defineAsyncComponent(() => import('./Tooltip.vue')),

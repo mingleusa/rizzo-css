@@ -1,0 +1,17 @@
+---
+/**
+ * RTL/LTR wrapper. Sets dir on the container for bidirectional content.
+ */
+interface Props {
+  /** 'ltr' | 'rtl' */
+  dir?: 'ltr' | 'rtl';
+  class?: string;
+}
+
+const { dir = 'ltr', class: className = '' } = Astro.props;
+const dirClass = dir === 'rtl' ? 'direction--rtl' : 'direction--ltr';
+---
+
+<div class={`direction ${dirClass} ${className}`.trim()} dir={dir}>
+  <slot />
+</div>

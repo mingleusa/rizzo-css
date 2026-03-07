@@ -8,7 +8,7 @@ export function SheetDemo() {
     <>
       <Button onClick={() => setOpen(true)}>Open sheet</Button>
       <Sheet open={open} onOpenChange={setOpen} title="Panel" side="right">
-        <p>Sheet content. Same BEM as Astro and Svelte.</p>
+        <p>Sheet content.</p>
       </Sheet>
     </>
   );

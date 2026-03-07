@@ -43,7 +43,6 @@ import Badge from '@/components/rizzo/Badge.vue';
   <Badge>Default</Badge>
   <Badge variant="primary">Primary</Badge>
   <Badge variant="success">Success</Badge>
-  <Badge variant="warning" pill>Pill</Badge>
 </template>`,
 
   'button-group': `<script setup>
@@ -53,13 +52,9 @@ import Button from '@/components/rizzo/Button.vue';
 
 <template>
   <ButtonGroup>
-    <Button variant="primary">Save</Button>
-    <Button variant="outline">Cancel</Button>
-  </ButtonGroup>
-  <ButtonGroup class="button-group--vertical">
-    <Button>First</Button>
-    <Button>Second</Button>
-    <Button>Third</Button>
+    <Button>One</Button>
+    <Button>Two</Button>
+    <Button>Three</Button>
   </ButtonGroup>
 </template>`,
 
@@ -89,7 +84,6 @@ import Spinner from '@/components/rizzo/Spinner.vue';
 <template>
   <Spinner />
   <Spinner variant="success" size="lg" />
-  <Spinner label="Loading data…" />
 </template>`,
 
   kbd: `<script setup>
@@ -97,7 +91,7 @@ import Kbd from '@/components/rizzo/Kbd.vue';
 </script>
 
 <template>
-  <Kbd>Ctrl</Kbd> + <Kbd>K</Kbd>
+  <p>Press <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search.</p>
 </template>`,
 
   label: `<script setup>
@@ -105,8 +99,8 @@ import Label from '@/components/rizzo/Label.vue';
 </script>
 
 <template>
-  <Label for="my-input">Email</Label>
-  <input id="my-input" type="email" />
+  <Label for="email">Email</Label>
+  <input id="email" type="email" class="form-input" placeholder="you@example.com" />
 </template>`,
 
   empty: `<script setup>
@@ -116,10 +110,10 @@ import Button from '@/components/rizzo/Button.vue';
 
 <template>
   <Empty>
-    <h3 class="empty__title">No results</h3>
-    <p class="empty__description">Try adjusting your search.</p>
+    <h3 class="empty__title">No items yet</h3>
+    <p class="empty__description">Get started by adding your first item.</p>
     <div class="empty__action">
-      <Button variant="primary">Clear filters</Button>
+      <Button variant="primary">Add item</Button>
     </div>
   </Empty>
 </template>`,
@@ -132,7 +126,7 @@ import AspectRatio from '@/components/rizzo/AspectRatio.vue';
   <!-- Set ratio via CSS vars on a wrapper; component provides .aspect-ratio -->
   <div style="--aspect-ratio: 16/9; --aspect-ratio-padding: 56.25%;">
     <AspectRatio>
-      <img src="/video-poster.jpg" alt="" />
+      <img src="/poster.jpg" alt="" />
     </AspectRatio>
   </div>
 </template>`,
@@ -144,7 +138,6 @@ import Skeleton from '@/components/rizzo/Skeleton.vue';
 <template>
   <Skeleton />
   <Skeleton class="skeleton--text" />
-  <Skeleton class="skeleton--circle" />
 </template>`,
 
   alert: `<script setup>
@@ -152,9 +145,11 @@ import Alert from '@/components/rizzo/Alert.vue';
 </script>
 
 <template>
-  <Alert variant="info">Information message.</Alert>
-  <Alert variant="success" dismissible>Saved!</Alert>
-  <Alert variant="error">Something went wrong.</Alert>
+  <Alert class="alert--success"><span class="alert__content">Your changes have been saved.</span></Alert>
+  <Alert class="alert--error alert--dismissible">
+    <span class="alert__content">An error occurred. Please try again.</span>
+    <button type="button" class="alert__close" aria-label="Dismiss">×</button>
+  </Alert>
 </template>`,
 
   avatar: `<script setup>
@@ -163,8 +158,7 @@ import Avatar from '@/components/rizzo/Avatar.vue';
 
 <template>
   <Avatar name="Jane Doe" />
-  <Avatar src="/avatar.jpg" alt="User" />
-  <Avatar initials="AB" size="lg" />
+  <Avatar src="/photo.jpg" alt="Jane" />
 </template>`,
 
   cards: `<script setup>
@@ -186,7 +180,6 @@ import ProgressBar from '@/components/rizzo/ProgressBar.vue';
 
 <template>
   <ProgressBar :value="60" :max="100" show-label />
-  <ProgressBar indeterminate label="Loading…" />
 </template>`,
 
   breadcrumb: `<script setup>
@@ -200,7 +193,6 @@ import Breadcrumb from '@/components/rizzo/Breadcrumb.vue';
       { label: 'Docs', href: '/docs' },
       { label: 'Current' },
     ]"
-    separator="chevron"
   />
 </template>`,
 
@@ -379,6 +371,57 @@ import Carousel from '@/components/rizzo/Carousel.vue';
   </Carousel>
 </template>`,
 
+  chart: `<script setup>
+import Chart from '@/components/rizzo/Chart.vue';
+</script>
+
+<template>
+  <Chart :data="[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]" />
+</template>`,
+
+  command: `<script setup>
+import Command from '@/components/rizzo/Command.vue';
+</script>
+
+<template>
+  <Command
+    trigger-label="Open command palette (⌘K)"
+    search-placeholder="Search…"
+    :items="[{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }]"
+  />
+</template>`,
+
+  direction: `<script setup>
+import Direction from '@/components/rizzo/Direction.vue';
+</script>
+
+<template>
+  <Direction dir="rtl">
+    <p>Right-to-left content here.</p>
+  </Direction>
+</template>`,
+
+  'input-otp': `<script setup>
+import InputOtp from '@/components/rizzo/InputOtp.vue';
+</script>
+
+<template>
+  <InputOtp :length="6" aria-label="One-time code" />
+</template>`,
+
+  menubar: `<script setup>
+import Menubar from '@/components/rizzo/Menubar.vue';
+</script>
+
+<template>
+  <Menubar
+    :items="[
+      { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] },
+      { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] },
+    ]"
+  />
+</template>`,
+
   collapsible: `<script setup>
 import Collapsible from '@/components/rizzo/Collapsible.vue';
 </script>
@@ -432,7 +475,7 @@ import Button from '@/components/rizzo/Button.vue';
   <AlertDialog
     v-model:open="open"
     title="Delete item?"
-    description="This cannot be undone."
+    description="This action cannot be undone."
   >
     <template #actions>
       <Button variant="outline" @click="open = false">Cancel</Button>
@@ -538,11 +581,10 @@ import ContextMenu from '@/components/rizzo/ContextMenu.vue';
 
 <template>
   <ContextMenu>
-    <template #trigger>
-      <span>Right-click here</span>
-    </template>
-    <div class="dropdown__item" role="menuitem">Copy</div>
-    <div class="dropdown__item" role="menuitem">Paste</div>
+    <span>Right-click</span>
+    <div class="context-menu__item">Edit</div>
+    <div class="context-menu__separator" role="separator" />
+    <div class="context-menu__item">Delete</div>
   </ContextMenu>
 </template>`,
 

@@ -23,16 +23,15 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [TESTING.md](./TESTING.md) | A11y, browser, and component-page testing (Playwright, axe, keyboard, ARIA, smoke) |
-| [COMPONENTS.md](./COMPONENTS.md) | All components (53 in CLI; doc pages by category), usage, BEM, framework tabs |
+| [COMPONENTS.md](./COMPONENTS.md) | All components (58 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
-| [COMPONENT_COMPARISON.md](./COMPONENT_COMPARISON.md) | Component inventory, mapping, gaps, framework parity |
 | [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md) | OKLCH and required features; polyfills and testing |
 | [RTL.md](./RTL.md) | Right-to-left support: `dir="rtl"`, logical utilities (`mis-*`, `mie-*`, `pis-*`, `pie-*`) |
-| **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 53 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
+| **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 58 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
 | **Design tokens** | `pnpm export:tokens` writes **public/tokens/rizzo-tokens.json** and **.js** from `ai/design-tokens.json` (runs as part of `pnpm build`). Served at `/tokens/rizzo-tokens.json`; use in Figma, Style Dictionary, or runtimes. |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.74), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.75), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -50,21 +49,12 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 
 **A11y, smoke, and visual regression tests** use Playwright. Before running `pnpm test:a11y` or `pnpm test:smoke` for the first time, install browsers: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. **Visual regression:** `pnpm test:visual` (compare to baselines), `pnpm test:visual:update` (update baselines); commit snapshot files so CI can compare. CI runs a11y with sharding (Chromium and Firefox in 2 shards each) and 6 workers, plus the visual job. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
-### Planning (internal)
-
-| Doc | Description |
-|-----|-------------|
-| [planning/CLI_PLANNING.md](./planning/CLI_PLANNING.md) | CLI scope, commands, implementation phases |
-| [planning/PLAN_FONT_CHANGER.md](./planning/PLAN_FONT_CHANGER.md) | Font pairs and Settings font changer (implemented) |
-| [planning/REACT_VUE_VITE_PLAN.md](./planning/REACT_VUE_VITE_PLAN.md) | React, Vue, and Vite: Astro integrations for docs; Vite as bundler in scaffolds |
-| [planning/SCAFFOLD_REPLICA_PLAN.md](./planning/SCAFFOLD_REPLICA_PLAN.md) | What the package scaffolds ship |
-
 ## Repository structure
 
 | Path | Purpose |
 |------|---------|
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
-| **docs/** | Markdown docs (this folder); planning docs in `docs/planning/` |
+| **docs/** | Markdown docs (this folder) |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
 | **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, react/, vue/, config/, shared/, utils/) — astro and svelte include base/ and variants/; react and vue include base/ (Vite). |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |

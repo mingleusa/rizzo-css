@@ -1,0 +1,36 @@
+---
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import Direction from '../../../components/astro/Direction.astro';
+import FrameworkCodeTabs from '../../../components/FrameworkCodeTabs.astro';
+import AddComponentTabs from '../../../components/AddComponentTabs.astro';
+import { getReactCodeSnippet } from '../../../config/reactCodeSnippets';
+import { getVueCodeSnippet } from '../../../config/vueCodeSnippets';
+import { getAstroCodeSnippet } from '../../../config/astroCodeSnippets';
+import { getSvelteCodeSnippet } from '../../../config/svelteCodeSnippets';
+import { getVanillaCodeSnippet } from '../../../config/vanillaCodeSnippets';
+
+const componentSlug = 'direction';
+const reactCode = getReactCodeSnippet(componentSlug);
+const vueCode = getVueCodeSnippet(componentSlug);
+const astroCode = getAstroCodeSnippet(componentSlug);
+const svelteCode = getSvelteCodeSnippet(componentSlug);
+const vanillaCode = getVanillaCodeSnippet(componentSlug);
+---
+
+<DocsLayout title="Direction — Astro" description="RTL/LTR wrapper: sets dir on a container for bidirectional content.">
+  <section>
+    <h2>Direction</h2>
+    <p>Wrapper that sets <code>dir="ltr"</code> or <code>dir="rtl"</code> on the container for right-to-left or left-to-right content.</p>
+    <AddComponentTabs componentName="Direction" />
+    <h3>Live Example</h3>
+    <div class="example">
+      <div class="example-title">RTL</div>
+      <Direction dir="rtl">
+        <p>This paragraph is right-to-left. Use for Arabic, Hebrew, or mixed-direction layouts.</p>
+      </Direction>
+    </div>
+    <h3>Usage</h3>
+    <FrameworkCodeTabs astro={astroCode} svelte={svelteCode} react={reactCode} vue={vueCode} vanilla={vanillaCode} />
+    <p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/direction">Vanilla</a> · <a href="/docs/svelte/components/direction">Svelte</a> · <a href="/docs/vue/components/direction">Vue</a> · <a href="/docs/react/components/direction">React</a></p>
+  </section>
+</DocsLayout>

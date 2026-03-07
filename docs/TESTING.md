@@ -67,7 +67,7 @@ See [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) for required 
 
 There are **no** framework-level unit tests (e.g. Vitest for React/Vue). “Component” coverage is:
 
-- **A11y axe:** Every component **doc page** (all 53 × 5 frameworks + blocks) is loaded and scanned. So every component is tested in the sense that its doc page must pass axe.
+- **A11y axe:** Every component **doc page** (all 58 × 5 frameworks + blocks) is loaded and scanned. So every component is tested in the sense that its doc page must pass axe.
 - **Keyboard/ARIA:** A subset of **interactive** components are tested on Astro and React doc pages (modal, dropdown, tabs, settings, alert-dialog, sheet, etc.).
 
 **Smoke tests** — `tests/smoke.spec.mjs`  
@@ -99,7 +99,7 @@ Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in thi
 | **A11y (keyboard)** | Focus, Escape, traps on Astro + React component pages | `tests/a11y/keyboard.spec.mjs` |
 | **A11y (ARIA)** | Roles/labels on same components | `tests/a11y/aria.spec.mjs` |
 | **Browser** | Playwright projects (Chrome, Firefox, WebKit, Edge, mobile) | `playwright.config.mjs` |
-| **Component pages** | Covered by axe (all 53 × 5 frameworks) + keyboard/ARIA (subset) | Same a11y specs |
+| **Component pages** | Covered by axe (all 58 × 5 frameworks) + keyboard/ARIA (subset) | Same a11y specs |
 | **Smoke** | Key routes load and show content | `tests/smoke.spec.mjs` |
 | **Visual** | Screenshot key routes vs baselines | `tests/visual.spec.mjs` |
 | **Contrast** | Theme colors WCAG AA | `pnpm check:contrast` |

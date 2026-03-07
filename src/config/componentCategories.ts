@@ -22,6 +22,7 @@ export const COMPONENT_CATEGORIES: ComponentCategory[] = [
       'button-group',
       'forms',
       'input-group',
+      'input-otp',
       'switch',
       'slider',
       'toggle',
@@ -38,6 +39,7 @@ export const COMPONENT_CATEGORIES: ComponentCategory[] = [
     slugs: [
       'cards',
       'carousel',
+      'chart',
       'table',
       'badge',
       'pagination',
@@ -63,6 +65,7 @@ export const COMPONENT_CATEGORIES: ComponentCategory[] = [
       'popover',
       'hover-card',
       'context-menu',
+      'command',
       'dropdown',
       'tooltip',
     ],
@@ -83,6 +86,7 @@ export const COMPONENT_CATEGORIES: ComponentCategory[] = [
     slugs: [
       'avatar',
       'copy-to-clipboard',
+      'direction',
       'theme-switcher',
       'font-switcher',
       'settings',

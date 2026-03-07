@@ -1,0 +1,24 @@
+---
+/**
+ * Simple bar chart. Pass data array; bars use theme accent. For complex charts, use Chart.js/Recharts with these classes.
+ */
+interface Props {
+  /** Array of { label, value } (value 0–100 or absolute; max normalizes) */
+  data?: { label: string; value: number }[];
+  class?: string;
+}
+
+const { data = [{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }, { label: 'D', value: 90 }], class: className = '' } = Astro.props;
+const max = Math.max(1, ...data.map((d) => d.value));
+---
+
+<div class={`chart ${className}`.trim()} role="img" aria-label={`Bar chart: ${data.map((d) => `${d.label} ${d.value}`).join(', ')}`}>
+  <div class="chart__bars">
+    {data.map((d) => (
+      <div class="chart__bar-wrap">
+        <div class="chart__bar" style={`height: ${(d.value / max) * 100}%`} />
+        <span class="chart__label">{d.label}</span>
+      </div>
+    ))}
+  </div>
+</div>

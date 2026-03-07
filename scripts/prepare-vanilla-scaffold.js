@@ -13,11 +13,11 @@ const rootDir = resolve(__dirname, '..');
 const scaffoldVanilla = join(rootDir, 'packages', 'rizzo-css', 'scaffold', 'vanilla');
 const DOCS_BASE = 'https://rizzo-css.vercel.app';
 
-/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all 53 components, all frameworks). */
+/** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all 58 components, all frameworks). */
 const COMPONENT_SLUGS = [
   'accordion', 'alert', 'alert-dialog', 'aspect-ratio', 'avatar', 'back-to-top', 'badge', 'breadcrumb', 'button', 'button-group',
-  'cards', 'calendar', 'carousel', 'collapsible', 'context-menu', 'copy-to-clipboard', 'dashboard', 'docs-sidebar', 'divider', 'dropdown', 'empty',
-  'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'input-group', 'kbd', 'label', 'modal', 'navbar', 'pagination', 'popover',
+  'cards', 'calendar', 'carousel', 'chart', 'collapsible', 'command', 'context-menu', 'copy-to-clipboard', 'dashboard', 'direction', 'docs-sidebar', 'divider', 'dropdown', 'empty',
+  'footer', 'font-switcher', 'forms', 'hover-card', 'icons', 'input-group', 'input-otp', 'kbd', 'label', 'menubar', 'modal', 'navbar', 'pagination', 'popover',
   'progress-bar', 'range-calendar', 'resizable', 'scroll-area', 'search', 'separator', 'settings', 'sheet', 'skeleton', 'slider', 'sound-effects',
   'spinner', 'switch', 'table', 'tabs', 'theme-switcher', 'toast', 'toggle', 'toggle-group', 'tooltip',
 ];
@@ -31,6 +31,7 @@ const COMPONENT_TITLES = {
   'docs-sidebar': 'Docs Sidebar',
   'font-switcher': 'Font Switcher',
   'hover-card': 'Hover Card',
+  'input-otp': 'Input OTP',
   'progress-bar': 'Progress Bar',
   'sound-effects': 'Sound Effects',
   'theme-switcher': 'Theme Switcher',

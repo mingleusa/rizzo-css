@@ -58,6 +58,11 @@ import { DocsSidebar } from './DocsSidebar';
 import { DashboardDemo } from './DashboardDemo';
 import { Icons } from './Icons';
 import { Placeholder } from './Placeholder';
+import { Chart } from './Chart';
+import { Command } from './Command';
+import { Direction } from './Direction';
+import { InputOtp } from './InputOtp';
+import { Menubar } from './Menubar';
 
 const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   button: Button,
@@ -76,6 +81,11 @@ const HAS_COMPONENT: Record<string, ComponentType<any>> = {
   calendar: Calendar,
   'range-calendar': RangeCalendar,
   carousel: CarouselDemo,
+  chart: Chart,
+  command: Command,
+  direction: Direction,
+  'input-otp': InputOtp,
+  menubar: Menubar,
   'progress-bar': ProgressBar,
   breadcrumb: Breadcrumb,
   'button-group': ButtonGroup,
@@ -123,7 +133,7 @@ function PlaceholderFor(slug: string): ComponentType {
 /** Default props for doc demo when component is rendered with no props. */
 const DEMO_PROPS: Record<string, Record<string, unknown>> = {
   button: { children: 'Default' },
-  alert: { variant: 'info', children: 'Information message.' },
+  alert: { variant: 'success', children: 'Your changes have been saved.' },
   'progress-bar': { value: 60, max: 100, showLabel: true },
   avatar: { name: 'Jane Doe' },
   skeleton: {},
@@ -135,28 +145,30 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
       { label: 'Current' },
     ],
   },
-  empty: { title: 'No items', description: 'Add something to get started.' },
-  footer: { siteName: 'Rizzo', year: new Date().getFullYear(), links: [{ href: '/docs', label: 'Docs' }, { href: '/', label: 'Home' }] },
+  empty: { title: 'No items yet', description: 'Get started by adding your first item.' },
+  footer: { siteName: 'My App', year: new Date().getFullYear(), links: [{ href: '/docs', label: 'Docs' }, { href: '/privacy', label: 'Privacy' }] },
   pagination: { currentPage: 2, totalPages: 10, showFirstLast: true, maxVisible: 5 },
   tabs: {
     tabs: [
-      { id: 'one', label: 'Tab One', content: '<p>Content for tab one.</p>' },
-      { id: 'two', label: 'Tab Two', content: '<p>Content for tab two.</p>' },
-      { id: 'three', label: 'Tab Three', content: '<p>Content for tab three.</p>' },
+      { id: 'one', label: 'Tab One', content: '<p>Content for Tab One.</p>' },
+      { id: 'two', label: 'Tab Two', content: '<p>Content for Tab Two.</p>' },
     ],
+    defaultTab: 'one',
   },
   accordion: {
     items: [
-      { id: 'a1', title: 'Section 1', content: '<p>Content for section 1.</p>' },
-      { id: 'a2', title: 'Section 2', content: '<p>Content for section 2.</p>' },
+      { id: '1', title: 'Section 1', content: '<p>Content 1.</p>' },
+      { id: '2', title: 'Section 2', content: '<p>Content 2.</p>' },
     ],
+    allowMultiple: false,
+    defaultExpanded: '1',
   },
-  calendar: {},
-  'range-calendar': {},
-  carousel: {},
-  forms: { placeholder: 'Enter text…', type: 'text' },
+  calendar: { label: 'Choose a date' },
+  'range-calendar': { label: 'Choose date range' },
+  carousel: { label: 'Slides' },
+  forms: { placeholder: 'you@example.com', type: 'email' },
   'input-group': { placeholder: '0.00', prefix: '$', suffix: 'USD', 'aria-label': 'Amount' },
-  'copy-to-clipboard': { value: 'example@email.com', format: 'Email', id: 'copy-example-email' },
+  'copy-to-clipboard': { value: 'npm install rizzo-css', label: 'Copy' },
   tooltip: { text: 'Tooltip text' },
   collapsible: { triggerLabel: 'Show more', defaultOpen: false, children: null },
   table: {
@@ -167,19 +179,32 @@ const DEMO_PROPS: Record<string, Record<string, unknown>> = {
     data: [
       { name: 'Alpha', value: 10 },
       { name: 'Beta', value: 20 },
-      { name: 'Gamma', value: 15 },
     ],
-    caption: 'Sample data',
+    caption: 'Demo table',
     striped: true,
   },
-  navbar: { siteName: 'Rizzo' },
-  label: { htmlFor: 'demo-input', children: 'Email' },
-  cards: { variant: 'elevated' as const, children: 'Card content' },
+  navbar: { siteName: 'My App' },
+  label: { htmlFor: 'email', children: 'Email' },
+  cards: { variant: 'elevated' as const, children: null },
   divider: { orientation: 'horizontal' as const, label: 'OR' },
   kbd: { children: 'Ctrl' },
   separator: { orientation: 'horizontal' as const },
   'aspect-ratio': { ratio: 16 / 9, children: null },
-  spinner: { label: 'Loading…', size: 'md' as const, variant: 'primary' as const },
+  spinner: {},
+  chart: { data: [{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }] },
+  command: {
+    triggerLabel: 'Open command palette (⌘K)',
+    searchPlaceholder: 'Search…',
+    items: [{ id: 'new', label: 'New file', shortcut: '⌘N' }, { id: 'save', label: 'Save', shortcut: '⌘S' }],
+  },
+  direction: { dir: 'rtl' as const },
+  'input-otp': { length: 6 },
+  menubar: {
+    items: [
+      { label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] },
+      { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] },
+    ],
+  },
 };
 
 export function getReactComponent(slug: string): ComponentType<any> {

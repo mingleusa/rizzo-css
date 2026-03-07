@@ -230,7 +230,7 @@ test.describe('ARIA and roles (sheet)', () => {
 
 // —— React routes: same ARIA/roles as Astro (Vue doc demos have no trigger buttons) ——
 const REACT_ARIA_ROUTES = [
-  { path: '/docs/react/components/modal', trigger: /open example modal/i, dialog: '.modal[role="dialog"]' },
+  { path: '/docs/react/components/modal', trigger: /open modal/i, dialog: '.modal[role="dialog"]' },
   { path: '/docs/react/components/dropdown', trigger: /^actions$/i, menu: '[role="menu"]' },
   { path: '/docs/react/components/settings', trigger: /open settings/i, panelRole: 'dialog' },
   { path: '/docs/react/components/alert-dialog', trigger: /delete/i, dialog: '[role="alertdialog"]' },

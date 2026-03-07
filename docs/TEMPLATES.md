@@ -40,7 +40,7 @@ Same template choice (CSS only | Landing | Docs | Dashboard | Full). We **never 
 
 | Flow        | Choice              | Meaning |
 |------------|---------------------|--------|
-| **Create new** | CSS only \| Landing \| Docs \| Dashboard \| Full | CSS only = no components; Full = site clone; others = full framework + component picker (all 53 or pick). |
+| **Create new** | CSS only \| Landing \| Docs \| Dashboard \| Full | CSS only = no components; Full = site clone; others = full framework + component picker (all 58 or pick). |
 | **Add**        | Same                | Same templates; no-overwrite. |
 
 ## Component set
@@ -49,7 +49,7 @@ Same template choice (CSS only | Landing | Docs | Dashboard | Full). We **never 
 
 ## What the package includes (ship checklist)
 
-The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal** (snippet sources), **scaffold/astro** (base + variants + all 53 components), **scaffold/svelte** (base + variants + components), **scaffold/react** (base + components), **scaffold/vue** (base + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
+The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal** (snippet sources), **scaffold/astro** (base + variants + all 58 components), **scaffold/svelte** (base + variants + components), **scaffold/react** (base + components), **scaffold/vue** (base + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
 
 ## Scaffold layout in the package
 
@@ -67,4 +67,4 @@ Theme (default dark, default light, initial theme) is only prompted when it matt
 
 - **init (create new):** `--template css-only|landing|docs|dashboard|full`. Default with `--yes` is `landing`. CSS only = no components; Full = site clone (no component picker).
 - **init (add to existing):** Same template choice; you are prompted for variation (CSS only | Landing | Docs | Dashboard | Full) unless `--template` is set.
-- **add:** `--template css-only|landing|docs|dashboard|full` (same as create new). CSS only = no components; Full = site clone; others = component picker (all 53 or pick).
+- **add:** `--template css-only|landing|docs|dashboard|full` (same as create new). CSS only = no components; Full = site clone; others = component picker (all 58 or pick).

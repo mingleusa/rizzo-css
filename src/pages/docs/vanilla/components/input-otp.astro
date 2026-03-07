@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import InputOtp from '../../../../components/astro/InputOtp.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { getVanillaCodeSnippet } from '../../../../config/vanillaCodeSnippets';
+---
+
+<DocsLayout title="Input OTP — Vanilla" description="One-time code input with multiple digit boxes. Add JS for focus move and paste.">
+  <section>
+    <h2>Input OTP</h2>
+    <p>Multiple single-character inputs for OTP codes. Classes: <code>input-otp</code>, <code>input-otp__digit</code>. Add JavaScript to move focus on input and to split paste across digits. See Astro component source for reference implementation.</p>
+    <AddComponentTabs componentName="InputOtp" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <InputOtp length={6} ariaLabel="One-time code" />
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={getVanillaCodeSnippet('input-otp')} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/input-otp">Astro</a> · <a href="/docs/svelte/components/input-otp">Svelte</a> · <a href="/docs/vue/components/input-otp">Vue</a> · <a href="/docs/react/components/input-otp">React</a></p>
+  </section>
+</DocsLayout>

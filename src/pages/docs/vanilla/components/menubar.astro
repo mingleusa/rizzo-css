@@ -1,0 +1,22 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import Menubar from '../../../../components/astro/Menubar.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { getVanillaCodeSnippet } from '../../../../config/vanillaCodeSnippets';
+---
+
+<DocsLayout title="Menubar — Vanilla" description="Horizontal menubar with dropdown menus. Add JS for open/close.">
+  <section>
+    <h2>Menubar</h2>
+    <p>Horizontal menu bar with dropdown menus. Classes: <code>menubar</code>, <code>menubar__item</code>, <code>menubar__trigger</code>, <code>menubar__menu</code>, <code>menubar__menu-item</code>. Add JavaScript to toggle <code>aria-expanded</code> and <code>hidden</code> on trigger click and to close on outside click or Escape.</p>
+    <AddComponentTabs componentName="Menubar" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <Menubar items={[{ label: 'File', menu: [{ label: 'New', href: '#' }, { label: 'Open', href: '#' }] }, { label: 'Edit', menu: [{ label: 'Undo', href: '#' }] }]} />
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={getVanillaCodeSnippet('menubar')} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/menubar">Astro</a> · <a href="/docs/svelte/components/menubar">Svelte</a> · <a href="/docs/vue/components/menubar">Vue</a> · <a href="/docs/react/components/menubar">React</a></p>
+  </section>
+</DocsLayout>

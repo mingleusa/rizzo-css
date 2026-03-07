@@ -1,0 +1,24 @@
+---
+import DocsLayout from '../../../../layouts/DocsLayout.astro';
+import Direction from '../../../../components/astro/Direction.astro';
+import CodeBlock from '../../../../components/CodeBlock.astro';
+import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
+import { getVanillaCodeSnippet } from '../../../../config/vanillaCodeSnippets';
+---
+
+<DocsLayout title="Direction — Vanilla" description="RTL/LTR wrapper with vanilla HTML. Sets dir on container.">
+  <section>
+    <h2>Direction</h2>
+    <p>Wrapper that sets <code>dir="ltr"</code> or <code>dir="rtl"</code>. Use class <code>direction direction--rtl</code> or <code>direction direction--ltr</code>.</p>
+    <AddComponentTabs componentName="Direction" />
+    <div class="example">
+      <div class="example-title">Live example</div>
+      <Direction dir="rtl">
+        <p>Right-to-left content here.</p>
+      </Direction>
+    </div>
+    <h3>HTML</h3>
+    <CodeBlock code={getVanillaCodeSnippet('direction')} language="html" />
+    <p><strong>Other frameworks:</strong> <a href="/docs/components/direction">Astro</a> · <a href="/docs/svelte/components/direction">Svelte</a> · <a href="/docs/vue/components/direction">Vue</a> · <a href="/docs/react/components/direction">React</a></p>
+  </section>
+</DocsLayout>
