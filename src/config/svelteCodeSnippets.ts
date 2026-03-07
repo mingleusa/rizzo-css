@@ -48,13 +48,13 @@ const SVELTE_CODE_SNIPPETS: Record<string, string> = {
 <Badge variant="warning" pill>Pill</Badge>`,
 
   'button-group': `<script>
-  import { ButtonGroup } from '$lib/rizzo';
+  import { ButtonGroup, Button } from '$lib/rizzo';
 </script>
 
 <ButtonGroup>
-  <button type="button" class="btn">One</button>
-  <button type="button" class="btn btn-primary">Two</button>
-  <button type="button" class="btn">Three</button>
+  <Button>One</Button>
+  <Button>Two</Button>
+  <Button>Three</Button>
 </ButtonGroup>`,
 
   divider: `<script>

@@ -10,6 +10,7 @@
   <AddComponentTabs componentName="Navbar" />
 
   <h3>Live example</h3>
+  <p>Same as the main site navbar (Search and Settings with icons), condensed to fit the container.</p>
   <div class="navbar-demo-wrapper">
     <Navbar siteName="Rizzo" />
   </div>
@@ -66,7 +67,8 @@
       </div>
       <a href="/search" class="navbar__item">Search</a>
       <button type="button" class="navbar__settings-btn" aria-label="Settings" onclick={() => window.openSettings?.()}>
-        Settings
+        <Gear width={20} height={20} class="navbar__settings-icon" />
+        <span class="navbar__settings-label">Settings</span>
       </button>
     </div>
   </div>

@@ -1131,7 +1131,7 @@ Options (init):
   --no-install      Do not run install; do not prompt (skip "Run <pm> install? (Y/n)")
   --offline        Use package manager cache only (no network). Passed to install/add when running PM.
   --no-git          With --yes, skip initializing a git repository (default with --yes is to run git init)
-  (Git: only init offers or runs git init. Interactive init: "Initialize git? (Y/n)". With --yes, git init runs unless --no-git. Add does not prompt for git. Init (create new): "Run <pm> install? (Y/n)" uses the package manager you selected (npm, pnpm, yarn, bun). Add: "Run <pm> add rizzo-css? (Y/n)" same. Vanilla has no package manager. rizzo-css.json is written only when the project does not already have one.)
+  (Init create-new: we prompt "Run <pm> install? (Y/n)" first when the project has package.json, then "Initialize git? (Y/n)". With --yes we run install when --install and git init unless --no-git. Add does not prompt for git. rizzo-css.json is written only when the project does not already have one.)
 
 Options (add) — run from your existing project root; you will choose a template then select components (or CSS only):
   --template <t>    css-only | landing | docs | dashboard | full (CSS only = stylesheet only; others = component picker)
@@ -3127,7 +3127,7 @@ async function cmdInit(argv) {
   const pm = getPackageManagerCommands({ agent: selectedPm, command: selectedPm });
   const nextStep = pm.install + ' && ' + pm.run('dev');
   const runPrefix = projectDir !== cwd ? 'cd ' + pathRelative(cwd, projectDir) + ' && ' : '';
-  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase || useReactBase || useVueBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
+  const hasPackageJson = useHandpickAstro || useHandpickSvelte || useAstroBase || useSvelteBase || useReactBase || useVueBase || (useFullVariant && framework !== 'vanilla') || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
 
   console.log('\n  Scaffold complete. Summary above.');
 
@@ -3139,17 +3139,7 @@ async function cmdInit(argv) {
     console.log('  - Wrote ' + RIZZO_CONFIG_FILE);
   }
 
-  // Git init: in every scenario — prompt when interactive, run when --yes (unless --no-git)
-  if (!yes) {
-    const shouldGitInit = await confirmGitInit();
-    if (shouldGitInit) {
-      runGitInit(projectDir);
-    }
-  } else if (!hasFlag(argv, '--no-git')) {
-    runGitInit(projectDir);
-  }
-
-  // Package manager install: only for Astro/Svelte (Vanilla has no package.json)
+  // Package manager install: prompt first (when interactive), then run if requested or --install. Only when project has package.json.
   const installCmd = pm.install + (hasFlag(argv, '--offline') ? ' --offline' : '');
   if (runInstallAfterScaffold && !noInstall && hasPackageJson) {
     const dirLabel = projectDir !== cwd ? ' in ' + pathRelative(cwd, projectDir) : ' (current directory)';
@@ -3176,6 +3166,16 @@ async function cmdInit(argv) {
     }
   }
 
+  // Git init: after install prompt — prompt when interactive, run when --yes (unless --no-git)
+  if (!yes) {
+    const shouldGitInit = await confirmGitInit();
+    if (shouldGitInit) {
+      runGitInit(projectDir);
+    }
+  } else if (!hasFlag(argv, '--no-git')) {
+    runGitInit(projectDir);
+  }
+
   if (useHandpickAstro || useHandpickSvelte) {
     const fw = useHandpickAstro ? 'Astro' : 'SvelteKit';
     console.log('  - ' + fw + ' (manual): base + ' + selectedComponents.length + ' component(s). Run: ' + runPrefix + nextStep);
@@ -3192,7 +3192,7 @@ async function cmdInit(argv) {
   if (useVueBase) {
     console.log('  - Vue (Vite): app + ' + (componentsToCopy.length > 0 ? componentsToCopy.length + ' component(s).' : 'base.') + ' Run: ' + runPrefix + nextStep);
   }
-  const hasBaseScaffold = useAstroBase || useSvelteBase || useHandpickAstro || useHandpickSvelte || useReactBase || useVueBase || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
+  const hasBaseScaffold = useAstroBase || useSvelteBase || useHandpickAstro || useHandpickSvelte || useReactBase || useVueBase || useFullVariant || (selectedVariation === 'css-only' && (framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue'));
   if ((framework === 'astro' || framework === 'svelte' || framework === 'react' || framework === 'vue') && !hasBaseScaffold) {
     const fw = framework === 'svelte' ? 'Svelte' : framework === 'react' ? 'React' : framework === 'vue' ? 'Vue' : 'Astro';
     const createExample = getCreateProjectExample(pm, framework);

@@ -38,6 +38,7 @@ SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you 
 ## Project structure
 
 - `svelte.config.js` — SvelteKit configuration
+- `vite.config.js` — Vite config with SvelteKit plugin (required for `pnpm dev`)
 - `src/app.html` — HTML shell with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/routes/+layout.svelte` — Root layout
 - `src/routes/+page.svelte` — Home page

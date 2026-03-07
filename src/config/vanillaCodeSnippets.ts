@@ -42,10 +42,10 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
 <span class="badge badge--success">Success</span>`,
 
   'button-group': `<!-- Rizzo CSS. No script needed. -->
-<div class="button-group">
-  <button class="btn">One</button>
-  <button class="btn btn-primary">Two</button>
-  <button class="btn">Three</button>
+<div class="button-group" role="group">
+  <button type="button" class="btn">One</button>
+  <button type="button" class="btn">Two</button>
+  <button type="button" class="btn">Three</button>
 </div>`,
 
   divider: `<!-- Rizzo CSS. No script needed. -->
@@ -258,20 +258,27 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   'copy-to-clipboard': `<!-- Ensure Rizzo CSS and js/main.js are loaded. -->
 <button type="button" class="btn" data-copy-value="npm install rizzo-css">Copy</button>`,
 
-  navbar: `<!-- From scaffold: Navbar includes Search + Settings. Include js/main.js for mobile menu, search, and settings. -->
+  navbar: `<!-- From scaffold: Navbar includes Search (with icon) + Settings (with Gear icon). Include js/main.js for mobile menu, search, and settings. See /docs/vanilla/components/navbar for full markup with inline SVG icons. -->
 <nav class="navbar" role="navigation" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
       <a href="/" class="navbar__brand-link">My Site</a>
     </div>
     <div class="navbar__actions-desktop">
-      <!-- Search trigger + overlay; Settings button -->
+      <div class="search" data-search><!-- Search trigger with icon; overlay with input/results --></div>
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick="window.openSettings && window.openSettings()">
+        <svg class="navbar__settings-icon icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+        <span class="navbar__settings-label">Settings</span>
+      </button>
     </div>
-    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu">
+    <button type="button" class="navbar__toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navbar-menu" id="navbar-toggle">
       <span class="navbar__toggle-icon" aria-hidden="true"><span></span><span></span><span></span></span>
     </button>
-    <div class="navbar__menu" id="navbar-menu" role="menu" aria-hidden="true">
-      <a href="/" class="navbar__link">Home</a>
+    <div class="navbar__menu" id="navbar-menu" role="navigation" aria-label="Mobile menu">
+      <div class="navbar__item"><a href="/docs" class="navbar__link">Docs</a></div>
+      <div class="navbar__item"><a href="/docs/components" class="navbar__link">Components</a></div>
+      <div class="navbar__item"><a href="/blocks" class="navbar__link">Blocks</a></div>
+      <div class="navbar__item"><a href="/themes" class="navbar__link">Themes</a></div>
     </div>
   </div>
 </nav>`,
@@ -291,8 +298,11 @@ const VANILLA_CODE_SNIPPETS: Record<string, string> = {
   'sound-effects': `<!-- Checkbox with data-sound-effects; script runs on DOMContentLoaded. -->
 <label class="checkbox"><input type="checkbox" data-sound-effects /> Sound on click</label>`,
 
-  'docs-sidebar': `<!-- Same BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__link. -->
-<aside class="docs-sidebar"><nav class="docs-sidebar__nav">...</nav></aside>`,
+  'docs-sidebar': `<!-- Layout: sidebar + main. BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__group-label, docs-sidebar__list, docs-sidebar__item, docs-sidebar__link, docs-sidebar__link--active. Populate links from nav config; set --active on current link. See /docs/vanilla/components/docs-sidebar for full HTML. -->
+<div class="docs-layout" style="display:flex;">
+  <aside class="docs-sidebar" aria-label="Documentation navigation"><nav class="docs-sidebar__nav">...</nav></aside>
+  <main class="docs__main" style="flex:1;"><div class="docs__content"><!-- Page content --></div></main>
+</div>`,
 
   dashboard: `<!-- Same structure as Astro live example: sidebar (nav) + main. -->
 <div class="dashboard">

@@ -260,6 +260,36 @@ const showFrameworkSwitcher = shouldShowFrameworkSwitcher(currentPath);
 	.docs__content :global(.navbar--search-open) {
 		z-index: 1;
 	}
+
+	/* Condensed navbar demo (vanilla/Svelte live examples): match main site look, fit container */
+	.docs__content :global(.navbar-demo-box .navbar),
+	.docs__content :global(.navbar-demo-wrapper .navbar) {
+		font-size: 0.9375rem;
+	}
+	.docs__content :global(.navbar-demo-box .navbar__container),
+	.docs__content :global(.navbar-demo-wrapper .navbar__container) {
+		padding-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		min-height: auto;
+	}
+	.docs__content :global(.navbar-demo-box .navbar__logo),
+	.docs__content :global(.navbar-demo-wrapper .navbar__logo) {
+		width: 28px;
+		height: 28px;
+	}
+	.docs__content :global(.navbar-demo-box .search__trigger),
+	.docs__content :global(.navbar-demo-box .navbar__settings-btn),
+	.docs__content :global(.navbar-demo-wrapper .search__trigger),
+	.docs__content :global(.navbar-demo-wrapper .navbar__settings-btn) {
+		padding: 0.35rem 0.5rem;
+	}
+	.docs__content :global(.navbar-demo-box .search__icon),
+	.docs__content :global(.navbar-demo-box .navbar__settings-icon),
+	.docs__content :global(.navbar-demo-wrapper .search__icon),
+	.docs__content :global(.navbar-demo-wrapper .navbar__settings-icon) {
+		width: 18px;
+		height: 18px;
+	}
 	
 	.docs__content :global(hr) {
 		border: none;

@@ -64,11 +64,13 @@ import Search from '../../../components/astro/Search.astro';
 <Search id="search-main" />`}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Shipped Navbar includes Search; standalone below. Include js/main.js for open/close, focus trap, click-outside. -->
+			vanilla={`<!-- Shipped Navbar includes Search (with icon); standalone below. Include js/main.js for open/close, focus trap, click-outside. -->
 <div class="search" data-search>
   <div class="search__trigger-wrapper">
-    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-panel">
+    <button type="button" class="search__trigger" aria-label="Open search" aria-expanded="false" aria-controls="search-panel" data-search-trigger>
+      <svg class="search__icon icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <span class="search__trigger-text">Search</span>
+      <kbd class="search__kbd" aria-hidden="true"><span class="search__kbd-modifier">⌘</span>K</kbd>
     </button>
   </div>
   <div class="search__overlay" id="search-panel" aria-hidden="true" role="dialog" aria-modal="true" data-search-overlay>

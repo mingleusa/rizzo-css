@@ -611,8 +611,67 @@ const dropdownOpen = ref(false);
                 </nav>
               </aside>
               <main class="dashboard__main">
-                <h3 style="margin: 0 0 var(--spacing-2);">Main content</h3>
-                <p style="margin: 0;">Put your page content here. Combine with Card, Table, and other Rizzo components.</p>
+                <div class="dashboard-page">
+                  <header class="dashboard-page__header">
+                    <h1 class="dashboard-page__title">Dashboard</h1>
+                    <p class="dashboard-page__subtitle">Overview. Same structure as the Dashboard block.</p>
+                  </header>
+                  <section class="dashboard-page__stats" aria-labelledby="vue-demo-stats-heading">
+                    <h2 id="vue-demo-stats-heading" class="sr-only">Key metrics</h2>
+                    <div class="dashboard-page__stats-grid">
+                      <div class="card dashboard-page__stat">
+                        <div class="card__body">
+                          <span class="card__label">Total users</span>
+                          <span class="card__value">1,234</span>
+                        </div>
+                      </div>
+                      <div class="card dashboard-page__stat">
+                        <div class="card__body">
+                          <span class="card__label">Revenue</span>
+                          <span class="card__value">$12,345</span>
+                        </div>
+                      </div>
+                      <div class="card dashboard-page__stat">
+                        <div class="card__body">
+                          <span class="card__label">Active</span>
+                          <span class="card__value">89%</span>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                  <section class="dashboard-page__table" aria-labelledby="vue-demo-table-heading">
+                    <h2 id="vue-demo-table-heading" class="dashboard-page__section-title">Recent activity</h2>
+                    <div class="table-wrapper">
+                      <table class="table">
+                        <caption class="sr-only">Recent activity list</caption>
+                        <thead>
+                          <tr class="table__row">
+                            <th scope="col" class="table__cell table__cell--header">Name</th>
+                            <th scope="col" class="table__cell table__cell--header">Status</th>
+                            <th scope="col" class="table__cell table__cell--header">Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr class="table__row">
+                            <td class="table__cell">Item one</td>
+                            <td class="table__cell"><span class="badge badge--success">Done</span></td>
+                            <td class="table__cell">Today</td>
+                          </tr>
+                          <tr class="table__row">
+                            <td class="table__cell">Item two</td>
+                            <td class="table__cell"><span class="badge badge--warning">Pending</span></td>
+                            <td class="table__cell">Yesterday</td>
+                          </tr>
+                          <tr class="table__row">
+                            <td class="table__cell">Item three</td>
+                            <td class="table__cell"><span class="badge badge--error">Failed</span></td>
+                            <td class="table__cell">Jan 15</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </section>
+                </div>
               </main>
             </div>
           </div>

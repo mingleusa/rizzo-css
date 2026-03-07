@@ -5862,7 +5862,9 @@ div.navbar__sublink {
 
 .resizable__handle {
   flex-shrink: 0;
-  background: var(--border);
+
+  /* Use theme variable so dark themes can set a more visible handle (--border is often 13–22% on dark) */
+  background: var(--resizable-handle, var(--border));
   cursor: col-resize;
   position: relative;
 }
@@ -5890,9 +5892,11 @@ div.navbar__sublink {
   transform: translate(-50%, -50%);
   width: var(--spacing-4);
   height: var(--spacing-4);
-  background: var(--text-dim);
+
+  /* Theme can set --resizable-handle-grip for visible grip on dark */
+  background: var(--resizable-handle-grip, var(--text-dim));
   border-radius: var(--radius);
-  opacity: 0.5;
+  opacity: 0.7;
 }
 
 .resizable__pane-group--vertical > .resizable__handle--with-handle::after {

@@ -13,9 +13,16 @@
   <p>Sidebar navigation for documentation sites. Same BEM and behavior as the <a href="/docs/components/docs-sidebar">Astro Docs Sidebar</a>: grouped links (Introduction, Foundations, Components) with active state. Pass <code>currentPath</code> and <code>pathPrefix</code> so hrefs and active styling match.</p>
   <AddComponentTabs componentName="Docs Sidebar" />
   <h3>Live example</h3>
-  <p>The sidebar on the left of this page is the docs layout sidebar. Below is a compact demo.</p>
-  <div class="docs-sidebar-demo">
-    <DocsSidebar currentPath={currentPath} pathPrefix={pathPrefix} omitId />
+  <p>The sidebar on the left of this page is the docs layout sidebar. Below is a compact demo with placeholder main content.</p>
+  <div class="docs-sidebar-demo-layout">
+    <div class="docs-sidebar-demo">
+      <DocsSidebar currentPath={currentPath} pathPrefix={pathPrefix} omitId />
+    </div>
+    <main class="docs-sidebar-demo__main">
+      <h2>Page title</h2>
+      <p>This is the main content area. The sidebar links to Introduction, Foundations, and Components. Use the same layout in your docs: DocsSidebar + a main container with your page content.</p>
+      <p>On mobile, the sidebar typically collapses behind a toggle.</p>
+    </main>
   </div>
   <h3>Usage</h3>
   <CodeBlock
@@ -23,7 +30,14 @@
   import { DocsSidebar } from '$lib/rizzo';
 </script>
 
-<DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs/svelte" />`}
+<div class="docs-layout">
+  <DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs/svelte" />
+  <main class="docs__main">
+    <div class="docs__container">
+      <div class="docs__content"><!-- Your page content --></div>
+    </div>
+  </main>
+</div>`}
     language="svelte"
   />
   <p><a href="/docs/components/docs-sidebar">Full Astro Docs Sidebar documentation</a> — props, BEM classes, and layout (toggle + overlay on mobile).</p>

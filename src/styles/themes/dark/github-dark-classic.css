@@ -33,6 +33,8 @@
   --icon: var(--fg);
   --icon-dim: oklch(75% 0.01 264deg);
   --border: oklch(13% 0.01 264deg);
+  --resizable-handle: oklch(38% 0.02 264deg);
+  --resizable-handle-grip: oklch(58% 0.02 264deg);
 
   /* Accent darkened so white text meets WCAG AA 4.5:1 (--cyan is too light at 72%) */
   --accent: oklch(45% 0.18 250deg);

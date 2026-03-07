@@ -18,13 +18,13 @@
     </ButtonGroup>
   </div>
   <CodeBlock code={`<script>
-  import ButtonGroup from './components/svelte/ButtonGroup.svelte';
-  import Button from './components/svelte/Button.svelte';
+  import { ButtonGroup, Button } from '$lib/rizzo';
 </script>
 
 <ButtonGroup>
   <Button>One</Button>
   <Button>Two</Button>
+  <Button>Three</Button>
 </ButtonGroup>`} language="svelte" />
 
   <p><strong>Other frameworks:</strong> <a href="/docs/components/button-group">Astro</a> · <a href="/docs/vanilla/components/button-group">Vanilla</a> · <a href="/docs/vue/components/button-group">Vue</a> · <a href="/docs/react/components/button-group">React</a></p>

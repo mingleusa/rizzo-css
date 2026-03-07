@@ -33,6 +33,8 @@
   --icon: var(--fg);
   --icon-dim: oklch(75% 0.04 280deg);
   --border: oklch(35% 0.04 280deg);
+  --resizable-handle: oklch(42% 0.05 280deg);
+  --resizable-handle-grip: oklch(60% 0.05 280deg);
   --accent: var(--pink);
   --accent-hover: oklch(82% 0.1 350deg);
   --accent-text: oklch(18% 0.02 280deg);

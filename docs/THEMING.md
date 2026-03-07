@@ -180,6 +180,8 @@ Each theme sets `--accent` (solid buttons, fills) and optionally `--accent-fg` /
 
 Theme files live in `src/styles/themes/dark/` and `src/styles/themes/light/`.
 
+**Component theme variables:** Some components use optional CSS variables that themes can override for better visibility. For example, the **Resizable** component uses `--resizable-handle` and `--resizable-handle-grip` (defaulting to `--border` and `--text-dim`). Dark themes set these to higher-contrast values so the drag handle and grip are visible; see the dark theme files in `src/styles/themes/dark/` for examples.
+
 ## Theme File Structure
 
 Themes are organized in `src/styles/themes/`:

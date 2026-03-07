@@ -20,9 +20,16 @@ const { framework } = getFrameworkFromPath(currentPath);
 		<p>A sidebar navigation component for documentation sites. Renders grouped links (e.g. Introduction, Foundations, Components) with active-state styling. Used in the docs layout with a toggle and overlay on mobile.</p>
 		<AddComponentTabs componentName="Docs Sidebar" />
 		<h3>Live example</h3>
-		<p>The sidebar on the left of this page is the Docs Sidebar. Below is a compact demo with the same nav data (scrollable).</p>
-		<div class="docs-sidebar-demo">
-			<DocsSidebarComponent currentPath={currentPath} framework={framework} omitId />
+		<p>The sidebar on the left of this page is the Docs Sidebar. Below is a compact demo with the same nav data and placeholder main content.</p>
+		<div class="docs-sidebar-demo-layout">
+			<div class="docs-sidebar-demo">
+				<DocsSidebarComponent currentPath={currentPath} framework={framework} omitId />
+			</div>
+			<main class="docs-sidebar-demo__main">
+				<h2>Page title</h2>
+				<p>This is the main content area. The sidebar links to Introduction, Foundations, and Components. Use the same layout in your docs: <code>docs-sidebar</code> + a main container with your page content.</p>
+				<p>On mobile, the sidebar typically collapses behind a toggle; the main area fills the viewport.</p>
+			</main>
 		</div>
 
 		<h3>Usage</h3>
@@ -36,17 +43,33 @@ const currentPath = Astro.url.pathname;
 const { framework } = getFrameworkFromPath(currentPath);
 ---
 
-<aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation">
-  <DocsSidebar currentPath={currentPath} framework={framework} />
-</aside>`}
+<div class="docs-layout">
+  <aside id="docs-sidebar" class="docs-sidebar" aria-label="Documentation navigation">
+    <DocsSidebar currentPath={currentPath} framework={framework} />
+  </aside>
+  <main class="docs__main">
+    <div class="docs__container">
+      <div class="docs__content">
+        <!-- Your page content here -->
+      </div>
+    </div>
+  </main>
+</div>`}
 			svelte={`<script>
   import { DocsSidebar } from '$lib/rizzo';
 </script>
 
-<DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs" />`}
+<div class="docs-layout">
+  <DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs" />
+  <main class="docs__main">
+    <div class="docs__container">
+      <div class="docs__content"><!-- Your page content --></div>
+    </div>
+  </main>
+</div>`}
 			react={reactCode}
 			vue={vueCode}
-			vanilla={`<!-- Same BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__group-label, docs-sidebar__list, docs-sidebar__item, docs-sidebar__link, docs-sidebar__link--active. Populate from your nav config; set --active on the current link. -->`}
+			vanilla={`<!-- Layout: sidebar + main. BEM: docs-sidebar, docs-sidebar__nav, docs-sidebar__group, docs-sidebar__group-label (small heading), docs-sidebar__list, docs-sidebar__item, docs-sidebar__link, docs-sidebar__link--active. See /docs/vanilla/components/docs-sidebar for full HTML with correct hrefs. -->`}
 		/>
 
 		<h3>Props (Astro)</h3>
@@ -56,7 +79,7 @@ const { framework } = getFrameworkFromPath(currentPath);
 		</ul>
 
 		<h3>BEM classes</h3>
-		<p><code>docs-sidebar</code>, <code>docs-sidebar__nav</code>, <code>docs-sidebar__group</code>, <code>docs-sidebar__group-label</code>, <code>docs-sidebar__list</code>, <code>docs-sidebar__item</code>, <code>docs-sidebar__link</code>, <code>docs-sidebar__link--active</code>. Sidebar layout and mobile behavior (toggle, overlay) are in the docs layout; see <code>DocsLayout.astro</code> and <code>pages.css</code>.</p>
+		<p><code>docs-sidebar</code>, <code>docs-sidebar__nav</code>, <code>docs-sidebar__group</code>, <code>docs-sidebar__group-label</code> (small uppercase heading), <code>docs-sidebar__list</code>, <code>docs-sidebar__item</code>, <code>docs-sidebar__link</code>, <code>docs-sidebar__link--active</code>. Sidebar layout and mobile behavior (toggle, overlay) are in the docs layout; see <code>DocsLayout.astro</code> and <code>pages.css</code>.</p>
 
 		<p><strong>Other frameworks:</strong> <a href="/docs/vanilla/components/docs-sidebar">Vanilla</a> · <a href="/docs/svelte/components/docs-sidebar">Svelte</a> · <a href="/docs/vue/components/docs-sidebar">Vue</a> · <a href="/docs/react/components/docs-sidebar">React</a></p>
 	</section>

@@ -33,6 +33,8 @@
   --text: var(--fg);
   --text-dim: var(--fg-dim);
   --border: oklch(20% 0.02 95deg);
+  --resizable-handle: oklch(38% 0.025 95deg);
+  --resizable-handle-grip: oklch(58% 0.02 95deg);
   --accent: var(--yellow);
   --accent-hover: oklch(90% 0.16 95deg);
   --accent-text: oklch(12% 0.02 95deg);

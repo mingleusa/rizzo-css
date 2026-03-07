@@ -52,7 +52,7 @@ import ButtonGroup from '../components/astro/ButtonGroup.astro';
 
 <ButtonGroup>
   <button type="button" class="btn">One</button>
-  <button type="button" class="btn btn-primary">Two</button>
+  <button type="button" class="btn">Two</button>
   <button type="button" class="btn">Three</button>
 </ButtonGroup>`,
 

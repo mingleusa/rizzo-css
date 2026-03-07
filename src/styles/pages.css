@@ -1154,13 +1154,13 @@ html:has([data-docs]) {
 }
 
 .docs-sidebar__group-label {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   font-weight: var(--font-weight-semibold);
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wider);
   color: var(--text-dim);
   margin: 0 0 var(--spacing-2) 0;
-  padding: var(--spacing-2) var(--spacing-3) var(--spacing-2);
+  padding: var(--spacing-1) var(--spacing-3) var(--spacing-1);
 }
 
 .docs-sidebar__list {
@@ -1237,7 +1237,46 @@ html:has([data-docs]) {
   background-color: oklch(from var(--accent-fg) l c h / 16%);
 }
 
-/* Compact demo for component page: same structure as site sidebar, scaled down */
+/* Compact demo for component page: sidebar + main with placeholder content */
+.docs-sidebar-demo-layout {
+  display: flex;
+  border: var(--border-width) solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background-color: var(--background);
+  min-height: 14rem;
+}
+
+.docs-sidebar-demo-layout .docs-sidebar-demo {
+  flex-shrink: 0;
+  max-height: none;
+  border-radius: 0;
+  border-right: var(--border-width) solid var(--border);
+  padding: var(--spacing-3);
+}
+
+.docs-sidebar-demo-layout .docs-sidebar-demo__main {
+  flex: 1;
+  min-width: 0;
+  padding: var(--spacing-5);
+  overflow-y: auto;
+}
+
+.docs-sidebar-demo-layout .docs-sidebar-demo__main h2 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin: 0 0 var(--spacing-3) 0;
+  color: var(--text);
+}
+
+.docs-sidebar-demo-layout .docs-sidebar-demo__main p {
+  font-size: var(--font-size-sm);
+  color: var(--text);
+  margin: 0 0 var(--spacing-3) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Standalone sidebar-only demo (e.g. when no layout wrapper) */
 .docs-sidebar-demo {
   max-height: 18rem;
   overflow: auto;
@@ -1256,19 +1295,19 @@ html:has([data-docs]) {
 }
 
 .docs-sidebar-demo .docs-sidebar__nav {
-  gap: var(--spacing-4);
+  gap: var(--spacing-3);
 }
 
 .docs-sidebar-demo .docs-sidebar__group-label,
 .docs-sidebar-demo h2.docs-sidebar__group-label {
-  font-size: var(--font-size-xs);
+  font-size: 0.65rem;
   font-weight: var(--font-weight-semibold);
-  padding: var(--spacing-1) var(--spacing-2) var(--spacing-1);
+  padding: var(--spacing-0-5) var(--spacing-2) var(--spacing-0-5);
   margin-bottom: var(--spacing-1);
 }
 
 .docs-sidebar-demo .docs-sidebar__link {
-  font-size: var(--font-size-sm);
+  font-size: var(--font-size-xs);
   padding: var(--spacing-1) var(--spacing-2);
 }
 
@@ -1277,7 +1316,7 @@ html:has([data-docs]) {
 }
 
 .docs-sidebar-demo .docs-sidebar__sublink {
-  font-size: var(--font-size-xs);
+  font-size: 0.7rem;
   padding: var(--spacing-0-5) var(--spacing-1) var(--spacing-0-5) var(--spacing-2);
 }
 

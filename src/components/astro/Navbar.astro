@@ -14,9 +14,14 @@ declare global {
 interface Props {
   siteName?: string;
   logo?: string;
+  /** Optional ID prefix for toggle/menu (e.g. "demo" → demo-navbar-toggle, demo-navbar-menu). Use when multiple navbars exist on the page. */
+  idPrefix?: string;
 }
 
-const { siteName = 'Rizzo CSS', logo } = Astro.props;
+const { siteName = 'Rizzo CSS', logo, idPrefix } = Astro.props;
+const toggleId = idPrefix ? `${idPrefix}-navbar-toggle` : 'navbar-toggle';
+const menuId = idPrefix ? `${idPrefix}-navbar-menu` : 'navbar-menu';
+const settingsTooltipId = idPrefix ? `${idPrefix}-navbar-settings-tooltip` : 'navbar-settings-tooltip';
 
 // Get current URL pathname and framework for component links only
 const currentPath = Astro.url.pathname;
@@ -38,7 +43,7 @@ const navLinks: Array<{ href: string; label: string }> = [
 ];
 ---
 
-<nav class="navbar" role="navigation" aria-label="Main navigation">
+<nav class="navbar" role="navigation" aria-label="Main navigation" data-navbar-id-prefix={idPrefix || undefined}>
   <div class="navbar__container">
     <div class="navbar__brand">
       <a href="/" class="navbar__brand-link" aria-label={`${siteName} home`}>
@@ -53,7 +58,7 @@ const navLinks: Array<{ href: string; label: string }> = [
     
     <div class="navbar__actions-desktop">
       <Search />
-      <div class="tooltip-wrapper" aria-describedby="navbar-settings-tooltip">
+      <div class="tooltip-wrapper" aria-describedby={settingsTooltipId}>
         <button
           class="navbar__settings-btn"
           type="button"
@@ -63,7 +68,7 @@ const navLinks: Array<{ href: string; label: string }> = [
           <Gear class="navbar__settings-icon" width={20} height={20} />
           <span class="navbar__settings-label">Settings</span>
         </button>
-        <span class="tooltip tooltip--bottom" id="navbar-settings-tooltip" role="tooltip" aria-hidden="true">Settings</span>
+        <span class="tooltip tooltip--bottom" id={settingsTooltipId} role="tooltip" aria-hidden="true">Settings</span>
       </div>
     </div>
     
@@ -71,10 +76,10 @@ const navLinks: Array<{ href: string; label: string }> = [
       class="navbar__toggle"
       type="button"
       aria-expanded="false"
-      aria-controls="navbar-menu"
+      aria-controls={menuId}
       aria-label="Toggle navigation menu"
       title="Toggle navigation menu"
-      id="navbar-toggle"
+      id={toggleId}
     >
       <span class="sr-only">Menu</span>
       <span class="navbar__toggle-icon" aria-hidden="true">
@@ -84,7 +89,7 @@ const navLinks: Array<{ href: string; label: string }> = [
       </span>
     </button>
     
-    <div class="navbar__menu" id="navbar-menu" role="navigation" aria-label="Mobile navigation">
+    <div class="navbar__menu" id={menuId} role="navigation" aria-label="Mobile navigation">
       {navLinks.map((link) => {
         const isActive = currentPath === link.href || (link.href !== '/' && currentPath.startsWith(link.href));
         return (
@@ -105,14 +110,14 @@ const navLinks: Array<{ href: string; label: string }> = [
 </nav>
 
 <script>
-  function initNavbar() {
-    const navbar = document.querySelector('.navbar');
-    if (!navbar) return;
-
-    const menuToggleBtn = document.getElementById('navbar-toggle');
+  function initNavbar(navbar: Element) {
+    const prefix = (navbar as HTMLElement).dataset.navbarIdPrefix;
+    const toggleId = prefix ? `${prefix}-navbar-toggle` : 'navbar-toggle';
+    const menuId = prefix ? `${prefix}-navbar-menu` : 'navbar-menu';
+    const menuToggleBtn = document.getElementById(toggleId);
     const menu = navbar.querySelector('.navbar__menu');
     
-    if (!menuToggleBtn || !menu) return;
+    if (!menuToggleBtn || !menu || menu.id !== menuId) return;
 
     const toggleMenu = (open?: boolean) => {
       const isOpen = open !== undefined ? open : menu.classList.contains('navbar__menu--open');
@@ -206,9 +211,12 @@ const navLinks: Array<{ href: string; label: string }> = [
       }, 250);
     });
   }
+  function initAllNavbars() {
+    document.querySelectorAll('.navbar').forEach((navbar) => initNavbar(navbar));
+  }
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initNavbar);
+    document.addEventListener('DOMContentLoaded', initAllNavbars);
   } else {
-    initNavbar();
+    initAllNavbars();
   }
 </script>

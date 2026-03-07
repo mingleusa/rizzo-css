@@ -53,9 +53,13 @@ import Button from '@/components/rizzo/Button.vue';
 
 <template>
   <ButtonGroup>
-    <Button>One</Button>
-    <Button variant="primary">Two</Button>
-    <Button>Three</Button>
+    <Button variant="primary">Save</Button>
+    <Button variant="outline">Cancel</Button>
+  </ButtonGroup>
+  <ButtonGroup class="button-group--vertical">
+    <Button>First</Button>
+    <Button>Second</Button>
+    <Button>Third</Button>
   </ButtonGroup>
 </template>`,
 
@@ -555,7 +559,8 @@ import Search from '@/components/rizzo/Search.vue';
       </div>
       <div class="navbar__actions-desktop">
         <Search id="nav-search" />
-        <button type="button" class="navbar__settings-btn" aria-label="Open settings">
+        <button type="button" class="navbar__settings-btn" aria-label="Open settings" @click="window.openSettings && window.openSettings()">
+          <svg class="navbar__settings-icon icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
           <span class="navbar__settings-label">Settings</span>
         </button>
       </div>
@@ -565,6 +570,7 @@ import Search from '@/components/rizzo/Search.vue';
       <div class="navbar__menu" role="menu" aria-hidden="true">
         <a href="/docs" class="navbar__link">Docs</a>
         <a href="/blocks" class="navbar__link">Blocks</a>
+        <a href="/themes" class="navbar__link">Themes</a>
       </div>
     </div>
   </Navbar>

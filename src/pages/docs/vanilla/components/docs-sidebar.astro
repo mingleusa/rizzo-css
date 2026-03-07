@@ -1,6 +1,6 @@
 ---
 import DocsLayout from '../../../../layouts/DocsLayout.astro';
-import DocsSidebar from '../../../../components/DocsSidebar.astro';
+import DocsSidebarComponent from '../../../../components/DocsSidebar.astro';
 import CodeBlock from '../../../../components/CodeBlock.astro';
 import AddComponentTabs from '../../../../components/AddComponentTabs.astro';
 import { getFrameworkFromPath } from '../../../../config/frameworks';
@@ -24,6 +24,7 @@ const copyableHtml = `<aside id="docs-sidebar" class="docs-sidebar" aria-label="
         <li class="docs-sidebar__item"><a href="/docs/design-system" class="docs-sidebar__link">Design System</a></li>
         <li class="docs-sidebar__item"><a href="/docs/theming" class="docs-sidebar__link">Theming</a></li>
         <li class="docs-sidebar__item"><a href="/docs/accessibility" class="docs-sidebar__link">Accessibility</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/colors" class="docs-sidebar__link">Colors</a></li>
       </ul>
     </div>
     <div class="docs-sidebar__group">
@@ -31,7 +32,7 @@ const copyableHtml = `<aside id="docs-sidebar" class="docs-sidebar" aria-label="
       <ul class="docs-sidebar__list">
         <li class="docs-sidebar__item"><a href="/docs/components" class="docs-sidebar__link">Overview</a></li>
         <li class="docs-sidebar__item"><a href="/docs/components/button" class="docs-sidebar__link">Button</a></li>
-        <li class="docs-sidebar__item"><a href="/docs/components/docs-sidebar" class="docs-sidebar__link docs-sidebar__link--active">Docs Sidebar</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/components/docs-sidebar" class="docs-sidebar__link docs-sidebar__link--active" aria-current="page">Docs Sidebar</a></li>
       </ul>
     </div>
   </nav>
@@ -44,9 +45,16 @@ const copyableHtml = `<aside id="docs-sidebar" class="docs-sidebar" aria-label="
     <p>Sidebar navigation for documentation sites: grouped links with active state. Same BEM classes and structure as the <a href="/docs/components/docs-sidebar">Astro Docs Sidebar</a>. Populate links from your own nav config; add <code>docs-sidebar__link--active</code> to the current page link.</p>
     <AddComponentTabs componentName="Docs Sidebar" />
     <h3>Live example</h3>
-    <p>The sidebar on the left is the same component. Below is a scrollable box with the same sidebar for reference.</p>
-    <div class="docs-sidebar-demo example" style="max-height: 18rem; overflow: auto; border: 1px solid var(--border); border-radius: var(--radius-lg); padding: var(--spacing-4);">
-      <DocsSidebar currentPath={currentPath} framework={framework} omitId />
+    <p>The sidebar on the left is the same component. Below is a compact demo with the sidebar and placeholder main content.</p>
+    <div class="docs-sidebar-demo-layout example">
+      <div class="docs-sidebar-demo">
+        <DocsSidebarComponent currentPath={currentPath} framework={framework} omitId />
+      </div>
+      <main class="docs-sidebar-demo__main">
+        <h2>Page title</h2>
+        <p>This is the main content area. The sidebar links to Introduction, Foundations, and Components. Use the same BEM structure and add <code>docs-sidebar__link--active</code> on the current page link.</p>
+        <p>On mobile, collapse the sidebar behind a toggle so the main area fills the viewport.</p>
+      </main>
     </div>
 
     <h3>HTML (structure)</h3>
