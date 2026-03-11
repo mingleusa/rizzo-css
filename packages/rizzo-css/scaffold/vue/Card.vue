@@ -1,11 +1,8 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    variant?: 'default' | 'outlined' | 'elevated';
-    class?: string;
-  }>(),
-  { variant: 'default', class: '' }
-);
+defineProps({
+  variant: { type: String, default: 'default' },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

@@ -1,30 +1,19 @@
 <script setup lang="ts">
-const props = withDefaults(
-  defineProps<{
-    id?: string;
-    name?: string;
-    modelValue?: string;
-    required?: boolean;
-    disabled?: boolean;
-    size?: 'sm' | 'md' | 'lg';
-    error?: boolean;
-    success?: boolean;
-    class?: string;
-    ariaDescribedby?: string;
-    ariaInvalid?: boolean | 'true' | 'false';
-  }>(),
-  {
-    modelValue: '',
-    required: false,
-    disabled: false,
-    size: 'md',
-    error: false,
-    success: false,
-    class: '',
-  }
-);
+const props = defineProps({
+  id: { type: String, default: undefined },
+  name: { type: String, default: undefined },
+  modelValue: { type: String, default: '' },
+  required: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  size: { type: String, default: 'md' },
+  error: { type: Boolean, default: false },
+  success: { type: Boolean, default: false },
+  class: { type: String, default: '' },
+  ariaDescribedby: { type: String, default: undefined },
+  ariaInvalid: { type: [Boolean, String], default: false },
+});
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void }>();
+const emit = defineEmits(['update:modelValue']);
 
 const sizeClass = props.size !== 'md' ? `form-input--${props.size}` : '';
 const errorClass = props.error ? 'form-input--error' : '';

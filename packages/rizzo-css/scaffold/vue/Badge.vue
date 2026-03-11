@@ -1,16 +1,10 @@
 <script setup lang="ts">
-type Variant = 'primary' | 'success' | 'warning' | 'error' | 'info';
-type Size = 'sm' | 'md' | 'lg';
-
-withDefaults(
-  defineProps<{
-    variant?: Variant;
-    size?: Size;
-    pill?: boolean;
-    class?: string;
-  }>(),
-  { variant: 'primary', size: 'md', pill: false, class: '' }
-);
+defineProps({
+  variant: { type: String, default: 'primary' },
+  size: { type: String, default: 'md' },
+  pill: { type: Boolean, default: false },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

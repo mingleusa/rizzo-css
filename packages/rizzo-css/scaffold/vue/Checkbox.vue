@@ -1,17 +1,17 @@
 <script setup lang="ts">
-defineProps<{
-  id?: string;
-  name?: string;
-  value?: string;
-  modelValue?: boolean;
-  required?: boolean;
-  disabled?: boolean;
-  class?: string;
-  ariaDescribedby?: string;
-  ariaLabel?: string;
-}>();
+defineProps({
+  id: { type: String, default: undefined },
+  name: { type: String, default: undefined },
+  value: { type: String, default: undefined },
+  modelValue: { type: Boolean, default: false },
+  required: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  class: { type: String, default: undefined },
+  ariaDescribedby: { type: String, default: undefined },
+  ariaLabel: { type: String, default: undefined },
+});
 
-const emit = defineEmits<{ (e: 'update:modelValue', value: boolean): void }>();
+const emit = defineEmits(['update:modelValue']);
 </script>
 
 <template>

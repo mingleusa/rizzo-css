@@ -1,15 +1,10 @@
 <script setup lang="ts">
-type Variant = 'default' | 'primary' | 'success' | 'warning' | 'error' | 'info' | 'outline';
-
-withDefaults(
-  defineProps<{
-    variant?: Variant;
-    disabled?: boolean;
-    type?: 'button' | 'submit' | 'reset';
-    class?: string;
-  }>(),
-  { variant: 'default', disabled: false, type: 'button', class: '' }
-);
+defineProps({
+  variant: { type: String, default: 'default' },
+  disabled: { type: Boolean, default: false },
+  type: { type: String, default: 'button' },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

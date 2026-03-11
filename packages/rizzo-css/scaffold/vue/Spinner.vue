@@ -1,13 +1,10 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    size?: 'sm' | 'md' | 'lg';
-    variant?: 'primary' | 'success' | 'warning' | 'error' | 'info';
-    label?: string;
-    class?: string;
-  }>(),
-  { size: 'md', variant: 'primary', label: 'Loading', class: '' }
-);
+defineProps({
+  size: { type: String, default: 'md' },
+  variant: { type: String, default: 'primary' },
+  label: { type: String, default: 'Loading' },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

@@ -1,12 +1,9 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    orientation?: 'horizontal' | 'vertical';
-    label?: string;
-    class?: string;
-  }>(),
-  { orientation: 'horizontal', class: '' }
-);
+defineProps({
+  orientation: { type: String, default: 'horizontal' },
+  label: { type: String, default: undefined },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

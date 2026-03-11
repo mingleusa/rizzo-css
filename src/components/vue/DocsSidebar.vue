@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-const props = withDefaults(defineProps<{ class?: string }>(), { class: "" });
+const props = defineProps({ class: { type: String, default: '' } });
 const rootClass = computed(() => ["docs-sidebar", props.class].filter(Boolean).join(" "));
 </script>
 

@@ -1,12 +1,9 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    for?: string;
-    required?: boolean;
-    class?: string;
-  }>(),
-  { required: false, class: '' }
-);
+defineProps({
+  for: { type: String, default: undefined },
+  required: { type: Boolean, default: false },
+  class: { type: String, default: '' },
+});
 </script>
 
 <template>

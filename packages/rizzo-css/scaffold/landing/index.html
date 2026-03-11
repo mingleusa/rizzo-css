@@ -7,7 +7,32 @@
   <link rel="stylesheet" href="{{LINK_HREF}}" />
 </head>
 <body>
-  <h1>Hello, Rizzo CSS</h1>
-  <p>Edit this file and add components. Docs: <a href="https://rizzo-css.vercel.app">rizzo-css.vercel.app</a></p>
+  <main>
+    <header class="landing-hero">
+      <h1 class="landing-hero__title">Build something great</h1>
+      <p class="landing-hero__subtitle">A themeable, accessible design system. Same CSS across frameworks. Edit this page and add your own content.</p>
+      <div class="landing-hero__ctas">
+        <a href="https://rizzo-css.vercel.app/docs/getting-started" class="btn btn-primary">Get started</a>
+        <a href="https://rizzo-css.vercel.app/docs/components" class="btn btn-outline">View components</a>
+      </div>
+    </header>
+    <section class="landing-features" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="landing-features__title">Why use Rizzo CSS</h2>
+      <ul class="landing-features__grid">
+        <li class="landing-features__item">
+          <h3 class="landing-features__item-title">Framework-agnostic</h3>
+          <p class="landing-features__item-desc">One design system for Vanilla, Astro, Svelte, React, and Vue. Same BEM classes and tokens everywhere.</p>
+        </li>
+        <li class="landing-features__item">
+          <h3 class="landing-features__item-title">Accessible by default</h3>
+          <p class="landing-features__item-desc">Components follow WCAG guidance: focus, ARIA, keyboard nav, and reduced motion built in.</p>
+        </li>
+        <li class="landing-features__item">
+          <h3 class="landing-features__item-title">Themable</h3>
+          <p class="landing-features__item-desc">Light, dark, and custom themes via CSS variables. No runtime lock-in.</p>
+        </li>
+      </ul>
+    </section>
+  </main>
 </body>
 </html>

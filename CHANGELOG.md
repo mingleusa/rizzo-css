@@ -4,8 +4,12 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- **Production readiness:** Build, build:package, lint:css:fix, and check:size pass. 58 components; 329 doc pages; Astro Command/InputOtp/Menubar use inline scripts (no client:load). Vite Toast single-import fix; Algolia upload message shortened; Playwright test scripts unset NO_COLOR to avoid Node warnings. Package and CLI at 0.0.75.
 - (Next: see [docs/TODO.md](docs/TODO.md).)
+
+## [0.0.76] - 2025-03-06
+
+- **Version:** Bump to 0.0.76 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, tokens export, and scaffold Vue/React base dependencies aligned to 0.0.76.
+- **Vue:** All Vue components (src and scaffold) now use runtime `defineProps({ ... })` instead of type-only `defineProps<...>()` to fix TS1137 "Expression or comma expected" when building with vue-tsc.
 
 ## [0.0.75] - 2025-03-06
 
@@ -102,7 +106,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.75...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.76...HEAD
+[0.0.76]: https://github.com/mingleusa/rizzo-css/compare/v0.0.75...v0.0.76
 [0.0.75]: https://github.com/mingleusa/rizzo-css/compare/v0.0.74...v0.0.75
 [0.0.74]: https://github.com/mingleusa/rizzo-css/compare/v0.0.73...v0.0.74
 [0.0.73]: https://github.com/mingleusa/rizzo-css/compare/v0.0.72...v0.0.73

@@ -1,17 +1,14 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    id?: string;
-    name?: string;
-    value?: string;
-    required?: boolean;
-    disabled?: boolean;
-    class?: string;
-    ariaDescribedby?: string;
-    ariaLabel?: string;
-  }>(),
-  { value: '', required: false, disabled: false, class: '' }
-);
+defineProps({
+  id: { type: String, default: undefined },
+  name: { type: String, default: undefined },
+  value: { type: String, default: '' },
+  required: { type: Boolean, default: false },
+  disabled: { type: Boolean, default: false },
+  class: { type: String, default: '' },
+  ariaDescribedby: { type: String, default: undefined },
+  ariaLabel: { type: String, default: undefined },
+});
 </script>
 
 <template>
