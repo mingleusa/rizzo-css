@@ -19,7 +19,7 @@
     </Popover>
   </div>
   <CodeBlock code={`<script>
-  import Popover from './components/svelte/Popover.svelte';
+  import { Popover } from '$lib/rizzo';
   let open = $state(false);
 </script>
 

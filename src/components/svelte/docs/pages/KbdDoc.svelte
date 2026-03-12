@@ -13,7 +13,7 @@
     <p style="margin: 0;"><Kbd>Ctrl</Kbd>+<Kbd>K</Kbd> to open search · <Kbd>Enter</Kbd> to submit</p>
   </div>
   <CodeBlock code={`<script>
-  import Kbd from './components/svelte/Kbd.svelte';
+  import { Kbd } from '$lib/rizzo';
 </script>
 
 <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd>`} language="svelte" />

@@ -26,7 +26,7 @@
     </div>
   </div>
   <CodeBlock code={`<script>
-  import Divider from './components/svelte/Divider.svelte';
+  import { Divider } from '$lib/rizzo';
 </script>
 
 <Divider />`} language="svelte" />
@@ -70,7 +70,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Divider from './components/svelte/Divider.svelte';
+  import { Divider } from '$lib/rizzo';
 </script>
 
 <Divider />

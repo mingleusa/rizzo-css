@@ -110,7 +110,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Dropdown from './components/svelte/Dropdown.svelte';
+  import { Dropdown } from '$lib/rizzo';
 </script>
 
 <Dropdown

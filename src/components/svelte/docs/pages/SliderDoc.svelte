@@ -13,7 +13,7 @@
     <Slider ariaLabel="Volume" min={0} max={100} value={50} />
   </div>
   <CodeBlock code={`<script>
-  import Slider from './components/svelte/Slider.svelte';
+  import { Slider } from '$lib/rizzo';
 </script>
 
 <Slider ariaLabel="Volume" min={0} max={100} value={50} />`} language="svelte" />

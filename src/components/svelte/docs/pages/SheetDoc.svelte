@@ -17,7 +17,7 @@
     <button type="button" class="btn" onclick={() => (open = true)}>Open sheet</button>
   </div>
   <CodeBlock code={`<script>
-  import Sheet from './components/svelte/Sheet.svelte';
+  import { Sheet } from '$lib/rizzo';
   let open = $state(false);
 </script>
 

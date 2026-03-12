@@ -21,7 +21,7 @@
     </ContextMenu>
   </div>
   <CodeBlock code={`<script>
-  import ContextMenu from './components/svelte/ContextMenu.svelte';
+  import { ContextMenu } from '$lib/rizzo';
 </script>
 
 <ContextMenu>

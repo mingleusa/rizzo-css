@@ -44,15 +44,15 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Modal from './components/svelte/Modal.svelte';
+  import { Modal, Button } from '$lib/rizzo';
   let open = $state(false);
 </script>
 
-<button onclick={() => (open = true)}>Open</button>
+<Button onclick={() => (open = true)}>Open</Button>
 <Modal bind:open title="Title" closeOnOverlayClick closeOnEscape>
   <p>Body content.</p>
   {#snippet footer()}
-    <button onclick={() => (open = false)}>Close</button>
+    <Button onclick={() => (open = false)}>Close</Button>
   {/snippet}
 </Modal>`}
     language="svelte"

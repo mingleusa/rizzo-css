@@ -106,7 +106,7 @@ removeAllToasts();`}
   <h3>Usage (Svelte)</h3>
   <CodeBlock
     code={`<script>
-  import Toast from './components/svelte/Toast.svelte';
+  import { Toast } from '$lib/rizzo';
   import { showToast, removeToast, removeAllToasts } from './utils/toast';
 
   function onSave() {

@@ -6,6 +6,10 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.77] - 2025-03-12
+
+- **Svelte scaffold & docs:** Button component gains `size` prop (`sm` | `md` | `lg`); Navbar gains optional `menuLinks` prop and exported `NavbarLink` type for portfolio-style nav (About, Skills, Projects, Contact). Base Svelte scaffold is now a portfolio-style landing with placeholder content (hero, about, skills, projects, contact), layout includes Navbar (with portfolio menu links), Footer, BackToTop, Settings. Full variant layout includes BackToTop. All Svelte doc code blocks and live examples standardized to `$lib/rizzo` imports; ButtonDoc, NavbarDoc, BadgeDoc, CardsDoc, FooterDoc, FormsDoc, and all other Svelte component docs updated. Scaffold and src index export `NavbarLink`.
+
 ## [0.0.76] - 2025-03-06
 
 - **Version:** Bump to 0.0.76 for distribution. Package version updated in root and `packages/rizzo-css/package.json`; README badge, llms.txt, ai/llms.json, PUBLISHING, BEST_PRACTICES, UPGRADE, scaffold READMEs, issue template, Footer comments, docs/TODO, tokens export, and scaffold Vue/React base dependencies aligned to 0.0.76.
@@ -106,7 +110,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.76...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.77...HEAD
+[0.0.77]: https://github.com/mingleusa/rizzo-css/compare/v0.0.76...v0.0.77
 [0.0.76]: https://github.com/mingleusa/rizzo-css/compare/v0.0.75...v0.0.76
 [0.0.75]: https://github.com/mingleusa/rizzo-css/compare/v0.0.74...v0.0.75
 [0.0.74]: https://github.com/mingleusa/rizzo-css/compare/v0.0.73...v0.0.74

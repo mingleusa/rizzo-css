@@ -1,5 +1,6 @@
 <script lang="ts">
   import Card from '../../Card.svelte';
+  import Button from '../../Button.svelte';
   import CodeBlock from '../CodeBlock.svelte';
   import AddComponentTabs from '../AddComponentTabs.svelte';
 
@@ -74,8 +75,8 @@
         <p>Multiple paragraphs, lists, or other elements work great here.</p>
       </div>
       <div class="card__footer">
-        <button type="button" class="btn btn-primary">Action</button>
-        <button type="button" class="btn btn-outline">Cancel</button>
+        <Button variant="primary">Action</Button>
+        <Button variant="outline" size="sm">Cancel</Button>
       </div>
     </Card>
   </div>
@@ -122,8 +123,8 @@
         </ul>
       </div>
       <div class="card__footer">
-        <button type="button" class="btn btn-primary">Primary Action</button>
-        <button type="button" class="btn btn-outline">Secondary</button>
+        <Button variant="primary">Primary Action</Button>
+        <Button variant="outline" size="sm">Secondary</Button>
       </div>
     </Card>
   </div>
@@ -137,7 +138,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Card from './components/svelte/Card.svelte';
+  import { Card, Badge, Button } from '$lib/rizzo';
 </script>
 
 <Card variant="elevated">
@@ -147,9 +148,13 @@
   </div>
   <div class="card__body">
     <p>Main content area</p>
+    <div style="display: flex; flex-wrap: wrap; gap: var(--spacing-2);">
+      <Badge variant="primary" size="sm">Tag</Badge>
+    </div>
   </div>
   <div class="card__footer">
-    <button class="btn btn-primary">Action</button>
+    <Button variant="primary">Action</Button>
+    <Button variant="outline" size="sm">Secondary</Button>
   </div>
 </Card>`}
     language="svelte"

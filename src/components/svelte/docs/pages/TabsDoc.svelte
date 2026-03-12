@@ -120,7 +120,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Tabs from './components/svelte/Tabs.svelte';
+  import { Tabs } from '$lib/rizzo';
 </script>
 
 <!-- With content on each tab -->

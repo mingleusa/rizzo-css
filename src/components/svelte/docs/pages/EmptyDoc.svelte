@@ -17,7 +17,7 @@
     </Empty>
   </div>
   <CodeBlock code={`<script>
-  import Empty from './components/svelte/Empty.svelte';
+  import { Empty } from '$lib/rizzo';
 </script>
 
 <Empty title="No items yet" description="Get started by adding your first item. You can edit or remove it anytime.">

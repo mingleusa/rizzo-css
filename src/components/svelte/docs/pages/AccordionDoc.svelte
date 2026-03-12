@@ -39,7 +39,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Accordion from './components/svelte/Accordion.svelte';
+  import { Accordion } from '$lib/rizzo';
 </script>
 
 <Accordion

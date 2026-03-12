@@ -87,7 +87,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Alert from './components/svelte/Alert.svelte';
+  import { Alert } from '$lib/rizzo';
 </script>
 
 <Alert variant="success">Saved.</Alert>

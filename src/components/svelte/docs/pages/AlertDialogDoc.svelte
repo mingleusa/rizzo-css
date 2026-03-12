@@ -20,7 +20,7 @@
     <button type="button" class="btn" onclick={() => (open = true)}>Open alert dialog</button>
   </div>
   <CodeBlock code={`<script>
-  import AlertDialog from './components/svelte/AlertDialog.svelte';
+  import { AlertDialog } from '$lib/rizzo';
 </script>
 
 <AlertDialog id="my-alert" title="Delete item?" description="This action cannot be undone.">

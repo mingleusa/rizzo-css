@@ -15,7 +15,7 @@
     <div>Below</div>
   </div>
   <CodeBlock code={`<script>
-  import Separator from './components/svelte/Separator.svelte';
+  import { Separator } from '$lib/rizzo';
 </script>
 
 <Separator />

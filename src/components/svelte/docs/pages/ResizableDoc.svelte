@@ -38,9 +38,7 @@
   </div>
   <h3>Usage</h3>
   <CodeBlock code={`<script>
-  import ResizablePaneGroup from './components/svelte/ResizablePaneGroup.svelte';
-  import ResizablePane from './components/svelte/ResizablePane.svelte';
-  import ResizableHandle from './components/svelte/ResizableHandle.svelte';
+  import { ResizablePaneGroup, ResizablePane, ResizableHandle } from '$lib/rizzo';
 </script>
 
 <ResizablePaneGroup direction="horizontal">

@@ -23,7 +23,7 @@
     </InputGroup>
   </div>
   <CodeBlock code={`<script>
-  import InputGroup from './components/svelte/InputGroup.svelte';
+  import { InputGroup } from '$lib/rizzo';
 </script>
 
 <InputGroup placeholder="0.00">

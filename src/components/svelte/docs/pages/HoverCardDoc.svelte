@@ -20,7 +20,7 @@
     </HoverCard>
   </div>
   <CodeBlock code={`<script>
-  import HoverCard from './components/svelte/HoverCard.svelte';
+  import { HoverCard } from '$lib/rizzo';
 </script>
 
 <HoverCard>

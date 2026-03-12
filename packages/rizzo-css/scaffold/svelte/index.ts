@@ -43,6 +43,7 @@ export { default as FontSwitcher } from './FontSwitcher.svelte';
 export { default as SoundEffects } from './SoundEffects.svelte';
 export { default as DocsSidebar } from './DocsSidebar.svelte';
 export { default as Navbar } from './Navbar.svelte';
+export type { NavbarLink } from './Navbar.svelte';
 export { default as Settings } from './Settings.svelte';
 export { default as Search } from './Search.svelte';
 export { default as Skeleton } from './Skeleton.svelte';

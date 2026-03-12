@@ -34,7 +34,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Breadcrumb from './components/svelte/Breadcrumb.svelte';
+  import { Breadcrumb } from '$lib/rizzo';
 </script>
 
 <Breadcrumb

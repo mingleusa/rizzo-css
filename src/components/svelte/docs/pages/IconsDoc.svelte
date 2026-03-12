@@ -225,8 +225,8 @@ import Vue from '../../icons/devicons/Vue.svelte';
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Gear from './icons/Gear.svelte';
-  import Css3 from './icons/devicons/Css3.svelte';
+  import Gear from '$lib/rizzo/icons/Gear.svelte';
+  import Css3 from '$lib/rizzo/icons/devicons/Css3.svelte';
 </script>
 <Gear width={20} height={20} />
 <Css3 width={16} height={16} class="my-icon" />`}

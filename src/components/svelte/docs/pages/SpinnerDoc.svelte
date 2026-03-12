@@ -24,7 +24,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Spinner from './components/svelte/Spinner.svelte';
+  import { Spinner } from '$lib/rizzo';
 </script>
 
 <Spinner />

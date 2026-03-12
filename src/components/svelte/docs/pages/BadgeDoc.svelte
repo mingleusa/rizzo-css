@@ -42,7 +42,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Badge from './components/svelte/Badge.svelte';
+  import { Badge } from '$lib/rizzo';
 </script>
 
 <Badge variant="primary">New</Badge>

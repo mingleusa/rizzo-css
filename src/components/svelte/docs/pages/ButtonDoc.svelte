@@ -6,8 +6,15 @@
 
 <section>
   <h2>Button component</h2>
-  <p>Semantic theme variables and BEM classes (<code>btn</code>, <code>btn-primary</code>, etc.).</p>
+  <p>Semantic theme variables and BEM classes (<code>btn</code>, <code>btn-primary</code>, <code>btn--sm</code>, <code>btn--lg</code>, etc.).</p>
   <AddComponentTabs componentName="Button" />
+
+  <h3>Props</h3>
+  <ul>
+    <li><code>variant</code> (optional) — <code>default</code>, <code>primary</code>, <code>secondary</code>, <code>success</code>, <code>warning</code>, <code>error</code>, <code>info</code>, <code>outline</code>, <code>ghost</code></li>
+    <li><code>size</code> (optional) — <code>sm</code>, <code>md</code>, <code>lg</code> (default: <code>md</code>)</li>
+    <li><code>disabled</code>, <code>type</code>, <code>class</code></li>
+  </ul>
 
   <h3>Button variants</h3>
   <div class="example">
@@ -23,21 +30,23 @@
       <Button variant="outline">Outline</Button>
       <Button variant="ghost">Ghost</Button>
     </div>
-    <p class="example-caption">Sizes: <Button variant="primary" class="btn--sm">Small</Button> <Button variant="primary">Default</Button> <Button variant="primary" class="btn--lg">Large</Button></p>
+    <p class="example-caption">Sizes: <Button variant="primary" size="sm">Small</Button> <Button variant="primary">Default</Button> <Button variant="primary" size="lg">Large</Button></p>
   </div>
 
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Button from './components/svelte/Button.svelte';
+  import { Button } from '$lib/rizzo';
 </script>
 
 <Button>Click me</Button>
 <Button variant="primary">Primary</Button>
-<Button variant="outline">Outline</Button>
+<Button variant="outline" size="sm">Outline small</Button>
 
+<!-- Or use BEM classes on native elements -->
 <button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>`}
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-outline btn--sm">Small</button>`}
     language="svelte"
   />
 

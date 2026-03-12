@@ -24,7 +24,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import Pagination from './components/svelte/Pagination.svelte';
+  import { Pagination } from '$lib/rizzo';
 </script>
 
 <Pagination

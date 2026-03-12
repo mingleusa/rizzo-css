@@ -18,7 +18,7 @@
   <h3>Usage</h3>
   <CodeBlock
     code={`<script>
-  import CopyToClipboard from './components/svelte/CopyToClipboard.svelte';
+  import { CopyToClipboard } from '$lib/rizzo';
 </script>
 
 <CopyToClipboard value="npm install foo" label="Copy" />

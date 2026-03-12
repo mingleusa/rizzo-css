@@ -3,19 +3,27 @@
   import Gear from './icons/Gear.svelte';
   import Search from './Search.svelte';
 
+  export interface NavbarLink {
+    href: string;
+    label: string;
+  }
+
   interface Props {
     siteName?: string;
     logo?: string;
+    /** Override default nav links (e.g. for portfolio: About, Skills, Projects, Contact) */
+    menuLinks?: NavbarLink[];
   }
-  let { siteName = 'Site', logo }: Props = $props();
+  let { siteName = 'Site', logo, menuLinks: menuLinksProp }: Props = $props();
   let menuOpen = $state(false);
 
-  const menuLinks = [
+  const defaultMenuLinks: NavbarLink[] = [
     { href: '/docs', label: 'Docs' },
     { href: '/docs/components', label: 'Components' },
     { href: '/blocks', label: 'Blocks' },
     { href: '/themes', label: 'Themes' },
   ];
+  const menuLinks = $derived(menuLinksProp ?? defaultMenuLinks);
 
   // Click outside and Escape to close mobile menu
   $effect(() => {

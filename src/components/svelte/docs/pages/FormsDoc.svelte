@@ -42,8 +42,7 @@
   <h3>Code Example</h3>
   <CodeBlock
     code={`<script>
-  import FormGroup from './components/svelte/FormGroup.svelte';
-  import Input from './components/svelte/Input.svelte';
+  import { FormGroup, Input } from '$lib/rizzo';
 </script>
 
 <FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
@@ -110,7 +109,11 @@
 
   <h3>Code Example</h3>
   <CodeBlock
-    code={`<FormGroup label="Email" labelFor="email" required>
+    code={`<script>
+  import { FormGroup, Input } from '$lib/rizzo';
+</script>
+
+<FormGroup label="Email" labelFor="email" required>
   <Input id="email" type="email" name="email" placeholder="you@example.com" />
 </FormGroup>
 
@@ -143,7 +146,11 @@
 
   <h3>Code Example</h3>
   <CodeBlock
-    code={`<FormGroup label="Message" labelFor="message" help="Enter your message here">
+    code={`<script>
+  import { FormGroup, Textarea } from '$lib/rizzo';
+</script>
+
+<FormGroup label="Message" labelFor="message" help="Enter your message here">
   <Textarea id="message" name="message" rows={5} placeholder="Your message..." />
 </FormGroup>`}
     language="svelte"
@@ -175,7 +182,11 @@
 
   <h3>Code Example</h3>
   <CodeBlock
-    code={`<FormGroup label="Country" labelFor="country" required>
+    code={`<script>
+  import { FormGroup, Select } from '$lib/rizzo';
+</script>
+
+<FormGroup label="Country" labelFor="country" required>
   <Select id="country" name="country">
     <option value="">Select a country</option>
     <option value="us">United States</option>
@@ -220,7 +231,11 @@
 
   <h3>Code Example</h3>
   <CodeBlock
-    code={`<label class="checkbox-label">
+    code={`<script>
+  import { Checkbox } from '$lib/rizzo';
+</script>
+
+<label class="checkbox-label">
   <Checkbox id="newsletter" name="preferences" value="newsletter" />
   Subscribe to newsletter
 </label>
@@ -274,6 +289,7 @@
   <h3>Code Example</h3>
   <CodeBlock
     code={`<script>
+  import { Radio } from '$lib/rizzo';
   let payment = $state('card');
 </script>
 

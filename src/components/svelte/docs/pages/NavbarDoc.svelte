@@ -2,17 +2,37 @@
   import CodeBlock from '../CodeBlock.svelte';
   import AddComponentTabs from '../AddComponentTabs.svelte';
   import Navbar from '../../Navbar.svelte';
+
+  const portfolioLinks = [
+    { href: '/#about', label: 'About' },
+    { href: '/#skills', label: 'Skills' },
+    { href: '/#projects', label: 'Projects' },
+    { href: '/#contact', label: 'Contact' },
+  ];
 </script>
 
 <section>
   <h2>Navbar component</h2>
-  <p>A responsive, accessible navigation bar with dropdown menus, search, and settings. The docs site uses the <strong>Astro</strong> Navbar in the layout. In a Svelte app, use the same BEM classes and HTML structure; wire open/close and keyboard behavior with Svelte state and event handlers.</p>
+  <p>A responsive, accessible navigation bar with search and settings. Pass <code>menuLinks</code> to show custom nav links (e.g. for a portfolio: About, Skills, Projects, Contact). Uses the same BEM classes and structure as the Astro Navbar.</p>
   <AddComponentTabs componentName="Navbar" />
 
-  <h3>Live example</h3>
-  <p>Same as the main site navbar (Search and Settings with icons), condensed to fit the container.</p>
+  <h3>Props</h3>
+  <ul>
+    <li><code>siteName</code> (string, optional) — Brand text next to the logo (default: "Site")</li>
+    <li><code>logo</code> (string, optional) — Image URL for the logo; omit to use the default icon</li>
+    <li><code>menuLinks</code> (array, optional) — <code>{'{ href, label }'}</code>[] for nav links (e.g. hash links for a one-pager). Omit to use default docs links.</li>
+  </ul>
+
+  <h3>Live example (default links)</h3>
+  <p>Navbar with default docs-style links.</p>
   <div class="navbar-demo-wrapper">
     <Navbar siteName="Rizzo" />
+  </div>
+
+  <h3>Live example (custom menu links)</h3>
+  <p>Portfolio-style links via <code>menuLinks</code>.</p>
+  <div class="navbar-demo-wrapper">
+    <Navbar siteName="Site" menuLinks={portfolioLinks} />
   </div>
 
   <h3>Features</h3>
@@ -39,8 +59,27 @@
     <li><code>navbar__settings-btn</code> — settings button.</li>
   </ul>
 
-  <h3>Minimal structure example</h3>
-  <p>Simplified markup; in practice you’ll add dropdown content, icons, and data attributes for your JS. In your script: <code>let menuOpen = $state(false); let dropdownOpen = $state(false);</code> (or use a single state for which dropdown is open).</p>
+  <h3>Usage (Svelte component)</h3>
+  <p>Use the Navbar component with optional <code>menuLinks</code> for a portfolio or one-pager:</p>
+  <CodeBlock
+    code={`<script>
+  import { Navbar } from '$lib/rizzo';
+  import type { NavbarLink } from '$lib/rizzo';
+
+  const menuLinks: NavbarLink[] = [
+    { href: '/#about', label: 'About' },
+    { href: '/#skills', label: 'Skills' },
+    { href: '/#projects', label: 'Projects' },
+    { href: '/#contact', label: 'Contact' },
+  ];
+</script>
+
+<Navbar siteName="Your Site" {menuLinks} />`}
+    language="svelte"
+  />
+
+  <h3>Minimal structure (plain HTML)</h3>
+  <p>Simplified markup if you build the navbar by hand. In your script: <code>let menuOpen = $state(false); let dropdownOpen = $state(false);</code></p>
   <CodeBlock
     code={`<nav class="navbar" class:navbar--menu-open={menuOpen}>
   <div class="navbar__container">
