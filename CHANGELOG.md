@@ -6,6 +6,11 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.81] - 2025-03-12
+
+- **Version:** Bump to 0.0.81. Svelte Settings panel aligned with Astro/docs: Theme (ThemeSwitcher), Font Size, Font (FontSwitcher), Sound (SoundEffects), Accessibility. CLI: ThemeIcon added to SVELTE_COMPONENTS so Full variant copies it; scaffold and src Settings use ThemeSwitcher, FontSwitcher, SoundEffects.
+- **Docs:** Svelte SettingsDoc lists full panel contents (Theme, Font Size, Font, Sound, Accessibility) and persistence keys (fontPair, soundEffects). Svelte full scaffold README describes Settings panel. All docs and AI assets (llms.txt, ai/llms.json, ai/README.md) aligned to 0.0.81.
+
 ## [0.0.80] - 2025-03-12
 
 - **Version:** Bump to 0.0.80. Svelte full variant: add fallback `.svelte-kit/tsconfig.json` and gitignore tweak so tsconfig extends work before first `svelte-kit sync`; root tsconfig `noEmit: true` to avoid overwrite of `svelte.config.js`.
@@ -123,7 +128,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.81...HEAD
+[0.0.81]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...v0.0.81
 [0.0.80]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...v0.0.80
 [0.0.79]: https://github.com/mingleusa/rizzo-css/compare/v0.0.78...v0.0.79
 [0.0.78]: https://github.com/mingleusa/rizzo-css/compare/v0.0.77...v0.0.78

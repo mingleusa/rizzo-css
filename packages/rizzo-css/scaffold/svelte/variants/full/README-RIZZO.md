@@ -44,6 +44,7 @@ SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you 
 - `src/routes/+layout.svelte` — Root layout
 - `src/routes/+page.svelte` — Home page
 - **Navbar** — Flat links (Docs, Components, Blocks, Themes, Colors); Search and Settings in the scaffold
+- **Settings** — Slide-in panel (gear icon): Theme (ThemeSwitcher), Font Size, Font (FontSwitcher), Sound (SoundEffects), Accessibility (reduce motion, high contrast, scrollbar style). Same contents as the docs site.
 - `static/css/rizzo.min.css` — Rizzo CSS bundle (added by CLI; font URLs point to `/assets/fonts/`)
 - `static/assets/fonts/` — Rizzo font files (added by CLI)
 - `README-RIZZO.md` — This file (scaffold docs; does not replace your project README)

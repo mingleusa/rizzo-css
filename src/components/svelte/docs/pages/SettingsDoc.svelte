@@ -20,9 +20,12 @@
   </div>
 
   <h3>Features</h3>
+  <p>The Settings panel matches the docs site and includes (in order): Theme, Font Size, Font, Sound, Accessibility.</p>
   <ul>
-    <li><strong>Theme switcher</strong> — Integrated ThemeSwitcher; persists as <code>theme</code> in localStorage (e.g. <code>github-dark-classic</code>, <code>system</code>).</li>
-    <li><strong>Font size slider</strong> — 75%–150%; track uses <code>--slider-progress</code>. Persists as <code>fontSizeScale</code>; apply as <code>--font-size-scale</code> on <code>html</code>.</li>
+    <li><strong>Theme</strong> — Integrated ThemeSwitcher; persists as <code>theme</code> in localStorage (e.g. <code>github-dark-classic</code>, <code>system</code>).</li>
+    <li><strong>Font size</strong> — Slider 75%–150%; track uses <code>--slider-progress</code>. Persists as <code>fontSizeScale</code>; apply as <code>--font-size-scale</code> on <code>html</code>.</li>
+    <li><strong>Font</strong> — FontSwitcher dropdown (sans + mono pair); persists as <code>fontPair</code>. Body and code use the selected pair.</li>
+    <li><strong>Sound</strong> — SoundEffects toggle (play sound on click); persists as <code>soundEffects</code>.</li>
     <li><strong>Reduce motion</strong> — Toggle adds <code>.reduced-motion</code> to document root. Persists as <code>reducedMotion</code> (<code>true</code>/<code>false</code> string).</li>
     <li><strong>High contrast</strong> — Toggle adds <code>.high-contrast</code> to root. Persists as <code>highContrast</code>.</li>
     <li><strong>Scrollbar style</strong> — Radio: Thin (default), Thick, Hidden. Applies <code>.scrollbar-thick</code> or <code>.scrollbar-hidden</code> on <code>html</code>. Persists as <code>scrollbarStyle</code> (<code>thin</code>, <code>thick</code>, <code>hidden</code>).</li>
@@ -52,6 +55,8 @@
   <ul>
     <li><code>theme</code> — theme id or <code>system</code>; set <code>data-theme</code> on <code>html</code>.</li>
     <li><code>fontSizeScale</code> — number string (e.g. <code>1</code>, <code>1.25</code>); set <code>style="--font-size-scale: …"</code> on <code>html</code>.</li>
+    <li><code>fontPair</code> — font pair id; set <code>--font-family</code> and <code>--font-family-mono</code> on <code>html</code> (FontSwitcher handles this).</li>
+    <li><code>soundEffects</code> — <code>"true"</code> / <code>"false"</code>; SoundEffects component reads this.</li>
     <li><code>reducedMotion</code> — <code>"true"</code> / <code>"false"</code>; add/remove <code>.reduced-motion</code> on <code>html</code>.</li>
     <li><code>highContrast</code> — <code>"true"</code> / <code>"false"</code>; add/remove <code>.high-contrast</code> on <code>html</code>.</li>
     <li><code>scrollbarStyle</code> — <code>thin</code> / <code>thick</code> / <code>hidden</code>; add <code>.scrollbar-thick</code> or <code>.scrollbar-hidden</code> on <code>html</code> when not thin.</li>

@@ -24,5 +24,5 @@ Rizzo uses **BEM with no prefix**: `.btn`, `.navbar`, `.card`, `.modal`, `.input
 
 ## Version alignment
 
-- **llms.txt** and **llms.json** use spec version **3.0** and reference package version **0.0.80**.
+- **llms.txt** and **llms.json** use spec version **3.0** and reference package version **0.0.81**.
 - When updating the design system (new components, themes, or tokens), update `public/llms.txt` and `ai/llms.json` (and this README if needed) so AI and tooling stay in sync.

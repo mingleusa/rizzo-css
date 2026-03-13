@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { FONT_PAIRS, FONT_PAIR_DEFAULT } from './config/fonts';
+  import ThemeSwitcher from './ThemeSwitcher.svelte';
+  import FontSwitcher from './FontSwitcher.svelte';
+  import SoundEffects from './SoundEffects.svelte';
 
   interface Props {
     open?: boolean;
@@ -11,8 +13,6 @@
   const isBrowser = typeof window !== 'undefined' && typeof localStorage?.getItem === 'function';
   let fontSizeLabel = $state('100%');
   let fontSizeSlider = $state(1);
-  let fontPairValue = $state(isBrowser ? localStorage.getItem('fontPair') || FONT_PAIR_DEFAULT : FONT_PAIR_DEFAULT);
-  let soundEffects = $state(isBrowser && localStorage.getItem('soundEffects') === 'true');
   let reducedMotion = $state(isBrowser && localStorage.getItem('reducedMotion') === 'true');
   let highContrast = $state(isBrowser && localStorage.getItem('highContrast') === 'true');
   let scrollbarStyle = $state((isBrowser ? localStorage.getItem('scrollbarStyle') || 'thin' : 'thin') as 'thin' | 'thick' | 'hidden');
@@ -22,16 +22,6 @@
     document.documentElement.style.setProperty('--font-size-scale', String(scale));
     localStorage?.setItem('fontSizeScale', String(scale));
     fontSizeLabel = `${Math.round(scale * 100)}%`;
-  }
-
-  function applyFontPair(value: string) {
-    if (typeof document === 'undefined') return;
-    const pair = FONT_PAIRS.find((p) => p.value === value);
-    if (pair) {
-      document.documentElement.style.setProperty('--font-family', pair.sans);
-      document.documentElement.style.setProperty('--font-family-mono', pair.mono);
-      localStorage?.setItem('fontPair', value);
-    }
   }
 
   $effect(() => {
@@ -61,20 +51,11 @@
       const scale = saved ? parseFloat(saved) : 1;
       fontSizeSlider = scale;
       fontSizeLabel = `${Math.round(scale * 100)}%`;
-      const savedPair = localStorage?.getItem('fontPair') || FONT_PAIR_DEFAULT;
-      fontPairValue = savedPair;
-      soundEffects = localStorage?.getItem('soundEffects') === 'true';
       reducedMotion = localStorage?.getItem('reducedMotion') === 'true';
       highContrast = localStorage?.getItem('highContrast') === 'true';
       scrollbarStyle = (localStorage?.getItem('scrollbarStyle') || 'thin') as 'thin' | 'thick' | 'hidden';
     }
   });
-
-  function onSoundEffectsChange(e: Event) {
-    const checked = (e.target as HTMLInputElement).checked;
-    soundEffects = checked;
-    localStorage?.setItem('soundEffects', checked ? 'true' : 'false');
-  }
 
   function close() {
     openInternal = false;
@@ -85,13 +66,6 @@
     const scale = parseFloat(target.value);
     fontSizeSlider = scale;
     applyFontSize(scale);
-  }
-
-  function onFontPairChange(e: Event) {
-    const target = e.target as HTMLSelectElement;
-    const value = target.value;
-    fontPairValue = value;
-    applyFontPair(value);
   }
 
   function onReducedMotionChange(e: Event) {
@@ -134,6 +108,12 @@
     </div>
     <div class="settings__content" tabindex="-1" aria-label="Settings options">
       <section class="settings__section">
+        <h3 class="settings__section-title">Theme</h3>
+        <div class="settings__control">
+          <ThemeSwitcher idPrefix="settings" />
+        </div>
+      </section>
+      <section class="settings__section">
         <h3 class="settings__section-title">Font Size</h3>
         <div class="settings__control">
           <label for="font-size-slider" class="settings__label">
@@ -159,31 +139,14 @@
       <section class="settings__section">
         <h3 class="settings__section-title">Font</h3>
         <div class="settings__control">
-          <label for="font-pair-select" class="settings__label"><span class="settings__label-text">Font pair (sans + mono)</span></label>
-          <select
-            id="font-pair-select"
-            class="form-control"
-            aria-label="Font pair"
-            data-font-pair
-            style="width: 100%;"
-            value={fontPairValue}
-            onchange={onFontPairChange}
-          >
-            {#each FONT_PAIRS as pair}
-              <option value={pair.value} data-sans={pair.sans} data-mono={pair.mono}>{pair.label}</option>
-            {/each}
-          </select>
+          <FontSwitcher idPrefix="settings" />
           <p class="settings__help-text">Body text and code blocks use the selected pair.</p>
         </div>
       </section>
       <section class="settings__section">
         <h3 class="settings__section-title">Sound</h3>
         <div class="settings__control">
-          <label class="settings__checkbox-label">
-            <input type="checkbox" class="settings__checkbox" aria-label="Play sound on click" checked={soundEffects} onchange={onSoundEffectsChange} />
-            <span>Play sound on click</span>
-          </label>
-          <p class="settings__help-text">Short click sound when you interact with buttons and links. Off by default.</p>
+          <SoundEffects showHelp={true} />
         </div>
       </section>
       <section class="settings__section">
