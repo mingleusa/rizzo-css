@@ -81,8 +81,14 @@ Templates: **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full** (sam
 | Svelte | **CSS only** | Base only; CSS in static/css. No components. |
 | Svelte | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 58 or pick. |
 | Svelte | **Full** | Clone of Rizzo docs site (no picker). |
+| React | **CSS only** | Base only; CSS in src/. No components. |
+| React | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 58 or pick. |
+| React | **Full** | Clone of Rizzo docs site (no picker); router, Docs/Blocks/Themes. |
+| Vue | **CSS only** | Base only; CSS in src/. No components. |
+| Vue | **Landing** / **Docs** / **Dashboard** | Same pattern as Astro; 58 or pick. |
+| Vue | **Full** | Clone of Rizzo docs site (no picker); router, Docs/Blocks/Themes. |
 
-Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; Astro/Svelte include package.json and .env.example. `init --yes` defaults to **landing**; use `--template css-only|landing|docs|dashboard|full`.
+Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; Astro/Svelte/React/Vue include package.json and .env.example. `init --yes` defaults to **landing**; use `--template css-only|landing|docs|dashboard|full`.
 
 **CSS only** = no components. **Full** = site clone; no component picker. **Landing** / **Docs** / **Dashboard** = all components or pick (dependencies auto-included). Run `npx rizzo-css help components` for the list.
 
@@ -92,12 +98,12 @@ Every scaffold includes **LICENSE-RIZZO**, **README-RIZZO.md**, **.gitignore**; 
 
 When you add or pick components, the CLI automatically includes everything each component needs:
 
-| Component | Adds automatically (Astro & Svelte) |
+| Component | Adds automatically (all frameworks) |
 |-----------|-------------------------------------|
 | **Settings** | ThemeSwitcher, FontSwitcher, SoundEffects (and themes.ts), config/fonts.ts (font pairs) |
 | **Toast** | Alert |
 
-**ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` (and Svelte `theme.ts`) when selected. For **Astro**, they also trigger copying of `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (import fixed to `../rizzo/themes`) so ThemeSwitcher’s `../utils/theme` import resolves. Icons are always copied when any component is selected.
+**ThemeIcon** and **ThemeSwitcher** both trigger copying of `themes.ts` when selected (Svelte also gets `theme.ts`; Vue and React get `themes.ts` into `src/components/rizzo/`). For **Astro**, they also trigger copying of `scaffold/utils/theme.ts` to `src/components/utils/theme.ts` (import fixed to `../rizzo/themes`) so ThemeSwitcher’s `../utils/theme` import resolves. Icons are always copied when any component is selected.
 
 - **Every component automatically includes what it needs:** Navbar adds Search and Settings; Settings adds ThemeSwitcher, FontSwitcher, SoundEffects (and themes) and, when added, copies config/fonts.ts so the font-pair switcher works; Toast adds Alert. The CLI expands these before copying so the navbar search bar and gear button, settings panel, and toasts work without extra steps.
 - **Full** template (and add with Full) expands the component list with these dependencies before copying, so everything works out of the box.

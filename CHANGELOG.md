@@ -6,6 +6,11 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.82] - 2026-03-12
+
+- **Version:** Bump to 0.0.82. Svelte full scaffold: a11y (remove tabindex from blocks sidebar), replace deprecated `<slot />` with `{@render children()}` in layouts, fix unused CSS selector for theme card icon; docs sidebar and themes page aligned with main site.
+- **Vue & React scaffolds:** Full variant added for both: `scaffold/vue/variants/full/` and `scaffold/react/variants/full/` with router, Docs/Blocks/Themes layouts and views, DocsSidebar (optional `nav`), ThemeIcon, themes.ts; CLI copies `themes.ts` when ThemeSwitcher or ThemeIcon is selected for Vue/React. Docs and AI assets updated for five-framework parity (templates, ThemeIcon, scaffold structure).
+
 ## [0.0.81] - 2025-03-12
 
 - **Version:** Bump to 0.0.81. Svelte Settings panel aligned with Astro/docs: Theme (ThemeSwitcher), Font Size, Font (FontSwitcher), Sound (SoundEffects), Accessibility. CLI: ThemeIcon added to SVELTE_COMPONENTS so Full variant copies it; scaffold and src Settings use ThemeSwitcher, FontSwitcher, SoundEffects.
@@ -128,7 +133,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.81...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.82...HEAD
+[0.0.82]: https://github.com/mingleusa/rizzo-css/compare/v0.0.81...v0.0.82
 [0.0.81]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...v0.0.81
 [0.0.80]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...v0.0.80
 [0.0.79]: https://github.com/mingleusa/rizzo-css/compare/v0.0.78...v0.0.79

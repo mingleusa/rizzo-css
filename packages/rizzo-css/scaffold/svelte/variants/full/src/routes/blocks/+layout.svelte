@@ -1,8 +1,10 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import BackToTop from '$lib/rizzo/BackToTop.svelte';
 
+  let { children }: { children: Snippet } = $props();
   const currentPath = $derived($page.url.pathname);
   const BLOCKS_NAV = [
     { href: '/blocks', label: 'Overview' },
@@ -64,7 +66,7 @@
       <span class="docs__sidebar-toggle-text">Blocks</span>
     </button>
     <div class="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true"></div>
-    <aside id="docs-sidebar" class="docs-sidebar" aria-label="Blocks navigation" tabindex="0">
+    <aside id="docs-sidebar" class="docs-sidebar" aria-label="Blocks navigation">
       <nav class="docs-sidebar__nav">
         <div class="docs-sidebar__group">
           <h2 class="docs-sidebar__group-label">Blocks</h2>
@@ -90,7 +92,7 @@
   <div class="docs__main">
     <div class="docs__container">
       <div class="docs__content">
-        <slot />
+        {@render children()}
       </div>
     </div>
   </div>

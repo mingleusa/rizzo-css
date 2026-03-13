@@ -61,7 +61,7 @@ The [Components overview](/docs/components) groups components by category (Layou
 - [Switch](/docs/components/switch) - Toggle control (on/off)
 - [Table](/docs/components/table) - Data table with sorting and optional filtering
 - [Tabs](/docs/components/tabs) - Accessible tabs component with keyboard navigation, ARIA tab pattern, and three variants (default, pills, underline)
-- [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`; props: `themeId`, optional `size`, optional `class`)
+- [Theme Icon](/docs/components/theme-switcher#building-your-own-theme-switcher) - Renders the same icon as the Theme Switcher for a given theme id (Astro: `ThemeIcon.astro`, Svelte: `ThemeIcon.svelte`, Vue: `ThemeIcon.vue`, React: `ThemeIcon.tsx`; props: `themeId`, optional `size`, optional `class`/`className`)
 - [Theme Switcher](/docs/components/theme-switcher) - Accessible theme dropdown with Preference (System), Dark/Light groups, preview panel (current theme by default, hover to preview), and unique icon per theme
 - [Toast](/docs/components/toast) - Fixed position toast notifications
 - [Toggle](/docs/components/toggle) - Toggle button with pressed/unpressed state

@@ -1,9 +1,11 @@
 <script lang="ts">
+  import type { Snippet } from 'svelte';
   import { onMount } from 'svelte';
   import { page } from '$app/stores';
   import DocsSidebar from '$lib/rizzo/DocsSidebar.svelte';
   import BackToTop from '$lib/rizzo/BackToTop.svelte';
 
+  let { children }: { children: Snippet } = $props();
   const currentPath = $derived($page.url.pathname);
 
   onMount(() => {
@@ -66,7 +68,7 @@
   <div class="docs__main">
     <div class="docs__container">
       <div class="docs__content">
-        <slot />
+        {@render children()}
       </div>
     </div>
   </div>

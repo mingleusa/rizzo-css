@@ -24,12 +24,12 @@ When you **create new** or **add to existing**, you pick a **template**. The sam
 | **Landing** | Landing index (`scaffold/landing` or `scaffold/vanilla/index.html`), CSS, fonts, sfx, icons, RIZZO-SETUP.md. If “all”: + `js/main.js`, all component HTML pages, README-RIZZO. | Base (`scaffold/astro/base/`) only. If “all” or pick: + chosen components. | Base (`scaffold/svelte/base/`) only. If “all” or pick: + chosen components. | Base (`scaffold/react/base/`) only. If pick: + chosen components. | Base (`scaffold/vue/base/`) only. If pick: + chosen components. |
 | **Docs**    | Docs overlay (`scaffold/vanilla/variants/docs/`), CSS, fonts, sfx, icons, `js/main.js`, component pages (all or pick), README-RIZZO. | Base + docs overlay (`scaffold/astro/variants/docs/`), chosen components. | Base + docs overlay (`scaffold/svelte/variants/docs/`), chosen components. | Base + variant overlay when present; chosen components. | Base + variant overlay when present; chosen components. |
 | **Dashboard** | Dashboard overlay (`scaffold/vanilla/variants/dashboard/`), same as Docs row. | Base + dashboard overlay (`scaffold/astro/variants/dashboard/`), chosen components. | Base + dashboard overlay (`scaffold/svelte/variants/dashboard/`), chosen components. | Base + variant overlay when present; chosen components. | Base + variant overlay when present; chosen components. |
-| **Full**    | Full variant (`scaffold/vanilla/variants/full/`): Navbar, Settings, Footer, all component pages, `js/main.js`, CSS, fonts, sfx, icons. | Full variant (`scaffold/astro/variants/full/`): Navbar, Settings, Footer, all components, layout. | Full variant (`scaffold/svelte/variants/full/`): Navbar, Settings, Footer, all components, layout. | Base + chosen components (full variant TBD). | Base + chosen components (full variant TBD). |
+| **Full**    | Full variant (`scaffold/vanilla/variants/full/`): Navbar, Settings, Footer, all component pages, `js/main.js`, CSS, fonts, sfx, icons. | Full variant (`scaffold/astro/variants/full/`): Navbar, Settings, Footer, all components, layout. | Full variant (`scaffold/svelte/variants/full/`): Navbar, Settings, Footer, all components, layout. | Full variant (`scaffold/react/variants/full/`): router, Docs/Blocks/Themes, Navbar, Settings, Footer, all components. | Full variant (`scaffold/vue/variants/full/`): router, Docs/Blocks/Themes, Navbar, Settings, Footer, all components. |
 
 - **Astro:** Base is `scaffold/astro/base/`; variant overlays are `scaffold/astro/variants/docs`, `scaffold/astro/variants/dashboard`, and `scaffold/astro/variants/full`. CLI copies base then overlay (or full variant only for Full).
 - **Svelte:** Base is `scaffold/svelte/base/`; variant overlays in `scaffold/svelte/variants/docs`, `scaffold/svelte/variants/dashboard`, `scaffold/svelte/variants/full`. Same flow.
-- **React:** Base is `scaffold/react/base/` (Vite + React). CSS in `public/css/`. Variant overlays (docs, dashboard, full) can be added later; Landing uses base only. CLI copies base then overlay when present, plus chosen components.
-- **Vue:** Base is `scaffold/vue/base/` (Vite + Vue). CSS in `public/css/`. Same as React; variant overlays TBD.
+- **React:** Base is `scaffold/react/base/` (Vite + React). Variant overlays: `scaffold/react/variants/full/` (site clone with router, Docs/Blocks/Themes). CLI copies base then overlay when Full is selected, plus chosen components.
+- **Vue:** Base is `scaffold/vue/base/` (Vite + Vue). Variant overlays: `scaffold/vue/variants/full/` (site clone with router, Docs/Blocks/Themes). Same flow as React.
 - **Vanilla:** Landing uses `scaffold/vanilla/index.html` (or `scaffold/landing/index.html` for add/minimal). Docs/Dashboard use `scaffold/vanilla/variants/docs` and `scaffold/vanilla/variants/dashboard`. Full uses `scaffold/vanilla/variants/full/`. Same flow: base or variant + components (all or pick).
 
 ## Add to existing
@@ -49,15 +49,15 @@ Same template choice (CSS only | Landing | Docs | Dashboard | Full). We **never 
 
 ## What the package includes (ship checklist)
 
-The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal** (snippet sources), **scaffold/astro** (base + variants + all 58 components), **scaffold/svelte** (base + variants + components), **scaffold/react** (base + components), **scaffold/vue** (base + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
+The published tarball (`packages/rizzo-css` `"files"`) includes: **dist/** (rizzo.min.css, fonts/, sfx/), **bin/** (CLI), **scaffold/landing**, **scaffold/minimal** (snippet sources), **scaffold/astro** (base + variants + all 58 components), **scaffold/svelte** (base + variants + components), **scaffold/react** (base + variants/full + components), **scaffold/vue** (base + variants/full + components), **scaffold/vanilla** (index, components/, icons/, js/, variants/), **scaffold/config** (fonts.ts), **scaffold/shared** (navbar-vanilla.html), **scaffold/utils** (theme.ts). PrepublishOnly runs `build:css`, `copy-scaffold.js`, and `prepare-vanilla-scaffold.js` so dist and scaffolds are up to date before pack.
 
 ## Scaffold layout in the package
 
 Same structure for all five frameworks:
 
 - **Landing:** Vanilla: `scaffold/landing/index.html` or `scaffold/vanilla/index.html` (when “all” components). Astro/Svelte/React/Vue: base only (no overlay; base is the landing-style starter).
-- **Docs / Dashboard:** Base + `scaffold/<framework>/variants/docs` or `scaffold/<framework>/variants/dashboard`. Applies to Vanilla, Astro, and Svelte; React and Vue use base only until variant overlays are added.
-- **Full:** `scaffold/<framework>/variants/full/` only (no base overlay). Vanilla, Astro, Svelte; React and Vue use base + all components (full variant TBD).
+- **Docs / Dashboard:** Base + `scaffold/<framework>/variants/docs` or `scaffold/<framework>/variants/dashboard`. Applies to Vanilla, Astro, and Svelte; React and Vue use base only for Landing/Docs/Dashboard (full variant overlay exists for Full template).
+- **Full:** `scaffold/<framework>/variants/full/` only (no base overlay). Available for Vanilla, Astro, Svelte, React, and Vue (React/Vue: router, Docs/Blocks/Themes layouts and views).
 
 ## Theming
 

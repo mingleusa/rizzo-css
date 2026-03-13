@@ -31,7 +31,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 58 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
 | **Design tokens** | `pnpm export:tokens` writes **public/tokens/rizzo-tokens.json** and **.js** from `ai/design-tokens.json` (runs as part of `pnpm build`). Served at `/tokens/rizzo-tokens.json`; use in Figma, Style Dictionary, or runtimes. |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.81), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.82), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -56,7 +56,7 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | **/** | Root: `package.json`, `README.md`, `CONTRIBUTING.md` |
 | **docs/** | Markdown docs (this folder) |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
-| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (landing/, minimal/, vanilla/, astro/, svelte/, react/, vue/, config/, shared/, utils/) — astro and svelte include base/ and variants/; react and vue include base/ (Vite). |
+| **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla/, astro/, svelte/, react/, vue/, config/, utils/) — Astro, Svelte, React, and Vue include base/ and variants/ (e.g. **Full** template); React and Vue use Vite. |
 | **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
 | **tests/** | Playwright a11y tests (`tests/a11y/`) and smoke tests (`tests/smoke.spec.mjs`). **First run:** install browsers with `pnpm exec playwright install chromium` (or `playwright install` for all). See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
 | **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |

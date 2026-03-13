@@ -2036,6 +2036,12 @@ function copyReactComponents(projectDir, selectedNames, opts) {
   }
   const iconsSrc = join(scaffoldDir, 'icons');
   if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
+  if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
+    const themesSrc = join(scaffoldDir, 'themes.ts');
+    if (existsSync(themesSrc)) {
+      copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    }
+  }
   if (toCopy.includes('Settings')) {
     const configDir = getScaffoldConfigDir();
     const fontsSrc = join(configDir, 'fonts.ts');
@@ -2098,6 +2104,12 @@ function copyVueComponents(projectDir, selectedNames, opts) {
   }
   const iconsSrc = join(scaffoldDir, 'icons');
   if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
+  if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
+    const themesSrc = join(scaffoldDir, 'themes.ts');
+    if (existsSync(themesSrc)) {
+      copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    }
+  }
   if (toCopy.includes('Settings')) {
     const configDir = getScaffoldConfigDir();
     const fontsSrc = join(configDir, 'fonts.ts');

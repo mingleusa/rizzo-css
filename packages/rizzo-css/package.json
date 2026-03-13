@@ -1,6 +1,6 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.81",
+  "version": "0.0.82",
   "engines": {
     "node": ">=18"
   },
