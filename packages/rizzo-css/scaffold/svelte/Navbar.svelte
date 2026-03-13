@@ -45,7 +45,7 @@
   });
 </script>
 
-<nav class="navbar" role="navigation" aria-label="Main navigation">
+<nav class="navbar" aria-label="Main navigation">
   <div class="navbar__container">
     <div class="navbar__brand">
       <a href="/" class="navbar__brand-link">

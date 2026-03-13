@@ -143,9 +143,9 @@
           <p class="search__empty-text">Start typing to search…</p>
         </div>
         <div class="search__results-list" role="group" aria-label="Sample results">
-          <a href="#" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
-          <a href="#" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
-          <a href="#" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
+          <a href="/docs/getting-started" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Getting started</div></a>
+          <a href="/docs/components" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Components</div></a>
+          <a href="/docs/theming" class="search__result-item" tabindex={open ? 0 : -1}><div class="search__result-category">Docs</div><div class="search__result-title">Theming</div></a>
         </div>
       </div>
     </div>

@@ -6,6 +6,10 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.79] - 2025-03-12
+
+- **Svelte:** Settings SSR-safe: use `isBrowser` (window + localStorage.getItem) for initial state to fix "localStorage.getItem is not a function" when localStorage is polyfilled or missing. Navbar: remove redundant `role="navigation"` from `<nav>`. Search: replace invalid `href="#"` on sample result links with `/docs/getting-started`, `/docs/components`, `/docs/theming`.
+
 ## [0.0.78] - 2025-03-12
 
 - **Svelte:** Settings and FontSwitcher now import fonts config from `./config/fonts` (co-located under `src/lib/rizzo/config/fonts.ts`). copy-scaffold writes `scaffold/svelte/config/fonts.ts` and rewrites imports; CLI copies `scaffold/svelte/config/` to `src/lib/rizzo/config/` when Settings or FontSwitcher is added, fixing "Failed to load url ../../config/fonts" in scaffolded Svelte apps.
@@ -114,7 +118,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.78...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...HEAD
+[0.0.79]: https://github.com/mingleusa/rizzo-css/compare/v0.0.78...v0.0.79
 [0.0.78]: https://github.com/mingleusa/rizzo-css/compare/v0.0.77...v0.0.78
 [0.0.77]: https://github.com/mingleusa/rizzo-css/compare/v0.0.76...v0.0.77
 [0.0.76]: https://github.com/mingleusa/rizzo-css/compare/v0.0.75...v0.0.76

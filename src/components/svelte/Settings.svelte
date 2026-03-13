@@ -8,13 +8,14 @@
   let openInternal = $state(false);
   const open = $derived(openProp !== undefined ? openProp : openInternal);
 
+  const isBrowser = typeof window !== 'undefined' && typeof localStorage?.getItem === 'function';
   let fontSizeLabel = $state('100%');
   let fontSizeSlider = $state(1);
-  let fontPairValue = $state(typeof localStorage !== 'undefined' ? localStorage.getItem('fontPair') || FONT_PAIR_DEFAULT : FONT_PAIR_DEFAULT);
-  let soundEffects = $state(typeof localStorage !== 'undefined' && localStorage.getItem('soundEffects') === 'true');
-  let reducedMotion = $state(typeof localStorage !== 'undefined' && localStorage.getItem('reducedMotion') === 'true');
-  let highContrast = $state(typeof localStorage !== 'undefined' && localStorage.getItem('highContrast') === 'true');
-  let scrollbarStyle = $state((typeof localStorage !== 'undefined' ? localStorage.getItem('scrollbarStyle') || 'thin' : 'thin') as 'thin' | 'thick' | 'hidden');
+  let fontPairValue = $state(isBrowser ? localStorage.getItem('fontPair') || FONT_PAIR_DEFAULT : FONT_PAIR_DEFAULT);
+  let soundEffects = $state(isBrowser && localStorage.getItem('soundEffects') === 'true');
+  let reducedMotion = $state(isBrowser && localStorage.getItem('reducedMotion') === 'true');
+  let highContrast = $state(isBrowser && localStorage.getItem('highContrast') === 'true');
+  let scrollbarStyle = $state((isBrowser ? localStorage.getItem('scrollbarStyle') || 'thin' : 'thin') as 'thin' | 'thick' | 'hidden');
 
   function applyFontSize(scale: number) {
     if (typeof document === 'undefined') return;
@@ -34,6 +35,7 @@
   }
 
   $effect(() => {
+    if (typeof window === 'undefined') return;
     (window as unknown as { openSettings?: () => void }).openSettings = () => {
       openInternal = true;
     };
@@ -45,7 +47,7 @@
   });
 
   $effect(() => {
-    if (!open) return;
+    if (typeof document === 'undefined' || !open) return;
     const onEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') openInternal = false;
     };
