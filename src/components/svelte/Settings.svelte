@@ -2,12 +2,14 @@
   import ThemeSwitcher from './ThemeSwitcher.svelte';
   import FontSwitcher from './FontSwitcher.svelte';
   import SoundEffects from './SoundEffects.svelte';
+  import Close from './icons/Close.svelte';
 
   interface Props {
     open?: boolean;
   }
   let { open: openProp }: Props = $props();
   let openInternal = $state(false);
+  let closing = $state(false);
   const open = $derived(openProp !== undefined ? openProp : openInternal);
 
   const isBrowser = typeof window !== 'undefined' && typeof localStorage?.getItem === 'function';
@@ -24,10 +26,20 @@
     fontSizeLabel = `${Math.round(scale * 100)}%`;
   }
 
+  let opening = $state(false);
+  /** Panel shows open state only after first frame when opening (so slide-in animation runs). */
+  const panelDataOpen = $derived(open && !closing && !opening);
+
   $effect(() => {
     if (typeof window === 'undefined') return;
     (window as unknown as { openSettings?: () => void }).openSettings = () => {
       openInternal = true;
+      opening = true;
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          opening = false;
+        });
+      });
     };
     return () => {
       if ((window as unknown as { openSettings?: () => void }).openSettings) {
@@ -39,7 +51,7 @@
   $effect(() => {
     if (typeof document === 'undefined' || !open) return;
     const onEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') openInternal = false;
+      if (e.key === 'Escape') close();
     };
     document.addEventListener('keydown', onEscape);
     return () => document.removeEventListener('keydown', onEscape);
@@ -58,7 +70,18 @@
   });
 
   function close() {
-    openInternal = false;
+    const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotionClass = typeof document !== 'undefined' && document.documentElement.classList.contains('reduced-motion');
+    const duration = (prefersReducedMotion || reducedMotionClass) ? 0 : 300;
+    if (duration === 0) {
+      openInternal = false;
+      return;
+    }
+    closing = true;
+    setTimeout(() => {
+      openInternal = false;
+      closing = false;
+    }, duration);
   }
 
   function onFontSizeInput(e: Event) {
@@ -100,11 +123,13 @@
     aria-modal="true"
     aria-labelledby="settings-title"
     aria-hidden={!open}
-    data-open={open ? 'true' : undefined}
+    data-open={panelDataOpen ? 'true' : undefined}
   >
     <div class="settings__header">
       <h2 id="settings-title" class="settings__title">Settings</h2>
-      <button type="button" class="settings__close" data-settings-close aria-label="Close settings" onclick={close}>×</button>
+      <button type="button" class="settings__close" data-settings-close aria-label="Close settings" title="Close settings" onclick={close}>
+        <Close width={20} height={20} />
+      </button>
     </div>
     <div class="settings__content" tabindex="-1" aria-label="Settings options">
       <section class="settings__section">
@@ -153,7 +178,7 @@
         <h3 class="settings__section-title">Accessibility</h3>
         <div class="settings__control">
           <label class="settings__checkbox-label">
-            <input type="checkbox" class="settings__checkbox" aria-label="Reduce motion" checked={reducedMotion} onchange={onReducedMotionChange} />
+            <input type="checkbox" class="settings__checkbox" data-reduced-motion aria-label="Reduce motion" checked={reducedMotion} onchange={onReducedMotionChange} />
             <span>Reduce motion</span>
           </label>
           <p class="settings__help-text">Minimize animations and transitions</p>

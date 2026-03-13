@@ -1669,15 +1669,24 @@ div.navbar__sublink {
   transform: translateX(100%);
 }
 
-/* Respect prefers-reduced-motion */
+/* Respect prefers-reduced-motion (system preference) */
 @media (prefers-reduced-motion: reduce) {
   .settings__overlay {
     transition: none;
   }
-  
+
   .settings__panel {
     transition: none;
   }
+}
+
+/* Respect reduced-motion class (user toggle in Settings) */
+.reduced-motion .settings__overlay {
+  transition: none;
+}
+
+.reduced-motion .settings__panel {
+  transition: none;
 }
 
 .settings__header {

@@ -6,6 +6,12 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.83] - 2026-03-12
+
+- **Version:** Bump to 0.0.83.
+- **Docs sidebar (full templates):** Svelte, Vue, and React full variant docs sidebars now match the main site exactly (Introduction, Foundations, Components, Blocks, Examples); local routes for overview/getting-started/components; external links to main site for other docs; sublinks and `external`/reduced-motion behavior aligned.
+- **Settings (all frameworks):** Settings panel animations and reduced motion aligned across Astro, Svelte, and React. Same open/close slide + overlay fade; close delay respects both `prefers-reduced-motion` and the Settings “Reduce motion” toggle (`.reduced-motion`). CSS: `.reduced-motion .settings__overlay` and `.reduced-motion .settings__panel` use `transition: none`. Svelte: Close icon component, delayed close with duration from reduced-motion check, double rAF for open. React: Markup aligned (settings__overlay, settings__content), `data-open` for animation, delayed close and opening state; Escape and overlay use same close handler. Docs and AI assets updated to 0.0.83.
+
 ## [0.0.82] - 2026-03-12
 
 - **Version:** Bump to 0.0.82. Svelte full scaffold: a11y (remove tabindex from blocks sidebar), replace deprecated `<slot />` with `{@render children()}` in layouts, fix unused CSS selector for theme card icon; docs sidebar and themes page aligned with main site.
@@ -133,7 +139,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.82...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.83...HEAD
+[0.0.83]: https://github.com/mingleusa/rizzo-css/compare/v0.0.82...v0.0.83
 [0.0.82]: https://github.com/mingleusa/rizzo-css/compare/v0.0.81...v0.0.82
 [0.0.81]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...v0.0.81
 [0.0.80]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...v0.0.80

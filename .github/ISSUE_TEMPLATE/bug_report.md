@@ -24,7 +24,7 @@ What you expected to happen.
 
 - **Framework:** Vanilla / Astro / Svelte (if relevant)
 - **Browser:** e.g. Chrome 120, Firefox 121
-- **Rizzo CSS version:** e.g. 0.0.82 or "from main"
+- **Rizzo CSS version:** e.g. 0.0.83 or "from main"
 - **Node/npm/pnpm:** (if build/CLI related)
 
 ## Additional context

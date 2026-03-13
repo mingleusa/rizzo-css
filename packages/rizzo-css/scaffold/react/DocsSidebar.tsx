@@ -12,6 +12,8 @@ export interface DocsNavLink {
   frameworkOnly?: boolean;
   absolute?: boolean;
   sections?: DocsNavSection[];
+  /** When true, open in new tab (external to main site). */
+  external?: boolean;
 }
 
 export interface DocsNavGroup {
@@ -32,7 +34,7 @@ export interface DocsSidebarProps extends HTMLAttributes<HTMLElement> {
 }
 
 function fullHref(link: { href: string; frameworkOnly?: boolean; absolute?: boolean }, pathPrefix: string): string {
-  if (link.absolute && link.href.startsWith('/')) return link.href;
+  if (link.absolute && link.href) return link.href;
   const base = link.frameworkOnly ? pathPrefix : '/docs';
   return `${base}/${link.href}`;
 }
@@ -110,19 +112,24 @@ export function DocsSidebar({
                         href={href}
                         className={`docs-sidebar__link ${active && (sections.length === 0 || activeSectionId == null) ? 'docs-sidebar__link--active' : ''}`.trim()}
                         aria-current={active && (sections.length === 0 || activeSectionId == null) ? 'page' : undefined}
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noopener noreferrer' : undefined}
                       >
                         {link.label}
                       </a>
                       {sections.length > 0 && (
                         <ul className="docs-sidebar__sublist" aria-label={`Sections in ${link.label}`}>
                           {sections.map((section) => {
-                            const sublinkActive = activeSectionId === section.id && currentPath.replace(/\/$/, '') === href;
+                            const sublinkHref = `${href}#${section.id}`;
+                            const sublinkActive = !link.external && activeSectionId === section.id && currentPath.replace(/\/$/, '') === href.split('#')[0];
                             return (
                               <li key={section.id} className="docs-sidebar__subitem">
                                 <a
-                                  href={`${href}#${section.id}`}
+                                  href={sublinkHref}
                                   className={`docs-sidebar__sublink ${sublinkActive ? 'docs-sidebar__sublink--active' : ''}`.trim()}
                                   aria-current={sublinkActive ? 'location' : undefined}
+                                  target={link.external ? '_blank' : undefined}
+                                  rel={link.external ? 'noopener noreferrer' : undefined}
                                 >
                                   {section.label}
                                 </a>

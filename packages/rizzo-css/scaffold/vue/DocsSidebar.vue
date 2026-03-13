@@ -12,6 +12,8 @@ export interface DocsNavLink {
   frameworkOnly?: boolean;
   absolute?: boolean;
   sections?: DocsNavSection[];
+  /** When true, open in new tab (external to main site). */
+  external?: boolean;
 }
 
 export interface DocsNavGroup {
@@ -36,7 +38,7 @@ const props = withDefaults(
 const activeSectionId = ref<string | null>(null);
 
 function fullHref(link: { href: string; frameworkOnly?: boolean; absolute?: boolean }): string {
-  if (link.absolute && link.href.startsWith('/')) return link.href;
+  if (link.absolute && link.href) return link.href;
   const base = link.frameworkOnly ? props.pathPrefix : '/docs';
   return `${base}/${link.href}`;
 }
@@ -98,6 +100,8 @@ onUnmounted(() => {
               :href="fullHref(link)"
               class="docs-sidebar__link"
               :class="{ 'docs-sidebar__link--active': isActive(link) && (link.sections?.length === 0 || activeSectionId == null) }"
+              :target="link.external ? '_blank' : undefined"
+              :rel="link.external ? 'noopener noreferrer' : undefined"
               :aria-current="isActive(link) && (link.sections?.length === 0 || activeSectionId == null) ? 'page' : undefined"
             >
               {{ link.label }}
@@ -111,8 +115,10 @@ onUnmounted(() => {
                 <a
                   :href="`${fullHref(link)}#${section.id}`"
                   class="docs-sidebar__sublink"
-                  :class="{ 'docs-sidebar__sublink--active': activeSectionId === section.id && currentPath.replace(/\/$/, '') === fullHref(link) }"
-                  :aria-current="(activeSectionId === section.id && currentPath.replace(/\/$/, '') === fullHref(link)) ? 'location' : undefined"
+                  :class="{ 'docs-sidebar__sublink--active': !link.external && activeSectionId === section.id && currentPath.replace(/\/$/, '') === fullHref(link).split('#')[0] }"
+                  :aria-current="(!link.external && activeSectionId === section.id && currentPath.replace(/\/$/, '') === fullHref(link).split('#')[0]) ? 'location' : undefined"
+                  :target="link.external ? '_blank' : undefined"
+                  :rel="link.external ? 'noopener noreferrer' : undefined"
                 >
                   {{ section.label }}
                 </a>

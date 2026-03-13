@@ -1,6 +1,6 @@
 {
   "name": "rizzo-css",
-  "version": "0.0.82",
+  "version": "0.0.83",
   "description": "Design tokens for Rizzo CSS. Use with design tools or runtimes.",
   "source": "ai/design-tokens.json",
   "semantic": "Theme CSS uses --background, --text, --accent, --border, etc. See theme files.",

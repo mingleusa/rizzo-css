@@ -277,9 +277,10 @@ const { open = false } = Astro.props;
       // Remove data-open first to trigger close animation
       panel.removeAttribute('data-open');
       
-      // Wait for animation to complete before hiding
+      // Wait for animation to complete before hiding (respect system preference and user toggle)
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const animationDuration = prefersReducedMotion ? 0 : 300;
+      const reducedMotionClass = html.classList.contains('reduced-motion');
+      const animationDuration = (prefersReducedMotion || reducedMotionClass) ? 0 : 300;
       
       setTimeout(() => {
         settings.setAttribute('aria-hidden', 'true');
