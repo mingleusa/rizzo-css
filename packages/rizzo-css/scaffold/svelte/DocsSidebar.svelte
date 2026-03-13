@@ -15,8 +15,7 @@
 
   let activeSectionId = $state<string | null>(null);
 
-  function fullHref(link: { href: string; frameworkOnly?: boolean; absolute?: boolean }): string {
-    if (link.absolute && link.href.startsWith('/')) return link.href;
+  function fullHref(link: { href: string; frameworkOnly?: boolean }): string {
     const base = link.frameworkOnly ? pathPrefix : '/docs';
     return `${base}/${link.href}`;
   }
