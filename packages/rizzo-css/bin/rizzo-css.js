@@ -1855,8 +1855,8 @@ function copySvelteComponents(projectDir, selectedNames, opts) {
       if (existsSync(join(scaffoldDir, 'themes.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'themes.ts')));
       if (existsSync(join(scaffoldDir, 'theme.ts'))) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'theme.ts')));
     }
-    if (toCopy.includes('Settings') && existsSync(join(getScaffoldConfigDir(), 'fonts.ts')))
-      plan.wouldWrite.push(pathRelative(projectDir, join(projectDir, 'src', 'lib', 'config', 'fonts.ts')));
+    if ((toCopy.includes('Settings') || toCopy.includes('FontSwitcher')) && existsSync(join(scaffoldDir, 'config', 'fonts.ts')))
+      plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'config', 'fonts.ts')));
     if (toCopy.length > 0) plan.wouldWrite.push(pathRelative(projectDir, join(targetDir, 'index.ts')));
     return;
   }
@@ -1879,13 +1879,17 @@ function copySvelteComponents(projectDir, selectedNames, opts) {
     if (existsSync(themesSrc)) copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
     if (existsSync(themeSrc)) copyFileSync(themeSrc, join(targetDir, 'theme.ts'));
   }
-  if (toCopy.includes('Settings')) {
-    const configDir = getScaffoldConfigDir();
-    const fontsSrc = join(configDir, 'fonts.ts');
-    if (existsSync(fontsSrc)) {
-      const projectConfigDir = join(projectDir, 'src', 'lib', 'config');
-      mkdirSync(projectConfigDir, { recursive: true });
-      copyFileSync(fontsSrc, join(projectConfigDir, 'fonts.ts'));
+  if (toCopy.includes('Settings') || toCopy.includes('FontSwitcher')) {
+    const svelteConfigSrc = join(scaffoldDir, 'config');
+    if (existsSync(svelteConfigSrc)) {
+      const projectRizzoConfigDir = join(targetDir, 'config');
+      mkdirSync(projectRizzoConfigDir, { recursive: true });
+      const configEntries = readdirSync(svelteConfigSrc, { withFileTypes: true });
+      for (const entry of configEntries) {
+        if (entry.isFile()) {
+          copyFileSync(join(svelteConfigSrc, entry.name), join(projectRizzoConfigDir, entry.name));
+        }
+      }
     }
   }
   if (exports.length > 0 || copyIconsOnly) {

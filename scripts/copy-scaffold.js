@@ -379,11 +379,20 @@ function copySvelte() {
         content = content.replace(/from '\.\.\/\.\.\/config\/themes'|from "\.\.\/\.\.\/config\/themes"/g, "from './themes'");
         content = content.replace(/from '\.\.\/\.\.\/utils\/theme'|from "\.\.\/\.\.\/utils\/theme"/g, "from './theme'");
         writeFileSync(destPath, content);
+      } else if (e.name === 'Settings.svelte' || e.name === 'FontSwitcher.svelte') {
+        let content = readFileSync(join(svelteSrc, e.name), 'utf8');
+        content = content.replace(/from '\.\.\/\.\.\/config\/fonts'|from "\.\.\/\.\.\/config\/fonts"/g, "from './config/fonts'");
+        writeFileSync(destPath, content);
       } else {
         copyFileSync(join(svelteSrc, e.name), destPath);
       }
       count++;
     }
+  }
+  const svelteConfigDir = join(svelteDest, 'config');
+  if (existsSync(join(configDir, 'fonts.ts'))) {
+    mkdirSync(svelteConfigDir, { recursive: true });
+    copyFileSync(join(configDir, 'fonts.ts'), join(svelteConfigDir, 'fonts.ts'));
   }
   if (existsSync(join(configDir, 'themes.ts'))) {
     copyFileSync(join(configDir, 'themes.ts'), join(svelteDest, 'themes.ts'));

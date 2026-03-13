@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../../config/fonts';
+  import { FONT_PAIRS, FONT_PAIR_DEFAULT } from './config/fonts';
 
   interface Props {
     open?: boolean;

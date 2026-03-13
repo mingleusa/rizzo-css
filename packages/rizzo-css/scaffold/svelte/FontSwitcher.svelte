@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import ChevronDown from './icons/ChevronDown.svelte';
-  import { FONT_PAIRS, FONT_PAIR_DEFAULT } from '../../config/fonts';
+  import { FONT_PAIRS, FONT_PAIR_DEFAULT } from './config/fonts';
 
   interface Props {
     /** Optional prefix for trigger/menu IDs when multiple FontSwitchers exist. */
