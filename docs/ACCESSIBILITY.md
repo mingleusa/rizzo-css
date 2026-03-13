@@ -275,7 +275,7 @@ Supports high contrast mode through both media queries and user settings:
 The Settings component includes a "High contrast" toggle that applies the `.high-contrast` class to the document root, enabling enhanced contrast across all components.
 
 **Reduce Motion:**
-The Settings component also includes a "Reduce motion" toggle that applies the `.reduced-motion` class, respecting user motion preferences beyond just the `prefers-reduced-motion` media query.
+The Settings component also includes a "Reduce motion" toggle that applies the `.reduced-motion` class, respecting user motion preferences beyond just the `prefers-reduced-motion` media query. Panel open/close animations (slide and overlay fade) are disabled when either the system preference or the Settings toggle is active; this behavior is consistent in Astro, Svelte, and React.
 
 ## Best Practices
 

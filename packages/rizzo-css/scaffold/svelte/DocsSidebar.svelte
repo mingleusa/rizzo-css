@@ -15,8 +15,7 @@
 
   let activeSectionId = $state<string | null>(null);
 
-  function fullHref(link: { href: string; frameworkOnly?: boolean; absolute?: boolean }): string {
-    if (link.absolute && link.href) return link.href;
+  function fullHref(link: { href: string; frameworkOnly?: boolean }): string {
     const base = link.frameworkOnly ? pathPrefix : '/docs';
     return `${base}/${link.href}`;
   }
@@ -77,24 +76,19 @@
                 class="docs-sidebar__link"
                 class:docs-sidebar__link--active={active && (sections.length === 0 || activeSectionId === null)}
                 aria-current={active && (sections.length === 0 || activeSectionId === null) ? 'page' : undefined}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
               >
                 {link.label}
               </a>
               {#if sections.length > 0}
                 <ul class="docs-sidebar__sublist" aria-label="Sections in {link.label}">
                   {#each sections as section}
-                    {@const sublinkHref = link.external ? href + '#' + section.id : href + '#' + section.id}
-                    {@const sublinkActive = !link.external && activeSectionId === section.id && currentPath.replace(/\/$/, '') === href.split('#')[0]}
+                    {@const sublinkActive = activeSectionId === section.id && currentPath.replace(/\/$/, '') === href}
                     <li class="docs-sidebar__subitem">
                       <a
-                        href={sublinkHref}
+                        href="{href}#{section.id}"
                         class="docs-sidebar__sublink"
                         class:docs-sidebar__sublink--active={sublinkActive}
                         aria-current={sublinkActive ? 'location' : undefined}
-                        target={link.external ? '_blank' : undefined}
-                        rel={link.external ? 'noopener noreferrer' : undefined}
                       >
                         {section.label}
                       </a>

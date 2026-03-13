@@ -262,11 +262,11 @@ for (const { path, trigger, dialog, menu, panelRole } of REACT_ARIA_ROUTES) {
         await expect(item).toBeVisible();
       }
       if (panelRole === 'dialog') {
-        const root = page.locator('[data-settings]').first();
-        await expect(root).toBeVisible({ timeout: 5000 });
-        await expect(root).toHaveAttribute('role', 'dialog');
-        await expect(root).toHaveAttribute('aria-modal', 'true');
-        await expect(root).toHaveAttribute('aria-labelledby');
+        const panel = page.locator('[data-settings] .settings__panel').first();
+        await expect(panel).toBeVisible({ timeout: 5000 });
+        await expect(panel).toHaveAttribute('role', 'dialog');
+        await expect(panel).toHaveAttribute('aria-modal', 'true');
+        await expect(panel).toHaveAttribute('aria-labelledby');
       }
     });
   });
