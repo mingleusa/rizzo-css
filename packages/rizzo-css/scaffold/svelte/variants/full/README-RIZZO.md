@@ -39,6 +39,7 @@ SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you 
 
 - `svelte.config.js` — SvelteKit configuration
 - `vite.config.js` — Vite config with SvelteKit plugin (required for `pnpm dev`)
+- `tsconfig.json` — Extends `.svelte-kit/tsconfig.json`; a minimal fallback is committed so TypeScript and the IDE work before the first `pnpm dev`. Running `pnpm dev` or `svelte-kit sync` regenerates the full config.
 - `src/app.html` — HTML shell with Rizzo CSS and theme (edit `data-theme` for default)
 - `src/routes/+layout.svelte` — Root layout
 - `src/routes/+page.svelte` — Home page

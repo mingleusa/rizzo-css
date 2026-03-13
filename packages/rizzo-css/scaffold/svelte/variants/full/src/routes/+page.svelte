@@ -1,6 +1,5 @@
 <script lang="ts">
   import CopyToClipboard from '$lib/rizzo/CopyToClipboard.svelte';
-  const DOCS_BASE = 'https://rizzo-css.vercel.app';
   const ADD_COMMAND = 'npx rizzo-css add <ComponentName>';
 </script>
 
@@ -11,8 +10,8 @@
       <h1 class="home__title">Rizzo CSS</h1>
       <p class="home__subtitle">A modern CSS design system with semantic theming, accessibility-first components, and one CLI for Vanilla, Astro, and Svelte. Start here then make it your own.</p>
       <div class="home__hero-ctas">
-        <a href={DOCS_BASE + '/docs/getting-started'} class="btn btn-primary home__hero-cta" target="_blank" rel="noopener noreferrer">Get Started<span class="sr-only"> (opens in new tab)</span></a>
-        <a href={DOCS_BASE + '/docs/components'} class="btn btn-outline home__hero-cta" target="_blank" rel="noopener noreferrer">View Components<span class="sr-only"> (opens in new tab)</span></a>
+        <a href="/docs/getting-started" class="btn btn-primary home__hero-cta">Get Started</a>
+        <a href="/docs/components" class="btn btn-outline home__hero-cta">View Components</a>
       </div>
     </header>
 
@@ -69,34 +68,29 @@
     <section class="home__docs">
       <h2 class="home__section-title">Documentation</h2>
       <div class="home__docs-grid">
-        <a href={DOCS_BASE + '/docs/getting-started'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+        <a href="/docs/getting-started" class="home__doc-card">
           <h3>Getting Started</h3>
           <p>Installation, project structure, and quick start guide</p>
-          <span class="sr-only"> (opens in new tab)</span>
         </a>
-        <a href={DOCS_BASE + '/docs/components'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
+        <a href="/docs/components" class="home__doc-card">
           <h3>Components</h3>
           <p>Component library with usage examples and live demos</p>
-          <span class="sr-only"> (opens in new tab)</span>
         </a>
-        <a href={DOCS_BASE + '/docs/theming'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
-          <h3>Theming</h3>
-          <p>Theme system, custom themes, and color format guide</p>
-          <span class="sr-only"> (opens in new tab)</span>
+        <a href="/themes" class="home__doc-card">
+          <h3>Themes</h3>
+          <p>Theme system, 14 themes, and live preview</p>
         </a>
-        <a href={DOCS_BASE + '/docs/design-system'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
-          <h3>Design System</h3>
-          <p>Semantic variables, typography, and design principles</p>
-          <span class="sr-only"> (opens in new tab)</span>
+        <a href="/blocks" class="home__doc-card">
+          <h3>Blocks</h3>
+          <p>Pre-built layouts: landing, pricing, dashboard, docs, login, signup</p>
         </a>
-        <a href={DOCS_BASE + '/docs/accessibility'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
-          <h3>Accessibility</h3>
-          <p>Accessibility guidelines, utilities, and best practices</p>
-          <span class="sr-only"> (opens in new tab)</span>
+        <a href="/docs" class="home__doc-card">
+          <h3>Docs Overview</h3>
+          <p>Condensed index of documentation and links</p>
         </a>
-        <a href={DOCS_BASE + '/docs/colors'} class="home__doc-card" target="_blank" rel="noopener noreferrer">
-          <h3>Colors</h3>
-          <p>Interactive color reference with multiple format options</p>
+        <a href="https://rizzo-css.vercel.app/docs/theming" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+          <h3>Theming (full docs)</h3>
+          <p>Custom themes, persistence, color format — on main site</p>
           <span class="sr-only"> (opens in new tab)</span>
         </a>
       </div>

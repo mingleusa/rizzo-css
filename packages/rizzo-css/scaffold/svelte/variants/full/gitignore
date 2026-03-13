@@ -2,7 +2,8 @@ node_modules
 .output
 .vercel
 .netlify
-/.svelte-kit
+/.svelte-kit/*
+!/.svelte-kit/tsconfig.json
 /build
 .DS_Store
 .env

@@ -6,6 +6,11 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.80] - 2025-03-12
+
+- **Version:** Bump to 0.0.80. Svelte full variant: add fallback `.svelte-kit/tsconfig.json` and gitignore tweak so tsconfig extends work before first `svelte-kit sync`; root tsconfig `noEmit: true` to avoid overwrite of `svelte.config.js`.
+- **Docs:** All documentation (PUBLISHING, GETTING_STARTED, UPGRADE, BEST_PRACTICES, README badges, scaffold READMEs, issue template, TODO, tokens, ai/llms) aligned to 0.0.80; Svelte full scaffold README documents tsconfig fallback.
+
 ## [0.0.79] - 2025-03-12
 
 - **Svelte:** Settings SSR-safe: use `isBrowser` (window + localStorage.getItem) for initial state to fix "localStorage.getItem is not a function" when localStorage is polyfilled or missing. Navbar: remove redundant `role="navigation"` from `<nav>`. Search: replace invalid `href="#"` on sample result links with `/docs/getting-started`, `/docs/components`, `/docs/theming`.
@@ -118,7 +123,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...HEAD
+[0.0.80]: https://github.com/mingleusa/rizzo-css/compare/v0.0.79...v0.0.80
 [0.0.79]: https://github.com/mingleusa/rizzo-css/compare/v0.0.78...v0.0.79
 [0.0.78]: https://github.com/mingleusa/rizzo-css/compare/v0.0.77...v0.0.78
 [0.0.77]: https://github.com/mingleusa/rizzo-css/compare/v0.0.76...v0.0.77
