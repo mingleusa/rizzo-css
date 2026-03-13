@@ -6,6 +6,10 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.84] - 2026-03-13
+
+- **Version:** Bump to 0.0.84 (re-publish; 0.0.83 already on npm). A11y test: Settings ARIA assertion now targets panel (`.settings__panel`) instead of root for dialog role. ACCESSIBILITY.md: clarified that Settings open/close animations respect both system and user Reduce motion.
+
 ## [0.0.83] - 2026-03-12
 
 - **Version:** Bump to 0.0.83.
@@ -139,7 +143,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.83...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.84...HEAD
+[0.0.84]: https://github.com/mingleusa/rizzo-css/compare/v0.0.83...v0.0.84
 [0.0.83]: https://github.com/mingleusa/rizzo-css/compare/v0.0.82...v0.0.83
 [0.0.82]: https://github.com/mingleusa/rizzo-css/compare/v0.0.81...v0.0.82
 [0.0.81]: https://github.com/mingleusa/rizzo-css/compare/v0.0.80...v0.0.81

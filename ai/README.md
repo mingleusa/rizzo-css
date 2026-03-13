@@ -24,6 +24,6 @@ Rizzo uses **BEM with no prefix**: `.btn`, `.navbar`, `.card`, `.modal`, `.input
 
 ## Version alignment
 
-- **llms.txt** and **llms.json** use spec version **3.0** and reference package version **0.0.83**.
+- **llms.txt** and **llms.json** use spec version **3.0** and reference package version **0.0.84**.
 - Scaffolds: Vanilla, Astro, Svelte, React, and Vue each have base + template variants; **Full** template (site clone with Docs/Blocks/Themes) is available for Astro, Svelte, React, and Vue.
 - When updating the design system (new components, themes, or tokens), update `public/llms.txt` and `ai/llms.json` (and this README if needed) so AI and tooling stay in sync.
