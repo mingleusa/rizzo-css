@@ -2416,32 +2416,35 @@ div.navbar__sublink {
 }
 
 /* Alert Variants — use theme-derived darker tints (scale 200) for visibility and contrast */
+
+/* Success/info alerts: soft (200) bg; use dark text for WCAG AA 4.5:1 on light tint */
 .alert--success {
   background-color: var(--alert-success-bg);
   border-color: var(--success);
-  color: var(--success-text);
+  color: var(--color-success-800);
 }
 
+/* Error/warning alerts use soft (200) bg; use dark (800) text for WCAG AA 4.5:1 on light tint */
 .alert--error {
   background-color: var(--alert-error-bg);
   border-color: var(--error);
-  color: var(--error-text);
+  color: var(--color-error-800);
 }
 
 .alert--warning {
   background-color: var(--alert-warning-bg);
   border-color: var(--warning);
-  color: var(--warning-text);
+  color: var(--color-warning-800);
 }
 
 /* Ensure all text in warning alerts uses theme variable */
 .alert--warning .alert__content,
 .alert--warning .alert__content strong {
-  color: var(--warning-text);
+  color: var(--color-warning-800);
 }
 
 .alert--warning .alert__close {
-  color: var(--warning-text);
+  color: var(--color-warning-800);
   opacity: 0.9;
 }
 
@@ -2453,7 +2456,7 @@ div.navbar__sublink {
 .alert--info {
   background-color: var(--alert-info-bg);
   border-color: var(--info);
-  color: var(--info-text);
+  color: var(--color-info-800);
 }
 
 /* Alert examples on framework doc pages: vertically center alerts in the box */
@@ -4162,7 +4165,7 @@ div.navbar__sublink {
 .pagination__link--current {
   background-color: var(--background);
   border-color: var(--accent);
-  color: var(--accent);
+  color: var(--accent-fg);
   font-weight: var(--font-weight-semibold);
   cursor: default;
 }
@@ -6128,7 +6131,6 @@ div.navbar__sublink {
 
 .calendar__day--other-month {
   color: var(--text-dim);
-  opacity: 0.7;
 }
 
 /* Range Calendar: reuse .calendar; range states */

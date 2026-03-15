@@ -1,31 +1,33 @@
 <template>
   <div class="docs" data-docs>
-    <div id="docs-sidebar-container">
-      <button
-        type="button"
-        class="docs__sidebar-toggle"
-        aria-label="Open documentation menu"
-        aria-expanded="false"
-        aria-controls="docs-sidebar"
-        data-docs-sidebar-toggle
-        @click="toggleSidebar"
-      >
-        <span class="docs__sidebar-toggle-icon" aria-hidden="true">
-          <span></span><span></span><span></span>
-        </span>
-        <span class="docs__sidebar-toggle-text">Docs</span>
-      </button>
-      <div class="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true" @click="closeSidebar" />
-      <DocsSidebar :current-path="currentPath" path-prefix="/docs" :nav="DOCS_NAV" />
-    </div>
-    <div class="docs__main">
-      <div class="docs__container">
-        <header class="docs__header">
-          <h1 class="docs__title">{{ title }}</h1>
-          <p v-if="description" class="docs__description">{{ description }}</p>
-        </header>
-        <div class="docs__content">
-          <router-view />
+    <div class="docs__outer">
+      <div id="docs-sidebar-container">
+        <button
+          type="button"
+          class="docs__sidebar-toggle"
+          aria-label="Open documentation menu"
+          aria-expanded="false"
+          aria-controls="docs-sidebar"
+          data-docs-sidebar-toggle
+          @click="toggleSidebar"
+        >
+          <span class="docs__sidebar-toggle-icon" aria-hidden="true">
+            <span></span><span></span><span></span>
+          </span>
+          <span class="docs__sidebar-toggle-text">Docs</span>
+        </button>
+        <div class="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true" @click="closeSidebar" />
+        <DocsSidebar :current-path="currentPath" path-prefix="/docs" :nav="DOCS_NAV" />
+      </div>
+      <div class="docs__main">
+        <div class="docs__container">
+          <header class="docs__header">
+            <h1 class="docs__title">{{ title }}</h1>
+            <p v-if="description" class="docs__description">{{ description }}</p>
+          </header>
+          <div class="docs__content">
+            <router-view />
+          </div>
         </div>
       </div>
     </div>
@@ -94,6 +96,17 @@ onMounted(() => {
 </script>
 
 <style scoped>
+:deep(.docs__outer) {
+  width: 100%;
+  max-width: var(--container-default);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-width: 0;
+}
 :deep(.docs__container) {
   box-sizing: border-box;
   width: 100%;

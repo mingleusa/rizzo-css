@@ -30,9 +30,9 @@
   <img src="https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge&theme=light" alt="License: MIT" />
 </picture></a>
 <a href="https://www.npmjs.com/package/rizzo-css"><picture>
-  <source srcset="https://img.shields.io/badge/npm-0.0.86-CB3837?style=for-the-badge&logo=npm&theme=dark" media="(prefers-color-scheme: dark)" />
-  <source srcset="https://img.shields.io/badge/npm-0.0.86-CB3837?style=for-the-badge&logo=npm&theme=light" media="(prefers-color-scheme: light)" />
-  <img src="https://img.shields.io/badge/npm-0.0.86-CB3837?style=for-the-badge&logo=npm&theme=light" alt="npm version" />
+  <source srcset="https://img.shields.io/badge/npm-0.0.87-CB3837?style=for-the-badge&logo=npm&theme=dark" media="(prefers-color-scheme: dark)" />
+  <source srcset="https://img.shields.io/badge/npm-0.0.87-CB3837?style=for-the-badge&logo=npm&theme=light" media="(prefers-color-scheme: light)" />
+  <img src="https://img.shields.io/badge/npm-0.0.87-CB3837?style=for-the-badge&logo=npm&theme=light" alt="npm version" />
 </picture></a>
 
 **Frameworks** (same CSS & BEM for all)

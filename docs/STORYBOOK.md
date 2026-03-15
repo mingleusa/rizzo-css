@@ -1,6 +1,8 @@
 # Storybook
 
-Rizzo CSS includes an optional **Storybook** for the React components. Use it as an interactive playground and design system showcase.
+Rizzo CSS includes an optional **Storybook** for the **React** components. Use it as an interactive playground and design system showcase. It supports **all React components** via the **Rizzo/All Components** story (dropdown) and the component registry; individual stories exist for Button, Badge, Card, Alert, Modal, Accordion, Tabs, Spinner, Progress Bar, Settings, Search, Navbar, Dropdown, Theme Switcher, Carousel, Calendar, Range Calendar, and Blocks.
+
+**Frameworks:** This Storybook is **React-only**. The same BEM and CSS apply to Astro, Svelte, React, Vue, and Vanilla; Astro/Svelte/Vue/Vanilla components are documented on the docs site ([rizzo-css.vercel.app](https://rizzo-css.vercel.app)). Adding Vue or Svelte Storybook is optional (see [TODO.md](./TODO.md)).
 
 ## Dependencies (framework)
 
@@ -15,7 +17,7 @@ Storybook runs with **React** only in this repo. All required packages are in th
 | `@storybook/addon-links` | Link stories |
 | `@storybook/addon-onboarding` | Optional welcome/guide |
 
-**Stories:** Use `import type { Meta, StoryObj } from '@storybook/react'` in `*.stories.tsx` (that package is provided by `@storybook/react-vite`; you don’t add it separately). Config uses `@storybook/react-vite` for `StorybookConfig` and `Preview`. No Vue/Svelte/Astro Storybook in this repo—only React components are showcased.
+**Stories:** Use `import type { Meta, StoryObj } from '@storybook/react'` in `*.stories.tsx` (that package is provided by `@storybook/react-vite`; you don’t add it separately). Config uses `@storybook/react-vite` for `StorybookConfig` and `Preview`. Vue/Svelte/Astro Storybook are not included in this repo; only React components are showcased here.
 
 ## Running Storybook
 
@@ -38,11 +40,11 @@ Storybook runs with **React** only in this repo. All required packages are in th
 ## What’s included
 
 - **Introduction** — Overview and multi-framework note (same CSS for Astro, Svelte, React, Vue, Vanilla).
-- **Rizzo/All Components** — One story that lets you browse all **58 components** from a dropdown (uses the same registry as the docs).
-- **Rizzo/** — Individual stories: **Button**, **Badge**, **Card**, **Carousel**, **Alert**, **Modal**, **Accordion**, **Tabs**, **Spinner**, **Progress Bar**, **Settings** (with a **Guide** story and Controls for `title`), **Search**, **Navbar**, **Dropdown**, **Theme Switcher**, and more. Use the **Controls** panel to tweak props (e.g. at **Rizzo/Settings/Guide**).
+- **Rizzo/All Components** — One story that lets you browse **all React components** (50+ from the registry) from a dropdown. Uses the same registry as the docs site (`src/config/reactComponents.ts`, `src/components/react/registry.tsx`).
+- **Rizzo/** — Individual stories for **Button**, **Badge**, **Card**, **Carousel**, **Alert**, **Modal**, **Accordion**, **Tabs**, **Spinner**, **Progress Bar**, **Settings** (with **Guide** and Controls), **Search**, **Navbar**, **Dropdown**, **Theme Switcher**, **Calendar**, **Range Calendar**, and others. Use the **Controls** panel to tweak props.
 - **Blocks/** — Pre-built layouts: **Landing Hero**, **Pricing** (cards grid), **Dashboard** (sidebar + stats), **Docs Layout** (sidebar + main), **Login**, **Signup**. Same structure and BEM as the Astro block pages at /blocks/*.
 - **Rizzo CSS** is loaded in the preview so all themes and BEM styles apply.
-- **Addons:** Docs, Controls, Accessibility (a11y), Links, Onboarding. The **Onboarding** addon may show a guide (e.g. under the app’s Settings or a welcome flow); you can complete its tasks or ignore it—all Rizzo stories and Controls work independently.
+- **Addons:** Docs, Controls, Accessibility (a11y), Links, Onboarding.
 
 ## Adding stories
 
@@ -66,6 +68,19 @@ export const Primary: Story = { args: { variant: 'primary', children: 'Primary' 
 To add more components, create a new `*.stories.tsx` file and re-run `pnpm storybook`.
 
 **MDX:** The Introduction page is `src/stories/Introduction.mdx`. In Storybook 10, MDX imports use `@storybook/addon-docs/blocks` (e.g. `import { Meta } from '@storybook/addon-docs/blocks'`).
+
+## Testing stories
+
+All stories are run in a headless browser via **@storybook/test-runner** (Jest + Playwright). Each story is loaded and must render without errors.
+
+- **`pnpm run test:storybook`** — Builds Storybook, serves it on port 6006, then runs the test runner. Requires Chromium (e.g. `pnpm exec playwright install chromium`).
+- **`pnpm run test:storybook:ci`** — Installs Chromium, then runs `test:storybook` (for CI or fresh environments).
+
+**Config:** `test-runner-jest.config.js` at the repo root re-exports `test-runner-jest.config.cjs`, which extends the test-runner Jest config: it adds `modulePathIgnorePatterns` so the monorepo `packages/` and `node_modules/` are not scanned (avoids Jest haste-map naming collisions) and sets `testTimeout: 20000`.
+
+**Preview:** The default theme in Storybook is `github-dark-classic` (set in `.storybook/preview.ts`). A11y is set to `test: 'error'`, so the test-runner fails on any color-contrast or other a11y violations; components and tokens are adjusted so all stories pass.
+
+**Output:** You may see a11y addon messages like “Found 1 a11y violations” for some stories (e.g. Button All Variants, Alert variants, Badge All Variants, Calendar With Initial Month, Dashboard Default). These are **warnings** only; the test run still **passes** (65 suites, 124 tests). To fail on a11y issues, use the test-runner config with `a11y: { test: 'error' }` or fix the reported issues and re-run.
 
 ## Configuration
 

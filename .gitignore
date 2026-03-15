@@ -1,6 +1,7 @@
 # build output
 dist/
 packages/rizzo-css/dist/
+storybook-static/
 
 # generated types
 .astro/

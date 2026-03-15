@@ -86,32 +86,34 @@ export default function DocsLayout() {
 
   return (
     <div className="docs" data-docs>
-      <div id="docs-sidebar-container">
-        <button
-          type="button"
-          className="docs__sidebar-toggle"
-          aria-label="Open documentation menu"
-          aria-expanded={false}
-          aria-controls="docs-sidebar"
-          data-docs-sidebar-toggle
-          onClick={toggleSidebar}
-        >
-          <span className="docs__sidebar-toggle-icon" aria-hidden="true">
-            <span></span><span></span><span></span>
-          </span>
-          <span className="docs__sidebar-toggle-text">Docs</span>
-        </button>
-        <div className="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true" onClick={closeSidebar} role="presentation" />
-        <DocsSidebar currentPath={currentPath} pathPrefix="/docs" nav={DOCS_NAV} />
-      </div>
-      <div className="docs__main">
-        <div className="docs__container">
-          <header className="docs__header">
-            <h1 className="docs__title">{title}</h1>
-            {description ? <p className="docs__description">{description}</p> : null}
-          </header>
-          <div className="docs__content">
-            <Outlet />
+      <div className="docs__outer">
+        <div id="docs-sidebar-container">
+          <button
+            type="button"
+            className="docs__sidebar-toggle"
+            aria-label="Open documentation menu"
+            aria-expanded={false}
+            aria-controls="docs-sidebar"
+            data-docs-sidebar-toggle
+            onClick={toggleSidebar}
+          >
+            <span className="docs__sidebar-toggle-icon" aria-hidden="true">
+              <span></span><span></span><span></span>
+            </span>
+            <span className="docs__sidebar-toggle-text">Docs</span>
+          </button>
+          <div className="docs__sidebar-overlay" data-docs-sidebar-overlay aria-hidden="true" onClick={closeSidebar} role="presentation" />
+          <DocsSidebar currentPath={currentPath} pathPrefix="/docs" nav={DOCS_NAV} />
+        </div>
+        <div className="docs__main">
+          <div className="docs__container">
+            <header className="docs__header">
+              <h1 className="docs__title">{title}</h1>
+              {description ? <p className="docs__description">{description}</p> : null}
+            </header>
+            <div className="docs__content">
+              <Outlet />
+            </div>
           </div>
         </div>
       </div>

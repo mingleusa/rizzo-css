@@ -1,7 +1,7 @@
 {
   "name": "rizzo-css",
   "type": "module",
-  "version": "0.0.86",
+  "version": "0.0.87",
   "license": "MIT",
   "scripts": {
     "dev": "astro dev --open",
@@ -33,7 +33,9 @@
     "publish:package": "cd packages/rizzo-css && npm publish",
     "prepare": "husky",
     "storybook": "pnpm build:css && storybook dev -p 6006",
-    "build-storybook": "pnpm build:css && storybook build"
+    "build-storybook": "pnpm build:css && storybook build",
+    "test:storybook": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run build-storybook --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npx test-storybook --url http://127.0.0.1:6006 --maxWorkers=2\"",
+    "test:storybook:ci": "pnpm exec playwright install chromium && pnpm run test:storybook"
   },
   "devDependencies": {
     "@astrojs/svelte": "^7.2.5",
@@ -44,6 +46,7 @@
     "@storybook/addon-links": "^10.2.13",
     "@storybook/addon-onboarding": "^10.2.13",
     "@storybook/react-vite": "^10.2.13",
+    "@storybook/test-runner": "^0.24.2",
     "@sveltejs/adapter-auto": "^7.0.0",
     "@sveltejs/kit": "^2.53.4",
     "@sveltejs/vite-plugin-svelte": "^6.2.4",
@@ -53,8 +56,10 @@
     "astro": "^5.17.1",
     "autoprefixer": "^10.4.23",
     "cssnano": "^7.1.2",
+    "concurrently": "^9.1.0",
     "culori": "^4.0.0",
     "dotenv": "^17.2.3",
+    "http-server": "^14.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^15.4.3",
     "postcss": "^8.5.6",
@@ -67,7 +72,8 @@
     "svelte": "^5.53.5",
     "svelte-check": "^4.3.6",
     "tslib": "^2.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wait-on": "^8.0.1"
   },
   "author": "mingleusa",
   "dependencies": {

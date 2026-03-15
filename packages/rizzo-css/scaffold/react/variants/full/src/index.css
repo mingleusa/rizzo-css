@@ -1,6 +1,17 @@
 /* App styles; Rizzo is loaded from /css/rizzo.min.css in index.html */
 
 /* Full template: docs layout and home page */
+.docs__outer {
+  width: 100%;
+  max-width: var(--container-default);
+  margin: 0 auto;
+  padding: 0 var(--content-padding-x);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  min-width: 0;
+}
 .docs__container {
   box-sizing: border-box;
   width: 100%;

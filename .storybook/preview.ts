@@ -4,6 +4,10 @@ import React from 'react';
 
 const preview: Preview = {
   parameters: {
+    a11y: {
+      // Fail test-runner on a11y violations so CI catches regressions
+      test: 'error',
+    },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -14,7 +18,7 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       if (typeof document !== 'undefined' && !document.documentElement.getAttribute('data-theme')) {
-        document.documentElement.setAttribute('data-theme', 'github-dark');
+        document.documentElement.setAttribute('data-theme', 'github-dark-classic');
       }
       return React.createElement(Story);
     },

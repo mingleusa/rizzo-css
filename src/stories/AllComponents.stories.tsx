@@ -10,7 +10,7 @@ const meta: Meta = {
     docs: {
       description: {
         component:
-          'Browse all 52 Rizzo components. Same BEM and CSS for Astro, Svelte, React, Vue, and Vanilla.',
+          'Browse all Rizzo React components from the registry. Same BEM and CSS for Astro, Svelte, React, Vue, and Vanilla.',
       },
     },
   },
@@ -46,7 +46,7 @@ export const Showcase: Story = {
         </select>
         <div className="card" style={{ padding: '1.5rem', minWidth: '20rem' }}>
           <h3 style={{ marginTop: 0, marginBottom: '0.5rem' }}>{slugToTitle(slug)}</h3>
-          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--muted, #666)' }}>
+          <p style={{ margin: 0, fontSize: '0.875rem', color: 'var(--text-dim)' }}>
             Same component and CSS for Astro, Svelte, React, Vue, Vanilla.
           </p>
           <div style={{ marginTop: '1rem' }}>

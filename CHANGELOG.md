@@ -6,6 +6,13 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.87] - 2026-03-12
+
+- **Version:** Bump to 0.0.87.
+- **Scaffolds:** Docs layout constrained to same width as navbar/footer: added `.docs__outer` wrapper (max-width, padding) in Svelte, Vue, and React full variant docs layouts so sidebar and content align with site container.
+- **Docs & Storybook:** Version and docs updated; Storybook (React) documents all components via All Components story and individual stories. See [docs/STORYBOOK.md](docs/STORYBOOK.md).
+- **Storybook:** Individual stories added for every React component (Alert Dialog, Aspect Ratio, Avatar, Back To Top, Breadcrumb, Button Group, Chart, Collapsible, Command, Context Menu, Copy To Clipboard, Dashboard, Direction, Docs Sidebar, Divider, Empty, Footer, Font Switcher, Hover Card, Icons, Input, Input Group, Input OTP, Kbd, Label, Menubar, Pagination, Popover, Resizable, Scroll Area, Separator, Sheet, Skeleton, Slider, Sound Effects, Switch, Table, Toast, Toggle, Toggle Group, Tooltip). `pnpm run build-storybook` passes.
+
 ## [0.0.86] - 2026-03-12
 
 - **Version:** Bump to 0.0.86.
@@ -153,7 +160,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.86...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.87...HEAD
+[0.0.87]: https://github.com/mingleusa/rizzo-css/compare/v0.0.86...v0.0.87
 [0.0.86]: https://github.com/mingleusa/rizzo-css/compare/v0.0.85...v0.0.86
 [0.0.85]: https://github.com/mingleusa/rizzo-css/compare/v0.0.84...v0.0.85
 [0.0.84]: https://github.com/mingleusa/rizzo-css/compare/v0.0.83...v0.0.84
