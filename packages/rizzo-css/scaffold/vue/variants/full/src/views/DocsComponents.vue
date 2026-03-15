@@ -1,7 +1,6 @@
 <template>
   <div>
     <section class="docs-components-intro">
-      <h1 class="docs__title">Components</h1>
       <p class="docs-components-intro__tagline">
         Browse the collection of accessible, themeable components. Same CSS and BEM for Astro, Svelte, Vue, and Vanilla.
       </p>

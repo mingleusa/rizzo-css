@@ -23,10 +23,37 @@ const routes: RouteRecordRaw[] = [
     path: '/docs',
     component: DocsLayout,
     children: [
-      { path: '', name: 'Docs', component: DocsIndex },
-      { path: 'overview', name: 'DocsOverview', component: DocsOverview },
-      { path: 'getting-started', name: 'DocsGettingStarted', component: DocsGettingStarted },
-      { path: 'components', name: 'DocsComponents', component: DocsComponents },
+      {
+        path: '',
+        name: 'Docs',
+        component: DocsIndex,
+        meta: {
+          title: 'Docs overview',
+          description:
+            'Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 53 accessible BEM components — for Vanilla JS, Astro, Svelte, React, and Vue.',
+        },
+      },
+      {
+        path: 'overview',
+        name: 'DocsOverview',
+        component: DocsOverview,
+        meta: { title: 'Overview', description: 'Introduction to Rizzo CSS and the design system' },
+      },
+      {
+        path: 'getting-started',
+        name: 'DocsGettingStarted',
+        component: DocsGettingStarted,
+        meta: {
+          title: 'Getting Started',
+          description: 'Installation, project structure, and quick start guide',
+        },
+      },
+      {
+        path: 'components',
+        name: 'DocsComponents',
+        component: DocsComponents,
+        meta: { title: 'Components', description: 'Browse all components by category' },
+      },
     ],
   },
   { path: '/themes', name: 'Themes', component: Themes },

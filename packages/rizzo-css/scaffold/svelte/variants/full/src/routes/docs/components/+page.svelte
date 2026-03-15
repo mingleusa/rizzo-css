@@ -6,12 +6,7 @@
   const DOCS_BASE = 'https://rizzo-css.vercel.app';
 </script>
 
-<svelte:head>
-  <title>Components — Rizzo CSS</title>
-</svelte:head>
-
 <section class="docs-components-intro">
-  <h1 class="docs__title">Components</h1>
   <p class="docs-components-intro__tagline">
     Browse the collection of accessible, themeable components. Same CSS and BEM for Astro, Svelte, and Vanilla.
   </p>

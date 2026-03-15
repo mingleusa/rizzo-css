@@ -1,11 +1,6 @@
 <script lang="ts">
 </script>
 
-<svelte:head>
-  <title>Getting started — Rizzo CSS</title>
-</svelte:head>
-
-<h1 class="docs__title">Getting started</h1>
 <p>This project was created with the <strong>Full</strong> template. You have the home page, docs overview, components index, blocks, and themes.</p>
 
 <h2 id="installation">Installation</h2>

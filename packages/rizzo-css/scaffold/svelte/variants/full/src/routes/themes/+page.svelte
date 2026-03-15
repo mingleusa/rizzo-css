@@ -154,13 +154,6 @@
     margin-right: auto;
     line-height: var(--line-height-relaxed);
   }
-  .themes-page__subtitle code {
-    background: var(--background-alt);
-    color: var(--accent-fg);
-    padding: var(--spacing-0-125) var(--spacing-0-375);
-    border-radius: var(--radius);
-    font-size: var(--font-size-sm);
-  }
   .themes-page__hero-demo {
     margin-top: var(--spacing-6);
     text-align: left;

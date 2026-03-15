@@ -9,7 +9,6 @@ export default function DocsComponents() {
   return (
     <div>
       <section className="docs-components-intro">
-        <h1 className="docs__title">Components</h1>
         <p className="docs-components-intro__tagline">
           Browse the collection of accessible, themeable components. Same CSS and BEM for Astro, Svelte, React, and Vanilla.
         </p>

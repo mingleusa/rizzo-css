@@ -1,8 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import DocsSidebar from '@/components/rizzo/DocsSidebar';
 import BackToTop from '@/components/rizzo/BackToTop';
 import { DOCS_NAV } from '@/config/docsNav';
+
+const DOCS_PAGE_META: Record<string, { title: string; description: string }> = {
+  '/docs': {
+    title: 'Docs overview',
+    description:
+      'Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 53 accessible BEM components — for Vanilla JS, Astro, Svelte, React, and Vue.',
+  },
+  '/docs/overview': {
+    title: 'Overview',
+    description: 'Introduction to Rizzo CSS and the design system',
+  },
+  '/docs/getting-started': {
+    title: 'Getting Started',
+    description: 'Installation, project structure, and quick start guide',
+  },
+  '/docs/components': {
+    title: 'Components',
+    description: 'Browse all components by category',
+  },
+};
 
 function openSidebar() {
   const docs = document.querySelector('[data-docs]');
@@ -31,6 +51,10 @@ function toggleSidebar() {
 export default function DocsLayout() {
   const location = useLocation();
   const currentPath = location.pathname;
+  const { title, description } = useMemo(() => {
+    const meta = DOCS_PAGE_META[currentPath.replace(/\/$/, '') || '/docs'];
+    return meta ?? { title: 'Docs', description: '' };
+  }, [currentPath]);
 
   useEffect(() => {
     const w = typeof window !== 'undefined' ? window.innerWidth : 1025;
@@ -82,6 +106,10 @@ export default function DocsLayout() {
       </div>
       <div className="docs__main">
         <div className="docs__container">
+          <header className="docs__header">
+            <h1 className="docs__title">{title}</h1>
+            {description ? <p className="docs__description">{description}</p> : null}
+          </header>
           <div className="docs__content">
             <Outlet />
           </div>

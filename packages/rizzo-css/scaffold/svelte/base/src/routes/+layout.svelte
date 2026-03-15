@@ -14,6 +14,15 @@
 
 <Navbar siteName="Site" {menuLinks} />
 <slot />
-<Footer siteName="Site" links={[{ href: 'https://github.com', label: 'GitHub' }, { href: 'https://linkedin.com', label: 'LinkedIn' }]} />
+<Footer
+  siteName="Site"
+  links={[
+    { href: '/#about', label: 'About' },
+    { href: '/#contact', label: 'Contact' },
+    { href: '/docs', label: 'Docs' },
+    { href: 'https://github.com', label: 'GitHub' },
+    { href: 'https://twitter.com', label: 'Twitter' },
+  ]}
+/>
 <BackToTop />
 <Settings />

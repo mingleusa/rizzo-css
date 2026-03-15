@@ -6,6 +6,11 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
+## [0.0.86] - 2026-03-12
+
+- **Version:** Bump to 0.0.86.
+- **Scaffolds:** Footer placeholder content added across Svelte, Vue, React, landing, minimal, and vanilla scaffolds; Vue Footer component aligned with Svelte/React (siteName, year, links). Svelte themes page: removed unused CSS selector `.themes-page__subtitle code`.
+
 ## [0.0.85] - 2026-03-13
 
 - **Version:** Bump to 0.0.85.
@@ -148,7 +153,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.85...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.86...HEAD
+[0.0.86]: https://github.com/mingleusa/rizzo-css/compare/v0.0.85...v0.0.86
 [0.0.85]: https://github.com/mingleusa/rizzo-css/compare/v0.0.84...v0.0.85
 [0.0.84]: https://github.com/mingleusa/rizzo-css/compare/v0.0.83...v0.0.84
 [0.0.83]: https://github.com/mingleusa/rizzo-css/compare/v0.0.82...v0.0.83

@@ -1,6 +1,5 @@
 <template>
   <section class="docs-overview">
-    <h1 class="docs__title">Docs overview</h1>
     <p class="docs-overview__intro">
       Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 58 accessible BEM components — for <strong>Vanilla JS</strong>, <strong>Astro</strong>, <strong>Svelte</strong>, <strong>React</strong>, and <strong>Vue</strong>.
     </p>

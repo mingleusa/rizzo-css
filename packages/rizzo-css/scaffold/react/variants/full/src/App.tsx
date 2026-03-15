@@ -33,7 +33,17 @@ export default function App() {
           <Route path="/themes" element={<Themes />} />
         </Routes>
       </main>
-      <Footer />
+      <Footer
+        siteName="Rizzo CSS"
+        links={[
+          { href: '/docs/getting-started', label: 'Getting Started' },
+          { href: '/docs', label: 'Docs' },
+          { href: '/docs/components', label: 'Components' },
+          { href: '/blocks', label: 'Blocks' },
+          { href: '/themes', label: 'Themes' },
+          { href: 'https://github.com', label: 'GitHub' },
+        ]}
+      />
       <BackToTop />
       <Settings />
     </>

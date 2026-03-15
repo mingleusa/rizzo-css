@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 export default function DocsIndex() {
   return (
     <section className="docs-overview">
-      <h1 className="docs__title">Docs overview</h1>
       <p className="docs-overview__intro">
         Rizzo CSS is a design system built on semantic theming and 14 themes. One CSS codebase, 58 accessible BEM components — for <strong>Vanilla JS</strong>, <strong>Astro</strong>, <strong>Svelte</strong>, <strong>React</strong>, and <strong>Vue</strong>.
       </p>
