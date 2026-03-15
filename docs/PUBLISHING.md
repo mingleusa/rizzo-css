@@ -78,3 +78,25 @@ Only what’s listed in `packages/rizzo-css/package.json` under `"files"`:
 Consumers get the CSS, the CLI, and the scaffold templates; they do not get the full repo (docs site, dev dependencies, or source beyond the scaffold). The package declares `"engines": { "node": ">=18" }` so npm warns on older Node; the CLI and scripts require Node 18+.
 
 **Package managers:** The package can be installed with **npm**, **pnpm**, **yarn**, or **bun**. The CLI detects the project’s manager (lockfiles or `package.json` `packageManager`) and prints the correct install/run commands. The docs site [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) shows tabs for each manager (npx, pnpm dlx, npx for yarn, bunx).
+
+## Troubleshooting
+
+### "Press Enter" or credential verification stuck
+
+If `npm login` or `npm publish` hangs at "Press ENTER to open the browser" or similar, the terminal may not be handling interactive input (common in Cursor's integrated terminal or some CI environments).
+
+**Options:**
+
+1. **Use a system terminal** — Run `npm login` and/or `pnpm publish:package` in a normal terminal (e.g. Terminal.app, Windows Terminal, GNOME Terminal), then press Enter when prompted. After logging in once, you can usually publish from Cursor again.
+
+2. **Use an auth token (no interactive prompts)** — On [npmjs.com](https://www.npmjs.com): Account → **Access Tokens** → **Generate New Token** (classic or granular). Copy the token, then add to `~/.npmrc` (or project `.npmrc`):
+   ```ini
+   //registry.npmjs.org/:_authToken=npm_xxxxxxxx
+   ```
+   After that, `npm publish` and `npm whoami` use the token and won't ask for Enter or browser login.
+
+3. **2FA / OTP** — If you use two-factor auth, avoid the interactive OTP prompt by passing the code on the command line:
+   ```bash
+   npm publish --otp=123456
+   ```
+   Or from repo root: `cd packages/rizzo-css && npm publish --otp=123456` (or use `pnpm publish:package` and set the OTP in an env var if your workflow supports it).
