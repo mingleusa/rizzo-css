@@ -3,7 +3,7 @@ RIZZO CSS — OFFICIAL AI INTERFACE SPECIFICATION
 Version: 3.0
 Status: Canonical AI Contract
 Type: Framework-Agnostic CSS Design System
-Package version: 0.0.84
+Package version: 0.0.85
 ================================================================
 
 

@@ -737,6 +737,9 @@ function hasFullVariant(framework) {
   return getVariantDir(framework, 'full') !== null;
 }
 
+/** Components imported by Svelte full variant routes (themes, layout, docs, blocks). Ensures these are always copied so Vite dep-scan does not fail. */
+const SVELTE_FULL_VARIANT_REQUIRED = ['ThemeIcon', 'ThemeSwitcher', 'Card', 'CopyToClipboard', 'Navbar', 'Footer', 'Settings', 'BackToTop', 'DocsSidebar'];
+
 /** Copy variant overlay onto project (after base). Applies replacements. Overwrites matching paths. */
 function copyVariantOverlay(projectDir, framework, variation, replacements) {
   const variantDir = getVariantDir(framework, variation);
@@ -2759,7 +2762,8 @@ async function cmdInit(argv) {
     const fullDir = getVariantDir('svelte', 'full');
     copyDirRecursiveWithReplacements(fullDir, projectDir, replacements);
     copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
-    copySvelteComponents(projectDir, componentsToCopy);
+    const svelteFullComponents = [...new Set([...componentsToCopy, ...SVELTE_FULL_VARIANT_REQUIRED])];
+    copySvelteComponents(projectDir, expandWithDeps('svelte', svelteFullComponents));
     cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
     if (existsSync(cssTarget) && statSync(cssTarget).size < 5000) {
       console.warn('\nWarning: rizzo.min.css is very small. From repo root run: pnpm build:css');

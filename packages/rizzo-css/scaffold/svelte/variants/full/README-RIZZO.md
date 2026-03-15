@@ -56,4 +56,8 @@ SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you 
 - `pnpm build` — Build for production
 - `pnpm preview` — Preview production build
 
+## Troubleshooting
+
+If the dev server shows **Failed to run dependency scan** or an error about a missing file under `src/lib/rizzo/` (e.g. `ThemeIcon.svelte`), the CLI may have omitted a required component. Upgrade to the latest **rizzo-css** and re-scaffold, or run `npx rizzo-css add` and add the missing component (e.g. ThemeIcon) into an existing project. The Full template requires ThemeIcon, ThemeSwitcher, Card, CopyToClipboard, Navbar, Footer, Settings, BackToTop, and DocsSidebar.
+
 Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)

@@ -135,3 +135,4 @@ When you add or pick components, the CLI automatically includes everything each 
 - [x] **doctor:** Checks config, CSS path, layout link; validates theme (config + layout `data-theme`); fonts and sfx paths; small-CSS warning; rizzo-css version hint when in node_modules.
 - [x] **Config:** `theme` key supported; unknown keys preserved on write.
 - [x] **Docs:** GETTING_STARTED, this doc (CLI.md); help shows options and `help components` (with copy paths per framework).
+- [x] **Full template scaffolds:** Vue, React, and Svelte full variants export `COMPONENT_CATEGORIES` from `src/config/componentCategories.ts` so `docsNav` resolves and Vite dependency scan succeeds. Svelte full always receives required components (ThemeIcon, ThemeSwitcher, etc.) so dep-scan does not fail. See scaffold README-RIZZO.md (e.g. Svelte full Troubleshooting) if you hit dependency-scan errors on an older CLI version.

@@ -21,7 +21,7 @@ function slugToTitle(slug: string): string {
     .join(' ');
 }
 
-const CATEGORIES: { id: string; label: string; slugs: string[] }[] = [
+export const COMPONENT_CATEGORIES: { id: string; label: string; slugs: string[] }[] = [
   { id: 'layout', label: 'Layout', slugs: ['navbar', 'docs-sidebar', 'dashboard', 'resizable', 'footer'] },
   { id: 'forms', label: 'Forms & inputs', slugs: ['button', 'button-group', 'forms', 'switch', 'slider', 'toggle', 'toggle-group', 'divider', 'separator', 'label', 'kbd'] },
   { id: 'data', label: 'Data display', slugs: ['cards', 'table', 'badge', 'pagination', 'aspect-ratio', 'empty', 'scroll-area', 'alert', 'skeleton', 'spinner', 'progress-bar', 'toast'] },
@@ -31,7 +31,7 @@ const CATEGORIES: { id: string; label: string; slugs: string[] }[] = [
 
 export function getComponentsByCategory(): CategoryWithItems[] {
   const pathPrefix = '/docs/components';
-  return CATEGORIES.map((cat) => ({
+  return COMPONENT_CATEGORIES.map((cat) => ({
     id: cat.id,
     label: cat.label,
     items: cat.slugs.map((slug) => ({
