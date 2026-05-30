@@ -4,6 +4,8 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
+- **Dependencies:** Project-wide dependency hardening. `pnpm audit` reduced from **59 vulnerabilities (18 high / 37 moderate / 4 low)** to **2 (1 moderate / 1 low)** — both are astro 5.x advisories patched only in astro 6.x and don't affect static-site usage. Bumped all in-range minor/patch updates (Storybook 10.4.1, SvelteKit 2.61, Svelte 5.56, Astro 5.18.2, postcss, stylelint, dotenv, react, vue, etc.). Added `pnpm.overrides` for `axios` (≥1.16.0), `qs` (≥6.13.0), `uuid` (≥11.1.1), and tightened `devalue` floor to `>=5.6.4`. Removed unused root deps: `fs` (Node built-in), `path` (Node built-in), `postcss-js` (not imported). Stylelint 17 config: removed deprecated `ignoreMediaFeatureNames` option. Bumped React/Vue scaffold base packages to React 19 / Vue 3.5.29 / Vite 7 / TypeScript 5.9 (matching full variants). Major bumps (astro 6, typescript 6, cssnano 8, lint-staged 17, etc.) tracked in [docs/UPGRADE.md – Dependency upgrade roadmap](docs/UPGRADE.md#dependency-upgrade-roadmap).
+
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
 ## [0.0.87] - 2026-03-12

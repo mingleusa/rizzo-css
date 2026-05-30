@@ -163,8 +163,7 @@ button:disabled,
 }
 
 /* Screen reader-only class for announcements */
-.sr-only[aria-live],
-[aria-live].sr-only {
+.sr-only[aria-live] {
   position: absolute;
   left: calc(-1 * var(--spacing-2500));
   width: var(--spacing-0-125);

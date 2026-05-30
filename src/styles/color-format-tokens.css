@@ -10,7 +10,7 @@
   --secondary-color--oklch: oklch(25% 0 0deg);
   --secondary-color--hex: #222;
   --secondary-color--rgb: rgb(34 34 34);
-  --secondary-color--hsl: hsl(300deg 0% 13.24%);
+  --secondary-color--hsl: hsl(0deg 0% 13.24%);
   --background--oklch: oklch(100% 0 0deg);
   --background--hex: #fff;
   --background--rgb: rgb(255 255 255);
@@ -22,7 +22,7 @@
   --text--oklch: oklch(25% 0 0deg);
   --text--hex: #222;
   --text--rgb: rgb(34 34 34);
-  --text--hsl: hsl(300deg 0% 13.24%);
+  --text--hsl: hsl(0deg 0% 13.24%);
   --text-dim--oklch: oklch(50% 0 0deg);
   --text-dim--hex: #646464;
   --text-dim--rgb: rgb(100 100 100);
@@ -30,7 +30,7 @@
   --icon--oklch: oklch(25% 0 0deg);
   --icon--hex: #222;
   --icon--rgb: rgb(34 34 34);
-  --icon--hsl: hsl(300deg 0% 13.24%);
+  --icon--hsl: hsl(0deg 0% 13.24%);
   --icon-dim--oklch: oklch(50% 0 0deg);
   --icon-dim--hex: #646464;
   --icon-dim--rgb: rgb(100 100 100);
