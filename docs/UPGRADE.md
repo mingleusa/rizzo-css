@@ -31,7 +31,7 @@ Rizzo's published artifact (CSS + scaffolds) does not depend on its dev toolchai
 
 ### Current state
 
-- **Audit:** `pnpm audit` reports **1 high** (`braces`) and **1 moderate** (`sprintf-js`). Both have **no patched release** and are reachable only through the dev-only Jest chain of `@storybook/test-runner`; neither ships in the published package. The `braces` advisory is ignored by ID via `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml` so the CI audit (`--audit-level=high`) stays meaningful for new advisories. Re-check after each `@storybook/test-runner` release and remove the ignore once a fix ships.
+- **Audit:** `pnpm audit` reports **1 high** (`braces`) and **1 moderate** (`sprintf-js`). Both have **no patched release** and are reachable only through dev tooling (stylelint, and the Jest chain of `@storybook/test-runner`); neither ships in the published package. The `braces` advisory is ignored by ID via `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml` so the CI audit (`--audit-level=high`) stays meaningful for new advisories. Re-check after each `@storybook/test-runner` release and remove the ignore once a fix ships.
 - **Overrides** (in `pnpm-workspace.yaml` `overrides`; pnpm 12 no longer reads `package.json` `pnpm.overrides`): force secure floors for `rollup`, `ajv`, `devalue`, `svgo`, `flatted`, `axios`, `qs`, and `uuid`.
 - **Scaffolds:** Astro ^7, SvelteKit ^3, Vite ^8 and TypeScript ^6 (React/Vue/Svelte). Every framework x template combination is verified to install and build before release.
 
