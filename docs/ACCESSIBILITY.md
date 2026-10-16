@@ -35,6 +35,17 @@ Components include proper ARIA attributes:
 - `aria-haspopup` - Indicates elements with popup menus
 - `role` - Semantic roles (menu, menuitem, dialog, etc.)
 
+### Label in Name (WCAG 2.5.3)
+
+When a control has visible text, its accessible name must **contain that text** (axe rule `label-content-name-mismatch`, added in axe 4.14). Voice-control users activate controls by saying what they see, so `aria-label="Home"` on a link that reads "Acme" cannot be targeted by speech. Patterns used in Rizzo:
+
+- **Prefer no `aria-label`.** If the control has visible text, let the name come from its content and mark decorative icons `aria-hidden="true"` (the block brand links work this way).
+- **Add context with a visually hidden prefix**, not an `aria-label` that replaces the text. The theme switcher trigger renders `<span class="sr-only">Select theme: </span>` before the visible theme name, so its name is "Select theme: GitHub Dark Classic".
+- **If you must set `aria-label`, include the visible text.** `CopyToClipboard` builds `Copy <value> to clipboard`, and appends `: <visible text>` when a custom `label` does not already contain it.
+- Short transient states (such as "Copied!" for two seconds) are announced through the `aria-live` region.
+
+The Storybook test-runner (`pnpm test:storybook`) applies this rule to every React story; see [TESTING](./TESTING.md#5-storybook-optional).
+
 ### Focus (details)
 
 - **Indicators** — `--accent` or `--accent-fg` for links and outlines.

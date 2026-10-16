@@ -1,6 +1,6 @@
 # Testing (a11y, browser, component pages)
 
-This doc summarizes how **accessibility**, **browser**, and **component-page** testing work in Rizzo CSS. All automated tests use **Playwright**; there are no separate unit or component test runners (e.g. Vitest/Jest). Component coverage is achieved by testing every **component doc page** (Astro, Vanilla, Svelte, React, Vue) with axe, plus keyboard/ARIA checks on interactive components.
+This doc summarizes how **accessibility**, **browser**, and **component-page** testing work in Rizzo CSS. Site tests use **Playwright**. The React components additionally run through the **Storybook test-runner** (`pnpm test:storybook`), which applies axe to every story. There are no separate unit-test runners. Component coverage is achieved by testing every **component doc page** (Astro, Vanilla, Svelte, React, Vue) with axe, plus keyboard/ARIA checks on interactive components.
 
 ## Quick reference
 
@@ -11,7 +11,8 @@ This doc summarizes how **accessibility**, **browser**, and **component-page** t
 | **A11y (CI)** | `pnpm test:a11y:ci` | Installs Chromium then runs a11y (for CI). |
 | **A11y (cross-browser)** | `pnpm test:a11y:ci:cross-browser` | Chromium, Firefox, WebKit (same as CI). |
 | **Smoke** | `pnpm test:smoke` | Build + key routes (home, docs, blocks, themes, React/Vue doc index). Pre-push hook runs this. |
-| **Visual regression** | `pnpm test:visual` | Screenshot key routes; compare to baselines. Update baselines: `pnpm test:visual:update`. |
+| **Visual regression** | `pnpm test:visual` | Screenshot key routes; compare to baselines. Baselines are generated on the CI runner (see [Visual regression](#visual-regression-baselines)); `pnpm test:visual:update` refreshes them locally. |
+| **Storybook** | `pnpm test:storybook` | Builds Storybook and runs every React story with axe (65 suites / 124 tests). Not part of CI. |
 | **Theme contrast** | `pnpm check:contrast` | WCAG AA contrast for all 14 themes. |
 | **Bundle size** | `pnpm check:size` | Fail if package CSS exceeds budget (450 kB). |
 
@@ -74,7 +75,17 @@ There are **no** framework-level unit tests (e.g. Vitest for React/Vue). “Comp
 Quick checks that key routes return 200 and main content is visible: homepage, docs getting-started, docs components overview, blocks index, blocks landing-hero, blocks login, blocks signup, one component page (button), themes index. Run with `pnpm test:smoke`. Pre-push hook runs build + smoke. To run against a deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke`.
 
 **Visual regression** — `tests/visual.spec.mjs`  
-Screenshot tests for layout/theme consistency on key routes (homepage, docs getting-started, docs components, component button page, blocks landing-hero, themes index). First run creates baselines; subsequent runs compare. Update baselines after intentional UI changes: `pnpm test:visual:update`. Uses fixed viewport (1280×720), reduced motion, and locked theme for deterministic screenshots. A small tolerance (`maxDiffPixelRatio: 0.02`) is used so minor font/subpixel differences between CI (Linux) and local machines do not fail the build. **CI:** The [a11y workflow](.github/workflows/a11y.yml) runs the visual project after build; commit the snapshot baselines (from `pnpm test:visual:update`) so CI can compare.
+Screenshot tests for layout/theme consistency on key routes (homepage, docs getting-started, docs components, component button page, blocks landing-hero, themes index). They use a fixed viewport (1280×720), reduced motion and a locked theme. A tolerance of `maxDiffPixelRatio: 0.02` absorbs small font/subpixel differences.
+
+<a id="visual-regression-baselines"></a>
+**Baselines** live in `tests/visual.spec.mjs-snapshots/` and are named `*-linux.png`. Font rendering differs between machines, and the tolerance can hide a real change (a page can drift for weeks while staying under 2% locally), so **treat the CI runner as the source of truth**:
+
+1. The `visual` job runs on a pinned `ubuntu-24.04` runner (not `ubuntu-latest`, which moves to Ubuntu 26 and would shift fonts).
+2. After an intentional UI change, regenerate on CI: GitHub → **Actions → Accessibility (a11y) → Run workflow** and tick **`update_snapshots`**. The run rewrites every baseline (`--update-snapshots=all`) and uploads them as the `visual-snapshots` artifact.
+3. Download the artifact (`gh run download <run-id> -n visual-snapshots`), look at the images, copy them into `tests/visual.spec.mjs-snapshots/`, and commit.
+4. When the `visual` job fails, it uploads expected/actual/diff images as the `visual-results` artifact so you can see exactly what changed.
+
+`pnpm test:visual:update` still works for a quick local refresh, but note that Playwright only rewrites snapshots that fail the comparison, so changes within the tolerance are not picked up. Use `pnpm exec playwright test --project=visual --update-snapshots=all` locally if you really want every file rewritten.
 
 ---
 
@@ -87,7 +98,25 @@ Screenshot tests for layout/theme consistency on key routes (homepage, docs gett
 
 ## 5. Storybook (optional)
 
-Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in this repo). Run `pnpm storybook` for an interactive playground. It does **not** replace a11y tests; use it for visual and interaction exploration. See [STORYBOOK.md](./STORYBOOK.md).
+Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in this repo). Run `pnpm storybook` for an interactive playground, or `pnpm test:storybook` to build it and run every story through the test-runner, which loads each story in Chromium and applies **axe** via `@storybook/addon-a11y` (65 suites, 124 tests). It does **not** replace the site a11y tests, and it is not part of CI, so run it before releases and after changing React components. See [STORYBOOK.md](./STORYBOOK.md).
+
+---
+
+## 6. Continuous integration
+
+[`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs on every push and pull request to `main`:
+
+| Job | What it does |
+|-----|--------------|
+| `build` | Install, **dependency audit** (`pnpm audit --audit-level=high`), `pnpm build`, CSS size budget, upload `dist/` |
+| `a11y-browser` | axe + keyboard + ARIA on Chromium and Firefox (two shards each) and WebKit (keyboard/ARIA only) |
+| `visual` | Screenshot regression on a pinned `ubuntu-24.04` runner; uploads diff artifacts on failure |
+
+Notes:
+
+- **Node 24** runs every job. Astro 7 needs Node ≥ 22.12 and cssnano 9 needs ≥ 22.22.3 (or ≥ 24.15), so older runners cannot build the site.
+- **Audit gate:** the audit only ignores advisories listed in `pnpm-workspace.yaml` (`auditConfig.ignoreGhsas`), each with a comment saying why. Today that is the unpatched dev-only `braces` advisory. Any new advisory fails the job. See [UPGRADE.md](./UPGRADE.md#dependency-upgrade-roadmap).
+- **Manual run:** the workflow has a `workflow_dispatch` trigger with an `update_snapshots` input (see [Visual regression](#visual-regression-baselines)).
 
 ---
 
@@ -101,7 +130,8 @@ Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in thi
 | **Browser** | Playwright projects (Chrome, Firefox, WebKit, Edge, mobile) | `playwright.config.mjs` |
 | **Component pages** | Covered by axe (all 58 × 5 frameworks) + keyboard/ARIA (subset) | Same a11y specs |
 | **Smoke** | Key routes load and show content | `tests/smoke.spec.mjs` |
-| **Visual** | Screenshot key routes vs baselines | `tests/visual.spec.mjs` |
+| **Visual** | Screenshot key routes vs baselines (CI-generated) | `tests/visual.spec.mjs` |
+| **Storybook** | Every React story with axe | `pnpm test:storybook` |
 | **Contrast** | Theme colors WCAG AA | `pnpm check:contrast` |
 | **Size** | Package CSS budget | `pnpm check:size` |
 

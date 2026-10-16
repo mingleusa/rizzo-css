@@ -4,6 +4,11 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
+- **Accessibility (WCAG 2.5.3 Label in Name):** Fixed axe `label-content-name-mismatch` findings in Astro, Svelte and React: the theme switcher and themes-page dropdown triggers now use a visually hidden "Select theme: " prefix instead of a replacing `aria-label`; `CopyToClipboard` names always include the visible text; Login/Sign up block brand links no longer override their text with `aria-label="Home"`. Storybook test-runner is back to 124/124. See [ACCESSIBILITY](docs/ACCESSIBILITY.md#label-in-name-wcag-253).
+- **Security:** Removed `sprintf-js` (unpatched advisory) from the tree via an `argparse` override; the remaining dev-only `braces` advisory (no patch exists) is ignored by ID in `pnpm-workspace.yaml`.
+- **CI:** Jobs run on Node 24 (Astro 7 / cssnano 9 need Node >= 22.12 / 22.22.3). The visual job is pinned to `ubuntu-24.04` and uploads diff images on failure; a manual `update_snapshots` run regenerates baselines on the runner. Visual baselines refreshed from CI.
+- **Package:** `files` now excludes `node_modules`, `dist`, `.astro` and `.svelte-kit` folders under `scaffold/`, so build leftovers no longer ship (0.0.88 still includes them).
+- **README and docs:** README reorganized (quick start, framework support, generated tech stack); tech badges and the stack table are now generated from installed versions by `pnpm readme:tech`, and the npm/license/CI badges are live. Docs refreshed: TESTING (CI, visual baselines, Storybook), PUBLISHING (release checklist), MAINTAINING (dependencies and security), CONTRIBUTING, STORYBOOK, a docs index "Start here". Corrected overstated Vue claims: Vue docs have live demos for all 58 components, but only 15 of 57 importable Vue component files are complete (tracked in [TODO](docs/TODO.md#vue-importable-components)). Removed stale hard-coded component counts from Getting Started.
 - (Next: see [docs/TODO.md](docs/TODO.md).)
 
 ## [0.0.88] - 2026-10-15

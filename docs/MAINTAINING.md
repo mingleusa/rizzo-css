@@ -47,4 +47,12 @@ Example `.github/CODEOWNERS`:
 
 ## Releasing
 
-See [PUBLISHING.md](./PUBLISHING.md) for version bump, build, and publish steps.
+See [PUBLISHING.md](./PUBLISHING.md) for the full release checklist: version bump, tarball inspection, scaffold smoke tests, publish (with 2FA), and CDN verification.
+
+## Dependencies and security
+
+- **Overrides and audit config** live in `pnpm-workspace.yaml` (pnpm 12 ignores the `pnpm` field in `package.json`): `overrides` pin secure floors for transitive packages, and `auditConfig.ignoreGhsas` lists advisories we knowingly accept, each with a comment. CI fails on any other `high` advisory.
+- **Upgrading:** update in small groups, then run `pnpm build`, `pnpm test:a11y`, `pnpm test:storybook` and `pnpm check:svelte`, and generate and build each scaffold (see the release checklist). Scaffold `package.json` files should track the versions we have actually built them with.
+- **Node:** the repo needs Node 22.22.3+ (or 24.15+); CI uses Node 24. Check a dependency's `engines` before bumping, because a newer Node API (such as `Set.prototype.difference`) can pass locally and crash on an older CI runner.
+- **README badges and tech stack** are generated: run `pnpm readme:tech` after dependency changes.
+- Roadmap and advisory status: [UPGRADE.md](./UPGRADE.md#dependency-upgrade-roadmap).

@@ -174,7 +174,7 @@ For **Astro**, fonts and sounds go under **`public/assets/`** (e.g. `public/asse
 | **Astro**    | Same | Init → Astro → template, or `add` in existing project. [Docs](/docs/components). |
 | **Svelte**   | Same | Init → Svelte → template, or `add` in existing project. [Docs](/docs/svelte). |
 | **React** | Same: install and import CSS | [/docs/react](/docs/react): all 58 components with full implementations, live demos, and code blocks; copy from `src/components/react/`. |
-| **Vue** | Same: install and import CSS | [/docs/vue](/docs/vue): all 58 components with full implementations, live demos, and Vue/SFC code blocks; copy from `src/components/vue/`. |
+| **Vue** | Same: install and import CSS | [/docs/vue](/docs/vue): all 58 components with live demos and Vue/SFC code blocks. Importable files installed by the CLI are complete for 15 components (forms, Button, Card, Badge, Footer, ...); the rest are thin BEM wrappers, so copy markup/behavior from the docs page for those ([details](./COMPONENTS.md)). |
 
 ---
 

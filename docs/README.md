@@ -2,6 +2,18 @@
 
 This folder contains the **markdown documentation** for the Rizzo CSS design system. The **live docs site** is built from the Astro app in `src/` and is available at [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
 
+## Start here
+
+| I want to... | Read |
+|--------------|------|
+| Use Rizzo in a project | [GETTING_STARTED](./GETTING_STARTED.md), then [CLI](./CLI.md) and [TEMPLATES](./TEMPLATES.md) |
+| Understand the design tokens and themes | [DESIGN_SYSTEM](./DESIGN_SYSTEM.md), [THEMING](./THEMING.md), [COLORS](./COLORS.md) |
+| Build accessible UI with it | [ACCESSIBILITY](./ACCESSIBILITY.md), [BEST_PRACTICES](./BEST_PRACTICES.md), [RTL](./RTL.md) |
+| Look up a component | [COMPONENTS](./COMPONENTS.md) or the [live site](https://rizzo-css.vercel.app/docs/components) |
+| Contribute a change | [CONTRIBUTING](../CONTRIBUTING.md), [TESTING](./TESTING.md), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md) |
+| Cut a release | [PUBLISHING](./PUBLISHING.md), then [UPGRADE](./UPGRADE.md) for the dependency roadmap |
+| See what is planned or broken | [TODO](./TODO.md) (start with *Open follow-ups*) and the [CHANGELOG](../CHANGELOG.md) |
+
 ## Doc index
 
 ### Guides (getting started, design, theming)
@@ -9,7 +21,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Doc | Description |
 |-----|-------------|
 | [GETTING_STARTED.md](./GETTING_STARTED.md) | Installation, CLI, package, CDN, framework setup |
-| [UPGRADE.md](./UPGRADE.md) | Upgrading between versions; pre-1.0 checklist; what to expect at 1.0 |
+| [UPGRADE.md](./UPGRADE.md) | Upgrading between versions; pre-1.0 checklist; dependency upgrade roadmap and security-advisory status |
 | [DESIGN_SYSTEM.md](./DESIGN_SYSTEM.md) | Design system overview, variables, typography |
 | [THEMING.md](./THEMING.md) | Themes, theme switcher, building your own |
 | [COLORS.md](./COLORS.md) | Color system, OKLCH, format conversion |
@@ -22,7 +34,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 
 | Doc | Description |
 |-----|-------------|
-| [TESTING.md](./TESTING.md) | A11y, browser, and component-page testing (Playwright, axe, keyboard, ARIA, smoke) |
+| [TESTING.md](./TESTING.md) | A11y, browser, visual and Storybook testing (Playwright, axe, keyboard, ARIA, smoke), CI jobs and visual baselines |
 | [COMPONENTS.md](./COMPONENTS.md) | All components (58 in CLI; doc pages by category), usage, BEM, framework tabs |
 | [CHANGELOG](../CHANGELOG.md) | Package and design system changelog (releases, notable changes) |
 | [CLI.md](./CLI.md) | CLI commands, config, templates, options |
@@ -37,17 +49,17 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 
 | Doc | Description |
 |-----|-------------|
-| [PUBLISHING.md](./PUBLISHING.md) | Versioning, prepublish, npm publish, CDN |
+| [PUBLISHING.md](./PUBLISHING.md) | Release checklist: versioning, tarball inspection, scaffold smoke tests, npm publish (2FA), CDN verification |
 | [MAINTAINING.md](./MAINTAINING.md) | Maintenance notes and links |
 | [FRAMEWORK_STRUCTURE.md](./FRAMEWORK_STRUCTURE.md) | Repo layout: src/, scaffolds, frameworks |
 | [TEMPLATES.md](./TEMPLATES.md) | Landing, Docs, Dashboard, Full templates (init and add) |
-| [TODO.md](./TODO.md) | Current tasks, **tasks by impact** (high/medium/nice-to-have), roadmap, and **future components/blocks** to add |
-| [STORYBOOK.md](./STORYBOOK.md) | Optional Storybook for React components (`pnpm storybook`) |
+| [TODO.md](./TODO.md) | Production readiness, **open follow-ups** (known gaps), **tasks by impact**, roadmap, and future components/blocks |
+| [STORYBOOK.md](./STORYBOOK.md) | Optional Storybook for React components (`pnpm storybook`, `pnpm test:storybook`) |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Search: client-side (no setup) or Algolia for production; indexing and env setup |
 
 ### Testing
 
-**A11y, smoke, and visual regression tests** use Playwright. Before running `pnpm test:a11y` or `pnpm test:smoke` for the first time, install browsers: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset and faster local feedback. **Visual regression:** `pnpm test:visual` (compare to baselines), `pnpm test:visual:update` (update baselines); commit snapshot files so CI can compare. CI runs a11y with sharding (Chromium and Firefox in 2 shards each) and 6 workers, plus the visual job. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
+All browser tests use **Playwright**; the React components also run through the **Storybook test-runner**. Install browsers once before the first run: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). Use **`pnpm test:a11y:fast`** for a smaller route subset. **Visual regression** baselines are generated on the CI runner, not locally: regenerate them from **Actions → Accessibility (a11y) → Run workflow → `update_snapshots`** and commit the artifact. CI runs the dependency audit, build, size budget, a11y on Chromium, Firefox and WebKit, and the visual job on Node 24. See [TESTING.md](./TESTING.md), [CONTRIBUTING](../CONTRIBUTING.md#running-and-building), and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
 ## Repository structure
 
@@ -57,8 +69,8 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | **docs/** | Markdown docs (this folder) |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
 | **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla/, astro/, svelte/, react/, vue/, config/, utils/) — Astro, Svelte, React, and Vue include base/ and variants/ (e.g. **Full** template); React and Vue use Vite. |
-| **scripts/** | Build and copy: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `index-docs.js` |
-| **tests/** | Playwright a11y tests (`tests/a11y/`) and smoke tests (`tests/smoke.spec.mjs`). **First run:** install browsers with `pnpm exec playwright install chromium` (or `playwright install` for all). See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
+| **scripts/** | Build and maintenance: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `export-tokens.mjs`, `generate-color-formats.mjs`, `check-contrast.mjs`, `bundle-size.mjs`, `update-readme-tech.mjs` (README badges), `index-docs.js` |
+| **tests/** | Playwright specs: a11y (`tests/a11y/`: axe, keyboard, ARIA), smoke (`tests/smoke.spec.mjs`) and visual (`tests/visual.spec.mjs` + `-snapshots/`). **First run:** install browsers with `pnpm exec playwright install chromium`. See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
 | **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |
 | **vercel.json** | Cache and security headers for deploy. CI: [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when relevant paths change. |
 

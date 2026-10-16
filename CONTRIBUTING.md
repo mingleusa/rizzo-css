@@ -25,7 +25,10 @@ pnpm install
 | **Package (scaffolds)** | `pnpm build:package` — build CSS, run copy-scaffold + prepare-vanilla-scaffold |
 | **A11y tests** | `pnpm test:a11y` — build + Playwright (axe, keyboard, ARIA). For faster local runs use `pnpm test:a11y:fast` (subset of routes). See [docs/TESTING.md](docs/TESTING.md). |
 | **Smoke tests** | `pnpm test:smoke` — build + preview + key-route checks (home, docs, blocks, themes, React/Vue doc index). For deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke`. See [docs/TESTING.md](docs/TESTING.md). |
-| **Visual regression** | `pnpm test:visual` — screenshot key routes; compare to baselines. Update baselines after intentional UI changes: `pnpm test:visual:update`. See [docs/TESTING.md](docs/TESTING.md). |
+| **Visual regression** | `pnpm test:visual` — screenshot key routes; compare to baselines. Baselines are generated on the CI runner so they match: after an intentional UI change run **Actions → Accessibility (a11y) → Run workflow → `update_snapshots`**, download the `visual-snapshots` artifact and commit it. See [docs/TESTING.md](docs/TESTING.md#visual-regression-baselines). |
+| **Storybook tests** | `pnpm test:storybook` — every React story with axe (not in CI; run it after changing a React component). |
+| **Svelte type check** | `pnpm check:svelte` — `svelte-check` on the Svelte components (scoped `tsconfig.svelte-check.json`). |
+| **README badges/stack** | `pnpm readme:tech` — regenerate the README tech badges and stack table from installed versions after dependency changes. |
 | **Git hooks (Husky)** | **pre-commit:** `lint-staged` runs stylelint --fix on staged `.css` files. **pre-push:** `pnpm build` then smoke tests. Run `pnpm install` once to enable hooks. |
 | **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
 | **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
@@ -41,7 +44,7 @@ The package CSS (`packages/rizzo-css/dist/rizzo.min.css`) must stay under the bu
 
 ## Where to add or change things
 
-- **Astro components (source of truth):** `src/components/*.astro` — used by the docs site and copied into `packages/rizzo-css/scaffold/astro/` by `scripts/copy-scaffold.js`.
+- **Astro components (source of truth):** `src/components/astro/*.astro` — used by the docs site and copied into `packages/rizzo-css/scaffold/astro/` by `scripts/copy-scaffold.js`.
 - **Svelte components:** `src/components/svelte/*.svelte` — same BEM and design system; copied into `packages/rizzo-css/scaffold/svelte/` by copy-scaffold. Export new components in `src/components/svelte/index.ts`.
 - **Vanilla:** Component HTML lives in the docs at `src/pages/docs/vanilla/components/`. The package scaffold uses `scaffold/vanilla/` (icons from copy-scaffold; component pages from `scripts/prepare-vanilla-scaffold.js`). Interactive behavior is in `packages/rizzo-css/scaffold/vanilla/js/main.js`.
 - **CSS:** `src/styles/` — variables, base, components, pages, themes. All UI colors and spacing use semantic variables (see [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)).

@@ -80,7 +80,7 @@ All stories are run in a headless browser via **@storybook/test-runner** (Jest +
 
 **Preview:** The default theme in Storybook is `github-dark-classic` (set in `.storybook/preview.ts`). A11y is set to `test: 'error'`, so the test-runner fails on any color-contrast or other a11y violations; components and tokens are adjusted so all stories pass.
 
-**Output:** You may see a11y addon messages like “Found 1 a11y violations” for some stories (e.g. Button All Variants, Alert variants, Badge All Variants, Calendar With Initial Month, Dashboard Default). These are **warnings** only; the test run still **passes** (65 suites, 124 tests). To fail on a11y issues, use the test-runner config with `a11y: { test: 'error' }` or fix the reported issues and re-run.
+**Output:** Because `a11y.test` is `'error'`, any axe violation fails the story (for example the `label-content-name-mismatch` rule, which requires a control's accessible name to contain its visible text; see [ACCESSIBILITY – Label in Name](./ACCESSIBILITY.md#label-in-name-wcag-253)). The expected result is **65 suites / 124 tests passing**. The Storybook tests are not part of CI, so run `pnpm test:storybook` after changing a React component or upgrading `@storybook/*` / `axe-core`.
 
 ## Configuration
 
