@@ -42,7 +42,8 @@
     "storybook": "pnpm build:css && storybook dev -p 6006",
     "build-storybook": "pnpm build:css && storybook build",
     "test:storybook": "concurrently -k -s first -n \"SB,TEST\" -c \"magenta,blue\" \"pnpm run build-storybook --quiet && npx http-server storybook-static --port 6006 --silent\" \"wait-on tcp:127.0.0.1:6006 && npx test-storybook --url http://127.0.0.1:6006 --maxWorkers=2\"",
-    "test:storybook:ci": "pnpm exec playwright install chromium && pnpm run test:storybook"
+    "test:storybook:ci": "pnpm exec playwright install chromium && pnpm run test:storybook",
+    "readme:tech": "node scripts/update-readme-tech.mjs"
   },
   "devDependencies": {
     "@astrojs/svelte": "^9.0.1",
