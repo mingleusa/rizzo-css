@@ -40,7 +40,7 @@ Before publishing to npm:
 5. **Bundle size** — `pnpm check:size`; the package CSS must stay under the 450 kB budget ([CONTRIBUTING – Bundle size](../CONTRIBUTING.md#bundle-size)).
 6. **Dependency audit** — `pnpm audit --audit-level=high` must pass. Advisories we knowingly accept are listed (with the reason) under `auditConfig.ignoreGhsas` in `pnpm-workspace.yaml`; see [UPGRADE.md](./UPGRADE.md#dependency-upgrade-roadmap).
 7. **Inspect the tarball** — `cd packages/rizzo-css && npm pack --dry-run`. Expect roughly 700 files / 3.8 MB and **no** `node_modules/`, `.svelte-kit/`, `.astro/` or build `dist/` folders inside `scaffold/` (the `files` list excludes them with negated patterns; if one appears, delete the folder and fix the pattern). Only the top-level `dist/` (CSS, fonts, sounds) belongs in the package.
-8. **Smoke-test the scaffolds** — Generated projects must build for every framework. For each of `astro svelte react vue` and the templates you changed (always `css-only` and `full`):
+8. **Smoke-test the scaffolds** — Generated projects must build for every framework. `pnpm test:vue-scaffold` already covers Vue end to end (it also runs in CI); do the rest by hand. For each of `astro svelte react vue` and the templates you changed (always `css-only` and `full`):
 
    ```bash
    node packages/rizzo-css/bin/rizzo-css.js init --yes --path /tmp/t/$fw-$tpl --framework $fw --template $tpl --package-manager pnpm --no-install --no-git

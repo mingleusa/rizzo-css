@@ -57,7 +57,7 @@ A modern CSS design system with semantic theming and **58 accessible components*
 - 🎨 **14 built-in themes**: 7 dark and 7 light, with semantic variables and an OS-following **System** option
 - ♿ **Accessibility first**: WCAG AA contrast, full keyboard navigation, screen reader support, and automated axe, keyboard and ARIA tests across Chromium, Firefox and WebKit
 - 🎯 **Semantic theming**: components read semantic CSS variables, so they adapt to any theme automatically
-- 📦 **58 components + 6 blocks**: each documented with a live demo and copy-paste code for Astro, Vanilla, Svelte, Vue and React. Importable components are complete for Astro, Svelte and React; Vue is partial (see [Framework support](#framework-support))
+- 📦 **58 components + 6 blocks**: each documented with a live demo and copy-paste code for Astro, Vanilla, Svelte, Vue and React. Importable components exist for all five (see [Framework support](#framework-support))
 - 🔀 **Five frameworks, one stylesheet**: the same CSS and BEM classes for Vanilla JS, Astro, Svelte, React and Vue
 - 🧰 **CLI**: scaffold a new project or add Rizzo to an existing one, in any of the five frameworks
 - 🌈 **OKLCH colors**: perceptually uniform color space for themes and tokens
@@ -93,9 +93,9 @@ Landing, Docs and Dashboard then offer a component picker (everything, or choose
 | **Astro** | All 58 | All | Astro |
 | **Svelte** | All 58 | All (Svelte 5) | SvelteKit 3 |
 | **React** | All 58 | All (TSX) | Vite |
-| **Vue** | All 58 | **15 complete** (Badge, Button, Card, Checkbox, Divider, DocsSidebar, Footer, FormGroup, Input, Label, Radio, Select, Spinner, Textarea, ThemeIcon); the other 42 are thin BEM wrappers with no behavior yet | Vite |
+| **Vue** | All 58 | All (Vue 3, `<script setup>`) | Vite |
 
-The Vue gap is tracked in [docs/TODO.md](./docs/TODO.md#vue-importable-components). For Vue components that are still wrappers, copy the markup and behavior from the Vue docs page.
+Vue's importable components are tested end to end: `pnpm test:vue-scaffold` generates a project with the real CLI, type-checks and builds it, and exercises every interactive component in a browser (see [TESTING](./docs/TESTING.md#7-vue-scaffold-end-to-end)).
 
 Non-interactive:
 

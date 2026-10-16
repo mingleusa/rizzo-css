@@ -27,6 +27,7 @@ pnpm install
 | **Smoke tests** | `pnpm test:smoke` — build + preview + key-route checks (home, docs, blocks, themes, React/Vue doc index). For deployed site: `BASE_URL=https://your-domain.com pnpm test:smoke`. See [docs/TESTING.md](docs/TESTING.md). |
 | **Visual regression** | `pnpm test:visual` — screenshot key routes; compare to baselines. Baselines are generated on the CI runner so they match: after an intentional UI change run **Actions → Accessibility (a11y) → Run workflow → `update_snapshots`**, download the `visual-snapshots` artifact and commit it. See [docs/TESTING.md](docs/TESTING.md#visual-regression-baselines). |
 | **Storybook tests** | `pnpm test:storybook` — every React story with axe (not in CI; run it after changing a React component). |
+| **Vue scaffold test** | `pnpm test:vue-scaffold` — generate a Vue project with the CLI, build it, and test every Vue component in a browser (run `pnpm build:css` first; runs in CI). |
 | **Svelte type check** | `pnpm check:svelte` — `svelte-check` on the Svelte components (scoped `tsconfig.svelte-check.json`). |
 | **README badges/stack** | `pnpm readme:tech` — regenerate the README tech badges and stack table from installed versions after dependency changes. |
 | **Git hooks (Husky)** | **pre-commit:** `lint-staged` runs stylelint --fix on staged `.css` files. **pre-push:** `pnpm build` then smoke tests. Run `pnpm install` once to enable hooks. |

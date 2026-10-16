@@ -13,6 +13,7 @@ This doc summarizes how **accessibility**, **browser**, and **component-page** t
 | **Smoke** | `pnpm test:smoke` | Build + key routes (home, docs, blocks, themes, React/Vue doc index). Pre-push hook runs this. |
 | **Visual regression** | `pnpm test:visual` | Screenshot key routes; compare to baselines. Baselines are generated on the CI runner (see [Visual regression](#visual-regression-baselines)); `pnpm test:visual:update` refreshes them locally. |
 | **Storybook** | `pnpm test:storybook` | Builds Storybook and runs every React story with axe (65 suites / 124 tests). Not part of CI. |
+| **Vue scaffold** | `pnpm test:vue-scaffold` | Generates a Vue project with the real CLI, type-checks/builds it, and exercises every Vue component in a browser (behavior + axe). Needs `pnpm build:css` once. Runs in CI. |
 | **Theme contrast** | `pnpm check:contrast` | WCAG AA contrast for all 14 themes. |
 | **Bundle size** | `pnpm check:size` | Fail if package CSS exceeds budget (450 kB). |
 
@@ -110,6 +111,7 @@ Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in thi
 |-----|--------------|
 | `build` | Install, **dependency audit** (`pnpm audit --audit-level=high`), `pnpm build`, CSS size budget, upload `dist/` |
 | `a11y-browser` | axe + keyboard + ARIA on Chromium and Firefox (two shards each) and WebKit (keyboard/ARIA only) |
+| `vue-scaffold` | Generates a Vue project with the CLI, builds it, and runs the Vue component behavior + axe suite (see [section 7](#7-vue-scaffold-end-to-end)) |
 | `visual` | Screenshot regression on a pinned `ubuntu-24.04` runner; uploads diff artifacts on failure |
 
 Notes:
@@ -117,6 +119,20 @@ Notes:
 - **Node 24** runs every job. Astro 7 needs Node ≥ 22.12 and cssnano 9 needs ≥ 22.22.3 (or ≥ 24.15), so older runners cannot build the site.
 - **Audit gate:** the audit only ignores advisories listed in `pnpm-workspace.yaml` (`auditConfig.ignoreGhsas`), each with a comment saying why. Today that is the unpatched dev-only `braces` advisory. Any new advisory fails the job. See [UPGRADE.md](./UPGRADE.md#dependency-upgrade-roadmap).
 - **Manual run:** the workflow has a `workflow_dispatch` trigger with an `update_snapshots` input (see [Visual regression](#visual-regression-baselines)).
+
+---
+
+## 7. Vue scaffold (end to end)
+
+The importable Vue components live in `packages/rizzo-css/scaffold/vue/` and are installed into user projects by the CLI, so the test exercises them the way a user gets them: `pnpm test:vue-scaffold` (`scripts/test-vue-scaffold.mjs`)
+
+1. generates a Vue project with the real CLI (Full template, all components),
+2. installs it, then runs `vue-tsc -b && vite build` (strict type-check of every component),
+3. mounts `tests/vue-scaffold/Demo.vue` (every component) and runs `tests/vue-scaffold/behavior.mjs` against the Vite **dev** server (so Vue runtime warnings surface): modal/sheet/dialog open, Escape and focus restore, focus traps, tabs and accordion keyboard navigation, dropdown and submenu selection, `v-model` on switch/slider/toggle, alert/toast dismissal, table sort/filter, copy to clipboard, theme and font switching with persistence, Search (`Ctrl+K`), Settings (opened from the Navbar's own button), mobile Navbar, resizable panes, and an axe scan (no critical or serious violations). The run fails on any Vue warning or page error.
+
+Run `pnpm build:css` first (the CLI copies the built stylesheet into the project); set `KEEP=1` to keep the generated project for debugging. When you add or change a Vue component, add it to `tests/vue-scaffold/Demo.vue` and a check to `behavior.mjs`.
+
+Two Vue pitfalls this suite has caught: an absent Boolean prop is cast to `false` rather than `undefined` (give it `default: undefined` if you need to tell them apart), and `focus()` is a no-op on elements that are still `visibility: hidden` during a CSS transition (retry for a few frames).
 
 ---
 
