@@ -183,7 +183,7 @@ A modern CSS design system with semantic theming and 58 accessible components. *
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js 22.22.3+ (or 24.15+); required by Astro 7 and cssnano 9
 - pnpm (recommended) or npm
 
 ### Installation (this repo)

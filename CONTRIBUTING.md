@@ -6,7 +6,7 @@ Thanks for your interest in contributing. This doc covers how to run the project
 
 ## Development setup
 
-- **Node:** 18+
+- **Node:** 22.22.3+ (or 24.15+); required by Astro 7 and cssnano 9
 - **Package manager:** pnpm (recommended), npm, yarn, or bun
 
 ```bash
