@@ -8,6 +8,12 @@ allowBuilds:
   sharp: true
   unrs-resolver: false
 
+# braces (GHSA-vfj7-8cjw-p6xm): no patched release; reachable only via the dev-only Jest chain of
+# @storybook/test-runner. Remove once a fix ships (see docs/UPGRADE.md). CI runs `pnpm audit --audit-level=high`.
+auditConfig:
+  ignoreGhsas:
+    - GHSA-vfj7-8cjw-p6xm
+
 overrides:
   rollup: ^4.59.0
   ajv: ^8.18.0
