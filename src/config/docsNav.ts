@@ -37,7 +37,6 @@ export const DOCS_NAV: DocsNavGroup[] = [
         href: 'overview',
         label: 'Overview',
         sections: [
-          { id: 'overview', label: 'Overview' },
           { id: 'installation', label: 'Installation' },
           { id: 'components', label: 'Components' },
           { id: 'blocks', label: 'Blocks' },

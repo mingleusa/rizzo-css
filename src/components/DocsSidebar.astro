@@ -47,7 +47,7 @@ function isActive(link: DocsNavLink): boolean {
                 >
                   {link.label}
                 </a>
-                {sections.length > 0 && (
+                {sections.length > 0 && active && (
                   <ul class="docs-sidebar__sublist" aria-label={`Sections in ${link.label}`}>
                     {sections.map((section) => (
                       <li class="docs-sidebar__subitem">
