@@ -5,7 +5,7 @@ How to upgrade between versions of Rizzo CSS and what to expect as we move towar
 ## Upgrading within 0.0.x
 
 - **Patch (0.0.x → 0.0.y):** Update the version in your `package.json` (or CDN pin). We do not introduce breaking changes in patch releases; you get fixes, docs updates, and non-breaking improvements.
-- **npm / pnpm / yarn:** `pnpm update rizzo-css` (or `npm update rizzo-css` / `yarn up rizzo-css`) to move to the latest patch. To jump to a specific version: `pnpm add rizzo-css@0.0.88`.
+- **npm / pnpm / yarn:** `pnpm update rizzo-css` (or `npm update rizzo-css` / `yarn up rizzo-css`) to move to the latest patch. To jump to a specific version: `pnpm add rizzo-css@<version>`.
 - **CDN:** Change the version in the URL (e.g. `unpkg.com/rizzo-css@<version>/dist/rizzo.min.css`). See [GETTING_STARTED.md](./GETTING_STARTED.md).
 - **Scaffolds:** If you used the CLI to scaffold, re-run `npx rizzo-css add` with the new version to pull updated snippets; the CLI does not overwrite your existing files by default (see RIZZO-SETUP.md for any new snippets).
 - **Breaking changes:** We avoid them in 0.0.x. If we ever need one, it will be announced in [CHANGELOG.md](../CHANGELOG.md) with migration steps.
@@ -27,7 +27,7 @@ See [MAINTAINING.md – Stability and versioning](./MAINTAINING.md#stability-and
 
 ## Dependency upgrade roadmap
 
-Rizzo's published artifact (CSS + scaffolds) does not depend on its dev toolchain, but we keep the toolchain on **current, secure** versions. As of 0.0.88 the repo is on Astro 7, SvelteKit 3, Vite 8 (scaffolds), TypeScript 6, Storybook 10.6 and cssnano 9.
+Rizzo's published artifact (CSS + scaffolds) does not depend on its dev toolchain, but we keep the toolchain on **current, secure** versions. As of 0.0.89 the repo is on Astro 7, SvelteKit 3, Vite 8 (scaffolds), TypeScript 6, Storybook 10.6 and cssnano 9.
 
 ### Current state
 

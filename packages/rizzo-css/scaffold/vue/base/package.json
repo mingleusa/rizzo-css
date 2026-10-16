@@ -13,7 +13,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
-    "rizzo-css": "^0.0.88",
+    "rizzo-css": "^0.0.89",
     "@types/node": "^22.0.0",
     "typescript": "^6.0.3",
     "vite": "^8.3.4",
