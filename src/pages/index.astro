@@ -10,7 +10,7 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 		<div class="home__container">
 			<a href="/docs/getting-started" class="home__announcement" aria-label="What's new in Rizzo CSS">
 				<span class="home__announcement-label">New</span>
-				<span class="home__announcement-text">Blocks, Dashboard layout, Docs layout, and all components — get started in the docs.</span>
+				<span class="home__announcement-text">Blocks, dashboard and docs layouts, and 58 components.</span>
 				<span class="home__announcement-arrow" aria-hidden="true">→</span>
 			</a>
 			<header class="home__hero">
@@ -19,6 +19,19 @@ import CliCommandTabs from '../components/CliCommandTabs.astro';
 				<div class="home__hero-ctas">
 					<a href="/docs/getting-started" class="btn btn-primary home__hero-cta">Get Started</a>
 					<a href="/docs/components" class="btn btn-outline home__hero-cta">View Components</a>
+				</div>
+				<div class="home__hero-demo" aria-label="Live component sample">
+					<div class="home__hero-demo-row">
+						<span class="badge badge--primary">Accessible</span>
+						<span class="badge badge--success">Themeable</span>
+						<span class="badge badge--info">14 themes</span>
+					</div>
+					<div class="alert alert--success" role="status">Components are live: the same markup works in every framework.</div>
+					<div class="home__hero-demo-row">
+						<button type="button" class="btn btn-primary btn--sm">Primary</button>
+						<button type="button" class="btn btn-outline btn--sm">Outline</button>
+						<button type="button" class="btn btn-ghost btn--sm">Ghost</button>
+					</div>
 				</div>
 				<div class="home__examples-row" aria-label="Example sections">
 					<a href="/blocks/dashboard-01" class="home__example-pill">Dashboard</a>
