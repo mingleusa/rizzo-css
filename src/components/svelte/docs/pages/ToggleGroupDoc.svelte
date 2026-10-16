@@ -19,7 +19,7 @@
   </div>
   <CodeBlock code={`<script>
   import { ToggleGroup, Toggle } from '$lib/rizzo';
-</script>
+<\/script>
 
 <ToggleGroup type="single">
   <Toggle ariaLabel="Left">Left</Toggle>

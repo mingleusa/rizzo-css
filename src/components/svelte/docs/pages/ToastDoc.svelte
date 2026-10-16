@@ -113,7 +113,7 @@ removeAllToasts();`}
     saveData();
     showToast('Saved!', { variant: 'success' });
   }
-</script>
+<\/script>
 
 <!-- Static toast -->
 <Toast variant="success" dismissible autoDismiss={5000} position="top-right">

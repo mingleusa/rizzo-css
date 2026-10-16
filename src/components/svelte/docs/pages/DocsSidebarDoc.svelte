@@ -28,7 +28,7 @@
   <CodeBlock
     code={`<script>
   import { DocsSidebar } from '$lib/rizzo';
-</script>
+<\/script>
 
 <div class="docs-layout">
   <DocsSidebar currentPath={$page.url.pathname} pathPrefix="/docs/svelte" />

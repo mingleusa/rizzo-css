@@ -16,7 +16,7 @@
   </div>
   <CodeBlock code={`<script>
   import { AspectRatio } from '$lib/rizzo';
-</script>
+<\/script>
 
 <AspectRatio ratio={16/9}>
   <img src="/hero.jpg" alt="Hero" />

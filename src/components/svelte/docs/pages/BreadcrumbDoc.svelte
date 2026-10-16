@@ -35,7 +35,7 @@
   <CodeBlock
     code={`<script>
   import { Breadcrumb } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Breadcrumb
   items={[

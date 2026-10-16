@@ -19,7 +19,7 @@
   </div>
   <CodeBlock code={`<script>
   import { ButtonGroup, Button } from '$lib/rizzo';
-</script>
+<\/script>
 
 <ButtonGroup>
   <Button>One</Button>

@@ -4,8 +4,8 @@
   import AddComponentTabs from '../AddComponentTabs.svelte';
 
   const basicItems = [
-    { label: 'Edit', value: 'edit', onClick: (v) => console.log('Action:', v) },
-    { label: 'Delete', value: 'delete', onClick: (v) => console.log('Action:', v) },
+    { label: 'Edit', value: 'edit', onClick: (v: string) => console.log('Action:', v) },
+    { label: 'Delete', value: 'delete', onClick: (v: string) => console.log('Action:', v) },
     { separator: true },
     { label: 'Settings', href: '/settings' },
   ];
@@ -29,16 +29,16 @@
     {
       label: 'Edit',
       submenu: [
-        { label: 'Cut', value: 'cut', onClick: (v) => console.log('Submenu:', v) },
-        { label: 'Copy', value: 'copy', onClick: (v) => console.log('Submenu:', v) },
-        { label: 'Paste', value: 'paste', onClick: (v) => console.log('Submenu:', v) },
+        { label: 'Cut', value: 'cut', onClick: (v: string) => console.log('Submenu:', v) },
+        { label: 'Copy', value: 'copy', onClick: (v: string) => console.log('Submenu:', v) },
+        { label: 'Paste', value: 'paste', onClick: (v: string) => console.log('Submenu:', v) },
         { separator: true },
         {
           label: 'Advanced',
           submenu: [
-            { label: 'Find & Replace', value: 'find-replace', onClick: (v) => console.log('Submenu:', v) },
-            { label: 'Go to Line', value: 'go-to-line', onClick: (v) => console.log('Submenu:', v) },
-            { label: 'Format Document', value: 'format', onClick: (v) => console.log('Submenu:', v) },
+            { label: 'Find & Replace', value: 'find-replace', onClick: (v: string) => console.log('Submenu:', v) },
+            { label: 'Go to Line', value: 'go-to-line', onClick: (v: string) => console.log('Submenu:', v) },
+            { label: 'Format Document', value: 'format', onClick: (v: string) => console.log('Submenu:', v) },
           ],
         },
       ],
@@ -46,9 +46,9 @@
     {
       label: 'View',
       submenu: [
-        { label: 'Zoom In', value: 'zoom-in', onClick: (v) => console.log('Submenu:', v) },
-        { label: 'Zoom Out', value: 'zoom-out', onClick: (v) => console.log('Submenu:', v) },
-        { label: 'Reset Zoom', value: 'reset-zoom', onClick: (v) => console.log('Submenu:', v) },
+        { label: 'Zoom In', value: 'zoom-in', onClick: (v: string) => console.log('Submenu:', v) },
+        { label: 'Zoom Out', value: 'zoom-out', onClick: (v: string) => console.log('Submenu:', v) },
+        { label: 'Reset Zoom', value: 'reset-zoom', onClick: (v: string) => console.log('Submenu:', v) },
       ],
     },
     { separator: true },
@@ -111,12 +111,12 @@
   <CodeBlock
     code={`<script>
   import { Dropdown } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Dropdown
   trigger="Options"
   items={[
-    { label: 'Save', onClick: (v) => save(v) },
+    { label: 'Save', onClick: (v: string) => save(v) },
     { label: 'Docs', href: '/docs' },
     { separator: true },
     { label: 'More', submenu: [{ label: 'A', value: 'a' }, { label: 'B', value: 'b' }] },

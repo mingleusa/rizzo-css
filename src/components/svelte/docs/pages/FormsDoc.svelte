@@ -43,7 +43,7 @@
   <CodeBlock
     code={`<script>
   import { FormGroup, Input } from '$lib/rizzo';
-</script>
+<\/script>
 
 <FormGroup label="Email Address" labelFor="email" required help="We'll never share your email">
   <Input id="email" type="email" name="email" placeholder="you@example.com" />
@@ -111,7 +111,7 @@
   <CodeBlock
     code={`<script>
   import { FormGroup, Input } from '$lib/rizzo';
-</script>
+<\/script>
 
 <FormGroup label="Email" labelFor="email" required>
   <Input id="email" type="email" name="email" placeholder="you@example.com" />
@@ -148,7 +148,7 @@
   <CodeBlock
     code={`<script>
   import { FormGroup, Textarea } from '$lib/rizzo';
-</script>
+<\/script>
 
 <FormGroup label="Message" labelFor="message" help="Enter your message here">
   <Textarea id="message" name="message" rows={5} placeholder="Your message..." />
@@ -184,7 +184,7 @@
   <CodeBlock
     code={`<script>
   import { FormGroup, Select } from '$lib/rizzo';
-</script>
+<\/script>
 
 <FormGroup label="Country" labelFor="country" required>
   <Select id="country" name="country">
@@ -233,7 +233,7 @@
   <CodeBlock
     code={`<script>
   import { Checkbox } from '$lib/rizzo';
-</script>
+<\/script>
 
 <label class="checkbox-label">
   <Checkbox id="newsletter" name="preferences" value="newsletter" />
@@ -291,7 +291,7 @@
     code={`<script>
   import { Radio } from '$lib/rizzo';
   let payment = $state('card');
-</script>
+<\/script>
 
 <div class="radio-group">
   <label class="radio-label">

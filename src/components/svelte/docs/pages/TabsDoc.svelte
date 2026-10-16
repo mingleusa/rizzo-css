@@ -121,7 +121,7 @@
   <CodeBlock
     code={`<script>
   import { Tabs } from '$lib/rizzo';
-</script>
+<\/script>
 
 <!-- With content on each tab -->
 <Tabs

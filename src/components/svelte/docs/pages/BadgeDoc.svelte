@@ -43,7 +43,7 @@
   <CodeBlock
     code={`<script>
   import { Badge } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Badge variant="primary">New</Badge>
 <Badge variant="success" size="sm">Active</Badge>

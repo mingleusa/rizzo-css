@@ -25,7 +25,7 @@
   <CodeBlock
     code={`<script>
   import { Pagination } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Pagination
   currentPage={page}

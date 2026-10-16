@@ -27,7 +27,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Divider } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Divider />`} language="svelte" />
 
@@ -71,7 +71,7 @@
   <CodeBlock
     code={`<script>
   import { Divider } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Divider />
 <Divider label="OR" />

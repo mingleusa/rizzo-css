@@ -18,7 +18,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Empty } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Empty title="No items yet" description="Get started by adding your first item. You can edit or remove it anytime.">
   {#snippet action()}

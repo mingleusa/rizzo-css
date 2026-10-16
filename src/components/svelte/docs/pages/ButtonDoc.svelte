@@ -37,7 +37,7 @@
   <CodeBlock
     code={`<script>
   import { Button } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Button>Click me</Button>
 <Button variant="primary">Primary</Button>

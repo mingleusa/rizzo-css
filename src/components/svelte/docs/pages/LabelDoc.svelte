@@ -17,7 +17,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Label } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Label for="label-demo-input" required>Email</Label>
 <input id="label-demo-input" type="email" placeholder="you@example.com" class="form-input" />`} language="svelte" />

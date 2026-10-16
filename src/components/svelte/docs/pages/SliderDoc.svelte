@@ -14,7 +14,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Slider } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Slider ariaLabel="Volume" min={0} max={100} value={50} />`} language="svelte" />
 

@@ -72,7 +72,7 @@
   <CodeBlock
     code={`<script>
   import { Avatar } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Avatar name="Jane Doe" />
 <Avatar name="Alice" />

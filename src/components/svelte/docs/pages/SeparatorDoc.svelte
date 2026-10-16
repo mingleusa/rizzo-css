@@ -16,7 +16,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Separator } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Separator />
 <Separator orientation="vertical" />`} language="svelte" />

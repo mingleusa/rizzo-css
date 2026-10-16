@@ -14,7 +14,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Kbd } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Kbd>Ctrl</Kbd>+<Kbd>K</Kbd>`} language="svelte" />
 

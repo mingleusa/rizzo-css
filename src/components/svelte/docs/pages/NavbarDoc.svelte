@@ -72,7 +72,7 @@
     { href: '/#projects', label: 'Projects' },
     { href: '/#contact', label: 'Contact' },
   ];
-</script>
+<\/script>
 
 <Navbar siteName="Your Site" {menuLinks} />`}
     language="svelte"

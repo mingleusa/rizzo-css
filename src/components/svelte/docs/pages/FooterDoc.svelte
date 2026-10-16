@@ -33,7 +33,7 @@
   <CodeBlock
     code={`<script>
   import { Footer } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Footer siteName="My Site" />
 

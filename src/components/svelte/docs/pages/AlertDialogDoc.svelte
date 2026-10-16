@@ -21,7 +21,7 @@
   </div>
   <CodeBlock code={`<script>
   import { AlertDialog } from '$lib/rizzo';
-</script>
+<\/script>
 
 <AlertDialog id="my-alert" title="Delete item?" description="This action cannot be undone.">
   {#snippet actions()}

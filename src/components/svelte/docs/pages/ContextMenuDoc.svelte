@@ -22,7 +22,7 @@
   </div>
   <CodeBlock code={`<script>
   import { ContextMenu } from '$lib/rizzo';
-</script>
+<\/script>
 
 <ContextMenu>
   {#snippet trigger()} Right click here {/snippet}

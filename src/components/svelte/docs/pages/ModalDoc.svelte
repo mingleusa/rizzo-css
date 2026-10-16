@@ -46,7 +46,7 @@
     code={`<script>
   import { Modal, Button } from '$lib/rizzo';
   let open = $state(false);
-</script>
+<\/script>
 
 <Button onclick={() => (open = true)}>Open</Button>
 <Modal bind:open title="Title" closeOnOverlayClick closeOnEscape>

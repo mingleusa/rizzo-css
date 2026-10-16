@@ -25,7 +25,7 @@
   <CodeBlock
     code={`<script>
   import { Spinner } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Spinner />
 <Spinner size="lg" variant="success" label="Loading…" />`}

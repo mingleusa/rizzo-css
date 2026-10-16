@@ -19,7 +19,7 @@
   <CodeBlock
     code={`<script>
   import { RangeCalendar } from '$lib/rizzo';
-</script>
+<\/script>
 
 <RangeCalendar label="Choose date range" />`}
     language="svelte"

@@ -20,7 +20,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Menubar } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Menubar
   items={[

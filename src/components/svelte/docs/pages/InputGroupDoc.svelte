@@ -24,7 +24,7 @@
   </div>
   <CodeBlock code={`<script>
   import { InputGroup } from '$lib/rizzo';
-</script>
+<\/script>
 
 <InputGroup placeholder="0.00">
   {#snippet prefix()}\${/snippet}

@@ -39,7 +39,7 @@
   <h3>Usage</h3>
   <CodeBlock code={`<script>
   import { ResizablePaneGroup, ResizablePane, ResizableHandle } from '$lib/rizzo';
-</script>
+<\/script>
 
 <ResizablePaneGroup direction="horizontal">
   <ResizablePane defaultSize={50}>One</ResizablePane>

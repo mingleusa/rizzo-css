@@ -34,7 +34,7 @@
   <CodeBlock
     code={`<script>
   import { Carousel } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Carousel label="Example slides" showIndicators={true}>
   {#snippet children()}

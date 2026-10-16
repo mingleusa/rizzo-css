@@ -41,7 +41,7 @@
   <CodeBlock
     code={`<script>
   import { Button, Tooltip } from '$lib/rizzo';
-</script>
+<\/script>
 
 <div class="tooltip-wrapper" aria-describedby="my-tooltip">
   <Button variant="primary">Hover me</Button>

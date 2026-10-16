@@ -16,7 +16,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Direction } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Direction dir="rtl">
   <p>Right-to-left content here.</p>

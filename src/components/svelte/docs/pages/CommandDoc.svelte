@@ -18,7 +18,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Command } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Command
   triggerLabel="Open command palette (⌘K)"

@@ -18,7 +18,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Toggle } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Toggle ariaLabel="Toggle bold">Bold</Toggle>
 <Toggle pressed ariaLabel="On">On</Toggle>`} language="svelte" />

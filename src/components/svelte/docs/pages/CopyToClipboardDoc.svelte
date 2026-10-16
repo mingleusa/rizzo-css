@@ -19,7 +19,7 @@
   <CodeBlock
     code={`<script>
   import { CopyToClipboard } from '$lib/rizzo';
-</script>
+<\/script>
 
 <CopyToClipboard value="npm install foo" label="Copy" />
 <CopyToClipboard value={code} format="code" />`}

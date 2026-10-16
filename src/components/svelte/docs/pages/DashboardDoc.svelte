@@ -86,7 +86,7 @@
   <CodeBlock
     code={`<script>
   import { Dashboard } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Dashboard sidebarLabel="App navigation">
   {#snippet sidebar()}

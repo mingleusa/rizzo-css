@@ -24,7 +24,7 @@
   <CodeBlock
     code={`<script>
   import Skeleton from '$lib/rizzo';
-</script>
+<\/script>
 
 <Skeleton />
 <Skeleton variant="text" />

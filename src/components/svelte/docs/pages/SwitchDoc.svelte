@@ -23,7 +23,7 @@
   <CodeBlock
     code={`<script>
   import Switch from '$lib/rizzo';
-</script>
+<\/script>
 
 <Switch label="Enable notifications" />
 <Switch label="Checked" checked />`}

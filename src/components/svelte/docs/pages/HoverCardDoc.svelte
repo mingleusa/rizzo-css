@@ -21,7 +21,7 @@
   </div>
   <CodeBlock code={`<script>
   import { HoverCard } from '$lib/rizzo';
-</script>
+<\/script>
 
 <HoverCard>
   {#snippet trigger()} Hover me {/snippet}

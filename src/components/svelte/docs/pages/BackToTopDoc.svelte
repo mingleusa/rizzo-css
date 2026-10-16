@@ -27,7 +27,7 @@
   <CodeBlock
     code={`<script>
   import { BackToTop } from '$lib/rizzo';
-</script>
+<\/script>
 
 <BackToTop />
 

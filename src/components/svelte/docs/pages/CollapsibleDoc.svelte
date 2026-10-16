@@ -16,7 +16,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Collapsible } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Collapsible triggerLabel="Show more">
   <p>This content is shown when the collapsible is expanded. Use <strong>Accordion</strong> when you need multiple sections.</p>

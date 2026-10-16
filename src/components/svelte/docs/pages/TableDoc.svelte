@@ -97,7 +97,7 @@
   <CodeBlock
     code={`<script>
   import Table from './Table.svelte';
-</script>
+<\/script>
 
 <Table
   caption="Sample data"

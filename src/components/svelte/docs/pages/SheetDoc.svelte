@@ -19,7 +19,7 @@
   <CodeBlock code={`<script>
   import { Sheet } from '$lib/rizzo';
   let open = $state(false);
-</script>
+<\/script>
 
 <Sheet id="my-sheet" title="Title" side="right" bind:open>
   Content here.

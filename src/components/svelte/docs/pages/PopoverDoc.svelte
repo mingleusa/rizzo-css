@@ -21,7 +21,7 @@
   <CodeBlock code={`<script>
   import { Popover } from '$lib/rizzo';
   let open = $state(false);
-</script>
+<\/script>
 
 <Popover bind:open>
   {#snippet trigger()} Open popover {/snippet}

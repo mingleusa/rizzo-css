@@ -139,7 +139,7 @@
   <CodeBlock
     code={`<script>
   import { Card, Badge, Button } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Card variant="elevated">
   <div class="card__header">

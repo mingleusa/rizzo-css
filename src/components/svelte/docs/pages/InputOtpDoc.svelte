@@ -14,7 +14,7 @@
   </div>
   <CodeBlock code={`<script>
   import { InputOtp } from '$lib/rizzo';
-</script>
+<\/script>
 
 <InputOtp length={6} ariaLabel="One-time code" />`} language="svelte" />
 

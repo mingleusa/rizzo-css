@@ -6,7 +6,7 @@
 
 <section>
   <h2>Chart component</h2>
-  <p>Simple bar chart using theme variables. Pass a <code>data</code> array of <code>{ label, value }</code>.</p>
+  <p>Simple bar chart using theme variables. Pass a <code>data</code> array of <code>&#123; label, value &#125;</code>.</p>
   <AddComponentTabs componentName="Chart" />
   <div class="example">
     <div class="example-title">Live example</div>
@@ -14,7 +14,7 @@
   </div>
   <CodeBlock code={`<script>
   import { Chart } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Chart data={[{ label: 'A', value: 40 }, { label: 'B', value: 65 }, { label: 'C', value: 30 }]} />`} language="svelte" />
 

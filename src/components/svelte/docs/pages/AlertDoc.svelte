@@ -88,7 +88,7 @@
   <CodeBlock
     code={`<script>
   import { Alert } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Alert variant="success">Saved.</Alert>
 <Alert variant="error" dismissible>Something went wrong.</Alert>

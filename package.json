@@ -21,6 +21,7 @@
     "export:tokens": "node scripts/export-tokens.mjs",
     "copy-scaffold": "node scripts/copy-scaffold.js",
     "prepare:vanilla-scaffold": "node scripts/prepare-vanilla-scaffold.js",
+    "check:svelte": "svelte-check --tsconfig ./tsconfig.svelte-check.json",
     "lint:css": "stylelint \"src/**/*.css\"",
     "lint:css:fix": "stylelint \"src/**/*.css\" --fix",
     "test:a11y": "pnpm build && (unset NO_COLOR; FORCE_COLOR= playwright test --project=a11y)",

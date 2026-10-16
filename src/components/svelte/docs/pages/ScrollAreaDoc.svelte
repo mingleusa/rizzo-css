@@ -22,7 +22,7 @@
   </div>
   <CodeBlock code={`<script>
   import { ScrollArea } from '$lib/rizzo';
-</script>
+<\/script>
 
 <ScrollArea style="height: 18rem; width: 12rem;">
   <div style="padding: var(--spacing-4);">

@@ -40,7 +40,7 @@
   <CodeBlock
     code={`<script>
   import { Accordion } from '$lib/rizzo';
-</script>
+<\/script>
 
 <Accordion
   items={[
