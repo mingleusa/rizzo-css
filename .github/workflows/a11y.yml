@@ -7,6 +7,12 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
+  workflow_dispatch:
+    inputs:
+      update_snapshots:
+        description: 'Regenerate visual baselines on the CI runner and upload them as the "visual-snapshots" artifact'
+        type: boolean
+        default: false
 
 jobs:
   build:
@@ -153,9 +159,25 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Run visual regression tests
+        if: ${{ !inputs.update_snapshots }}
         env:
           CI: true
         run: pnpm exec playwright test --project=visual
+
+      # Manual run (Actions > Run workflow > update_snapshots): rewrite every baseline on this runner.
+      - name: Regenerate visual baselines
+        if: ${{ inputs.update_snapshots }}
+        env:
+          CI: true
+        run: pnpm exec playwright test --project=visual --update-snapshots=all
+
+      - name: Upload regenerated baselines
+        if: ${{ inputs.update_snapshots }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: visual-snapshots
+          path: tests/visual.spec.mjs-snapshots
+          retention-days: 7
 
       # Expected/actual/diff images, so CI-rendered baselines can be reviewed and adopted.
       - name: Upload visual diff artifacts
