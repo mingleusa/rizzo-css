@@ -18,7 +18,10 @@
   const buttonId = $derived(id ?? fallbackId);
   const displayText = $derived(iconOnly ? (buttonLabel ?? 'Copy') : value);
   const classes = $derived(['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-only' : '', className].filter(Boolean).join(' ').trim());
-  const ariaLabel = $derived(copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? (iconOnly ? (buttonLabel ?? 'Copy to clipboard') : `Copy ${value} to clipboard`)));
+  // WCAG 2.5.3 (Label in Name): the accessible name must contain the visible text.
+  const baseLabel = $derived(label ?? (iconOnly ? (buttonLabel ?? 'Copy to clipboard') : `Copy ${value} to clipboard`));
+  const idleLabel = $derived(baseLabel.toLowerCase().includes(String(displayText).toLowerCase()) ? baseLabel : `${baseLabel}: ${displayText}`);
+  const ariaLabel = $derived(copied ? (format ? `Copied ${format}!` : 'Copied!') : idleLabel);
   const tooltipText = $derived(copied ? (format ? `Copied ${format}!` : 'Copied!') : (label ?? (iconOnly ? (buttonLabel ?? 'Copy') : 'Copy to clipboard')));
 
   async function copy() {

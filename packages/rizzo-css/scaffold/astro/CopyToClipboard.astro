@@ -29,8 +29,10 @@ const {
 
 const buttonId = id || `copy-btn-${Math.random().toString(36).substr(2, 9)}`;
 const defaultTooltip = label || (iconOnly ? (buttonLabel || 'Copy') : 'Copy to clipboard');
-const ariaLabel = label || (iconOnly ? (buttonLabel || 'Copy to clipboard') : `Copy ${value} to clipboard`);
 const displayText = iconOnly ? (buttonLabel || 'Copy') : value;
+// WCAG 2.5.3 (Label in Name): the accessible name must contain the visible text.
+const baseLabel = label || (iconOnly ? (buttonLabel || 'Copy to clipboard') : `Copy ${value} to clipboard`);
+const ariaLabel = baseLabel.toLowerCase().includes(String(displayText).toLowerCase()) ? baseLabel : `${baseLabel}: ${displayText}`;
 const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-only' : '', className].filter(Boolean).join(' ').trim();
 ---
 

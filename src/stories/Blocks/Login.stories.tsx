@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 function LoginBlock() {
   return (
     <div className="login-block">
-      <a href="/" className="login-block__brand" aria-label="Home">
+      <a href="/" className="login-block__brand">
         <span className="login-block__brand-icon" aria-hidden="true">
           R
         </span>

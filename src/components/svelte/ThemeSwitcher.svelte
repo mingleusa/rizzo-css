@@ -196,10 +196,10 @@
     aria-expanded={open}
     aria-haspopup="true"
     aria-controls={menuId}
-    aria-label="Select theme"
     bind:this={triggerEl}
     onclick={() => (open = !open)}
   >
+    <span class="sr-only">Select theme: </span>
     <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
       {#if currentIconSvg}
         <span class="theme-switcher__label-icon" data-theme-label-icon>{@html currentIconSvg}</span>

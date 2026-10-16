@@ -56,9 +56,9 @@ export function ThemeSwitcher({
         aria-expanded={open}
         aria-haspopup="true"
         aria-controls={menuId}
-        aria-label="Theme"
         onClick={() => setOpen((o) => !o)}
       >
+        <span className="sr-only">Select theme: </span>
         <span className="theme-switcher__trigger-icon" aria-hidden="true">◐</span>
         <span className="theme-switcher__trigger-label">{themes.find((t) => t.value === current)?.label ?? 'Theme'}</span>
       </button>

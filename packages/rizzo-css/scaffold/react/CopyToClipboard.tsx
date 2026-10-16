@@ -35,9 +35,12 @@ export function CopyToClipboard({
     .filter(Boolean)
     .join(' ')
     .trim();
+  // WCAG 2.5.3 (Label in Name): the accessible name must contain the visible text.
+  const baseLabel = label ?? (iconOnly ? (buttonLabel ?? 'Copy to clipboard') : `Copy ${value} to clipboard`);
+  const idleLabel = baseLabel.toLowerCase().includes(String(displayText).toLowerCase()) ? baseLabel : `${baseLabel}: ${displayText}`;
   const ariaLabel = copied
     ? format ? `Copied ${format}!` : 'Copied!'
-    : label ?? (iconOnly ? (buttonLabel ?? 'Copy to clipboard') : `Copy ${value} to clipboard`);
+    : idleLabel;
   const tooltipText = copied
     ? format ? `Copied ${format}!` : 'Copied!'
     : label ?? (iconOnly ? (buttonLabel ?? 'Copy') : 'Copy to clipboard');

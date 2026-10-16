@@ -502,7 +502,7 @@ ${DOCS_LAYOUT_HTML}`,
 
 /** Login block: centered form on muted background. Same HTML/BEM for all frameworks. */
 const LOGIN_HTML = `<div class="login-block">
-  <a href="/" class="login-block__brand" aria-label="Home">
+  <a href="/" class="login-block__brand">
     <span class="login-block__brand-icon" aria-hidden="true">R</span>
     Acme
   </a>
@@ -536,7 +536,7 @@ ${LOGIN_HTML}`,
   react: `export function LoginBlock() {
   return (
     <div className="login-block">
-      <a href="/" className="login-block__brand" aria-label="Home">
+      <a href="/" className="login-block__brand">
         <span className="login-block__brand-icon" aria-hidden="true">R</span>
         Acme
       </a>
@@ -564,7 +564,7 @@ ${LOGIN_HTML}`,
 
 <template>
   <div class="login-block">
-    <a href="/" class="login-block__brand" aria-label="Home">
+    <a href="/" class="login-block__brand">
       <span class="login-block__brand-icon" aria-hidden="true">R</span>
       Acme
     </a>
@@ -591,7 +591,7 @@ ${LOGIN_HTML}`,
 
 /** Signup block: centered form on muted background. Same HTML/BEM for all frameworks. */
 const SIGNUP_HTML = `<div class="signup-block">
-  <a href="/" class="signup-block__brand" aria-label="Home">
+  <a href="/" class="signup-block__brand">
     <span class="signup-block__brand-icon" aria-hidden="true">R</span>
     Acme
   </a>
@@ -629,7 +629,7 @@ ${SIGNUP_HTML}`,
   react: `export function SignupBlock() {
   return (
     <div className="signup-block">
-      <a href="/" className="signup-block__brand" aria-label="Home">
+      <a href="/" className="signup-block__brand">
         <span className="signup-block__brand-icon" aria-hidden="true">R</span>
         Acme
       </a>
@@ -661,7 +661,7 @@ ${SIGNUP_HTML}`,
 
 <template>
   <div class="signup-block">
-    <a href="/" class="signup-block__brand" aria-label="Home">
+    <a href="/" class="signup-block__brand">
       <span class="signup-block__brand-icon" aria-hidden="true">R</span>
       Acme
     </a>

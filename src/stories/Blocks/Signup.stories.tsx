@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 function SignupBlock() {
   return (
     <div className="signup-block">
-      <a href="/" className="signup-block__brand" aria-label="Home">
+      <a href="/" className="signup-block__brand">
         <span className="signup-block__brand-icon" aria-hidden="true">
           R
         </span>

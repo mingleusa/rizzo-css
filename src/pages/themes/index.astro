@@ -109,8 +109,8 @@ const THEMES_PREVIEW_DROPDOWN_ONCLICK = 'themesPagePreviewThemeSelect';
 										aria-expanded="false"
 										aria-haspopup="true"
 										aria-controls={`${THEMES_PREVIEW_DROPDOWN_ID}-menu`}
-										aria-label="Select theme"
 									>
+										<span class="sr-only">Select theme: </span>
 										<ThemeIcon themeId={defaultTheme} size={16} class="themes-page__trigger-icon" />
 										<span class="dropdown__trigger-text">{defaultThemeLabel}</span>
 										<ChevronDown class="dropdown__icon" width={16} height={16} />

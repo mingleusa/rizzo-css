@@ -74,9 +74,9 @@
     aria-expanded={open}
     aria-haspopup="true"
     aria-controls="theme-menu"
-    aria-label="Select theme"
     onclick={() => (open = !open)}
   >
+    <span class="sr-only">Select theme: </span>
     <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
       <span class="theme-switcher__label" data-theme-label>{currentLabel}</span>
     </span>

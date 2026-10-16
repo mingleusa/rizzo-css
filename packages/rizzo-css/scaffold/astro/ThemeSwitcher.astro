@@ -84,10 +84,10 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     aria-expanded="false"
     aria-haspopup="true"
     aria-controls={menuId}
-    aria-label="Select theme"
     title="Select theme"
     id={triggerId}
   >
+    <span class="sr-only">Select theme: </span>
     <span class="theme-switcher__label-wrapper" data-theme-label-wrapper>
       <span class="theme-switcher__label" data-theme-label>{initialLabel}</span>
     </span>
