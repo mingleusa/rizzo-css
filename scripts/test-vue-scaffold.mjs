@@ -9,7 +9,7 @@
  * Set KEEP=1 to keep the generated project (its path is printed).
  */
 import { spawn, spawnSync } from 'node:child_process';
-import { cpSync, existsSync, mkdtempSync, rmSync, copyFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdtempSync, rmSync, copyFileSync, readFileSync, writeFileSync } from 'node:fs';
 import { createServer } from 'node:net';
 import { tmpdir } from 'node:os';
 import { dirname, join, resolve } from 'node:path';
@@ -65,6 +65,15 @@ if (!existsSync(join(root, 'packages', 'rizzo-css', 'dist', 'rizzo.min.css'))) {
 
 console.log('→ Generating a Vue (Full template) project with the CLI…');
 run('node', [cli, 'init', '--yes', '--path', project, '--framework', 'vue', '--template', 'full', '--package-manager', 'pnpm', '--no-install', '--no-git'], { stdio: 'ignore' });
+
+// The scaffold pins rizzo-css to the current version, which isn't on npm until the release is published.
+// Test against the local package so release-bump commits don't fail CI.
+const pkgPath = join(project, 'package.json');
+const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'));
+for (const field of ['dependencies', 'devDependencies']) {
+  if (pkg[field]?.['rizzo-css']) pkg[field]['rizzo-css'] = `link:${join(root, 'packages', 'rizzo-css')}`;
+}
+writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n');
 
 console.log('→ Installing dependencies…');
 run('pnpm', ['install', '--ignore-workspace'], { cwd: project });
