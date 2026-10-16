@@ -428,9 +428,13 @@ function copyAstro() {
       const srcFile = join(astroSrc, name + '.astro');
       if (existsSync(srcFile)) {
         let content = readFileSync(srcFile, 'utf8');
-        if (name === 'ThemeSwitcher' || name === 'ThemeIcon') {
-          content = content.replace(/'\.\.\/config\/themes'|"\.\.\/config\/themes"/g, "'./themes'");
-        }
+        // Scaffold keeps icons next to components (./icons), unlike the docs site (../icons).
+        content = content.replace(/(['"])\.\.\/icons\//g, '$1./icons/');
+        // Generated layout: components/rizzo/{X.astro,themes.ts}, components/config/fonts.ts, components/utils/theme.ts
+        content = content
+          .replace(/(['"])\.\.\/(?:\.\.\/)?config\/themes\1/g, "'./themes'")
+          .replace(/(['"])\.\.\/\.\.\/config\/fonts\1/g, "'../config/fonts'")
+          .replace(/(['"])\.\.\/\.\.\/utils\/theme\1/g, "'../utils/theme'");
         writeFileSync(destFile, content);
         count++;
       }
