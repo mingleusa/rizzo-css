@@ -44,7 +44,7 @@
   }
 
   function handleKeydown(e: KeyboardEvent, itemId: string, index: number) {
-    const triggers = e.currentTarget?.parentElement?.querySelectorAll?.('[data-accordion-trigger]') ?? [];
+    const triggers = (e.currentTarget as HTMLElement | null)?.parentElement?.querySelectorAll?.('[data-accordion-trigger]') ?? [];
     const len = triggers.length;
     let targetIndex = index;
     switch (e.key) {

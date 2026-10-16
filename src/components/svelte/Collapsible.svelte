@@ -41,7 +41,7 @@
     onclick={toggle}
   >
     <span class="collapsible__trigger-label">{triggerLabel}</span>
-    <ChevronDown class="collapsible__icon" width={16} height={16} aria-hidden="true" />
+    <ChevronDown class="collapsible__icon" width={16} height={16} />
   </button>
   <div
     class={panelClasses}

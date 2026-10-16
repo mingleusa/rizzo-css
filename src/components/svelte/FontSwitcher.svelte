@@ -13,7 +13,7 @@
   const menuId = $derived(idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu');
 
   let open = $state(false);
-  let selectedValue = $state(FONT_PAIR_DEFAULT);
+  let selectedValue = $state<string>(FONT_PAIR_DEFAULT);
   let previewOption = $state<{ sans: string; mono: string } | null>(null);
   let menuEl: HTMLElement | null = $state(null);
   let triggerEl: HTMLElement | null = $state(null);

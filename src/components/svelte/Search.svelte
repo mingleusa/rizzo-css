@@ -125,7 +125,7 @@
       <h2 id="{id}-title" class="sr-only">Search</h2>
       <div class="search__header">
         <div class="search__input-wrapper">
-          <SearchIcon width={20} height={20} class="search__input-icon" aria-hidden="true" />
+          <SearchIcon width={20} height={20} class="search__input-icon" />
           <input
             type="search"
             class="search__input"
@@ -135,7 +135,7 @@
           />
         </div>
         <button type="button" class="search__close-btn" aria-label="Close search" onclick={() => (open = false)}>
-          <Close width={20} height={20} aria-hidden="true" />
+          <Close width={20} height={20} />
         </button>
       </div>
       <div class="search__results" role="listbox" aria-label="Search results">
