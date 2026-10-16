@@ -1,11 +1,11 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { onMount } from 'svelte';
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import BackToTop from '$lib/rizzo/BackToTop.svelte';
 
   let { children }: { children: Snippet } = $props();
-  const currentPath = $derived($page.url.pathname);
+  const currentPath = $derived(page.url.pathname);
   const BLOCKS_NAV = [
     { href: '/blocks', label: 'Overview' },
     { href: '/blocks/landing-hero', label: 'Landing hero' },
@@ -27,16 +27,16 @@
     const docs = document.querySelector('[data-docs]');
     if (!toggle || !overlay || !docs) return;
 
-    function open() {
+    const open = () => {
       docs.classList.add('docs--sidebar-open');
       toggle.setAttribute('aria-expanded', 'true');
       overlay.setAttribute('aria-hidden', 'false');
-    }
-    function close() {
+    };
+    const close = () => {
       docs.classList.remove('docs--sidebar-open');
       toggle.setAttribute('aria-expanded', 'false');
       overlay.setAttribute('aria-hidden', 'true');
-    }
+    };
     toggle.addEventListener('click', () => (docs.classList.contains('docs--sidebar-open') ? close() : open()));
     overlay.addEventListener('click', close);
 

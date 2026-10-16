@@ -79,7 +79,7 @@
               >
                 {link.label}
               </a>
-              {#if sections.length > 0}
+              {#if sections.length > 0 && active}
                 <ul class="docs-sidebar__sublist" aria-label="Sections in {link.label}">
                   {#each sections as section}
                     {@const sublinkActive = activeSectionId === section.id && currentPath.replace(/\/$/, '') === href}

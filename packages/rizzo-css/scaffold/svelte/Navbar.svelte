@@ -52,14 +52,14 @@
         {#if logo}
           <img src={logo} alt="" class="navbar__logo" />
         {:else}
-          <Cat width={32} height={32} class="navbar__logo" aria-hidden="true" />
+          <Cat width={32} height={32} class="navbar__logo" />
         {/if}
         {siteName}
       </a>
     </div>
     <div class="navbar__actions-desktop">
       <Search id="search-navbar" />
-      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick={() => window.openSettings?.()}>
+      <button type="button" class="navbar__settings-btn" aria-label="Open settings" onclick={() => (window as Window & { openSettings?: () => void }).openSettings?.()}>
         <Gear width={20} height={20} class="navbar__settings-icon" />
         <span class="navbar__settings-label">Settings</span>
       </button>

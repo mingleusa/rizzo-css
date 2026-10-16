@@ -1401,6 +1401,14 @@ async function promptComponentChoice(componentList, framework, initialSelection)
   );
 }
 
+/** CSS only installs no components, but the Svelte base starter app imports them: replace its routes with component-free ones. */
+function writeSvelteCssOnlyRoutes(projectDir) {
+  const routesDir = join(projectDir, 'src', 'routes');
+  mkdirSync(routesDir, { recursive: true });
+  writeFileSync(join(routesDir, '+layout.svelte'), '<script lang="ts">\n  let { children } = $props();\n</script>\n\n{@render children()}\n', 'utf8');
+  writeFileSync(join(routesDir, '+page.svelte'), '<main class="container">\n  <h1>Rizzo CSS</h1>\n  <p>Styles are loaded from <code>/css/rizzo.min.css</code>. Use Rizzo classes in your markup.</p>\n  <button type="button" class="btn btn-primary">Primary button</button>\n</main>\n', 'utf8');
+}
+
 /** Detect framework from cwd: "svelte" | "astro" | "react" | "vue" | null. */
 function detectFramework(cwd) {
   if (existsSync(join(cwd, 'svelte.config.js')) || existsSync(join(cwd, 'svelte.config.ts'))) return 'svelte';
@@ -1410,6 +1418,7 @@ function detectFramework(cwd) {
       const pkg = readFileSync(join(cwd, 'package.json'), 'utf8');
       const json = JSON.parse(pkg);
       const deps = { ...json.dependencies, ...(json.devDependencies || {}) };
+      if (deps['@sveltejs/kit']) return 'svelte'; // SvelteKit 3 has no svelte.config.js
       if (deps['vue']) return 'vue';
       if (deps['react'] || deps['react-dom']) return 'react';
     } catch (_) { /* ignore */ }
@@ -1891,6 +1900,19 @@ function copySvelteComponents(projectDir, selectedNames, opts) {
       for (const entry of configEntries) {
         if (entry.isFile()) {
           copyFileSync(join(svelteConfigSrc, entry.name), join(projectRizzoConfigDir, entry.name));
+        }
+      }
+    }
+  }
+  if (toCopy.includes('DocsSidebar')) {
+    // DocsSidebar imports ../../config/docsNav (project-level src/config); the Full variant ships it, other templates do not.
+    const navConfigSrc = join(scaffoldDir, 'variants', 'full', 'src', 'config');
+    const navConfigDest = join(projectDir, 'src', 'config');
+    if (existsSync(navConfigSrc) && !(opts && opts.dryRun)) {
+      mkdirSync(navConfigDest, { recursive: true });
+      for (const entry of readdirSync(navConfigSrc, { withFileTypes: true })) {
+        if (entry.isFile() && !existsSync(join(navConfigDest, entry.name))) {
+          copyFileSync(join(navConfigSrc, entry.name), join(navConfigDest, entry.name));
         }
       }
     }
@@ -2830,6 +2852,7 @@ async function cmdInit(argv) {
     mkdirSync(projectDir, { recursive: true });
     const { skipped } = copyDirRecursiveWithReplacementsNoOverwrite(svelteCoreDir, projectDir, replacements, projectDir);
     copyVariantOverlay(projectDir, 'svelte', selectedVariation, replacements);
+    if (selectedVariation === 'css-only' && skipped.length === 0) writeSvelteCssOnlyRoutes(projectDir);
     copyRizzoCssAndFontsForSvelte(projectDir, cssSource);
     if (skipped.length > 0) {
       writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('svelte', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
@@ -2922,6 +2945,7 @@ async function cmdInit(argv) {
         writeFileSync(join(projectDir, RIZZO_SETUP_FILE), buildRizzoSetupMd('svelte', { linkHref: '/css/rizzo.min.css', theme, defaultDark, defaultLight, skippedFiles: skipped }), 'utf8');
       }
       cssTarget = join(projectDir, 'static', 'css', 'rizzo.min.css');
+      if (skipped.length === 0) writeSvelteCssOnlyRoutes(projectDir);
       copyPackageLicense(projectDir);
       copySvelteGitignore(projectDir);
     } else if (framework === 'react' && existsSync(reactCoreDir)) {

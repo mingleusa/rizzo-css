@@ -1,12 +1,12 @@
 <script lang="ts">
   import type { Snippet } from 'svelte';
   import { onMount } from 'svelte';
-  import { page } from '$app/stores';
+  import { page } from '$app/state';
   import DocsSidebar from '$lib/rizzo/DocsSidebar.svelte';
   import BackToTop from '$lib/rizzo/BackToTop.svelte';
 
   let { children }: { children: Snippet } = $props();
-  const currentPath = $derived($page.url.pathname);
+  const currentPath = $derived(page.url.pathname);
 
   onMount(() => {
     const w = typeof window !== 'undefined' ? window.innerWidth : 1025;
@@ -19,16 +19,16 @@
     const docs = document.querySelector('[data-docs]');
     if (!toggle || !overlay || !docs) return;
 
-    function open() {
+    const open = () => {
       docs.classList.add('docs--sidebar-open');
       toggle.setAttribute('aria-expanded', 'true');
       overlay.setAttribute('aria-hidden', 'false');
-    }
-    function close() {
+    };
+    const close = () => {
       docs.classList.remove('docs--sidebar-open');
       toggle.setAttribute('aria-expanded', 'false');
       overlay.setAttribute('aria-hidden', 'true');
-    }
+    };
     toggle.addEventListener('click', () => (docs.classList.contains('docs--sidebar-open') ? close() : open()));
     overlay.addEventListener('click', close);
 
@@ -69,9 +69,9 @@
     <div class="docs__main">
       <div class="docs__container">
         <header class="docs__header">
-          <h1 class="docs__title">{$page.data.title ?? 'Docs'}</h1>
-          {#if $page.data.description}
-            <p class="docs__description">{$page.data.description}</p>
+          <h1 class="docs__title">{page.data.title ?? 'Docs'}</h1>
+          {#if page.data.description}
+            <p class="docs__description">{page.data.description}</p>
           {/if}
         </header>
         <div class="docs__content">
@@ -84,7 +84,7 @@
 <BackToTop threshold={300} />
 
 <svelte:head>
-  <title>{$page.data.title ?? 'Docs'} — Rizzo CSS</title>
+  <title>{page.data.title ?? 'Docs'} — Rizzo CSS</title>
 </svelte:head>
 
 <style>

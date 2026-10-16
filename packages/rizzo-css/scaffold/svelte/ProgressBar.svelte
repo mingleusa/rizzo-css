@@ -37,7 +37,7 @@
       .trim()
   );
 
-  const barStyle = $derived(indeterminate ? {} : { width: `${percentage}%` });
+  const barStyle = $derived(indeterminate ? undefined : `width: ${percentage}%`);
 </script>
 
 <div
