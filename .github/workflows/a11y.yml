@@ -131,6 +131,33 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  # Generates a Vue project with the real CLI (Full template), type-checks/builds it, and exercises every
+  # importable Vue component in a browser (behavior + axe). Guards against placeholder/broken components.
+  vue-scaffold:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build the CSS the CLI copies into projects
+        run: pnpm build:css
+
+      - name: Install Playwright browser
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Test the Vue scaffold
+        run: pnpm test:vue-scaffold
+
   visual:
     needs: build
     # Pinned: screenshot baselines depend on the runner's fonts; ubuntu-latest moves to Ubuntu 26 on 2026-10-19.
