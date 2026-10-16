@@ -1,6 +1,7 @@
 <script setup lang="ts">
+import type { PropType } from 'vue';
 defineProps({
-  orientation: { type: String, default: 'horizontal' },
+  orientation: { type: String as PropType<'horizontal' | 'vertical'>, default: 'horizontal' },
   label: { type: String, default: undefined },
   class: { type: String, default: '' },
 });

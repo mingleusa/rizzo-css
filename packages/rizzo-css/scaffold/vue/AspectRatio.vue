@@ -3,7 +3,7 @@ defineProps({ class: { type: String, default: '' } });
 </script>
 
 <template>
-  <div :class="["aspect-ratio", $props.class].filter(Boolean).join(" ")">
+  <div :class="['aspect-ratio', $props.class].filter(Boolean).join(' ')">
     <slot />
   </div>
 </template>

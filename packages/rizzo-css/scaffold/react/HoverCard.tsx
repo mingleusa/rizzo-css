@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState, useRef } from 'react';
+import { useRef } from 'react';
 
 export interface HoverCardProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;

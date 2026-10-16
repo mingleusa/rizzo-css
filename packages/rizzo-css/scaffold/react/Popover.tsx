@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
 export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;

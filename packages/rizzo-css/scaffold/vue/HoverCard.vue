@@ -3,7 +3,7 @@ defineProps({ class: { type: String, default: '' } });
 </script>
 
 <template>
-  <div :class="["hover-card", $props.class].filter(Boolean).join(" ")">
+  <div :class="['hover-card', $props.class].filter(Boolean).join(' ')">
     <slot />
   </div>
 </template>

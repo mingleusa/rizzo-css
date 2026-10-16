@@ -36,7 +36,7 @@ export function Sheet({
     return () => document.removeEventListener('keydown', handleKey);
   }, [open]);
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
     onKeyDown?.(e);
     if (e.key === 'Escape') close();
   };

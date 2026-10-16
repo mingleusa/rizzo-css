@@ -13,3 +13,5 @@ export function SoundEffects() {
     </div>
   );
 }
+
+export default SoundEffects;

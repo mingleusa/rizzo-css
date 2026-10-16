@@ -1,4 +1,3 @@
-import type { ReactNode } from 'react';
 import { useState, useRef, useEffect } from 'react';
 
 export interface MenuItem {
@@ -224,7 +223,7 @@ export function Dropdown({
                         role="menuitem"
                         aria-disabled={subItem.disabled ? 'true' : undefined}
                         tabIndex={open ? 0 : -1}
-                        onClick={(e) => {
+                        onClick={() => {
                           if (!subItem.disabled) {
                             subItem.onClick?.(subItem.value ?? subItem.label);
                             closeMenu();

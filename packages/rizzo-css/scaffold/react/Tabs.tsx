@@ -8,7 +8,7 @@ export interface Tab {
   content?: string;
 }
 
-export interface TabsProps extends HTMLAttributes<HTMLDivElement> {
+export interface TabsProps extends Omit<HTMLAttributes<HTMLDivElement>, 'children'> {
   tabs: Tab[];
   id?: string;
   defaultTab?: string;

@@ -15,8 +15,9 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",
     "rizzo-css": "^0.0.87",
-    "typescript": "^5.9.0",
-    "vite": "^7.0.0",
+    "@types/node": "^22.0.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.4",
     "vue-tsc": "^3.0.0"
   }
 }
