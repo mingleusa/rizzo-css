@@ -1,6 +1,19 @@
 packages:
   - 'packages/*'
 
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  esbuild: true
+  sharp: true
+  unrs-resolver: false
+
+overrides:
+  rollup: ^4.59.0
+  ajv: ^8.18.0
+  devalue: '>=5.6.4'
+  svgo: '>=4.0.1'
+  flatted: '>=3.4.0'
+  axios: '>=1.16.0'
+  qs: '>=6.13.0'
+  uuid: '>=11.1.1'
