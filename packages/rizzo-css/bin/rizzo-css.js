@@ -2130,12 +2130,14 @@ function copyVueComponents(projectDir, selectedNames, opts) {
   const iconsSrc = join(scaffoldDir, 'icons');
   if (existsSync(iconsSrc) && (toCopy.length > 0 || copyIconsOnly)) copyDirRecursive(iconsSrc, join(targetDir, 'icons'));
   if (toCopy.includes('ThemeSwitcher') || toCopy.includes('ThemeIcon')) {
-    const themesSrc = join(scaffoldDir, 'themes.ts');
-    if (existsSync(themesSrc)) {
-      copyFileSync(themesSrc, join(targetDir, 'themes.ts'));
+    // themes.ts (ids, labels, preview colors) and theme.ts (apply/read the theme; ThemeSwitcher imports './theme')
+    for (const file of ['themes.ts', 'theme.ts']) {
+      const fileSrc = join(scaffoldDir, file);
+      if (existsSync(fileSrc)) copyFileSync(fileSrc, join(targetDir, file));
     }
   }
-  if (toCopy.includes('Settings')) {
+  if (toCopy.includes('Settings') || toCopy.includes('FontSwitcher')) {
+    // FontSwitcher imports '../config/fonts' (src/components/config/fonts.ts)
     const configDir = getScaffoldConfigDir();
     const fontsSrc = join(configDir, 'fonts.ts');
     if (existsSync(fontsSrc)) {

@@ -468,5 +468,87 @@ function copyAstro() {
   console.log('copy-scaffold: ' + vanillaCount + ' vanilla SVG icons -> packages/rizzo-css/scaffold/vanilla/icons');
 }
 
+
+const vueDest = join(scaffoldDir, 'vue');
+
+/**
+ * Convert one Svelte 5 icon (script with $props, svg markup, optional style) to a Vue SFC.
+ * Icons only need static classes: Vue merges a consumer's `class` onto the root <svg>, so no class prop is declared.
+ */
+function svelteIconToVue(svelteSource) {
+  const scriptMatch = svelteSource.match(/<script[^>]*>([\s\S]*?)<\/script>/);
+  const script = scriptMatch ? scriptMatch[1] : '';
+  const styleMatch = svelteSource.match(/<style[^>]*>[\s\S]*?<\/style>/);
+  const svg = svelteSource.slice(scriptMatch ? scriptMatch.index + scriptMatch[0].length : 0).replace(/<style[^>]*>[\s\S]*?<\/style>/, '').trim();
+
+  const defaults = script.match(/let\s*\{\s*width\s*=\s*(\d+)\s*,\s*height\s*=\s*(\d+)/);
+  const width = defaults ? defaults[1] : '16';
+  const height = defaults ? defaults[2] : '16';
+  // Keep any extra top-level statements (e.g. generated gradient ids), dropping the interface and the $props line.
+  const extra = script
+    .replace(/interface\s+Props\s*\{[\s\S]*?\}\s*/, '')
+    .replace(/let\s*\{[\s\S]*?\}\s*:\s*Props\s*=\s*\$props\(\);?/, '')
+    .split('\n')
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  let tpl = svg
+    .replace(/\s\{width\}/g, ' :width="width"')
+    .replace(/\s\{height\}/g, ' :height="height"')
+    // class={`foo ${className}`.trim()} -> class="foo"; class={className} -> removed (consumer class falls through)
+    .replace(/\sclass=\{`([^`]*)`\.trim\(\)\}/g, (_, inner) => {
+      const cls = inner.replace(/\$\{className\}/g, '').trim();
+      return cls ? ` class="${cls}"` : '';
+    })
+    .replace(/\sclass=\{className\}/g, '')
+    .replace(/\s(id)=\{(\w+)\}/g, ' :$1="$2"')
+    .replace(/\s(fill|stroke)=\{"url\(#" \+ (\w+) \+ "\)"\}/g, ' :$1="\'url(#\' + $2 + \')\'"');
+
+  const lines = [
+    '<script setup lang="ts">',
+    'withDefaults(defineProps<{ width?: number; height?: number }>(), { width: ' + width + ', height: ' + height + ' });',
+    ...extra,
+    '</script>',
+    '',
+    '<template>',
+    tpl.split('\n').map((l) => (l ? '  ' + l : l)).join('\n'),
+    '</template>',
+  ];
+  if (styleMatch) lines.push('', styleMatch[0]);
+  return lines.join('\n') + '\n';
+}
+
+function copySvelteIconsToVue(srcDir, destDir) {
+  mkdirSync(destDir, { recursive: true });
+  let count = 0;
+  for (const e of readdirSync(srcDir, { withFileTypes: true })) {
+    const from = join(srcDir, e.name);
+    if (e.isDirectory()) {
+      count += copySvelteIconsToVue(from, join(destDir, e.name));
+    } else if (e.name.endsWith('.svelte') && e.name !== 'SvelteIcon.svelte') {
+      writeFileSync(join(destDir, e.name.replace(/\.svelte$/, '.vue')), svelteIconToVue(readFileSync(from, 'utf8')));
+      count++;
+    }
+  }
+  return count;
+}
+
+/** Vue importable components are hand-written in scaffold/vue; this generates only their shared, derived files. */
+function copyVue() {
+  const configDir = resolve(rootDir, 'src', 'config');
+  const utilsDir = resolve(rootDir, 'src', 'utils');
+  mkdirSync(vueDest, { recursive: true });
+  if (existsSync(join(configDir, 'themes.ts'))) {
+    copyFileSync(join(configDir, 'themes.ts'), join(vueDest, 'themes.ts'));
+  }
+  if (existsSync(join(utilsDir, 'theme.ts'))) {
+    const themeContent = readFileSync(join(utilsDir, 'theme.ts'), 'utf8').replace(/from ['"]\.\.\/config\/themes['"]/g, "from './themes'");
+    writeFileSync(join(vueDest, 'theme.ts'), themeContent);
+  }
+  const iconCount = copySvelteIconsToVue(join(svelteSrc, 'icons'), join(vueDest, 'icons'));
+  console.log('copy-scaffold: Vue icons (' + iconCount + ') + theme helpers -> packages/rizzo-css/scaffold/vue');
+}
+
 copyAstro();
 copySvelte();
+copyVue();
