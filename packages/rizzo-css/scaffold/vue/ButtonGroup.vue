@@ -1,9 +1,9 @@
 <script setup lang="ts">
-defineProps({ class: { type: String, default: '' } });
+withDefaults(defineProps<{ orientation?: 'horizontal' | 'vertical' }>(), { orientation: 'horizontal' });
 </script>
 
 <template>
-  <div :class="['button-group', $props.class].filter(Boolean).join(' ')">
+  <div :class="['button-group', { 'button-group--vertical': orientation === 'vertical' }]" role="group">
     <slot />
   </div>
 </template>

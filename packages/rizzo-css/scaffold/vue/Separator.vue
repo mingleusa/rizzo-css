@@ -1,9 +1,7 @@
 <script setup lang="ts">
-defineProps({ class: { type: String, default: '' } });
+withDefaults(defineProps<{ orientation?: 'horizontal' | 'vertical' }>(), { orientation: 'horizontal' });
 </script>
 
 <template>
-  <div :class="['separator', $props.class].filter(Boolean).join(' ')">
-    <slot />
-  </div>
+  <div :class="['separator', `separator--${orientation}`]" role="separator" :aria-orientation="orientation"></div>
 </template>

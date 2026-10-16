@@ -1,9 +1,29 @@
 <script setup lang="ts">
-defineProps({ class: { type: String, default: '' } });
+import { computed, useId } from 'vue';
+
+const props = withDefaults(
+  defineProps<{
+    text: string;
+    position?: 'top' | 'bottom' | 'left' | 'right';
+    /** Delay before showing, in milliseconds */
+    delay?: number;
+    id?: string;
+  }>(),
+  { position: 'top', delay: 0 }
+);
+
+const generatedId = useId();
+const tooltipId = computed(() => props.id ?? `tooltip-${generatedId}`);
 </script>
 
 <template>
-  <div :class="['tooltip', $props.class].filter(Boolean).join(' ')">
-    <slot />
-  </div>
+  <span
+    :class="['tooltip', `tooltip--${position}`]"
+    role="tooltip"
+    :id="tooltipId"
+    aria-hidden="true"
+    :style="delay > 0 ? { '--tooltip-delay': `${delay}ms` } : undefined"
+  >
+    {{ text }}
+  </span>
 </template>
