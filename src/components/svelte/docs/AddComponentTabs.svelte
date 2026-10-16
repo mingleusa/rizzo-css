@@ -41,8 +41,8 @@
   });
 </script>
 
-<div class="add-component-tabs">
-  <h3 class="add-component-tabs__title">Add this component</h3>
+<details class="add-component-tabs">
+  <summary class="add-component-tabs__title">Add this component</summary>
   <p class="add-component-tabs__hint">
     {#if componentArg}The command below includes <strong>{componentName}</strong>—run it in your project directory to install this component (and the CSS if needed). No prompts.{:else}Run the command below in your project directory. When prompted, select the component(s) you want. The CLI will copy the CSS and component files.{/if}
   </p>
@@ -51,7 +51,7 @@
       <CodeBlock code={commands[activeTabId] ?? commands.npm} language="bash" />
     {/snippet}
   </Tabs>
-</div>
+</details>
 
 <style>
   .add-component-tabs {
@@ -64,7 +64,8 @@
   .add-component-tabs__title {
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
-    margin: 0 0 var(--spacing-2) 0;
+    margin: 0;
+    cursor: pointer;
   }
   .add-component-tabs__hint {
     font-size: var(--font-size-sm);

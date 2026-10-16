@@ -60,9 +60,9 @@ test.describe('ARIA and roles (tabs)', () => {
   });
 
   test('tab list and tabs have correct roles and aria-selected', async ({ page }) => {
-    const tablist = page.locator('[role="tablist"]').first();
+    const tablist = page.locator('[role="tablist"]:visible').first();
     await expect(tablist).toBeVisible();
-    const tabs = page.locator('[role="tab"]');
+    const tabs = page.locator('[role="tab"]:visible');
     await expect(tabs.first()).toHaveAttribute('aria-selected', 'true');
     await expect(tabs.first()).toHaveAttribute('aria-controls');
   });

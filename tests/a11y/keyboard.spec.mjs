@@ -78,14 +78,14 @@ test.describe('Keyboard accessibility (tabs)', () => {
 
   test('tabs: Tab reaches tab list, arrow keys change selection', async ({ page }) => {
     const main = page.getByRole('main');
-    const tablist = main.locator('[role="tablist"]').first();
+    const tablist = main.locator('[role="tablist"]:visible').first();
     await expect(tablist).toBeVisible({ timeout: 10000 });
-    const firstTab = main.locator('[role="tab"]').first();
+    const firstTab = main.locator('[role="tab"]:visible').first();
     await firstTab.focus();
     await expect(firstTab).toBeFocused();
     await page.keyboard.press('ArrowRight');
     await page.waitForTimeout(100);
-    const tabs = main.locator('[role="tab"]');
+    const tabs = main.locator('[role="tab"]:visible');
     const secondTab = tabs.nth(1);
     await expect(secondTab).toHaveAttribute('aria-selected', 'true');
   });

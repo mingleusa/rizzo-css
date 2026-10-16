@@ -91,7 +91,7 @@ test.describe('Smoke: key routes', () => {
     const res = await page.goto('/docs/components/button', { waitUntil: 'domcontentloaded' });
     expect(res?.status()).toBe(200);
     await expect(page.getByRole('heading', { name: /usage/i }).first()).toBeVisible();
-    await expect(page.locator('pre code').first()).toBeVisible();
+    await expect(page.locator('pre code:visible').first()).toBeVisible();
   });
 
   test('block page has Usage and code snippets', async ({ page }) => {
