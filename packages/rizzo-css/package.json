@@ -37,7 +37,11 @@
     "scaffold/utils",
     "scaffold/vanilla",
     "scaffold/react",
-    "scaffold/vue"
+    "scaffold/vue",
+    "!scaffold/**/node_modules",
+    "!scaffold/**/dist",
+    "!scaffold/**/.astro",
+    "!scaffold/**/.svelte-kit"
   ],
   "keywords": [
     "css",
