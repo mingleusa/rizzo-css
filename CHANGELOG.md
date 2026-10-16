@@ -4,9 +4,20 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- **Dependencies:** Project-wide dependency hardening. `pnpm audit` reduced from **59 vulnerabilities (18 high / 37 moderate / 4 low)** to **2 (1 moderate / 1 low)** — both are astro 5.x advisories patched only in astro 6.x and don't affect static-site usage. Bumped all in-range minor/patch updates (Storybook 10.4.1, SvelteKit 2.61, Svelte 5.56, Astro 5.18.2, postcss, stylelint, dotenv, react, vue, etc.). Added `pnpm.overrides` for `axios` (≥1.16.0), `qs` (≥6.13.0), `uuid` (≥11.1.1), and tightened `devalue` floor to `>=5.6.4`. Removed unused root deps: `fs` (Node built-in), `path` (Node built-in), `postcss-js` (not imported). Stylelint 17 config: removed deprecated `ignoreMediaFeatureNames` option. Bumped React/Vue scaffold base packages to React 19 / Vue 3.5.29 / Vite 7 / TypeScript 5.9 (matching full variants). Major bumps (astro 6, typescript 6, cssnano 8, lint-staged 17, etc.) tracked in [docs/UPGRADE.md – Dependency upgrade roadmap](docs/UPGRADE.md#dependency-upgrade-roadmap).
-
 - (Next: see [docs/TODO.md](docs/TODO.md).)
+
+## [0.0.88] - 2026-10-15
+
+- **Version:** Bump to 0.0.88.
+- **Dependencies:** Astro 5 → 7 (with `@astrojs/react` 7, `@astrojs/vue` 7, `@astrojs/svelte` 9), SvelteKit 3, `@sveltejs/vite-plugin-svelte` 7, cssnano 9, postcss-cli 12, postcss-import 17, dotenv 18, lint-staged 17, concurrently 10, wait-on 9, sharp 0.35, Storybook 10.6, Playwright 1.64; all other packages at latest minor/patch. TypeScript is on 6 (7 is not yet supported by svelte-check/SvelteKit). pnpm 12 ignores the `pnpm` field in `package.json`, so security overrides moved to `pnpm-workspace.yaml`.
+- **Scaffolds (all frameworks build again):**
+  - Astro: generated components imported docs-site-only paths (`../icons/`, `../../config/`, `../../utils/`) so projects failed to build; `copy-scaffold` now rewrites them. Scaffold targets Astro ^7.
+  - Svelte: SvelteKit 3 / Vite 8 / TypeScript 6 (config in `vite.config.js` via `sveltekit({ ... })`, `$lib` alias, `$app/tsconfig`, `$app/state`, `prepare` sync script). The CLI detects Svelte from `@sveltejs/kit`. The CSS-only template no longer imports components it does not install. `DocsSidebar` installs its nav config.
+  - React: removed unused imports, fixed `Sheet`/`Tabs` types, `SoundEffects` default export. Vue: fixed nested-quote `:class` bindings in 41 components, narrowed `Button`/`Divider` props, fixed `tsconfig.node.json`. Both: Vite 8, TypeScript 6.
+  - Every framework × template combination (CSS only, Landing, Docs, Dashboard, Full) was verified to install and build.
+- **Docs site UX:** Sidebar sub-links only under the active page; "Add this component" card is collapsed so the live demo comes first (and no longer prints a literal `<strong>`); homepage hero live sample and a tighter mobile announcement banner.
+- **Fixes:** Svelte `ProgressBar` rendered `style="[object Object]"`; Svelte `ChartDoc` swallowed `{ label, value }`; added `pnpm check:svelte` (scoped `svelte-check`).
+- **Tests:** Visual baselines regenerated; tab/code-block tests target visible elements.
 
 ## [0.0.87] - 2026-03-12
 
