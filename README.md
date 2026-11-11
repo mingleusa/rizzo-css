@@ -46,7 +46,7 @@
 
 A modern CSS design system with semantic theming and **58 accessible components**. **Vanilla**, **Astro**, **Svelte**, **React** and **Vue**: the same CSS and BEM naming everywhere, with docs and a CLI for all five.
 
-[Quick start](#-quick-start) • [Tech stack](#-tech-stack) • [Development](#-development) • [Documentation](#-documentation) • [Live site](https://rizzo-css.vercel.app)
+[Quick start](#-quick-start) • [Tech stack](#-tech-stack) • [Development](#-development) • [Documentation](#-documentation) • [Live site](https://rizzo-css.jordanmingle.dev)
 
 </div>
 
@@ -64,7 +64,7 @@ A modern CSS design system with semantic theming and **58 accessible components*
 - 🌍 **RTL support**: logical spacing utilities and `dir="rtl"` tested
 - 🛠️ **Utility classes**: display, position, borders, flexbox, grid, gap, animation and more
 - 📱 **Responsive**: mobile-first with shared breakpoints
-- 🎯 **Design tokens as the source of truth**: 280+ CSS variables, also exported as JSON/JS for tooling ([tokens reference](https://rizzo-css.vercel.app/docs/tokens))
+- 🎯 **Design tokens as the source of truth**: 280+ CSS variables, also exported as JSON/JS for tooling ([tokens reference](https://rizzo-css.jordanmingle.dev/docs/tokens))
 - ⚡ **Small**: one PostCSS-built stylesheet, ~305 kB minified / ~45 kB gzipped, with a 450 kB CI budget
 
 ## 🚀 Quick start
@@ -252,11 +252,11 @@ See [Theming](./docs/THEMING.md) and [Colors](./docs/COLORS.md).
 
 **Blocks:** Landing hero, Pricing, Dashboard with sidebar, Docs layout, Login, Sign up.
 
-All components use semantic variables, follow BEM, are keyboard accessible, meet WCAG AA contrast, and use no inline styles. Browse them in [COMPONENTS](./docs/COMPONENTS.md) or at [rizzo-css.vercel.app](https://rizzo-css.vercel.app/docs/components).
+All components use semantic variables, follow BEM, are keyboard accessible, meet WCAG AA contrast, and use no inline styles. Browse them in [COMPONENTS](./docs/COMPONENTS.md) or at [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev/docs/components).
 
 ## 📚 Documentation
 
-**Live site:** [rizzo-css.vercel.app](https://rizzo-css.vercel.app). The `docs/` directory has the long-form guides; the full index is [docs/README.md](./docs/README.md).
+**Live site:** [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev). The `docs/` directory has the long-form guides; the full index is [docs/README.md](./docs/README.md).
 
 | Guide | What it covers |
 |-------|----------------|

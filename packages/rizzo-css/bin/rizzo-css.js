@@ -142,9 +142,9 @@ If you don't have an HTML file yet, you can use this (from \`scaffold/landing/in
   }
   md += `## Docs
 
-- [Getting started](https://rizzo-css.vercel.app/docs/getting-started)
-- [Components](https://rizzo-css.vercel.app/docs/components)
-- [Theming](https://rizzo-css.vercel.app/docs/theming)
+- [Getting started](https://rizzo-css.jordanmingle.dev/docs/getting-started)
+- [Components](https://rizzo-css.jordanmingle.dev/docs/components)
+- [Theming](https://rizzo-css.jordanmingle.dev/docs/theming)
 `;
   return md;
 }
@@ -158,9 +158,9 @@ Full template: HTML + CSS, plus the component pages you chose (or all). Scaffold
 - If you picked components, \`components/\` has their HTML pages and \`js/main.js\` is included (open \`components/index.html\` to browse).
 - Set a theme: \`<html data-theme="github-dark-classic">\` (see \`npx rizzo-css theme\` for all themes).
 
-**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.vercel.app/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`components/\` into this project.
+**If you chose no components:** To add component JavaScript (modal, dropdown, tabs, toast, search, navbar, copy-to-clipboard, theme switcher, etc.), use the [Vanilla component docs](https://rizzo-css.jordanmingle.dev/docs/vanilla/components) or run \`npx rizzo-css init\` with Vanilla → **Full** in a temp folder and copy \`js/main.js\` and \`components/\` into this project.
 
-Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+Docs: [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)
 `;
 
 const FALLBACK_MINIMAL_README = `# Rizzo CSS (minimal)
@@ -170,7 +170,7 @@ Minimal project with Rizzo CSS. Add a proper framework (e.g. \`npm create astro@
 - This folder has a single HTML file and \`css/rizzo.min.css\`.
 - For a full app with config and tooling, use the framework's create command and \`rizzo-css add\`.
 
-Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+Docs: [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)
 `;
 
 // Dark and light themes (order matches scaffold optgroups and config/themes.ts)
@@ -1192,9 +1192,9 @@ Component dependencies (Full template):
   Full list of available components and what relies on what: npx rizzo-css help components
 
 Frameworks:
-  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 58 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.vercel.app/docs/react and Vue.
+  Scaffolds (init/add): Vanilla, Astro, Svelte, React, Vue. Same 58 components in each framework’s syntax; same CSS and BEM. Docs: https://rizzo-css.jordanmingle.dev/docs/react and Vue.
 
-Docs: https://rizzo-css.vercel.app
+Docs: https://rizzo-css.jordanmingle.dev
 `);
 }
 
@@ -1585,7 +1585,7 @@ function getLandingTemplateHtml(opts) {
 </head>
 <body>
   <h1>Hello, Rizzo CSS</h1>
-  <p>Edit this file and add components. Docs: <a href="https://rizzo-css.vercel.app">rizzo-css.vercel.app</a></p>
+  <p>Edit this file and add components. Docs: <a href="https://rizzo-css.jordanmingle.dev">rizzo-css.jordanmingle.dev</a></p>
 </body>
 </html>
 `;
@@ -2518,7 +2518,7 @@ async function runAddToExisting(frameworkOverride, options) {
     }
   }
   console.log('\n  Next: add the link above to your layout, then run your dev server.');
-  console.log('  Docs: https://rizzo-css.vercel.app\n');
+  console.log('  Docs: https://rizzo-css.jordanmingle.dev\n');
 }
 
 async function cmdInit(argv) {
@@ -3257,7 +3257,7 @@ async function cmdInit(argv) {
     console.log('\n  Next: ' + vanillaNext);
   }
   await checkNewerVersion(argv).catch(() => {});
-  console.log('\n  Docs: https://rizzo-css.vercel.app\n');
+  console.log('\n  Docs: https://rizzo-css.jordanmingle.dev\n');
 }
 
 function main() {

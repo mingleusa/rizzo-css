@@ -1,6 +1,6 @@
 # Publishing the npm package
 
-The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme` / `doctor` / `help`), and scaffolds (vanilla; astro, svelte, react, vue base + variants + components). Init: framework → existing or new; templates **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.vercel.app).
+The **rizzo-css** package (`packages/rizzo-css/`) ships built CSS, CLI (`init` / `add` / `theme` / `doctor` / `help`), and scaffolds (vanilla; astro, svelte, react, vue base + variants + components). Init: framework → existing or new; templates **CSS only** | **Landing** | **Docs** | **Dashboard** | **Full**. [npm](https://www.npmjs.com/package/rizzo-css) · [Docs](https://rizzo-css.jordanmingle.dev).
 
 ## Features
 
@@ -92,7 +92,7 @@ Generated folders under `scaffold/` (`node_modules`, `dist`, `.astro`, `.svelte-
 
 Consumers get the CSS, the CLI, and the scaffold templates; they do not get the full repo (docs site, dev dependencies, or source beyond the scaffold). The package declares `"engines": { "node": ">=18" }` so npm warns on older Node; the CLI and scripts require Node 18+.
 
-**Package managers:** The package can be installed with **npm**, **pnpm**, **yarn**, or **bun**. The CLI detects the project’s manager (lockfiles or `package.json` `packageManager`) and prints the correct install/run commands. The docs site [Getting Started](https://rizzo-css.vercel.app/docs/getting-started) shows tabs for each manager (npx, pnpm dlx, npx for yarn, bunx).
+**Package managers:** The package can be installed with **npm**, **pnpm**, **yarn**, or **bun**. The CLI detects the project’s manager (lockfiles or `package.json` `packageManager`) and prints the correct install/run commands. The docs site [Getting Started](https://rizzo-css.jordanmingle.dev/docs/getting-started) shows tabs for each manager (npx, pnpm dlx, npx for yarn, bunx).
 
 ## Troubleshooting
 

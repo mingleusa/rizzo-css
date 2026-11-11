@@ -50,4 +50,4 @@ Vite + Vue project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you
 - `pnpm preview` — Preview production build
 - `npx rizzo-css add Button` — Add Rizzo components (or `pnpm exec rizzo-css add Button` with rizzo-css in devDependencies)
 
-Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+Docs: [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)

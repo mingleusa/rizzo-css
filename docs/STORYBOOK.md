@@ -2,7 +2,7 @@
 
 Rizzo CSS includes an optional **Storybook** for the **React** components. Use it as an interactive playground and design system showcase. It supports **all React components** via the **Rizzo/All Components** story (dropdown) and the component registry; individual stories exist for Button, Badge, Card, Alert, Modal, Accordion, Tabs, Spinner, Progress Bar, Settings, Search, Navbar, Dropdown, Theme Switcher, Carousel, Calendar, Range Calendar, and Blocks.
 
-**Frameworks:** This Storybook is **React-only**. The same BEM and CSS apply to Astro, Svelte, React, Vue, and Vanilla; Astro/Svelte/Vue/Vanilla components are documented on the docs site ([rizzo-css.vercel.app](https://rizzo-css.vercel.app)). Adding Vue or Svelte Storybook is optional (see [TODO.md](./TODO.md)).
+**Frameworks:** This Storybook is **React-only**. The same BEM and CSS apply to Astro, Svelte, React, Vue, and Vanilla; Astro/Svelte/Vue/Vanilla components are documented on the docs site ([rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)). Adding Vue or Svelte Storybook is optional (see [TODO.md](./TODO.md)).
 
 ## Dependencies (framework)
 

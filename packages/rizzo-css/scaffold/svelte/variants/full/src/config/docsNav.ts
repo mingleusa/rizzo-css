@@ -1,10 +1,10 @@
 /**
- * Docs sidebar nav for full template. Matches https://rizzo-css.vercel.app exactly.
+ * Docs sidebar nav for full template. Matches https://rizzo-css.jordanmingle.dev exactly.
  * Local routes: /docs/overview, /docs/getting-started, /docs/components. All other links point to the main site.
  */
 import { COMPONENT_CATEGORIES } from './componentCategories';
 
-const SITE_BASE = 'https://rizzo-css.vercel.app';
+const SITE_BASE = 'https://rizzo-css.jordanmingle.dev';
 const FRAMEWORK_PREFIX = '/docs/svelte';
 
 function slugToTitle(slug: string): string {

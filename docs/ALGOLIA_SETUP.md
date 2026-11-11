@@ -205,11 +205,9 @@ const config = getSearchConfig();
 
 ## Deployment
 
-### Vercel
+### Production (Plesk via GitHub Actions)
 
-1. Go to Project Settings → Environment Variables
-2. Add all `PUBLIC_*` variables
-3. Add `ALGOLIA_ADMIN_KEY` (for indexing in CI/CD)
+The site is built in GitHub Actions ([deploy.yml](../.github/workflows/deploy.yml)), so the `PUBLIC_*` variables are repository secrets (Settings → Secrets and variables → Actions): `PUBLIC_ALGOLIA_APP_ID`, `PUBLIC_ALGOLIA_SEARCH_KEY`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_ENABLED`. See [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ### Netlify
 

@@ -99,4 +99,4 @@ You can also open a blank issue or use the contact links on the New issue page (
 ## Questions
 
 - **Docs:** [docs/README.md](docs/README.md) (index), [GETTING_STARTED](docs/GETTING_STARTED.md), [CLI](docs/CLI.md), [DESIGN_SYSTEM](docs/DESIGN_SYSTEM.md), [ACCESSIBILITY](docs/ACCESSIBILITY.md).
-- **Site:** https://rizzo-css.vercel.app
+- **Site:** https://rizzo-css.jordanmingle.dev
