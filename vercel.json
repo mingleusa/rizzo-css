@@ -1,6 +1,11 @@
 {
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://rizzo-css.jordanmingle.dev/",
+      "permanent": true
+    },
+    {
       "source": "/:path*",
       "destination": "https://rizzo-css.jordanmingle.dev/:path*",
       "permanent": true
