@@ -221,7 +221,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     const updateAllSwitchers = (overrideStored?: string | null, overrideCurrentTheme?: string | null) => {
       const stored = (overrideStored != null ? String(overrideStored) : getStoredTheme() || '').trim();
       const currentTheme = (overrideCurrentTheme != null ? String(overrideCurrentTheme) : getCurrentTheme() || '').trim();
-      document.querySelectorAll('[data-theme-switcher]').forEach((switcher) => {
+      document.querySelectorAll('[data-theme-switcher]:not([data-rizzo-managed])').forEach((switcher) => {
         const label = switcher.querySelector('[data-theme-label]');
         const labelWrapper = switcher.querySelector('[data-theme-label-wrapper]');
         const options = switcher.querySelectorAll('.theme-switcher__option');
@@ -277,7 +277,7 @@ const InitialIcon = initialTheme ? initialTheme.icon : null;
     window.addEventListener('rizzo-theme-change', () => updateAllSwitchers());
 
     // Initialize all theme switcher instances on the page
-    const switchers = document.querySelectorAll('[data-theme-switcher]');
+    const switchers = document.querySelectorAll('[data-theme-switcher]:not([data-rizzo-managed])');
     if (!switchers.length) return;
     
     switchers.forEach((switcher) => {

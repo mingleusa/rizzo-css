@@ -202,7 +202,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="theme-switcher" data-theme-switcher @keydown="onKeydown">
+  <div class="theme-switcher" data-theme-switcher data-rizzo-managed @keydown="onKeydown">
     <button
       ref="triggerEl"
       :id="triggerId"

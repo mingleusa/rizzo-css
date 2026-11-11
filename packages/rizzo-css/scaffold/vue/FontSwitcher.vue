@@ -112,7 +112,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="font-switcher" data-font-switcher @keydown="onRootKeydown">
+  <div class="font-switcher" data-font-switcher data-rizzo-managed @keydown="onRootKeydown">
     <button
       ref="triggerEl"
       type="button"

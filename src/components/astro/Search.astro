@@ -111,7 +111,7 @@ const resultsId = `${searchId}-results`;
 <script define:vars={{ useAlgolia, algoliaAppId, algoliaApiKey, algoliaIndexName, algoliaHitsPerPage }}>
   (function initSearch() {
     const init = () => {
-      document.querySelectorAll('[data-search]').forEach((search) => {
+      document.querySelectorAll('[data-search]:not([data-rizzo-managed])').forEach((search) => {
         if (search.__searchInstance) return;
 
         const trigger = search.querySelector('[data-search-trigger]');

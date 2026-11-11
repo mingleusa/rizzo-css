@@ -88,7 +88,7 @@ function onOverlayClick(e: MouseEvent) {
 </script>
 
 <template>
-  <div ref="searchEl" class="search" data-search>
+  <div ref="searchEl" class="search" data-search data-rizzo-managed>
     <div class="search__trigger-wrapper">
       <button
         ref="triggerEl"
