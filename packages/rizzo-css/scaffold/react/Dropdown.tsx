@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 
 export interface MenuItem {
   label: string;
@@ -27,7 +27,8 @@ export function Dropdown({
   position = 'left',
   align = 'start',
 }: DropdownProps) {
-  const dropdownId = idProp ?? `dropdown-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const dropdownId = idProp ?? `dropdown-${generatedId}`;
   const menuId = `${dropdownId}-menu`;
   const triggerId = `${dropdownId}-trigger`;
   const [open, setOpen] = useState(false);

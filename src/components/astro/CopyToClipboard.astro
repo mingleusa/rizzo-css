@@ -40,6 +40,7 @@ const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-on
   <button
     type="button"
     class={buttonClass}
+    data-copy-astro
     data-copy-value={value}
     data-copy-format={format}
     aria-label={ariaLabel}
@@ -63,7 +64,9 @@ const buttonClass = ['copy-to-clipboard', iconOnly ? 'copy-to-clipboard--icon-on
   (function initCopyToClipboard() {
     // Wait for DOM to be ready
     const init = () => {
-      const buttons = document.querySelectorAll('.copy-to-clipboard');
+      // Only buttons rendered by this component: React/Vue/Svelte copy buttons and hand-written
+      // vanilla markup manage themselves (touching them first breaks hydration or doubles handlers).
+      const buttons = document.querySelectorAll('.copy-to-clipboard[data-copy-astro]');
       
       buttons.forEach((button) => {
         // Skip if already initialized

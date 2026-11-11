@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 
 export interface FontPair {
   id: string;
@@ -23,7 +23,8 @@ export function FontSwitcher({
   className = '',
   ...rest
 }: FontSwitcherProps) {
-  const id = idProp ?? `font-switcher-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `font-switcher-${generatedId}`;
   const [open, setOpen] = useState(false);
   const [current, setCurrent] = useState(fonts[0]?.id ?? 'system');
 

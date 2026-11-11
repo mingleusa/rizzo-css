@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useId } from 'react';
 
 export interface TableColumn {
   key: string;
@@ -30,7 +30,8 @@ export function Table({
   className = '',
   ...rest
 }: TableProps) {
-  const tableId = `table-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const tableId = `table-${generatedId}`;
   const [sortColumnIndex, setSortColumnIndex] = useState<number | null>(null);
   const [sortDirection, setSortDirection] = useState<'ascending' | 'descending'>('ascending');
   const [filterQuery, setFilterQuery] = useState('');

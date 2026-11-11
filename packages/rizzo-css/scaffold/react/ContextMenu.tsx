@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useId } from 'react';
 
 export interface ContextMenuProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -15,7 +15,8 @@ export function ContextMenu({
   className = '',
   ...rest
 }: ContextMenuProps) {
-  const id = idProp ?? `context-menu-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `context-menu-${generatedId}`;
   const [open, setOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const contentRef = useRef<HTMLDivElement>(null);

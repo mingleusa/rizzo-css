@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 
 export interface CollapsibleProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -17,7 +17,8 @@ export function Collapsible({
   className = '',
   ...rest
 }: CollapsibleProps) {
-  const id = idProp ?? `collapsible-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `collapsible-${generatedId}`;
   const triggerId = `${id}-trigger`;
   const panelId = `${id}-panel`;
   const [open, setOpen] = useState(defaultOpen);

@@ -2,7 +2,7 @@
 
 The docs site is served at **https://rizzo-css.jordanmingle.dev** as a **Plesk Node.js app** (Phusion Passenger).
 
-The Astro build is fully static. [`deploy/server.cjs`](../deploy/server.cjs) is a small server with no dependencies. It serves `dist/` and adds cache headers (`immutable` for `/assets/`, `/_astro/`, `/css/`, `/icons/`) and security headers (`nosniff`, `SAMEORIGIN`, `strict-origin-when-cross-origin`). It also gzips text responses and answers `ETag` revalidation with `304`. The server needs only Node, so nothing is installed on the server.
+The Astro build is fully static. [`deploy/server.cjs`](../deploy/server.cjs) is a small server with no dependencies. It serves `dist/` and adds cache headers (`immutable` for `/assets/`, `/_astro/`, `/css/`) and security headers (`nosniff`, `SAMEORIGIN`, `strict-origin-when-cross-origin`). It also gzips text responses and answers `ETag` revalidation with `304`. The server needs only Node, so nothing is installed on the server.
 
 You build the site locally and upload it as a zip. No SSH or CI deploy is involved.
 
@@ -55,6 +55,7 @@ Then delete the default files from `httpdocs/`, and enable SSL (Let's Encrypt) w
 ## Troubleshooting
 
 - **The Plesk placeholder page appears**: `httpdocs/` isn't empty.
+- **Any URL under `/icons/` returns 404**: Apache's stock `Alias /icons/ /usr/share/apache2/icons/` answers `/icons/` before the request reaches Node. That's why the site serves its icons from `/assets/icons/`. Don't add public files under `/icons/`.
 - **The Passenger error page appears**, or the page says the app failed to start: check that `server.cjs` and `dist/index.html` are directly in the application root, not inside an extra folder created by the extraction. Then check **Websites & Domains → Logs**.
 - **Old content still shows**: click **Restart App**, then hard-refresh. HTML is served with `max-age=0`, so a hard refresh is enough.
 

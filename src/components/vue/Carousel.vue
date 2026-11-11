@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch, onMounted } from 'vue';
+import { ref, computed, watch, onMounted, useId } from 'vue';
 
 const props = withDefaults(
   defineProps<{
@@ -11,7 +11,8 @@ const props = withDefaults(
   { label: 'Carousel', showIndicators: true, class: '' }
 );
 
-const id = computed(() => props.id ?? `carousel-${Math.random().toString(36).slice(2, 9)}`);
+const generatedId = useId();
+const id = computed(() => props.id ?? `carousel-${generatedId}`);
 const rootClass = computed(() => ['carousel', props.class].filter(Boolean).join(' '));
 
 const viewportRef = ref<HTMLDivElement | null>(null);

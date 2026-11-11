@@ -12,6 +12,11 @@ export default defineConfig({
   site: 'https://rizzo-css.jordanmingle.dev',
   base: '/',
 
+  // /docs has no page of its own; send it to the first page in the docs nav.
+  redirects: {
+    '/docs': '/docs/overview',
+  },
+
   image: {
     domains: ['api.dicebear.com'],
   },

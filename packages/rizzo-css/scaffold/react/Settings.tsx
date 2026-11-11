@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 
 export interface SettingsProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -19,7 +19,8 @@ export function Settings({
   className = '',
   ...rest
 }: SettingsProps) {
-  const id = idProp ?? `settings-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `settings-${generatedId}`;
 
   useEffect(() => {
     if (!open) return;

@@ -892,7 +892,7 @@ The [Icon Components Documentation](/docs/components/icons) page features:
 - Visual preview of all icons
 - Complete usage examples
 
-All icons are organized in `src/components/icons/` with devicons in the `devicons/` subfolder. **Astro** and **Svelte** each have the full set (30 regular, 22 devicons). The **docs site** serves static SVGs at **`/icons/`**: `pnpm build:css` (or `pnpm build`) clears `public/icons/` then writes SVG from each Astro icon (single source of truth; no duplicates). Package-manager tabs use `/icons/devicons/Npm.svg`, `/icons/devicons/Pnpm.svg`, etc. The **package scaffold** does not ship duplicate icon assets: `pnpm build:package` (or prepublish) runs `copy-scaffold.js`, which copies Astro icons to `packages/rizzo-css/scaffold/astro/icons/`, Svelte icons to `scaffold/svelte/icons/`, and exports vanilla SVGs to `scaffold/vanilla/icons/` (same 52 icons: 30 regular + 22 devicons).
+All icons are organized in `src/components/icons/` with devicons in the `devicons/` subfolder. **Astro** and **Svelte** each have the full set (30 regular, 22 devicons). The **docs site** serves static SVGs at **`/assets/icons/`**: `pnpm build:css` (or `pnpm build`) clears `public/assets/icons/` then writes SVG from each Astro icon (single source of truth; no duplicates). Package-manager tabs use `/assets/icons/devicons/Npm.svg`, `/assets/icons/devicons/Pnpm.svg`, etc. The **package scaffold** does not ship duplicate icon assets: `pnpm build:package` (or prepublish) runs `copy-scaffold.js`, which copies Astro icons to `packages/rizzo-css/scaffold/astro/icons/`, Svelte icons to `scaffold/svelte/icons/`, and exports vanilla SVGs to `scaffold/vanilla/icons/` (same 52 icons: 30 regular + 22 devicons).
 
 ## Form Components
 

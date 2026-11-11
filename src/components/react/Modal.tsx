@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useId } from 'react';
 
 const FOCUSABLE_SELECTORS = [
   'button:not([disabled])',
@@ -40,7 +40,8 @@ export function Modal({
   className = '',
   ...rest
 }: ModalProps) {
-  const modalId = idProp ?? `modal-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const modalId = idProp ?? `modal-${generatedId}`;
   const sizeClass = size !== 'md' ? `modal--${size}` : '';
   const classes = ['modal', sizeClass, className].filter(Boolean).join(' ').trim();
   const overlayRef = useRef<HTMLDivElement>(null);

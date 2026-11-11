@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue';
+import { ref, computed, watch, useId } from 'vue';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -17,7 +17,8 @@ const props = withDefaults(
 
 const emit = defineEmits<{ (e: 'select', date: string): void }>();
 
-const id = computed(() => props.id ?? `calendar-${Math.random().toString(36).slice(2, 9)}`);
+const generatedId = useId();
+const id = computed(() => props.id ?? `calendar-${generatedId}`);
 const rootClass = computed(() => ['calendar', props.class].filter(Boolean).join(' '));
 
 const now = new Date();

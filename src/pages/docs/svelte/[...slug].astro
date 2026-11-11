@@ -60,6 +60,11 @@ export function getStaticPaths() {
     { params: { slug: 'components/hover-card' } },
     { params: { slug: 'components/context-menu' } },
     { params: { slug: 'components/resizable' } },
+    { params: { slug: 'components/chart' } },
+    { params: { slug: 'components/command' } },
+    { params: { slug: 'components/direction' } },
+    { params: { slug: 'components/input-otp' } },
+    { params: { slug: 'components/menubar' } },
   ];
   return paths;
 }
@@ -123,6 +128,11 @@ function getMeta() {
     'hover-card': 'Hover Card',
     'context-menu': 'Context Menu',
     resizable: 'Resizable',
+    chart: 'Chart',
+    command: 'Command',
+    direction: 'Direction',
+    'input-otp': 'Input OTP',
+    menubar: 'Menubar',
   };
   const name = path[1] ? titles[path[1]] ?? path[1].replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()) : 'Components';
   return { title: path[1] ? `${name} — Svelte` : name, description: `${name} component — Svelte.` };

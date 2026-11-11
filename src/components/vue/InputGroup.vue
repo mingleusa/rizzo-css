@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useId } from 'vue';
 const props = withDefaults(
   defineProps<{
     modelValue?: string;
@@ -40,7 +41,8 @@ const rootClass = [
   .join(' ')
   .trim();
 
-const inputId = props.id ?? `input-group-${Math.random().toString(36).slice(2, 9)}`;
+const generatedId = useId();
+const inputId = props.id ?? `input-group-${generatedId}`;
 </script>
 
 <template>
