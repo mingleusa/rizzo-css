@@ -13,6 +13,7 @@
     "dev": "astro dev --open",
     "preview": "astro preview",
     "serve:prod": "SITE_DIR=dist node deploy/server.cjs",
+    "package:deploy": "pnpm build && node scripts/package-deploy.mjs",
     "astro": "astro",
     "clean": "node -e \"const fs=require('fs');['dist','.astro','node_modules/.vite'].forEach(d=>{try{fs.rmSync(d,{recursive:true,force:true});console.log('Removed',d)}catch(e){}})\"",
     "build": "pnpm generate:color-formats && pnpm export:tokens && pnpm lint:css:fix && pnpm build:css && astro build",

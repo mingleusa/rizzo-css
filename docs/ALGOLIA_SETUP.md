@@ -205,9 +205,9 @@ const config = getSearchConfig();
 
 ## Deployment
 
-### Production (Plesk via GitHub Actions)
+### Production (Plesk)
 
-The site is built in GitHub Actions ([deploy.yml](../.github/workflows/deploy.yml)), so the `PUBLIC_*` variables are repository secrets (Settings → Secrets and variables → Actions): `PUBLIC_ALGOLIA_APP_ID`, `PUBLIC_ALGOLIA_SEARCH_KEY`, `PUBLIC_ALGOLIA_INDEX_NAME`, `PUBLIC_ALGOLIA_ENABLED`. See [DEPLOYMENT.md](./DEPLOYMENT.md).
+The production site is built locally with `pnpm package:deploy`, so the `PUBLIC_*` variables come from your local `.env` and are written into the build. Nothing needs to be set on the server. See [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ### Netlify
 

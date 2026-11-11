@@ -6,7 +6,7 @@
  * security headers that vercel.json used to provide. Zero dependencies: the server only needs
  * Node itself, no `npm install` on the host.
  *
- * On the server the layout is:   <app root>/server.cjs  +  <app root>/dist/
+ * On the server the layout is:   <app root>/server.cjs  +  <app root>/dist/   (uploaded via `pnpm package:deploy`)
  * Locally:                       pnpm build && pnpm serve:prod
  *
  * Env: PORT (Passenger sets it; default 4321), SITE_DIR (default ./dist next to this file).
