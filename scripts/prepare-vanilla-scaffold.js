@@ -57,8 +57,10 @@ function main() {
     console.warn('prepare-vanilla-scaffold: could not find <main> in index.html, skipping');
     return;
   }
-  const beforeMain = full.slice(0, mainStart);
-  const afterMain = full.slice(mainEnd);
+  // Trim the whitespace around <main>: the writes below add their own, so keeping it would grow the
+  // files by a blank line on every run (index.html is both the input and an output).
+  const beforeMain = full.slice(0, mainStart).replace(/\s+$/, '');
+  const afterMain = full.slice(mainEnd).replace(/^\n+/, '');
 
   // Landing: hero + features + documentation cards (full home page for package distributions).
   const rootMainContent = `
