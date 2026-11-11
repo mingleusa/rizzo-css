@@ -57,3 +57,7 @@ Then delete the default files from `httpdocs/`, and enable SSL (Let's Encrypt) w
 - **The Plesk placeholder page appears**: `httpdocs/` isn't empty.
 - **The Passenger error page appears**, or the page says the app failed to start: check that `server.cjs` and `dist/index.html` are directly in the application root, not inside an extra folder created by the extraction. Then check **Websites & Domains → Logs**.
 - **Old content still shows**: click **Restart App**, then hard-refresh. HTML is served with `max-age=0`, so a hard refresh is enough.
+
+## Old Vercel URL
+
+`rizzo-css.vercel.app` still appears in older npm releases and in links elsewhere. [`vercel.json`](../vercel.json) now contains only a permanent redirect of every path to the same path on rizzo-css.jordanmingle.dev. The Vercel project is kept for this redirect alone; its Git integration is disconnected, so it no longer deploys from this repo.
