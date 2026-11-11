@@ -48,7 +48,7 @@ Before publishing to npm:
    ```
 
 9. **Publish** — See [Steps](#steps).
-10. **Push** — `git push` (and `git push --tags` if you tag releases). This does not update npm; it keeps GitHub in sync with what you published. Pushing triggers CI ([TESTING – CI](./TESTING.md#6-continuous-integration)).
+10. **Push and tag** — `git push`, then tag the release commit on `main` and push the tag: `git tag -a v<version> -m "rizzo-css <version>" && git push origin v<version>`. The CHANGELOG compare links depend on these tags. This does not update npm; it keeps GitHub in sync with what you published. Pushing triggers CI ([TESTING – CI](./TESTING.md#6-continuous-integration)).
 11. **Deploy the docs site** — The npm README and CLI link to https://rizzo-css.jordanmingle.dev, so publish the matching docs: `pnpm package:deploy` on `main`, then upload as described in [DEPLOYMENT.md](./DEPLOYMENT.md).
 12. **Verify** — Once the version appears (`npm view rizzo-css version`), check the CDNs (`curl -I https://cdn.jsdelivr.net/npm/rizzo-css@<version>/dist/rizzo.min.css` and the unpkg equivalent; expect `200`, unpkg can lag a few minutes) and smoke-test the **published** CLI: `npx rizzo-css@<version> init --yes --path /tmp/t --framework svelte --template full --no-install --no-git`, then install and build it.
 

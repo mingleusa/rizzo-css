@@ -195,7 +195,10 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 For per-component or release-by-release entries, we may add more detail here or link to GitHub releases.
 
-[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.87...HEAD
+[Unreleased]: https://github.com/mingleusa/rizzo-css/compare/v0.0.90...HEAD
+[0.0.90]: https://github.com/mingleusa/rizzo-css/compare/v0.0.89...v0.0.90
+[0.0.89]: https://github.com/mingleusa/rizzo-css/compare/v0.0.88...v0.0.89
+[0.0.88]: https://github.com/mingleusa/rizzo-css/compare/v0.0.87...v0.0.88
 [0.0.87]: https://github.com/mingleusa/rizzo-css/compare/v0.0.86...v0.0.87
 [0.0.86]: https://github.com/mingleusa/rizzo-css/compare/v0.0.85...v0.0.86
 [0.0.85]: https://github.com/mingleusa/rizzo-css/compare/v0.0.84...v0.0.85
