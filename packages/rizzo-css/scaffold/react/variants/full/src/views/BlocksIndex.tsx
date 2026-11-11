@@ -1,6 +1,6 @@
 import Card from '@/components/rizzo/Card';
 
-const DOCS_BASE = 'https://rizzo-css.vercel.app';
+const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 
 const blocks = [
   { href: '/blocks/landing-hero', title: 'Landing hero', desc: 'Marketing hero with headline, subtitle, and primary CTAs. Typography and button tokens.', meta: 'Hero · Buttons · Typography' },

@@ -88,7 +88,7 @@
           <h3>Docs Overview</h3>
           <p>Condensed index of documentation and links</p>
         </a>
-        <a href="https://rizzo-css.vercel.app/docs/theming" class="home__doc-card" target="_blank" rel="noopener noreferrer">
+        <a href="https://rizzo-css.jordanmingle.dev/docs/theming" class="home__doc-card" target="_blank" rel="noopener noreferrer">
           <h3>Theming (full docs)</h3>
           <p>Custom themes, persistence, color format — on main site</p>
           <span class="sr-only"> (opens in new tab)</span>

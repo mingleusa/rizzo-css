@@ -7,9 +7,9 @@ import vue from '@astrojs/vue';
 
 // https://astro.build/config
 export default defineConfig({
-  // Required for correct CSS and asset URLs when deployed (e.g. Vercel, GitHub Pages).
+  // Required for correct CSS and asset URLs when deployed (production: Plesk, see docs/DEPLOYMENT.md).
   // For subpath deployment (e.g. GitHub Pages at /repo-name/), set base: '/repo-name/'.
-  site: 'https://rizzo-css.vercel.app',
+  site: 'https://rizzo-css.jordanmingle.dev',
   base: '/',
 
   image: {

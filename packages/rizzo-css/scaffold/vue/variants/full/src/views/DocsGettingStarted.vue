@@ -16,7 +16,7 @@
       <li><router-link to="/docs/components">Components</router-link></li>
       <li><router-link to="/blocks">Blocks</router-link></li>
       <li><router-link to="/themes">Themes</router-link></li>
-      <li>Full documentation: <a href="https://rizzo-css.vercel.app/docs/getting-started" target="_blank" rel="noopener noreferrer">rizzo-css.vercel.app</a></li>
+      <li>Full documentation: <a href="https://rizzo-css.jordanmingle.dev/docs/getting-started" target="_blank" rel="noopener noreferrer">rizzo-css.jordanmingle.dev</a></li>
     </ul>
   </div>
 </template>

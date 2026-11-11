@@ -74,4 +74,4 @@ pnpm dlx serve .
 - **Astro:** `scaffold/astro/base/` + optional `scaffold/astro/variants/docs`, `dashboard`, or `full`; Landing/Docs/Dashboard add all components (or pick) from `scaffold/astro/`.
 - **Svelte:** `scaffold/svelte/base/` + optional `scaffold/svelte/variants/docs`, `dashboard`, or `full`; same flow.
 
-Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+Docs: [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)

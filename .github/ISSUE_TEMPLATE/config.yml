@@ -1,7 +1,7 @@
 blank_issues_enabled: true
 contact_links:
   - name: Documentation
-    url: https://rizzo-css.vercel.app
+    url: https://rizzo-css.jordanmingle.dev
     about: Rizzo CSS docs and component reference
   - name: Discussions
     url: https://github.com/mingleusa/rizzo-css/discussions

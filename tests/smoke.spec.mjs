@@ -1,7 +1,7 @@
 /**
  * Smoke tests: key routes return 200 and main content is present.
  * Run: pnpm test:smoke (builds site, starts preview, runs smoke tests)
- * Or against deployed site: BASE_URL=https://rizzo-css.vercel.app pnpm test:smoke
+ * Or against deployed site: BASE_URL=https://rizzo-css.jordanmingle.dev pnpm test:smoke
  * Uses baseURL from Playwright config (default http://localhost:4321).
  */
 import { test, expect } from '@playwright/test';

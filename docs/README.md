@@ -1,6 +1,6 @@
 # Rizzo CSS documentation
 
-This folder contains the **markdown documentation** for the Rizzo CSS design system. The **live docs site** is built from the Astro app in `src/` and is available at [rizzo-css.vercel.app](https://rizzo-css.vercel.app).
+This folder contains the **markdown documentation** for the Rizzo CSS design system. The **live docs site** is built from the Astro app in `src/` and is available at [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev).
 
 ## Start here
 
@@ -9,7 +9,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Use Rizzo in a project | [GETTING_STARTED](./GETTING_STARTED.md), then [CLI](./CLI.md) and [TEMPLATES](./TEMPLATES.md) |
 | Understand the design tokens and themes | [DESIGN_SYSTEM](./DESIGN_SYSTEM.md), [THEMING](./THEMING.md), [COLORS](./COLORS.md) |
 | Build accessible UI with it | [ACCESSIBILITY](./ACCESSIBILITY.md), [BEST_PRACTICES](./BEST_PRACTICES.md), [RTL](./RTL.md) |
-| Look up a component | [COMPONENTS](./COMPONENTS.md) or the [live site](https://rizzo-css.vercel.app/docs/components) |
+| Look up a component | [COMPONENTS](./COMPONENTS.md) or the [live site](https://rizzo-css.jordanmingle.dev/docs/components) |
 | Contribute a change | [CONTRIBUTING](../CONTRIBUTING.md), [TESTING](./TESTING.md), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md) |
 | Cut a release | [PUBLISHING](./PUBLISHING.md), then [UPGRADE](./UPGRADE.md) for the dependency roadmap |
 | See what is planned or broken | [TODO](./TODO.md) (start with *Open follow-ups*) and the [CHANGELOG](../CHANGELOG.md) |
@@ -43,7 +43,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | **AI / LLM** | [ai/README.md](../ai/README.md) — Canonical spec: [public/llms.txt](../public/llms.txt) (served at `/llms.txt`). BEM naming (no prefix), 58 components, 6 blocks, 14 themes, semantic tokens. Use for AI-assisted codegen and tooling. |
 | **Design tokens** | `pnpm export:tokens` writes **public/tokens/rizzo-tokens.json** and **.js** from `ai/design-tokens.json` (runs as part of `pnpm build`). Served at `/tokens/rizzo-tokens.json`; use in Figma, Style Dictionary, or runtimes. |
 
-The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.vercel.app/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.vercel.app/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.89), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
+The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://rizzo-css.jordanmingle.dev/docs/tokens)) and **Examples** ([/docs/examples](https://rizzo-css.jordanmingle.dev/docs/examples), form layouts) as live pages. The live site reflects the **latest main** branch; for a specific package version (e.g. 0.0.89), see [CHANGELOG](../CHANGELOG.md) or the [npm package](https://www.npmjs.com/package/rizzo-css) page.
 
 ### Maintainers & development
 
@@ -72,6 +72,6 @@ All browser tests use **Playwright**; the React components also run through the 
 | **scripts/** | Build and maintenance: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `export-tokens.mjs`, `generate-color-formats.mjs`, `check-contrast.mjs`, `bundle-size.mjs`, `update-readme-tech.mjs` (README badges), `index-docs.js` |
 | **tests/** | Playwright specs: a11y (`tests/a11y/`: axe, keyboard, ARIA), smoke (`tests/smoke.spec.mjs`) and visual (`tests/visual.spec.mjs` + `-snapshots/`). **First run:** install browsers with `pnpm exec playwright install chromium`. See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
 | **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |
-| **vercel.json** | Cache and security headers for deploy. CI: [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when relevant paths change. |
+| **deploy/** | Production server (`server.cjs`) for the Plesk Node.js app at rizzo-css.jordanmingle.dev. `pnpm package:deploy` builds the upload zip ([scripts/package-deploy.mjs](../scripts/package-deploy.mjs)). See [DEPLOYMENT.md](./DEPLOYMENT.md). |
 
 Site pages (Astro) live under `src/pages/`: docs (`docs/`), blocks (`blocks/` with BlocksLayout), themes, colors. The navbar uses flat links: Docs | Components | Blocks | Themes | Colors. Markdown in `docs/` is the source of truth for maintainers and contributors.

@@ -205,11 +205,9 @@ const config = getSearchConfig();
 
 ## Deployment
 
-### Vercel
+### Production (Plesk)
 
-1. Go to Project Settings → Environment Variables
-2. Add all `PUBLIC_*` variables
-3. Add `ALGOLIA_ADMIN_KEY` (for indexing in CI/CD)
+The production site is built locally with `pnpm package:deploy`, so the `PUBLIC_*` variables come from your local `.env` and are written into the build. Nothing needs to be set on the server. See [DEPLOYMENT.md](./DEPLOYMENT.md).
 
 ### Netlify
 

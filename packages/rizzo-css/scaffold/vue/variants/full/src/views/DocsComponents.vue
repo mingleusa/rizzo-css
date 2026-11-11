@@ -6,11 +6,11 @@
       </p>
       <p class="docs-components-intro__meta">
         Each component has live demos and code on the full docs site. Quick jump:
-        <a href="https://rizzo-css.vercel.app/docs/components" target="_blank" rel="noopener noreferrer">Astro</a>
+        <a href="https://rizzo-css.jordanmingle.dev/docs/components" target="_blank" rel="noopener noreferrer">Astro</a>
         ·
-        <a href="https://rizzo-css.vercel.app/docs/svelte/components" target="_blank" rel="noopener noreferrer">Svelte</a>
+        <a href="https://rizzo-css.jordanmingle.dev/docs/svelte/components" target="_blank" rel="noopener noreferrer">Svelte</a>
         ·
-        <a href="https://rizzo-css.vercel.app/docs/vanilla/components" target="_blank" rel="noopener noreferrer">Vanilla</a>.
+        <a href="https://rizzo-css.jordanmingle.dev/docs/vanilla/components" target="_blank" rel="noopener noreferrer">Vanilla</a>.
       </p>
     </section>
 
@@ -46,7 +46,7 @@
 import { getComponentsByCategory } from '@/config/componentCategories';
 import Card from '@/components/rizzo/Card.vue';
 
-const DOCS_BASE = 'https://rizzo-css.vercel.app';
+const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 const categories = getComponentsByCategory();
 </script>
 

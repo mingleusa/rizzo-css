@@ -23,7 +23,7 @@ npm create svelte@latest my-app && cd my-app && npx rizzo-css add
 npm create astro@latest my-app   && cd my-app && npx rizzo-css add
 ```
 
-**Running the CLI:** npm → `npx`; pnpm → `pnpm dlx`; yarn → `npx` (Yarn 1 has no `dlx`; works with Yarn 2+ too); bun → `bunx`. The [docs site](https://rizzo-css.vercel.app/docs/getting-started) tabs show the correct command for each manager.
+**Running the CLI:** npm → `npx`; pnpm → `pnpm dlx`; yarn → `npx` (Yarn 1 has no `dlx`; works with Yarn 2+ too); bun → `bunx`. The [docs site](https://rizzo-css.jordanmingle.dev/docs/getting-started) tabs show the correct command for each manager.
 
 **Same flow for new and existing:** Both prompt for **Landing** | **Docs** | **Dashboard** | **Full**. Landing/Docs/Dashboard = component picker (all 58 or pick). Full = site clone (no picker); also writes **RIZZO-SNIPPET.txt** (link + theme) unless `--no-snippet`. `npx rizzo-css doctor` checks config and CSS path. `npx rizzo-css theme` lists themes.
 
@@ -81,7 +81,7 @@ import 'rizzo-css';
 
 Short URLs also work: `https://unpkg.com/rizzo-css@latest` and `https://cdn.jsdelivr.net/npm/rizzo-css@latest` (CDNs serve the default file from package.json). To verify after publish: open the URL in a browser or run `curl -I https://unpkg.com/rizzo-css@latest/dist/rizzo.min.css` and expect `200 OK`.
 
-Use the same class names and HTML structure as in the [component docs](https://rizzo-css.vercel.app/docs/components). **Vanilla JS**, Astro, Svelte, React, and Vue all use the same CSS and BEM markup; choose **Full** to add framework component files via the component picker. Each scaffold has README-RIZZO.md; every install includes LICENSE-RIZZO. The **Navbar** in every scaffold uses **flat links** (Docs, Components, Blocks, Themes, Colors), default Cat logo in the brand link (optional `logo` prop for a custom image), Search, and Settings. The **Vanilla** Full template includes the same navbar (from shared snippet), Settings panel, and toast; **Astro** and **Svelte** Full scaffolds include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
+Use the same class names and HTML structure as in the [component docs](https://rizzo-css.jordanmingle.dev/docs/components). **Vanilla JS**, Astro, Svelte, React, and Vue all use the same CSS and BEM markup; choose **Full** to add framework component files via the component picker. Each scaffold has README-RIZZO.md; every install includes LICENSE-RIZZO. The **Navbar** in every scaffold uses **flat links** (Docs, Components, Blocks, Themes, Colors), default Cat logo in the brand link (optional `logo` prop for a custom image), Search, and Settings. The **Vanilla** Full template includes the same navbar (from shared snippet), Settings panel, and toast; **Astro** and **Svelte** Full scaffolds include theme persistence and toast (`showToast`, `removeToast`, `removeAllToasts`).
 
 ## Themes
 
@@ -91,11 +91,11 @@ Set the theme via `data-theme` on `<html>`:
 <html lang="en" data-theme="github-dark-classic">
 ```
 
-Theme IDs and full docs: [Theming](https://rizzo-css.vercel.app/docs/theming).
+Theme IDs and full docs: [Theming](https://rizzo-css.jordanmingle.dev/docs/theming).
 
 ## Docs
 
-Full documentation: **[rizzo-css.vercel.app](https://rizzo-css.vercel.app)** — **Docs** (Getting Started, Design System, Theming, Accessibility), **Components**, **Blocks** (pre-built layouts), **Themes**, **Colors**, and usage for Vanilla, Astro, Svelte, React, and Vue.
+Full documentation: **[rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)** — **Docs** (Getting Started, Design System, Theming, Accessibility), **Components**, **Blocks** (pre-built layouts), **Themes**, **Colors**, and usage for Vanilla, Astro, Svelte, React, and Vue.
 
 ## Package contents
 

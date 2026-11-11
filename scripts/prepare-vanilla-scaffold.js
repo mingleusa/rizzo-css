@@ -11,7 +11,7 @@ const __dirname = dirname(__filename);
 
 const rootDir = resolve(__dirname, '..');
 const scaffoldVanilla = join(rootDir, 'packages', 'rizzo-css', 'scaffold', 'vanilla');
-const DOCS_BASE = 'https://rizzo-css.vercel.app';
+const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 
 /** Alphabetical; matches site vanilla component pages and VANILLA_COMPONENT_SLUGS (all 58 components, all frameworks). */
 const COMPONENT_SLUGS = [

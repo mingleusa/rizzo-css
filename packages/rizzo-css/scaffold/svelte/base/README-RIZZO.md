@@ -54,4 +54,4 @@ SvelteKit project with Rizzo CSS. Scaffolded with `npx rizzo-css init` when you 
 - `pnpm build` — Build for production
 - `pnpm preview` — Preview production build
 
-Docs: [rizzo-css.vercel.app](https://rizzo-css.vercel.app)
+Docs: [rizzo-css.jordanmingle.dev](https://rizzo-css.jordanmingle.dev)

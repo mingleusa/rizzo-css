@@ -19,7 +19,7 @@ export default function DocsGettingStarted() {
         <li><Link to="/docs/components">Components</Link></li>
         <li><Link to="/blocks">Blocks</Link></li>
         <li><Link to="/themes">Themes</Link></li>
-        <li>Full documentation: <a href="https://rizzo-css.vercel.app/docs/getting-started" target="_blank" rel="noopener noreferrer">rizzo-css.vercel.app</a></li>
+        <li>Full documentation: <a href="https://rizzo-css.jordanmingle.dev/docs/getting-started" target="_blank" rel="noopener noreferrer">rizzo-css.jordanmingle.dev</a></li>
       </ul>
     </div>
   );

@@ -3,7 +3,7 @@
   import { getComponentsByCategory } from '../../../config/componentCategories';
 
   const categories = getComponentsByCategory();
-  const DOCS_BASE = 'https://rizzo-css.vercel.app';
+  const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 </script>
 
 <section class="docs-components-intro">

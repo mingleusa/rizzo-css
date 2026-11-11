@@ -11,7 +11,7 @@
           <ThemeSwitcher id-prefix="page" />
         </div>
         <div class="themes-page__hero-ctas">
-          <a href="https://rizzo-css.vercel.app/docs/theming" class="btn btn-primary themes-page__hero-cta" target="_blank" rel="noopener noreferrer">Theming docs</a>
+          <a href="https://rizzo-css.jordanmingle.dev/docs/theming" class="btn btn-primary themes-page__hero-cta" target="_blank" rel="noopener noreferrer">Theming docs</a>
           <router-link to="/docs/components" class="btn btn-outline themes-page__hero-cta">Components</router-link>
         </div>
       </header>
@@ -73,7 +73,7 @@
 
         <section id="using-themes" class="themes-page__copy-section" aria-labelledby="copy-heading">
           <h2 id="copy-heading" class="themes-page__section-title">Use a theme in your app</h2>
-          <p class="themes-page__copy-desc">Set the theme on your HTML root. For persistence and custom themes, see the <a href="https://rizzo-css.vercel.app/docs/theming" target="_blank" rel="noopener noreferrer">theming docs</a>.</p>
+          <p class="themes-page__copy-desc">Set the theme on your HTML root. For persistence and custom themes, see the <a href="https://rizzo-css.jordanmingle.dev/docs/theming" target="_blank" rel="noopener noreferrer">theming docs</a>.</p>
           <div class="themes-page__code-block">
             <pre><code>{{ snippet }}</code></pre>
             <CopyToClipboard :value="snippet" button-label="Copy" format="code" label="Copy snippet" />

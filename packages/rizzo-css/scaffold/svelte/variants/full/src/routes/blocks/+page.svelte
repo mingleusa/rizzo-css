@@ -9,7 +9,7 @@
     { href: '/blocks/login', title: 'Login', desc: 'Centered login form on a muted background. Brand link, email/password fields, and footer links.', meta: 'Form · Button · Tokens' },
     { href: '/blocks/signup', title: 'Sign up', desc: 'Centered sign-up form with name, email, password, and link to sign in. Same tokens as Login.', meta: 'Form · Button · Tokens' },
   ];
-  const DOCS_BASE = 'https://rizzo-css.vercel.app';
+  const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 </script>
 
 <svelte:head>

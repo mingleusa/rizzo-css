@@ -1,7 +1,7 @@
 import Card from '@/components/rizzo/Card';
 import { getComponentsByCategory } from '@/config/componentCategories';
 
-const DOCS_BASE = 'https://rizzo-css.vercel.app';
+const DOCS_BASE = 'https://rizzo-css.jordanmingle.dev';
 
 export default function DocsComponents() {
   const categories = getComponentsByCategory();
