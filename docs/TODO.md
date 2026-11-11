@@ -27,7 +27,9 @@ Known gaps and chores, most important first.
 ### Other
 
 - **Svelte bugs found while porting to Vue** (fixed in the Vue components, still present in Svelte): `Accordion` arrow keys only look inside the trigger's own `<h3>` so they never reach the other items; `ThemeSwitcher` ArrowDown/ArrowUp open the menu but `focus()` runs at `setTimeout(0)` while the options are still `visibility: hidden`, so focus never moves in; `HoverCard` only opens on hover (not keyboard focus); `Search` does not focus its input when opened; `FontSwitcher` handles Escape only while the trigger has focus.
-- **Docs-site Vue wrappers:** `src/components/vue/*.vue` are still thin wrappers used by `VueDocDemo.vue` (they are not what the CLI installs). Replacing them with the real components needs the docs demos reworked to the real APIs.
+- **React components that need the Astro scripts:** the React `SoundEffects`, `FontSwitcher` (applying the font) and `Search` have little or no logic of their own; on the docs site they work because the Astro versions' init scripts also run on the page. Check whether the React scaffold copies have the same gap, and make them self-contained like the Vue ones (then mark them `data-rizzo-managed`).
+- **Vue Search Cmd+K on demo pages:** on `/docs/vue/components/search` and `/navbar`, the demo's `Search` registers its own Cmd+K shortcut alongside the site's, so the shortcut can open both panels.
+- **`tsc --noEmit`** over the whole repo reports ~160 lines of pre-existing type errors (separate from `pnpm check:svelte`); none are in CI.
 - **Svelte hand-picked installs:** the base starter layout imports Navbar, Footer, Settings and BackToTop, so picking a component subset that omits them produces a project that does not build. The `css-only` template is handled; the picker is not.
 - **Scaffold generator noise:** `scripts/prepare-vanilla-scaffold.js` adds blank lines to ~60 Vanilla component pages on every run, which makes release diffs noisy.
 - **`svelte-check`:** `pnpm check:svelte` reports ~17 prop-typing errors in the docs Svelte components (components that do not declare `onclick`/`style` props).

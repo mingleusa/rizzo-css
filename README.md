@@ -30,7 +30,7 @@
   <a href="https://stylelint.io"><img src="https://img.shields.io/badge/Stylelint-17-263238?style=flat-square&logo=stylelint&logoColor=white" alt="Stylelint 17" /></a>
   <a href="https://typicode.github.io/husky/"><img src="https://img.shields.io/badge/Husky-9-8F8F8F?style=flat-square&logo=git&logoColor=white" alt="Husky 9" /></a>
   <a href="https://nodejs.org"><img src="https://img.shields.io/badge/Node.js-22.22.3+-5FA04E?style=flat-square&logo=nodedotjs&logoColor=white" alt="Node.js 22.22.3+" /></a>
-  <a href="https://pnpm.io"><img src="https://img.shields.io/badge/pnpm-12.11-F69220?style=flat-square&logo=pnpm&logoColor=white" alt="pnpm 12.11" /></a>
+  <a href="https://pnpm.io"><img src="https://img.shields.io/badge/pnpm-12.18-F69220?style=flat-square&logo=pnpm&logoColor=white" alt="pnpm 12.18" /></a>
 </p>
 
 <p align="center">
@@ -143,7 +143,7 @@ Versions below are generated from what is installed (`pnpm readme:tech`), so the
 | Build & tooling | [Stylelint](https://stylelint.io) | `17` | CSS linting |
 | Build & tooling | [Husky](https://typicode.github.io/husky/) | `9` | Git hooks: pre-commit runs lint-staged; pre-push runs build + smoke tests |
 | Build & tooling | [Node.js](https://nodejs.org) | `22.22.3+` | Required to build this repo (Astro 7, cssnano 9); the published CLI supports Node 18+ |
-| Build & tooling | [pnpm](https://pnpm.io) | `12.11` | Package manager (`packageManager` field) |
+| Build & tooling | [pnpm](https://pnpm.io) | `12.18` | Package manager (`packageManager` field) |
 | Quality | [Playwright](https://playwright.dev) | `1.64` | Smoke, accessibility and visual regression tests |
 | Quality | [axe-core](https://github.com/dequelabs/axe-core) | `4.13` | Accessibility rules (via @axe-core/playwright) |
 | Quality | [Storybook](https://storybook.js.org) | `10` | React component playground (optional) |
@@ -176,7 +176,11 @@ pnpm dev          # http://localhost:4321
 | `pnpm check:size` | Build the CSS and fail if it exceeds the 450 kB budget |
 | `pnpm check:contrast` | Verify WCAG AA contrast for all 14 themes |
 | `pnpm export:tokens` | Export design tokens to `public/tokens/` (runs as part of `build`) |
-| `pnpm readme:tech` | Regenerate the README tech badges and stack table |
+| `pnpm readme:tech` | Regenerate the README tech badges and stack table (`--check` fails if they are stale; CI runs it) |
+| `pnpm check:links` | Fail if any link or asset in the built site points to a missing file, or to `/icons/` (reserved by Apache) |
+| `pnpm serve:prod` | Serve `dist/` with the production server (`deploy/server.cjs`) |
+| `pnpm package:deploy` | Build, check links, and write the upload zip to `release/` ([DEPLOYMENT](./docs/DEPLOYMENT.md)) |
+| `pnpm index:algolia` | Push the docs search index to Algolia ([ALGOLIA_SETUP](./docs/ALGOLIA_SETUP.md)) |
 | `pnpm storybook` / `pnpm build-storybook` | React component playground ([STORYBOOK](./docs/STORYBOOK.md)) |
 
 ### Tests
@@ -187,8 +191,9 @@ pnpm dev          # http://localhost:4321
 | `pnpm test:a11y` | axe, keyboard and ARIA tests on all docs routes (`:fast` for a subset, `:ci:cross-browser` for Chromium + Firefox + WebKit) |
 | `pnpm test:visual` | Screenshot regression of key routes (`test:visual:update` refreshes baselines locally) |
 | `pnpm test:storybook` | Storybook interaction and a11y tests for the React components |
+| `pnpm test:vue-scaffold` | Generates a Vue project with the CLI, builds it, and tests every Vue component in a browser |
 
-Run `pnpm exec playwright install` once before the browser tests. CI ([`a11y.yml`](./.github/workflows/a11y.yml)) runs the dependency audit, build, size budget, accessibility on three browsers, and visual regression on a pinned `ubuntu-24.04` runner. Visual baselines should be generated on that runner: **Actions → Accessibility (a11y) → Run workflow → `update_snapshots`**, then commit the uploaded `visual-snapshots` artifact. Details: [TESTING](./docs/TESTING.md).
+Run `pnpm exec playwright install` once before the browser tests. CI ([`a11y.yml`](./.github/workflows/a11y.yml)) runs the dependency audit, build, size budget, link check, README badge check, accessibility on three browsers, the Vue scaffold test, and visual regression on a pinned `ubuntu-24.04` runner. Visual baselines should be generated on that runner: **Actions → Accessibility (a11y) → Run workflow → `update_snapshots`**, then commit the uploaded `visual-snapshots` artifact. Details: [TESTING](./docs/TESTING.md).
 
 ### Project structure
 
@@ -201,8 +206,10 @@ src/
   stories/         Storybook stories (React)
 packages/rizzo-css/
   bin/             the CLI
-  scaffold/        templates copied into user projects (astro, svelte, react, vue, vanilla)
-scripts/           build, token export, scaffold copy, README generator
+  scaffold/        templates copied into user projects (astro, svelte, react, vue, vanilla);
+                   scaffold/vue/ is also what the Vue docs demos import
+deploy/            production server for the docs site (Plesk Node.js app)
+scripts/           build, token export, scaffold copy, link check, deploy zip, README generator
 tests/             smoke, a11y (axe/keyboard/ARIA) and visual specs
 docs/              guides (see Documentation below)
 ai/ public/        LLM metadata (llms.txt/json) and design tokens
@@ -268,6 +275,8 @@ All components use semantic variables, follow BEM, are keyboard accessible, meet
 | [Multi-Framework](./docs/MULTI_FRAMEWORK.md) · [Framework Structure](./docs/FRAMEWORK_STRUCTURE.md) | How the five frameworks share one stylesheet |
 | [Testing](./docs/TESTING.md) · [Storybook](./docs/STORYBOOK.md) | Smoke, a11y, visual and Storybook tests |
 | [Publishing](./docs/PUBLISHING.md) · [Maintaining](./docs/MAINTAINING.md) · [Upgrade](./docs/UPGRADE.md) | Release process, maintenance, dependency roadmap |
+| [Deployment](./docs/DEPLOYMENT.md) | How the docs site is built, uploaded to Plesk, and served |
+| [Algolia Setup](./docs/ALGOLIA_SETUP.md) · [Sounds and Fonts](./docs/SOUNDS_AND_FONTS.md) | Docs search, sound effects, font pairs |
 | [Changelog](./CHANGELOG.md) · [TODO](./docs/TODO.md) · [Contributing](./CONTRIBUTING.md) | Releases, roadmap, how to contribute |
 
 ## 🤝 Contributing and releases

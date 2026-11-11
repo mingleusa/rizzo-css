@@ -34,6 +34,8 @@ pnpm install
 | **Theme contrast** | `pnpm check:contrast` — WCAG AA for all themes (run when changing theme colors) |
 | **Bundle size** | `pnpm run size` — report CSS bundle sizes (run after `pnpm build:css`) |
 | **Bundle size budget** | `pnpm check:size` — build CSS and fail if package bundle exceeds budget (CI runs this). See [Bundle size](#bundle-size) below. |
+| **Link check** | `pnpm check:links` — after `pnpm build`, fail if any link or asset in `dist/` points to a missing file or to `/icons/` (CI runs this). |
+| **Deploy the docs site** | `pnpm package:deploy` — build and write the upload zip; see [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md). |
 
 **First time running a11y or smoke tests:** Playwright needs a browser. Run `pnpm exec playwright install chromium` once (or `pnpm exec playwright install` for all browsers). Both `pnpm test:a11y` and `pnpm test:smoke` use Playwright. If you see "Executable doesn't exist at ...", the browser isn't installed yet.
 
@@ -47,6 +49,9 @@ The package CSS (`packages/rizzo-css/dist/rizzo.min.css`) must stay under the bu
 
 - **Astro components (source of truth):** `src/components/astro/*.astro` — used by the docs site and copied into `packages/rizzo-css/scaffold/astro/` by `scripts/copy-scaffold.js`.
 - **Svelte components:** `src/components/svelte/*.svelte` — same BEM and design system; copied into `packages/rizzo-css/scaffold/svelte/` by copy-scaffold. Export new components in `src/components/svelte/index.ts`.
+- **React components:** `src/components/react/*.tsx` (docs site) and `packages/rizzo-css/scaffold/react/` (what the CLI installs). Keep both in sync; use `useId()` for default ids (never `Math.random()`, which breaks hydration).
+- **Vue components:** `packages/rizzo-css/scaffold/vue/*.vue` is the source of truth (hand-written; the CLI installs it, and the docs demos import it through the `@rizzo/vue` alias). For a docs page, add the slug to `src/components/vue/registry.js` and a demo to `src/components/vue/VueDocDemo.vue`. Only components the package does not ship yet live in `src/components/vue/`.
+- **Site-wide scripts:** the Astro components' init scripts (copy button, theme/font switcher, search) must only take over their own markup, never React/Vue/Svelte components on the same page. Astro copy buttons carry `data-copy-astro`; self-contained framework components set `data-rizzo-managed` so the Astro scripts skip them.
 - **Vanilla:** Component HTML lives in the docs at `src/pages/docs/vanilla/components/`. The package scaffold uses `scaffold/vanilla/` (icons from copy-scaffold; component pages from `scripts/prepare-vanilla-scaffold.js`). Interactive behavior is in `packages/rizzo-css/scaffold/vanilla/js/main.js`.
 - **CSS:** `src/styles/` — variables, base, components, pages, themes. All UI colors and spacing use semantic variables (see [docs/DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)).
 - **Shared types:** `src/types/` — re-exports config and utils types; defines component props and data shapes (Tab, MenuItem, ButtonProps, etc.). Use when adding or extending component APIs.
@@ -61,10 +66,12 @@ Use this when opening a PR that **adds a new component**:
 
 - [ ] **Astro** — Component in `src/components/` (and in `ASTRO_SCAFFOLD` in `scripts/copy-scaffold.js`)
 - [ ] **Svelte** — Component in `src/components/svelte/` and exported in `index.ts`
+- [ ] **React** — Component in `src/components/react/` and `packages/rizzo-css/scaffold/react/`; demo in `src/components/react/ReactDocShowcase.tsx`
+- [ ] **Vue** — Component in `packages/rizzo-css/scaffold/vue/`; entry in `src/components/vue/registry.js` and a demo in `VueDocDemo.vue`; covered by `tests/vue-scaffold/`
 - [ ] **Vanilla** — Slug in `VANILLA_COMPONENT_SLUGS` in `packages/rizzo-css/bin/rizzo-css.js` and in `src/config/vanillaSnippets.ts`; doc page `src/pages/docs/vanilla/components/<slug>.astro`; add slug to `scripts/prepare-vanilla-scaffold.js` `COMPONENT_SLUGS` (alphabetical) so the shipped vanilla scaffold includes the component page
 - [ ] **CLI** — Component name in `ASTRO_COMPONENTS` and `SVELTE_COMPONENTS` in `packages/rizzo-css/bin/rizzo-css.js`; add dependencies in `getComponentDeps` if needed
 - [ ] **Docs** — Astro doc page `src/pages/docs/components/<slug>.astro`; add slug to `src/config/docsNav.ts`; update `src/pages/docs/components.astro` and `docs/COMPONENTS.md`; add to `tests/a11y/docs.spec.mjs` (`COMPONENT_SLUGS` or `ASTRO_ONLY_COMPONENT_ROUTES`); update `scripts/index-docs.js` if needed
-- [ ] **Build & tests** — `pnpm build:package`, `pnpm build`, `pnpm test:a11y` pass
+- [ ] **Build & tests** — `pnpm build:package`, `pnpm build`, `pnpm check:links`, `pnpm test:a11y` pass (and `pnpm test:vue-scaffold` for Vue changes)
 
 **Keeping docs and tests in sync:** When you add or remove component or block pages, update (1) **nav** — `src/config/docsNav.ts` for docs sidebar (Components group); the main navbar is in `src/components/Navbar.astro` (`navLinks`: Docs, Components, Blocks, Themes, Colors). Block pages live under `/blocks` and use `BlocksLayout` with their own sidebar; (2) **Components overview** — `src/pages/docs/components.astro` (category + card) and `docs/COMPONENTS.md` (list and categories); (3) **a11y tests** — `tests/a11y/docs.spec.mjs`: add the slug to `COMPONENT_SLUGS` only if the page exists for Astro, Vanilla, Svelte, React, and Vue; otherwise add the path to `ASTRO_ONLY_COMPONENT_ROUTES`. For new blocks add to `BLOCK_ROUTES` (block URLs live under `/blocks`); (4) **search index** — `scripts/index-docs.js`: add to `componentPages`, `blockPages`, or `docsPages` so Cmd+K search finds the page.
 

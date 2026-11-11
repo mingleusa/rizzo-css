@@ -4,7 +4,13 @@ All notable changes to the Rizzo CSS design system and the **rizzo-css** npm pac
 
 ## [Unreleased]
 
-- (Next: see [docs/TODO.md](docs/TODO.md).)
+- **Docs site moved:** The docs now live at **https://rizzo-css.jordanmingle.dev**. The package README, `homepage`, CLI output, and scaffold links point there. The old `rizzo-css.vercel.app` permanently redirects every path to the new domain.
+- **React (scaffold and docs):** 20 components (Accordion, Alert, Modal, Tabs, Tooltip, …) built their default id with `Math.random()` during render. That gave server and client different ids (hydration mismatch), and gave a new id on every re-render, which changed `aria-controls` / `htmlFor` / `aria-labelledby` targets. They now use `useId()`. An explicit `id` prop still wins.
+- **Astro (scaffold):** The `CopyToClipboard` script only sets up its own buttons (`data-copy-astro`). Before, it also took over React/Vue/Svelte copy buttons and hand-written vanilla markup on the same page, which blanked the React button's text and doubled click handlers. The `ThemeSwitcher`, `FontSwitcher` and `Search` scripts now skip elements marked `data-rizzo-managed`.
+- **Vue (scaffold):** `ThemeSwitcher`, `FontSwitcher` and `Search` set `data-rizzo-managed`, so Astro scripts on the same page leave them alone.
+- **Docs site:** The Vue demos use the real package components instead of 44 placeholders. The Svelte Chart, Command, Direction, Input OTP and Menubar pages are now built. Icons are served from `/assets/icons/`, because Apache reserves `/icons/`. The React/Vue Avatar, Aspect Ratio and Docs Sidebar demos no longer use broken images or links. `/docs` redirects to `/docs/overview`.
+- **Tooling:** `pnpm check:links` checks every link and asset in the build (CI and `package:deploy` run it). CI also fails when the README tech badges are stale. pnpm 12.18. Transitive `undici`, `follow-redirects`, `joi` and `fast-uri` were bumped to patched versions.
+- **Hosting:** The docs site is served by `deploy/server.cjs` as a Plesk Node.js app. `pnpm package:deploy` builds the upload zip ([docs/DEPLOYMENT.md](docs/DEPLOYMENT.md)).
 
 ## [0.0.89] - 2026-10-16
 
