@@ -49,7 +49,7 @@ const { id = 'search-main' } = Astro.props;
       return Array.prototype.slice.call(container.querySelectorAll(focusableSel));
     }
     function init() {
-      document.querySelectorAll('[data-search]').forEach(function (search) {
+      document.querySelectorAll('[data-search]:not([data-rizzo-managed])').forEach(function (search) {
         if (search.__searchInited) return;
         search.__searchInited = true;
         var trigger = search.querySelector('.search__trigger');

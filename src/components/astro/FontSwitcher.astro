@@ -68,7 +68,7 @@ const menuId = idPrefix ? `font-pair-menu-${idPrefix}` : 'font-pair-menu';
 <script>
   function initFontSwitchers() {
     const html = document.documentElement;
-    document.querySelectorAll<HTMLElement>('[data-font-switcher]').forEach((root) => {
+    document.querySelectorAll<HTMLElement>('[data-font-switcher]:not([data-rizzo-managed])').forEach((root) => {
       if (root.hasAttribute('data-font-switcher-inited')) return;
       root.setAttribute('data-font-switcher-inited', 'true');
 

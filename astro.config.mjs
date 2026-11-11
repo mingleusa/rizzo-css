@@ -1,4 +1,5 @@
 // @ts-check
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'astro/config';
 
 import svelte from '@astrojs/svelte';
@@ -24,6 +25,12 @@ export default defineConfig({
   vite: {
     css: {
       postcss: './postcss.config.js',
+    },
+    resolve: {
+      // Vue docs demos use the package's hand-written Vue components (see src/components/vue/registry.js).
+      alias: {
+        '@rizzo/vue': fileURLToPath(new URL('./packages/rizzo-css/scaffold/vue', import.meta.url)),
+      },
     },
   },
 
