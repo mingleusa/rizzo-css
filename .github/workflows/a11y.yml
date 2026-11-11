@@ -43,6 +43,9 @@ jobs:
       - name: Check links and assets in build
         run: node scripts/check-dist-links.mjs
 
+      - name: README tech badges up to date
+        run: node scripts/update-readme-tech.mjs --check
+
       - name: Verify build output
         run: |
           if [ ! -d dist ] || [ ! -f dist/index.html ]; then

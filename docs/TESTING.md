@@ -16,10 +16,11 @@ This doc summarizes how **accessibility**, **browser**, and **component-page** t
 | **Vue scaffold** | `pnpm test:vue-scaffold` | Generates a Vue project with the real CLI, type-checks/builds it, and exercises every Vue component in a browser (behavior + axe). Needs `pnpm build:css` once. Runs in CI. |
 | **Theme contrast** | `pnpm check:contrast` | WCAG AA contrast for all 14 themes. |
 | **Bundle size** | `pnpm check:size` | Fail if package CSS exceeds budget (450 kB). |
+| **Links and assets** | `pnpm check:links` | After `pnpm build`: every root-relative `src`/`href`/`srcset`/`poster` and CSS `url()` in `dist/` must resolve, and nothing may live under `/icons/` (Apache reserves it). |
 
 **First run:** Install a browser so Playwright can run: `pnpm exec playwright install chromium` (or `pnpm exec playwright install` for all). See [CONTRIBUTING](../CONTRIBUTING.md#running-and-building) and [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing).
 
-**Production / deploy readiness:** Before deploying the docs site or publishing the npm package: (1) `pnpm build` and `pnpm build:package` must pass; (2) run `pnpm exec playwright install` once so smoke and a11y tests can run; (3) `pnpm test:smoke` and `pnpm test:a11y` (or `pnpm test:a11y:fast` for a quick pass). See [PUBLISHING.md](./PUBLISHING.md#pre-publish-checklist) for the full pre-publish checklist.
+**Production / deploy readiness:** Before deploying the docs site or publishing the npm package: (1) `pnpm build` and `pnpm build:package` must pass; (2) run `pnpm exec playwright install` once so smoke and a11y tests can run; (3) `pnpm test:smoke` and `pnpm test:a11y` (or `pnpm test:a11y:fast` for a quick pass); (4) `pnpm check:links`. To deploy, see [DEPLOYMENT.md](./DEPLOYMENT.md). See [PUBLISHING.md](./PUBLISHING.md#pre-publish-checklist) for the full pre-publish checklist.
 
 ---
 
@@ -109,7 +110,7 @@ Storybook is for **React** components only (no Vue/Svelte/Astro Storybook in thi
 
 | Job | What it does |
 |-----|--------------|
-| `build` | Install, **dependency audit** (`pnpm audit --audit-level=high`), `pnpm build`, CSS size budget, upload `dist/` |
+| `build` | Install, **dependency audit** (`pnpm audit --audit-level=high`), `pnpm build`, CSS size budget, link/asset check (`check-dist-links.mjs`), README badge check (`readme:tech --check`), upload `dist/` |
 | `a11y-browser` | axe + keyboard + ARIA on Chromium and Firefox (two shards each) and WebKit (keyboard/ARIA only) |
 | `vue-scaffold` | Generates a Vue project with the CLI, builds it, and runs the Vue component behavior + axe suite (see [section 7](#7-vue-scaffold-end-to-end)) |
 | `visual` | Screenshot regression on a pinned `ubuntu-24.04` runner; uploads diff artifacts on failure |

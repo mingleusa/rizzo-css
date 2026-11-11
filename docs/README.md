@@ -12,6 +12,7 @@ This folder contains the **markdown documentation** for the Rizzo CSS design sys
 | Look up a component | [COMPONENTS](./COMPONENTS.md) or the [live site](https://rizzo-css.jordanmingle.dev/docs/components) |
 | Contribute a change | [CONTRIBUTING](../CONTRIBUTING.md), [TESTING](./TESTING.md), [FRAMEWORK_STRUCTURE](./FRAMEWORK_STRUCTURE.md) |
 | Cut a release | [PUBLISHING](./PUBLISHING.md), then [UPGRADE](./UPGRADE.md) for the dependency roadmap |
+| Deploy the docs site | [DEPLOYMENT](./DEPLOYMENT.md) (`pnpm package:deploy`, upload to Plesk) |
 | See what is planned or broken | [TODO](./TODO.md) (start with *Open follow-ups*) and the [CHANGELOG](../CHANGELOG.md) |
 
 ## Doc index
@@ -55,6 +56,7 @@ The docs **site** also includes a **Tokens reference** ([/docs/tokens](https://r
 | [TEMPLATES.md](./TEMPLATES.md) | Landing, Docs, Dashboard, Full templates (init and add) |
 | [TODO.md](./TODO.md) | Production readiness, **open follow-ups** (known gaps), **tasks by impact**, roadmap, and future components/blocks |
 | [STORYBOOK.md](./STORYBOOK.md) | Optional Storybook for React components (`pnpm storybook`, `pnpm test:storybook`) |
+| [DEPLOYMENT.md](./DEPLOYMENT.md) | Docs site hosting: production server, `pnpm package:deploy`, Plesk upload and restart, old Vercel URL redirect |
 | [ALGOLIA_SETUP.md](./ALGOLIA_SETUP.md) | Search: client-side (no setup) or Algolia for production; indexing and env setup |
 
 ### Testing
@@ -69,8 +71,8 @@ All browser tests use **Playwright**; the React components also run through the 
 | **docs/** | Markdown docs (this folder) |
 | **src/** | Astro docs site: `pages/` (docs, blocks, themes, colors), `components/`, `layouts/` (DocsLayout, BlocksLayout), `styles/`, `config/`, `types/`, `utils/`, `assets/` |
 | **packages/rizzo-css/** | Published npm package: `bin/`, `dist/`, `scaffold/` (vanilla/, astro/, svelte/, react/, vue/, config/, utils/) — Astro, Svelte, React, and Vue include base/ and variants/ (e.g. **Full** template); React and Vue use Vite. |
-| **scripts/** | Build and maintenance: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `export-tokens.mjs`, `generate-color-formats.mjs`, `check-contrast.mjs`, `bundle-size.mjs`, `update-readme-tech.mjs` (README badges), `index-docs.js` |
-| **tests/** | Playwright specs: a11y (`tests/a11y/`: axe, keyboard, ARIA), smoke (`tests/smoke.spec.mjs`) and visual (`tests/visual.spec.mjs` + `-snapshots/`). **First run:** install browsers with `pnpm exec playwright install chromium`. See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
+| **scripts/** | Build and maintenance: `build-css.js`, `copy-scaffold.js`, `prepare-vanilla-scaffold.js`, `export-tokens.mjs`, `generate-color-formats.mjs`, `check-contrast.mjs`, `bundle-size.mjs`, `check-dist-links.mjs` (link/asset check of `dist/`), `package-deploy.mjs` (deploy zip), `test-vue-scaffold.mjs`, `update-readme-tech.mjs` (README badges), `index-docs.js` |
+| **tests/** | Playwright specs: a11y (`tests/a11y/`: axe, keyboard, ARIA), smoke (`tests/smoke.spec.mjs`), visual (`tests/visual.spec.mjs` + `-snapshots/`), and the Vue scaffold suite (`tests/vue-scaffold/`, run by `pnpm test:vue-scaffold`). **First run:** install browsers with `pnpm exec playwright install chromium`. See [CONTRIBUTING](../CONTRIBUTING.md) and [BROWSER_SUPPORT.md](./BROWSER_SUPPORT.md#testing). |
 | **.husky/** | Git hooks: pre-commit (lint-staged for CSS), pre-push (build + smoke tests). See [CONTRIBUTING](../CONTRIBUTING.md). |
 | **deploy/** | Production server (`server.cjs`) for the Plesk Node.js app at rizzo-css.jordanmingle.dev. `pnpm package:deploy` builds the upload zip ([scripts/package-deploy.mjs](../scripts/package-deploy.mjs)). See [DEPLOYMENT.md](./DEPLOYMENT.md). |
 
