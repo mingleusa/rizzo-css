@@ -24,22 +24,23 @@ export interface DocsSidebarProps extends HTMLAttributes<HTMLElement> {
   className?: string;
 }
 
-/** Demo nav groups: same content as Astro/Svelte/Vue/Vanilla live examples. Exported for doc showcase. */
+/** Demo nav groups: same content as Astro/Svelte/Vue/Vanilla live examples. Exported for doc showcase.
+ * Hrefs starting with `/` are used as-is (shared docs pages); others are joined to pathPrefix. */
 export const DOCS_SIDEBAR_DEMO_GROUPS: DocsSidebarGroup[] = [
   {
     label: 'Introduction',
     links: [
-      { href: 'overview', label: 'Overview' },
-      { href: 'showcase', label: 'Showcase' },
-      { href: 'getting-started', label: 'Getting Started' },
+      { href: '/docs/overview', label: 'Overview' },
+      { href: '/docs/showcase', label: 'Showcase' },
+      { href: '/docs/getting-started', label: 'Getting Started' },
     ],
   },
   {
     label: 'Foundations',
     links: [
-      { href: 'design-system', label: 'Design System' },
-      { href: 'theming', label: 'Theming' },
-      { href: 'accessibility', label: 'Accessibility' },
+      { href: '/docs/design-system', label: 'Design System' },
+      { href: '/docs/theming', label: 'Theming' },
+      { href: '/docs/accessibility', label: 'Accessibility' },
     ],
   },
   {
@@ -90,7 +91,7 @@ export function DocsSidebar({
               <h2 className="docs-sidebar__group-label">{group.label}</h2>
               <ul className="docs-sidebar__list">
                 {group.links.map((link) => {
-                  const href = `${pathPrefix}/${link.href}`.replace(/\/+/g, '/');
+                  const href = link.href.startsWith('/') ? link.href : `${pathPrefix}/${link.href}`.replace(/\/+/g, '/');
                   const active = path === href;
                   return (
                     <li key={link.href} className="docs-sidebar__item">

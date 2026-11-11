@@ -117,12 +117,12 @@ export function ReactDocShowcase({ slug }: { slug: string }): ReactNode {
     return <ProgressBar value={60} max={100} showLabel />;
   }
 
-  // Avatar: same design as Astro — Jane Doe (initials) + src photo.jpg
+  // Avatar: same design as Astro — Jane Doe (initials) + Dicebear image
   if (slug === 'avatar') {
     return (
       <div style={showcaseGrid}>
         <Avatar name="Jane Doe" />
-        <Avatar src="/photo.jpg" alt="Jane" />
+        <Avatar src="https://api.dicebear.com/7.x/initials/svg?seed=Alice" alt="Alice" />
       </div>
     );
   }
@@ -383,11 +383,22 @@ export function ReactDocShowcase({ slug }: { slug: string }): ReactNode {
     );
   }
 
-  // Aspect ratio: same design as Astro — 16/9, img poster.jpg
+  // Aspect ratio: same design as Astro — 16/9 placeholder box
   if (slug === 'aspect-ratio') {
     return (
       <AspectRatio ratio={16 / 9}>
-        <img src="/poster.jpg" alt="" />
+        <div
+          style={{
+            background: 'var(--background-alt)',
+            borderRadius: 'var(--radius)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--text-dim)',
+          }}
+        >
+          16:9
+        </div>
       </AspectRatio>
     );
   }

@@ -93,7 +93,7 @@ This keeps component APIs consistent across all frameworks using the same data s
 ### Bundle and assets
 
 - **One CSS file** — Rizzo ships a single minified CSS file. There’s no tree-shaking of CSS; the whole file is small enough to load once. Don’t split it unless you have a specific need (e.g. critical CSS extraction for above-the-fold).
-- **Icons** — Component icons are inline SVG in Astro/Svelte. For Vanilla, the scaffold can use the same SVGs from the package or from `/icons/*.svg` if you’ve extracted them. Reuse the same assets across the app to avoid duplicate payloads.
+- **Icons** — Component icons are inline SVG in Astro/Svelte. For Vanilla, the scaffold can use the same SVGs from the package or from your own folder of extracted SVGs. Don’t serve that folder at `/icons/`: default Apache installs (and Plesk/cPanel servers) alias `/icons/` to their own icon set, so your files 404. Use a path like `/assets/icons/`. Reuse the same assets across the app to avoid duplicate payloads.
 - **Sounds** — Sound effects (e.g. click) are optional and loaded on demand by the Settings script. No need to preload unless you want instant playback on first interaction.
 
 ### Critical CSS (optional)

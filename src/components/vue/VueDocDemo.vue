@@ -95,17 +95,17 @@ const dropdownOpen = ref(false);
           <div class="docs-sidebar__group">
             <h2 class="docs-sidebar__group-label">Introduction</h2>
             <ul class="docs-sidebar__list">
-              <li class="docs-sidebar__item"><a href="/docs/vue/overview" class="docs-sidebar__link">Overview</a></li>
-              <li class="docs-sidebar__item"><a href="/docs/vue/showcase" class="docs-sidebar__link">Showcase</a></li>
-              <li class="docs-sidebar__item"><a href="/docs/vue/getting-started" class="docs-sidebar__link">Getting Started</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/overview" class="docs-sidebar__link">Overview</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/showcase" class="docs-sidebar__link">Showcase</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/getting-started" class="docs-sidebar__link">Getting Started</a></li>
             </ul>
           </div>
           <div class="docs-sidebar__group">
             <h2 class="docs-sidebar__group-label">Foundations</h2>
             <ul class="docs-sidebar__list">
-              <li class="docs-sidebar__item"><a href="/docs/vue/design-system" class="docs-sidebar__link">Design System</a></li>
-              <li class="docs-sidebar__item"><a href="/docs/vue/theming" class="docs-sidebar__link">Theming</a></li>
-              <li class="docs-sidebar__item"><a href="/docs/vue/accessibility" class="docs-sidebar__link">Accessibility</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/design-system" class="docs-sidebar__link">Design System</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/theming" class="docs-sidebar__link">Theming</a></li>
+              <li class="docs-sidebar__item"><a href="/docs/accessibility" class="docs-sidebar__link">Accessibility</a></li>
             </ul>
           </div>
           <div class="docs-sidebar__group">
@@ -361,11 +361,11 @@ const dropdownOpen = ref(false);
         <span class="progress__label" aria-hidden="true">60%</span>
       </div>
     </template>
-    <!-- Avatar: same design as Astro — Jane Doe (initials) + src photo.jpg -->
+    <!-- Avatar: same design as Astro — Jane Doe (initials) + Dicebear image -->
     <template v-else-if="slug === 'avatar'">
       <div class="vue-showcase-grid">
         <Avatar name="Jane Doe" />
-        <Avatar src="/photo.jpg" alt="Jane" />
+        <Avatar src="https://api.dicebear.com/7.x/initials/svg?seed=Alice" alt="Alice" />
       </div>
     </template>
     <!-- Skeleton: same design as Astro — default + text variant -->
@@ -644,7 +644,7 @@ const dropdownOpen = ref(false);
         <template v-else-if="slug === 'label'" #default>Email</template>
         <template v-else-if="slug === 'kbd'" #default>Ctrl</template>
         <template v-else-if="slug === 'aspect-ratio'" #default>
-          <img src="/poster.jpg" alt="" />
+          <div style="background: var(--background-alt); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; color: var(--text-dim);">16:9</div>
         </template>
         <template v-else-if="slug === 'carousel'" #default>
           <div class="carousel__slide"><h4>Slide 1</h4><p>First slide content.</p></div>

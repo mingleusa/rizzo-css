@@ -40,6 +40,9 @@ jobs:
       - name: Bundle size budget
         run: node scripts/bundle-size.mjs --check
 
+      - name: Check links and assets in build
+        run: node scripts/check-dist-links.mjs
+
       - name: Verify build output
         run: |
           if [ ! -d dist ] || [ ! -f dist/index.html ]; then

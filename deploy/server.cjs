@@ -50,7 +50,7 @@ const MIME = {
 };
 
 const COMPRESSIBLE = /^(text\/|application\/(json|manifest\+json|xml)|image\/svg\+xml)/;
-const IMMUTABLE_PREFIXES = ['/assets/', '/_astro/', '/css/', '/icons/'];
+const IMMUTABLE_PREFIXES = ['/assets/', '/_astro/', '/css/'];
 
 const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',

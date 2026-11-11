@@ -153,7 +153,7 @@ Import from `src/utils` (barrel) or from the specific file, e.g. `import { apply
 
 ### Where the CLI puts CSS and assets (per framework)
 
-**Docs site matches what we ship:** The main site uses the same asset paths and behavior we document. `pnpm build:css` copies fonts to `public/assets/fonts/`, sound files from `src/assets/sfx/` to `public/assets/sfx/`, and extracts all icon SVGs from `src/components/icons/` to `public/icons/` so `/assets/sfx/click.mp3` or `click.wav` and `/icons/*.svg` work.
+**Docs site matches what we ship:** The main site uses the same asset paths and behavior we document. `pnpm build:css` copies fonts to `public/assets/fonts/`, sound files from `src/assets/sfx/` to `public/assets/sfx/`, and extracts all icon SVGs from `src/components/icons/` to `public/assets/icons/` so `/assets/sfx/click.mp3` or `click.wav` and `/assets/icons/*.svg` work. (Not `/icons/`: default Apache installs alias that path to their own icon set, so it 404s on many hosts.)
 
 When you run `init` or `add`, the CLI copies the built CSS and static assets (fonts, and optionally sounds) into **framework-appropriate locations** so each framework’s conventions and build are respected:
 

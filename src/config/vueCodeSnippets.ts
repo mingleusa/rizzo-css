@@ -683,9 +683,9 @@ import DocsSidebar from '@/components/rizzo/DocsSidebar.vue';
     <div class="docs-sidebar__group">
       <h2 class="docs-sidebar__group-label">Introduction</h2>
       <ul class="docs-sidebar__list">
-        <li class="docs-sidebar__item"><a href="/docs/vue/overview" class="docs-sidebar__link">Overview</a></li>
-        <li class="docs-sidebar__item"><a href="/docs/vue/showcase" class="docs-sidebar__link">Showcase</a></li>
-        <li class="docs-sidebar__item"><a href="/docs/vue/getting-started" class="docs-sidebar__link">Getting Started</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/overview" class="docs-sidebar__link">Overview</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/showcase" class="docs-sidebar__link">Showcase</a></li>
+        <li class="docs-sidebar__item"><a href="/docs/getting-started" class="docs-sidebar__link">Getting Started</a></li>
       </ul>
     </div>
     <div class="docs-sidebar__group">

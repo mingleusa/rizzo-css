@@ -86,7 +86,7 @@ See [TESTING.md](./TESTING.md) and [BROWSER_SUPPORT.md – Testing](./BROWSER_SU
 
 ## Production readiness
 
-- **Cache/security headers** — *(done)* `deploy/server.cjs` (formerly `vercel.json`) sets cache headers for `/assets/`, `/_astro/`, `/css/`, `/icons/` (`public, max-age=31536000, immutable`) and security headers for all routes (`X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`).
+- **Cache/security headers** — *(done)* `deploy/server.cjs` (formerly `vercel.json`) sets cache headers for `/assets/` (including `/assets/icons/`), `/_astro/`, `/css/` (`public, max-age=31536000, immutable`) and security headers for all routes (`X-Content-Type-Options: nosniff`, `X-Frame-Options: SAMEORIGIN`, `Referrer-Policy: strict-origin-when-cross-origin`).
 - **Dependency audit in CI** — *(done)* [`.github/workflows/a11y.yml`](../.github/workflows/a11y.yml) runs `pnpm audit --audit-level=high` after install; failures block the workflow.
 - **Docs (axe/WebKit)** — *(done)* [BROWSER_SUPPORT.md – Testing](./BROWSER_SUPPORT.md#testing) and [ACCESSIBILITY.md](./ACCESSIBILITY.md) state that axe runs on Chromium and Firefox only and is skipped on WebKit; keyboard and ARIA run on Chromium, Firefox, and WebKit.
 - **CI path filter** — *(done)* [.github/workflows/a11y.yml](../.github/workflows/a11y.yml) runs only when `src/`, `docs/`, `tests/`, `packages/rizzo-css/`, `scripts/`, `**/*.css`, or key config files change.

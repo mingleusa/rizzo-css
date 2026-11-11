@@ -17,7 +17,7 @@ const fontsSrc = join(rootDir, 'src/assets/fonts');
 const sfxSrc = join(rootDir, 'src/assets/sfx');
 const sfxDest = join(rootDir, 'public/assets/sfx');
 const iconsSrc = join(rootDir, 'src/components/icons');
-const iconsDest = join(rootDir, 'public/icons');
+const iconsDest = join(rootDir, 'public/assets/icons');
 
 /** Copy a directory recursively (files and subdirs) to dest. */
 function copyDirRecursive(src, dest) {
@@ -55,7 +55,7 @@ function extractSvgFromAstro(astroPath) {
   return svg;
 }
 
-/** Copy all icon SVGs from src/components/icons to public/icons. Single source of truth: clears public/icons then writes from Astro icons (no duplicates). */
+/** Copy all icon SVGs from src/components/icons to public/assets/icons. Single source of truth: clears public/assets/icons then writes from Astro icons (no duplicates). */
 function copyIconsToPublic(astroIconsDir, publicIconsDir) {
   if (!existsSync(astroIconsDir)) return 0;
   if (existsSync(publicIconsDir)) {
@@ -197,7 +197,7 @@ postcss([
       }
     }
 
-    // Copy all icon SVGs from src/components/icons to public/icons (single source of truth; no duplicates)
+    // Copy all icon SVGs from src/components/icons to public/assets/icons (single source of truth; no duplicates)
     copyIconsToPublic(iconsSrc, iconsDest);
 
     // Public CSS: keep original URLs (../assets/fonts/ for docs site)
