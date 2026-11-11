@@ -27,7 +27,7 @@ See [MAINTAINING.md – Stability and versioning](./MAINTAINING.md#stability-and
 
 ## Dependency upgrade roadmap
 
-Rizzo's published artifact (CSS + scaffolds) does not depend on its dev toolchain, but we keep the toolchain on **current, secure** versions. As of 0.0.89 the repo is on Astro 7, SvelteKit 3, Vite 8 (scaffolds), TypeScript 6, Storybook 10.6 and cssnano 9.
+Rizzo's published artifact (CSS + scaffolds) does not depend on its dev toolchain, but we keep the toolchain on **current, secure** versions. As of 0.0.90 the repo is on Astro 7, SvelteKit 3, Vite 8 (scaffolds), TypeScript 6, Storybook 10.6 and cssnano 9.
 
 ### Current state
 
