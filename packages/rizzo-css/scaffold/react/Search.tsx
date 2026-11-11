@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 
 export interface SearchProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -13,7 +13,8 @@ export function Search({
   className = '',
   ...rest
 }: SearchProps) {
-  const id = idProp ?? `search-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `search-${generatedId}`;
   const [open, setOpen] = useState(false);
 
   return (

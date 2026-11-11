@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { InputHTMLAttributes } from 'react';
 
 export interface SliderProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -27,7 +28,8 @@ export function Slider({
   className = '',
   ...rest
 }: SliderProps) {
-  const id = idProp ?? `slider-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `slider-${generatedId}`;
   const pct = Math.min(100, Math.max(0, ((value - min) / (max - min)) * 100));
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {

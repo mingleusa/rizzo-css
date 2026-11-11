@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 
 export interface AlertDialogProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -23,7 +23,8 @@ export function AlertDialog({
   className = '',
   ...rest
 }: AlertDialogProps) {
-  const id = idProp ?? `alert-dialog-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `alert-dialog-${generatedId}`;
 
   const close = () => onOpenChange?.(false);
 

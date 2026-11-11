@@ -1,5 +1,5 @@
 import type { ButtonHTMLAttributes } from 'react';
-import { useState } from 'react';
+import { useState, useId } from 'react';
 
 export interface CopyToClipboardProps extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> {
   value: string;
@@ -25,7 +25,8 @@ export function CopyToClipboard({
 }: CopyToClipboardProps) {
   const [copied, setCopied] = useState(false);
   const [feedbackText, setFeedbackText] = useState('');
-  const buttonId = idProp ?? `copy-btn-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const buttonId = idProp ?? `copy-btn-${generatedId}`;
   const displayText = iconOnly ? (buttonLabel ?? 'Copy') : value;
   const classes = [
     'copy-to-clipboard',

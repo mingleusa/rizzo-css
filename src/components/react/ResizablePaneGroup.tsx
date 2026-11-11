@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { HTMLAttributes, ReactNode } from 'react';
 
 export interface ResizablePaneGroupProps extends HTMLAttributes<HTMLDivElement> {
@@ -14,7 +15,8 @@ export function ResizablePaneGroup({
   children,
   ...rest
 }: ResizablePaneGroupProps) {
-  const id = idProp ?? `resizable-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `resizable-${generatedId}`;
   const classes = [`resizable__pane-group`, `resizable__pane-group--${direction}`, className]
     .filter(Boolean)
     .join(' ')

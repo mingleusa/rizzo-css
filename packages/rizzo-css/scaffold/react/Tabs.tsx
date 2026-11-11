@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useId } from 'react';
 
 export interface Tab {
   id: string;
@@ -29,7 +29,8 @@ export function Tabs({
   const defaultActiveId = defaultTab ?? tabs[0]?.id ?? '';
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const activeTabId = selectedId ?? defaultActiveId;
-  const tabsId = idProp ?? `tabs-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const tabsId = idProp ?? `tabs-${generatedId}`;
   const variantClass = variant !== 'default' ? `tabs--${variant}` : '';
   const classes = ['tabs', variantClass, className].filter(Boolean).join(' ').trim();
   const tabListRef = useRef<HTMLDivElement>(null);

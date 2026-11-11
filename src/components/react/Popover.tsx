@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 
 export interface PopoverProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -19,7 +19,8 @@ export function Popover({
   className = '',
   ...rest
 }: PopoverProps) {
-  const id = idProp ?? `popover-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `popover-${generatedId}`;
 
   const toggle = (e: React.MouseEvent) => {
     e.preventDefault();

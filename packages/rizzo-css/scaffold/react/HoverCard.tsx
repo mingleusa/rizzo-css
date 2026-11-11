@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useRef } from 'react';
+import { useRef, useId } from 'react';
 
 export interface HoverCardProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -23,7 +23,8 @@ export function HoverCard({
   className = '',
   ...rest
 }: HoverCardProps) {
-  const id = idProp ?? `hover-card-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `hover-card-${generatedId}`;
   const openTRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 

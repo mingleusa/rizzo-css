@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { HTMLAttributes } from 'react';
 
 export type TooltipPosition = 'top' | 'bottom' | 'left' | 'right';
@@ -19,7 +20,8 @@ export function Tooltip({
   style,
   ...rest
 }: TooltipProps) {
-  const tooltipId = idProp ?? `tooltip-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const tooltipId = idProp ?? `tooltip-${generatedId}`;
   const positionClass = `tooltip--${position}`;
   const classes = ['tooltip', positionClass, className].filter(Boolean).join(' ').trim();
   const delayStyle = delay > 0 ? { ['--tooltip-delay' as string]: `${delay}ms`, ...(style as object) } : style;

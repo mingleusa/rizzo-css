@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useId } from 'react';
 
 export interface CarouselProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -19,7 +19,8 @@ export function Carousel({
   className = '',
   ...rest
 }: CarouselProps) {
-  const id = idProp ?? `carousel-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `carousel-${generatedId}`;
   const viewportRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
   const [index, setIndex] = useState(0);

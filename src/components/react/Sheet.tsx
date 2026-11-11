@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useEffect } from 'react';
+import { useEffect, useId } from 'react';
 
 export type SheetSide = 'top' | 'right' | 'bottom' | 'left';
 
@@ -24,7 +24,8 @@ export function Sheet({
   onKeyDown,
   ...rest
 }: SheetProps) {
-  const id = idProp ?? `sheet-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `sheet-${generatedId}`;
 
   const close = () => onOpenChange?.(false);
 

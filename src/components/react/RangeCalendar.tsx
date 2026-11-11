@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useId } from 'react';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -65,7 +65,8 @@ export function RangeCalendar({
   className = '',
   ...rest
 }: RangeCalendarProps) {
-  const id = idProp ?? `range-calendar-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `range-calendar-${generatedId}`;
 
   const now = new Date();
   const parseInitial = (): { year: number; month: number } => {

@@ -1,5 +1,5 @@
 import type { HTMLAttributes } from 'react';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useId } from 'react';
 
 export interface AccordionItem {
   id: string;
@@ -23,7 +23,8 @@ export function Accordion({
   className = '',
   ...rest
 }: AccordionProps) {
-  const accordionId = idProp ?? `accordion-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const accordionId = idProp ?? `accordion-${generatedId}`;
 
   function getInitialExpanded(): Set<string> {
     if (defaultExpanded === undefined) return new Set(items[0] ? [items[0].id] : []);

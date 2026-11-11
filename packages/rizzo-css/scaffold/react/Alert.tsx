@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useId } from 'react';
 
 export type AlertVariant = 'success' | 'error' | 'warning' | 'info';
 
@@ -31,7 +31,8 @@ export function Alert({
   ...rest
 }: AlertProps) {
   const [visible, setVisible] = useState(true);
-  const id = idProp ?? `alert-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const id = idProp ?? `alert-${generatedId}`;
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const dismiss = () => {

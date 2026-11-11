@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { InputHTMLAttributes, LabelHTMLAttributes } from 'react';
 
 export interface SwitchProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
@@ -21,7 +22,8 @@ export function Switch({
   className = '',
   ...rest
 }: SwitchProps) {
-  const id = idProp ?? `switch-${Math.random().toString(36).slice(2, 11)}`;
+  const generatedId = useId();
+  const id = idProp ?? `switch-${generatedId}`;
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange?.(e);
     onCheckedChange?.(e.target.checked);

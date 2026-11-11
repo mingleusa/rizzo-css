@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 
 export interface InputGroupProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> {
@@ -35,7 +36,8 @@ export function InputGroup({
     .join(' ')
     .trim();
 
-  const inputId = id ?? `input-group-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const inputId = id ?? `input-group-${generatedId}`;
 
   return (
     <div className={rootClass}>

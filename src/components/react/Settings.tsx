@@ -1,5 +1,5 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import { useCallback, useEffect, useState, useRef } from 'react';
+import { useCallback, useEffect, useState, useRef, useId } from 'react';
 
 export interface SettingsProps extends HTMLAttributes<HTMLDivElement> {
   id?: string;
@@ -29,7 +29,8 @@ export function Settings({
   className = '',
   ...rest
 }: SettingsProps) {
-  const id = idProp ?? `settings-${Math.random().toString(36).slice(2, 9)}`;
+  const generatedId = useId();
+  const id = idProp ?? `settings-${generatedId}`;
   const [closing, setClosing] = useState(false);
   const [opening, setOpening] = useState(false);
   const prevOpen = useRef(open);

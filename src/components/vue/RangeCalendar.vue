@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, useId } from 'vue';
 
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -18,7 +18,8 @@ const props = withDefaults(
 
 const emit = defineEmits<{ (e: 'rangeSelect', payload: { start: string; end: string }): void }>();
 
-const id = computed(() => props.id ?? `range-calendar-${Math.random().toString(36).slice(2, 9)}`);
+const generatedId = useId();
+const id = computed(() => props.id ?? `range-calendar-${generatedId}`);
 const rootClass = computed(() => ['calendar', 'calendar--range', props.class].filter(Boolean).join(' '));
 
 const now = new Date();
